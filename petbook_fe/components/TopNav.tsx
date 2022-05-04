@@ -2,11 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { FaUserCircle } from "react-icons/fa";
 
-const Container = styled.div`
-  width: 1920px;
-  margin: 0 auto;
-`;
-
 const TopNev = styled.div`
   position: fixed;
   top: 0;
@@ -27,12 +22,12 @@ const TopNev = styled.div`
 
 const TopNav = () => {
   return (
-    <Container>
+    <div className="container">
       <TopNev>
         <h3>user님 안녕하세요!</h3>
         <FaUserCircle />
       </TopNev>
-    </Container>
+    </div>
   );
 };
 
