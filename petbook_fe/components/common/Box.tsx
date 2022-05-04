@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 type ContentProps = {
   boxType: String;
   active: Boolean;
+  content: any;
 };
 
 const boxStyle = css`
@@ -44,6 +45,7 @@ export const Box = (props: PropsWithChildren<ContentProps>) => {
   return props.boxType === "list" ? (
     <>
       <ListBox {...props}>
+        {/* 추후에 상태값에 따라 아이템 넣기 */}
         <ul>
           <li>Log out</li>
           <li>my page</li>
@@ -52,12 +54,7 @@ export const Box = (props: PropsWithChildren<ContentProps>) => {
     </>
   ) : (
     <>
-      <ListBox {...props}>
-        <ul>
-          <li>Logout</li>
-          <li>mypage</li>
-        </ul>
-      </ListBox>
+      <ListBox {...props}>{props.content}</ListBox>
     </>
   );
 };
