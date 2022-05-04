@@ -36,6 +36,7 @@ const ListBox = styled.div`
 
   top: 54px;
   right: 12px;
+  z-index: 1;
 `;
 
 export const Box = (props: PropsWithChildren<ContentProps>) => {
