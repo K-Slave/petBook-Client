@@ -9,15 +9,18 @@ const TopNev = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  background: black;
+  background: #bcdacc;
   width: 100%;
   padding: 16px;
   display: flex;
   justify-content: right;
-  color: white;
+  color: #3a575c;
   div.userInfo {
     display: flex;
     cursor: pointer;
+    h3 {
+      font-weight: 300;
+    }
     svg {
       width: 25px;
       height: 25px;

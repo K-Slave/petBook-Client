@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bangers&family=Indie+Flower&family=Noto+Sans+KR:wght@100;300;400;500;700&family=Roboto:wght@100;300;400;500;700&display=swap");
 
 * {
   box-sizing: border-box; /* 엘리먼트의 box-sizing 값을 border-box 로 설정 */
@@ -35,6 +35,22 @@ hr {
   border-top: 1px solid #000;
 }
 
+img {
+  display: block;
+  width: 100%;
+}
+
+input {
+  border-radius: 8px;
+  border: none;
+  padding: 8px 16px;
+}
+input:focus {
+  outline: solid 2px #b0d2d2;
+}
+input::placeholder {
+  color: #94c0c0;
+}
 button {
   cursor: pointer;
   border: transparent;
