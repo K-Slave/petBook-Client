@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FaUserCircle } from "react-icons/fa";
 
 //
-import { Box } from "../components/ui/Box";
+import { Box } from "./common/Box";
 
 const TopNev = styled.div`
   position: fixed;
