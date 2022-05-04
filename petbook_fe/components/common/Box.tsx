@@ -1,5 +1,10 @@
-import React, { useEffect } from "react";
+import React, { PropsWithChildren } from "react";
 import styled, { css } from "styled-components";
+
+type ContentProps = {
+  boxType: String;
+  active: Boolean;
+};
 
 const boxStyle = css`
   padding: 7px 10px;
@@ -24,15 +29,16 @@ const boxStyle = css`
 
 const ListBox = styled.div`
   ${boxStyle}
-  position: ${(props) => (props.boxType === "list" ? "absolute" : "relative")};
-  visibility: ${(props) => (props.active === false ? "hidden" : "visible")};
+  position: ${(props: ContentProps) =>
+    props.boxType === "list" ? "absolute" : "relative"};
+  visibility: ${(props: ContentProps) =>
+    props.active === false ? "hidden" : "visible"};
 
   top: 54px;
   right: 12px;
 `;
 
-export const Box = (props) => {
-  useEffect(() => {}, []);
+export const Box = (props: PropsWithChildren<ContentProps>) => {
   //
   return props.boxType === "list" ? (
     <>
