@@ -21,17 +21,6 @@ const CardSection = styled(Responsive)`
 `;
 
 const Home: NextPage = () => {
-  // Queries
-  const { isLoading, isError, error, data }: any = useQuery("data", () => {
-    return req.getList("/");
-  });
-
-  const [queryData, setQueryData] = useState(false);
-
-  useEffect(() => {
-    setQueryData(true);
-  }, [data]);
-
   return (
     <div>
       <Head>
