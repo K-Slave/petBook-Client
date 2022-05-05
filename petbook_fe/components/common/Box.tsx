@@ -30,10 +30,8 @@ const boxStyle = css`
 
 const ListBox = styled.div`
   ${boxStyle}
-  position: ${(props: ContentProps) =>
-    props.boxType === "list" ? "absolute" : "relative"};
-  visibility: ${(props: ContentProps) =>
-    props.active === false ? "hidden" : "visible"};
+  position: ${(props: ContentProps) => (props.boxType === "list" ? "absolute" : "relative")};
+  visibility: ${(props: ContentProps) => (props.active === false ? "hidden" : "visible")};
 
   top: 54px;
   right: 12px;
