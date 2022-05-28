@@ -4,6 +4,8 @@ import styled from "styled-components";
 const MapBox = styled.div`
   width: 25rem;
   height: 25rem;
+
+  margin-top: 10rem;
 `;
 
 const MapComponent = () => {
