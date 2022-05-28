@@ -5,6 +5,15 @@ import Keyvisual from "../components/Keyvisual";
 import MapComponent from "../components/common/MapComponent";
 import FriendProfileCard from "../components/common/FriendProfileCard";
 import TopNav from "../components/TopNav";
+import styled from "styled-components";
+
+const FriendProfileList = styled(Box)`
+  display: flex;
+  justify-content: flex-start;
+
+  width: 100%;
+  height: 15rem;
+`;
 
 const FindHome: NextPage = () => {
   return (
@@ -14,16 +23,20 @@ const FindHome: NextPage = () => {
       <TopNav />
       <Keyvisual />
       {/* 본문영역 */}
-      <Box
+      <FriendProfileList
         boxType='content'
         active={true}
         content={
           <>
             <FriendProfileCard />
-            <MapComponent />
+            <FriendProfileCard />
+            <FriendProfileCard />
+            <FriendProfileCard />
+            <FriendProfileCard />
           </>
         }
       />
+      <MapComponent />
     </>
   );
 };

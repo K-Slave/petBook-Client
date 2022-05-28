@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { CgGenderFemale } from "react-icons/cg";
-import Skeleton, { SkeletonContainer } from "./Skeleton";
+import Skeletone from "./Skeletone";
 import Palette from "../../lib/palette";
 
-const FriendProfileContainer = styled.div`
+const FriendProfileBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -13,8 +13,10 @@ const FriendProfileContainer = styled.div`
 
   padding: 1.25rem;
 
-  background-color: #bcdacc;
+  background-color: #fff;
   border-radius: 15px;
+
+  border: 1px solid ${Palette.teal[9]};
 
   .FriendProfile-Image {
     width: 100%;
@@ -31,7 +33,7 @@ const FriendProfileContainer = styled.div`
 
     padding: 0 0.75rem 0.25rem 0.75rem;
 
-    background-color: ${Palette.teal[7]};
+    background-color: ${Palette.teal[1]};
     border-radius: 10px;
   }
 
@@ -40,25 +42,23 @@ const FriendProfileContainer = styled.div`
   }
 `;
 
-const FriendProfileSkeleton = styled(SkeletonContainer)`
-  .Skeleton-Contaier {
-    width: 100%;
-    height: 8.4375rem;
-  }
+const FriendProfileSkeletone = styled(Skeletone)`
+  width: 100%;
+  height: 8.4375rem;
+
+  border-radius: 10px;
 `;
 
 const FriendProfileCard = () => {
   return (
-    <FriendProfileContainer>
-      <FriendProfileSkeleton>
-        <Skeleton></Skeleton>
-      </FriendProfileSkeleton>
+    <FriendProfileBox>
+      <FriendProfileSkeletone />
       {/* <img className='FriendProfile-Image' src='' alt=''></img> */}
       <p className='FriendProfile-Info'>
         <span className='FriendProfile-Text'>name / age</span>
         <CgGenderFemale />
       </p>
-    </FriendProfileContainer>
+    </FriendProfileBox>
   );
 };
 
