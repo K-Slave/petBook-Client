@@ -1,13 +1,16 @@
-import React, { PropsWithChildren } from "react";
+import React, { MouseEventHandler, PropsWithChildren } from "react";
 import styled, { css } from "styled-components";
 import Link from "next/link";
-import Palette from "../../lib/palette";
+import Palette from "../../../lib/palette";
 
-type ContentProps = {
-  to: any;
-  fontcolor: string;
-  fullWidth: boolean;
-  children: any;
+type ButtonProps = {
+  className?: string;
+  children?: any;
+  to?: string;
+  fullWidth?: boolean;
+  fontColor?: string;
+  bgColor?: string;
+  onClick?: MouseEventHandler;
 };
 
 const buttonStyle = css`
@@ -17,15 +20,16 @@ const buttonStyle = css`
   font-size: 1.5rem;
   font-weight: bold;
   letter-spacing: 2px;
-  color: ${(props: ContentProps) => (props.fontcolor ? props.fontcolor : "black")};
+  color: ${(props: ButtonProps) =>
+    props.fontColor ? props.fontColor : "black"};
   outline: none;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   padding: 0.3rem 0.5rem 0.4rem 0.6rem;
 
   &:hover {
-    background-color: ${(props) => props.fontcolor};
-    color: white;
+    background-color: ${(props) => props.fontColor};
+    color: #000;
   }
 
   &:disabled {
@@ -55,25 +59,29 @@ const StyledLink = styled.a`
 const BorderStyledButton = styled.button`
   ${buttonStyle}
   border: 2px solid;
-  border-color: ${(props) => props.fontcolor};
+  border-color: ${(props) => props.fontColor};
 `;
 
 const BorderStyledLink = styled.a`
   ${buttonStyle}
   border: 2px solid;
-  border-color: ${(props) => props.fontcolor};
+  border-color: ${(props) => props.fontColor};
 `;
 
-export const Button = (props: PropsWithChildren<ContentProps>) => {
+export const Button = (props: PropsWithChildren<ButtonProps>) => {
   return props.to ? (
     <Link prefetch href={props.to} passHref>
-      <StyledLink {...props} />
+      <StyledLink {...props}>{props.children}</StyledLink>
     </Link>
   ) : (
-    <StyledButton {...props} />
+    <StyledButton {...props}>{props.children}</StyledButton>
   );
 };
 
-export const BorderButton = (props: PropsWithChildren<ContentProps>) => {
-  return props.to ? <BorderStyledLink {...props} /> : <BorderStyledButton {...props} />;
+export const BorderButton = (props: PropsWithChildren<ButtonProps>) => {
+  return props.to ? (
+    <BorderStyledLink {...props}>{props.children}</BorderStyledLink>
+  ) : (
+    <BorderStyledButton {...props}>{props.children}</BorderStyledButton>
+  );
 };

@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.2",
+    "@types/kakaomaps": "^1.1.2",
     "@types/node": "17.0.30",
     "@types/qs": "^6.9.7",
     "@types/react": "18.0.8",
@@ -36,6 +37,7 @@
     "@types/styled-components": "^5.1.25",
     "eslint": "8.14.0",
     "eslint-config-next": "12.1.5",
+    "ngrok": "^4.3.1",
     "qs": "^6.10.3",
     "react-is": "^18.1.0",
     "redux-devtools-extension": "^2.13.9",

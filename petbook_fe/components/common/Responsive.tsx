@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 // 헤더 등 전체 UI 컨테이너 쪽에 적용하는 반응형 스타일 블록
+//
 
 const ResponsiveBlock = styled.div`
   padding-left: 3rem;
