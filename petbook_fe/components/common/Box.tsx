@@ -40,7 +40,7 @@ const ListBox = styled.div`
   z-index: 1;
 `;
 
-export const Box = (props: PropsWithChildren<ContentProps>) => {
+export const Box = (props: PropsWithChildren<ContentProps> | any) => {
   //
   return props.boxType === "list" ? (
     <>
