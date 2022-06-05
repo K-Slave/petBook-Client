@@ -1,5 +1,6 @@
 import { PropsWithChildren } from "react";
 import styled, { css } from "styled-components";
+import localConsole from "../../../lib/localConsole";
 import CardListSlide from "./CardListSlide";
 
 export const CardListSectionStyle = css`
@@ -54,6 +55,7 @@ export default function CardListSection(
 ) {
   const { cardname, username, image, placeNameList, sectionTitle, children } =
     props;
+
   return (
     <CardListSectionBox className={cardname + "List__Section__Box"} {...props}>
       {children ? (
