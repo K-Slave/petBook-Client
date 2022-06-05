@@ -3,9 +3,10 @@ import { Box } from "../components/common/Box";
 import HtmlHeader from "../components/common/HtmlHeader";
 import Keyvisual from "../components/Keyvisual";
 import MapComponent from "../components/common/MapComponent";
-import FriendProfileCard from "../components/common/FriendProfileCard";
+import FriendProfileCard from "../components/common/CardUI/ProfileCard";
 import TopNav from "../components/TopNav";
 import styled from "styled-components";
+import FriendCardContainer from "../containers/card/FriendCardContainer";
 
 const FriendProfileList = styled(Box)`
   display: flex;
@@ -23,19 +24,7 @@ const FindHome: NextPage = () => {
       <TopNav />
       <Keyvisual />
       {/* 본문영역 */}
-      <FriendProfileList
-        boxType='content'
-        active={true}
-        content={
-          <>
-            <FriendProfileCard />
-            <FriendProfileCard />
-            <FriendProfileCard />
-            <FriendProfileCard />
-            <FriendProfileCard />
-          </>
-        }
-      />
+      <FriendCardContainer />
       <MapComponent />
     </>
   );
