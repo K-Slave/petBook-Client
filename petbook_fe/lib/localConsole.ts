@@ -15,49 +15,106 @@ export function InitlocalConsole(userDomain: Array<string>) {
 }
 
 export const exceptedConsole = {
-  log(msg: any, option: any): void {
+  log(msg?: any, option?: any): void {
     if (domain.length > 0) {
       if (domain.find((item: string) => window.location.href.includes(item))) {
         return;
       }
 
-      return console.log(msg, option.length > 0 ? option : " ");
+      if (option) {
+        console.log(msg, option);
+        return;
+      }
+
+      console.log(msg);
+      return;
     }
   },
 
-  dir(obj: any, option: any): void {
+  dir(obj?: any, option?: any): void {
     if (domain.length > 0) {
       if (domain.find((item: string) => window.location.href.includes(item))) {
         return;
       }
 
-      return console.dir(obj, option ? option : " ");
+      if (option) {
+        console.log(obj, option);
+        return;
+      }
+
+      console.log(obj);
+      return;
     }
   },
 };
 
 const localConsole = {
-  log(msg: any, option: any = ""): void {
+  log(msg?: any, option?: any): void {
     try {
       if (window.location.href.includes("localhost")) {
-        console.log(msg, option);
+        if (option) {
+          console.log(msg, option);
+          return;
+        }
+        console.log(msg);
         return;
       }
 
       if (domain.length > 0) {
-        console.log(msg, option);
-        return;
+        if (
+          domain.find((item: string) => window.location.href.includes(item))
+        ) {
+          if (option) {
+            console.log(msg, option);
+            return;
+          }
+          console.log(msg);
+          return;
+        }
       }
     } catch (e) {}
   },
 
-  dir(obj: any, option: any = " "): void {
+  dir(obj?: any, option?: any): void {
     try {
-      if (window.location.href.includes("localhost"))
-        return console.dir(obj, option);
+      if (window.location.href.includes("localhost")) {
+        if (option) {
+          console.dir(obj, option);
+          return;
+        }
+
+        console.dir(obj);
+        return;
+      }
 
       if (domain.length > 0) {
-        return console.dir(obj, option);
+        if (
+          domain.find((item: string) => window.location.href.includes(item))
+        ) {
+          if (option) {
+            console.dir(obj, option);
+            return;
+          }
+          console.dir(obj);
+          return;
+        }
+      }
+    } catch (e) {}
+  },
+  error(data?: any) {
+    try {
+      if (window.location.href.includes("localhost")) {
+        console.error(data);
+        return;
+      }
+
+      if (domain.length > 0) {
+        if (
+          domain.find((item: string) => window.location.href.includes(item))
+        ) {
+          console.error(data);
+          return;
+        }
       }
     } catch (e) {}
   },
