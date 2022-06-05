@@ -1,4 +1,4 @@
-import { Button } from "../Button";
+import { Button } from "../Button/Button";
 import Countour from "../Countour";
 import AVG_SCORE from "../../../assets/img/best_average_score.png";
 import HEART from "../../../assets/img/heart.png";
@@ -143,19 +143,27 @@ export default function RestaurantCardInfo(
           깔끔해서 앞으로도 방문하고 싶을것 같아요 블라블라 글자 제한 테스트
           중입니다 입니다
         </p>
-        <span className="Content__lastWord">"</span>
+        <span className='Content__lastWord'>"</span>
       </div>
 
       <p className={cardName + "Restaurant__Score"}>
-        <span className="Score__Normal__Text">
-          <span className="Score__Highlight__Text">80</span>점
+        <span className='Score__Normal__Text'>
+          <span className='Score__Highlight__Text'>80</span>점
         </span>
-        <span className="Score__Recommend">
-          <img className="Score__Recommend__Image" src={AVG_SCORE} alt="" />
+        <span className='Score__Recommend'>
+          <img
+            className='Score__Recommend__Image'
+            src={`${AVG_SCORE}`}
+            alt=''
+          />
           4.8 (332명)
         </span>
-        <Button className="Score__Like__Button" fontColor={"#fff"}>
-          <img className="Score__Like__Button__Image" src={HEART} alt=""></img>
+        <Button className='Score__Like__Button' fontColor={"#fff"}>
+          <img
+            className='Score__Like__Button__Image'
+            src={`${HEART}`}
+            alt=''
+          ></img>
           2832
         </Button>
       </p>

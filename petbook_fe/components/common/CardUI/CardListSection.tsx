@@ -8,14 +8,18 @@ export const CardListSectionStyle = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
 
-  height: 261px;
+  width: calc(100vw);
+  height: calc(15.5rem + 2.625rem + 3.1875rem);
 
-  margin-top: 10px;
+  padding: 0 1rem;
 
-  .${(props: CardListSectionType) => props.cardName}Section__Title {
-    position: absolute;
-    top: -7px;
+  .${(props: CardListSectionType) => props.cardname}Section__Title {
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
 
     font-size: 22px;
     font-weight: bold;
@@ -23,7 +27,7 @@ export const CardListSectionStyle = css`
     color: #202020;
   }
 
-  .${(props: CardListSectionType) => props.cardName}Section__User {
+  .${(props: CardListSectionType) => props.cardname}Section__User {
     background: linear-gradient(to bottom, #fff 55%, #0ac7ce 45%);
 
     font-weight: bold;
@@ -35,28 +39,28 @@ const CardListSectionBox = styled.section`
 `;
 
 export type CardListSectionType = {
-  cardName: string;
+  className?: string;
+  cardname: string;
   username?: string;
-  image: string;
-  placeNameList: string[];
-  sectionTitle: string;
+  image?: string;
+  placeNameList?: string[];
+  userNameList: string[];
+  userAgeList: number[];
+  sectionTitle?: string;
 };
 
 export default function CardListSection(
   props: PropsWithChildren<CardListSectionType>
 ) {
-  const { cardName, username, image, placeNameList, sectionTitle, children } =
+  const { cardname, username, image, placeNameList, sectionTitle, children } =
     props;
   return (
-    <CardListSectionBox className={cardName + "List__Section__Box"} {...props}>
+    <CardListSectionBox className={cardname + "List__Section__Box"} {...props}>
       {children ? (
         children
       ) : (
         <>
-          <h1 className={cardName + "Section__Title"}>
-            <span className={cardName + "Section__User"}>{username}</span>
-            {sectionTitle}
-          </h1>
+          <h1 className={cardname + "Section__Title"}>{sectionTitle}</h1>
           <CardListSlide {...props} />
         </>
       )}
