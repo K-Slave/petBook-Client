@@ -18,8 +18,8 @@ const SideNav = styled.div<{ showNav: boolean }>`
     top: 30px;
     left: 0px;
     transform: ${({ showNav }) =>
-      showNav ? "translateX(0%)" : "translate(-150%)"};
-    transition: all 0.6s ease-out;
+      showNav ? "translateX(0%)" : "translate(-110%)"};
+    transition: all 0.4s linear;
   }
 `;
 
