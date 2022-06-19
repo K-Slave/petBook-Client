@@ -5,19 +5,21 @@ import Palette from "../../../lib/palette";
 import { PropsWithChildren } from "react";
 
 const ProfileCardBox = styled.div`
+  position: absolute;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  width: 12.25rem;
-  height: 12.25rem;
+  width: 100%;
+  height: 100%;
 
   padding: 1.25rem;
 
   transition: all 0.3s ease-in-out;
 
   background-color: #fff;
-  border-radius: 15px;
+  border-radius: 0.9375rem;
 
   border: 1px solid ${Palette.teal[9]};
 
@@ -39,16 +41,11 @@ const ProfileCardBox = styled.div`
     padding: 0 0.75rem 0.25rem 0.75rem;
 
     background-color: ${Palette.teal[1]};
-    border-radius: 10px;
+    border-radius: 0.625rem;
   }
 
   svg {
     margin-top: 0.3rem;
-  }
-
-  &:hover {
-    width: 14.875rem;
-    height: 14.875rem;
   }
 `;
 
@@ -56,7 +53,7 @@ const ProfileSkeletone = styled(Skeletone)`
   width: 100%;
   height: 65%;
 
-  border-radius: 10px;
+  border-radius: 0.625rem;
 `;
 
 type ProfileCardType = {
@@ -66,6 +63,7 @@ type ProfileCardType = {
   user_age?: number;
   image?: string;
   sectionTitle?: string;
+  style?: React.CSSProperties;
 };
 
 export default function ProfileCard(props: PropsWithChildren<ProfileCardType>) {

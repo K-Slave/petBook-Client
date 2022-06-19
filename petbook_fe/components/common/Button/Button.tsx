@@ -11,6 +11,7 @@ type ButtonProps = {
   fontColor?: string;
   bgColor?: string;
   onClick?: MouseEventHandler;
+  style?: React.CSSProperties;
 };
 
 const buttonStyle = css`

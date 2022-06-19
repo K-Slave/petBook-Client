@@ -20,14 +20,12 @@ const CardListSlideBox = styled.div`
   align-items: center;
 
   width: 100%;
-`;
 
-const SlideListDisplay = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-
-  overflow: auto;
+  &:hover {
+    .Slide__Button {
+      transform: translate3d(0, 0, 0);
+    }
+  }
 `;
 
 const SlideList = styled.ul`
@@ -35,12 +33,15 @@ const SlideList = styled.ul`
   justify-content: flex-start;
   align-items: center;
 
-  width: calc(61.25rem + 3rem + 4rem + 2.75rem + 0.3rem);
+  gap: 1.5625rem;
+
+  width: calc(61.25rem + 9.375rem);
   height: 14.875rem;
 
   margin-top: 3.1875rem;
 
   overflow: auto;
+  /* transition: all 0.25s ease-in-out; */
 
   -ms-overflow-style: none; // IE and Edge
   scrollbar-width: none; // Firefox
@@ -50,21 +51,30 @@ const SlideList = styled.ul`
   }
 `;
 const SlideItem = styled.li`
-  /* margin-left: ${(props: { idx: number }) => {
-    if (props.idx % 5 === 0) {
-      return "3rem";
+  .${(props: CardListSlideType) => props.cardname}Profile__Card__Box {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 12.25rem;
+    height: 12.25rem;
+  }
+
+  &:first-child {
+  }
+
+  &:last-child {
+    margin-right: 1.5625rem;
+  }
+
+  &:hover {
+    .${(props: CardListSlideType) => props.cardname}Profile__Card {
+      width: 14.875rem;
+      height: 14.875rem;
     }
-
-    return "0.5rem";
-  }};
-
-  margin-right: ${(props: { idx: number }) => {
-    if (props.idx !== 0 && (props.idx + 1) % 5 === 0) {
-      return "3rem";
-    }
-
-    return "0.5rem";
-  }}; */
+  }
 `;
 
 export type CardListSlideType = {
@@ -90,60 +100,134 @@ export default function CardListSlide(
     children,
   } = props;
 
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
+  const [pageWidth, setPageWidth] = useState(0);
+  const [pageNation, setPageNation] = useState(0);
+  const [isActive, setIsActive] = useState(false);
+  const [initList, setInitList] = useState(0);
+
   const slideRef = useRef<HTMLUListElement>(null);
 
   const onLeftSlide: MouseEventHandler = () => {
-    slideRef.current?.scrollTo({
-      top: 0,
-      left: -slideRef.current.clientWidth,
-      behavior: "smooth",
-    });
-
-    if (page > 0) {
-      setPage(page - 1);
-    }
+    if (!slideRef.current) return;
+    if (page <= 0) return;
+    setPage(page - 1);
   };
 
   const onRightSlide: MouseEventHandler = () => {
-    slideRef.current?.scrollTo({
-      top: 0,
-      left: slideRef.current.clientWidth,
-      behavior: "smooth",
-    });
-
+    if (!slideRef.current) return;
+    // if (page >= slideRef.current?.children.length - 1) return;
     setPage(page + 1);
   };
 
+  const styleRender = (idx?: number) => {
+    if (!slideRef.current) return;
+
+    if (idx === undefined) return;
+
+    if (idx === 0) {
+      return { marginLeft: "1.5625rem" };
+    }
+
+    // if (slideRef.current.children.length % (idx + 1) === 0) {
+    //   return { marginLeft: "1.5625rem" };
+    // }
+
+    //initList === 0
+
+    // if (idx % 10 === 0) {
+    //   return { marginLeft: "1.5625rem" };
+    // }
+
+    // return {
+    //   transform: `translate3d(-${pageWidth}px, 0, 0)`,
+    // };
+  };
+
+  useEffect(() => {
+    setInitList(userNameList.length);
+  }, []);
+
+  useEffect(() => {
+    if (slideRef.current) {
+      // setPageWidth(page * slideRef.current?.clientWidth);
+      slideRef.current.scrollTo({
+        top: 0,
+        left: page * slideRef.current?.clientWidth - 25,
+        behavior: "smooth",
+      });
+    }
+  }, [page]);
+
+  useEffect(() => {
+    // 무한 스크롤 구현, 일단 배열 최대 갯수는 정하지 않았음.
+    if (slideRef.current) {
+      setPageNation(Math.round(slideRef.current?.children?.length / 5));
+
+      if (page === pageNation - 1) {
+        if (page + pageNation === 0) return;
+        userNameList.push(...userNameList);
+      }
+    }
+  }, [page, pageNation]);
+
   return (
     <CardListSlideBox className={cardname + "Card__List__Slide__Box"}>
-      <SlideButton direction='left' onClick={onLeftSlide} />
+      <SlideButton
+        direction='left'
+        onClick={onLeftSlide}
+        page={page}
+        pageNation={pageNation}
+      />
       <SlideList className={cardname + "Slide__List"} ref={slideRef} {...props}>
         {userNameList.map((item: string, idx: number) => {
-          if (idx >= (page - 1) * 5 && idx <= page * 5 - 1) {
-            return (
-              <SlideItem
-                key={item + idx}
-                className={cardname + "Slide__Item"}
-                idx={idx}
-              >
-                {children ? (
-                  children
-                ) : (
-                  <ProfileCard
-                    key={item + idx}
-                    className={cardname + "Profile__Card"}
-                    username={item}
-                    user_age={userAgeList[idx]}
-                    {...props}
-                  />
-                )}
-              </SlideItem>
-            );
-          }
+          return (
+            <SlideItem
+              key={item + idx}
+              className={cardname + "Slide__Item"}
+              style={styleRender(idx)}
+              {...props}
+            >
+              <div className={cardname + "Profile__Card__Box"}>
+                <ProfileCard
+                  key={item + idx}
+                  className={cardname + "Profile__Card"}
+                  username={item}
+                  user_age={userAgeList[idx]}
+                  {...props}
+                />
+              </div>
+            </SlideItem>
+          );
         })}
+        {/* {
+          if (page === pageNation)
+          return (
+            <SlideItem
+              key={item + idx}
+              className={cardname + "Slide__Item"}
+              style={styleRender()}
+              {...props}
+            >
+              <div className={cardname + "Profile__Card__Box"}>
+                <ProfileCard
+                  key={item + idx}
+                  className={cardname + "Profile__Card"}
+                  username={item}
+                  user_age={userAgeList[idx]}
+                  {...props}
+                />
+              </div>
+            </SlideItem>
+          );
+        } */}
       </SlideList>
-      <SlideButton direction='right' onClick={onRightSlide} />
+      <SlideButton
+        direction='right'
+        onClick={onRightSlide}
+        page={page}
+        pageNation={pageNation}
+      />
     </CardListSlideBox>
   );
 }
