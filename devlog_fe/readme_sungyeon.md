@@ -51,3 +51,5 @@ https://github.com/steven-yn/petBook/commit/e452110dc3eb514bc64460e176f7ca404d7b
 
 > 4. 페이지 네이션을 적용하여 첫페이지일때는 왼쪽 버튼을 회색 처리하여 넘길수 있는 슬라이드가 \
 >    없음을 나타내도록 하였습니다.
+
+https://github.com/steven-yn/petBook/commit/a9003b13bc54777d0b865249271efddc18aa0dd7
