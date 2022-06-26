@@ -1,67 +1,67 @@
 import axios from "axios";
 
 const req = {
-  // 더 많은 옵션 : https://axios-http.com/kr/docs/req_config
-  // 응답 스키마 : https://axios-http.com/kr/docs/res_schema
+    // 더 많은 옵션 : https://axios-http.com/kr/docs/req_config
+    // 응답 스키마 : https://axios-http.com/kr/docs/res_schema
 
-  // Create
-  post(url: string, payload: any) {
-    return axios({
-      method: "post",
-      baseURL: "https://yoonocean-zum-board-backend.herokuapp.com/api/project",
-      url: url,
-      headers: { "create-project-request": "XMLHttpRequest" },
-      data: JSON.stringify(payload),
-      timeout: 7000,
-    });
-  },
+    // Create
+    post(url: string, payload: any) {
+        return axios({
+            method: "post",
+            baseURL: "https://yoonocean-zum-board-backend.herokuapp.com/api/project",
+            url: url,
+            headers: { "create-project-request": "XMLHttpRequest" },
+            data: JSON.stringify(payload),
+            timeout: 7000,
+        });
+    },
 
-  // Read
-  getList(url: string) {
-    return axios({
-      method: "get",
-      baseURL: "https://yoonocean-zum-board-backend.herokuapp.com/api/project",
-      url: url,
-      headers: { "get-projects-request": "XMLHttpRequest" },
-      timeout: 7000,
-    });
-  },
+    // Read
+    getList(url: string) {
+        return axios({
+            method: "get",
+            baseURL: "https://yoonocean-zum-board-backend.herokuapp.com/api/project",
+            url: url,
+            headers: { "get-projects-request": "XMLHttpRequest" },
+            timeout: 7000,
+        });
+    },
 
-  get(url: string) {
-    return axios({
-      method: "get",
-      baseURL: "https://yoonocean-zum-board-backend.herokuapp.com/api/project",
-      url: url,
-      headers: { "get-one-project-request": "XMLHttpRequest" },
-      //params: id,
-      timeout: 7000,
-    }); //
-  },
+    get(url: string) {
+        return axios({
+            method: "get",
+            baseURL: "https://yoonocean-zum-board-backend.herokuapp.com/api/project",
+            url: url,
+            headers: { "get-one-project-request": "XMLHttpRequest" },
+            //params: id,
+            timeout: 7000,
+        }); //
+    },
 
-  // Update
-  patch(url: string, payload: any) {
-    return axios({
-      method: "patch",
-      baseURL: "https://yoonocean-zum-board-backend.herokuapp.com/api/project",
-      url: url,
-      //params: id,
-      headers: { "patch-project-request": "XMLHttpRequest" },
-      data: JSON.stringify(payload),
-      timeout: 7000,
-    });
-  },
+    // Update
+    patch(url: string, payload: any) {
+        return axios({
+            method: "patch",
+            baseURL: "https://yoonocean-zum-board-backend.herokuapp.com/api/project",
+            url: url,
+            //params: id,
+            headers: { "patch-project-request": "XMLHttpRequest" },
+            data: JSON.stringify(payload),
+            timeout: 7000,
+        });
+    },
 
-  // Delete
-  delete(url: string) {
-    return axios({
-      method: "delete",
-      baseURL: "https://yoonocean-zum-board-backend.herokuapp.com/api/project",
-      url: url,
-      //params: id,
-      headers: { "delete-project-request": "XMLHttpRequest" },
-      timeout: 7000,
-    });
-  },
+    // Delete
+    delete(url: string) {
+        return axios({
+            method: "delete",
+            baseURL: "https://yoonocean-zum-board-backend.herokuapp.com/api/project",
+            url: url,
+            //params: id,
+            headers: { "delete-project-request": "XMLHttpRequest" },
+            timeout: 7000,
+        });
+    },
 };
 
 export default req;
