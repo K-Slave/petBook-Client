@@ -4,6 +4,7 @@ import styles from "../styles/Home.module.scss";
 
 //
 import SearchBar from "./common/SearchBar";
+
 const Main = styled.div`
   height: 600px;
   width: 100%;
