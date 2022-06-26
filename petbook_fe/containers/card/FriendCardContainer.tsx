@@ -14,6 +14,7 @@ export default function FriendCardContainer() {
     "dummy_user",
     "dummy_user",
     "dummy_user",
+    "dummy_user",
   ];
   const sample_ages = [29, 28, 30, 29];
 

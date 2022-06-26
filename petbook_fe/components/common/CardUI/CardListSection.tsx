@@ -58,14 +58,10 @@ export default function CardListSection(
 
   return (
     <CardListSectionBox className={cardname + "List__Section__Box"} {...props}>
-      {children ? (
-        children
-      ) : (
-        <>
-          <h1 className={cardname + "Section__Title"}>{sectionTitle}</h1>
-          <CardListSlide {...props} />
-        </>
-      )}
+      <>
+        <h1 className={cardname + "Section__Title"}>{sectionTitle}</h1>
+        <CardListSlide {...props} />
+      </>
     </CardListSectionBox>
   );
 }

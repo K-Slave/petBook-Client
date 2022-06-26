@@ -11,6 +11,7 @@ type ButtonProps = {
   fontColor?: string;
   bgColor?: string;
   onClick?: MouseEventHandler;
+  style?: React.CSSProperties;
 };
 
 const buttonStyle = css`
@@ -25,7 +26,7 @@ const buttonStyle = css`
   outline: none;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  padding: 0.3rem 0.5rem 0.4rem 0.6rem;
+  padding: 0.3rem;
 
   &:hover {
     background-color: ${(props) => props.fontColor};
