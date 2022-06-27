@@ -3,7 +3,9 @@
 ### Developer : 강인성
 
 - 22년 6월 4주차 진행 내용
-  - 
+  - Article (게시물) CRUD 로직 작성
+  - Keyword (키워드) 도메인 로직 구상 준비 중.
+  - Docker 기반 Kafka 및 DB Instance 연동 방법 조사 중.
 
 - 22년 6월 3주차 진행 내용
   - 3D 프린터 설치 작업으로 인하여 미진행
