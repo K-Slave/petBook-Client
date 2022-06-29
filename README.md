@@ -28,6 +28,9 @@
 
 - [피그마](https://www.figma.com/file/Be2EqjYjJ82XHSm9jleMH3/%ED%8E%AB%EB%B6%81?node-id=136%3A819) 링크
 - [APIDOCS](https://shrouded-falls-39042.herokuapp.com/swagger-ui/index.html) 링크
+- [브랜치 컨벤션](https://www.figma.com/file/FmriGqNlBiXqoHCmw24v7d/%EA%B9%83-%EB%B8%8C%EB%9E%9C%EC%B9%98-%EC%BB%A8%EB%B2%A4%EC%85%98?node-id=0%3A1) 링크
+- [페이지 아키텍쳐](https://www.figma.com/file/l0ExFPbWTErCwaJ2jQyEDo/%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90?node-id=0%3A1) 링크
+- [DB시트](https://docs.google.com/spreadsheets/d/1LIAfOfWA7e803hiaLsUA2uSEZDoLW9bZBQ2V5hv4-ow/edit#gid=0) 링크
 
 <br/>
 
