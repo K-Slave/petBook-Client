@@ -1,55 +1,55 @@
+import { useRouter } from "next/router";
 import HtmlHeader from "../components/common/HtmlHeader";
 import Keyvisual from "../components/Keyvisual";
 import TopNav from "../components/TopNav";
+import SocialLogin from "../components/SocialLogin";
 import styled from "styled-components";
+import { BsCheckCircleFill } from "react-icons/bs";
 
 const Main = styled.main`
-  height: 50vh;
+  height: 55vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 7rem;
+  padding-top: 7.5rem;
   h1 {
     font-size: 25px;
     font-weight: normal;
+    margin-bottom: 40px;
   }
 `;
 
-const ButtonBox = styled.div`
+const NotLogin = styled.div`
   display: flex;
-  gap: 2rem;
-  padding-top: 40px;
+  flex-direction: column;
+  align-items: center;
+  color: #b6b6b6;
+  font-size: 20px;
+  margin-bottom: 55px;
+  svg {
+    font-size: 55px;
+    margin-bottom: 25px;
+  }
 `;
-
-const Icon = styled.img`
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  cursor: pointer;
-  object-fit: cover;
-`;
-
-const BACKEND_BASE_URL = "https://shrouded-falls-39042.herokuapp.com";
 
 const Login = () => {
+  const router = useRouter();
+  const isRedirect = router.query.redirect;
   return (
     <>
       <HtmlHeader />
       <TopNav />
       <Keyvisual />
       <Main>
-        <h1>소셜 로그인</h1>
-        <ButtonBox>
-          <a href={`${BACKEND_BASE_URL}/kakao/login`}>
-            <Icon src="./img/kakao-icon.png" alt="kakao icon" />
-          </a>
-          <a href={`${BACKEND_BASE_URL}/naver/login`}>
-            <Icon src="./img/naver-icon.png" alt="naver icon" />
-          </a>
-          <a href={`${BACKEND_BASE_URL}/google/login`}>
-            <Icon src="./img/google-icon.png" alt="google icon" />
-          </a>
-        </ButtonBox>
+        {isRedirect ? (
+          <NotLogin>
+            <BsCheckCircleFill />
+            <p>로그인이 필요한 서비스입니다.</p>
+          </NotLogin>
+        ) : (
+          <h1>소셜 로그인</h1>
+        )}
+        <SocialLogin />
       </Main>
     </>
   );
