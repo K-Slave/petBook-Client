@@ -4,8 +4,7 @@ const BACKEND_BASE_URL = "https://shrouded-falls-39042.herokuapp.com";
 
 const ButtonBox = styled.div`
   display: flex;
-  gap: 2rem;
-  padding-top: 55px;
+  gap: 2.5rem;
 `;
 
 const Icon = styled.img`
