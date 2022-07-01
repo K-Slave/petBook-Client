@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ReadMoreButton from "../Button/ReadMoreButton";
+// import ReadMoreButton from "../Button/ReadMoreButton";
 import Responsive from "../Responsive";
 import CardListSlide from "./CardListSlide";
 
@@ -55,7 +55,7 @@ export default function CardListSection(props: CardListSectionProps) {
         </div>
         <CardListSlide {...props} />
         <div className={cardname + "Card__Section__Bottom"}>
-          <ReadMoreButton />
+          {/* <ReadMoreButton /> */}
         </div>
       </CardSectionWrap>
     </CardListSectionBox>
