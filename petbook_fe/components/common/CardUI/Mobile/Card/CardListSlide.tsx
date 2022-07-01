@@ -7,8 +7,8 @@ import {
 } from "react";
 import { getEventListeners } from "stream";
 import styled from "styled-components";
-import localConsole from "../../../lib/localConsole";
-import throttle from "../../../lib/throttle";
+// import localConsole from "../../../lib/localConsole";
+// import throttle from "../../../lib/throttle";
 import RestaurantCard from "./RestaurantCard";
 
 const CardListSlideBox = styled.div`
@@ -135,7 +135,7 @@ export default function CardListSlide(props: CardListSlideProps) {
       slideRef.current.scrollWidth / slideRef.current.children.length;
 
     if (!isTouchEnd && !isTouchMove) {
-      localConsole.log(touchMove);
+      // localConsole.log(touchMove);
 
       if (touchMove <= -120) {
         if (page === 0) {
@@ -210,7 +210,7 @@ export default function CardListSlide(props: CardListSlideProps) {
   }, [isTouchEnd, isTouchMove]);
 
   const onTouchStart: TouchEventHandler = (e) => {
-    localConsole.log(e.touches[0], "start");
+    // localConsole.log(e.touches[0], "start");
     setTouchStart(e.touches[0].clientX);
     setTouchMove(0);
     setIsTouchMove(true);
@@ -221,9 +221,9 @@ export default function CardListSlide(props: CardListSlideProps) {
     setTouchMove(touchStart - e.changedTouches[0].clientX);
   };
 
-  const isThrottleTouchMove: any = isTouchMove
-    ? throttle(onTouchMove, 25)
-    : null;
+  // const isThrottleTouchMove: any = isTouchMove
+  //   ? throttle(onTouchMove, 25)
+  //   : null;
 
   const onTouchEnd: TouchEventHandler = () => {
     if (!slideRef.current) return;
@@ -265,7 +265,7 @@ export default function CardListSlide(props: CardListSlideProps) {
         className={cardname + "Slide__Card__List__Box"}
         ref={slideRef}
         onTouchStart={onTouchStart}
-        onTouchMove={isThrottleTouchMove}
+        // onTouchMove={isThrottleTouchMove}
         onTouchEnd={onTouchEnd}
         // isScroll={isScroll}
         {...props}
