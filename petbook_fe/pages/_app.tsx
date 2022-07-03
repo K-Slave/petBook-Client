@@ -16,3 +16,15 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 export default MyApp;
+
+// MyApp.getInitialProps = (context : AppProps) => {
+//   const queryClient = new QueryClient();
+
+//   const { requiredResources } = context.Component;
+
+//   await Promise.all(
+//     requiredResources.map(async resource => {
+//       queryClient.fetchQuery(resource.key, resource.fetcher);
+//     })
+//   )
+// }
