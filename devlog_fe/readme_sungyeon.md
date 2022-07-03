@@ -19,7 +19,7 @@
 >    ./CardUI/CardListSection.tsx : 슬라이드 영역을 감싸는 최상위 컴포넌트. 슬라이드 영역의 타이틀과 슬라이드 영역을 감쌉니다 \
 >    ./CardUI/CardListSlide.tsx : 슬라이드 되는 List 들을 감싸는 컴포넌트. 실제 슬라이드 인터렉션이 되는 컴포넌트 이며 일정 영역까지만 디스플레이 됩니다. \
 >    ./CardUI/ProfileCard.tsx : api 를 연동하는등 각 카드 item 이 되는 컴포넌트. 프로필이 노출되는 카드는 이 카드를 사용하면 됩니다. \
->    카드 관련 공통 컴포넌트는 모두 css 오버라이딩 하거나 children 컴포넌트를 가질수 있습니다. \
+>    카드 관련 공통 컴포넌트는 모두 css 오버라이딩 하거나 children 컴포넌트를 가질수 있습니다. 
 
 - 22.06.12 개발 기록 및 진행 상황 공유
 
@@ -38,7 +38,7 @@ https://github.com/steven-yn/petBook/commit/a61a1b7cb6aa300fcd5b6ba30565d3bd2245
 
 https://github.com/steven-yn/petBook/commit/e452110dc3eb514bc64460e176f7ca404d7b6839
 
-- 22.06.19 개발 기록 및 진행 상황 공유 \
+- 22.06.19 개발 기록 및 진행 상황 공유 
 
 > 1. desktop 친구 찾기 slide 마무리 단계 \
 >    작업 결과 desktop 은 스크롤 방식, 모바일은 트랜지션 방식이 어울리다고 판단하여 \
