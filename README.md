@@ -22,12 +22,15 @@
 
 프론트엔드 개발자 : [윤성연](https://github.com/steven-yn)(팀 리더), [김조은](https://github.com/jj2084jj)(아이디어 제공), [강은비](https://github.com/eunnbi)
 
+디자이너 : 정아린
+
 <br/>
 
 ## 🦊 링크
 
 - [피그마](https://www.figma.com/file/Be2EqjYjJ82XHSm9jleMH3/%ED%8E%AB%EB%B6%81?node-id=136%3A819) 링크
 - [APIDOCS](https://shrouded-falls-39042.herokuapp.com/swagger-ui/index.html) 링크
+- [테스트 서버](https://t-petbook.netlify.app/) 링크
 - [브랜치 컨벤션](https://www.figma.com/file/FmriGqNlBiXqoHCmw24v7d/%EA%B9%83-%EB%B8%8C%EB%9E%9C%EC%B9%98-%EC%BB%A8%EB%B2%A4%EC%85%98?node-id=0%3A1) 링크
 - [페이지 아키텍쳐](https://www.figma.com/file/l0ExFPbWTErCwaJ2jQyEDo/%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90?node-id=0%3A1) 링크
 - [DB시트](https://docs.google.com/spreadsheets/d/1LIAfOfWA7e803hiaLsUA2uSEZDoLW9bZBQ2V5hv4-ow/edit#gid=0) 링크
@@ -99,6 +102,9 @@ ci/cd 작업을 하면 어차피 변경될것으로 예상됨. \
 백엔드와 프론트엔드를 분리하여 레포지토리를 구성하기로 결정 \
 백엔드는 MSA 아키텍쳐를 고려하고 있으며, 프론트는 Next.js 배포 환경에 따라서 추후 분리될 예정 \
 개발자 총원 모집 마감. 백엔드 3, 프론트엔드 3 
+
+07.03 : \
+디자이너 한분 합류
 
 <br/>
 
