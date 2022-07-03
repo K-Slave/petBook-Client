@@ -76,6 +76,9 @@ https://github.com/steven-yn/petBook/commit/a9003b13bc54777d0b865249271efddc18aa
 >    Next.js 프로젝트를 쉽게 정적 페이지화 하여 배포를 할수 있도록 도와주는 Netlify 에 배포하였습니다. \
 >    현재 /index.html, /findfriend.html 두 페이지가 있으며, fe 브랜치로 GitHub PR 이나 Local Merge 를 통해 HEAD 가 업데이트 되면 \
 >    Netlify 서버에서 자동으로 프로젝트를 빌드하여 업데이트 해줍니다. \
+>    fe 브랜치에 /pages 폴더에 페이지 컴포넌트가 생기게 되면, 그대로 netlify 에서도 페이지가 늘어납니다. ( 로컬과 동일하게 동작 ) \
+>    한 달에 빌드 시간 300분 제한으로, 이를 초과시 500분 마다 약 7달러의 요금이 발생하게 됩니다. \
+>    따라서 fe 브랜치의 잦은 업데이트는 하지 않도록 해주시면 감사하겠습니다. \
 >    도메인 주소 : https://t-petbook.netlify.app/
 
 > 6. 페이지 요청시 SSR 되기전 data fetching 을 위한 Next.js 내장 API 인 getInitialProps 스터디 진행중 \
