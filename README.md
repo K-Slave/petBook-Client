@@ -199,7 +199,7 @@ ci/cd 작업을 하면 어차피 변경될것으로 예상됨. \
   > Next.js SSR 시 미리 api 호출하여 가져올수 있도록 하고, Props Drilling 해결하기. ( toss SLASH22 SSR 이야기 ) \
   > Headless 로 컴포넌트 분리하는 습관 들이기 ( toss SLASH22 Effective Component )
 
-## 🦉 회의록 (22.06.26)
+## 🦉 회의록 (22.07.10)
 
 #### 1. 기획 회의
 
