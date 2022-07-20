@@ -1,30 +1,63 @@
+import type { AppProps } from "next/app";
+import {
+  dehydrate,
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from "react-query";
+
 import "../styles/Globals.scss";
 import "../styles/Texts.scss";
 import "../styles/find/Texts.scss";
+import { useState } from "react";
 
-import type { AppProps } from "next/app";
-import { QueryClient, QueryClientProvider } from "react-query";
+export default function NextApp(appInitProps: AppProps) {
+  const { Component, pageProps } = appInitProps;
 
-const queryClient = new QueryClient();
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: Infinity,
+          },
+        },
+      })
+  );
 
-function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />
+      <Hydrate state={pageProps.dehydratedState}>
+        <Component {...pageProps} />
+      </Hydrate>
     </QueryClientProvider>
   );
 }
 
-export default MyApp;
+NextApp.getInitialProps = async (context: AppProps) => {
+  const { Component, pageProps } = context;
+  const page: any = Component;
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: Infinity,
+      },
+    },
+  });
 
-// MyApp.getInitialProps = (context : AppProps) => {
-//   const queryClient = new QueryClient();
+  const { requiredResources } = page;
 
-//   const { requiredResources } = context.Component;
+  if (requiredResources) {
+    await Promise.all(
+      requiredResources.map(async (resource: any) => {
+        await queryClient.fetchQuery(resource.key, resource.fetcher);
+      })
+    );
+  }
 
-//   await Promise.all(
-//     requiredResources.map(async resource => {
-//       queryClient.fetchQuery(resource.key, resource.fetcher);
-//     })
-//   )
-// }
+  return {
+    pageProps: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+};
