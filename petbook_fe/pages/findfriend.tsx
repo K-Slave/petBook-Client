@@ -7,7 +7,32 @@ import FriendProfileCard from "../components/common/CardUI/ProfileCard";
 import TopNav from "../components/TopNav";
 import styled from "styled-components";
 import FriendCardContainer from "../containers/card/FriendCardContainer";
-import localConsole from "../lib/localConsole";
+import { createResource } from "../hooks/useResource";
+import axios from "axios";
+import { useQuery, useQueryClient } from "react-query";
+
+// 1. 서버 사이드에서 가져올 리소스 정의하기
+// 정의된 순서에서 이미 데이터를 가지고 내려온 상태임.
+
+export const data1Resource = createResource({
+  key: "data-1",
+  fetcher: async () => {
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+    const body = await res.json();
+
+    return body;
+  },
+});
+
+export const data2Resource = createResource({
+  key: "data-2",
+  fetcher: async () => {
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts/2");
+    const body = await res.json();
+
+    return body;
+  },
+});
 
 const FriendProfileList = styled(Box)`
   display: flex;
@@ -17,9 +42,7 @@ const FriendProfileList = styled(Box)`
   height: 15rem;
 `;
 
-const FindHome: NextPage = ({ tests }: any) => {
-  localConsole.log(tests);
-
+const FindFriend: NextPage = (initProps: any) => {
   return (
     <>
       <HtmlHeader />
@@ -29,31 +52,20 @@ const FindHome: NextPage = ({ tests }: any) => {
       {/* 본문영역 */}
       <FriendCardContainer />
       <MapComponent />
-      test data : {tests}
     </>
   );
 };
 
-FindHome.getInitialProps = async (ctx) => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts/1");
-  const json = await res.json();
+// 2. 페이지에서 사용할 리소스 명시하기
 
-  return { tests: json.title };
-};
+const page: any = FindFriend;
+page.requiredResources = [data1Resource, data2Resource];
 
-// 1. 서버 사이드에서 가져올 리소스 정의하기
+export default FindFriend;
 
-// const data1Resource = createResource({
-//   key: 'data-1',
-//   fetcher: async () => {
-//     return fetch('https://jsonplaceholder.typicode.com/posts/1')
-//   }
-// })
+// const dd = (FindHome.getInitialProps = async (ctx) => {
+//   const res = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+//   const body = await res.json();
 
-// function Page() {
-//   return <ComponentA />
-// }
-
-// Page.requiredResources = [data1Resource];
-
-export default FindHome;
+//   return { tests: body.title };
+// });
