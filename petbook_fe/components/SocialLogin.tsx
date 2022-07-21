@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const BACKEND_BASE_URL = "https://shrouded-falls-39042.herokuapp.com";
+const BACKEND_BASE_URL = "https://petboook.herokuapp.com";
 
 const ButtonBox = styled.div`
   display: flex;
