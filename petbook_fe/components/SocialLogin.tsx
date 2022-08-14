@@ -1,6 +1,9 @@
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import localConsole from "../lib/localConsole";
 
-const BACKEND_BASE_URL = "https://petboook.herokuapp.com";
+const BACKEND_BASE_URL = "https://pypetbook.herokuapp.com";
 
 const ButtonBox = styled.div`
   display: flex;
@@ -16,16 +19,36 @@ const Icon = styled.img`
 `;
 
 const SocialLogin = () => {
+  const router = useRouter();
+
+  const [href, setHref] = useState("");
+
+  useEffect(() => {
+    setHref(window.location.href);
+  }, []);
+
   return (
     <ButtonBox>
-      <a href={`${BACKEND_BASE_URL}/kakao/login`}>
-        <Icon src="./img/kakao-icon.png" alt="kakao icon" />
+      <a
+        href={`${BACKEND_BASE_URL}/kakao/login${
+          router.asPath ? "?redirect_url=" + href : ""
+        }`}
+      >
+        <Icon src='./img/kakao-icon.png' alt='kakao icon' />
       </a>
-      <a href={`${BACKEND_BASE_URL}/naver/login`}>
-        <Icon src="./img/naver-icon.png" alt="naver icon" />
+      <a
+        href={`${BACKEND_BASE_URL}/naver/login${
+          router.asPath ? "?redirect_url=" + href : ""
+        }`}
+      >
+        <Icon src='./img/naver-icon.png' alt='naver icon' />
       </a>
-      <a href={`${BACKEND_BASE_URL}/google/login`}>
-        <Icon src="./img/google-icon.png" alt="google icon" />
+      <a
+        href={`${BACKEND_BASE_URL}/google/login${
+          router.asPath ? "?redirect_url=" + href : ""
+        }`}
+      >
+        <Icon src='./img/google-icon.png' alt='google icon' />
       </a>
     </ButtonBox>
   );
