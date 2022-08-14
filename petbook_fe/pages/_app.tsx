@@ -10,6 +10,7 @@ import "../styles/Globals.scss";
 import "../styles/Texts.scss";
 import "../styles/find/Texts.scss";
 import { useState } from "react";
+import { RecoilRoot } from "recoil";
 
 export default function NextApp(appInitProps: AppProps) {
   const { Component, pageProps } = appInitProps;
@@ -28,7 +29,9 @@ export default function NextApp(appInitProps: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <Component {...pageProps} />
+        <RecoilRoot>
+          <Component {...pageProps} />
+        </RecoilRoot>
       </Hydrate>
     </QueryClientProvider>
   );

@@ -2,7 +2,7 @@ import { PropsWithChildren } from "react";
 import styled, { css } from "styled-components";
 import useResource from "../../../hooks/useResource";
 import localConsole from "../../../lib/localConsole";
-import { data2Resource } from "../../../pages/findfriend";
+import { data2Resource } from "../../../pages/findhospital";
 import CardListSlide from "./CardListSlide";
 
 export const CardListSectionStyle = css`
