@@ -3,6 +3,8 @@ import { AppContext } from "next/app";
 export default function redirect({ ctx, router }: AppContext) {
   const url = require("url");
 
+  console.log(router, "router");
+
   let redirectPathname = router.pathname.concat();
 
   if (router.pathname.includes("login")) {
@@ -35,12 +37,17 @@ export default function redirect({ ctx, router }: AppContext) {
     redirectPathname +
     (searchParams.toString() ? `?${searchParams.toString()}` : "");
 
+  console.log(redirectURL);
+
   ctx.res?.writeHead(301, {
     "Set-Cookie": [
       `access_token=${access_token}`,
       `refresh_token=${refresh_token}`,
+      `router=${router}`,
+      `searchParams=${searchParams}`,
+      `redirectURL=${redirectURL}`,
     ],
-    Location: `${redirectURL}`,
+    // Location: `${redirectURL}`,
   });
   ctx.res?.end();
 
