@@ -27,6 +27,7 @@ export const data2Resource = createResource({
     return body;
   },
 });
+//
 
 const FindHospital: NextPage = (initProps: any) => {
   return (
