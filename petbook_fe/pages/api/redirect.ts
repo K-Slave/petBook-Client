@@ -40,18 +40,20 @@ export default function redirect({ ctx, router }: AppContext) {
   console.log(redirectURL);
   // Redirect: `${redirectURL}`
 
-  ctx.res?.writeHead(301, {
-    "Set-Cookie": [
-      `access_token=${access_token}`,
-      `refresh_token=${refresh_token}`,
-      `router_pathname=${router.pathname}`,
-      `searchParams=${searchParams}`,
-      `redirectURL=${redirectURL}`,
-    ],
-    // Location: `${redirectURL}`,
-    location: "/",
-  });
+  ctx.res?.writeHead(301, "", { location: "/" });
 
+  // {
+
+  //   "Set-Cookie": [
+  //     `access_token=${access_token}`,
+  //     `refresh_token=${refresh_token}`,
+  //     `router_pathname=${router.pathname}`,
+  //     `searchParams=${searchParams}`,
+  //     `redirectURL=${redirectURL}`,
+  //   ],
+  //   // Location: `${redirectURL}`,
+
+  // }
   // router.push("/");
 
   ctx.res?.end();
