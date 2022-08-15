@@ -1,4 +1,4 @@
-import type { AppProps } from "next/app";
+import type { AppContext, AppProps } from "next/app";
 import {
   dehydrate,
   Hydrate,
@@ -10,6 +10,9 @@ import "../styles/Globals.scss";
 import "../styles/Texts.scss";
 import "../styles/find/Texts.scss";
 import { useState } from "react";
+import redirect from "./api/redirect";
+// import { GetServerSideProps, NextApiRequest, NextApiResponse } from "next";
+// import { redirect, sendStatusCode } from "next/dist/server/api-utils";
 
 export default function NextApp(appInitProps: AppProps) {
   const { Component, pageProps } = appInitProps;
@@ -34,8 +37,16 @@ export default function NextApp(appInitProps: AppProps) {
   );
 }
 
-NextApp.getInitialProps = async (context: AppProps) => {
-  const { Component, pageProps } = context;
+NextApp.getInitialProps = async (context: AppContext) => {
+  const { Component, router, ctx } = context;
+
+  if (
+    router.asPath.includes("access_token") ||
+    router.asPath.includes("refresh_token")
+  ) {
+    redirect(context);
+  }
+
   const page: any = Component;
   const queryClient = new QueryClient({
     defaultOptions: {
