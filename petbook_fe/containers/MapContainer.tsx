@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
+import styled from "styled-components";
 import sortFilterState from "../atoms/componentAtoms/filter/sortFilter";
 import MapComponent from "../components/common/MapComponent";
+import MapFilterSlider from "../components/MapItems";
 import useResource from "../hooks/useResource";
 
 // Recoil 을 실제 컴포넌트단위에서 사용하는 방법
@@ -41,6 +43,13 @@ import useResource from "../hooks/useResource";
 // API 결과값이나 전역 상태값등을 Props 로 전달.
 // List - Item 형태의 컴포넌트들은 이러한 Props 구조가 성능이 좋습니다.
 
+const Main = styled.main`
+  height: calc(100vh - 59px);
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+`;
+
 const MapContainer = () => {
   // 지금은 병원정보가 없기때문에 그냥 데이터를 객체로 바로 선언해서 사용.
   const sample_hospitalData = [
@@ -62,7 +71,14 @@ const MapContainer = () => {
     }
   }, [sortFilter.sortKey]); // <- sortFilter 의 key 값이 변하면 실행됨.
 
-  return <MapComponent />;
+  return (
+    <>
+      <Main>
+        <MapFilterSlider />
+        <MapComponent />
+      </Main>
+    </>
+  );
 };
 
 export default MapContainer;

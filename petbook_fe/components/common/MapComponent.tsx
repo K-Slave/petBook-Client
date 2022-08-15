@@ -2,10 +2,8 @@ import { useEffect } from "react";
 import styled from "styled-components";
 
 const MapBox = styled.div`
-  width: 25rem;
-  height: 25rem;
-
-  margin-top: 10rem;
+  width: 100vw;
+  height: 100vh;
 `;
 
 const MapComponent = () => {
@@ -37,7 +35,7 @@ const MapComponent = () => {
       map.panTo(moveLatLon);
     }
   }, []);
-  return <MapBox id='map'></MapBox>;
+  return <MapBox id="map"></MapBox>;
 };
 
 export default MapComponent;
