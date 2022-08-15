@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import HtmlHeader from "../components/common/HtmlHeader";
-import Keyvisual from "../components/Keyvisual";
+// import Keyvisual from "../components/Keyvisual";
 import TopNav from "../components/TopNav";
 import { createResource } from "../hooks/useResource";
 import MapContainer from "../containers/MapContainer";
@@ -34,7 +34,7 @@ const FindHospital: NextPage = (initProps: any) => {
       <HtmlHeader />
       {/* 상단영역 */}
       <TopNav />
-      <Keyvisual />
+      {/* <Keyvisual /> */}
       {/* 본문영역 */}
       <MapContainer />
     </>
