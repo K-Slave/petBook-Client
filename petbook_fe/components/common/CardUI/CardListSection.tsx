@@ -1,6 +1,8 @@
 import { PropsWithChildren } from "react";
 import styled, { css } from "styled-components";
+import useResource from "../../../hooks/useResource";
 import localConsole from "../../../lib/localConsole";
+import { data2Resource } from "../../../pages/findfriend";
 import CardListSlide from "./CardListSlide";
 
 export const CardListSectionStyle = css`
@@ -56,16 +58,17 @@ export default function CardListSection(
   const { cardname, username, image, placeNameList, sectionTitle, children } =
     props;
 
+  const { data } = useResource(data2Resource);
+
+  localConsole.log(data, "data");
+
   return (
     <CardListSectionBox className={cardname + "List__Section__Box"} {...props}>
-      {children ? (
-        children
-      ) : (
-        <>
-          <h1 className={cardname + "Section__Title"}>{sectionTitle}</h1>
-          <CardListSlide {...props} />
-        </>
-      )}
+      <>
+        <h1 className={cardname + "Section__Title"}>{sectionTitle}</h1>
+        <span> useResource test : </span>
+        <CardListSlide {...props} />
+      </>
     </CardListSectionBox>
   );
 }
