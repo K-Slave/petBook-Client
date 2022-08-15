@@ -48,7 +48,8 @@ export default function redirect({ ctx, router }: AppContext) {
       `searchParams=${searchParams}`,
       `redirectURL=${redirectURL}`,
     ],
-    Location: `${redirectURL}`,
+    // Location: `${redirectURL}`,
+    Location: `/`,
   });
   ctx.res?.end();
 
