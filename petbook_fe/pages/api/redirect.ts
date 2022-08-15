@@ -38,16 +38,17 @@ export default function redirect({ ctx, router }: AppContext) {
     (searchParams.toString() ? `?${searchParams.toString()}` : "");
 
   console.log(redirectURL);
+  // Redirect: `${redirectURL}`
 
   ctx.res?.writeHead(301, {
     "Set-Cookie": [
       `access_token=${access_token}`,
       `refresh_token=${refresh_token}`,
-      `router=${router}`,
+      `router_pathname=${router.pathname}`,
       `searchParams=${searchParams}`,
       `redirectURL=${redirectURL}`,
     ],
-    // Location: `${redirectURL}`,
+    Location: `${redirectURL}`,
   });
   ctx.res?.end();
 
