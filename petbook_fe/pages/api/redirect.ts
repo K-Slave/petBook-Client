@@ -49,10 +49,10 @@ export default function redirect({ ctx, router }: AppContext) {
       `redirectURL=${redirectURL}`,
     ],
     // Location: `${redirectURL}`,
-    location: `/`,
+    location: "/",
   });
 
-  router.push("/");
+  // router.push("/");
 
   ctx.res?.end();
 
