@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 import styled, { css } from "styled-components";
 
-const QALinkedArticleWrapBox = styled.a`
+const KnowhowPaperWrapBox = styled.a`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,28 +23,28 @@ const QALinkedArticleWrapBox = styled.a`
   }
 `;
 
-export const QALinkedArticleWrap = (props: PropsWithChildren<{}>) => {
+export const KnowhowPaperWrap = (props: PropsWithChildren<{}>) => {
   return (
-    <QALinkedArticleWrapBox className="QALinked__Article__Wrap" {...props}>
+    <KnowhowPaperWrapBox className="QALinked__Article__Wrap" {...props}>
       {props.children}
-    </QALinkedArticleWrapBox>
+    </KnowhowPaperWrapBox>
   );
 };
 
-const QALinkedAricleTopBox = styled.h2`
+const KnowhowPaperTopBox = styled.h2`
   font-size: 22px;
   font-weight: 700;
 `;
 
-export const QALinkedAricleTop = ({ children }: PropsWithChildren<{}>) => {
+export const KnowhowPaperTop = ({ children }: PropsWithChildren<{}>) => {
   return (
-    <QALinkedAricleTopBox className="QALinked__Article__Top">
+    <KnowhowPaperTopBox className="QALinked__Article__Top">
       {children}
-    </QALinkedAricleTopBox>
+    </KnowhowPaperTopBox>
   );
 };
 
-const QALinkedAricleTopMainBox = styled.p`
+const KnowhowPaperMainBox = styled.p`
   height: 100%;
 
   margin-top: 24px;
@@ -53,8 +53,8 @@ const QALinkedAricleTopMainBox = styled.p`
   font-weight: 500;
 `;
 
-export const QALinkedAricleTopMain = ({ children }: PropsWithChildren<{}>) => {
-  return <QALinkedAricleTopMainBox>{children}</QALinkedAricleTopMainBox>;
+export const KnowhowPaperMain = ({ children }: PropsWithChildren<{}>) => {
+  return <KnowhowPaperMainBox>{children}</KnowhowPaperMainBox>;
 };
 
 const UserProfileTagBox = styled.div`
