@@ -118,7 +118,7 @@ export default ToastMessage;
 > - 정적인 스타일드 컴포넌트 전용 props 를 전달받고, 복잡한 스타일링이 아니라면 괜찮습니다.
 > - 비슷한 컴포넌트 끼리 스타일을 공유하고 간단한 스타일을 변경할 것이라면 style overriding 을 추천드립니다.
 
-7. 부분적으로 재사용 가능해 보이는 컴포넌트들은 Custom Hook 과 Compound Component ( Headless Pattern ) 으로 작성하겠습니다.
+7. 부분적으로 재사용 가능해 보이는 컴포넌트들은 제가 Custom Hook 과 Compound Component ( Headless Pattern ) 으로 작성하겠습니다.
 
 > - 디자인이 거의 같은데 기능만 변하게 될경우는 Custom Hook 만 교체하거나 수정하면 되도록,
 > - 사용하는 기능이 거의 같은데 디자인이 변하게 될경우는 Compound Component 로 디자인이나 인터렉션, 데이터를
