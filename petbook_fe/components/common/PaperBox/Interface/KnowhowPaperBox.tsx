@@ -1,12 +1,12 @@
 import LinkedArticle from "../DOMStructure/PaperBox";
 import {
-  QALinkedArticleWrap,
-  QALinkedAricleTop,
-  QALinkedAricleTopMain,
+  KnowhowPaperWrap,
+  KnowhowPaperTop,
+  KnowhowPaperMain,
   UserProfileTag,
 } from "../Design/Desktop/KnowhowPaperBoxStyle";
 
-const QALinkedArticle = () => {
+const KnowhowPaperBox = () => {
   const sample_timeline = "1일전";
   const sample_contents =
     "질문이 들어갑니다 질문이 들어갑니다 질문이 들어갑니다";
@@ -16,9 +16,9 @@ const QALinkedArticle = () => {
 
   return (
     <LinkedArticle
-      InputWrap={<QALinkedArticleWrap />}
-      InputTop={<QALinkedAricleTop />}
-      InputMain={<QALinkedAricleTopMain />}
+      InputWrap={<KnowhowPaperWrap />}
+      InputTop={<KnowhowPaperTop />}
+      InputMain={<KnowhowPaperMain />}
       InputBottom={<UserProfileTag />}
       to={sample_pages}
       topValue={sample_timeline}
@@ -28,4 +28,4 @@ const QALinkedArticle = () => {
   );
 };
 
-export default QALinkedArticle;
+export default KnowhowPaperBox;

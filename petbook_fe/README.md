@@ -4,7 +4,7 @@
 
 1. Data Fetching State 라이브러리는 React-Query 를 이용합니다.
 
-> - 쿼리 Key 값은 자유롭게 설정하되, 캐싱된 데이터를 재사용할 경우 고정, 그렇지 않아야 할 경우 백틱으로 감싸고 ( ${} )
+> - 쿼리 Key 값은 자유롭게 설정하되, 캐싱된 데이터를 재사용할 경우 고정, 그렇지 않아야 할 경우 백틱으로 감싸고 ` `${}` `
 > - 동적인 Key 를 사용하면 됩니다.
 
 2. Client Global State 라이브러리는 Recoil 을 이용합니다.
@@ -13,7 +13,7 @@
 > - Component Atoms, System Atoms 로 폴더를 나누어 둘것 이며, System Atom 은 어디서든지 공유될 상태를 의미 합니다.
 > - Context API 를 도입할것인지도 검토 해보았으나, 보일러 플레이트 코드가 너무 많이 늘어나며 성능 이슈가 심각합니다.
 > - Compoent Atoms 는 Data State 와 Interaction State 로 나누어 한파일에서 내보냅니다.
-> - ++++ 상태를 공유하는 Component 끼리는 모두 상태변화가 일어나므로 여러개가 중복되는 List-Item 컴포넌트등에서 따로 상태를 사용해야 한다면 useState 와 props 로 구현할수 밖에없습니다.
+> - ++++ 08.22 추가수정 상태를 공유하는 Component 끼리는 모두 상태변화가 일어나므로 여러개가 중복되는 List-Item 컴포넌트등에서 따로 상태를 사용해야 한다면 useState 와 props 로 구현할수 밖에없습니다. 조금 공을 들인다면 Context API 를 사용해서 어떻게든 리렌더링을 줄여 쓰는 방법이 있긴한데,,,, 추천하고싶지 않습니다.
 
 3. Container - Component 구조는 꼭 필요하다고 생각되어지는 경우에만 사용합니다.
 
@@ -100,7 +100,9 @@ export default ToastMessage;
 6. CSS Convetion
 
 > - 클래스 명은 BEM 네이밍을 사용합니다. ( 스타일드 컴포넌트는 브라우저에서 스타일 시트 매핑이 되지 않기 때문에 서로 작업하려면 BEM 네이밍이 필요할것 같습니다. )
+> - ++++++ 08.22 추가수정 Next 에서 컴포넌트 명으로 클래스명을 자동부여 하므로, 하지 않겠습니다. 스타일 수정을 해야할 경우 컴포넌트 명을 검색하겠습니다.
 > - ex : `Toast__Message__Box`
+
 > - 시맨틱 마크업을 준수합니다.
 > - 참고 레퍼런스
 > - https://developers.google.com/search/docs/advanced/guidelines/links-crawlable?hl=ko
