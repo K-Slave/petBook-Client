@@ -4,20 +4,20 @@
 
 1. Data Fetching State 라이브러리는 React-Query 를 이용합니다.
 
-   > - 쿼리 Key 값은 자유롭게 설정하되, 캐싱된 데이터를 재사용할 경우 고정, 그렇지 않아야 할 경우 백틱으로 감싸고 ( ${} )
-   > - 동적인 Key 를 사용하면 됩니다.
+> - 쿼리 Key 값은 자유롭게 설정하되, 캐싱된 데이터를 재사용할 경우 고정, 그렇지 않아야 할 경우 백틱으로 감싸고 ( ${} )
+> - 동적인 Key 를 사용하면 됩니다.
 
 2. Client Global State 라이브러리는 Recoil 을 이용합니다.
 
-   > - 전역 상태 관리및 소규모 컴포넌트간 상태 공유에 쪼개어 사용하여도 좋습니다.
-   > - Component Atoms, System Atoms 로 폴더를 나누어 둘것 이며, System Atom 은 어디서든지 공유될 상태를 의미 합니다.
-   > - Context API 를 도입할것인지도 검토 해보았으나, 보일러 플레이트 코드가 너무 많이 늘어나며 성능 이슈가 심각합니다.
-   > - Compoent Atoms 는 Data State 와 Interaction State 로 나누어 한파일에서 내보냅니다.
+> - 전역 상태 관리및 소규모 컴포넌트간 상태 공유에 쪼개어 사용하여도 좋습니다.
+> - Component Atoms, System Atoms 로 폴더를 나누어 둘것 이며, System Atom 은 어디서든지 공유될 상태를 의미 합니다.
+> - Context API 를 도입할것인지도 검토 해보았으나, 보일러 플레이트 코드가 너무 많이 늘어나며 성능 이슈가 심각합니다.
+> - Compoent Atoms 는 Data State 와 Interaction State 로 나누어 한파일에서 내보냅니다.
 
 3. Container - Component 구조는 꼭 필요하다고 생각되어지는 경우에만 사용합니다.
 
-   > - 저도 회사 프로덕트에 컨테이너 구조를 이용하고 있지만, 현재는 그다지 권장되지 않는 Design Pattern 이라고 합니다.
-   > - 이에 대해서는 저도 좀더 조사를 해보도록 하겠습니다. 다른분들도 다른 디자인 패턴에 대해 조사해보시면 좋을것 같습니다.
+> - 저도 회사 프로덕트에 컨테이너 구조를 이용하고 있지만, 현재는 그다지 권장되지 않는 Design Pattern 이라고 합니다.
+> - 이에 대해서는 저도 좀더 조사를 해보도록 하겠습니다. 다른분들도 다른 디자인 패턴에 대해 조사해보시면 좋을것 같습니다.
 
 4. Component 단위는 다루는 데이터를 기준으로 가급적 한가지 일을 하도록 작성합니다.
 
@@ -97,18 +97,19 @@ export default ToastMessage;
 ```
 
 6. CSS Convetion
-   > - 클래스 명은 BEM 네이밍을 사용합니다. ( 스타일드 컴포넌트는 브라우저에서 스타일 시트 매핑이 되지 않기 때문에 서로 작업하려면 BEM 네이밍이 필요할것 같습니다. )
-   > - ex : `Toast__Message__Box`
-   > - 시맨틱 마크업을 준수합니다.
-   > - 참고 레퍼런스
-   > - https://developers.google.com/search/docs/advanced/guidelines/links-crawlable?hl=ko
-   > - https://developers.google.com/search/docs/beginner/seo-starter-guide?hl=ko <- ctrl + f '시맨틱'
-   > - https://ko.wikipedia.org/wiki/%EA%B2%80%EC%83%89_%EC%97%94%EC%A7%84_%EC%B5%9C%EC%A0%81%ED%99%94
-   > - https://developer.mozilla.org/ko/docs/Glossary/Semantics
-   > - https://developer.mozilla.org/ko/docs/Glossary/SEO
-   > - 생각보다 시맨틱 마크업은 SEO 에서 중요한 요소입니다.
-   > - 특히, 잘못된 시맨틱 마크업 사용 ( 문서내에 hn 태그가 없음, ul 자식으로 li 가 나오지 않음,tr 자식으로 td 가 나오지 않음, a 태그 미사용) 이 꽤 감점이 큽니다.
-   > - 코딩 하다보면 이를 놓치기 쉬워지니, 작업해두고 나중에 브라우저 개발자 도구를 보며 디버깅하는것이 좋습니다.
+
+> - 클래스 명은 BEM 네이밍을 사용합니다. ( 스타일드 컴포넌트는 브라우저에서 스타일 시트 매핑이 되지 않기 때문에 서로 작업하려면 BEM 네이밍이 필요할것 같습니다. )
+> - ex : `Toast__Message__Box`
+> - 시맨틱 마크업을 준수합니다.
+> - 참고 레퍼런스
+> - https://developers.google.com/search/docs/advanced/guidelines/links-crawlable?hl=ko
+> - https://developers.google.com/search/docs/beginner/seo-starter-guide?hl=ko <- ctrl + f '시맨틱'
+> - https://ko.wikipedia.org/wiki/%EA%B2%80%EC%83%89_%EC%97%94%EC%A7%84_%EC%B5%9C%EC%A0%81%ED%99%94
+> - https://developer.mozilla.org/ko/docs/Glossary/Semantics
+> - https://developer.mozilla.org/ko/docs/Glossary/SEO
+> - 생각보다 시맨틱 마크업은 SEO 에서 중요한 요소입니다.
+> - 특히, 잘못된 시맨틱 마크업 사용 ( 문서내에 hn 태그가 없음, ul 자식으로 li 가 나오지 않음,tr 자식으로 td 가 나오지 않음, a 태그 미사용) 이 꽤 감점이 큽니다.
+> - 코딩 하다보면 이를 놓치기 쉬워지니, 작업해두고 나중에 브라우저 개발자 도구를 보며 디버깅하는것이 좋습니다.
 
 > - 스타일드 컴포넌트의 props 이용은 필요하면 사용하되, 복잡한 조건부 스타일링은 하지 않습니다.
 > - ( 비슷한 컴포넌트여서 props 를 통해 간략화 한다던지,,,)
@@ -118,11 +119,12 @@ export default ToastMessage;
 > - 비슷한 컴포넌트 끼리 스타일을 공유하고 간단한 스타일을 변경할 것이라면 style overriding 을 추천드립니다.
 
 7. 부분적으로 재사용 가능해 보이는 컴포넌트들은 Custom Hook 과 Compound Component ( Headless Pattern ) 으로 작성하겠습니다.
-   > - 디자인이 거의 같은데 기능만 변하게 될경우는 Custom Hook 만 교체하거나 수정하면 되도록,
-   > - 사용하는 기능이 거의 같은데 디자인이 변하게 될경우는 Compound Component 로 디자인이나 인터렉션, 데이터를
-   > - 수정하여 외부에서 주입가능한 구조로 작업하도록 하겠습니다.
-   > - 이 Compound Component 는 제가 피그마 보고 꾸준히 작업하여 올리도록 하겠습니다.
-   > - 저희 나름의 재사용 컴포넌트 Design System 을 구축해보고 싶어 시작하게 되었고,
-   > - 같이 작업하는 분들이 쉽게 라이브러리처럼 가져다가 쓸수 있도록 작업하도록 하겠습니다.
-   > - 제가 작업 될때마다 사용법과 함께 어떤 컴포넌트에 대해 작업된 코드인지 공지 해드리면
-   > - 그 부분은 일단 제외하고 작업해두시면 될것 같습니다.
+
+> - 디자인이 거의 같은데 기능만 변하게 될경우는 Custom Hook 만 교체하거나 수정하면 되도록,
+> - 사용하는 기능이 거의 같은데 디자인이 변하게 될경우는 Compound Component 로 디자인이나 인터렉션, 데이터를
+> - 수정하여 외부에서 주입가능한 구조로 작업하도록 하겠습니다.
+> - 이 Compound Component 는 제가 피그마 보고 꾸준히 작업하여 올리도록 하겠습니다.
+> - 저희 나름의 재사용 컴포넌트 Design System 을 구축해보고 싶어 시작하게 되었고,
+> - 같이 작업하는 분들이 쉽게 라이브러리처럼 가져다가 쓸수 있도록 작업하도록 하겠습니다.
+> - 제가 작업 될때마다 사용법과 함께 어떤 컴포넌트에 대해 작업된 코드인지 공지 해드리면
+> - 그 부분은 일단 제외하고 작업해두시면 될것 같습니다.
