@@ -13,7 +13,7 @@
 > - Component Atoms, System Atoms 로 폴더를 나누어 둘것 이며, System Atom 은 어디서든지 공유될 상태를 의미 합니다.
 > - Context API 를 도입할것인지도 검토 해보았으나, 보일러 플레이트 코드가 너무 많이 늘어나며 성능 이슈가 심각합니다.
 > - Compoent Atoms 는 Data State 와 Interaction State 로 나누어 한파일에서 내보냅니다.
-> - ++++ 상태를 공유하는 Component 끼리는 모두 상태변화가 일어나므로 여러 컴포넌트에서 따로 상태를 사용해야 한다면 useState 와 props 로 구현할수 밖에없습니다.
+> - ++++ 상태를 공유하는 Component 끼리는 모두 상태변화가 일어나므로 여러개가 중복되는 List-Item 컴포넌트등에서 따로 상태를 사용해야 한다면 useState 와 props 로 구현할수 밖에없습니다.
 
 3. Container - Component 구조는 꼭 필요하다고 생각되어지는 경우에만 사용합니다.
 
