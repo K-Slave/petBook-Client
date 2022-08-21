@@ -98,7 +98,7 @@ export default ToastMessage;
 
 6. CSS Convetion
    > - 클래스 명은 BEM 네이밍을 사용합니다. ( 스타일드 컴포넌트는 브라우저에서 스타일 시트 매핑이 되지 않기 때문에 서로 작업하려면 BEM 네이밍이 필요할것 같습니다. )
-   > - ex : Toast**Message**Box
+   > - ex : `Toast__Message__Box`
    > - 시맨틱 마크업을 준수합니다.
    > - 참고 레퍼런스
    > - https://developers.google.com/search/docs/advanced/guidelines/links-crawlable?hl=ko
