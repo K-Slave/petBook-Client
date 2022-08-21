@@ -3,17 +3,6 @@ import styled, { css } from "styled-components";
 import Link from "next/link";
 import Palette from "../../../lib/palette";
 
-type ButtonProps = {
-  className?: string;
-  children?: any;
-  to?: string;
-  fullWidth?: boolean;
-  fontColor?: string;
-  bgColor?: string;
-  onClick?: MouseEventHandler;
-  style?: React.CSSProperties;
-};
-
 const buttonStyle = css`
   border: none;
   border-radius: 4px;
@@ -69,9 +58,20 @@ const BorderStyledLink = styled.a`
   border-color: ${(props) => props.fontColor};
 `;
 
+type ButtonProps = {
+  className?: string;
+  children?: any;
+  to?: string;
+  fullWidth?: boolean;
+  fontColor?: string;
+  bgColor?: string;
+  onClick?: MouseEventHandler;
+  style?: React.CSSProperties;
+};
+
 export const Button = (props: PropsWithChildren<ButtonProps>) => {
   return props.to ? (
-    <Link prefetch href={props.to} passHref>
+    <Link href={props.to} prefetch passHref>
       <StyledLink {...props}>{props.children}</StyledLink>
     </Link>
   ) : (
