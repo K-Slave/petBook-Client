@@ -4,6 +4,10 @@ import styled, { css } from "styled-components";
 const QALinkedArticleWrapBox = styled.a`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+
+  transition: all 0.4s ease-in-out;
 
   width: 336px;
   height: 336px;
@@ -11,6 +15,12 @@ const QALinkedArticleWrapBox = styled.a`
   padding: 64px 36px 34px 30px;
 
   background-color: #fffbe3;
+  border-radius: 10px;
+
+  &:hover {
+    width: 375px;
+    height: 375px;
+  }
 `;
 
 export const QALinkedArticleWrap = (props: PropsWithChildren<{}>) => {
