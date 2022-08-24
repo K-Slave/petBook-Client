@@ -8,8 +8,8 @@ export default WriteButton;
 
 const Button = styled.button`
   position: fixed;
-  bottom: 20px;
-  right: 40px;
+  bottom: 30px;
+  right: 30px;
   width: 54px;
   height: 54px;
   border-radius: 50%;
