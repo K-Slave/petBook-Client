@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useSelect } from "../useSelect";
 
-export const useCurrentPage = (): [number, (page: number) => void] => {
+export const useCurrentPage = (numPages: number) => {
   const router = useRouter();
-  const [page, selectPage] = useSelect(1);
-  const changePage = (page: number) => {
+  const [currentPage, selectPage] = useSelect(1);
+  const changeCurrentPage = (page: number) => {
     const url = `/community?page=${page}`;
     router
       .push(url, url, {
@@ -17,13 +17,20 @@ export const useCurrentPage = (): [number, (page: number) => void] => {
         }
       });
   };
+
   useEffect(() => {
     const page = Number(router.query?.page);
     if (isNaN(page) || page < 1) {
-      changePage(1);
+      changeCurrentPage(1);
+    } else if (page > numPages) {
+      changeCurrentPage(numPages);
     } else {
-      selectPage(page);
+      changeCurrentPage(page);
     }
   }, [router.query?.page]);
-  return [page, changePage];
+
+  return {
+    currentPage,
+    changeCurrentPage,
+  };
 };
