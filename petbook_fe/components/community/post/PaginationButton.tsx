@@ -31,7 +31,7 @@ const PaginationButton = ({
       )}
       {Array(numPages + 1)
         .fill(1)
-        .slice(offset, btnNum.current + offset + 1)
+        .slice(offset, btnNum.current + offset)
         .map((_, i) => (
           <Button
             key={i + offset}
