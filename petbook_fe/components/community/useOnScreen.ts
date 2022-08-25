@@ -15,7 +15,7 @@ export const useOnScreen = (
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.intersectionRatio == 1) {
+          if (entry.intersectionRatio >= 0.9) {
             setIsInterseting(true);
           } else {
             setIsInterseting(false);
@@ -24,7 +24,7 @@ export const useOnScreen = (
       },
       {
         root: root.current,
-        threshold: [0, 0.5, 1],
+        threshold: [0, 0.2, 0.4, 0.6, 0.8, 1],
       }
     );
     const el = target && target.current;
