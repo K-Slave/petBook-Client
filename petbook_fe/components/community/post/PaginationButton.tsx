@@ -15,7 +15,7 @@ const PaginationButton = ({
   numPages,
 }: PaginationProps) => {
   const btnNum = useRef(10);
-  const offset = useButtonOffset(btnNum.current, currentPage);
+  const offset = useButtonOffset({ btnNum: btnNum.current, currentPage });
   const onClickPrev = () => {
     changeCurrentPage(offset - btnNum.current);
   };
