@@ -2,12 +2,9 @@ import { NextPage } from "next";
 import styled from "styled-components";
 import HtmlHeader from "../components/common/HtmlHeader";
 import About from "../components/community/about/About";
-import MainSection from "../components/community/MainSection";
-import PopularPostList from "../components/community/popular/PopularPostList";
-import WeekFilter from "../components/community/popular/WeekFilter";
-import PostFilter from "../components/community/post/PostFilter";
-import PostList from "../components/community/post/PostList";
-import VoteList from "../components/community/vote/VoteList";
+import PopularPostSection from "../components/community/popular/PopularPostSection";
+import PostSection from "../components/community/post/PostSection";
+import VoteSection from "../components/community/vote/VoteSection";
 import WriteButton from "../components/community/WriteButton";
 
 const Community: NextPage = () => {
@@ -17,26 +14,9 @@ const Community: NextPage = () => {
       <Container>
         <About />
         <Sections>
-          <MainSection
-            title="Talk"
-            description="지금 HOT한 투표! 당신의 선택은?"
-          >
-            <VoteList />
-          </MainSection>
-          <MainSection
-            title="Community"
-            description="매주 인기 게시물을 확인하세요"
-          >
-            <WeekFilter />
-            <PopularPostList />
-          </MainSection>
-          <MainSection
-            title="Live talk"
-            description="실시간 업로드되는 유저들의 이야기"
-          >
-            <PostFilter />
-            <PostList />
-          </MainSection>
+          <VoteSection />
+          <PopularPostSection />
+          <PostSection />
         </Sections>
         <WriteButton />
       </Container>
