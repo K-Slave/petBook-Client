@@ -8,8 +8,9 @@ import { useScroll } from "./useScroll";
 
 const PostSection = () => {
   const ref = useRef<HTMLElement | null>(null);
-  const [currentPage, changeCurrentPage] = useCurrentPage();
   const limit = useRef(10);
+  const numPages = Math.ceil(dummy.length / limit.current);
+  const { currentPage, changeCurrentPage } = useCurrentPage(numPages);
   const offset = (currentPage - 1) * limit.current;
   useScroll({ top: ref.current?.offsetTop }, [currentPage]);
   return (
