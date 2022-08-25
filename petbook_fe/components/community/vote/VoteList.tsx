@@ -62,13 +62,15 @@ const VoteList = () => {
   return (
     <Wrapper>
       <LeftBox isLeftMost={isLeftMost} />
-      <List>
+      <ListWrapper>
         <div ref={leftSide} />
-        {dummy.map((item, index) => (
-          <VoteItem {...item} key={index} />
-        ))}
+        <List>
+          {dummy.map((item, index) => (
+            <VoteItem {...item} key={index} />
+          ))}
+        </List>
         <div ref={rightSide} />
-      </List>
+      </ListWrapper>
       <RightBox isRightMost={isRightMost} />
     </Wrapper>
   );
@@ -80,14 +82,17 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const List = styled.ul`
+const ListWrapper = styled.div`
   display: flex;
-  gap: 20px;
   overflow-x: scroll;
   overflow-y: hidden;
   ::-webkit-scrollbar {
     display: none;
   }
+`;
+const List = styled.ul`
+  display: flex;
+  gap: 20px;
 `;
 
 const LeftBox = styled.div<{ isLeftMost: boolean }>`
