@@ -1,15 +1,21 @@
-import React from "react";
+import React, { MutableRefObject } from "react";
 import styled from "styled-components";
 
 interface MainSectionProps {
   title: string;
   description: string;
   children: React.ReactNode;
+  sectionRef?: MutableRefObject<HTMLElement | null>;
 }
 
-const MainSection = ({ title, description, children }: MainSectionProps) => {
+const MainSection = ({
+  sectionRef,
+  title,
+  description,
+  children,
+}: MainSectionProps) => {
   return (
-    <Section>
+    <Section ref={sectionRef}>
       <Heading>{title}</Heading>
       <Text>{description}</Text>
       {children}
