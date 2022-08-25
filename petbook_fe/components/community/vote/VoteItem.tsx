@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { MdPersonOutline } from "react-icons/md";
+import { MutableRefObject } from "react";
 
 interface VoteItemProps {
   image: string;
@@ -7,6 +8,7 @@ interface VoteItemProps {
   description: string;
   participant: number;
   tagList: string[];
+  itemRef: MutableRefObject<HTMLLIElement | null> | null;
 }
 
 const VoteItem = ({
@@ -15,9 +17,10 @@ const VoteItem = ({
   description,
   participant,
   tagList,
+  itemRef,
 }: VoteItemProps) => {
   return (
-    <Item>
+    <Item ref={itemRef}>
       {image === "" ? null : <Image></Image>}
       <Column image={image}>
         <TagList>
