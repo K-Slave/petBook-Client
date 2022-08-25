@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import styled, { css } from "styled-components";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import { useButtonOffset } from "./useButtonOffset";
 
 interface PaginationProps {
   currentPage: number;
-  changeCurrentPage: (pageNum: number) => void;
+  changeCurrentPage: (page: number) => void;
   numPages: number;
 }
 
@@ -22,7 +22,6 @@ const PaginationButton = ({
   const onClickNext = () => {
     changeCurrentPage(offset + btnNum.current);
   };
-
   return (
     <Wrapper>
       {offset !== 1 && (
@@ -30,9 +29,9 @@ const PaginationButton = ({
           <FiChevronLeft />
         </button>
       )}
-      {Array(numPages)
+      {Array(numPages + 1)
         .fill(1)
-        .slice(offset, btnNum.current + offset)
+        .slice(offset, btnNum.current + offset + 1)
         .map((_, i) => (
           <Button
             key={i + offset}
