@@ -25,7 +25,7 @@ export const useCurrentPage = (numPages: number) => {
     } else if (page > numPages) {
       changeCurrentPage(numPages);
     } else {
-      changeCurrentPage(page);
+      selectPage(page);
     }
   }, [router.query?.page]);
 
