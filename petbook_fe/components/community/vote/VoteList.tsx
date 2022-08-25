@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import styled from "styled-components";
-import { useOnScreen } from "./useOnScreen";
+import { useOnScreen } from "../useOnScreen";
 import VoteItem from "./VoteItem";
 
 const tagList = ["태그", "태그"];
@@ -11,10 +11,11 @@ const description =
 const participant = 124;
 
 const VoteList = () => {
-  const leftSide = useRef<HTMLDivElement | null>(null);
-  const rightSide = useRef<HTMLDivElement | null>(null);
-  const [isLeftMost] = useOnScreen(leftSide);
-  const [isRightMost] = useOnScreen(rightSide);
+  const root = useRef<HTMLUListElement | null>(null);
+  const leftSide = useRef<HTMLLIElement | null>(null);
+  const rightSide = useRef<HTMLLIElement | null>(null);
+  const [isLeftMost] = useOnScreen(root, leftSide);
+  const [isRightMost] = useOnScreen(root, rightSide);
   const dummy = [
     {
       image: "image",
@@ -62,15 +63,21 @@ const VoteList = () => {
   return (
     <Wrapper>
       <LeftBox isLeftMost={isLeftMost} />
-      <ListWrapper>
-        <div ref={leftSide} />
-        <List>
-          {dummy.map((item, index) => (
-            <VoteItem {...item} key={index} />
-          ))}
-        </List>
-        <div ref={rightSide} />
-      </ListWrapper>
+      <List ref={root}>
+        {dummy.map((item, index) => (
+          <VoteItem
+            {...item}
+            key={index}
+            itemRef={
+              index === 0
+                ? leftSide
+                : index === dummy.length - 1
+                ? rightSide
+                : null
+            }
+          />
+        ))}
+      </List>
       <RightBox isRightMost={isRightMost} />
     </Wrapper>
   );
@@ -82,17 +89,14 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const ListWrapper = styled.div`
+const List = styled.ul`
   display: flex;
+  gap: 20px;
   overflow-x: scroll;
   overflow-y: hidden;
   ::-webkit-scrollbar {
     display: none;
   }
-`;
-const List = styled.ul`
-  display: flex;
-  gap: 20px;
 `;
 
 const LeftBox = styled.div<{ isLeftMost: boolean }>`
