@@ -64,8 +64,8 @@ const VoteList = () => {
       <LeftBox isLeftMost={isLeftMost} />
       <List>
         <div ref={leftSide} />
-        {dummy.map((item) => (
-          <VoteItem {...item} />
+        {dummy.map((item, index) => (
+          <VoteItem {...item} key={index} />
         ))}
         <div ref={rightSide} />
       </List>
