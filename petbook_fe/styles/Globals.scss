@@ -120,6 +120,10 @@ input::placeholder {
   margin: 30px 0 102px 0;
   li {
     cursor: pointer;
+    a {
+      color: #444;
+      font-size: inherit;
+    }
     &:first-child {
       margin-right: 70px;
     }
