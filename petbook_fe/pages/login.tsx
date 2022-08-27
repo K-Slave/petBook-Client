@@ -11,11 +11,12 @@ import styled from "styled-components";
 import { BsCheckCircleFill } from "react-icons/bs";
 
 const Main = styled.main`
+  height: calc(100vh - 61px);
+  overflow: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #fffbf4;
-  padding-bottom: 102px;
   h1 {
     font-size: 25px;
     font-weight: normal;
@@ -50,9 +51,23 @@ const LoginWrap = styled.div`
     }
   }
   .login_form {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     input {
       margin-bottom: 10px;
+    }
+  }
+  .automatic_login {
+    margin-bottom: 40px;
+  }
+  .action {
+    font-size: 14px;
+    color: #444;
+    margin: 30px 0 102px 0;
+    li {
+      cursor: pointer;
+      &:first-child {
+        margin-right: 70px;
+      }
     }
   }
   a {
@@ -65,7 +80,7 @@ const LoginWrap = styled.div`
     font-size: 20px;
     border-radius: 12px;
     margin-bottom: 12px;
-
+    box-sizing: border-box;
     &:last-child {
       margin-bottom: 0;
     }
@@ -95,7 +110,6 @@ const Login = () => {
       <TopNav />
       <Main>
         <LoginWrap>
-          {/* 소셜 로그인 영역*/}
           {isRedirect ? (
             <NotLogin>
               <BsCheckCircleFill />
@@ -110,11 +124,20 @@ const Login = () => {
 
               {/* 일반 로그인 영역 */}
               <EmailLogin />
+
+              {/* 소셜 로그인 영역 */}
+              <SocialLogin />
+
+              <ul className="action flex center">
+                <li>회원가입</li>
+                <li>아이디/비밀번호 찾기</li>
+              </ul>
             </>
           ) : (
-            <></>
+            <>
+              <h2>로그인 완료 / 홈으로 이동</h2>
+            </>
           )}
-          <SocialLogin />
         </LoginWrap>
       </Main>
     </>

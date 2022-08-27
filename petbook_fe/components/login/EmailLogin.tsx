@@ -1,3 +1,5 @@
+//이메일 로그인 컴포넌트
+
 const EmailLogin = () => {
   return (
     <>
@@ -9,7 +11,10 @@ const EmailLogin = () => {
           <input type="text" id="password" placeholder="비밀번호" />
         </label>
       </div>
-
+      <div className="automatic_login flex right">
+        <input type="checkbox" id="automatic" />
+        <label htmlFor="automatic">자동로그인</label>
+      </div>
       <a className="email" href="">
         로그인
       </a>

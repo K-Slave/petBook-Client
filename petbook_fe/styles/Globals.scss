@@ -66,8 +66,19 @@ img {
   background-repeat: no-repeat;
 }
 
+.flex {
+  display: flex;
+  align-items: center;
+}
+.flex.right {
+  justify-content: right;
+}
+.flex.center {
+  justify-content: center;
+}
+
 //커스텀 input
-input {
+input[type="text"] {
   width: 100%;
   border-radius: 16px;
   border: none;
