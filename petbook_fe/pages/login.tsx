@@ -39,7 +39,6 @@ const Login = () => {
     <>
       <HtmlHeader />
       <TopNav />
-      <Keyvisual />
       <Main>
         {isRedirect ? (
           <NotLogin>
