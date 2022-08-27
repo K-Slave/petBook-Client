@@ -1,24 +1,24 @@
 import { NextPage } from "next";
 import styled from "styled-components";
 import HtmlHeader from "../../components/common/HtmlHeader";
-// import About from "../components/community/about/About";
-// import PopularPostSection from "../components/community/popular/PopularPostSection";
-// import PostSection from "../components/community/post/PostSection";
-// import VoteSection from "../components/community/vote/VoteSection";
-// import WriteButton from "../components/community/WriteButton";
+import About from "../../components/community/about/About";
+import PopularPostSection from "../../components/community/popular/PopularPostSection";
+import PostSection from "../../components/community/post/PostSection";
+import VoteSection from "../../components/community/vote/VoteSection";
+import WriteButton from "../../components/community/WriteButton";
 
 const Community: NextPage = () => {
   return (
     <>
       <HtmlHeader />
       <Container>
-        {/* <About /> */}
+        <About />
         <Sections>
-          {/* <VoteSection />
+          <VoteSection />
           <PopularPostSection />
-          <PostSection /> */}
+          <PostSection />
         </Sections>
-        {/* <WriteButton /> */}
+        <WriteButton />
       </Container>
     </>
   );
