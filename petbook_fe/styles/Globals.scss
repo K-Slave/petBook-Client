@@ -40,6 +40,25 @@ img {
   width: 100%;
 }
 
+//배경요소 내부 컨테이너 박스 설정
+.inner_container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo_box {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.main_logo {
+  width: 77px;
+  height: 30px;
+  background-image: url("../public/img/common/logo/Petbook_logo.svg");
+  background-repeat: no-repeat;
+}
+
 input {
   border-radius: 8px;
   border: none;

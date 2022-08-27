@@ -9,24 +9,12 @@ const TopNev = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  background: #bcdacc;
+  background: #fff;
   width: 100%;
-  padding: 16px;
-  display: flex;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+  padding: 20px 0 10px;
   justify-content: right;
   color: #3a575c;
-  div.userInfo {
-    display: flex;
-    cursor: pointer;
-    h3 {
-      font-weight: 300;
-    }
-    svg {
-      width: 25px;
-      height: 25px;
-      margin-left: 8px;
-    }
-  }
 `;
 
 const TopNav = () => {
@@ -37,12 +25,12 @@ const TopNav = () => {
   }
 
   return (
-    <div className="container">
+    <div>
       <TopNev>
-        <Box boxType="list" active={isActive} />
-        <div className="userInfo" onClick={activeMenu}>
-          <h3>user님 안녕하세요!</h3>
-          <FaUserCircle />
+        <div className="inner_container">
+          <div className="logo_box">
+            <div className="main_logo"></div>
+          </div>
         </div>
       </TopNev>
     </div>
