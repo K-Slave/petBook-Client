@@ -12,6 +12,7 @@ import "../styles/find/Texts.scss";
 import { useState } from "react";
 import { RecoilRoot } from "recoil";
 import redirect from "./api/redirect";
+
 // import { GetServerSideProps, NextApiRequest, NextApiResponse } from "next";
 // import { redirect, sendStatusCode } from "next/dist/server/api-utils";
 
