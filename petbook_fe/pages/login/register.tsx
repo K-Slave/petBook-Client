@@ -23,7 +23,14 @@ const Register = () => {
       <TopNav />
       <Main>
         <div className="formWrap">
-          <ValidationInput current={"dd"} />
+          <ValidationInput current={"이메일"} />
+          <ValidationInput current={"인증번호"} />
+          <div className="flex">
+            <ValidationInput current={"이름"} />
+            <ValidationInput current={"생년월일"} />
+          </div>
+          <ValidationInput current={"닉네임"} />
+          <ValidationInput current={"동물종류"} />
         </div>
       </Main>
     </>

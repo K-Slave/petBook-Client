@@ -2,6 +2,8 @@ import { useRouter } from "next/router";
 import HtmlHeader from "../../components/common/HtmlHeader";
 import TopNav from "../../components/TopNav";
 
+import Link from "next/link";
+
 //
 import SocialLogin from "../../components/login/SocialLogin";
 import EmailLogin from "../../components/login/EmailLogin";
@@ -75,6 +77,7 @@ const LoginWrap = styled.div`
 
 const Login = () => {
   const router = useRouter();
+  // console.log(location);
   const isRedirect = router.query.redirect;
   return (
     <>
@@ -101,8 +104,12 @@ const Login = () => {
               <SocialLogin />
 
               <ul className="action flex center">
-                <li>회원가입</li>
-                <li>아이디/비밀번호 찾기</li>
+                <li>
+                  <a href=""> 회원가입</a>
+                </li>
+                <li>
+                  <a href="">아이디/비밀번호 찾기</a>
+                </li>
               </ul>
             </>
           ) : (
