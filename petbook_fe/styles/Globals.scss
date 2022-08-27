@@ -1,6 +1,12 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
 
+//컬러설정
+
+:root {
+  --main: #ff6e4e;
+}
+
 * {
   box-sizing: border-box; /* 엘리먼트의 box-sizing 값을 border-box 로 설정 */
   padding: 0;
@@ -60,17 +66,24 @@ img {
   background-repeat: no-repeat;
 }
 
+//커스텀 input
 input {
-  border-radius: 8px;
+  width: 100%;
+  border-radius: 16px;
   border: none;
-  padding: 8px 16px;
+  padding: 20px 22px;
+  outline: solid 1px #f5edde;
 }
+
 input:focus {
-  outline: solid 2px #b0d2d2;
+  outline: solid 1px var(--main);
 }
 input::placeholder {
-  color: #94c0c0;
+  color: #797979;
+  font-size: 16px;
+  line-height: 19.2px;
 }
+
 button {
   cursor: pointer;
   border: transparent;

@@ -1,21 +1,11 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import localConsole from "../lib/localConsole";
 
 const BACKEND_BASE_URL = "https://pypetbook.herokuapp.com";
 
 const ButtonBox = styled.div`
-  display: flex;
-  gap: 2.5rem;
-`;
-
-const Icon = styled.img`
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  cursor: pointer;
-  object-fit: cover;
+  margin-top: 60px;
 `;
 
 const SocialLogin = () => {
@@ -30,25 +20,28 @@ const SocialLogin = () => {
   return (
     <ButtonBox>
       <a
-        href={`${BACKEND_BASE_URL}/kakao/login${
-          router.asPath ? "?redirect_url=" + href : ""
-        }`}
-      >
-        <Icon src='./img/kakao-icon.png' alt='kakao icon' />
-      </a>
-      <a
+        className="naver"
         href={`${BACKEND_BASE_URL}/naver/login${
           router.asPath ? "?redirect_url=" + href : ""
         }`}
       >
-        <Icon src='./img/naver-icon.png' alt='naver icon' />
+        네이버로 로그인
       </a>
       <a
+        className="kakao"
+        href={`${BACKEND_BASE_URL}/kakao/login${
+          router.asPath ? "?redirect_url=" + href : ""
+        }`}
+      >
+        카카오로 로그인
+      </a>
+      <a
+        className="google"
         href={`${BACKEND_BASE_URL}/google/login${
           router.asPath ? "?redirect_url=" + href : ""
         }`}
       >
-        <Icon src='./img/google-icon.png' alt='google icon' />
+        구글로 로그인
       </a>
     </ButtonBox>
   );
