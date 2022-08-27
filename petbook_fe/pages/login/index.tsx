@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
-import HtmlHeader from "../components/common/HtmlHeader";
-import TopNav from "../components/TopNav";
+import HtmlHeader from "../../components/common/HtmlHeader";
+import TopNav from "../../components/TopNav";
 
 //
-import SocialLogin from "../components/login/SocialLogin";
-import EmailLogin from "../components/login/EmailLogin";
+import SocialLogin from "../../components/login/SocialLogin";
+import EmailLogin from "../../components/login/EmailLogin";
 
 //
 import styled from "styled-components";
@@ -16,7 +16,7 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #fffbf4;
+  background-color: var(--bg);
   h1 {
     font-size: 25px;
     font-weight: normal;
@@ -42,34 +42,6 @@ const LoginWrap = styled.div`
   margin: 0 auto;
   margin-top: 194px;
   position: relative;
-  .login_title {
-    p {
-      margin-bottom: 8px;
-    }
-    h2 {
-      margin-bottom: 32px;
-    }
-  }
-  .login_form {
-    margin-bottom: 20px;
-    input {
-      margin-bottom: 10px;
-    }
-  }
-  .automatic_login {
-    margin-bottom: 40px;
-  }
-  .action {
-    font-size: 14px;
-    color: #444;
-    margin: 30px 0 102px 0;
-    li {
-      cursor: pointer;
-      &:first-child {
-        margin-right: 70px;
-      }
-    }
-  }
   a {
     display: block;
     width: 100%;

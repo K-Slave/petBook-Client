@@ -5,6 +5,7 @@
 
 :root {
   --main: #ff6e4e;
+  --bg: #fffbf4;
 }
 
 * {
@@ -93,6 +94,36 @@ input::placeholder {
   color: #797979;
   font-size: 16px;
   line-height: 19.2px;
+}
+
+//login
+.login_title {
+  p {
+    margin-bottom: 8px;
+  }
+  h2 {
+    margin-bottom: 32px;
+  }
+}
+.login_form {
+  margin-bottom: 20px;
+  input {
+    margin-bottom: 10px;
+  }
+}
+.automatic_login {
+  margin-bottom: 40px;
+}
+.action {
+  font-size: 14px;
+  color: #444;
+  margin: 30px 0 102px 0;
+  li {
+    cursor: pointer;
+    &:first-child {
+      margin-right: 70px;
+    }
+  }
 }
 
 button {
