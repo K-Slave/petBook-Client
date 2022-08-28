@@ -1,29 +1,39 @@
 import { NextPage } from "next";
 import styled from "styled-components";
-import HtmlHeader from "../../components/common/HtmlHeader";
-import WriteEditor from "../../components/writer/WriteEditor";
+import WriteEditor from "../../components/write/WriteEditor";
+import WriteCategory from "../../components/write/WriteCategory";
+import WriteForm from "../../components/write/WriteForm";
+import WriteHashTags from "../../components/write/WriteHashTags";
+import WriteImgSubmit from "../../components/write/WriteImgSubmit";
+import WriteSubmit from "../../components/write/WriteSubmit";
+import localConsole from "../../lib/localConsole";
+import "../../styles/WritePage.module.scss";
 
-const Write: NextPage = () => {
+const Write: NextPage = (initProps) => {
   return (
     <>
-      <HtmlHeader />
-      <Container className='cont'>
-        <WriteEditor />
-      </Container>
+      <MainContainer className='Content'>
+        <WriteCategory />
+        <WriteForm />
+        <WriteImgSubmit />
+        <WriteHashTags />
+        <WriteSubmit />
+      </MainContainer>
     </>
   );
 };
 
 export default Write;
 
-const Container = styled.div`
-  width: 600px;
-  height: 400px;
-`;
+const MainContainer = styled.main`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-// const Sections = styled.div`
-//   width: 90vw;
-//   max-width: 1280px;
-//   margin: 0 auto;
-//   padding-top: 80px;
-// `;
+  width: 100%;
+  max-width: 1064px;
+  height: auto;
+
+  margin: 0 auto;
+`;

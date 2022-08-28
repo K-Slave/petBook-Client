@@ -11,6 +11,7 @@
     "netlify-deploy": "next build && next export"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
     "dayjs": "^1.11.1",

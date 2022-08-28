@@ -27,9 +27,9 @@ const TopNav = () => {
   return (
     <div>
       <TopNev>
-        <div className="inner_container">
-          <div className="logo_box">
-            <div className="main_logo"></div>
+        <div className='inner_container'>
+          <div className='logo_box'>
+            <div className='main_logo'></div>
           </div>
         </div>
       </TopNev>

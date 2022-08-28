@@ -9,7 +9,8 @@
 
 html,
 body {
-  position: "relative";
+  position: relative;
+  width: 100%;
 
   min-height: 100%;
 
@@ -17,9 +18,35 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  padding-top: 29px;
-
   transition: all 0.3s ease-in-out;
+
+  background-color: #fffbf4;
+}
+
+.Header__Wrap {
+  position: fixed;
+  z-index: 100;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: auto;
+
+  background-color: #fff;
+
+  border-bottom: 1px solid #ff2e00;
+
+  div {
+    position: relative;
+  }
+}
+
+.Header__Spacer {
+  width: 100%;
+  height: 122px;
 }
 
 a {

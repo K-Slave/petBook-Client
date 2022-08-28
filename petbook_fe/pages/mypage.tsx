@@ -1,9 +1,7 @@
 import { useState } from "react";
-import HtmlHeader from "../components/common/HtmlHeader";
 import MyPageSection from "../components/MyPageSection";
 import SideNav from "../components/MyPageNav";
 import styled from "styled-components";
-import TopNav from "../components/TopNav";
 import Keyvisual from "../components/Keyvisual";
 import { HiChevronDoubleRight, HiChevronDoubleLeft } from "react-icons/hi";
 
@@ -38,18 +36,18 @@ const MyPage = () => {
   };
   return (
     <>
-      <HtmlHeader />
-      <TopNav />
+      {/* <HtmlHeader /> */}
+      {/* <TopNav /> */}
       <Keyvisual />
       <MyPageMain>
         {showNav ? (
           <HiChevronDoubleLeft
-            className="MyPage__navIcon"
+            className='MyPage__navIcon'
             onClick={handleCloseNav}
           />
         ) : (
           <HiChevronDoubleRight
-            className="MyPage__navIcon"
+            className='MyPage__navIcon'
             onClick={handleShowNav}
           />
         )}
