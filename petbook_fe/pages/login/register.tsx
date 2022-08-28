@@ -9,12 +9,12 @@ const Main = styled.main`
   height: calc(100vh - 61px);
   overflow: auto;
   background-color: var(--bg);
-
   .formWrap {
     max-width: 679px;
     width: 100%;
     margin: 0 auto;
     margin-top: 76px;
+    margin-bottom: 87px;
     > div {
       margin-bottom: 26px;
       &:last-child {
@@ -49,9 +49,27 @@ const Main = styled.main`
     }
     .err_box {
       color: #ff6e4e;
+      font-size: 15px;
+      font-weight: 300;
       line-height: 30px;
       margin-top: 4px;
     }
+  }
+`;
+
+const SubmitBtn = styled.div`
+  width: 100%;
+  margin: 60px 0 0;
+  a {
+    display: block;
+    padding: 20px 0;
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+    color: white;
+    border-radius: 12px;
+    box-sizing: border-box;
+    background-color: var(--main);
   }
 `;
 
@@ -70,6 +88,12 @@ const Register = () => {
           </div>
           <ValidationInput current={"닉네임"} />
           <ValidationInput current={"동물종류"} />
+          <ValidationInput current={"인증번호"} />
+          <SubmitBtn>
+            <a className="submitBtn" href="">
+              회원가입
+            </a>
+          </SubmitBtn>
         </div>
       </Main>
     </>
