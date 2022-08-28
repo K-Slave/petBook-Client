@@ -1,7 +1,4 @@
 import { useRouter } from "next/router";
-import HtmlHeader from "../components/common/HtmlHeader";
-import Keyvisual from "../components/Keyvisual";
-import TopNav from "../components/TopNav";
 import SocialLogin from "../components/SocialLogin";
 import styled from "styled-components";
 import { BsCheckCircleFill } from "react-icons/bs";
@@ -37,8 +34,8 @@ const Login = () => {
   const isRedirect = router.query.redirect;
   return (
     <>
-      <HtmlHeader />
-      <TopNav />
+      {/* <HtmlHeader /> */}
+      {/* <TopNav /> */}
       <Main>
         {isRedirect ? (
           <NotLogin>

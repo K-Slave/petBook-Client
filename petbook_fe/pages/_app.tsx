@@ -12,6 +12,10 @@ import "../styles/find/Texts.scss";
 import { useState } from "react";
 import { RecoilRoot } from "recoil";
 import redirect from "./api/redirect";
+import HtmlHeader from "../components/common/HtmlHeader";
+import TopNav_ from "../components/common/Nav/Interface/TopNav";
+import { useRouter } from "next/router";
+import TopNav from "../components/TopNav";
 // import { GetServerSideProps, NextApiRequest, NextApiResponse } from "next";
 // import { redirect, sendStatusCode } from "next/dist/server/api-utils";
 
@@ -29,10 +33,19 @@ export default function NextApp(appInitProps: AppProps) {
       })
   );
 
+  const router = useRouter();
+
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <RecoilRoot>
+          <HtmlHeader />
+          <div className='Header__Wrap'>
+            <TopNav />
+            <TopNav_ path={router.pathname} />
+          </div>
+          <div className='Header__Spacer'></div>
+
           <Component {...pageProps} />
         </RecoilRoot>
       </Hydrate>

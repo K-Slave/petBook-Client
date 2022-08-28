@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { PropsWithChildren } from "react";
-import setChild from "../../../../lib/Headless_Patterns/setChild";
+import setNextjsElement from "../../../../lib/Headless_Patterns/setNextjsElement";
 import localConsole from "../../../../lib/localConsole";
 
 const LinkedArticle = ({ children }: PropsWithChildren<any>) => {
@@ -13,7 +13,7 @@ type WrapProps = {
 };
 
 const Wrap = ({ children, as, to }: PropsWithChildren<WrapProps>) => {
-  const InputWrap = setChild({ as, to });
+  const InputWrap = setNextjsElement({ as, to });
 
   return (
     <Link href={to} passHref>
@@ -28,7 +28,7 @@ type TopProps = {
 };
 
 const Top = ({ as, value }: TopProps) => {
-  const InputTop = setChild({ as });
+  const InputTop = setNextjsElement({ as });
 
   return <InputTop>{value}</InputTop>;
 };
@@ -39,7 +39,7 @@ type MainProps = {
 };
 
 const Main = ({ as, value }: PropsWithChildren<MainProps>) => {
-  const InputMain = setChild({ as });
+  const InputMain = setNextjsElement({ as });
 
   return <InputMain>{value}</InputMain>;
 };
@@ -50,7 +50,7 @@ type PaperBottom = {
 };
 
 const Bottom = ({ as, value }: PropsWithChildren<PaperBottom>) => {
-  const InputBottom = setChild({ as });
+  const InputBottom = setNextjsElement({ as });
 
   return <InputBottom>{value}</InputBottom>;
 };
