@@ -2,8 +2,6 @@ import { useRouter } from "next/router";
 import HtmlHeader from "../../components/common/HtmlHeader";
 import TopNav from "../../components/TopNav";
 
-import Link from "next/link";
-
 //
 import SocialLogin from "../../components/login/SocialLogin";
 import EmailLogin from "../../components/login/EmailLogin";
@@ -77,7 +75,7 @@ const LoginWrap = styled.div`
 
 const Login = () => {
   const router = useRouter();
-  // console.log(location);
+
   const isRedirect = router.query.redirect;
   return (
     <>
