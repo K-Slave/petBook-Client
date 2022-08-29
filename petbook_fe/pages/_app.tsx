@@ -82,6 +82,8 @@ NextApp.getInitialProps = async (context: AppContext) => {
     );
   }
 
+  console.log(ctx.req?.headers.cookie, "ctx?.req.headers.cookie");
+
   return {
     pageProps: {
       dehydratedState: dehydrate(queryClient),

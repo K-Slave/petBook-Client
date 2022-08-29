@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import SimpleButton from "./SimpleButton";
 
@@ -9,10 +10,15 @@ const PersonalMenuButton = styled(SimpleButton)`
 `;
 
 const PersonalMenu = () => {
-  const token = Cookies.get("access_token");
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const cookie = Cookies.get("access_token");
+    setToken(cookie ? cookie : "");
+  }, []);
 
   return (
-    <Link href={token ? "마이페이지" : "로그인"} passHref>
+    <Link href={token ? "/mypage" : "/login"} passHref>
       <PersonalMenuButton>{token ? "마이페이지" : "로그인"}</PersonalMenuButton>
     </Link>
   );
