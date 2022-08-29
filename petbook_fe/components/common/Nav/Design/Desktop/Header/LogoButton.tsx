@@ -13,24 +13,32 @@ const LogoButtonA = styled.a`
   padding: 0 35px;
 
   .Petbook__Logo__Img {
+    position: relative;
+
     width: 28px;
     height: 28px;
 
-    white-space: nowrap;
+    span {
+      position: absolute;
+      top: -5px;
+      left: -12px;
+
+      font-size: 25px;
+    }
   }
 
   .Petbook__Logo__Text {
     min-width: 77px;
     height: 30px;
-
-    white-space: nowrap;
   }
 `;
 
 const LogoButton = (props: PropsWithChildren<{}>) => {
   return (
     <LogoButtonA {...props}>
-      <img className="Petbook__Logo__Img" src="" alt="" />
+      <span className="Petbook__Logo__Img">
+        <span>🐇</span> {/* 나중에 로고이미지 생기면 교체*/}
+      </span>
       <img
         className="Petbook__Logo__Text"
         srcSet={`${Logo__Img.src} 1920w`}
