@@ -16,11 +16,37 @@ const Wrap = ({ children, as }: PropsWithChildren<WrapProps>) => {
   return <InputWrap>{children}</InputWrap>;
 };
 
+type LeftSideProps = {
+  as?: JSX.Element;
+};
+
+const leftSide = ({ children, as }: PropsWithChildren<LeftSideProps>) => {
+  if (!as) return <></>;
+
+  const InputLeftSide = setNextjsElement({ as, to: "/" });
+
+  return (
+    <Link href="/" passHref>
+      <InputLeftSide>{children}</InputLeftSide>
+    </Link>
+  );
+};
+
+type MenuProps = {
+  as: JSX.Element;
+};
+
+const Menu = ({ as, children }: PropsWithChildren<MenuProps>) => {
+  const InputMenu = setNextjsElement({ as });
+
+  return <InputMenu>{children}</InputMenu>;
+};
+
 type ButtonProps = {
   as: JSX.Element;
   value: string;
   to: string;
-  currentPath: string;
+  currentPath?: string;
 };
 
 const Button = ({ as, value, to, currentPath }: ButtonProps) => {
@@ -34,22 +60,49 @@ const Button = ({ as, value, to, currentPath }: ButtonProps) => {
   );
 };
 
-type SearchProps = {
-  as: JSX.Element;
+type RightSideProps = {
+  as?: JSX.Element;
+  value?: string | string[];
+  to?: string | string[];
+  currentPath?: string;
 };
 
-const Search = ({ as }: PropsWithChildren<SearchProps>) => {
-  const InputSearch = setNextjsElement({ as, to: "/search" });
+const rightSide = ({
+  as,
+  value,
+  to,
+  currentPath,
+}: PropsWithChildren<RightSideProps>) => {
+  if (!as) return <></>;
+
+  if (to === typeof "object") {
+    return <></>;
+  }
+
+  if (to === typeof "string") {
+    const embedProps = { isCurrentPage: currentPath === to };
+    const InputRightSide = setNextjsElement({ as, to, embedProps });
+
+    return (
+      <Link href={"/" + to} passHref>
+        <InputRightSide>{value}</InputRightSide>
+      </Link>
+    );
+  }
+
+  const InputRightSide = setNextjsElement({ as, to: "/search" });
 
   return (
     <Link href={"/search"} passHref>
-      <InputSearch />
+      <InputRightSide />
     </Link>
   );
 };
 
 LinkedNavBar.Wrap = Wrap;
+LinkedNavBar.leftSide = leftSide;
+LinkedNavBar.Menu = Menu;
 LinkedNavBar.Button = Button;
-LinkedNavBar.Search = Search;
+LinkedNavBar.rightSide = rightSide;
 
 export default LinkedNavBar;

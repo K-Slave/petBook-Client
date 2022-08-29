@@ -3,15 +3,20 @@ import { BsSearch } from "react-icons/bs";
 import styled from "styled-components";
 
 const SearchButtonA = styled.a`
+  position: relative;
+  left: 35px;
+
   display: inline-flex;
   justify-content: center;
   align-items: center;
 
-  width: 32px;
-  height: 32px;
+  min-width: 20px;
+  height: 100%;
+
+  padding: 0 35px;
 
   .Search__Button__Icon {
-    width: 20px;
+    min-width: 20px;
     height: 20px;
   }
 `;
@@ -19,7 +24,7 @@ const SearchButtonA = styled.a`
 const SearchButton = (props: PropsWithChildren<{}>) => {
   return (
     <SearchButtonA {...props}>
-      <BsSearch className='Search__Button__Icon' />
+      <BsSearch className="Search__Button__Icon" />
     </SearchButtonA>
   );
 };

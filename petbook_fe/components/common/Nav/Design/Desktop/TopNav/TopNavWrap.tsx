@@ -3,6 +3,13 @@ import styled from "styled-components";
 
 const TopNavContainer = styled.nav`
   display: flex;
+  justify-content: center;
+
+  width: 100%;
+`;
+
+const TopNavBox = styled.div`
+  display: flex;
   justify-content: space-between;
   align-items: center;
 
@@ -19,7 +26,11 @@ const TopNavContainer = styled.nav`
 `;
 
 const TopNavWrap = (props: PropsWithChildren<{}>) => {
-  return <TopNavContainer {...props}>{props.children}</TopNavContainer>;
+  return (
+    <TopNavContainer>
+      <TopNavBox {...props}>{props.children}</TopNavBox>
+    </TopNavContainer>
+  );
 };
 
 export default TopNavWrap;
