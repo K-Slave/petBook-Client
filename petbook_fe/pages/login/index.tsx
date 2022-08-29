@@ -2,8 +2,6 @@ import { useRouter } from "next/router";
 import HtmlHeader from "../../components/common/HtmlHeader";
 import TopNav from "../../components/TopNav";
 
-import Link from "next/link";
-
 //
 import SocialLogin from "../../components/login/SocialLogin";
 import EmailLogin from "../../components/login/EmailLogin";
@@ -41,20 +39,20 @@ const NotLogin = styled.div`
 
 const LoginWrap = styled.div`
   width: 679px;
+  position: relative;
   margin: 0 auto;
   margin-top: 194px;
-  position: relative;
   a {
-    display: block;
     width: 100%;
+    display: block;
     padding: 20px 0;
     text-align: center;
-    color: white;
     font-weight: 700;
     font-size: 20px;
     border-radius: 12px;
     margin-bottom: 12px;
     box-sizing: border-box;
+    color: white;
     &:last-child {
       margin-bottom: 0;
     }
@@ -77,7 +75,7 @@ const LoginWrap = styled.div`
 
 const Login = () => {
   const router = useRouter();
-  // console.log(location);
+
   const isRedirect = router.query.redirect;
   return (
     <>
