@@ -1,9 +1,6 @@
-import { useEffect } from "react";
-import { BsSearch } from "react-icons/bs";
-import localConsole from "../../../../lib/localConsole";
-import PageButton from "../Design/Desktop/PageButton";
-import SearchButton from "../Design/Desktop/SearchButton";
-import TopNavWrap from "../Design/Desktop/TopNavWrap";
+import PageButton from "../Design/Desktop/TopNav/PageButton";
+import SearchButton from "../Design/Desktop/TopNav/SearchButton";
+import TopNavWrap from "../Design/Desktop/TopNav/TopNavWrap";
 import NavMenu from "../DOMStructure/NavMenu";
 
 type Props = {
@@ -15,14 +12,22 @@ const TopNav = ({ path }: Props) => {
   const pageNames = ["홈", "커뮤니티", "병원정보", "채팅"];
   const parsedPath = path.split("/");
 
+  const rightSidePages = "search";
+  const rightSidePageNames = "";
+  const rightSideParsedPath = path.split("/");
+
   return (
     <NavMenu
       InputWrap={<TopNavWrap />}
+      InputMenu={<div style={{ display: "flex", height: "100%" }} />}
       InputButton={<PageButton />}
-      InputSearch={<SearchButton />}
+      InputRightSide={<SearchButton />}
       to={pages}
       name={pageNames}
       currentPath={parsedPath[1]}
+      rightSideTo={rightSidePages}
+      rightSideName={rightSidePageNames}
+      rightSideCurrentPath={rightSideParsedPath[1]}
     />
   );
 };

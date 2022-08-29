@@ -7,10 +7,8 @@ const PageButtonA = styled.a`
 
   transition: all 0.3s ease-in-out;
 
-  cursor: pointer;
-
-  font-weight: normal;
   font-size: 16px;
+  font-weight: normal;
   color: rgba(0, 0, 0, 0.6);
 
   background: #fff;
@@ -50,7 +48,7 @@ const PageButton = (props: PropsWithChildren<PageButtonProps>) => {
   return (
     <>
       <PageButtonA {...props}>
-        <span className='Page__Button__Text'>{props.children}</span>
+        <span className="Page__Button__Text">{props.children}</span>
       </PageButtonA>
     </>
   );
