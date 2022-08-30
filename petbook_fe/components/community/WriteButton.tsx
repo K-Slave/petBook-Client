@@ -1,13 +1,23 @@
+import Link from "next/link";
 import styled from "styled-components";
 
 const WriteButton = () => {
-  return <Button>글쓰기</Button>;
+  return (
+    <Link href={"/community/write"} passHref>
+      <Button>글쓰기</Button>
+    </Link>
+  );
 };
 
 export default WriteButton;
 
-const Button = styled.button`
+const Button = styled.a`
   position: fixed;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   bottom: 30px;
   right: 30px;
   width: 54px;
