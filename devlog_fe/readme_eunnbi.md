@@ -17,3 +17,9 @@
 - 커뮤니티 메인페이지 전반적인 UI 완성
 - 페이지네이션 적용
   - `/commynity?page={페이지 넘버}` 
+
+#### 22.08.30 ~ 31
+- 커뮤니티 게시물 상세페이지 작업 중
+- UI가 반복되는 부분은 컴포넌트로 만듦. 
+  - [DetailCommonInfo](https://github.com/K-Slave/petBook-Client/blob/eunnbi-feature/petbook_fe/components/community/DetailCommonInfo.tsx)
+  - [TagList](https://github.com/K-Slave/petBook-Client/blob/eunnbi-feature/petbook_fe/components/community/TagList.tsx)
