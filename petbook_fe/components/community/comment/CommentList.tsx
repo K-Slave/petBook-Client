@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import CommentBox from "./CommentBox";
+import CommentItem, { Item } from "./CommentItem";
 
 const avatar =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
@@ -51,7 +51,7 @@ const CommentList = () => {
   return (
     <Wrapper>
       {commentDummy.map((comment) => (
-        <CommentBox {...comment} key={comment.id} />
+        <CommentItem {...comment} key={comment.id} />
       ))}
     </Wrapper>
   );
@@ -62,11 +62,11 @@ export default CommentList;
 const Wrapper = styled.div`
   border-radius: 16px;
   border: 1px solid #f5edde;
-  & > div:first-child {
+  & > ${Item}:first-child {
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
   }
-  & > div:last-child {
+  & > ${Item}:last-child {
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
   }
