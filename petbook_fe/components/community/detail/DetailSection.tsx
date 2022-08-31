@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import DetailCommonInfo from "../DetailCommonInfo";
 import TagList from "../TagList";
+import ImageSlider from "./ImageSlider";
 
 interface DetailSectionProps {
   avatar: string;
@@ -9,6 +10,7 @@ interface DetailSectionProps {
   title: string;
   content: string;
   tags: string[];
+  images: string[];
 }
 
 const DetailSection = ({
@@ -18,6 +20,7 @@ const DetailSection = ({
   title,
   content,
   tags,
+  images,
 }: DetailSectionProps) => {
   return (
     <Section>
@@ -30,6 +33,7 @@ const DetailSection = ({
       </Row>
       <Title>{title}</Title>
       <Content>{content}</Content>
+      <ImageSlider images={images} />
       <TagList tags={tags} width={90} height={32} fontSize={16} />
       <Bottom>
         <span>관람 수</span>
@@ -80,7 +84,6 @@ const Content = styled.p`
   font-size: 17px;
   line-height: 31px;
   color: #747474;
-  margin-bottom: 80px;
 `;
 
 const Bottom = styled.div`
