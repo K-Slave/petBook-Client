@@ -4,7 +4,7 @@ import styled from "styled-components";
 const SortFilter = () => {
   return (
     <Wrapper>
-      <p>최근순</p>
+      <p>실시간</p>
       <button>
         <BiSortAlt2 />
       </button>
