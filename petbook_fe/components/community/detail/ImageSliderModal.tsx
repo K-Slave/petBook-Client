@@ -9,7 +9,7 @@ interface ModalImageSliderProps {
   images: string[];
 }
 
-const ModalImageSlider = ({ images }: ModalImageSliderProps) => {
+const ImageSliderModal = ({ images }: ModalImageSliderProps) => {
   const { show, currentIndex, prevIndex } = useRecoilValue(sliderModalState);
   const { moveNext, movePrev, changeCurrentIndex, closeModal } = useSlider(
     images.length
@@ -55,7 +55,7 @@ const ModalImageSlider = ({ images }: ModalImageSliderProps) => {
   );
 };
 
-export default ModalImageSlider;
+export default ImageSliderModal;
 
 const Container = styled.div<{ show: boolean }>`
   position: fixed;
