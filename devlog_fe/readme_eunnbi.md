@@ -23,3 +23,4 @@
 - UI가 반복되는 부분은 컴포넌트로 만듦. 
   - [DetailCommonInfo](https://github.com/K-Slave/petBook-Client/blob/eunnbi-feature/petbook_fe/components/community/DetailCommonInfo.tsx)
   - [TagList](https://github.com/K-Slave/petBook-Client/blob/eunnbi-feature/petbook_fe/components/community/TagList.tsx)
+- next에서 제공하는 `Image` 컴포넌트 대신 `img` 태그 사용 중 (`next.config` 설정 바꾸기 귀찮아서...) 추후 `Image` 컴포넌트로 바꿀 예정
