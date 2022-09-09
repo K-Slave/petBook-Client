@@ -11,10 +11,9 @@ interface ModalImageSliderProps {
 
 const ModalImageSlider = ({ images }: ModalImageSliderProps) => {
   const { show, currentIndex, prevIndex } = useRecoilValue(sliderModalState);
-  const { moveNext, movePrev, changeCurrentIndex } = useSlider(images.length);
-  useEffect(() => {
-    console.log(currentIndex, prevIndex);
-  }, [currentIndex, prevIndex]);
+  const { moveNext, movePrev, changeCurrentIndex, closeModal } = useSlider(
+    images.length
+  );
   return (
     <Container show={show}>
       <SliderWrapper>
