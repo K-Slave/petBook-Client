@@ -10,8 +10,8 @@ interface TagListProps {
 const TagList = ({ tags, width, height, fontSize }: TagListProps) => {
   return (
     <List>
-      {tags.map((tag) => (
-        <Item width={width} height={height} fontSize={fontSize}>
+      {tags.map((tag, index) => (
+        <Item width={width} height={height} fontSize={fontSize} key={index}>
           {tag}
         </Item>
       ))}
