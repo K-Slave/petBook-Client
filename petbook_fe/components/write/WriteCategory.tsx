@@ -3,7 +3,7 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import writeState from "../../atoms/componentAtoms/community/writeState";
 import WriteCategoryButton from "./WriteCategoryButton";
-
+//
 const WriteCategorySection = styled.section`
   display: flex;
   flex-direction: column;
