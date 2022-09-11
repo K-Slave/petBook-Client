@@ -14,18 +14,23 @@ const KnowhowPaperWrapBox = styled.a`
 
   padding: 64px 36px 34px 30px;
 
-  background-color: #fffbe3;
+  background-color: ${(props: WrapProps) =>
+    props.color ? props.color : "#fffbe3"};
   border-radius: 10px;
 
   &:hover {
-    width: 375px;
-    height: 375px;
+    /* width: 375px;
+    height: 375px; */
   }
 `;
 
-export const KnowhowPaperWrap = (props: PropsWithChildren<{}>) => {
+type WrapProps = {
+  color: string;
+};
+
+export const KnowhowPaperWrap = (props: PropsWithChildren<WrapProps>) => {
   return (
-    <KnowhowPaperWrapBox className="QALinked__Article__Wrap" {...props}>
+    <KnowhowPaperWrapBox className='QALinked__Article__Wrap' {...props}>
       {props.children}
     </KnowhowPaperWrapBox>
   );
@@ -38,7 +43,7 @@ const KnowhowPaperTopBox = styled.h2`
 
 export const KnowhowPaperTop = ({ children }: PropsWithChildren<{}>) => {
   return (
-    <KnowhowPaperTopBox className="QALinked__Article__Top">
+    <KnowhowPaperTopBox className='QALinked__Article__Top'>
       {children}
     </KnowhowPaperTopBox>
   );

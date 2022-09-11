@@ -5,25 +5,32 @@ import {
   KnowhowPaperMain,
   UserProfileTag,
 } from "../Design/Desktop/KnowhowPaperBoxStyle";
+import palette from "../../../../lib/palette";
+import localConsole from "../../../../lib/localConsole";
 
-const KnowhowPaperBox = () => {
-  const sample_timeline = "1일전";
-  const sample_contents =
-    "질문이 들어갑니다 질문이 들어갑니다 질문이 들어갑니다";
+type KnowhowPaperBox = {
+  timeline: string;
+  contents: string;
+  user: string;
+  to: string;
+};
 
-  const sample_users = "유저프로필";
-  const sample_pages = "/knowhow";
+const KnowhowPaperBox = ({ timeline, contents, user, to }: KnowhowPaperBox) => {
+  // 추후에는 게시물에 랜덤한 색을 부여해서 고정되도록 구현해야함.
+  const colorIdx = Math.floor(palette.paperBox.length * Math.random());
+
+  const sample_color = `${palette.paperBox[colorIdx]}`;
 
   return (
     <LinkedArticle
-      InputWrap={<KnowhowPaperWrap />}
+      InputWrap={<KnowhowPaperWrap color={sample_color} />}
       InputTop={<KnowhowPaperTop />}
       InputMain={<KnowhowPaperMain />}
       InputBottom={<UserProfileTag />}
-      to={sample_pages}
-      topValue={sample_timeline}
-      mainValue={sample_contents}
-      bottomValue={sample_users}
+      to={to}
+      topValue={timeline}
+      mainValue={contents}
+      bottomValue={user}
     />
   );
 };

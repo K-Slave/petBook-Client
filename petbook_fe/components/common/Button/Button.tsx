@@ -1,7 +1,7 @@
 import React, { MouseEventHandler, PropsWithChildren } from "react";
 import styled, { css } from "styled-components";
 import Link from "next/link";
-import Palette from "../../../lib/palette";
+import Palette from "../../../lib/_palette";
 
 const buttonStyle = css`
   padding: 0.3rem;
