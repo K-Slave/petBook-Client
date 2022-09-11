@@ -29,11 +29,6 @@ export const data2Resource = createResource({
 const FindHospital: NextPage = (initProps: any) => {
   return (
     <>
-      {/* <HtmlHeader /> */}
-      {/* 상단영역 */}
-      {/* <TopNav /> */}
-      {/* <Keyvisual /> */}
-      {/* 본문영역 */}
       <MapContainer />
     </>
   );

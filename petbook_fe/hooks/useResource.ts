@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import localConsole from "../lib/localConsole";
 
 export default function useResource(resource: {
@@ -10,9 +10,18 @@ export default function useResource(resource: {
   return queryState;
 }
 
+export function useSetResource(resource: {
+  key: string;
+  fetcher: (data?: any) => Promise<Response>;
+}) {
+  const queryState = useMutation(resource.key, resource.fetcher);
+
+  return queryState;
+}
+
 export function createResource(resource: {
   key: string;
-  fetcher: () => Promise<Response>;
+  fetcher: (data?: any) => Promise<Response>;
 }) {
   return { key: resource.key, fetcher: resource.fetcher };
 }

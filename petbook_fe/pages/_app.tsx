@@ -41,11 +41,11 @@ export default function NextApp(appInitProps: AppProps) {
       <Hydrate state={pageProps.dehydratedState}>
         <RecoilRoot>
           <HtmlHeader />
-          <div className="Header__Wrap">
+          <div className='Header__Wrap'>
             <Header path={router.pathname} />
             <TopNav path={router.pathname} />
           </div>
-          <div className="Header__Spacer"></div>
+          <div className='Header__Spacer' />
 
           <Component {...pageProps} />
         </RecoilRoot>

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { CgGenderFemale } from "react-icons/cg";
 import Skeletone from "../Skeletone";
-import Palette from "../../../lib/palette";
+import Palette from "../../../lib/_palette";
 import { PropsWithChildren } from "react";
 
 const ProfileCardBox = styled.div`
