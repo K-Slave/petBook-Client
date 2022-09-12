@@ -47,10 +47,11 @@ const DetailSection = ({
 export default DetailSection;
 
 const Section = styled.section`
+  display: flex;
+  flex-direction: column;
   background-color: #fff;
   border: 1px solid #f5edde;
   border-radius: 16px;
-  margin-bottom: 8px;
   padding: 48px 40px 32px;
 `;
 
