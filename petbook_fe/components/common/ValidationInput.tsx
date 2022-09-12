@@ -1,6 +1,23 @@
+import styled from "styled-components";
+
 interface ValidationProps {
   current: String;
 }
+
+const Button = styled.button`
+  position: absolute;
+  background-color: var(--main);
+  border-radius: 8px;
+  width: 116px;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 14px;
+  opacity: 0.7;
+  padding: 9px 12px;
+  line-height: 23px;
+  font-weight: 500;
+  color: white;
+`;
 
 const ValidationInput = ({ current }: ValidationProps) => {
   return (
@@ -12,6 +29,7 @@ const ValidationInput = ({ current }: ValidationProps) => {
           id={`${current}`}
           placeholder={`${current}를 입력해주세요 `}
         />
+        {current === "이메일" ? <Button>인증번호 발송</Button> : <></>}
       </div>
       <div className="err_box">* 오류 메세지가 나옵니다</div>
     </div>
