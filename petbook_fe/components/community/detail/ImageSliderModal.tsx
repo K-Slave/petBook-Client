@@ -3,7 +3,6 @@ import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import styled, { css } from "styled-components";
 import { sliderModalState } from "../../../atoms/componentAtoms/community/sliderModal";
 import { useSlider } from "./useSliderModal";
-import { useEffect } from "react";
 
 interface ModalImageSliderProps {
   images: string[];
@@ -81,8 +80,8 @@ const SliderWrapper = styled.div`
 
 const Slider = styled.div`
   display: flex;
-  width: 600px;
-  height: 600px;
+  max-width: 600px;
+  max-height: 600px;
   overflow: hidden;
   border-radius: 24px;
 `;
@@ -105,8 +104,8 @@ const StyledImage = styled.img<{
   position: "current" | "prev" | "next";
   index: number;
 }>`
-  width: 600px;
-  height: 600px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 24px;
   transition: all 0.2s ease-in-out;
