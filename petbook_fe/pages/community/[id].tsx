@@ -45,14 +45,16 @@ export default PostDetail;
 
 const Main = styled.main`
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  align-items: start;
+  max-width: 1064px;
+  width: 90vw;
   gap: 20px;
   margin: 40px auto;
-  width: 90vw;
-  max-width: 1096px;
 `;
 
 const Wrapper = styled.div`
-  width: 847px;
+  max-width: 847px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;
