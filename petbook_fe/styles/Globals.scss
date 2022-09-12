@@ -6,6 +6,7 @@
 :root {
   --main: #ff6e4e;
   --bg: #fffbf4;
+  --test: #fff6e5;
 }
 
 * {
@@ -159,6 +160,17 @@ button {
   border: transparent;
   background-color: transparent;
   font-family: Pretendard, sans-serif;
+}
+
+.main_color_button {
+  border-radius: 12px;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 20px 0;
+  text-align: center;
+  background-color: var(--main);
+  cursor: pointer;
 }
 
 // 모바일 환경 접속시 전역 스타일링
