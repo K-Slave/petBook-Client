@@ -9,10 +9,12 @@ import WriteButton from "../../components/community/WriteButton";
 import useResource, { createResource } from "../../hooks/useResource";
 import localConsole from "../../lib/localConsole";
 import fetchClient from "../api/fetch/fetchClient";
+// import { FetchResponseToJS } from "../api/fetch/fetchCore";
+import boardRequest from "../api/petBook_API/boardRequest";
 
 export const board_list = createResource({
   key: "board_list",
-  fetcher: async () => {
+  fetcher: () => {
     const params = {
       id: 0,
       category_id: 0,
@@ -21,11 +23,7 @@ export const board_list = createResource({
       numPerPage: 10,
     };
 
-    const response = await fetchClient.get("/board", params);
-
-    const body = await response.json();
-
-    return body;
+    return boardRequest.board_list(params);
   },
 });
 
@@ -51,8 +49,8 @@ const Community: NextPage = () => {
   const board = useResource(board_list); // <- react-query 로 가져오는 API 데이터 (server-side-data store)
   const category = useResource(category_list);
 
-  console.log(board.data, "board");
-  console.log(category.data, "category");
+  console.log(board, "board");
+  console.log(category, "category");
 
   return (
     <>
@@ -84,7 +82,7 @@ const Sections = styled.div`
 type PetbookPages = NextPage & {
   requiredResources?: {
     key: string;
-    fetcher: () => Promise<Response>;
+    fetcher: () => Promise<any>;
   }[];
 };
 
