@@ -35,7 +35,6 @@ const Slider = styled.div`
   display: flex;
   gap: 17px;
   overflow-x: scroll;
-  overflow-y: hidden;
   margin: 32px 0;
   ::-webkit-scrollbar {
     display: none;
@@ -43,12 +42,12 @@ const Slider = styled.div`
 `;
 
 const DummyImage = styled.img`
-  width: 354px;
-  height: 354px;
+  max-width: 354px;
+  max-height: 354px;
   background-color: #d9d9d9;
   border-radius: 16px;
-  flex-shrink: 0;
   object-fit: cover;
+  flex-shrink: 0;
   cursor: pointer;
 `;
 
