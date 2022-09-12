@@ -1,7 +1,7 @@
 import QueryString from "qs";
 import getParameters from "./fetchFunctions";
 
-class fetchInstance {
+class FetchInstance {
   constructor() {
     this.defaults = this.defaults;
   }
@@ -14,11 +14,13 @@ class fetchInstance {
         "X-CSRFToken": "",
       },
     },
-    mode: "cors" as RequestMode,
-    cache: "no-cache" as RequestCache,
-    credentials: "same-origin" as RequestCredentials,
-    redirect: "follow" as RequestRedirect,
-    referrerPolicy: "no-referrer" as ReferrerPolicy,
+    options: {
+      mode: "cors" as RequestMode,
+      cache: "no-cache" as RequestCache,
+      credentials: "same-origin" as RequestCredentials,
+      redirect: "follow" as RequestRedirect,
+      referrerPolicy: "no-referrer" as ReferrerPolicy,
+    },
   };
 
   get(url: string, params?: string | object, config?: { headerObj?: object }) {
@@ -31,13 +33,9 @@ class fetchInstance {
     });
 
     return fetch(requestURL, {
+      ...this.defaults.options,
       method: "GET",
       headers: requestHeaders,
-      mode: this.defaults.mode,
-      cache: this.defaults.cache,
-      credentials: this.defaults.credentials,
-      redirect: this.defaults.redirect,
-      referrerPolicy: this.defaults.referrerPolicy,
     });
   }
 
@@ -56,22 +54,87 @@ class fetchInstance {
     });
 
     return fetch(requestURL, {
+      ...this.defaults.options,
       method: "POST",
       headers: requestHeaders,
       body: JSON.stringify(data),
-      mode: this.defaults.mode,
-      cache: this.defaults.cache,
-      credentials: this.defaults.credentials,
-      redirect: this.defaults.redirect,
-      referrerPolicy: this.defaults.referrerPolicy,
+    });
+  }
+
+  put(
+    url: string,
+    data?: any,
+    params?: string | object,
+    config?: { headerObj?: object }
+  ) {
+    const { requestURL, requestHeaders } = getParameters({
+      url: url,
+      baseURL: this.defaults.baseURL,
+      params: params,
+      defaultHeader: this.defaults.headers.common,
+      headerObj: config?.headerObj,
+    });
+
+    return fetch(requestURL, {
+      ...this.defaults.options,
+      method: "PUT",
+      headers: requestHeaders,
+      body: JSON.stringify(data),
+    });
+  }
+
+  delete(
+    url: string,
+    data?: any,
+    params?: string | object,
+    config?: { headerObj?: object }
+  ) {
+    const { requestURL, requestHeaders } = getParameters({
+      url: url,
+      baseURL: this.defaults.baseURL,
+      params: params,
+      defaultHeader: this.defaults.headers.common,
+      headerObj: config?.headerObj,
+    });
+
+    return fetch(requestURL, {
+      ...this.defaults.options,
+      method: "DELETE",
+      headers: requestHeaders,
+      body: JSON.stringify(data),
     });
   }
 }
 
 const fetchCore = {
   create() {
-    return new fetchInstance();
+    return new FetchInstance();
   },
 };
 
 export default fetchCore;
+
+// export type FetchResponseToJS = {
+//   data: any;
+//   dataUpdatedAt: number;
+//   error: any | null;
+//   errorUpdateCount: number;
+//   errorUpdatedAt: number;
+//   failureCount: number;
+//   isError: boolean;
+//   isFetched: boolean;
+//   isFetchedAfterMount: boolean;
+//   isFetching: boolean;
+//   isIdle: boolean;
+//   isLoading: boolean;
+//   isLoadingError: boolean;
+//   isPlaceholderData: boolean;
+//   isPreviousData: boolean;
+//   isRefetchError: boolean;
+//   isRefetching: boolean;
+//   isStale: boolean;
+//   isSuccess: boolean;
+//   refetch: Function;
+//   remove: Function;
+//   status: string;
+// };

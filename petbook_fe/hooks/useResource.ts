@@ -1,27 +1,35 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import localConsole from "../lib/localConsole";
+// import { FetchResponseToJS } from "../pages/api/fetch/fetchCore";
 
-export default function useResource(resource: {
+export default function useResource<T>(resource: {
   key: string;
-  fetcher: () => Promise<Response>;
+  fetcher: () => Promise<T>;
 }) {
   const queryState = useQuery(resource.key, resource.fetcher);
 
   return queryState;
 }
 
-export function useSetResource(resource: {
+export function createResource<T>(resource: {
   key: string;
-  fetcher: (data?: any) => Promise<Response>;
+  fetcher: () => Promise<T>;
 }) {
-  const queryState = useMutation(resource.key, resource.fetcher);
+  return { key: resource.key, fetcher: resource.fetcher };
+}
+
+export function useSetResource<T>(resource: {
+  key: string;
+  requester: () => Promise<T>;
+}) {
+  const queryState = useMutation(resource.key, resource.requester);
 
   return queryState;
 }
 
-export function createResource(resource: {
+export function createRequest<T, P>(request: {
   key: string;
-  fetcher: (data?: any) => Promise<Response>;
+  requester(reqBody: P): () => Promise<T>;
 }) {
-  return { key: resource.key, fetcher: resource.fetcher };
+  return { key: request.key, requester: request.requester };
 }

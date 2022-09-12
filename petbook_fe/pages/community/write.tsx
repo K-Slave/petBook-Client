@@ -8,29 +8,29 @@ import WriteImgSubmit from "../../components/write/WriteImgSubmit";
 import WriteSubmit from "../../components/write/WriteSubmit";
 import localConsole from "../../lib/localConsole";
 import "../../styles/WritePage.module.scss";
-import { createResource } from "../../hooks/useResource";
-import fetchClient from "../api/fetch/fetchClient";
+import { createRequest } from "../../hooks/useResource";
+import boardRequest from "../api/petBook_API/boardRequest";
 
-type board_create_dataType = {
-  title: string;
-  content: string;
-  category_id: number;
-  reg_user: string;
-  visible_status: string;
-};
+// (reqBody: {
+//   title: string;
+//   content: string;
+//   category_id: number;
+//   reg_user: string;
+//   visible_status: string;
+// })
 
-export const board_create = (data?: board_create_dataType) => {
-  return createResource({
-    key: "board_create",
-    fetcher: async () => {
-      const response = await fetchClient.post("/board", data);
-
-      const body = await response.json();
-
-      return body;
-    },
-  });
-};
+export const board_create = createRequest({
+  key: "board_create",
+  requester(reqBody: {
+    title: string;
+    content: string;
+    category_id: number;
+    reg_user: string;
+    visible_status: string;
+  }) {
+    return () => boardRequest.board_create(reqBody);
+  },
+});
 
 const MainContainer = styled.main`
   display: flex;
@@ -48,7 +48,7 @@ const MainContainer = styled.main`
 const Write: NextPage = (initProps) => {
   return (
     <>
-      <MainContainer className='Content'>
+      <MainContainer className="Content">
         <WriteCategory />
         <WriteForm />
         <WriteImgSubmit />
@@ -58,15 +58,5 @@ const Write: NextPage = (initProps) => {
     </>
   );
 };
-
-type PetbookPages = NextPage & {
-  requiredResources?: {
-    key: string;
-    fetcher: () => Promise<Response>;
-  }[];
-};
-
-// const Community_Write: PetbookPages = Write;
-// Community_Write.requiredResources = [board_create];
 
 export default Write;
