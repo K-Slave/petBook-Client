@@ -9,6 +9,7 @@ import EmailLogin from "../../components/login/EmailLogin";
 //
 import styled from "styled-components";
 import { BsCheckCircleFill } from "react-icons/bs";
+import InduceSign from "../../components/login/InduceSign";
 
 const Main = styled.main`
   height: calc(100vh - 61px);
@@ -96,19 +97,20 @@ const Login = () => {
               </div>
 
               {/* 일반 로그인 영역 */}
-              <EmailLogin />
+              {/* <EmailLogin /> */}
 
               {/* 소셜 로그인 영역 */}
               <SocialLogin />
 
-              <ul className="action flex center">
+              {/* <ul className="action flex center">
                 <li>
                   <a href=""> 회원가입</a>
                 </li>
                 <li>
                   <a href="">아이디/비밀번호 찾기</a>
                 </li>
-              </ul>
+              </ul> */}
+              <InduceSign />
             </>
           ) : (
             <>
