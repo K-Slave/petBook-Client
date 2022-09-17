@@ -36,8 +36,6 @@ const MyPage = () => {
   };
   return (
     <>
-      {/* <HtmlHeader /> */}
-      {/* <TopNav /> */}
       <Keyvisual />
       <MyPageMain>
         {showNav ? (

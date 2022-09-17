@@ -3,7 +3,7 @@ import { AiOutlineRight, AiOutlineLeft } from "react-icons/ai";
 import styled from "styled-components";
 import { MouseEventHandler, useEffect } from "react";
 import localConsole from "../../../lib/localConsole";
-import Palette from "../../../lib/palette";
+import Palette from "../../../lib/_palette";
 
 const SlideButtonBox = styled.div`
   display: flex;

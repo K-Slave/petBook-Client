@@ -1,7 +1,10 @@
 import axios from "axios";
+// import URI_SECELTOR from "./uri";
 
 const axiosClient = axios.create();
 
+// axiosClient.defaults.baseURL = URI_SECELTOR();
+axiosClient.defaults.headers.common["content-type"] = "";
 /*
   글로벌 설정 예시:
   
