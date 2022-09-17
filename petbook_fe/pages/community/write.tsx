@@ -8,22 +8,29 @@ import WriteImgSubmit from "../../components/write/WriteImgSubmit";
 import WriteSubmit from "../../components/write/WriteSubmit";
 import localConsole from "../../lib/localConsole";
 import "../../styles/WritePage.module.scss";
+import { createRequest } from "../../hooks/useResource";
+import boardRequest from "../api/petBook_API/boardRequest";
 
-const Write: NextPage = (initProps) => {
-  return (
-    <>
-      <MainContainer className='Content'>
-        <WriteCategory />
-        <WriteForm />
-        <WriteImgSubmit />
-        <WriteHashTags />
-        <WriteSubmit />
-      </MainContainer>
-    </>
-  );
-};
+// (reqBody: {
+//   title: string;
+//   content: string;
+//   category_id: number;
+//   reg_user: string;
+//   visible_status: string;
+// })
 
-export default Write;
+export const board_create = createRequest({
+  key: "board_create",
+  requester(reqBody: {
+    title: string;
+    content: string;
+    category_id: number;
+    reg_user: string;
+    visible_status: string;
+  }) {
+    return () => boardRequest.board_create(reqBody);
+  },
+});
 
 const MainContainer = styled.main`
   display: flex;
@@ -37,3 +44,19 @@ const MainContainer = styled.main`
 
   margin: 0 auto;
 `;
+
+const Write: NextPage = (initProps) => {
+  return (
+    <>
+      <MainContainer className="Content">
+        <WriteCategory />
+        <WriteForm />
+        <WriteImgSubmit />
+        <WriteHashTags />
+        <WriteSubmit />
+      </MainContainer>
+    </>
+  );
+};
+
+export default Write;

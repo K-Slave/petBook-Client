@@ -9,15 +9,7 @@ import KnowhowPaperBox from "../components/common/PaperBox/Interface/KnowhowPape
 const Home: NextPage = () => {
   return (
     <>
-      {/* <HtmlHeader /> */}
-      {/* 상단영역 */}
-
-      {/* <TopNav /> */}
       <Keyvisual />
-
-      {/* 본문영역 */}
-
-      <KnowhowPaperBox />
 
       <div className={styles.container}>
         <Box boxType='content' active={true} content={<div></div>} />

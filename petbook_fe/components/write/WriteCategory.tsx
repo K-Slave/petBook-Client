@@ -1,7 +1,9 @@
-import { useRecoilValue } from "recoil";
+import { MouseEventHandler, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import categoryFilterState from "../../atoms/componentAtoms/community/categoryFilter";
-
+import writeState from "../../atoms/componentAtoms/community/writeState";
+import WriteCategoryButton from "./WriteCategoryButton";
+//
 const WriteCategorySection = styled.section`
   display: flex;
   flex-direction: column;
@@ -23,18 +25,30 @@ const WriteCategorySection = styled.section`
 
     width: 100%;
   }
-
-  .Category__Keyword__Item {
-    padding: 8.5px 14px;
-
-    background-color: #fff4e0;
-
-    border-radius: 18px;
-  }
 `;
 
 const WriteCategory = () => {
-  const { categoryKeyword } = useRecoilValue(categoryFilterState);
+  const categoryKeyword = [
+    "질문과 답변",
+    "잡담",
+    "나눔활동",
+    "정보공유",
+    "실종신고",
+    "기타",
+  ];
+  const [selected, setSelected] = useState(categoryKeyword[0]);
+  const setWrite = useSetRecoilState(writeState);
+
+  const onClick: MouseEventHandler = (e) => {
+    const value = e.currentTarget.childNodes[0].textContent;
+    setSelected(value ? value : categoryKeyword[categoryKeyword.length - 1]);
+    setWrite((write) => ({
+      ...write,
+      selectedCategory: value
+        ? value
+        : categoryKeyword[categoryKeyword.length - 1],
+    }));
+  };
 
   return (
     <WriteCategorySection>
@@ -44,9 +58,12 @@ const WriteCategory = () => {
       <div className='Category__Keyword__List'>
         {categoryKeyword.map((keyword) => {
           return (
-            <button key={keyword} className='Category__Keyword__Item'>
-              {keyword}
-            </button>
+            <WriteCategoryButton
+              key={keyword}
+              keyword={keyword}
+              selected={selected}
+              onClick={onClick}
+            />
           );
         })}
       </div>
