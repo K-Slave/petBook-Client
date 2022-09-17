@@ -1,4 +1,10 @@
+import { MouseEventHandler, useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import writeState from "../../atoms/componentAtoms/community/writeState";
+import { useSetResource } from "../../hooks/useResource";
+import localConsole from "../../lib/localConsole";
+import { board_create } from "../../pages/community/write";
 import { Button } from "../common/Button/Button";
 
 const WriteSubmitSection = styled.section`
@@ -26,9 +32,45 @@ const WriteSubmitButton = styled(Button)`
 `;
 
 const WriteSubmit = () => {
+  const [input, setInput] = useState({ inputTitle: "", inputContent: "" });
+  const setWrite = useSetRecoilState(writeState);
+
+  const reqBody = {
+    title: input.inputTitle,
+    content: input.inputContent,
+    category_id: 2,
+    reg_user: "윤성연",
+    visible_status: "Y",
+  };
+
+  const { data, isLoading, isError, isSuccess, mutate } = useSetResource({
+    key: board_create.key,
+    requester: board_create.requester(reqBody),
+  });
+
+  const onClick: MouseEventHandler<HTMLButtonElement> = () => {
+    setWrite((write) => {
+      setInput({
+        inputTitle: write.inputTitle,
+        inputContent: write.inputContent,
+      });
+
+      return { ...write, inputTitle: "", inputContent: "" };
+    });
+  };
+
+  useEffect(() => {
+    if (!input.inputTitle || !input.inputContent) return;
+
+    mutate();
+  }, [input]);
+
+  localConsole.log(data);
+  localConsole.log(isError);
+  localConsole.log(isSuccess);
   return (
     <WriteSubmitSection>
-      <WriteSubmitButton>게시물 등록</WriteSubmitButton>
+      <WriteSubmitButton onClick={onClick}>게시물 등록</WriteSubmitButton>
     </WriteSubmitSection>
   );
 };

@@ -2,6 +2,9 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import styled from "styled-components";
 import "react-quill/dist/quill.snow.css";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import writeState from "../../atoms/componentAtoms/community/writeState";
+import localConsole from "../../lib/localConsole";
 
 const WriteEditorDiv = styled.div`
   width: 100%;
@@ -35,14 +38,16 @@ const QuillWrapper = dynamic(() => import("react-quill"), {
 });
 
 const WriteEditor = () => {
-  const [value, setValue] = useState("");
+  const setWrite = useSetRecoilState(writeState);
+  const onChange = (value: string) => {
+    setWrite((write) => ({ ...write, inputContent: value }));
+  };
 
   return (
     <WriteEditorDiv>
       <QuillWrapper
         theme='snow'
-        value={value}
-        onChange={setValue}
+        onChange={onChange}
         placeholder={`내용을 입력하세요\n\n\n* 등록한 글은 커뮤니티에서 사용중인 닉네임으로 등록됩니다.`}
       />
     </WriteEditorDiv>

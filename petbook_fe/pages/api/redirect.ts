@@ -5,8 +5,8 @@ export default function redirect({ ctx, router }: AppContext) {
 
   let redirectPathname = router.pathname.concat();
 
+  // login 페이지 에서 접속했을경우, 메인 페이지로 보내줌.
   if (router.pathname.includes("login")) {
-    // login 페이지 에서 접속했을경우, 메인 페이지로 보내줌.
     redirectPathname = router.pathname.split("login").join("");
   }
 
