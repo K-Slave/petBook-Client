@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import TagList from "../TagList";
 
 interface PostItemProps {
   avatar: string;
@@ -36,11 +37,7 @@ const PostItem = ({
         <Wrapper>
           <h3>{title}</h3>
           <p className="PostItem__content">{content}</p>
-          <div className="PostItem__tagList">
-            {tagList.map((tag, index) => (
-              <span key={index}>{tag}</span>
-            ))}
-          </div>
+          <TagList tags={tagList} width={65} height={26} fontSize={14} />
           <p className="PostItem__stats">
             <span>공감수 {likeCnt}</span>
             <span>/</span>

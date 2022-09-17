@@ -68,7 +68,7 @@ const Community: NextPage = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.main`
   background-color: #fffbf4;
 `;
 
