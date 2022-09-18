@@ -3,19 +3,23 @@ import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import styled, { css } from "styled-components";
 import { sliderModalState } from "../../../atoms/componentAtoms/community/sliderModal";
 import { useSlider } from "./useSliderModal";
+import { useClickOutside } from "./useClickOutside";
+import { useRef } from "react";
 
 interface ModalImageSliderProps {
   images: string[];
 }
 
 const ImageSliderModal = ({ images }: ModalImageSliderProps) => {
+  const ref = useRef<HTMLDivElement | null>(null);
   const { show, currentIndex, prevIndex } = useRecoilValue(sliderModalState);
   const { moveNext, movePrev, changeCurrentIndex, closeModal } = useSlider(
     images.length
   );
+  useClickOutside(ref, closeModal);
   return (
     <Container show={show}>
-      <SliderWrapper>
+      <SliderWrapper ref={ref}>
         <Button onClick={movePrev}>
           <IoChevronBack />
         </Button>
