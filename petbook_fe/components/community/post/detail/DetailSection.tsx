@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import DetailCommonInfo from "../DetailCommonInfo";
-import TagList from "../TagList";
+import DetailCommonInfo from "../../DetailCommonInfo";
+import TagList from "../../TagList";
 import ImageSlider from "./ImageSlider";
 
 interface DetailSectionProps {
