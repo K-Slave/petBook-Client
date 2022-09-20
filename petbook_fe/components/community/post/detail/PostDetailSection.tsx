@@ -13,7 +13,7 @@ interface DetailSectionProps {
   images: string[];
 }
 
-const DetailSection = ({
+const PostDetailSection = ({
   avatar,
   username,
   date,
@@ -44,7 +44,7 @@ const DetailSection = ({
   );
 };
 
-export default DetailSection;
+export default PostDetailSection;
 
 const Section = styled.section`
   display: flex;
