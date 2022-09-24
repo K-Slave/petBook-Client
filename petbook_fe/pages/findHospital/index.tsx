@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
-import { createResource } from "../hooks/useResource";
-import MapContainer from "../containers/MapContainer";
+import { createResource } from "../../hooks/useResource";
+import MapContainer from "../../components/map/MapContainer";
 
 // 1. 서버 사이드에서 가져올 리소스 정의하기
 // 정의된 순서에서 이미 데이터를 가지고 내려온 상태임.

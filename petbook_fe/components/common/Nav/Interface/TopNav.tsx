@@ -8,7 +8,7 @@ type Props = {
 };
 
 const TopNav = ({ path }: Props) => {
-  const pages = ["", "community", "findhospital", "chat"];
+  const pages = ["", "community", "findHospital", "chat"];
   const pageNames = ["홈", "커뮤니티", "병원정보", "채팅"];
   const parsedPath = path.split("/");
 
