@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 //components
 import MapSlideItems from "./item";
 import SearchBar from "../../common/SearchBar";
+import PositionInfo from "./PositionInfo";
 
 const SlideBox = styled.div`
   width: 30rem;
@@ -43,7 +44,7 @@ const Handler = styled.div`
 const SlideContainer = styled.div`
   overflow: auto;
   height: calc(100% - 59px);
-  padding: 20px 25px;
+  padding: 41px 55px;
   box-sizing: border-box;
   &::-webkit-scrollbar {
     display: none;
@@ -61,7 +62,7 @@ const MapFilterSlider = () => {
   useEffect(() => {
     let mapData = [
       {
-        text: "병원",
+        text: "1",
         value: 0,
         mapDetailList: [
           {
@@ -75,7 +76,7 @@ const MapFilterSlider = () => {
         ],
       },
       {
-        text: "병원2",
+        text: "2",
         value: 1,
         mapDetailList: [
           {
@@ -89,7 +90,7 @@ const MapFilterSlider = () => {
         ],
       },
       {
-        text: "병원3",
+        text: "3",
         value: 2,
         mapDetailList: [
           {
@@ -99,11 +100,11 @@ const MapFilterSlider = () => {
         ],
       },
       {
-        text: "병원4",
+        text: "4",
         value: 3,
       },
       {
-        text: "병원5",
+        text: "5",
         value: 3,
       },
     ];
@@ -119,6 +120,7 @@ const MapFilterSlider = () => {
         </Handler>
         <SlideContainer>
           <SearchBar type="map" />
+          <PositionInfo />
           <MapSlideItems searchItems={[searchItems]} />
         </SlideContainer>
       </SlideBox>
