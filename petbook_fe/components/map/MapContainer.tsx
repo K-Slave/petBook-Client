@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import sortFilterState from "../../atoms/componentAtoms/filter/sortFilter";
 import MapComponent from "../common/MapComponent";
-import MapFilterSlider from "./MapItems";
+import MapFilterSlider from "./slider";
 // import useResource from "../../hooks/useResource";
 
 // Recoil 을 실제 컴포넌트단위에서 사용하는 방법
