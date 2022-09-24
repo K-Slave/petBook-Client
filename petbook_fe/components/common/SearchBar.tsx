@@ -7,14 +7,12 @@ type ContentProps = {
 };
 
 const Bar = styled.div`
-  float: ${(props: ContentProps) => (props.type === "map" ? "auto" : "right")};
+  float: right;
   margin-top: 20px;
   display: flex;
   align-items: center;
-  width: ${(props: ContentProps) => (props.type === "map" ? "100%" : "auto")};
   input {
-    border: ${(props: ContentProps) =>
-      props.type === "map" ? "solid 1px #f0892f" : "none"};
+    border: "none";
     width: 300px;
     margin-right: 10px;
   }
@@ -24,13 +22,36 @@ const Bar = styled.div`
   }
 `;
 
-const SearchBar = (props: PropsWithChildren<ContentProps> | any) => {
-  return (
-    <Bar {...props}>
-      <input type="text" placeholder="애완동물의 종류를 입력해주세요" />
+const MapBar = styled.div`
+  width: 100%;
+  input {
+    border: solid 2px var(--main);
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 13px 0 14px 53px;
+    background-image: ;
+    &::placeholder {
+      color: var(--main);
+      opacity: 0.6;
+    }
+  }
+`;
 
-      <BsSearch />
-    </Bar>
+const SearchBar = (props: PropsWithChildren<ContentProps>) => {
+  const type = props?.type === "map";
+  return (
+    <>
+      {type ? (
+        <MapBar>
+          <input type="text" placeholder="애완동물의 종류를 입력해주세요" />
+        </MapBar>
+      ) : (
+        <Bar>
+          <input type="text" placeholder="애완동물의 종류를 입력해주세요" />
+          <BsSearch />
+        </Bar>
+      )}
+    </>
   );
 };
 export default SearchBar;
