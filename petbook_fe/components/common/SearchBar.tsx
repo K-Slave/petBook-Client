@@ -29,7 +29,6 @@ const MapBar = styled.div`
     font-size: 16px;
     border-radius: 10px;
     padding: 13px 0 14px 53px;
-    background-image: ;
     &::placeholder {
       color: var(--main);
       opacity: 0.6;
