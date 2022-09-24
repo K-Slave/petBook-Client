@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 //components
 import MapSlideItems from "./MapSlideItem";
-import SearchBar from "./common/SearchBar";
+import SearchBar from "../common/SearchBar";
 
 const SlideBox = styled.div`
   width: 30rem;
@@ -12,31 +12,31 @@ const SlideBox = styled.div`
   background-color: #fff;
   position: fixed;
 
-  top: 59px;
+  top: 120px;
   z-index: 9;
   box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 `;
 const Handler = styled.div`
-  width: 80px;
-  height: 140px;
+  width: 54px;
+  height: 100px;
   position: absolute;
   background-color: #f0892f;
   color: white;
   z-index: 8;
-  left: -80px;
-  top: 50%;
-  border-radius: 30px 0 0 30px;
+  left: -54px;
+  top: 43%;
+  border-radius: 10px 0 0 10px;
   transform: translateY(-50%);
-  padding: 30px 10px;
+  padding: 30px 5px;
   box-sizing: border-box;
   text-align: center;
   svg {
-    width: 40px;
-    height: 40px;
+    width: 24px;
+    height: 24px;
   }
   h3 {
-    font-size: 14px;
+    font-size: 12px;
   }
 `;
 
@@ -45,6 +45,9 @@ const SlideContainer = styled.div`
   height: calc(100% - 59px);
   padding: 20px 25px;
   box-sizing: border-box;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const MapFilterSlider = () => {
