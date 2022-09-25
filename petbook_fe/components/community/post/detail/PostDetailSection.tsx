@@ -3,7 +3,7 @@ import DetailCommonInfo from "../../DetailCommonInfo";
 import TagList from "../../TagList";
 import ImageSlider from "./ImageSlider";
 
-interface DetailSectionProps {
+interface PostDetailSectionProps {
   avatar: string;
   username: string;
   date: string;
@@ -21,7 +21,7 @@ const PostDetailSection = ({
   content,
   tags,
   images,
-}: DetailSectionProps) => {
+}: PostDetailSectionProps) => {
   return (
     <Section>
       <Row>
