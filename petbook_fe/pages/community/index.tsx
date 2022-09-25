@@ -1,4 +1,8 @@
-import { NextPage } from "next";
+import {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from "next";
 import styled from "styled-components";
 import KnowHowSection from "../../components/common/PaperBox/Interface/KnowHowSection";
 import About from "../../components/community/about/About";
@@ -45,7 +49,9 @@ export const category_list = createResource({
   },
 });
 
-const Community: NextPage = () => {
+const Community: NextPage = ({
+  page,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const board = useResource(board_list); // <- react-query 로 가져오는 API 데이터 (server-side-data store)
   const category = useResource(category_list);
 
@@ -90,3 +96,24 @@ const Community_Index: PetbookPages = Community;
 Community_Index.requiredResources = [board_list, category_list];
 
 export default Community;
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  console.log(query);
+  if (query.page === undefined) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/community?page=1",
+      },
+      props: {
+        page: 1,
+      },
+    };
+  } else {
+    return {
+      props: {
+        page: query.page,
+      },
+    };
+  }
+};
