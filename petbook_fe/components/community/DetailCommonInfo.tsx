@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface DetailCommonInfoProps {
-  avatar: string;
+  avatar?: string;
   username: string;
   date: string;
 }
@@ -12,7 +12,7 @@ const DetailCommonInfo = ({
 }: DetailCommonInfoProps) => {
   return (
     <Wrapper>
-      <Avatar src={avatar} alt="user avatar" />
+      {avatar ? <Avatar src={avatar} alt="user avatar" /> : <Circle />}
       <p className="username">{username}</p>
       <p className="date">{date}</p>
     </Wrapper>
@@ -22,11 +22,17 @@ const DetailCommonInfo = ({
 export default DetailCommonInfo;
 
 const Avatar = styled.img`
-  background-color: lightgray;
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
+`;
+
+const Circle = styled.div`
+  background-color: lightgray;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 `;
 
 const Wrapper = styled.div`
