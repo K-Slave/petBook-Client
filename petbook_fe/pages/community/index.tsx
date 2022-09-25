@@ -98,7 +98,6 @@ Community_Index.requiredResources = [board_list, category_list];
 export default Community;
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  console.log(query);
   if (query.page === undefined) {
     return {
       redirect: {
