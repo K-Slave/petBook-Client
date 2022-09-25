@@ -1,16 +1,17 @@
 import { useRef } from "react";
+import { useRouter } from "next/router";
 import MainSection from "../MainSection";
 import PaginationButton from "./PaginationButton";
 import PostFilter from "./PostFilter";
 import PostList from "./PostList";
-import { useCurrentPage } from "./useCurrentPage";
 import { useScroll } from "./useScroll";
 
 const PostSection = () => {
+  const router = useRouter();
+  const currentPage = Number(router.query?.page);
   const ref = useRef<HTMLElement | null>(null);
   const limit = useRef(10);
   const numPages = Math.ceil(dummy.length / limit.current);
-  const { currentPage, changeCurrentPage } = useCurrentPage(numPages);
   const offset = (currentPage - 1) * limit.current;
   useScroll({ top: ref.current?.offsetTop }, [currentPage]);
   return (
@@ -21,11 +22,7 @@ const PostSection = () => {
     >
       <PostFilter />
       <PostList posts={dummy.slice(offset, offset + limit.current)} />
-      <PaginationButton
-        currentPage={currentPage}
-        changeCurrentPage={changeCurrentPage}
-        numPages={Math.ceil(dummy.length / limit.current)}
-      />
+      <PaginationButton numPages={numPages} />
     </MainSection>
   );
 };
