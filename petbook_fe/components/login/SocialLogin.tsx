@@ -14,6 +14,7 @@ const SocialLogin = () => {
   const [href, setHref] = useState("");
 
   useEffect(() => {
+    console.log(window.location, window.location.href);
     setHref(window.location.href);
   }, []);
 

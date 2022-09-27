@@ -95,21 +95,7 @@ const Login = () => {
                 <p>이색동물 유저들의 소통공간, Petbook</p>
                 <h2>로그인 후 다양한 콘텐츠를 즐겨보세요!</h2>
               </div>
-
-              {/* 일반 로그인 영역 */}
-              {/* <EmailLogin /> */}
-
-              {/* 소셜 로그인 영역 */}
               <SocialLogin />
-
-              {/* <ul className="action flex center">
-                <li>
-                  <a href=""> 회원가입</a>
-                </li>
-                <li>
-                  <a href="">아이디/비밀번호 찾기</a>
-                </li>
-              </ul> */}
               <InduceSign />
             </>
           ) : (
