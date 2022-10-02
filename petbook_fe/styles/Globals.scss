@@ -5,7 +5,10 @@
 
 :root {
   --main: #ff6e4e;
+  --main-map: #f0892f; //맵 전용 컬러
   --bg: #fffbf4;
+  --test: #fff6e5;
+  --figureBg: #d9d9d9;
 }
 
 * {
@@ -33,7 +36,6 @@ body {
 .Header__Wrap {
   position: fixed;
   z-index: 100;
-
 
   width: 100%;
   height: auto;
@@ -122,9 +124,11 @@ input::placeholder {
 //login
 .login_title {
   p {
-    margin-bottom: 8px;
+    font-size: 20px;
+    margin-bottom: 14px;
   }
   h2 {
+    font-size: 28px;
     margin-bottom: 32px;
   }
 }
@@ -158,6 +162,17 @@ button {
   border: transparent;
   background-color: transparent;
   font-family: Pretendard, sans-serif;
+}
+
+.main_color_button {
+  border-radius: 12px;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 20px 0;
+  text-align: center;
+  background-color: var(--main);
+  cursor: pointer;
 }
 
 // 모바일 환경 접속시 전역 스타일링

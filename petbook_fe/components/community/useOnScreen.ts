@@ -24,7 +24,7 @@ export const useOnScreen = (
       },
       {
         root: root.current,
-        threshold: [0, 0.2, 0.4, 0.6, 0.8, 1],
+        threshold: [0, 0.2, 0.4, 0.6, 0.8, 0.9, 1],
       }
     );
     const el = target && target.current;

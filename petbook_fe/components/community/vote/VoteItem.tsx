@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { MdPersonOutline } from "react-icons/md";
 import { MutableRefObject } from "react";
+import TagList from "../TagList";
 
 interface VoteItemProps {
   image: string;
@@ -23,11 +24,7 @@ const VoteItem = ({
     <Item ref={itemRef}>
       {image === "" ? null : <Image></Image>}
       <Column image={image}>
-        <TagList>
-          {tagList.map((tag, index) => (
-            <span key={index}>{tag}</span>
-          ))}
-        </TagList>
+        <TagList tags={tagList} width={90} height={36} fontSize={16} />
         <Title>{title}</Title>
         <Desc>{description}</Desc>
         <Bottom>
@@ -50,22 +47,6 @@ const Item = styled.li`
   height: 300px;
   background-color: white;
   border-radius: 16px;
-`;
-
-const TagList = styled.div`
-  display: flex;
-  gap: 4px;
-  span {
-    background: #f0f0f0;
-    border-radius: 5px;
-    color: #7c7c7c;
-    font-size: 16px;
-    width: 90px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 `;
 
 const Title = styled.h3`

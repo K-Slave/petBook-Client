@@ -5,7 +5,7 @@ import styled from "styled-components";
 const BACKEND_BASE_URL = "https://pypetbook.herokuapp.com";
 
 const ButtonBox = styled.div`
-  margin-top: 60px;
+  margin-top: 42px;
 `;
 
 const SocialLogin = () => {
@@ -14,6 +14,7 @@ const SocialLogin = () => {
   const [href, setHref] = useState("");
 
   useEffect(() => {
+    console.log(window.location, window.location.href);
     setHref(window.location.href);
   }, []);
 
