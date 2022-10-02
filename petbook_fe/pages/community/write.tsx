@@ -7,9 +7,9 @@ import WriteHashTags from "../../components/write/WriteHashTags";
 import WriteImgSubmit from "../../components/write/WriteImgSubmit";
 import WriteSubmit from "../../components/write/WriteSubmit";
 import localConsole from "../../lib/localConsole";
-import "../../styles/WritePage.module.scss";
 import { createRequest } from "../../hooks/useResource";
-import boardRequest from "../api/petBook_API/boardRequest";
+import "../../styles/WritePage.module.scss";
+import { boardRequest } from "../api/petBook_API";
 
 // (reqBody: {
 //   title: string;
@@ -28,7 +28,9 @@ export const board_create = createRequest({
     reg_user: string;
     visible_status: string;
   }) {
-    return () => boardRequest.board_create(reqBody);
+    return () => {
+      return boardRequest.board_create(reqBody);
+    };
   },
 });
 
@@ -48,7 +50,7 @@ const MainContainer = styled.main`
 const Write: NextPage = (initProps) => {
   return (
     <>
-      <MainContainer className="Content">
+      <MainContainer className='Content'>
         <WriteCategory />
         <WriteForm />
         <WriteImgSubmit />

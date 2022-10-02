@@ -1,4 +1,3 @@
-import QueryString from "qs";
 import getParameters from "./fetchFunctions";
 
 class FetchInstance {
@@ -10,7 +9,7 @@ class FetchInstance {
     baseURL: "",
     headers: {
       common: {
-        "Content-Type": "application/json",
+        "Content-Type": "",
         "X-CSRFToken": "",
       },
     },
@@ -23,6 +22,11 @@ class FetchInstance {
     },
   };
 
+  /**
+   * HTTP Method GET
+   * @param params 입력할 쿼리파라미터 입니다.
+   * @param config 객체로 입력할 설정값 입니다. 현재는 headerObj 프로퍼티만 있습니다.
+   */
   get(url: string, params?: string | object, config?: { headerObj?: object }) {
     const { requestURL, requestHeaders } = getParameters({
       url: url,
@@ -39,6 +43,12 @@ class FetchInstance {
     });
   }
 
+  /**
+   * HTTP Method POST
+   * @param data 요청 패킷 Body 에 JSON 형태로 담을 내용입니다.
+   * @param params 입력할 쿼리파라미터 입니다.
+   * @param config 객체로 입력할 설정값 입니다. 현재는 headerObj 프로퍼티만 있습니다.
+   */
   post(
     url: string,
     data?: any,
@@ -61,6 +71,12 @@ class FetchInstance {
     });
   }
 
+  /**
+   * HTTP Method PUT
+   * @param data 요청 패킷 Body 에 JSON 형태로 담을 내용입니다.
+   * @param params 입력할 쿼리파라미터 입니다.
+   * @param config 객체로 입력할 설정값 입니다. 현재는 headerObj 프로퍼티만 있습니다.
+   */
   put(
     url: string,
     data?: any,
@@ -83,6 +99,12 @@ class FetchInstance {
     });
   }
 
+  /**
+   * HTTP Method PUT
+   * @param data 요청 패킷 Body 에 JSON 형태로 담을 내용입니다.
+   * @param params 입력할 쿼리파라미터 입니다.
+   * @param config 객체로 입력할 설정값 입니다. 현재는 headerObj 프로퍼티만 있습니다.
+   */
   delete(
     url: string,
     data?: any,
@@ -106,6 +128,8 @@ class FetchInstance {
   }
 }
 
+export type FetchInstanceType = FetchInstance;
+
 const fetchCore = {
   create() {
     return new FetchInstance();
@@ -114,7 +138,7 @@ const fetchCore = {
 
 export default fetchCore;
 
-// export type FetchResponseToJS = {
+// export type UseQueryResponseToJS = {
 //   data: any;
 //   dataUpdatedAt: number;
 //   error: any | null;
