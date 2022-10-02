@@ -1,7 +1,7 @@
 import QueryString from "qs";
 
 // baseURL + 사용자 정의 url + 사용자 정의 queryParams
-// ex: "https://pypetbook.herokuapp.com" + "/board" + "?id=0&category_id=0&visible_status=Y&currentPage=1&numPerPage=10"
+// ex: "https://@@@.com" + "/board" + "?id=0&category_id=0&visible_status=Y&currentPage=1&numPerPage=10"
 function getUrl(url: string) {
   if (url.includes("/")) return url;
   if (!url.includes("/")) return "/" + url;

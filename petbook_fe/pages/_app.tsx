@@ -5,7 +5,6 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "react-query";
-
 import "../styles/Globals.scss";
 import "../styles/Texts.scss";
 import "../styles/find/Texts.scss";
@@ -54,6 +53,14 @@ export default function NextApp(appInitProps: AppProps) {
   );
 }
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+    },
+  },
+});
+
 NextApp.getInitialProps = async (context: AppContext) => {
   const { Component, router, ctx } = context;
 
@@ -65,13 +72,6 @@ NextApp.getInitialProps = async (context: AppContext) => {
   }
 
   const page: any = Component;
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: Infinity,
-      },
-    },
-  });
 
   const { requiredResources } = page;
 

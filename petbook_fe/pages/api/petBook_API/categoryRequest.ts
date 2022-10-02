@@ -1,17 +1,16 @@
+import localConsole from "../../../lib/localConsole";
 import { FetchInstanceType } from "../fetch/fetchCore";
 
-type BoardListRequest = {
+type CategoryListRequest = {
   id: number;
   title?: string;
-  content?: string;
   reg_user?: string;
-  category_id: number;
   visible_status: string;
   currentPage: number;
   numPerPage: number;
 };
 
-export type BoardListResponse = {
+export type CategoryListResponse = {
   count: number;
   item:
     | Array<{
@@ -19,23 +18,19 @@ export type BoardListResponse = {
         create_at: string;
         update_at: string;
         title: string;
-        content: string;
         reg_user: string;
         visible_status: string;
-        category_id: number;
       }>
     | [];
 };
 
-export type BoardCreateRequest = {
+export type CategoryCreateRequest = {
   title: string;
-  content: string;
-  category_id: number;
   reg_user: string;
   visible_status: string;
 };
 
-type BoardCreateResponse =
+type CategoryCreateResponse =
   | {
       msg: string;
     }
@@ -45,97 +40,93 @@ type BoardCreateResponse =
       };
     };
 
-export type BoardUpdateRequest = {
+export type CategoryUpdateRequest = {
   id: number;
   create_at: string;
   update_at: string;
   title: string;
-  content: string;
   reg_user: string;
   visible_status: string;
-  category_id: number;
 };
 
-type BoardUpdateResponse = BoardCreateResponse;
+type CategoryUpdateResponse = CategoryCreateResponse;
 
-type BoardDeleteRequest = {
+type CategoryDeleteRequest = {
   id: number;
 };
 
-type BoardDeleteResponse = BoardCreateResponse;
+type CategoryDeleteResponse = CategoryCreateResponse;
 
 // Promise 객체를 핸들링하는 곳입니다.
 // 추후 에러 핸들링등을 이쪽에서 구현하려고 합니다.
-class BoardAPI {
+class CategoryAPI {
   constructor(fetchClient: FetchInstanceType) {
     this.fetchClient = fetchClient;
   }
-  uri = "/board";
+
+  uri = "/category";
   fetchClient;
 
   /**
-   * 게시글 조회 API
+   * 카테고리 조회 API
    * @param params.id 0은 Reserved 입니다. 의미없는 호출입니다.
-   * @param params.category_id 0은 Reserved 입니다. 의미없는 호출입니다.
-   * @param params.currentPage 불러올 페이지를 뜻합니다. default : 1
-   * @param params.numPerPage 한 페이지에 몇개의 게시물을 가져올지 전달합니다. default : 10
+   * @param params.title 카테고리 명을 입력합니다.
    * @returns fetch API Response 객체를 직렬화한 Promise 객체를 반환합니다.
    */
-  async board_list(params: BoardListRequest) {
+  async category_list(params: CategoryListRequest) {
     const response = await this.fetchClient
       .get(this.uri, params)
       .catch((err) => console.error(err));
-    // todos : 여기서 에러 페이지로 이동등 처리 케이스를 다루면 될것 같음
     const resolvedRes = response as Response;
-    const body: BoardListResponse = await resolvedRes.json();
+    const body: CategoryListResponse = await resolvedRes.json();
     return body;
   }
 
   /**
-   * 게시글 등록 API
-   * @param data.category_id 0번 카테고리는 reserved 입니다. 글쓰기 카테고리 선택순서로 id가 매핑됩니다. ex) 1:질문과 답변, 2: 잡담, 3: 나눔활동 ...
+   * 카테고리 등록 API
+   * @param data.title 카테고리 명을 입력합니다
    * @returns fetch Response 객체가 직렬화된 Promise를 반환합니다.
    */
-  async board_create(data: BoardCreateRequest, params?: string | object) {
+  async category_create(data: CategoryCreateRequest, params?: string | object) {
     const response = await this.fetchClient
       .post(this.uri, data, params)
       .catch((err) => console.error(err));
     const resolvedRes = response as Response;
-    const body: BoardCreateResponse = await resolvedRes.json();
+    const body: CategoryCreateResponse = await resolvedRes.json();
 
     return body;
   }
 
   /**
-   * 게시글 수정 API
-   * @param data.id 0번 id는 reserved 입니다. 해당 게시글 id를 입력해주세요.
-   * @param data.category_id 0번 카테고리는 reserved 입니다. 글쓰기 카테고리 선택순서로 id가 매핑됩니다. ex) 1:질문과 답변, 2: 잡담, 3: 나눔활동 ...
+   * 카테고리 수정 API
+   * @param data.id 0번 id는 reserved 입니다. 해당 카테고리 id를 입력해주세요.
+   * @param data.title 카테고리 명을 입력합니다
    * @returns fetch Response 객체가 직렬화된 Promise를 반환합니다.
    */
-  async board_update(data: BoardUpdateRequest, params?: string | object) {
+  async category_update(data: CategoryUpdateRequest, params?: string | object) {
     const response = await this.fetchClient
       .put(this.uri, data, params)
       .catch((err) => console.error(err));
     const resolvedRes = response as Response;
-    const body: BoardUpdateResponse = await resolvedRes.json();
+    const body: CategoryUpdateResponse = await resolvedRes.json();
 
     return body;
   }
 
   /**
-   * 게시글 삭제 API
-   * @param data.id 0번 id는 reserved 입니다. 해당 게시글 id를 입력해주세요. ex) 1:질문과 답변, 2: 잡담, 3: 나눔활동 ...
+   * 카테고리 삭제 API
+   * @param data.id 0번 id는 reserved 입니다. 해당 카테고리 id를 입력해주세요.
    * @returns fetch Response 객체가 직렬화된 Promise를 반환합니다.
    */
-  async board_delete(data: BoardDeleteRequest, params?: string | object) {
+  async category_delete(data: CategoryDeleteRequest, params?: string | object) {
     const response = await this.fetchClient
       .post(this.uri, data, params)
       .catch((err) => console.error(err));
     const resolvedRes = response as Response;
-    const body: BoardDeleteResponse = await resolvedRes.json();
+    const body: CategoryDeleteResponse = await resolvedRes.json();
 
     return body;
   }
 }
 
-export default BoardAPI;
+export default CategoryAPI;

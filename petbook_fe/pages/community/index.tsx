@@ -7,10 +7,7 @@ import PostSection from "../../components/community/post/PostSection";
 import VoteSection from "../../components/community/vote/VoteSection";
 import WriteButton from "../../components/community/WriteButton";
 import useResource, { createResource } from "../../hooks/useResource";
-import localConsole from "../../lib/localConsole";
-import fetchClient from "../api/fetch/fetchClient";
-// import { FetchResponseToJS } from "../api/fetch/fetchCore";
-import boardRequest from "../api/petBook_API/boardRequest";
+import { boardRequest, categoryRequest } from "../api/petBook_API";
 
 export const board_list = createResource({
   key: "board_list",
@@ -29,19 +26,16 @@ export const board_list = createResource({
 
 export const category_list = createResource({
   key: "category_list",
-  fetcher: async () => {
+  fetcher: () => {
     const params = {
       id: 0,
+      title: "",
       visible_status: "Y",
       currentPage: 1,
       numPerPage: 10,
     };
 
-    const response = await fetchClient.get("/category", params);
-
-    const body = await response.json();
-
-    return body;
+    return categoryRequest.category_list(params);
   },
 });
 
