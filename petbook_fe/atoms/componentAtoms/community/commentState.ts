@@ -3,6 +3,7 @@ import { atom } from "recoil";
 export interface CommentState {
   comment: string;
   id?: number;
+  parentId?: number;
 }
 
 export const commentState = atom<CommentState>({
@@ -10,5 +11,6 @@ export const commentState = atom<CommentState>({
   default: {
     comment: "",
     id: undefined,
+    parentId: undefined,
   },
 });
