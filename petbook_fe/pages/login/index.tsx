@@ -1,15 +1,15 @@
 import { useRouter } from "next/router";
-import HtmlHeader from "../../components/common/HtmlHeader";
-import TopNav from "../../components/TopNav";
+import HtmlHeader from "@components/common/HtmlHeader";
 
 //
-import SocialLogin from "../../components/login/SocialLogin";
-import EmailLogin from "../../components/login/EmailLogin";
+import SocialLogin from "@components/login/SocialLogin";
+import EmailLogin from "@components/login/EmailLogin";
 
 //
 import styled from "styled-components";
 import { BsCheckCircleFill } from "react-icons/bs";
-import InduceSign from "../../components/login/InduceSign";
+import InduceSign from "@components/login/InduceSign";
+import TopNav from "@components/TopNav";
 
 const Main = styled.main`
   height: calc(100vh - 61px);
