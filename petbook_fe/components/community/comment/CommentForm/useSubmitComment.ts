@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
-import { commentState } from "../../../../atoms/componentAtoms/community/commentState";
+import {
+  CommentState,
+  commentState,
+} from "../../../../atoms/componentAtoms/community/commentState";
 
 export const useSubmitComment = () => {
   const setComment = useSetRecoilState(commentState);
-  const [input, setInput] = useState({ comment: "" });
+  const [input, setInput] = useState<CommentState>({
+    comment: "",
+    id: undefined,
+  });
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setComment((comment) => {
@@ -15,8 +21,12 @@ export const useSubmitComment = () => {
 
   useEffect(() => {
     if (!input.comment) return; // form validation
-    // post or api 호출
-    console.log(input.comment);
+    if (input.id !== undefined) {
+      // patch api
+    } else {
+      // post api
+    }
+    console.log(input);
   }, [input]);
 
   return {
