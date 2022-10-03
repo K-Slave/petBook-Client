@@ -2,26 +2,34 @@ import styled from "styled-components";
 import WriteComment from "./WriteComment";
 import SubmitButton from "./SubmitButton";
 import UserInfo from "./UserInfo";
+import { useSetRecoilState } from "recoil";
+import {
+  CommentState,
+  commentState,
+} from "../../../../atoms/componentAtoms/community/commentState";
+import { useEffect } from "react";
 
 interface CommentFormProps {
-  initialComment: string;
+  initialCommentState?: CommentState;
 }
 
-const CommentForm = ({ initialComment }: CommentFormProps) => {
+const CommentForm = ({ initialCommentState }: CommentFormProps) => {
+  const setComment = useSetRecoilState(commentState);
+  useEffect(() => {
+    if (initialCommentState) {
+      setComment(initialCommentState);
+    }
+  }, []);
   return (
     <Form>
       <UserInfo />
-      <WriteComment initialComment={initialComment} />
+      <WriteComment initialComment={initialCommentState?.comment} />
       <SubmitButton />
     </Form>
   );
 };
 
 export default CommentForm;
-
-CommentForm.defaultProps = {
-  initialComment: "",
-};
 
 const Form = styled.form`
   width: 100%;
