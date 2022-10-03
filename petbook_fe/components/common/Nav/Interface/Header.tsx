@@ -1,3 +1,4 @@
+import React from "react";
 import HeaderWrap from "../Design/Desktop/Header/HeaderWrap";
 import LogoButton from "../Design/Desktop/Header/LogoButton";
 import PersonalMenu from "../Design/Desktop/Header/PersonalMenu";
@@ -35,4 +36,4 @@ const Header = ({ path }: Props) => {
   );
 };
 
-export default Header;
+export default React.memo(Header);

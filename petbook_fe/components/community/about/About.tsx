@@ -1,6 +1,9 @@
+import React from "react";
 import styled from "styled-components";
 
 const About = () => {
+  console.log("About render");
+
   return (
     <Wrapper>
       <div>
@@ -13,7 +16,7 @@ const About = () => {
   );
 };
 
-export default About;
+export default React.memo(About);
 
 const Wrapper = styled.div`
   height: 200px;

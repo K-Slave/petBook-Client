@@ -9,7 +9,7 @@ import CategoryAPI from "./categoryRequest";
  * @method board_update(data, params) : PUT 게시글 수정
  * @method board_delete(data, params) : DELETE 게시글 삭제
  */
-export const boardRequest = new BoardAPI(petBookClient);
+export const boardRequest = new BoardAPI();
 
 /**
  * @uri '/category'
@@ -18,4 +18,4 @@ export const boardRequest = new BoardAPI(petBookClient);
  * @method category_update(data, params) : PUT 카테고리 수정
  * @method category_delete(data, params) : DELETE 카테고리 삭제
  */
-export const categoryRequest = new CategoryAPI(petBookClient);
+export const categoryRequest = new CategoryAPI();
