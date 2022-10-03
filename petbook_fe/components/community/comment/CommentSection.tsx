@@ -1,12 +1,12 @@
 import styled from "styled-components";
+import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
-import WriteComment from "./WriteComment";
 
 const CommentSection = () => {
   return (
     <Section>
       <CommentList />
-      <WriteComment />
+      <CommentForm />
     </Section>
   );
 };
