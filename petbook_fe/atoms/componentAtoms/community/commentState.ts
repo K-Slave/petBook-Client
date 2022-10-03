@@ -6,11 +6,13 @@ export interface CommentState {
   parentId?: number;
 }
 
+export const initialCommentState = {
+  comment: "",
+  id: undefined,
+  parentId: undefined,
+};
+
 export const commentState = atom<CommentState>({
   key: "commentState",
-  default: {
-    comment: "",
-    id: undefined,
-    parentId: undefined,
-  },
+  default: initialCommentState,
 });
