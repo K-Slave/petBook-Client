@@ -51,7 +51,7 @@ export default function getParameters({
   isNeedQuery = true,
 }: GetParametersType) {
   return {
-    requestURL: `${baseURL}${getUrl(url)}${
+    requestURL: `${baseURL ? baseURL : ""}${getUrl(url)}${
       isNeedQuery ? getQueryString(params) : ""
     }`,
     requestHeaders: getHeaders(defaultHeader, headerObj),
