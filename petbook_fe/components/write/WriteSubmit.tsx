@@ -32,6 +32,8 @@ const WriteSubmitButton = styled(Button)`
 `;
 
 const WriteSubmit = () => {
+  console.log("Submit render");
+
   const [input, setInput] = useState({ inputTitle: "", inputContent: "" });
   const setWrite = useSetRecoilState(writeState);
 

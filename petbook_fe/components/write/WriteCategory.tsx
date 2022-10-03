@@ -1,7 +1,11 @@
-import { MouseEventHandler, useState } from "react";
+import { useRouter } from "next/router";
+import React, { MouseEventHandler, useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import writeState from "../../atoms/componentAtoms/community/writeState";
+import useResource from "../../hooks/useResource";
+import { board_list_defaults } from "../../pages/api/petBook_API/boardRequest";
+import { board_list } from "../../pages/community";
 import WriteCategoryButton from "./WriteCategoryButton";
 //
 const WriteCategorySection = styled.section`
@@ -25,9 +29,16 @@ const WriteCategorySection = styled.section`
 
     width: 100%;
   }
+  .testttttttt {
+    position: absolute;
+    bottom: 82vw;
+    z-index: 99;
+  }
 `;
 
 const WriteCategory = () => {
+  console.log("Category render");
+
   const categoryKeyword = [
     "질문과 답변",
     "잡담",
@@ -50,25 +61,61 @@ const WriteCategory = () => {
     }));
   };
 
+  const board = useResource(
+    {
+      ...board_list,
+      key: `board_list_${
+        categoryKeyword.findIndex((elem) => elem === selected) + 1
+      }`,
+    },
+    {
+      ...board_list_defaults,
+      currentPage: categoryKeyword.findIndex((elem) => elem === selected) + 1,
+    }
+  );
+
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push(
+      `/community/write?page=${
+        categoryKeyword.findIndex((elem) => elem === selected) + 1
+      }`,
+      undefined,
+      { shallow: true }
+    );
+  }, [selected]);
+
   return (
-    <WriteCategorySection>
-      <label className='Category__Section__Title'>
-        카테고리를 선택해주세요
-      </label>
-      <div className='Category__Keyword__List'>
-        {categoryKeyword.map((keyword) => {
-          return (
-            <WriteCategoryButton
-              key={keyword}
-              keyword={keyword}
-              selected={selected}
-              onClick={onClick}
-            />
-          );
-        })}
-      </div>
-    </WriteCategorySection>
+    <>
+      <WriteCategorySection>
+        <label className='Category__Section__Title'>
+          카테고리를 선택해주세요
+        </label>
+        <div className='Category__Keyword__List'>
+          {categoryKeyword.map((keyword, idx) => {
+            return (
+              <WriteCategoryButton
+                key={keyword}
+                idx={idx}
+                keyword={keyword}
+                selected={selected}
+                onClick={onClick}
+              />
+            );
+          })}
+        </div>
+        {board.status === "success" && (
+          <div className='testttttttt'>
+            {board &&
+              board.data &&
+              board.data.items &&
+              board.data.items.map((elem) => elem.content)}
+          </div>
+        )}
+      </WriteCategorySection>
+    </>
   );
 };
 
-export default WriteCategory;
+export default React.memo(WriteCategory);

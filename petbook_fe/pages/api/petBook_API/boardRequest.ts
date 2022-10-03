@@ -1,3 +1,5 @@
+import { boardRequest } from ".";
+import { petBookClient } from "../fetch/fetchClient";
 import { FetchInstanceType } from "../fetch/fetchCore";
 
 type BoardListRequest = {
@@ -13,7 +15,7 @@ type BoardListRequest = {
 
 export type BoardListResponse = {
   count: number;
-  item:
+  items:
     | Array<{
         id: number;
         create_at: string;
@@ -67,11 +69,7 @@ type BoardDeleteResponse = BoardCreateResponse;
 // Promise 객체를 핸들링하는 곳입니다.
 // 추후 에러 핸들링등을 이쪽에서 구현하려고 합니다.
 class BoardAPI {
-  constructor(fetchClient: FetchInstanceType) {
-    this.fetchClient = fetchClient;
-  }
-  uri = "/board";
-  fetchClient;
+  constructor() {}
 
   /**
    * 게시글 조회 API
@@ -82,8 +80,8 @@ class BoardAPI {
    * @returns fetch API Response 객체를 직렬화한 Promise 객체를 반환합니다.
    */
   async board_list(params: BoardListRequest) {
-    const response = await this.fetchClient
-      .get(this.uri, params)
+    const response = await petBookClient
+      .get("/board", params)
       .catch((err) => console.error(err));
     // todos : 여기서 에러 페이지로 이동등 처리 케이스를 다루면 될것 같음
     const resolvedRes = response as Response;
@@ -97,8 +95,8 @@ class BoardAPI {
    * @returns fetch Response 객체가 직렬화된 Promise를 반환합니다.
    */
   async board_create(data: BoardCreateRequest, params?: string | object) {
-    const response = await this.fetchClient
-      .post(this.uri, data, params)
+    const response = await petBookClient
+      .post("/board", data, params)
       .catch((err) => console.error(err));
     const resolvedRes = response as Response;
     const body: BoardCreateResponse = await resolvedRes.json();
@@ -113,8 +111,8 @@ class BoardAPI {
    * @returns fetch Response 객체가 직렬화된 Promise를 반환합니다.
    */
   async board_update(data: BoardUpdateRequest, params?: string | object) {
-    const response = await this.fetchClient
-      .put(this.uri, data, params)
+    const response = await petBookClient
+      .put("board", data, params)
       .catch((err) => console.error(err));
     const resolvedRes = response as Response;
     const body: BoardUpdateResponse = await resolvedRes.json();
@@ -128,8 +126,8 @@ class BoardAPI {
    * @returns fetch Response 객체가 직렬화된 Promise를 반환합니다.
    */
   async board_delete(data: BoardDeleteRequest, params?: string | object) {
-    const response = await this.fetchClient
-      .post(this.uri, data, params)
+    const response = await petBookClient
+      .post("/board", data, params)
       .catch((err) => console.error(err));
     const resolvedRes = response as Response;
     const body: BoardDeleteResponse = await resolvedRes.json();
@@ -139,3 +137,11 @@ class BoardAPI {
 }
 
 export default BoardAPI;
+
+export const board_list_defaults: BoardListRequest = {
+  id: 0,
+  category_id: 0,
+  visible_status: "Y",
+  currentPage: 1,
+  numPerPage: 10,
+};

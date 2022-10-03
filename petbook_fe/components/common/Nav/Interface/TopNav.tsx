@@ -1,3 +1,4 @@
+import React from "react";
 import PageButton from "../Design/Desktop/TopNav/PageButton";
 import SearchButton from "../Design/Desktop/TopNav/SearchButton";
 import TopNavWrap from "../Design/Desktop/TopNav/TopNavWrap";
@@ -32,4 +33,4 @@ const TopNav = ({ path }: Props) => {
   );
 };
 
-export default TopNav;
+export default React.memo(TopNav);
