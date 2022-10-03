@@ -1,8 +1,6 @@
-import { boardRequest } from ".";
 import { petBookClient } from "../fetch/fetchClient";
-import { FetchInstanceType } from "../fetch/fetchCore";
 
-type BoardListRequest = {
+export type BoardListRequest = {
   id: number;
   title?: string;
   content?: string;

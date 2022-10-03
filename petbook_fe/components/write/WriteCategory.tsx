@@ -64,7 +64,7 @@ const WriteCategory = () => {
   const board = useResource(
     {
       ...board_list,
-      key: `board_list_${
+      key: `board_list_axios_${
         categoryKeyword.findIndex((elem) => elem === selected) + 1
       }`,
     },
@@ -89,10 +89,10 @@ const WriteCategory = () => {
   return (
     <>
       <WriteCategorySection>
-        <label className='Category__Section__Title'>
+        <label className="Category__Section__Title">
           카테고리를 선택해주세요
         </label>
-        <div className='Category__Keyword__List'>
+        <div className="Category__Keyword__List">
           {categoryKeyword.map((keyword, idx) => {
             return (
               <WriteCategoryButton
@@ -106,7 +106,7 @@ const WriteCategory = () => {
           })}
         </div>
         {board.status === "success" && (
-          <div className='testttttttt'>
+          <div className="testttttttt">
             {board &&
               board.data &&
               board.data.items &&
