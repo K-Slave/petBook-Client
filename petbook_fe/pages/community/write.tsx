@@ -6,6 +6,9 @@ import { boardRequest } from "../api/petBook_API";
 import WriteContainer from "../../containers/WriteContainer";
 import "../../styles/WritePage.module.scss";
 
+// 1. 서버 사이드에서 가져올 리소스 정의하기
+// 정의된 순서에서 이미 데이터를 가지고 내려온 상태임.
+
 export const board_create = createRequest({
   key: "board_create",
   requester: boardRequest.board_create,
@@ -41,6 +44,8 @@ const Write: NextPage = () => {
     </>
   );
 };
+
+// 2. 페이지에서 사용할 리소스 명시하기
 
 type WritePageType = NextPage & {
   requiredResources?: [typeof board_list];
