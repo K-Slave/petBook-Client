@@ -1,8 +1,11 @@
+import { useSetRecoilState } from "recoil";
+import userState from "atoms/componentAtoms/register/userState";
 interface ValidationProps {
   current: String;
 }
 
 const ValidationInput = ({ current }: ValidationProps) => {
+  const setUser = useSetRecoilState(userState);
   return (
     <div>
       <div className="box">
