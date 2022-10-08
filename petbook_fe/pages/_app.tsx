@@ -7,14 +7,14 @@ import {
 } from "react-query";
 import { useState } from "react";
 import { RecoilRoot } from "recoil";
-import redirect from "./api/redirect";
 import HtmlHeader from "../components/common/HtmlHeader";
 import CommonHeader from "../components/common/CommonHeader";
 import "../styles/Globals.scss";
 import "../styles/Texts.scss";
 import "../styles/find/Texts.scss";
 import { createResource } from "../hooks/useResource";
-import getResource from "./api/getResource";
+import getResource from "./api/parser/getResource";
+import redirect from "./api/parser/redirect";
 
 // import { GetServerSideProps, NextApiRequest, NextApiResponse } from "next";
 // import { redirect, sendStatusCode } from "next/dist/server/api-utils";
