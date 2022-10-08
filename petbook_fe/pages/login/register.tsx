@@ -1,5 +1,5 @@
-import HtmlHeader from "../../components/common/HtmlHeader";
-import TopNav from "../../components/TopNav";
+import HtmlHeader from "@components/common/HtmlHeader";
+import TopNav from "@components/TopNav";
 import ValidationInput from "@components/common/ValidationInput";
 
 //
@@ -8,6 +8,7 @@ import styled from "styled-components";
 //
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import PasswordInput from "@components/register/PasswordInput";
 
 const Main = styled.main`
   height: calc(100vh - 61px);
@@ -133,6 +134,7 @@ const Register = () => {
           <div className="formWrap">
             <ValidationInput current={"이메일"} />
             <ValidationInput current={"이메일 확인"} />
+            <PasswordInput />
             <ValidationInput current={"닉네임"} />
             <ValidationInput current={"동물종류"} />
             <SubmitBtn onClick={Sign} className="submitBtn">
