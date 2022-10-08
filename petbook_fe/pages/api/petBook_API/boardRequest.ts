@@ -1,4 +1,212 @@
-import { petBookClient } from "../fetch/fetchClient";
+import { AxiosResponse } from "axios";
+import { petBookClient } from "../axios/axiosClient";
+import getParameters, { getAxiosItems } from "../axios/xhrFunctions";
+
+const { uri, client } = getAxiosItems("/board", petBookClient);
+
+export default class BoardAPI {
+  constructor() {
+    if (!this.instance) {
+      this.instance = this;
+    }
+
+    return this.instance;
+  }
+
+  instance = this;
+
+  /**
+   * 게시글 조회 API
+   * @param params 입력할 쿼리파라미터 입니다.
+   * @param params.id 0은 Reserved 입니다. 0을 보낼경우 id 에 관계없이 전부 호출됩니다. default : 0
+   * @param params.category_id 0은 Reserved 입니다. 0을 보낼경우 category 에 관계없이 전부 호출됩니다. default : 0
+   * @param params.currentPage 불러올 페이지를 뜻합니다. default : 1
+   * @param params.numPerPage 한 페이지에 몇개의 게시물을 가져올지 전달합니다. default : 10
+   * @param config 객체로 입력할 설정값 입니다. 현재는 headerObj 프로퍼티만 있습니다.
+   * @param config.headerObj 옵션으로 보낼 header객체를 담아줍니다.
+   * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
+   */
+  async board_list(
+    params: {
+      id: number;
+      title?: string;
+      content?: string;
+      reg_user?: string;
+      category_id: number;
+      visible_status: "Y" | "N";
+      currentPage: number;
+      numPerPage: number;
+    },
+    config?: { headerObj?: object }
+  ) {
+    const { requestURL, requestHeaders } = getParameters({
+      uri: uri,
+      params: {
+        ...params,
+        id: params.id ? params.id : 0,
+        category_id: params.category_id ? params.category_id : 0,
+        currentPage: params.currentPage ? params.currentPage : 1,
+        numPerPage: params.numPerPage ? params.numPerPage : 10,
+        visible_status: params.visible_status ? params.visible_status : "Y",
+      },
+      headerObj: config?.headerObj,
+    });
+
+    const response = await client.get<
+      BoardListRequest,
+      AxiosResponse<BoardListResponse>
+    >(requestURL, {
+      timeout: 10000,
+      headers: requestHeaders,
+    });
+
+    const result = {
+      ...response,
+      request: params,
+    };
+
+    return result;
+  }
+
+  /**
+   * 게시글 등록 API
+   * @param body 요청 패킷 Body 에 JSON 형태로 담을 내용입니다.
+   * @param body.category_id 0번 카테고리는 reserved 입니다. 글쓰기 카테고리 선택순서로 id가 매핑됩니다. ex) 1:질문과 답변, 2: 잡담, 3: 나눔활동 ...
+   * @param params 입력할 쿼리파라미터 입니다.
+   * @param config 객체로 입력할 설정값 입니다. 현재는 headerObj 프로퍼티만 있습니다.
+   * @param config.headerObj 옵션으로 보낼 header객체를 담아줍니다.
+   * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
+   */
+  async board_create(
+    body: {
+      title: string;
+      content: string;
+      category_id: number;
+      reg_user: string;
+      visible_status: "Y" | "N";
+    },
+    params?: string | object,
+    config?: { headerObj?: object }
+  ) {
+    const { requestURL, requestHeaders } = getParameters({
+      uri: uri,
+      params: params,
+      headerObj: config?.headerObj,
+    });
+
+    const response = await client.post<BoardCreateRequest, BoardCreateResponse>(
+      requestURL,
+      {
+        ...body,
+        category_id: body.category_id ? body.category_id : 0,
+      },
+      {
+        timeout: 10000,
+        headers: requestHeaders,
+      }
+    );
+
+    const result = {
+      ...response,
+      request: {
+        params: params,
+        body: {
+          ...body,
+        },
+      },
+    };
+
+    return result;
+  }
+
+  /**
+   * 게시글 수정 API
+   * @param params 입력할 쿼리파라미터 입니다.
+   * @param body 요청 패킷 Body 에 JSON 형태로 담을 내용입니다.
+   * @param body.id 0번 id는 reserved 입니다. 해당 게시글 id를 입력해주세요.
+   * @param body.category_id 0번 카테고리는 reserved 입니다. 글쓰기 카테고리 선택순서로 id가 매핑됩니다. ex) 1:질문과 답변, 2: 잡담, 3: 나눔활동 ...
+   * @param config 객체로 입력할 설정값 입니다. 현재는 headerObj 프로퍼티만 있습니다.
+   * @param config.headerObj 옵션으로 보낼 header객체를 담아줍니다.
+   * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
+   */
+  async board_update(
+    body: {
+      id: number;
+      create_at: string;
+      update_at: string;
+      title: string;
+      content: string;
+      reg_user: string;
+      visible_status: "Y" | "N";
+      category_id: number;
+    },
+    params?: string | object,
+    config?: { headerObj?: object }
+  ) {
+    const { requestURL, requestHeaders } = getParameters({
+      uri: uri,
+      params: params,
+      headerObj: config?.headerObj,
+    });
+
+    const response = await client.put<BoardUpdateRequest, BoardUpdateResponse>(
+      requestURL,
+      body,
+      {
+        timeout: 10000,
+        headers: requestHeaders,
+      }
+    );
+
+    const result = {
+      ...response,
+      request: {
+        params: params,
+        body: {
+          ...body,
+        },
+      },
+    };
+
+    return result;
+  }
+
+  /**
+   * 게시글 삭제 API*
+   * @param params 입력할 쿼리파라미터 입니다.
+   * @param params.id 0번 id는 reserved 입니다. 해당 게시글 id를 입력해주세요. ex) 1:질문과 답변, 2: 잡담, 3: 나눔활동 ...
+   * @param config 객체로 입력할 설정값 입니다. 현재는 headerObj 프로퍼티만 있습니다.
+   * @param config.headerObj 옵션으로 보낼 header객체를 담아줍니다.
+   * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
+   */
+  async board_delete(
+    params?: {
+      id: number;
+    },
+    config?: { headerObj?: object }
+  ) {
+    const { requestURL, requestHeaders } = getParameters({
+      uri: uri,
+      params: params,
+      headerObj: config?.headerObj,
+    });
+
+    const response = await client.delete<
+      BoardDeleteRequest,
+      BoardDeleteResponse
+    >(requestURL, {
+      timeout: 10000,
+      headers: requestHeaders,
+    });
+
+    const result = {
+      ...response,
+      request: params,
+    };
+
+    return result;
+  }
+}
 
 export type BoardListRequest = {
   id: number;
@@ -6,7 +214,7 @@ export type BoardListRequest = {
   content?: string;
   reg_user?: string;
   category_id: number;
-  visible_status: string;
+  visible_status: "Y" | "N";
   currentPage: number;
   numPerPage: number;
 };
@@ -21,7 +229,7 @@ export type BoardListResponse = {
         title: string;
         content: string;
         reg_user: string;
-        visible_status: string;
+        visible_status: "Y" | "N";
         category_id: number;
       }>
     | [];
@@ -32,7 +240,7 @@ export type BoardCreateRequest = {
   content: string;
   category_id: number;
   reg_user: string;
-  visible_status: string;
+  visible_status: "Y" | "N";
 };
 
 type BoardCreateResponse =
@@ -52,94 +260,14 @@ export type BoardUpdateRequest = {
   title: string;
   content: string;
   reg_user: string;
-  visible_status: string;
+  visible_status: "Y" | "N";
   category_id: number;
 };
 
-type BoardUpdateResponse = BoardCreateResponse;
+export type BoardUpdateResponse = BoardCreateResponse;
 
-type BoardDeleteRequest = {
+export type BoardDeleteRequest = {
   id: number;
 };
 
-type BoardDeleteResponse = BoardCreateResponse;
-
-// Promise 객체를 핸들링하는 곳입니다.
-// 추후 에러 핸들링등을 이쪽에서 구현하려고 합니다.
-class BoardAPI {
-  constructor() {}
-
-  /**
-   * 게시글 조회 API
-   * @param params.id 0은 Reserved 입니다. 의미없는 호출입니다.
-   * @param params.category_id 0은 Reserved 입니다. 의미없는 호출입니다.
-   * @param params.currentPage 불러올 페이지를 뜻합니다. default : 1
-   * @param params.numPerPage 한 페이지에 몇개의 게시물을 가져올지 전달합니다. default : 10
-   * @returns fetch API Response 객체를 직렬화한 Promise 객체를 반환합니다.
-   */
-  async board_list(params: BoardListRequest) {
-    const response = await petBookClient
-      .get("/board", params)
-      .catch((err) => console.error(err));
-    // todos : 여기서 에러 페이지로 이동등 처리 케이스를 다루면 될것 같음
-    const resolvedRes = response as Response;
-    const body: BoardListResponse = await resolvedRes.json();
-    return body;
-  }
-
-  /**
-   * 게시글 등록 API
-   * @param data.category_id 0번 카테고리는 reserved 입니다. 글쓰기 카테고리 선택순서로 id가 매핑됩니다. ex) 1:질문과 답변, 2: 잡담, 3: 나눔활동 ...
-   * @returns fetch Response 객체가 직렬화된 Promise를 반환합니다.
-   */
-  async board_create(data: BoardCreateRequest, params?: string | object) {
-    const response = await petBookClient
-      .post("/board", data, params)
-      .catch((err) => console.error(err));
-    const resolvedRes = response as Response;
-    const body: BoardCreateResponse = await resolvedRes.json();
-
-    return body;
-  }
-
-  /**
-   * 게시글 수정 API
-   * @param data.id 0번 id는 reserved 입니다. 해당 게시글 id를 입력해주세요.
-   * @param data.category_id 0번 카테고리는 reserved 입니다. 글쓰기 카테고리 선택순서로 id가 매핑됩니다. ex) 1:질문과 답변, 2: 잡담, 3: 나눔활동 ...
-   * @returns fetch Response 객체가 직렬화된 Promise를 반환합니다.
-   */
-  async board_update(data: BoardUpdateRequest, params?: string | object) {
-    const response = await petBookClient
-      .put("board", data, params)
-      .catch((err) => console.error(err));
-    const resolvedRes = response as Response;
-    const body: BoardUpdateResponse = await resolvedRes.json();
-
-    return body;
-  }
-
-  /**
-   * 게시글 삭제 API
-   * @param data.id 0번 id는 reserved 입니다. 해당 게시글 id를 입력해주세요. ex) 1:질문과 답변, 2: 잡담, 3: 나눔활동 ...
-   * @returns fetch Response 객체가 직렬화된 Promise를 반환합니다.
-   */
-  async board_delete(data: BoardDeleteRequest, params?: string | object) {
-    const response = await petBookClient
-      .post("/board", data, params)
-      .catch((err) => console.error(err));
-    const resolvedRes = response as Response;
-    const body: BoardDeleteResponse = await resolvedRes.json();
-
-    return body;
-  }
-}
-
-export default BoardAPI;
-
-export const board_list_defaults: BoardListRequest = {
-  id: 0,
-  category_id: 0,
-  visible_status: "Y",
-  currentPage: 1,
-  numPerPage: 10,
-};
+export type BoardDeleteResponse = BoardCreateResponse;

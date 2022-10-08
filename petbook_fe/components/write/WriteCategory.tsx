@@ -4,10 +4,9 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import writeState from "../../atoms/componentAtoms/community/writeState";
 import useResource from "../../hooks/useResource";
-import { board_list_defaults } from "../../pages/api/petBook_API/boardRequest";
-import { board_list } from "../../pages/community";
+import { board_list } from "../../pages/community/write";
 import WriteCategoryButton from "./WriteCategoryButton";
-//
+
 const WriteCategorySection = styled.section`
   display: flex;
   flex-direction: column;
@@ -61,24 +60,26 @@ const WriteCategory = () => {
     }));
   };
 
-  const board = useResource(
-    {
-      ...board_list,
-      key: `board_list_axios_${
-        categoryKeyword.findIndex((elem) => elem === selected) + 1
-      }`,
-    },
-    {
-      ...board_list_defaults,
+  const board = useResource({
+    ...board_list,
+    key: `board_list_${
+      categoryKeyword.findIndex((elem) => elem === selected) + 1
+    }`,
+    params: {
+      id: 0,
+      category_id: 0,
+      visible_status: "Y",
       currentPage: categoryKeyword.findIndex((elem) => elem === selected) + 1,
-    }
-  );
+      numPerPage: 10,
+    },
+  });
+  console.log(board, "board");
 
   const router = useRouter();
 
   useEffect(() => {
     router.push(
-      `/community/write?page=${
+      `/community/write?currentPage=${
         categoryKeyword.findIndex((elem) => elem === selected) + 1
       }`,
       undefined,
@@ -89,10 +90,10 @@ const WriteCategory = () => {
   return (
     <>
       <WriteCategorySection>
-        <label className="Category__Section__Title">
+        <label className='Category__Section__Title'>
           카테고리를 선택해주세요
         </label>
-        <div className="Category__Keyword__List">
+        <div className='Category__Keyword__List'>
           {categoryKeyword.map((keyword, idx) => {
             return (
               <WriteCategoryButton
@@ -106,11 +107,12 @@ const WriteCategory = () => {
           })}
         </div>
         {board.status === "success" && (
-          <div className="testttttttt">
+          <div className='testttttttt'>
             {board &&
               board.data &&
-              board.data.items &&
-              board.data.items.map((elem) => elem.content)}
+              board.data.data &&
+              board.data.data.items &&
+              board.data.data.items.map((elem) => elem.content)}
           </div>
         )}
       </WriteCategorySection>

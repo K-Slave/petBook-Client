@@ -1,17 +1,12 @@
-import fetchCore from "./fetchCore";
+// const petBookInstance = fetchCore.create();
 
-const petBookInstance = fetchCore.create();
-
-try {
-  // petBookInstance.defaults.baseURL = process.env.BACKEND_BASE_URL as string;
-  petBookInstance.defaults.baseURL = "https://pypetbook.herokuapp.com";
-  petBookInstance.defaults.headers.common["Content-Type"] = "application/json";
-} catch (error) {
-  console.error(error);
-}
-
-export const petBookClient = petBookInstance;
-
+// try {
+//   // petBookInstance.defaults.baseURL = process.env.BACKEND_BASE_URL as string;
+//   petBookInstance.defaults.baseURL = "https://pypetbook.herokuapp.com";
+//   petBookInstance.defaults.headers.common["Content-Type"] = "application/json";
+// } catch (error) {
+//   console.error(error);
+// }
 /*
   todos : axios 인터셉터 구현, timeout 구현
 
@@ -38,3 +33,4 @@ export const petBookClient = petBookInstance;
     }
   })  
 */
+export const donterr = "";

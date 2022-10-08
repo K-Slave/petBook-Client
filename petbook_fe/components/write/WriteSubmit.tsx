@@ -37,18 +37,8 @@ const WriteSubmit = () => {
   const [input, setInput] = useState({ inputTitle: "", inputContent: "" });
   const setWrite = useSetRecoilState(writeState);
 
-  const reqBody = {
-    title: input.inputTitle,
-    content: input.inputContent,
-    category_id: 2,
-    reg_user: "윤성연",
-    visible_status: "Y",
-  };
-
-  const { data, isLoading, isError, isSuccess, mutate } = useSetResource({
-    key: board_create.key,
-    requester: board_create.requester(reqBody),
-  });
+  const { data, isLoading, isError, isSuccess, mutate } =
+    useSetResource(board_create);
 
   const onClick: MouseEventHandler<HTMLButtonElement> = () => {
     setWrite((write) => {
@@ -64,7 +54,13 @@ const WriteSubmit = () => {
   useEffect(() => {
     if (!input.inputTitle || !input.inputContent) return;
 
-    mutate();
+    mutate({
+      title: input.inputTitle,
+      content: input.inputContent,
+      category_id: 2,
+      reg_user: "윤성연",
+      visible_status: "Y",
+    });
   }, [input]);
 
   localConsole.log(data);

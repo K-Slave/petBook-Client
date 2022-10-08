@@ -1,4 +1,178 @@
-import { petBookClient } from "../fetch/fetchClient";
+import { petBookClient } from "../axios/axiosClient";
+import getParameters, { getAxiosItems } from "../axios/xhrFunctions";
+
+const { uri, client } = getAxiosItems("/category", petBookClient);
+
+export default class CategoryAPI {
+  constructor() {
+    if (!this.instance) {
+      this.instance = this;
+    }
+
+    return this.instance;
+  }
+
+  instance = this;
+
+  /**
+   * 카테고리 조회 API
+   * @param params 입력할 쿼리파라미터 입니다.
+   * @param params.id 0은 Reserved 입니다. 0을 보낼경우 id 에 관계없이 전부 호출됩니다. default : 0
+   * @param params.title 카테고리 명을 입력합니다.
+   * @param params.currentPage 불러올 페이지를 뜻합니다. default : 1
+   * @param params.numPerPage 한 페이지에 몇개의 게시물을 가져올지 전달합니다. default : 10
+   * @param config 객체로 입력할 설정값 입니다. 현재는 headerObj 프로퍼티만 있습니다.
+   * @param config.headerObj 옵션으로 보낼 header객체를 담아줍니다.
+   * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
+   */
+  async category_list(
+    params: CategoryListRequest,
+    config?: { headerObj?: object }
+  ) {
+    const { requestURL, requestHeaders } = getParameters({
+      uri: uri,
+      params: {
+        ...params,
+        id: params.id ? params.id : 0,
+        currentPage: params.currentPage ? params.currentPage : 1,
+        numPerPage: params.numPerPage ? params.numPerPage : 10,
+        visible_status: params.visible_status ? params.visible_status : "Y",
+      },
+      headerObj: config?.headerObj,
+    });
+
+    const response = await client.get<
+      CategoryListRequest,
+      CategoryListResponse
+    >(requestURL, {
+      timeout: 10000,
+      headers: requestHeaders,
+    });
+
+    const result = {
+      ...response,
+      request: params,
+    };
+
+    return result;
+  }
+
+  /**
+   * 카테고리 등록 API
+   * @param body 요청 패킷 Body 에 JSON 형태로 담을 내용입니다.
+   * @param body.title 카테고리 명을 입력합니다
+   * @param config 객체로 입력할 설정값 입니다. 현재는 headerObj 프로퍼티만 있습니다.
+   * @param config.headerObj 옵션으로 보낼 header객체를 담아줍니다.
+   * @param params 입력할 쿼리파라미터 입니다.
+   * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
+   */
+  async category_create(
+    body: CategoryCreateRequest,
+    params?: string | object,
+    config?: { headerObj?: object }
+  ) {
+    const { requestURL, requestHeaders } = getParameters({
+      uri: uri,
+      params: params,
+      headerObj: config?.headerObj,
+    });
+
+    const response = await client.post<
+      CategoryCreateRequest,
+      CategoryCreateResponse
+    >(requestURL, body, {
+      timeout: 10000,
+      headers: requestHeaders,
+    });
+
+    const result = {
+      ...response,
+      request: {
+        params: params,
+        body: {
+          ...body,
+        },
+      },
+    };
+
+    return result;
+  }
+
+  /**
+   * 카테고리 수정 API
+   * @param params 입력할 쿼리파라미터 입니다.
+   * @param body.id 0번 id는 reserved 입니다. 해당 카테고리 id를 입력해주세요.
+   * @param body.title 카테고리 명을 입력합니다
+   * @param config 객체로 입력할 설정값 입니다. 현재는 headerObj 프로퍼티만 있습니다.
+   * @param config.headerObj 옵션으로 보낼 header객체를 담아줍니다.
+   * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
+   */
+  async category_update(
+    body: CategoryUpdateRequest,
+    params?: string | object,
+    config?: { headerObj?: object }
+  ) {
+    const { requestURL, requestHeaders } = getParameters({
+      uri: uri,
+      params: params,
+      headerObj: config?.headerObj,
+    });
+
+    const response = await client.put<
+      CategoryUpdateRequest,
+      CategoryUpdateResponse
+    >(requestURL, body, {
+      timeout: 10000,
+      headers: requestHeaders,
+    });
+
+    const result = {
+      ...response,
+      request: {
+        params: params,
+        body: {
+          ...body,
+        },
+      },
+    };
+
+    return result;
+  }
+
+  /**
+   * 카테고리 삭제 API
+   * @param params 입력할 쿼리파라미터 입니다.
+   * @param params.id 0번 id는 reserved 입니다. 해당 카테고리 id를 입력해주세요. ex) 1:질문과 답변, 2: 잡담, 3: 나눔활동 ...
+   * @param config 객체로 입력할 설정값 입니다. 현재는 headerObj 프로퍼티만 있습니다.
+   * @param config.headerObj 옵션으로 보낼 header객체를 담아줍니다.
+   * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
+   */
+  async category_delete(
+    params: CategoryDeleteRequest,
+    config?: { headerObj?: object }
+  ) {
+    const { requestURL, requestHeaders } = getParameters({
+      uri: uri,
+      params: params,
+      headerObj: config?.headerObj,
+    });
+
+    const response = await client.delete<
+      CategoryDeleteRequest,
+      CategoryDeleteResponse
+    >(requestURL, {
+      timeout: 10000,
+      headers: requestHeaders,
+    });
+
+    const result = {
+      ...response,
+      request: params,
+    };
+
+    return result;
+  }
+}
 
 export type CategoryListRequest = {
   id: number;
@@ -55,81 +229,3 @@ type CategoryDeleteRequest = {
 };
 
 type CategoryDeleteResponse = CategoryCreateResponse;
-
-// Promise 객체를 핸들링하는 곳입니다.
-// 추후 에러 핸들링등을 이쪽에서 구현하려고 합니다.
-class CategoryAPI {
-  constructor() {}
-
-  /**
-   * 카테고리 조회 API
-   * @param params.id 0은 Reserved 입니다. 의미없는 호출입니다.
-   * @param params.title 카테고리 명을 입력합니다.
-   * @returns fetch API Response 객체를 직렬화한 Promise 객체를 반환합니다.
-   */
-  async category_list(params: CategoryListRequest) {
-    const response = await petBookClient
-      .get("/category", params)
-      .catch((err) => console.error(err));
-
-    const resolvedRes = response as Response;
-
-    const body: CategoryListResponse = await resolvedRes.json();
-    return body;
-  }
-
-  /**
-   * 카테고리 등록 API
-   * @param data.title 카테고리 명을 입력합니다
-   * @returns fetch Response 객체가 직렬화된 Promise를 반환합니다.
-   */
-  async category_create(data: CategoryCreateRequest, params?: string | object) {
-    const response = await petBookClient
-      .post("/category", data, params)
-      .catch((err) => console.error(err));
-    const resolvedRes = response as Response;
-    const body: CategoryCreateResponse = await resolvedRes.json();
-
-    return body;
-  }
-
-  /**
-   * 카테고리 수정 API
-   * @param data.id 0번 id는 reserved 입니다. 해당 카테고리 id를 입력해주세요.
-   * @param data.title 카테고리 명을 입력합니다
-   * @returns fetch Response 객체가 직렬화된 Promise를 반환합니다.
-   */
-  async category_update(data: CategoryUpdateRequest, params?: string | object) {
-    const response = await petBookClient
-      .put("/category", data, params)
-      .catch((err) => console.error(err));
-    const resolvedRes = response as Response;
-    const body: CategoryUpdateResponse = await resolvedRes.json();
-
-    return body;
-  }
-
-  /**
-   * 카테고리 삭제 API
-   * @param data.id 0번 id는 reserved 입니다. 해당 카테고리 id를 입력해주세요.
-   * @returns fetch Response 객체가 직렬화된 Promise를 반환합니다.
-   */
-  async category_delete(data: CategoryDeleteRequest, params?: string | object) {
-    const response = await petBookClient
-      .post("/category", data, params)
-      .catch((err) => console.error(err));
-    const resolvedRes = response as Response;
-    const body: CategoryDeleteResponse = await resolvedRes.json();
-
-    return body;
-  }
-}
-
-export default CategoryAPI;
-
-export const category_list_defaults: CategoryListRequest = {
-  id: 0,
-  visible_status: "Y",
-  currentPage: 1,
-  numPerPage: 10,
-};

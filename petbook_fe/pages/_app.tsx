@@ -5,14 +5,16 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "react-query";
-import "../styles/Globals.scss";
-import "../styles/Texts.scss";
-import "../styles/find/Texts.scss";
 import { useState } from "react";
 import { RecoilRoot } from "recoil";
 import redirect from "./api/redirect";
 import HtmlHeader from "../components/common/HtmlHeader";
 import CommonHeader from "../components/common/CommonHeader";
+import "../styles/Globals.scss";
+import "../styles/Texts.scss";
+import "../styles/find/Texts.scss";
+import { createResource } from "../hooks/useResource";
+import getResource from "./api/getResource";
 
 // import { GetServerSideProps, NextApiRequest, NextApiResponse } from "next";
 // import { redirect, sendStatusCode } from "next/dist/server/api-utils";
@@ -44,14 +46,6 @@ export default function NextApp(appInitProps: AppProps) {
   );
 }
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: Infinity,
-    },
-  },
-});
-
 NextApp.getInitialProps = async (context: AppContext) => {
   const { Component, router, ctx } = context;
 
@@ -62,26 +56,45 @@ NextApp.getInitialProps = async (context: AppContext) => {
     redirect(context);
   }
 
-  const page: any = Component;
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: Infinity,
+      },
+    },
+  });
 
-  const { requiredResources } = page;
+  const PageComponent: typeof Component & {
+    requiredResources?: Array<{
+      key: string;
+      fetcher: Function;
+      params?: object;
+      config?: object;
+    }>;
+  } = Component;
+
+  const { requiredResources } = PageComponent;
 
   const searchParams = new URLSearchParams(router.asPath);
 
   if (requiredResources) {
     await Promise.all(
-      requiredResources.map(async (resource: any) => {
-        const params = {
-          ...resource.params,
-          currentPage: searchParams.get("/community/write?page")
-            ? searchParams.get("/community/write?page")
-            : 1,
-        };
+      requiredResources.map((resource) =>
+        getResource(resource, searchParams, queryClient)
+      )
 
-        const paramFetcher = () => resource.fetcher(params);
+      // requiredResources.map(async (resource) => {
+      //   const params = {
+      //     ...resource.params,
+      //     currentPage: searchParams.get("/community/write?currentPage")
+      //       ? searchParams.get("/community/write?currentPage")
+      //       : 1,
+      //   };
 
-        await queryClient.fetchQuery(resource.key, paramFetcher);
-      })
+      //   const paramFetcher = () => resource.fetcher(params);
+
+      //   await queryClient.fetchQuery(resource.key, paramFetcher);
+      // })
     );
   }
 
