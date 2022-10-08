@@ -98,7 +98,6 @@ const SubmitBtn = styled.div`
 const Register = () => {
   const router = useRouter();
   const [signActive, setSignActive] = useState(false);
-  console.log("d");
 
   useEffect(() => {
     if (router.query.state === "true") {
