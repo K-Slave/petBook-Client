@@ -13,7 +13,11 @@ const ValidationInput = ({ current }: ValidationProps) => {
           placeholder={`${current}를 입력해주세요 `}
         />
       </div>
-      <div className="err_box">* 오류 메세지가 나옵니다</div>
+      {current !== "비밀번호" ? (
+        <div className="err_box">* 오류 메세지가 나옵니다</div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
