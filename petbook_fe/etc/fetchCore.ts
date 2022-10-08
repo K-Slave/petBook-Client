@@ -1,4 +1,4 @@
-import getParameters from "./fetchFunctions";
+import getParameters from "../pages/api/axios/xhrFunctions";
 
 class FetchInstance {
   constructor() {
@@ -29,10 +29,10 @@ class FetchInstance {
    */
   get(url: string, params?: string | object, config?: { headerObj?: object }) {
     const { requestURL, requestHeaders } = getParameters({
-      url: url,
+      uri: url,
       baseURL: this.defaults.baseURL,
       params: params,
-      defaultHeader: this.defaults.headers.common,
+      // defaultHeader: this.defaults.headers.common,
       headerObj: config?.headerObj,
     });
 
@@ -56,10 +56,10 @@ class FetchInstance {
     config?: { headerObj?: object }
   ) {
     const { requestURL, requestHeaders } = getParameters({
-      url: url,
+      uri: url,
       baseURL: this.defaults.baseURL,
       params: params,
-      defaultHeader: this.defaults.headers.common,
+      // defaultHeader: this.defaults.headers.common,
       headerObj: config?.headerObj,
     });
 
@@ -84,10 +84,10 @@ class FetchInstance {
     config?: { headerObj?: object }
   ) {
     const { requestURL, requestHeaders } = getParameters({
-      url: url,
+      uri: url,
       baseURL: this.defaults.baseURL,
       params: params,
-      defaultHeader: this.defaults.headers.common,
+      // defaultHeader: this.defaults.headers.common,
       headerObj: config?.headerObj,
     });
 
@@ -112,10 +112,10 @@ class FetchInstance {
     config?: { headerObj?: object }
   ) {
     const { requestURL, requestHeaders } = getParameters({
-      url: url,
+      uri: url,
       baseURL: this.defaults.baseURL,
       params: params,
-      defaultHeader: this.defaults.headers.common,
+      // defaultHeader: this.defaults.headers.common,
       headerObj: config?.headerObj,
     });
 
@@ -123,20 +123,19 @@ class FetchInstance {
       ...this.defaults.options,
       method: "DELETE",
       headers: requestHeaders,
-      body: JSON.stringify(data),
     });
   }
 }
 
-export type FetchInstanceType = FetchInstance;
+// export type FetchInstanceType = FetchInstance;
 
-const fetchCore = {
-  create() {
-    return new FetchInstance();
-  },
-};
+// const fetchCore = {
+//   create() {
+//     return new FetchInstance();
+//   },
+// };
 
-export default fetchCore;
+// export default fetchCore;
 
 // export type UseQueryResponseToJS = {
 //   data: any;

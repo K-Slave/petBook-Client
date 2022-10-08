@@ -1,4 +1,3 @@
-import { petBookClient } from "../fetch/fetchClient";
 import BoardAPI from "./boardRequest";
 import CategoryAPI from "./categoryRequest";
 

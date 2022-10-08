@@ -1,4 +1,31 @@
+import { AxiosInstance } from "axios";
 import QueryString from "qs";
+
+export default function getParameters<T>({
+  uri,
+  baseURL,
+  params,
+  headerObj,
+  isNeedQuery = true,
+}: GetParametersType<T>) {
+  if (headerObj)
+    return {
+      requestURL: `${baseURL ? baseURL : ""}${getUrl(uri)}${
+        isNeedQuery ? getQueryString(params) : ""
+      }`,
+      requestHeaders: getHeaders(headerObj),
+    };
+
+  return {
+    requestURL: `${baseURL ? baseURL : ""}${getUrl(uri)}${
+      isNeedQuery ? getQueryString(params) : ""
+    }`,
+  };
+}
+
+export function getAxiosItems(uri: string, instance: AxiosInstance) {
+  return { uri, client: instance };
+}
 
 // baseURL + 사용자 정의 url + 사용자 정의 queryParams
 // ex: "https://@@@.com" + "/board" + "?id=0&category_id=0&visible_status=Y&currentPage=1&numPerPage=10"
@@ -7,7 +34,7 @@ function getUrl(url: string) {
   if (!url.includes("/")) return "/" + url;
 }
 
-function getQueryString(params?: string | object) {
+function getQueryString<T>(params?: T) {
   if (!params) return "";
 
   if (typeof params === "string") return "?" + params;
@@ -28,32 +55,14 @@ function getQueryString(params?: string | object) {
 //     'Content-Length' : '9999'
 //   }
 // }
-function getHeaders(defaults: object, headerObj?: object) {
-  if (headerObj) return { ...defaults, ...headerObj };
-  if (!headerObj) return { ...defaults };
+function getHeaders(headerObj: object) {
+  return { ...headerObj };
 }
 
-type GetParametersType = {
-  url: string;
+type GetParametersType<T> = {
+  uri: string;
   baseURL?: string;
-  params?: string | object;
-  defaultHeader: object;
+  params?: T;
   headerObj?: object;
   isNeedQuery?: boolean;
 };
-
-export default function getParameters({
-  url,
-  baseURL,
-  params,
-  defaultHeader,
-  headerObj,
-  isNeedQuery = true,
-}: GetParametersType) {
-  return {
-    requestURL: `${baseURL ? baseURL : ""}${getUrl(url)}${
-      isNeedQuery ? getQueryString(params) : ""
-    }`,
-    requestHeaders: getHeaders(defaultHeader, headerObj),
-  };
-}
