@@ -29,7 +29,6 @@ const ValidationInput = ({ current }: ValidationProps) => {
           id={`${current}`}
           placeholder={`${current}를 입력해주세요 `}
         />
-        {current === "이메일" ? <Button>인증번호 발송</Button> : <></>}
       </div>
       <div className="err_box">* 오류 메세지가 나옵니다</div>
     </div>

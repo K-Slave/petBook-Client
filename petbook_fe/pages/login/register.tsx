@@ -1,6 +1,6 @@
 import HtmlHeader from "../../components/common/HtmlHeader";
 import TopNav from "../../components/TopNav";
-import ValidationInput from "../../components/common/ValidationInput";
+import ValidationInput from "@components/common/ValidationInput";
 
 //
 import styled from "styled-components";
@@ -98,6 +98,7 @@ const SubmitBtn = styled.div`
 const Register = () => {
   const router = useRouter();
   const [signActive, setSignActive] = useState(false);
+  console.log("d");
 
   useEffect(() => {
     if (router.query.state === "true") {
@@ -132,14 +133,9 @@ const Register = () => {
         ) : (
           <div className="formWrap">
             <ValidationInput current={"이메일"} />
-            <ValidationInput current={"인증번호"} />
-            {/* <div className="flex">
-            <ValidationInput current={"이름"} />
-            <ValidationInput current={"생년월일"} />
-          </div> */}
+            <ValidationInput current={"이메일 확인"} />
             <ValidationInput current={"닉네임"} />
             <ValidationInput current={"동물종류"} />
-            {/* <ValidationInput current={"인증번호"} /> */}
             <SubmitBtn onClick={Sign} className="submitBtn">
               회원가입
             </SubmitBtn>
