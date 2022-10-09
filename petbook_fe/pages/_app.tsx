@@ -15,6 +15,7 @@ import "../styles/find/Texts.scss";
 import { createResource } from "../hooks/useResource";
 import getResource from "./api/parser/getResource";
 import redirect from "./api/parser/redirect";
+import { itrMap } from "../lib/utils/iterableFunctions";
 
 // import { GetServerSideProps, NextApiRequest, NextApiResponse } from "next";
 // import { redirect, sendStatusCode } from "next/dist/server/api-utils";
@@ -79,8 +80,9 @@ NextApp.getInitialProps = async (context: AppContext) => {
 
   if (requiredResources) {
     await Promise.all(
-      requiredResources.map((resource) =>
-        getResource(resource, searchParams, queryClient)
+      itrMap(
+        (resource) => getResource(resource, searchParams, queryClient),
+        requiredResources
       )
 
       // requiredResources.map(async (resource) => {
