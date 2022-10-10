@@ -1,7 +1,7 @@
-import { petBookClient } from "../axios/axiosClient";
+import { pypetbookClient } from "../axios/axiosClient";
 import getParameters, { getAxiosItems } from "../axios/xhrFunctions";
 
-const { uri, client } = getAxiosItems("/category", petBookClient);
+const { uri, client } = getAxiosItems("/category", pypetbookClient);
 
 export default class CategoryAPI {
   constructor() {
