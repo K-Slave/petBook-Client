@@ -1,8 +1,8 @@
 import { AxiosResponse } from "axios";
-import { petBookClient } from "../axios/axiosClient";
+import { pypetbookClient } from "../axios/axiosClient";
 import getParameters, { getAxiosItems } from "../axios/xhrFunctions";
 
-const { uri, client } = getAxiosItems("/board", petBookClient);
+const { uri, client } = getAxiosItems("/board", pypetbookClient);
 
 export default class BoardAPI {
   constructor() {
