@@ -60,7 +60,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: Infinity,
+        staleTime: 3640,
       },
     },
   });

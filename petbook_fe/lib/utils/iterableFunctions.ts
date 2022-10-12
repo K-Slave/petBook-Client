@@ -1,8 +1,5 @@
 // 입력받은 실행자 함수를 통해 이터러블을 새로운 배열로 반환하는 함수
-export function itrMap(
-  performer: (elem: any, idx?: number) => any,
-  iterable: Iterable<any>
-) {
+export function itrMap(performer: (elem: any, idx?: number) => any, iterable: Iterable<any>) {
   let result = new Array();
 
   for (const item of iterable) {
@@ -14,10 +11,7 @@ export function itrMap(
 
 // 입력받은 실행자 함수의 조건문을 통해 조건이 true 일 경우
 // 이터러블을 새로운 배열로 반환하는 함수
-export function itrFilter(
-  performer: (elem: any, idx?: number) => any,
-  iterable: Iterable<any>
-) {
+export function itrFilter(performer: (elem: any, idx?: number) => any, iterable: Iterable<any>) {
   let result = new Array();
 
   for (const item of iterable) {
@@ -65,16 +59,13 @@ export function itrGo(...argus: any[]) {
 // 내부적으로 go 함수를 포함하고 있으며, 함수들만 먼저 받아 놓은후
 // 원할때 인자로 값을 전달하며 실행시키면 연속적으로 함수들이 실행되
 // 하나의 값으로 표현되는 함수
-export function itrPipe(
-  fn: (...values: number[]) => number,
-  ...functions: ((value: number) => number)[]
-) {
+export function itrPipe(fn: (...values: number[]) => number, ...functions: ((value: number) => number)[]) {
   return (...value: number[]) => itrGo(fn(...value), ...functions);
 }
 
 // ex:
 //
-// const fn_1 = itrPipe(
+// const fn = itrPipe(
 //   (a: number) => a + 1,
 //   (a: number) => a + 10,
 //   (a: number) => a + 100
