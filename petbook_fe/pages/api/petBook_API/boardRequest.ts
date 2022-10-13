@@ -28,14 +28,14 @@ export default class BoardAPI {
    */
   async board_list(
     params: {
-      id: number;
+      id?: number;
       title?: string;
       content?: string;
       reg_user?: string;
-      category_id: number;
-      visible_status: "Y" | "N";
-      currentPage: number;
-      numPerPage: number;
+      category_id?: number;
+      visible_status?: "Y" | "N";
+      currentPage?: number;
+      numPerPage?: number;
     },
     config?: { headerObj?: object }
   ) {
@@ -52,17 +52,19 @@ export default class BoardAPI {
       headerObj: config?.headerObj,
     });
 
-    const response = await client.get<
-      BoardListRequest,
-      AxiosResponse<BoardListResponse>
-    >(requestURL, {
+    const response = await client.get<BoardListResponse>(requestURL, {
       timeout: 10000,
       headers: requestHeaders,
     });
 
+    console.log(response, "response");
+
     const result = {
       ...response,
-      request: params,
+      request: {
+        params: params,
+        config: config,
+      },
     };
 
     return result;
@@ -83,7 +85,7 @@ export default class BoardAPI {
       content: string;
       category_id: number;
       reg_user: string;
-      visible_status: "Y" | "N";
+      visible_status?: "Y" | "N";
     },
     params?: string | object,
     config?: { headerObj?: object }
@@ -94,11 +96,11 @@ export default class BoardAPI {
       headerObj: config?.headerObj,
     });
 
-    const response = await client.post<BoardCreateRequest, BoardCreateResponse>(
+    const response = await client.post<BoardCreateResponse>(
       requestURL,
       {
         ...body,
-        category_id: body.category_id ? body.category_id : 0,
+        visible_status: body.visible_status ? body.visible_status : "Y",
       },
       {
         timeout: 10000,
@@ -137,7 +139,7 @@ export default class BoardAPI {
       title: string;
       content: string;
       reg_user: string;
-      visible_status: "Y" | "N";
+      visible_status?: "Y" | "N";
       category_id: number;
     },
     params?: string | object,
@@ -149,9 +151,12 @@ export default class BoardAPI {
       headerObj: config?.headerObj,
     });
 
-    const response = await client.put<BoardUpdateRequest, BoardUpdateResponse>(
+    const response = await client.put<BoardUpdateResponse>(
       requestURL,
-      body,
+      {
+        ...body,
+        visible_status: body.visible_status ? body.visible_status : "Y",
+      },
       {
         timeout: 10000,
         headers: requestHeaders,
@@ -172,7 +177,7 @@ export default class BoardAPI {
   }
 
   /**
-   * 게시글 삭제 API*
+   * 게시글 삭제 API
    * @param params 입력할 쿼리파라미터 입니다.
    * @param params.id 0번 id는 reserved 입니다. 해당 게시글 id를 입력해주세요. ex) 1:질문과 답변, 2: 잡담, 3: 나눔활동 ...
    * @param config 객체로 입력할 설정값 입니다. 현재는 headerObj 프로퍼티만 있습니다.
@@ -180,7 +185,7 @@ export default class BoardAPI {
    * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
    */
   async board_delete(
-    params?: {
+    params: {
       id: number;
     },
     config?: { headerObj?: object }
@@ -191,10 +196,7 @@ export default class BoardAPI {
       headerObj: config?.headerObj,
     });
 
-    const response = await client.delete<
-      BoardDeleteRequest,
-      BoardDeleteResponse
-    >(requestURL, {
+    const response = await client.delete<BoardDeleteResponse>(requestURL, {
       timeout: 10000,
       headers: requestHeaders,
     });

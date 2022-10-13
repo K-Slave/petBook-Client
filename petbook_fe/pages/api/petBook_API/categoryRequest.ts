@@ -26,7 +26,14 @@ export default class CategoryAPI {
    * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
    */
   async category_list(
-    params: CategoryListRequest,
+    params: {
+      id?: number;
+      title?: string;
+      reg_user?: string;
+      visible_status?: "Y" | "N";
+      currentPage?: number;
+      numPerPage?: number;
+    },
     config?: { headerObj?: object }
   ) {
     const { requestURL, requestHeaders } = getParameters({
@@ -41,10 +48,7 @@ export default class CategoryAPI {
       headerObj: config?.headerObj,
     });
 
-    const response = await client.get<
-      CategoryListRequest,
-      CategoryListResponse
-    >(requestURL, {
+    const response = await client.get<CategoryListResponse>(requestURL, {
       timeout: 10000,
       headers: requestHeaders,
     });
@@ -67,7 +71,11 @@ export default class CategoryAPI {
    * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
    */
   async category_create(
-    body: CategoryCreateRequest,
+    body: {
+      title: string;
+      reg_user: string;
+      visible_status?: string;
+    },
     params?: string | object,
     config?: { headerObj?: object }
   ) {
@@ -77,13 +85,17 @@ export default class CategoryAPI {
       headerObj: config?.headerObj,
     });
 
-    const response = await client.post<
-      CategoryCreateRequest,
-      CategoryCreateResponse
-    >(requestURL, body, {
-      timeout: 10000,
-      headers: requestHeaders,
-    });
+    const response = await client.post<CategoryCreateResponse>(
+      requestURL,
+      {
+        ...body,
+        visible_status: body.visible_status ? body.visible_status : "Y",
+      },
+      {
+        timeout: 10000,
+        headers: requestHeaders,
+      }
+    );
 
     const result = {
       ...response,
@@ -108,7 +120,14 @@ export default class CategoryAPI {
    * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
    */
   async category_update(
-    body: CategoryUpdateRequest,
+    body: {
+      id: number;
+      create_at: string;
+      update_at: string;
+      title: string;
+      reg_user: string;
+      visible_status?: string;
+    },
     params?: string | object,
     config?: { headerObj?: object }
   ) {
@@ -118,13 +137,17 @@ export default class CategoryAPI {
       headerObj: config?.headerObj,
     });
 
-    const response = await client.put<
-      CategoryUpdateRequest,
-      CategoryUpdateResponse
-    >(requestURL, body, {
-      timeout: 10000,
-      headers: requestHeaders,
-    });
+    const response = await client.put<CategoryUpdateResponse>(
+      requestURL,
+      {
+        ...body,
+        visible_status: body.visible_status ? body.visible_status : "Y",
+      },
+      {
+        timeout: 10000,
+        headers: requestHeaders,
+      }
+    );
 
     const result = {
       ...response,
@@ -148,7 +171,9 @@ export default class CategoryAPI {
    * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
    */
   async category_delete(
-    params: CategoryDeleteRequest,
+    params: {
+      id: number;
+    },
     config?: { headerObj?: object }
   ) {
     const { requestURL, requestHeaders } = getParameters({
@@ -157,10 +182,7 @@ export default class CategoryAPI {
       headerObj: config?.headerObj,
     });
 
-    const response = await client.delete<
-      CategoryDeleteRequest,
-      CategoryDeleteResponse
-    >(requestURL, {
+    const response = await client.delete<CategoryDeleteResponse>(requestURL, {
       timeout: 10000,
       headers: requestHeaders,
     });
