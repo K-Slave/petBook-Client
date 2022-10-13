@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import { pypetbookClient } from "../axios/axiosClient";
 import getParameters, { getAxiosItems } from "../axios/xhrFunctions";
 
@@ -113,7 +112,9 @@ export default class BoardAPI {
       request: {
         params: params,
         body: {
-          ...body,
+          body: body,
+          params: params,
+          config: config,
         },
       },
     };
@@ -168,7 +169,9 @@ export default class BoardAPI {
       request: {
         params: params,
         body: {
-          ...body,
+          body: body,
+          params: params,
+          config: config,
         },
       },
     };
@@ -203,7 +206,10 @@ export default class BoardAPI {
 
     const result = {
       ...response,
-      request: params,
+      request: {
+        params: params,
+        config: config,
+      },
     };
 
     return result;

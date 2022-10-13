@@ -47,9 +47,8 @@ export default class ArticleAPI {
     const result = {
       ...response,
       request: {
-        body: {
-          ...body,
-        },
+        body: body,
+        config: config,
       },
     };
 
@@ -77,6 +76,7 @@ export default class ArticleAPI {
       ...response,
       request: {
         path: path,
+        config: config,
       },
     };
 
