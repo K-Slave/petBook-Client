@@ -55,7 +55,10 @@ export default class CategoryAPI {
 
     const result = {
       ...response,
-      request: params,
+      request: {
+        params: params,
+        config: config,
+      },
     };
 
     return result;
@@ -102,7 +105,9 @@ export default class CategoryAPI {
       request: {
         params: params,
         body: {
-          ...body,
+          body: body,
+          params: params,
+          config: config,
         },
       },
     };
@@ -154,7 +159,9 @@ export default class CategoryAPI {
       request: {
         params: params,
         body: {
-          ...body,
+          body: body,
+          params: params,
+          config: config,
         },
       },
     };
@@ -189,7 +196,10 @@ export default class CategoryAPI {
 
     const result = {
       ...response,
-      request: params,
+      request: {
+        params: params,
+        config: config,
+      },
     };
 
     return result;
