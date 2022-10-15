@@ -5,23 +5,23 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "react-query";
-
+import { useState } from "react";
+import { RecoilRoot } from "recoil";
+import HtmlHeader from "../components/common/HtmlHeader";
+import CommonHeader from "../components/common/CommonHeader";
 import "../styles/Globals.scss";
 import "../styles/Texts.scss";
 import "../styles/find/Texts.scss";
-import { useState } from "react";
-import { RecoilRoot } from "recoil";
-import redirect from "./api/redirect";
-import HtmlHeader from "../components/common/HtmlHeader";
-import TopNav from "../components/common/Nav/Interface/TopNav";
-import { useRouter } from "next/router";
-import Header from "../components/common/Nav/Interface/Header";
+import { createResource } from "../hooks/useResource";
+import getResource from "./api/parser/getResource";
+import redirect from "./api/parser/redirect";
+import { itrMap } from "../lib/utils/iterableFunctions";
 
 // import { GetServerSideProps, NextApiRequest, NextApiResponse } from "next";
 // import { redirect, sendStatusCode } from "next/dist/server/api-utils";
 
 export default function NextApp(appInitProps: AppProps) {
-  const { Component, pageProps } = appInitProps;
+  const { Component, pageProps, router } = appInitProps;
 
   const [queryClient] = useState(
     () =>
@@ -34,20 +34,13 @@ export default function NextApp(appInitProps: AppProps) {
       })
   );
 
-  const router = useRouter();
-
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <RecoilRoot>
           <HtmlHeader />
-          <div className='Header__Wrap'>
-            <Header path={router.pathname} />
-            <TopNav path={router.pathname} />
-          </div>
-          <div className='Header__Spacer' />
-
-          <Component {...pageProps} />
+          <CommonHeader pathname={router.pathname} />
+          <Component />
         </RecoilRoot>
       </Hydrate>
     </QueryClientProvider>
@@ -64,27 +57,52 @@ NextApp.getInitialProps = async (context: AppContext) => {
     redirect(context);
   }
 
-  const page: any = Component;
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: Infinity,
+        staleTime: 3640,
       },
     },
   });
 
-  const { requiredResources } = page;
+  const PageComponent: typeof Component & {
+    requiredResources?: Array<{
+      key: string;
+      fetcher: Function;
+      params?: object;
+      config?: object;
+    }>;
+  } = Component;
+
+  const { requiredResources } = PageComponent;
+
+  const searchParams = new URLSearchParams(router.asPath);
 
   if (requiredResources) {
     await Promise.all(
-      requiredResources.map(async (resource: any) => {
-        await queryClient.fetchQuery(resource.key, resource.fetcher);
-      })
+      itrMap(
+        (resource) => getResource(resource, searchParams, queryClient),
+        requiredResources
+      )
+
+      // requiredResources.map(async (resource) => {
+      //   const params = {
+      //     ...resource.params,
+      //     currentPage: searchParams.get("/community/write?currentPage")
+      //       ? searchParams.get("/community/write?currentPage")
+      //       : 1,
+      //   };
+
+      //   const paramFetcher = () => resource.fetcher(params);
+
+      //   await queryClient.fetchQuery(resource.key, paramFetcher);
+      // })
     );
   }
 
   return {
     pageProps: {
+      router: router,
       dehydratedState: dehydrate(queryClient),
     },
   };

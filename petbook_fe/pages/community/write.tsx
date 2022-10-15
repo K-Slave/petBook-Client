@@ -1,38 +1,25 @@
 import { NextPage } from "next";
 import styled from "styled-components";
-import WriteEditor from "../../components/write/WriteEditor";
 import WriteCategory from "../../components/write/WriteCategory";
-import WriteForm from "../../components/write/WriteForm";
-import WriteHashTags from "../../components/write/WriteHashTags";
-import WriteImgSubmit from "../../components/write/WriteImgSubmit";
-import WriteSubmit from "../../components/write/WriteSubmit";
-import localConsole from "../../lib/localConsole";
+import { createRequest, createResource } from "../../hooks/useResource";
+import { boardRequest } from "../api/petBook_API";
+import WriteContainer from "../../containers/WriteContainer";
 import "../../styles/WritePage.module.scss";
-import { createRequest } from "../../hooks/useResource";
-import boardRequest from "../api/petBook_API/boardRequest";
 
-// (reqBody: {
-//   title: string;
-//   content: string;
-//   category_id: number;
-//   reg_user: string;
-//   visible_status: string;
-// })
+// 1. 서버 사이드에서 가져올 리소스 정의하기
+// 정의된 순서에서 이미 데이터를 가지고 내려온 상태임.
 
 export const board_create = createRequest({
   key: "board_create",
-  requester(reqBody: {
-    title: string;
-    content: string;
-    category_id: number;
-    reg_user: string;
-    visible_status: string;
-  }) {
-    return () => boardRequest.board_create(reqBody);
-  },
+  requester: boardRequest.board_create,
 });
 
-const MainContainer = styled.main`
+export const board_list = createResource({
+  key: "board_list_1",
+  fetcher: boardRequest.board_list,
+});
+
+const WriteMain = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -45,18 +32,26 @@ const MainContainer = styled.main`
   margin: 0 auto;
 `;
 
-const Write: NextPage = (initProps) => {
+const Write: NextPage = () => {
+  console.log("Write render");
+
   return (
     <>
-      <MainContainer className="Content">
+      <WriteMain className='Content'>
         <WriteCategory />
-        <WriteForm />
-        <WriteImgSubmit />
-        <WriteHashTags />
-        <WriteSubmit />
-      </MainContainer>
+        <WriteContainer />
+      </WriteMain>
     </>
   );
 };
 
-export default Write;
+// 2. 페이지에서 사용할 리소스 명시하기
+
+type WritePageType = NextPage & {
+  requiredResources?: [typeof board_list];
+};
+
+const WritePage: WritePageType = Write;
+WritePage.requiredResources = [board_list];
+
+export default WritePage;

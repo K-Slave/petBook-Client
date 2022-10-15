@@ -7,16 +7,23 @@ import { useCurrentPage } from "./useCurrentPage";
 import { useScroll } from "./useScroll";
 
 const PostSection = () => {
+  // const board = useResource(board_list, board_list_defaults); // <- react-query 로 가져오는 API 데이터 (server-side-data store)
+
   const ref = useRef<HTMLElement | null>(null);
   const limit = useRef(10);
   const numPages = Math.ceil(dummy.length / limit.current);
   const { currentPage, changeCurrentPage } = useCurrentPage(numPages);
+
+  // console.log(currentPage, "currentPage, PostSection render");
+
+  // console.log(board, "board");
+
   const offset = (currentPage - 1) * limit.current;
   useScroll({ top: ref.current?.offsetTop }, [currentPage]);
   return (
     <MainSection
-      title="Live talk"
-      description="실시간 업로드되는 유저들의 이야기"
+      title='Live talk'
+      description='실시간 업로드되는 유저들의 이야기'
       sectionRef={ref}
     >
       <PostFilter />
