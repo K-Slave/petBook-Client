@@ -14,7 +14,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "downlevelIteration": true
+    "downlevelIteration": true,
     "baseUrl": ".",
     "incremental": true,
     "paths": { "@components/*": ["components/*"] }
