@@ -1,15 +1,16 @@
 import { useRouter } from "next/router";
-import HtmlHeader from "../../components/common/HtmlHeader";
-import TopNav from "../../components/TopNav";
+import Link from "next/link";
+import HtmlHeader from "@components/common/HtmlHeader";
 
 //
-import SocialLogin from "../../components/login/SocialLogin";
-import EmailLogin from "../../components/login/EmailLogin";
+import SocialLogin from "@components/login/SocialLogin";
+import EmailLogin from "@components/login/EmailLogin";
 
 //
 import styled from "styled-components";
 import { BsCheckCircleFill } from "react-icons/bs";
-import InduceSign from "../../components/login/InduceSign";
+import InduceSign from "@components/login/InduceSign";
+import TopNav from "@components/TopNav";
 
 const Main = styled.main`
   height: calc(100vh - 61px);
@@ -43,6 +44,23 @@ const LoginWrap = styled.div`
   position: relative;
   margin: 0 auto;
   margin-top: 194px;
+  figure.pass_guide {
+    text-align: center;
+    margin-top: 28px;
+    p {
+      display: inline;
+      font-size: 18px;
+    }
+    a {
+      margin-left: 8px;
+      padding: 0;
+      display: inline;
+      font-size: 18px;
+      font-weight: 400;
+      color: #111;
+      text-decoration: underline;
+    }
+  }
   a {
     width: 100%;
     display: block;
@@ -97,6 +115,10 @@ const Login = () => {
               </div>
               <SocialLogin />
               <InduceSign />
+              <figure className="pass_guide">
+                <p>비밀번호를 잊으셨나요?</p>
+                <Link href={"/password"}>비밀번호 찾기</Link>
+              </figure>
             </>
           ) : (
             <>

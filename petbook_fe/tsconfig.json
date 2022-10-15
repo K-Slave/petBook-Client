@@ -15,6 +15,9 @@
     "jsx": "preserve",
     "incremental": true,
     "downlevelIteration": true
+    "baseUrl": ".",
+    "incremental": true,
+    "paths": { "@components/*": ["components/*"] }
   },
   "include": [
     "next-env.d.ts",
