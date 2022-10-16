@@ -2,8 +2,8 @@ import { useRouter } from "next/router";
 import React, { MouseEventHandler, useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import writeState from "../../atoms/componentAtoms/community/writeState";
-import useResource from "../../hooks/useResource";
+import writeState from "../../atoms/pageAtoms/community/writeState";
+import useResource from "../../lib/hooks/useResource";
 import { board_list } from "../../pages/community/write";
 import WriteCategoryButton from "./WriteCategoryButton";
 
@@ -90,10 +90,10 @@ const WriteCategory = () => {
   return (
     <>
       <WriteCategorySection>
-        <label className='Category__Section__Title'>
+        <label className="Category__Section__Title">
           카테고리를 선택해주세요
         </label>
-        <div className='Category__Keyword__List'>
+        <div className="Category__Keyword__List">
           {categoryKeyword.map((keyword, idx) => {
             return (
               <WriteCategoryButton
@@ -107,7 +107,7 @@ const WriteCategory = () => {
           })}
         </div>
         {board.status === "success" && (
-          <div className='testttttttt'>
+          <div className="testttttttt">
             {board &&
               board.data &&
               board.data.data &&

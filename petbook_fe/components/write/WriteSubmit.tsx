@@ -1,9 +1,9 @@
 import { MouseEventHandler, useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import writeState from "../../atoms/componentAtoms/community/writeState";
-import { useSetResource } from "../../hooks/useResource";
-import localConsole from "../../lib/localConsole";
+import writeState from "../../atoms/pageAtoms/community/writeState";
+import { useSetResource } from "../../lib/hooks/useResource";
+import localConsole from "../../lib/utils/localConsole";
 import { board_create } from "../../pages/community/write";
 import { Button } from "../common/Button/Button";
 

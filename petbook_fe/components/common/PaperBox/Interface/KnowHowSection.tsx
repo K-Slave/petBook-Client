@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import palette from "../../../../lib/palette";
+import palette from "../../../../lib/modules/palette";
 import KnowhowPaperBox from "./KnowhowPaperBox";
 
 const KnowHowSectionBox = styled.section`

@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import localConsole from "../localConsole";
+import localConsole from "./localConsole";
 
 type SetChildType = {
   as: JSX.Element;

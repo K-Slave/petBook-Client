@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { CgGenderFemale } from "react-icons/cg";
 import Skeletone from "../Skeletone";
-import Palette from "../../../lib/_palette";
 import { PropsWithChildren } from "react";
 
 const ProfileCardBox = styled.div`
@@ -21,7 +20,7 @@ const ProfileCardBox = styled.div`
   background-color: #fff;
   border-radius: 0.9375rem;
 
-  border: 1px solid ${Palette.teal[9]};
+  border: 1px solid #087f5b;
 
   .${(props: ProfileCardType) => props.cardname}Profile-Image {
     width: 100%;
@@ -40,7 +39,7 @@ const ProfileCardBox = styled.div`
 
     padding: 0 0.75rem 0.25rem 0.75rem;
 
-    background-color: ${Palette.teal[1]};
+    background-color: #e6fcf5;
     border-radius: 0.625rem;
   }
 
