@@ -1,5 +1,5 @@
 import { useSetRecoilState } from "recoil";
-import userState from "atoms/componentAtoms/register/userState";
+import userState from "atoms/pageAtoms/login/userState";
 interface ValidationProps {
   current: String;
 }

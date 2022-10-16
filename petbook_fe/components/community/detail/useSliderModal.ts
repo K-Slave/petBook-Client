@@ -1,5 +1,5 @@
 import { useSetRecoilState } from "recoil";
-import { sliderModalState } from "../../../atoms/componentAtoms/community/sliderModal";
+import { sliderModalState } from "../../../atoms/pageAtoms/community/sliderModal";
 
 export const useSlider = (length: number) => {
   const setSliderModalState = useSetRecoilState(sliderModalState);

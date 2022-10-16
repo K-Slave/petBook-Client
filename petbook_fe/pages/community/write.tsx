@@ -1,8 +1,8 @@
 import { NextPage } from "next";
 import styled from "styled-components";
 import WriteCategory from "../../components/write/WriteCategory";
-import { createRequest, createResource } from "../../hooks/useResource";
-import { boardRequest } from "../api/petBook_API";
+import { createRequest, createResource } from "../../lib/hooks/useResource";
+import { boardRequest } from "../API/petBookAPI";
 import WriteContainer from "../../containers/WriteContainer";
 import "../../styles/WritePage.module.scss";
 
@@ -37,7 +37,7 @@ const Write: NextPage = () => {
 
   return (
     <>
-      <WriteMain className='Content'>
+      <WriteMain className="Content">
         <WriteCategory />
         <WriteContainer />
       </WriteMain>

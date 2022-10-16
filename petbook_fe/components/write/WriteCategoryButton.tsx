@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
 import { MouseEventHandler, useEffect, useState } from "react";
 import styled from "styled-components";
-import useResource from "../../hooks/useResource";
-import { board_list_defaults } from "../../pages/api/petBook_API/boardRequest";
+import useResource from "../../lib/hooks/useResource";
 import { board_list } from "../../pages/community";
 
 const WriteCategoryButtonBox = styled.button`

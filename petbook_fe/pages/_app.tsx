@@ -12,9 +12,8 @@ import CommonHeader from "../components/common/CommonHeader";
 import "../styles/Globals.scss";
 import "../styles/Texts.scss";
 import "../styles/find/Texts.scss";
-import { createResource } from "../hooks/useResource";
-import getResource from "./api/parser/getResource";
-import redirect from "./api/parser/redirect";
+import getResource from "./API/parser/getResource";
+import tokenRedirect from "./API/parser/tokenRedirect";
 import { itrMap } from "../lib/utils/iterableFunctions";
 
 // import { GetServerSideProps, NextApiRequest, NextApiResponse } from "next";
@@ -54,7 +53,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
     router.asPath.includes("access_token") ||
     router.asPath.includes("refresh_token")
   ) {
-    redirect(context);
+    tokenRedirect(context);
   }
 
   const queryClient = new QueryClient({
