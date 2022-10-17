@@ -1,22 +1,15 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useSelect } from "../useSelect";
+import { useCallback, useEffect } from "react";
 
 export const useCurrentPage = (numPages: number) => {
   const router = useRouter();
-  const [currentPage, selectPage] = useSelect(1);
-  const changeCurrentPage = (page: number) => {
+  const currentPage = Number(router.query?.page);
+  const changeCurrentPage = useCallback((page: number) => {
     const url = `/community?page=${page}`;
-    router
-      .push(url, url, {
-        scroll: false,
-      })
-      .then((data) => {
-        if (data) {
-          selectPage(page);
-        }
-      });
-  };
+    router.push(url, undefined, {
+      scroll: false,
+    });
+  }, []);
 
   useEffect(() => {
     const page = Number(router.query?.page);
@@ -24,8 +17,6 @@ export const useCurrentPage = (numPages: number) => {
       changeCurrentPage(1);
     } else if (page > numPages) {
       changeCurrentPage(numPages);
-    } else {
-      selectPage(page);
     }
   }, [router.query?.page]);
 
