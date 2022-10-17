@@ -2,8 +2,6 @@ import { Button } from "./Button";
 import { AiOutlineRight, AiOutlineLeft } from "react-icons/ai";
 import styled from "styled-components";
 import { MouseEventHandler, useEffect } from "react";
-import localConsole from "../../../lib/localConsole";
-import Palette from "../../../lib/_palette";
 
 const SlideButtonBox = styled.div`
   display: flex;
@@ -53,14 +51,14 @@ export default function SlideButton(props: SlideButtonProps) {
     //   return { background: "#cecece" };
     // }
 
-    return { background: `${Palette.teal[9]}` };
+    return { background: "#087f5b" };
   };
 
   return (
-    <SlideButtonBox className='Slide__Button__Box' onClick={onClick}>
-      <div className='Slide__Button__Display'>
+    <SlideButtonBox className="Slide__Button__Box" onClick={onClick}>
+      <div className="Slide__Button__Display">
         <SlidePushButton
-          className='Slide__Button'
+          className="Slide__Button"
           style={styleRender()}
           {...props}
         >

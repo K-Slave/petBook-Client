@@ -23,7 +23,7 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/_document.tsx",
-    "pages/api/petBook_API"
+    "pages/API/petBookAPI"
   ],
   "exclude": ["node_modules"]
 }

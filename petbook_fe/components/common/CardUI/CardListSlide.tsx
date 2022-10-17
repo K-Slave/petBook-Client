@@ -8,9 +8,9 @@ import React, {
   useState,
 } from "react";
 import styled from "styled-components";
-import drag from "../../../lib/drag";
-import localConsole from "../../../lib/localConsole";
-import throttle from "../../../lib/throttle";
+import drag from "../../../lib/handler/drag";
+import localConsole from "../../../lib/utils/localConsole";
+import throttle from "../../../lib/modules/throttle";
 import SlideButton from "../Button/SlideButton";
 import ProfileCard from "./ProfileCard";
 
@@ -174,7 +174,7 @@ export default function CardListSlide(
   return (
     <CardListSlideBox className={cardname + "Card__List__Slide__Box"}>
       <SlideButton
-        direction='left'
+        direction="left"
         onClick={onLeftSlide}
         page={page}
         pageNation={pageNation}
@@ -223,7 +223,7 @@ export default function CardListSlide(
         } */}
       </SlideList>
       <SlideButton
-        direction='right'
+        direction="right"
         onClick={onRightSlide}
         page={page}
         pageNation={pageNation}

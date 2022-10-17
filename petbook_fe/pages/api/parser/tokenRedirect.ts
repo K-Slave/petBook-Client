@@ -1,6 +1,6 @@
 import { AppContext } from "next/app";
 
-export default function redirect({ ctx, router }: AppContext) {
+export default function tokenRedirect({ ctx, router }: AppContext) {
   const url = require("url");
 
   let redirectPathname = router.pathname.concat();

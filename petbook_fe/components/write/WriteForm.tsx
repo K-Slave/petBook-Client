@@ -1,7 +1,7 @@
 import { ChangeEventHandler } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import writeState from "../../atoms/componentAtoms/community/writeState";
+import writeState from "../../atoms/pageAtoms/community/writeState";
 import WriteEditor from "./WriteEditor";
 
 const WriteFormSection = styled.section`
@@ -59,7 +59,7 @@ const WriteForm = () => {
 
   return (
     <WriteFormSection>
-      <WriteFormInput placeholder='제목을 입력하세요' onChange={onChange} />
+      <WriteFormInput placeholder="제목을 입력하세요" onChange={onChange} />
       <WriteFormNav />
       <WriteEditor />
     </WriteFormSection>
