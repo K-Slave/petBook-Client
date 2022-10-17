@@ -1,4 +1,4 @@
-import getParameters from "../pages/APIs/axios/xhrFunctions";
+import getParameters from "../pages/API/axios/xhrFunctions";
 
 class FetchInstance {
   constructor() {
