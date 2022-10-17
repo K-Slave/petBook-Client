@@ -1,20 +1,20 @@
+import { useRouter } from "next/router";
 import { useRef } from "react";
 import MainSection from "../MainSection";
 import PaginationButton from "./PaginationButton";
 import PostFilter from "./PostFilter";
 import PostList from "./PostList";
-import { useCurrentPage } from "./useCurrentPage";
 import { useScroll } from "./useScroll";
 
 const PostSection = () => {
   // const board = useResource(board_list, board_list_defaults); // <- react-query 로 가져오는 API 데이터 (server-side-data store)
 
+  const router = useRouter();
+  const currentPage = Number(router.query?.page);
   const ref = useRef<HTMLElement | null>(null);
   const limit = useRef(10);
-  const numPages = Math.ceil(dummy.length / limit.current);
-  const { currentPage, changeCurrentPage } = useCurrentPage(numPages);
 
-  // console.log(currentPage, "currentPage, PostSection render");
+  console.log(currentPage, "currentPage, PostSection render");
 
   // console.log(board, "board");
 
