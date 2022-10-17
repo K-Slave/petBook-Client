@@ -7,11 +7,17 @@ import PostList from "./PostList";
 import { useScroll } from "./useScroll";
 
 const PostSection = () => {
-  const router = useRouter();
-  const currentPage = Number(router.query?.page);
+  // const board = useResource(board_list, board_list_defaults); // <- react-query 로 가져오는 API 데이터 (server-side-data store)
+
   const ref = useRef<HTMLElement | null>(null);
   const limit = useRef(10);
   const numPages = Math.ceil(dummy.length / limit.current);
+  const { currentPage, changeCurrentPage } = useCurrentPage(numPages);
+
+  // console.log(currentPage, "currentPage, PostSection render");
+
+  // console.log(board, "board");
+
   const offset = (currentPage - 1) * limit.current;
   useScroll({ top: ref.current?.offsetTop }, [currentPage]);
   return (
