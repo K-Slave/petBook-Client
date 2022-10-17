@@ -5,8 +5,7 @@ export const useCurrentPage = (numPages: number) => {
   const router = useRouter();
   const currentPage = Number(router.query?.page);
   const changeCurrentPage = useCallback((page: number) => {
-    const url = `/community?page=${page}`;
-    router.push(url, undefined, {
+    router.push(`/community?page=${page}`, undefined, {
       scroll: false,
     });
   }, []);
