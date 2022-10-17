@@ -1,139 +1,325 @@
-# Petbook Frontend
+# Common
 
-## Work Guide
+- 조만간 eslint 랑 tsconfig 을 적용하겠습니다.
+- 줄임말 등은 대문자로 표기합니다. (API, SDK)
 
-=======
+# Folder / File Naming Convetion
 
-1. Data Fetching State 라이브러리는 React-Query 를 이용합니다.
+- pages
 
-> - 쿼리 Key 값은 자유롭게 설정하되, 캐싱된 데이터를 재사용할 경우 고정, 그렇지 않아야 할 경우 백틱으로 감싸고 ` `${}` `
-> - 동적인 Key 를 사용하면 됩니다.
+> 띄어쓰기없는 lowercase 로 작성합니다.
 
-2. Client Global State 라이브러리는 Recoil 을 이용합니다.
+1. 페이지 컴포넌트 및 그와 관련된 코드를 모아놓습니다.
+2. 폴더 구조에따른 path - page 매칭을 사용합니다.
+3. 각 path 의 메인 개념으로 index.tsx 페이지 컴포넌트를 사용합니다.
+4. Page Component 가 아닌경우 앞에 언더바 (\_) 를 붙입니다.
+5. path 로 직접 id 값을 받는경우 [articleId] 형태로 붙여줍니다.
 
-> - 전역 상태 관리및 소규모 컴포넌트간 상태 공유에 쪼개어 사용하여도 좋습니다.
-> - Component Atoms, System Atoms 로 폴더를 나누어 둘것 이며, System Atom 은 어디서든지 공유될 상태를 의미 합니다.
-> - Context API 를 도입할것인지도 검토 해보았으나, 보일러 플레이트 코드가 너무 많이 늘어나며 성능 이슈가 심각합니다.
-> - Compoent Atoms 는 Data State 와 Interaction State 로 나누어 한파일에서 내보냅니다.
-> - ++++ 08.22 추가수정 상태를 공유하는 Component 끼리는 모두 상태변화가 일어나므로 여러개가 중복되는 List-Item 컴포넌트등에서 따로 상태를 사용해야 한다면 useState 와 props 로 구현할수 밖에없습니다. 조금 공을 들인다면 Context API 를 사용해서 어떻게든 리렌더링을 줄여 쓰는 방법이 있긴한데,,,, 추천하고싶지 않습니다.
+- pages/API
 
-3. Container - Component 구조는 꼭 필요하다고 생각되어지는 경우에만 사용합니다.
+> camelCase 로 작성합니다.
 
-> - 저도 회사 프로덕트에 컨테이너 구조를 이용하고 있지만, 현재는 그다지 권장되지 않는 Design Pattern 이라고 합니다.
-> - 이에 대해서는 저도 좀더 조사를 해보도록 하겠습니다. 다른분들도 다른 디자인 패턴에 대해 조사해보시면 좋을것 같습니다.
+1. API 인터페이스 파일명은 서버에서 정하는 API 명 + Request 라는 이름을 사용합니다.
+2. index.ts 에서 각 Class 들을 생성하고 export 합니다.
+3. 현재는 기존 파이썬 서버 코드가 남아있으나 서버쪽 마이그레이션이 끝나면 정리할게요.
+4. 나중에 너무 API 가 많아지면 pages 폴더와 동일하게 폴더를 나누겠습니다.
 
-4. Component 단위는 다루는 데이터를 기준으로 가급적 한가지 일을 하도록 작성합니다.
+- lib
 
-5. Component 의 상태 데이터 처리와 인터렉션 처리 에 대한 코드는 모두 모듈화 합니다.
+> 함수들이 들어가있는 폴더입니다.
 
-> - 상태를 다룰경우, Custom Hook, 그렇지 않을 경우 정적인 Module Function 으로 작성하면 됩니다.
-> - 코드 량이 짧을 경우 또는 절대 변하지 않을 기능 ( ex : 단순한 닫기, 모두삭제 등의 action ) 등은 굳이 모듈화하지 않습니다.
-> - 4번 항목과 같은 맥락으로, Custom Hook 이나 Module Function 이 무슨 역할을 하는지 서로 정확히 이해가 되려면
-> - 한 함수가 하나의 일을 하도록 쪼개어 분리하여야 합니다. ( 함수형 프로그래밍 에서 강조되는 내용입니다 )
+- lib/utils : 전역에서 여러번 처리 되는 알고리즘등을 처리하는 유틸함수가 들어갑니다.
+- lib/hooks : 커스텀 훅 들이 들어가는 폴더, 나중에 기능별로 폴더 다시 나뉠 예정
+- lib/resource : 각종 외부에서 가져오는 img 소스경로들을 모아놓을 예정
+- lib/handler : 이벤트 핸들러 들이 들어갑니다.
+- lib/modules : 위의 경우에 포함되지 않는 경우 여기로 들어갑니다.
 
-> - 아래의 코드는 제가 전에 회사에서 작업 했던 토스트 메시지 컴포넌트 입니다.
-> - 그다지 깔끔한 코드라고는 말씀 드리기는 어렵지만, Touch Event Handler 를 따로 정적인 모듈 함수로 만들고,
-> - 토스트 메시지의 라이프 사이클 인터렉션과 토스트 메시지의 데이터를 출력하는 Custom Hook 으로 컴포넌트를 작성하였습니다.
-> - 이런경우에는 Custom Hook 이 하는일이 너무 많아서, 기능이 변경될 경우 Custom Hook 하나를 교체하는것조차 쉽지 않을것 같습니다.
-> - 저는 명시적으로 어떤 구조인가 보기 쉽도록 하는 코드에 너무 치우쳐 있어 이런 식의 코드가 자주 나오는것 같습니다.
+- atoms
 
-ex :
+> recoil atom 들이 들어갑니다.
+
+- atoms/pageAtoms : 페이지가 나눈 기준으로 폴더를 나눠뒀습니다.
+- atoms/systemAtoms : 페이지가 기준이 아닌, 더 큰 범위의 전역 상태를 다루는 아톰들이 들어갑니다.
+
+# Component Pattern Convention
+
+- Container Pattern 을 사용합니다.
+
+> DOM 을 그리지 않고 데이터만 취급해서 하위 컴포넌트에게 전달하는 컴포넌트는 모두 \
+> 컨테이너 컴포넌트 입니다. \
+> 굳이 모든 컴포넌트가 데이터 처리를 하면서 DOM 을 그릴 필요는 없고 \
+> 복잡한 데이터 처리를 해준후 UI 컴포넌트에게 전달합니다. \
+> 이 패턴은 인터렉션에 의해 UI 의 상태변화가 잦을때 유리합니다.
+
+- Compound Pattern 도 사용합니다.
+
+> 사용하는 경우는 상태가 복잡하거나, 잦은 상태 변화가 있어서 \
+> 불필요한 리렌더링을 최소화 하고자 컴포넌트가 작게작게 찢어지는 경우가 생기는데 \
+> 이때 모두 파일로 나누게 되면 가독성이 좋지 못합니다. \
+> 그때 사용해주시면 되겠습니다. 생각보다 가독성이 많이 좋아집니다.
 
 ```
-
-const ToastMessage = () => {
-  const toastRef = useRef<HTMLDivElement>(null);
-
-  const $html = useMemo(() => document.body.parentElement, []);
-  const $root = useMemo(
-    () => document.body.querySelector<HTMLDivElement>("#root"),
-    []
-  );
-  const $Toast__Message = useMemo(() => toastRef.current, [toastRef.current]);
-
-  const [StyleRender, toastMonitor, aosActive, toastSet] = useToastMessage(
-    $html,
-    $root,
-    $Toast__Message
-  );
-
-  const { onTouchStart, onTouchMove, onTouchEnd } = toastEventHandler({
-        $html: $html,
-        $root: $root,
-        $toast: $Toast__Message,
-        toastSet: toastSet,
-      });
-
+const Header = () => {
+  const [open, setOpen] = useState<boolean>(false);
+  const [focus, setFocus] = useState<boolean>(false);
+  ...
   return (
-    <ToastMessageBox
-      className="Toast__Message__Box"
-      style={StyleRender.toastLayout()}
-      ref={toastRef}
-      data-aos={aosActive ? "" : "fade-up"}
-      data-aos-anchor-placement={"top-center"}
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
-    >
-      <span className="Toast__Message__Text1">
-        {toastMonitor.toastKey === "last_page" && (
-          <img className="Toast__Message__Img" src={LASTPAGE} alt=""></img>
-        )}
-        {toastMonitor.toastMessage1}
-      </span>
-      {toastMonitor.toastMessage2 && (
-        <span className="Toast__Message__Text2">
-          {toastMonitor.toastLocation && (
-            <span className="Toast__Message__toastLocation">
-              {toastMonitor.toastLocation}
-            </span>
-          )}
-          {toastMonitor.toastMessage2}
-        </span>
-      )}
-    </ToastMessageBox>
+    <>
+      <HeaderBox className="Header" onMouseDown={onHeaderClick}>
+        <div className="wrapper">
+          <Header.Title />      <<<
+          <SearchQueryInput focus={focus} setFocus={setFocus} />
+          <HeaderAuthDiv className="Auth">
+            <Header.Auth open={open} setOpen={setOpen} />      <<<
+            <Header.Personal open={open} />     <<<
+          </HeaderAuthDiv>
+        </div>
+        <HeaderSpacer />
+      </HeaderBox>
+    </>
   );
 };
 
-export default ToastMessage;
 
+const Title = React.memo(() => {
+  return (
+    <TitleDiv className="Title">
+      ...
+    </TitleDiv>
+  );
+});
+
+const Auth = React.memo(({ open, setOpen }: AuthProps) => {
+  const user = useRecoilValue(userState);
+
+  return (
+    <>
+      {user.loggedUser ? (
+        <>
+          {user.loggedUser.name && (
+            ...
+          )}
+        </>
+      ) : (
+        <>
+          <a href="/user/?mode=login">로그인</a>
+          <a href="/user/?mode=intro">회원가입</a>
+        </>
+      )}
+    </>
+  );
+});
+
+type PersonalProps = {
+  open: boolean;
+};
+
+const Personal = React.memo(({ open }: PersonalProps) => {
+  return (
+    <>
+      {open && (
+        <div className="auth_modal">
+          ...
+        </div>
+      )}
+    </>
+  );
+});
+
+Header.Auth = Auth;
+Header.Personal = Personal;
+Header.Title = Title;
+
+export default React.memo(Header);
 ```
 
-6. CSS Convetion
+# JS Convention
 
-> - 클래스 명은 BEM 네이밍을 사용합니다. ( 스타일드 컴포넌트는 브라우저에서 스타일 시트 매핑이 되지 않기 때문에 서로 작업하려면 BEM 네이밍이 필요할것 같습니다. )
-> - ++++++ 08.22 추가수정 Next 에서 컴포넌트 명으로 클래스명을 자동부여 하므로, 하지 않겠습니다. 스타일 수정을 해야할 경우 컴포넌트 명을 검색하겠습니다.
-> - ex : `Toast__Message__Box`
+- Component 는 Pascal Case / ()=>{} 으로 작성합니다.
+- 커스텀 훅은 camelCase / function 으로 작성합니다.
+- 일반 모듈 함수는 camelCase / function 으로 작성합니다.
+- 인자로 받는 함수는 익명함수 / ()=>{} 으로 작성합니다.
 
-> - 시맨틱 마크업을 준수합니다.
-> - 참고 레퍼런스
-> - https://developers.google.com/search/docs/advanced/guidelines/links-crawlable?hl=ko
-> - https://developers.google.com/search/docs/beginner/seo-starter-guide?hl=ko <- ctrl + f '시맨틱'
-> - https://ko.wikipedia.org/wiki/%EA%B2%80%EC%83%89_%EC%97%94%EC%A7%84_%EC%B5%9C%EC%A0%81%ED%99%94
-> - https://developer.mozilla.org/ko/docs/Glossary/Semantics
-> - https://developer.mozilla.org/ko/docs/Glossary/SEO
-> - 생각보다 시맨틱 마크업은 SEO 에서 중요한 요소입니다.
-> - 특히, 잘못된 시맨틱 마크업 사용 ( 문서내에 hn 태그가 없음, ul 자식으로 li 가 나오지 않음,tr 자식으로 td 가 나오지 않음, a 태그 미사용) 이 꽤 감점이 큽니다.
-> - 코딩 하다보면 이를 놓치기 쉬워지니, 작업해두고 나중에 브라우저 개발자 도구를 보며 디버깅하는것이 좋습니다.
+```
+window.addEventListner('load', ()=>{}, { once: true })
+exampleArray.map(() => {})
+```
 
-> - 스타일드 컴포넌트의 props 이용은 필요하면 사용하되, 복잡한 조건부 스타일링은 하지 않습니다.
-> - ( 비슷한 컴포넌트여서 props 를 통해 간략화 한다던지,,,)
-> - 또한 props 가 변경될때마다 내부적으로 강제 리렌더링이 되며 css 를 전부 재평가하며 클래스명또한 새로 부여합니다. (성능이슈)
-> - 이는 상태에 의해 컴포넌트가 리렌더링 될때도 똑같은 작업이 반복되어집니다.
-> - 정적인 스타일드 컴포넌트 전용 props 를 전달받고, 복잡한 스타일링이 아니라면 괜찮습니다.
-> - 비슷한 컴포넌트 끼리 스타일을 공유하고 간단한 스타일을 변경할 것이라면 style overriding 을 추천드립니다.
+- env, url 소스 === UPPER_SNAKE_CASE
+- 변수명은 camelCase 를 사용하고 최대한 직관적이게 작성합니다.
+- 변수명 만으로도 어떠한 값이 들어가 있을건지, 어떤 타입일지 드러날수록 클린코드 입니다.
+- 배열 메서드 사용시 정말 정해줄 이름이 없다면, item 이나 elem 을 사용합니다.
+- 명사위주로 작성합니다.
 
-7. 부분적으로 재사용 가능해 보이는 컴포넌트들은 제가 Custom Hook 과 Compound Component ( Headless Pattern ) 으로 작성하겠습니다.
+```
+나쁜 예
 
-> - 디자인이 거의 같은데 기능만 변하게 될경우는 Custom Hook 만 교체하거나 수정하면 되도록,
-> - 사용하는 기능이 거의 같은데 디자인이 변하게 될경우는 Compound Component 로 디자인이나 인터렉션, 데이터를
-> - 수정하여 외부에서 주입가능한 구조로 작업하도록 하겠습니다.
-> - 이 Compound Component 는 제가 피그마 보고 꾸준히 작업하여 올리도록 하겠습니다.
-> - 저희 나름의 재사용 컴포넌트 Design System 을 구축해보고 싶어 시작하게 되었고,
-> - 같이 작업하는 분들이 쉽게 라이브러리처럼 가져다가 쓸수 있도록 작업하도록 하겠습니다.
-> - 제가 작업 될때마다 사용법과 함께 어떤 컴포넌트에 대해 작업된 코드인지 공지 해드리면
-> - 그 부분은 일단 제외하고 작업해두시면 될것 같습니다.
+const list = [
+    "질문과 답변",
+    "잡담",
+    "나눔활동",
+    "정보공유",
+    "실종신고",
+    "기타",
+  ];
 
-### 컴포넌트 디자인 패턴 과 기준에 대해서는 개발 진행해가면서 좀더 구체적인 기준을 세워 나가도록 하겠습니다.
+좋은 예
 
-test
+const categoryKeywords = [
+    "질문과 답변",
+    "잡담",
+    "나눔활동",
+    "정보공유",
+    "실종신고",
+    "기타",
+  ];
+
+나쁜 예
+{categoryKeywords.map((item, idx) => {...})}
+
+좋은 예
+{categoryKeywords.map((keyword, idx) => {...})}
+```
+
+- 함수명또한 앞에 CRUD 형식을 붙여 사용하고, '어떤 값을 어떻게 한다' 라는 의미가 포함될수록 클린코드입니다.
+- 동사가 포함되야합니다.
+
+```
+async function getUserName(name: string) {
+  ...
+  return result
+}
+
+function clearObject(obj: object) {
+  ...
+  return result
+}
+
+function useOverlay () {}
+```
+
+- API 와 관련된 네이밍은 서버에서 사용하는 네이밍을 최대한 그대로 사용합니다.
+
+```
+// 이 경우에는 서버가 새로 작업중이라 변경될수 있습니다.
+?page=1 (x) currentPage (o)
+```
+
+# CSS Convetion
+
+- NHN CSS 컨벤션 사용
+  https://millfeel1298.tistory.com/m/274
+- 동적으로 변경되는 css 는 styled 컴포넌트의 props 를 적극적으로 활용합니다.
+- 잦은 상태 변화나 props 의 변화가 일어나는 컴포넌트에서는 사용을 지양합니다.
+
+> useState, useRecoilState, useRecoilValue, props 가 수시로 변할때 \
+> styled props 를 이용하게 되면 위 상태들이 변할때마다 강제로 리렌더링되고 클래스명도 변합니다.
+
+### CSS 작성순서
+
+> 예제
+
+```
+span {
+  position : releative;
+  top: 2px;
+  left: 0;
+  z-index: 10;
+  overflow-x : hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  width: 200px;
+  max-width: 300px;
+  height: 150px;
+
+  margin: 0 auto;
+  padding: 5px;
+
+  border: 1px solid #000;
+  border-radius: 5px;
+
+  background-color : #f1f1f1;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+  letter-spacing: 0.0135rem;
+  font-size : 1.5rem;
+  color: #ccc;
+
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+}
+```
+
+### CSS 네이밍 컨벤션
+
+- id : Pascal Case
+
+```
+<div id="NaverMapsScript" />
+<div id="KakaoSDK" />
+<div id="Content" />
+<div id="ContentWrap" />
+```
+
+- class : Pascal_lower_Snake_Case or BEM
+
+```
+<div className="Submit_Button" />
+<div className="Article_Wrap" />
+```
+
+- styled : 컴포넌트명 + 태그명
+
+```
+const BannerH1 = styled.h1`
+  ...
+`
+
+const Banner = () => {
+  return (
+    <BannerH1>
+      ...
+    </BannerH1>
+  )
+}
+
+컴포넌트명에 태그명이 포함된경우
+상황에 맞게 Box, Wrap, Styled 등을 사용합니다.
+
+const SubmitButtonBox = styled.button`
+  ...
+`
+
+const SubmitButton = () => {
+  return (
+    <SubmitButtonBox>
+      ...
+    </SubmitButtonBox>
+  )
+}
+```
+
+# 타입 컨벤션
+
+### interface vs type vs inline
+
+- inline : 함수의 인자만 (props 아님)
+- 컴포넌트의 Props : interface (객체일땐 interface)
+- 다른경우 : type
+
+# 컴포넌트 나누는 기준
+
+- 재사용성을 늘려서 라이브러리 처럼쓰자 !!!!! (극찬성)
+- 다이어그램 참조
+
+# git convention
+
+- 기능 또는 페이지 완성 분기점 마다 개인별 push 및 merge
+- PR 은 Conflict Check 용 으로 Merge 전에 한번 올려보시고, Conflict 가 너무 많아 보이면 PR 로 남겨두세욥
