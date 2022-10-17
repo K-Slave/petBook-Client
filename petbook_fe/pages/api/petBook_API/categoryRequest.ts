@@ -1,9 +1,9 @@
 import { pypetbookClient } from "../axios/axiosClient";
 import getParameters, { getAxiosItems } from "../axios/xhrFunctions";
 
-const { uri, client } = getAxiosItems("/board", pypetbookClient);
+const { uri, client } = getAxiosItems("/category", pypetbookClient);
 
-export default class BoardAPI {
+export default class CategoryAPI {
   constructor() {
     if (!this.instance) {
       this.instance = this;
@@ -15,23 +15,21 @@ export default class BoardAPI {
   instance = this;
 
   /**
-   * 게시글 조회 API
+   * 카테고리 조회 API
    * @param params 입력할 쿼리파라미터 입니다.
    * @param params.id 0은 Reserved 입니다. 0을 보낼경우 id 에 관계없이 전부 호출됩니다. default : 0
-   * @param params.category_id 0은 Reserved 입니다. 0을 보낼경우 category 에 관계없이 전부 호출됩니다. default : 0
+   * @param params.title 카테고리 명을 입력합니다.
    * @param params.currentPage 불러올 페이지를 뜻합니다. default : 1
    * @param params.numPerPage 한 페이지에 몇개의 게시물을 가져올지 전달합니다. default : 10
    * @param config 객체로 입력할 설정값 입니다. 현재는 headerObj 프로퍼티만 있습니다.
    * @param config.headerObj 옵션으로 보낼 header객체를 담아줍니다.
    * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
    */
-  async board_list(
+  async category_list(
     params: {
       id?: number;
       title?: string;
-      content?: string;
       reg_user?: string;
-      category_id?: number;
       visible_status?: "Y" | "N";
       currentPage?: number;
       numPerPage?: number;
@@ -43,7 +41,6 @@ export default class BoardAPI {
       params: {
         ...params,
         id: params.id ? params.id : 0,
-        category_id: params.category_id ? params.category_id : 0,
         currentPage: params.currentPage ? params.currentPage : 1,
         numPerPage: params.numPerPage ? params.numPerPage : 10,
         visible_status: params.visible_status ? params.visible_status : "Y",
@@ -51,12 +48,10 @@ export default class BoardAPI {
       headerObj: config?.headerObj,
     });
 
-    const response = await client.get<BoardListResponse>(requestURL, {
+    const response = await client.get<CategoryListResponse>(requestURL, {
       timeout: 10000,
       headers: requestHeaders,
     });
-
-    console.log(response, "response");
 
     const result = {
       ...response,
@@ -70,21 +65,19 @@ export default class BoardAPI {
   }
 
   /**
-   * 게시글 등록 API
+   * 카테고리 등록 API
    * @param body 요청 패킷 Body 에 JSON 형태로 담을 내용입니다.
-   * @param body.category_id 0번 카테고리는 reserved 입니다. 글쓰기 카테고리 선택순서로 id가 매핑됩니다. ex) 1:질문과 답변, 2: 잡담, 3: 나눔활동 ...
-   * @param params 입력할 쿼리파라미터 입니다.
+   * @param body.title 카테고리 명을 입력합니다
    * @param config 객체로 입력할 설정값 입니다. 현재는 headerObj 프로퍼티만 있습니다.
    * @param config.headerObj 옵션으로 보낼 header객체를 담아줍니다.
+   * @param params 입력할 쿼리파라미터 입니다.
    * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
    */
-  async board_create(
+  async category_create(
     body: {
       title: string;
-      content: string;
-      category_id: number;
       reg_user: string;
-      visible_status?: "Y" | "N";
+      visible_status?: string;
     },
     params?: string | object,
     config?: { headerObj?: object }
@@ -95,7 +88,7 @@ export default class BoardAPI {
       headerObj: config?.headerObj,
     });
 
-    const response = await client.post<BoardCreateResponse>(
+    const response = await client.post<CategoryCreateResponse>(
       requestURL,
       {
         ...body,
@@ -123,25 +116,22 @@ export default class BoardAPI {
   }
 
   /**
-   * 게시글 수정 API
+   * 카테고리 수정 API
    * @param params 입력할 쿼리파라미터 입니다.
-   * @param body 요청 패킷 Body 에 JSON 형태로 담을 내용입니다.
-   * @param body.id 0번 id는 reserved 입니다. 해당 게시글 id를 입력해주세요.
-   * @param body.category_id 0번 카테고리는 reserved 입니다. 글쓰기 카테고리 선택순서로 id가 매핑됩니다. ex) 1:질문과 답변, 2: 잡담, 3: 나눔활동 ...
+   * @param body.id 0번 id는 reserved 입니다. 해당 카테고리 id를 입력해주세요.
+   * @param body.title 카테고리 명을 입력합니다
    * @param config 객체로 입력할 설정값 입니다. 현재는 headerObj 프로퍼티만 있습니다.
    * @param config.headerObj 옵션으로 보낼 header객체를 담아줍니다.
    * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
    */
-  async board_update(
+  async category_update(
     body: {
       id: number;
       create_at: string;
       update_at: string;
       title: string;
-      content: string;
       reg_user: string;
-      visible_status?: "Y" | "N";
-      category_id: number;
+      visible_status?: string;
     },
     params?: string | object,
     config?: { headerObj?: object }
@@ -152,7 +142,7 @@ export default class BoardAPI {
       headerObj: config?.headerObj,
     });
 
-    const response = await client.put<BoardUpdateResponse>(
+    const response = await client.put<CategoryUpdateResponse>(
       requestURL,
       {
         ...body,
@@ -180,14 +170,14 @@ export default class BoardAPI {
   }
 
   /**
-   * 게시글 삭제 API
+   * 카테고리 삭제 API
    * @param params 입력할 쿼리파라미터 입니다.
-   * @param params.id 0번 id는 reserved 입니다. 해당 게시글 id를 입력해주세요. ex) 1:질문과 답변, 2: 잡담, 3: 나눔활동 ...
+   * @param params.id 0번 id는 reserved 입니다. 해당 카테고리 id를 입력해주세요. ex) 1:질문과 답변, 2: 잡담, 3: 나눔활동 ...
    * @param config 객체로 입력할 설정값 입니다. 현재는 headerObj 프로퍼티만 있습니다.
    * @param config.headerObj 옵션으로 보낼 header객체를 담아줍니다.
    * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
    */
-  async board_delete(
+  async category_delete(
     params: {
       id: number;
     },
@@ -199,7 +189,7 @@ export default class BoardAPI {
       headerObj: config?.headerObj,
     });
 
-    const response = await client.delete<BoardDeleteResponse>(requestURL, {
+    const response = await client.delete<CategoryDeleteResponse>(requestURL, {
       timeout: 10000,
       headers: requestHeaders,
     });
@@ -216,42 +206,36 @@ export default class BoardAPI {
   }
 }
 
-export type BoardListRequest = {
+export type CategoryListRequest = {
   id: number;
   title?: string;
-  content?: string;
   reg_user?: string;
-  category_id: number;
-  visible_status: "Y" | "N";
+  visible_status: string;
   currentPage: number;
   numPerPage: number;
 };
 
-export type BoardListResponse = {
+export type CategoryListResponse = {
   count: number;
-  items:
+  item:
     | Array<{
         id: number;
         create_at: string;
         update_at: string;
         title: string;
-        content: string;
         reg_user: string;
-        visible_status: "Y" | "N";
-        category_id: number;
+        visible_status: string;
       }>
     | [];
 };
 
-export type BoardCreateRequest = {
+export type CategoryCreateRequest = {
   title: string;
-  content: string;
-  category_id: number;
   reg_user: string;
-  visible_status: "Y" | "N";
+  visible_status: string;
 };
 
-type BoardCreateResponse =
+type CategoryCreateResponse =
   | {
       msg: string;
     }
@@ -261,21 +245,19 @@ type BoardCreateResponse =
       };
     };
 
-export type BoardUpdateRequest = {
+export type CategoryUpdateRequest = {
   id: number;
   create_at: string;
   update_at: string;
   title: string;
-  content: string;
   reg_user: string;
-  visible_status: "Y" | "N";
-  category_id: number;
+  visible_status: string;
 };
 
-export type BoardUpdateResponse = BoardCreateResponse;
+type CategoryUpdateResponse = CategoryCreateResponse;
 
-export type BoardDeleteRequest = {
+type CategoryDeleteRequest = {
   id: number;
 };
 
-export type BoardDeleteResponse = BoardCreateResponse;
+type CategoryDeleteResponse = CategoryCreateResponse;
