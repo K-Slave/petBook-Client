@@ -12,8 +12,8 @@ import CommonHeader from "../components/common/CommonHeader";
 import "../styles/Globals.scss";
 import "../styles/Texts.scss";
 import "../styles/find/Texts.scss";
-import getResource from "./APIs/parser/getResource";
-import tokenRedirect from "./APIs/parser/tokenRedirect";
+import getResource from "./API/parser/getResource";
+import tokenRedirect from "./API/parser/tokenRedirect";
 import { itrMap } from "../lib/utils/iterableFunctions";
 
 // import { GetServerSideProps, NextApiRequest, NextApiResponse } from "next";
