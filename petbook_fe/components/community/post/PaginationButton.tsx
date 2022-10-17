@@ -2,18 +2,15 @@ import { useRef } from "react";
 import styled, { css } from "styled-components";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import { useButtonOffset } from "./useButtonOffset";
+import { useCurrentPage } from "./useCurrentPage";
 
 interface PaginationProps {
-  currentPage: number;
-  changeCurrentPage: (page: number) => void;
   numPages: number;
 }
 
-const PaginationButton = ({
-  currentPage,
-  changeCurrentPage,
-  numPages,
-}: PaginationProps) => {
+const PaginationButton = ({ numPages }: PaginationProps) => {
+  //console.log("PaginationButton render");
+  const { currentPage, changeCurrentPage } = useCurrentPage(numPages);
   const btnNum = useRef(10);
   const offset = useButtonOffset({ btnNum: btnNum.current, currentPage });
   const onClickPrev = () => {
