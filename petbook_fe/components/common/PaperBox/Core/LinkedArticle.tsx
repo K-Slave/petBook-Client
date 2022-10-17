@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { PropsWithChildren } from "react";
-import setNextjsElement from "../../../../lib/Headless_Patterns/setNextjsElement";
-import localConsole from "../../../../lib/localConsole";
+import setNextjsElement from "../../../../lib/utils/setNextjsElement";
+import localConsole from "../../../../lib/utils/localConsole";
 
 const LinkedArticle = ({ children }: PropsWithChildren<any>) => {
   return children;

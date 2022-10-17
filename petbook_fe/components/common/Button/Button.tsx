@@ -1,7 +1,6 @@
 import React, { MouseEventHandler, PropsWithChildren } from "react";
 import styled, { css } from "styled-components";
 import Link from "next/link";
-import Palette from "../../../lib/_palette";
 
 const buttonStyle = css`
   padding: 0.3rem;
@@ -24,8 +23,8 @@ const buttonStyle = css`
   }
 
   &:disabled {
-    background: ${Palette.gray[3]};
-    color: ${Palette.gray[5]};
+    background: #e9ecef;
+    color: #ced4da;
     cursor: not-allowed;
   }
 

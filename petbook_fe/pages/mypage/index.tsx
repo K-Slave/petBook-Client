@@ -1,8 +1,8 @@
 import { useState } from "react";
-import MyPageSection from "../components/MyPageSection";
-import SideNav from "../components/MyPageNav";
+import MyPageSection from "../../components/MyPageSection";
+import SideNav from "../../components/MyPageNav";
 import styled from "styled-components";
-import Keyvisual from "../components/Keyvisual";
+import Keyvisual from "../../components/Keyvisual";
 import { HiChevronDoubleRight, HiChevronDoubleLeft } from "react-icons/hi";
 
 const MyPageMain = styled.main`
@@ -40,12 +40,12 @@ const MyPage = () => {
       <MyPageMain>
         {showNav ? (
           <HiChevronDoubleLeft
-            className='MyPage__navIcon'
+            className="MyPage__navIcon"
             onClick={handleCloseNav}
           />
         ) : (
           <HiChevronDoubleRight
-            className='MyPage__navIcon'
+            className="MyPage__navIcon"
             onClick={handleShowNav}
           />
         )}

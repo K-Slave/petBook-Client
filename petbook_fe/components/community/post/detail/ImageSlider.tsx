@@ -1,6 +1,6 @@
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { sliderModalState } from "../../../../atoms/componentAtoms/community/sliderModal";
+import { sliderModalState } from "../../../../atoms/pageAtoms/community/sliderModal";
 
 interface ImageSliderProps {
   images: string[];

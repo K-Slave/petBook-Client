@@ -8,8 +8,8 @@ import styled from "styled-components";
 import About from "../../components/community/about/About";
 import WriteButton from "../../components/community/WriteButton";
 import SectionContainer from "../../containers/SectionContainer";
-import { createResource } from "../../hooks/useResource";
-import { boardRequest, categoryRequest } from "../api/petBook_API";
+import { createResource } from "../../lib/hooks/useResource";
+import { boardRequest, categoryRequest } from "../API/petBookAPI";
 
 export const board_list = createResource({
   key: "board_list_1",

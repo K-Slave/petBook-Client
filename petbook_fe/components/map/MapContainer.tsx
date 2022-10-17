@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import sortFilterState from "../../atoms/componentAtoms/filter/sortFilter";
+import sortFilterState from "../../atoms/pageAtoms/filter/sortFilter";
 import MapComponent from "../common/MapComponent";
 import MapFilterSlider from "./slider";
 // import useResource from "../../hooks/useResource";
