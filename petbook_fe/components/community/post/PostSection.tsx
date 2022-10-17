@@ -28,11 +28,7 @@ const PostSection = () => {
     >
       <PostFilter />
       <PostList posts={dummy.slice(offset, offset + limit.current)} />
-      <PaginationButton
-        currentPage={currentPage}
-        changeCurrentPage={changeCurrentPage}
-        numPages={Math.ceil(dummy.length / limit.current)}
-      />
+      <PaginationButton numPages={Math.ceil(dummy.length / limit.current)} />
     </MainSection>
   );
 };
