@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import styled from "styled-components";
 import WriteCategory from "../../components/write/WriteCategory";
 import { createRequest, createResource } from "../../lib/hooks/useResource";
-import { boardRequest } from "../API/petBookAPI";
+import { boardRequest } from "../APIs/petBookAPI";
 import WriteContainer from "../../containers/WriteContainer";
 import "../../styles/WritePage.module.scss";
 

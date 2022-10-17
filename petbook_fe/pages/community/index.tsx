@@ -5,7 +5,7 @@ import About from "../../components/community/about/About";
 import WriteButton from "../../components/community/WriteButton";
 import SectionContainer from "../../containers/SectionContainer";
 import { createResource } from "../../lib/hooks/useResource";
-import { boardRequest, categoryRequest } from "../API/petBookAPI";
+import { boardRequest, categoryRequest } from "../APIs/petBookAPI";
 
 export const board_list = createResource({
   key: "board_list_1",
