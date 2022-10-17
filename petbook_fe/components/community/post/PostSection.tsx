@@ -1,9 +1,9 @@
 import { useRef } from "react";
-import { useRouter } from "next/router";
 import MainSection from "../MainSection";
 import PaginationButton from "./PaginationButton";
 import PostFilter from "./PostFilter";
 import PostList from "./PostList";
+import { useCurrentPage } from "./useCurrentPage";
 import { useScroll } from "./useScroll";
 
 const PostSection = () => {
@@ -28,7 +28,11 @@ const PostSection = () => {
     >
       <PostFilter />
       <PostList posts={dummy.slice(offset, offset + limit.current)} />
-      <PaginationButton numPages={numPages} />
+      <PaginationButton
+        currentPage={currentPage}
+        changeCurrentPage={changeCurrentPage}
+        numPages={Math.ceil(dummy.length / limit.current)}
+      />
     </MainSection>
   );
 };
