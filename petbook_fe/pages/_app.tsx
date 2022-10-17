@@ -83,19 +83,6 @@ NextApp.getInitialProps = async (context: AppContext) => {
         (resource) => getResource(resource, searchParams, queryClient),
         requiredResources
       )
-
-      // requiredResources.map(async (resource) => {
-      //   const params = {
-      //     ...resource.params,
-      //     currentPage: searchParams.get("/community/write?currentPage")
-      //       ? searchParams.get("/community/write?currentPage")
-      //       : 1,
-      //   };
-
-      //   const paramFetcher = () => resource.fetcher(params);
-
-      //   await queryClient.fetchQuery(resource.key, paramFetcher);
-      // })
     );
   }
 
