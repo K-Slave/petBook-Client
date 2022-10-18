@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const pypetbookAxiosClient = axios.create();
-// petBookInstance.defaults.baseURL = process.env.BACKEND_BASE_URL as string;
-pypetbookAxiosClient.defaults.baseURL = "https://pypetbook.herokuapp.com";
+
+pypetbookAxiosClient.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 pypetbookAxiosClient.defaults.headers.common["Content-Type"] =
   "application/json";
 
