@@ -10,6 +10,17 @@
     "export": "next export",
     "netlify-deploy": "next build && next export"
   },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "axios": "^0.27.2",
@@ -43,10 +54,17 @@
     "@types/react": "18.0.8",
     "@types/react-dom": "18.0.3",
     "@types/styled-components": "^5.1.25",
+    "@typescript-eslint/eslint-plugin": "^5.40.1",
+    "@typescript-eslint/parser": "^5.40.1",
+    "@typescript-eslint/utils": "^5.40.1",
     "eslint": "8.14.0",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "12.1.5",
+    "husky": "^8.0.1",
     "jsdoc": "^3.6.11",
+    "lint-staged": "^13.0.3",
     "ngrok": "^4.3.1",
+    "prettier": "^2.7.1",
     "qs": "^6.10.3",
     "react-is": "^18.1.0",
     "redux-devtools-extension": "^2.13.9",
