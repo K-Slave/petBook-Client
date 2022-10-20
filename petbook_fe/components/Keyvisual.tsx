@@ -10,6 +10,7 @@ const Main = styled.div`
   width: 100%;
   color: white;
   overflow: hidden;
+
   background-image: url(/img/main-06.jpg);
   background-size: cover;
   background-repeat: no-repeat;
