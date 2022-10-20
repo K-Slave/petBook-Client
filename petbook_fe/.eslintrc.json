@@ -1,15 +1,61 @@
 {
   "root": true,
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "next/babel",
+    "next",
     "next/core-web-vitals",
     "airbnb",
-    "airbnb/hooks",
-    "prettier"
-  ]
+    "airbnb/hooks"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./petbook_fe/*",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "prettier",
+    "import"
+  ],
+  "rules": {
+    "arrow-body-style": "error",
+    "prefer-arrow-callback": "off",
+    "no-var": "error",
+    "no-unused-vars": "warn",
+    "no-dupe-keys": "error",
+    "no-confusing-arrow": "warn",
+    "react/prop-types": "off",
+    "linebreak-style": "off",
+    "implicit-arrow-linebreak": "warn",
+    "indent": "off",
+    "quotes": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx", ".ts", "tsx"] }
+    ]
+  }
 }
