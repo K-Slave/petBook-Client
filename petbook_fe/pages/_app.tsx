@@ -9,9 +9,10 @@ import { useState } from "react";
 import { RecoilRoot } from "recoil";
 import HtmlHeader from "../components/common/HtmlHeader";
 import CommonHeader from "../components/common/CommonHeader";
+
 import "../styles/Globals.scss";
-import "../styles/Texts.scss";
-import "../styles/find/Texts.scss";
+// import "../styles/Texts.scss";
+// import "../styles/find/Texts.scss";
 import getResource from "./API/parser/getResource";
 import tokenRedirect from "./API/parser/tokenRedirect";
 import { itrMap } from "../lib/utils/iterableFunctions";
