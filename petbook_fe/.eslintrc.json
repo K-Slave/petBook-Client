@@ -41,6 +41,7 @@
     "react/prop-types": "off",
     "linebreak-style": "off",
     "implicit-arrow-linebreak": "warn",
+    "operator-linebreak": "off",
     "indent": "off",
     "quotes": "off",
     "import/extensions": [
