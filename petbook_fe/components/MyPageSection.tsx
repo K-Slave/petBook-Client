@@ -1,5 +1,6 @@
-import { MYPAGE_MENUS } from "./MyPageNav";
+import React from "react";
 import styled from "styled-components";
+import { MYPAGE_MENUS } from "./MyPageNav";
 
 const Section = styled.section`
   flex-grow: 1;
@@ -15,12 +16,12 @@ interface MyPageSectionProps {
   current: number;
 }
 
-const MyPageSection = ({ current }: MyPageSectionProps) => {
+function MyPageSection({ current }: MyPageSectionProps) {
   return (
     <Section>
       <h1>{MYPAGE_MENUS[current].text}</h1>
     </Section>
   );
-};
+}
 
 export default MyPageSection;

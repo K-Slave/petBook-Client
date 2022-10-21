@@ -14,6 +14,6 @@ sprpetbookAxiosClient.defaults.baseURL =
   "https://petbook-server.herokuapp.com/";
 sprpetbookAxiosClient.defaults.headers.common["Content-Type"] =
   "application/json";
-sprpetbookAxiosClient.defaults.headers.common["accept"] = "*/*";
+sprpetbookAxiosClient.defaults.headers.common.accept = "*/*";
 
 export const sprpetbookClient = sprpetbookAxiosClient;

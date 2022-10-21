@@ -12,7 +12,7 @@ const Home: NextPage = () => {
       <Keyvisual />
 
       <div className={styles.container}>
-        <Box boxType='content' active={true} content={<div></div>} />
+        <Box boxType="content" active={true} content={<div></div>} />
         {/* <Box boxType='content' active={true} content={"queryData"} /> */}
       </div>
     </>
