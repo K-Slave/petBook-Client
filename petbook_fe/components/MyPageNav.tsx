@@ -1,3 +1,4 @@
+import React from "react";
 import { FaUserCircle } from "react-icons/fa";
 import styled from "styled-components";
 import { BorderButton } from "./common/Button/Button";
@@ -76,12 +77,12 @@ export const MYPAGE_MENUS = [
   },
 ];
 
-const MyPageNav = ({
+function MyPageNav({
   current,
   setCurrent,
   showNav,
   handleCloseNav,
-}: MyPageNavProps) => {
+}: MyPageNavProps) {
   const onClick = (id: number) => {
     setCurrent(id);
     handleCloseNav();
@@ -106,6 +107,6 @@ const MyPageNav = ({
       <Button>회원탈퇴</Button>
     </SideNav>
   );
-};
+}
 
 export default MyPageNav;
