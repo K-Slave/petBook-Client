@@ -16,12 +16,24 @@ export default async function getResource(
         ? searchParams.get("/community/write?currentPage")
         : "1";
 
-      await client.fetchQuery(resource.key, () =>
+      await client.fetchQuery(`${resource.key}_${currentPage as string}`, () =>
         resource.fetcher({
-          categoryId: currentPage,
-          page: 0,
+          categoryId: Number(currentPage),
+          page: Number(currentPage as string) - 1,
           size: 10,
         })
+      );
+
+      break;
+    }
+
+    case "CATEGORY_LIST": {
+      const currentPage = searchParams.get("/community/write?currentPage")
+        ? searchParams.get("/community/write?currentPage")
+        : "1";
+
+      await client.fetchQuery(`${resource.key}_${currentPage as string}`, () =>
+        resource.fetcher()
       );
 
       break;
