@@ -1,6 +1,6 @@
 import React from "react";
 import { useSetRecoilState } from "recoil";
-import { commentState } from "../../../../atoms/pageAtoms/community/commentState";
+import { commentState } from "@atoms/pageAtoms/community/commentState";
 
 export default function useChangeComment() {
   const setComment = useSetRecoilState(commentState);

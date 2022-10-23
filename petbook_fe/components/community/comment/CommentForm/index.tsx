@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { useEffect } from "react";
-import WriteComment from "./WriteComment";
-import SubmitButton from "./SubmitButton";
-import UserInfo from "./UserInfo";
 import {
   CommentState,
   commentState,
-} from "../../../../atoms/pageAtoms/community/commentState";
+} from "@atoms/pageAtoms/community/commentState";
+import WriteComment from "./WriteComment";
+import SubmitButton from "./SubmitButton";
+import UserInfo from "./UserInfo";
 
 const Form = styled.form`
   width: 100%;

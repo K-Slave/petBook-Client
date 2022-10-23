@@ -4,7 +4,7 @@ import {
   CommentState,
   commentState,
   initialCommentState,
-} from "../../../../atoms/pageAtoms/community/commentState";
+} from "@atoms/pageAtoms/community/commentState";
 
 export default function useSubmitComment() {
   const setComment = useSetRecoilState(commentState);

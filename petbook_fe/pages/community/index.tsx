@@ -1,11 +1,11 @@
 import { NextPage } from "next";
 import React from "react";
 import styled from "styled-components";
-import { boardRequest, categoryRequest } from "../../lib/API/petBookAPI";
-import About from "../../components/community/about/About";
-import WriteButton from "../../components/community/WriteButton";
-import SectionContainer from "../../containers/SectionContainer";
-import { createResource } from "../../lib/hooks/useResource";
+import { boardRequest, categorySprRequest } from "@lib/API/petBookAPI";
+import About from "@components/community/about/About";
+import WriteButton from "@components/community/WriteButton";
+import SectionContainer from "@containers/SectionContainer";
+import { createResource } from "@lib/hooks/useResource";
 
 export const BOARD_LIST = createResource({
   key: "board_list_1",
@@ -14,7 +14,7 @@ export const BOARD_LIST = createResource({
 
 export const CATEGORY_LIST = createResource({
   key: "category_list",
-  fetcher: categoryRequest.category_list,
+  fetcher: categorySprRequest.category_list,
 });
 
 const Container = styled.main`
