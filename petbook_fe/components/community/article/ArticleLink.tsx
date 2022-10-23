@@ -83,7 +83,7 @@ interface Props {
   post: ArticleItem;
 }
 
-const ArticleItemLink = ({ post }: Props) => {
+const ArticleLink = ({ post }: Props) => {
   const { id, title, content, user, tags, stat } = post;
   const previewImage = "";
   const date = "2022-02-03";
@@ -113,4 +113,4 @@ const ArticleItemLink = ({ post }: Props) => {
   );
 };
 
-export default ArticleItemLink;
+export default ArticleLink;
