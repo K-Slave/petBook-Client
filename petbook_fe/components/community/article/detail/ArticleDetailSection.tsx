@@ -6,10 +6,10 @@ import ImageSlider from "./ImageSlider";
 const Section = styled.section`
   display: flex;
   flex-direction: column;
-  background-color: #fff;
+  padding: 48px 40px 32px;
   border: 1px solid #f5edde;
   border-radius: 16px;
-  padding: 48px 40px 32px;
+  background-color: #fff;
 `;
 
 const Row = styled.div`
@@ -30,11 +30,11 @@ const ButtonBox = styled.div`
 `;
 
 const Title = styled.h2`
+  margin: 59px 0 26px;
   font-weight: 700;
   font-size: 24px;
   line-height: 30px;
   color: #444444;
-  margin: 59px 0 26px;
 `;
 
 const Content = styled.p`
