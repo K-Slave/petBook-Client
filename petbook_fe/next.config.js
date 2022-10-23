@@ -4,9 +4,15 @@ const path = require("path");
 
 const nextConfig = {
   reactStrictMode: true,
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "https://petbook-server.herokuapp.com/api/:path*",
+      },
+    ];
+  },
 };
-
-module.exports = nextConfig;
 
 module.exports = {
   sassOptions: {
@@ -29,6 +35,9 @@ module.exports = {
     //     },
     //   ],
     // })
+
     return config;
   },
 };
+
+module.exports = nextConfig;

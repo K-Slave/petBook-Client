@@ -5,14 +5,11 @@ const userToken = Cookies.get("petBookUser");
 
 const pyInstance = axios.create();
 
-pyInstance.defaults.baseURL = process.env.NEXT_PUBLIC_PY_URL;
 pyInstance.defaults.headers.common["Content-Type"] = "application/json";
 
 export const pyPetBookClient = pyInstance;
 
 const sprInstance = axios.create();
-
-sprInstance.defaults.baseURL = process.env.NEXT_PUBLIC_SPR_URL;
 
 sprInstance.defaults.headers.common["Content-Type"] = "application/json";
 sprInstance.defaults.headers.common.accept = "*/*";

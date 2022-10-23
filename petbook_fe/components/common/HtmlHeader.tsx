@@ -10,11 +10,11 @@ const HtmlHeader = () => {
       <script
         type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5c682ad42a1b2dc53379222a3b46761"
-      ></script>
+      />
       <script
         type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"
-      ></script>
+      />
     </Head>
   );
 };

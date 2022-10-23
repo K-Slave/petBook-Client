@@ -29,7 +29,7 @@ const WriteCategorySection = styled.section`
 
     width: 100%;
   }
-  .testttttttt {
+  .test {
     position: absolute;
     bottom: 82vw;
     z-index: 99;
@@ -47,8 +47,8 @@ const WriteCategory = ({ categoryList, articleList }: Props) => {
   const router = useRouter();
 
   const [selected, setSelected] = useState(
-    router?.query.currentPage
-      ? categoryList[Number(router?.query.currentPage) - 1].name
+    router?.query.page
+      ? categoryList[Number(router?.query.page) - 1].name
       : categoryList[0].name
   );
 
@@ -59,7 +59,7 @@ const WriteCategory = ({ categoryList, articleList }: Props) => {
     const resultValue = value || categoryList[categoryList.length - 1].name;
 
     navigator(
-      `/community/write?currentPage=${
+      `/community/write?page=${
         categoryList.findIndex((elem) => elem.name === resultValue) + 1
       }`,
       undefined,
