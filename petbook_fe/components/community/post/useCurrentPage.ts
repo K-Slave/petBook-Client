@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useCallback, useEffect } from "react";
 
-const useCurrentPage = (numPages: number) => {
+export default function useCurrentPage(numPages: number) {
   const router = useRouter();
   const currentPage = Number(router.query?.page);
   const changeCurrentPage = useCallback((page: number) => {
@@ -25,6 +25,4 @@ const useCurrentPage = (numPages: number) => {
     currentPage,
     changeCurrentPage,
   };
-};
-
-export default useCurrentPage;
+}

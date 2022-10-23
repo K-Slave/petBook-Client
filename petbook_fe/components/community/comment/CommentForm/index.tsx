@@ -9,10 +9,6 @@ import {
   commentState,
 } from "../../../../atoms/pageAtoms/community/commentState";
 
-interface CommentFormProps {
-  initialCommentState?: CommentState;
-}
-
 const Form = styled.form`
   width: 100%;
   height: 175px;
@@ -24,7 +20,11 @@ const Form = styled.form`
   flex-direction: column;
 `;
 
-const CommentForm = ({ initialCommentState }: CommentFormProps) => {
+interface Props {
+  initialCommentState?: CommentState;
+}
+
+const CommentForm = ({ initialCommentState }: Props) => {
   const setComment = useSetRecoilState(commentState);
   useEffect(() => {
     if (initialCommentState) {

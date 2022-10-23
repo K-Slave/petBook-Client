@@ -2,7 +2,7 @@ import React from "react";
 import { useSetRecoilState } from "recoil";
 import { commentState } from "../../../../atoms/pageAtoms/community/commentState";
 
-const useChangeComment = () => {
+export default function useChangeComment() {
   const setComment = useSetRecoilState(commentState);
   const onChange = (
     e:
@@ -16,6 +16,4 @@ const useChangeComment = () => {
   return {
     onChange,
   };
-};
-
-export default useChangeComment;
+}

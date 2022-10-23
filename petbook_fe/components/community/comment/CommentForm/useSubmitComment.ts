@@ -6,7 +6,7 @@ import {
   initialCommentState,
 } from "../../../../atoms/pageAtoms/community/commentState";
 
-const useSubmitComment = () => {
+export default function useSubmitComment() {
   const setComment = useSetRecoilState(commentState);
   const [input, setInput] = useState<CommentState>(initialCommentState);
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -32,6 +32,4 @@ const useSubmitComment = () => {
   return {
     onSubmit,
   };
-};
-
-export default useSubmitComment;
+}

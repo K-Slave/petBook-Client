@@ -24,6 +24,7 @@ const Container = styled.main`
 const Sections = styled.div`
   width: 90vw;
   max-width: 1280px;
+
   margin: 0 auto;
   padding-top: 80px;
 `;

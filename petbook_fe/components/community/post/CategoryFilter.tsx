@@ -11,10 +11,12 @@ const CATEGORIES = [
 ];
 
 const selectedStyle = css`
-  background-color: #000;
-  color: #fff;
-  font-weight: 700;
   padding: 8px 22px;
+
+  background-color: #000;
+
+  font-weight: 700;
+  color: #fff;
 `;
 
 const notSelectedStyle = css`
@@ -28,23 +30,22 @@ const Wrapper = styled.div`
 
 const FilterButton = styled.button<{ selected: boolean }>`
   ${({ selected }) => (selected ? selectedStyle : notSelectedStyle)};
-  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
   flex-shrink: 0;
+
+  border-radius: 20px;
+
+  font-size: 20px;
 `;
 
-interface CategoryFilterProps {
+interface Props {
   selectedCategory: number;
   onSelectCategory: (key: number) => void;
 }
 
-const CategoryFilter = ({
-  selectedCategory,
-  onSelectCategory,
-}: CategoryFilterProps) => {
+const CategoryFilter = ({ selectedCategory, onSelectCategory }: Props) => {
   return (
     <Wrapper>
       {CATEGORIES.map((category, index) => (

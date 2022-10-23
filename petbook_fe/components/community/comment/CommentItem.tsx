@@ -50,7 +50,7 @@ const ButtonBox = styled.div`
   }
 `;
 
-interface CommentItemProps {
+interface Props {
   id: number;
   username: string;
   avatar: string;
@@ -66,7 +66,7 @@ const CommentItem = ({
   date,
   content,
   recomment,
-}: CommentItemProps) => {
+}: Props) => {
   return (
     <Item recomment={recomment}>
       {recomment && <BsArrowReturnRight />}

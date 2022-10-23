@@ -2,10 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import useChangeComment from "./useChangeComment";
 
-interface WriteCommentProps {
-  initialComment?: string;
-}
-
 const Textarea = styled.textarea`
   border: none;
   resize: none;
@@ -27,7 +23,11 @@ const Textarea = styled.textarea`
   }
 `;
 
-const WriteComment = ({ initialComment }: WriteCommentProps) => {
+interface Props {
+  initialComment?: string;
+}
+
+const WriteComment = ({ initialComment }: Props) => {
   const { onChange } = useChangeComment();
   return (
     <Textarea placeholder="당신의 의견을 남겨보세요!" onChange={onChange}>
