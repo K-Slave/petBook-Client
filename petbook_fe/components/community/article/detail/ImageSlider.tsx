@@ -1,6 +1,6 @@
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { sliderModalState } from "../../../../atoms/pageAtoms/community/sliderModal";
+import sliderModalState from "@atoms/pageAtoms/community/sliderModal";
 
 const Slider = styled.div`
   display: flex;
@@ -44,7 +44,8 @@ const ImageSlider = ({ images }: ImageSliderProps) => {
               show: true,
               currentIndex: index,
               prevIndex: index === 0 ? images.length - 1 : index - 1,
-            })}
+            })
+          }
         />
       ))}
     </Slider>

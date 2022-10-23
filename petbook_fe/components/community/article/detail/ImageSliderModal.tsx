@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import styled, { css } from "styled-components";
 import { useRef } from "react";
-import { sliderModalState } from "../../../../atoms/pageAtoms/community/sliderModal";
+import sliderModalState from "@atoms/pageAtoms/community/sliderModal";
 import useSlider from "./useSliderModal";
 import useClickOutside from "./useClickOutside";
 
