@@ -1,6 +1,6 @@
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import sliderModalState from "@atoms/pageAtoms/community/sliderModal";
+import imageModalState from "@atoms/pageAtoms/community/imageModalState";
 
 const Slider = styled.div`
   display: flex;
@@ -26,12 +26,12 @@ const Spacer = styled.div`
   height: 80px;
 `;
 
-interface ImageSliderProps {
+interface Props {
   images: string[];
 }
 
-const ImageSlider = ({ images }: ImageSliderProps) => {
-  const setModalState = useSetRecoilState(sliderModalState);
+const ImageSlider = ({ images }: Props) => {
+  const setModalState = useSetRecoilState(imageModalState);
   return images.length !== 0 ? (
     <Slider>
       {images.map((image, index) => (
@@ -44,6 +44,7 @@ const ImageSlider = ({ images }: ImageSliderProps) => {
               show: true,
               currentIndex: index,
               prevIndex: index === 0 ? images.length - 1 : index - 1,
+              images,
             })
           }
         />
