@@ -4,7 +4,7 @@ import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import styled, { css } from "styled-components";
 import { useRef } from "react";
 import imageModalState from "@atoms/pageAtoms/community/imageModalState";
-import useSlider from "./useSliderModal";
+import useImageSlider from "./useImageSlider";
 import useClickOutside from "./useClickOutside";
 
 const Container = styled.div<{ show: boolean }>`
@@ -95,7 +95,7 @@ const ImageSliderModal = () => {
   const ref = useRef<HTMLDivElement | null>(null);
   const { show, currentIndex, prevIndex, images } =
     useRecoilValue(imageModalState);
-  const { moveNext, movePrev, changeCurrentIndex, closeModal } = useSlider(
+  const { moveNext, movePrev, changeCurrentIndex, closeModal } = useImageSlider(
     images.length
   );
   useClickOutside(ref, closeModal);
