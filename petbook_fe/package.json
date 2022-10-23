@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next export",
-    "netlify-deploy": "next build && next export"
+    "export": "next export"
   },
   "lint-staged": {
     "*.js": [
@@ -45,7 +44,6 @@
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "^4.11.1",
     "@types/axios": "^0.14.0",
     "@types/js-cookie": "^3.0.2",
     "@types/kakaomaps": "^1.1.2",
@@ -57,9 +55,16 @@
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",
     "@typescript-eslint/utils": "^5.40.1",
-    "eslint": "8.14.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.26.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "12.1.5",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-babel": "^5.3.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.10",
     "husky": "^8.0.1",
     "jsdoc": "^3.6.11",
     "lint-staged": "^13.0.3",

@@ -1,18 +1,23 @@
-import { pypetbookClient } from "../axios/axiosClient";
-import getParameters, { getAxiosItems } from "../axios/xhrFunctions";
+import { AxiosInstance } from "axios";
+import getParameters from "../axios/xhrFunctions";
+import {
+  BoardCreateResponse,
+  BoardDeleteResponse,
+  BoardListResponse,
+  BoardUpdateResponse,
+} from "./types/boardRequest";
 
-const { uri, client } = getAxiosItems("/board", pypetbookClient);
+// const { uri, client } = getAxiosItems("/board", pypetbookClient);
 
 export default class BoardAPI {
-  constructor() {
-    if (!this.instance) {
-      this.instance = this;
-    }
+  public uri = "";
 
-    return this.instance;
+  public client: AxiosInstance;
+
+  constructor(uri: string, client: AxiosInstance) {
+    this.uri = uri;
+    this.client = client;
   }
-
-  instance = this;
 
   /**
    * 게시글 조회 API
@@ -25,7 +30,7 @@ export default class BoardAPI {
    * @param config.headerObj 옵션으로 보낼 header객체를 담아줍니다.
    * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
    */
-  async board_list(
+  public board_list = async (
     params: {
       id?: number;
       title?: string;
@@ -37,9 +42,9 @@ export default class BoardAPI {
       numPerPage?: number;
     },
     config?: { headerObj?: object }
-  ) {
+  ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: uri,
+      uri: this.uri,
       params: {
         ...params,
         id: params.id ? params.id : 0,
@@ -51,23 +56,23 @@ export default class BoardAPI {
       headerObj: config?.headerObj,
     });
 
-    const response = await client.get<BoardListResponse>(requestURL, {
-      timeout: 10000,
-      headers: requestHeaders,
-    });
-
-    console.log(response, "response");
+    const response =
+      this.client &&
+      (await this.client.get<BoardListResponse>(requestURL, {
+        timeout: 10000,
+        headers: requestHeaders,
+      }));
 
     const result = {
       ...response,
       request: {
-        params: params,
-        config: config,
+        params,
+        config,
       },
     };
 
     return result;
-  }
+  };
 
   /**
    * 게시글 등록 API
@@ -78,7 +83,7 @@ export default class BoardAPI {
    * @param config.headerObj 옵션으로 보낼 header객체를 담아줍니다.
    * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
    */
-  async board_create(
+  public board_create = async (
     body: {
       title: string;
       content: string;
@@ -88,14 +93,14 @@ export default class BoardAPI {
     },
     params?: string | object,
     config?: { headerObj?: object }
-  ) {
+  ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: uri,
-      params: params,
+      uri: this.uri,
+      params,
       headerObj: config?.headerObj,
     });
 
-    const response = await client.post<BoardCreateResponse>(
+    const response = await this.client.post<BoardCreateResponse>(
       requestURL,
       {
         ...body,
@@ -110,17 +115,17 @@ export default class BoardAPI {
     const result = {
       ...response,
       request: {
-        params: params,
+        params,
         body: {
-          body: body,
-          params: params,
-          config: config,
+          body,
+          params,
+          config,
         },
       },
     };
 
     return result;
-  }
+  };
 
   /**
    * 게시글 수정 API
@@ -147,31 +152,33 @@ export default class BoardAPI {
     config?: { headerObj?: object }
   ) {
     const { requestURL, requestHeaders } = getParameters({
-      uri: uri,
-      params: params,
+      uri: this.uri,
+      params,
       headerObj: config?.headerObj,
     });
 
-    const response = await client.put<BoardUpdateResponse>(
-      requestURL,
-      {
-        ...body,
-        visible_status: body.visible_status ? body.visible_status : "Y",
-      },
-      {
-        timeout: 10000,
-        headers: requestHeaders,
-      }
-    );
+    const response =
+      this.client &&
+      (await this.client.put<BoardUpdateResponse>(
+        requestURL,
+        {
+          ...body,
+          visible_status: body.visible_status ? body.visible_status : "Y",
+        },
+        {
+          timeout: 10000,
+          headers: requestHeaders,
+        }
+      ));
 
     const result = {
       ...response,
       request: {
-        params: params,
+        params,
         body: {
-          body: body,
-          params: params,
-          config: config,
+          body,
+          params,
+          config,
         },
       },
     };
@@ -194,88 +201,26 @@ export default class BoardAPI {
     config?: { headerObj?: object }
   ) {
     const { requestURL, requestHeaders } = getParameters({
-      uri: uri,
-      params: params,
+      uri: this.uri,
+      params,
       headerObj: config?.headerObj,
     });
 
-    const response = await client.delete<BoardDeleteResponse>(requestURL, {
-      timeout: 10000,
-      headers: requestHeaders,
-    });
+    const response =
+      this.client &&
+      (await this.client.delete<BoardDeleteResponse>(requestURL, {
+        timeout: 10000,
+        headers: requestHeaders,
+      }));
 
     const result = {
       ...response,
       request: {
-        params: params,
-        config: config,
+        params,
+        config,
       },
     };
 
     return result;
   }
 }
-
-export type BoardListRequest = {
-  id: number;
-  title?: string;
-  content?: string;
-  reg_user?: string;
-  category_id: number;
-  visible_status: "Y" | "N";
-  currentPage: number;
-  numPerPage: number;
-};
-
-export type BoardListResponse = {
-  count: number;
-  items:
-    | Array<{
-        id: number;
-        create_at: string;
-        update_at: string;
-        title: string;
-        content: string;
-        reg_user: string;
-        visible_status: "Y" | "N";
-        category_id: number;
-      }>
-    | [];
-};
-
-export type BoardCreateRequest = {
-  title: string;
-  content: string;
-  category_id: number;
-  reg_user: string;
-  visible_status: "Y" | "N";
-};
-
-type BoardCreateResponse =
-  | {
-      msg: string;
-    }
-  | {
-      errors: {
-        errMsg: Array<any>;
-      };
-    };
-
-export type BoardUpdateRequest = {
-  id: number;
-  create_at: string;
-  update_at: string;
-  title: string;
-  content: string;
-  reg_user: string;
-  visible_status: "Y" | "N";
-  category_id: number;
-};
-
-export type BoardUpdateResponse = BoardCreateResponse;
-
-export type BoardDeleteRequest = {
-  id: number;
-};
-
-export type BoardDeleteResponse = BoardCreateResponse;
