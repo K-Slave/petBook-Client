@@ -1,4 +1,4 @@
-import { pypetbookClient, sprpetbookClient } from "../axios/axiosClient";
+import { pyPetBookClient, sprPetBookClient } from "../axios/axiosClient";
 import ArticleAPI from "./articleRequest";
 import AuthAPI from "./authRequest";
 import BoardAPI from "./boardRequest";
@@ -12,7 +12,7 @@ import CategorySprAPI from "./categoryRequestSpr";
  * @method board_update(data,params,config) : PUT 게시글 수정
  * @method board_delete(data,params,config) : DELETE 게시글 삭제
  */
-export const boardRequest = new BoardAPI("/board", pypetbookClient);
+export const boardRequest = new BoardAPI("/board", pyPetBookClient);
 
 /**
  * @uri '/category'
@@ -21,7 +21,7 @@ export const boardRequest = new BoardAPI("/board", pypetbookClient);
  * @method category_update(data,params,config) : PUT 카테고리 수정
  * @method category_delete(data,params,config) : DELETE 카테고리 삭제
  */
-export const categoryRequest = new CategoryAPI("/category", pypetbookClient);
+export const categoryRequest = new CategoryAPI("/category", pyPetBookClient);
 
 /**
  * @uri '/api/v1'
@@ -29,7 +29,7 @@ export const categoryRequest = new CategoryAPI("/category", pypetbookClient);
  * @method login(body,config) : POST 로그인 요청
  * @method register(body,config) : POST 회원가입 요청 (분리될수 있음)
  */
-export const authRequest = new AuthAPI("/api/v1", sprpetbookClient);
+export const authRequest = new AuthAPI("/api/v1", sprPetBookClient);
 
 /**
  * @uri '/api/v1/board/article'
@@ -39,7 +39,7 @@ export const authRequest = new AuthAPI("/api/v1", sprpetbookClient);
  */
 export const articleRequest = new ArticleAPI(
   "/api/v1/board/article",
-  sprpetbookClient
+  sprPetBookClient
 );
 
 /**
@@ -47,6 +47,6 @@ export const articleRequest = new ArticleAPI(
  * @method category_list(config) : GET 카테고리 조회
  */
 export const categorySprRequest = new CategorySprAPI(
-  "/api/v1/category",
-  sprpetbookClient
+  "/api/v1/board/category",
+  sprPetBookClient
 );

@@ -1,10 +1,11 @@
+import { ArticleListResponse } from "@lib/API/petBookAPI/types/articleRequest";
+import { CategoryListResponse } from "@lib/API/petBookAPI/types/categoryRequestSpr";
+import navigator from "@lib/modules/navigator";
 import { useRouter } from "next/router";
-import React, { MouseEventHandler, useEffect, useState } from "react";
+import React, { MouseEventHandler, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import writeState from "../../atoms/pageAtoms/community/writeState";
-import useResource from "../../lib/hooks/useResource";
-import { BOARD_LIST } from "../../pages/community/write";
 import WriteCategoryButton from "./WriteCategoryButton";
 
 const WriteCategorySection = styled.section`
@@ -35,82 +36,59 @@ const WriteCategorySection = styled.section`
   }
 `;
 
-const WriteCategory = () => {
+interface Props {
+  categoryList: CategoryListResponse;
+  articleList: ArticleListResponse;
+}
+
+const WriteCategory = ({ categoryList, articleList }: Props) => {
   console.log("Category render");
 
-  const categoryKeyword = [
-    "질문과 답변",
-    "잡담",
-    "나눔활동",
-    "정보공유",
-    "실종신고",
-    "기타",
-  ];
-  const [selected, setSelected] = useState(categoryKeyword[0]);
-  const setWrite = useSetRecoilState(writeState);
   const router = useRouter();
+
+  const [selected, setSelected] = useState(
+    router?.query.currentPage
+      ? categoryList[Number(router?.query.currentPage) - 1].name
+      : categoryList[0].name
+  );
+
+  const setWrite = useSetRecoilState(writeState);
 
   const onClick: MouseEventHandler = (e) => {
     const value = e.currentTarget.childNodes[0].textContent;
+    const resultValue = value || categoryList[categoryList.length - 1].name;
 
-    setSelected(value || categoryKeyword[categoryKeyword.length - 1]);
+    navigator(
+      `/community/write?currentPage=${
+        categoryList.findIndex((elem) => elem.name === resultValue) + 1
+      }`,
+      undefined,
+      { shallow: true }
+    );
+
+    setSelected(resultValue);
     setWrite((write) => ({
       ...write,
-      selectedCategory: value || categoryKeyword[categoryKeyword.length - 1],
+      selectedCategory: resultValue,
     }));
   };
-
-  const board = useResource({
-    ...BOARD_LIST,
-    key: `BOARD_LIST_${
-      categoryKeyword.findIndex((elem) => elem === selected) + 1
-    }`,
-    params: {
-      id: 0,
-      category_id: 0,
-      visible_status: "Y",
-      currentPage: categoryKeyword.findIndex((elem) => elem === selected) + 1,
-      numPerPage: 10,
-    },
-  });
-  console.log(board, "board");
-
-  useEffect(() => {
-    const navigate = async () => {
-      await router.push(
-        `/community/write?currentPage=${
-          categoryKeyword.findIndex((elem) => elem === selected) + 1
-        }`,
-        undefined,
-        { shallow: true }
-      );
-    };
-
-    navigate().catch((err) => console.error(err));
-  }, [selected]);
 
   return (
     <WriteCategorySection>
       <p className="Category__Section__Title">카테고리를 선택해주세요</p>
       <div className="Category__Keyword__List">
-        {categoryKeyword.map((keyword, idx) => (
+        {categoryList.map((keyword, idx) => (
           <WriteCategoryButton
-            key={keyword}
-            keyword={keyword}
+            key={keyword.name}
+            keyword={keyword.name}
             selected={selected}
             onClick={onClick}
           />
         ))}
       </div>
-      {board.status === "success" && (
-        <div className="testttttttt">
-          {board &&
-            board.data &&
-            board.data.data &&
-            board.data.data.items &&
-            board.data.data.items.map((elem) => elem.content)}
-        </div>
-      )}
+      <div className="test">
+        {articleList.map((article) => article.content)}
+      </div>
     </WriteCategorySection>
   );
 };
