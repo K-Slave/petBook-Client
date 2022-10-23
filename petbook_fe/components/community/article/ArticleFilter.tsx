@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   margin-bottom: 32px;
 `;
 
-const PostFilter = () => {
+const ArticleFilter = () => {
   return (
     <Wrapper>
       <CategoryFilter />
@@ -18,4 +18,4 @@ const PostFilter = () => {
   );
 };
 
-export default PostFilter;
+export default ArticleFilter;

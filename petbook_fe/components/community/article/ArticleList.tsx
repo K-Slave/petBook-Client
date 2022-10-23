@@ -1,25 +1,25 @@
 import { ArticleListResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import styled from "styled-components";
-import PostItem from "./PostItem";
+import ArticleItemBox from "./ArticleItemBox";
 
 interface Props {
   posts: ArticleListResponse;
 }
 
-const List = styled.ul`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
 `;
 
-const PostList = ({ posts }: Props) => {
+const ArticleList = ({ posts }: Props) => {
   return (
-    <List>
+    <Wrapper>
       {posts.map((post) => (
-        <PostItem post={post} key={post.id} />
+        <ArticleItemBox post={post} key={post.id} />
       ))}
-    </List>
+    </Wrapper>
   );
 };
 
-export default PostList;
+export default ArticleList;
