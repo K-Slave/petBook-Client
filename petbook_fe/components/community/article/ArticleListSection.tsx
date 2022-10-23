@@ -3,12 +3,12 @@ import { useRef } from "react";
 import { useRecoilValue } from "recoil";
 import categoryState from "@atoms/pageAtoms/community/categoryState";
 import { useQuery } from "react-query";
+import { usePage } from "@lib/hooks/usePagination";
+import useScroll from "@lib/hooks/useScroll";
 import MainSection from "../MainSection";
 import PaginationButton from "./PaginationButton";
 import ArticleFilter from "./ArticleFilter";
 import ArticleList from "./ArticleList";
-import { usePage } from "./usePagination";
-import useScroll from "./useScroll";
 
 const ArticleListSection = () => {
   const ref = useRef<HTMLElement | null>(null);

@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import styled, { css } from "styled-components";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
-import useButtonOffset from "./useButtonOffset";
-import usePagination from "./usePagination";
+import useButtonOffset from "@lib/hooks/useButtonOffset";
+import usePagination from "@lib/hooks/usePagination";
 
 const Wrapper = styled.div`
   display: flex;
