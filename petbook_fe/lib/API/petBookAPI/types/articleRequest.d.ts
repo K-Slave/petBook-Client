@@ -1,4 +1,4 @@
-export interface articleResponse {
+export interface ArticleResponse {
   id: number;
   title: string;
   content: string;
@@ -12,7 +12,7 @@ export interface articleResponse {
   };
 }
 
-export interface articleListResponse {
+export interface ArticleItem {
   id: number;
   title: string;
   content: string;
@@ -25,3 +25,5 @@ export interface articleListResponse {
     name: string;
   };
 }
+
+export type ArticleListResponse = ArticleItem[];
