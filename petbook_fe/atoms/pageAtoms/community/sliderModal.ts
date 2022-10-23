@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const sliderModalState = atom<{
+const sliderModalState = atom<{
   show: boolean;
   currentIndex: number;
   prevIndex: number;
@@ -12,3 +12,5 @@ export const sliderModalState = atom<{
     prevIndex: 0,
   },
 });
+
+export default sliderModalState;
