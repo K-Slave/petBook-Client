@@ -1,9 +1,7 @@
 import { AppContext } from "next/app";
 import url from "url";
 
-export default function tokenRedirect({ ctx, router }: AppContext) {
-  // const url = require("url");
-
+export default function urlTokenRedirect({ ctx, router }: AppContext) {
   let redirectPathname = router.pathname.concat();
 
   // login 페이지 에서 접속했을경우, 메인 페이지로 보내줌.

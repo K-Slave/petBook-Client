@@ -51,6 +51,8 @@
     "arrow-body-style": "off",
     "react-hooks/exhaustive-deps": "warn",
     "import/no-unresolved": "off",
+    "react/jsx-no-useless-fragment": "warn",
+    "function-paren-newline": "off",
     "react/function-component-definition": [
       "warn",
       { "namedComponents": "arrow-function" }
