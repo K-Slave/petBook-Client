@@ -1,25 +1,10 @@
+/* eslint-disable react/jsx-indent */
 import categoryState from "@atoms/pageAtoms/community/categoryState";
+import { CategoryListResponse } from "@lib/API/petBookAPI/types/categoryRequestSpr";
+import { CATEGORY_LIST } from "@pages/community";
+import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
 import styled, { css } from "styled-components";
-
-const CATEGORIES = [
-  {
-    id: 1,
-    name: "질문과 답변",
-  },
-  {
-    id: 2,
-    name: "잡담",
-  },
-  {
-    id: 3,
-    name: "나눔활동",
-  },
-  {
-    id: 4,
-    name: "정보공유",
-  },
-];
 
 const selectedStyle = css`
   padding: 8px 22px;
@@ -52,18 +37,32 @@ const FilterButton = styled.button<{ selected: boolean }>`
 `;
 
 const CategoryFilter = () => {
+  let categories: CategoryListResponse = [];
+  const { data, status } = useQuery(
+    CATEGORY_LIST.key,
+    () => CATEGORY_LIST.fetcher(),
+    {
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
+    }
+  );
+  if (status === "success") {
+    categories = [{ id: 0, name: "전체" }, ...data.data];
+  }
   const [selectedCategory, setSelectedCategory] = useRecoilState(categoryState);
   return (
     <Wrapper>
-      {CATEGORIES.map((category) => (
-        <FilterButton
-          selected={category.id === selectedCategory.id}
-          key={category.id}
-          onClick={() => setSelectedCategory(category)}
-        >
-          {category.name}
-        </FilterButton>
-      ))}
+      {status === "success"
+        ? categories.map((category) => (
+            <FilterButton
+              selected={category.id === selectedCategory.id}
+              key={category.id}
+              onClick={() => setSelectedCategory(category)}
+            >
+              {category.name}
+            </FilterButton>
+          ))
+        : null}
     </Wrapper>
   );
 };
