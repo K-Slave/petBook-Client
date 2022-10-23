@@ -20,16 +20,14 @@ export default async function getResource(
 
       await client.fetchQuery(`${resource.key}_${page}_${categoryId}`, () =>
         resource.fetcher({
+          initUrl: process.env.NEXT_PUBLIC_SPR_URL as string,
           categoryId: "",
           page: Number(page) - 1,
           size: 10,
         })
       );
-
       break;
     }
-
-    /*
 
     case "ARTICLE_ITEM": {
       const path = query.articleId as string;
@@ -38,7 +36,17 @@ export default async function getResource(
       );
       break;
     }
-    */
+
+    case "CATEGORY_LIST": {
+      const page = searchParams.get("/community/write?page") || "1";
+
+      await client.fetchQuery(`${resource.key}_${page}`, () =>
+        resource.fetcher({
+          initUrl: process.env.NEXT_PUBLIC_SPR_URL as string,
+        })
+      );
+      break;
+    }
 
     default:
       await client.fetchQuery(resource.key, resource.fetcher);

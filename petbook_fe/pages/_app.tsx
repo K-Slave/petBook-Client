@@ -7,11 +7,11 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "react-query";
+import cookies from "next-cookies";
 import urlTokenRedirect from "@lib/API/parser/urlTokenRedirect";
 import { RecoilRoot } from "recoil";
 import getResource from "@lib/API/parser/getResource";
 import HtmlHeader from "@components/common/HtmlHeader";
-import cookies from "next-cookies";
 import Cookies from "js-cookie";
 import { Router } from "next/router";
 import CommonHeader from "../components/common/CommonHeader";

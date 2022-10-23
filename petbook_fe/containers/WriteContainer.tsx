@@ -6,8 +6,8 @@ import React from "react";
 
 const WriteContainer = () => {
   const router = useRouter();
-  const { currentPage } = router.query;
-  const pageStr = currentPage ? (currentPage as string) : "1";
+  const { page } = router.query;
+  const pageStr = page ? (page as string) : "1";
 
   const category = useResource({
     ...CATEGORY_LIST,
@@ -19,9 +19,9 @@ const WriteContainer = () => {
     ...ARTICLE_LIST,
     key: `ARTICLE_LIST_${pageStr}`,
     params: {
-      categoryId: currentPage ? Number(currentPage as string) : 1,
-      page: currentPage ? Number(currentPage as string) : 0,
-      size: 10,
+      categoryId: 1,
+      page: page ? Number(page as string) - 1 : 0,
+      size: 2,
     },
   });
 
