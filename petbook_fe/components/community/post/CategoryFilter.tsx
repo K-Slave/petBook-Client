@@ -10,32 +10,6 @@ const CATEGORIES = [
   "기타",
 ];
 
-interface CategoryFilterProps {
-  selectedCategory: number;
-  onSelectCategory: (key: number) => void;
-}
-
-const CategoryFilter = ({
-  selectedCategory,
-  onSelectCategory,
-}: CategoryFilterProps) => {
-  return (
-    <Wrapper>
-      {CATEGORIES.map((category, index) => (
-        <FilterButton
-          selected={index === selectedCategory}
-          key={index}
-          onClick={() => onSelectCategory(index)}
-        >
-          {category}
-        </FilterButton>
-      ))}
-    </Wrapper>
-  );
-};
-
-export default CategoryFilter;
-
 const selectedStyle = css`
   background-color: #000;
   color: #fff;
@@ -61,3 +35,30 @@ const FilterButton = styled.button<{ selected: boolean }>`
   font-size: 20px;
   flex-shrink: 0;
 `;
+
+interface CategoryFilterProps {
+  selectedCategory: number;
+  onSelectCategory: (key: number) => void;
+}
+
+const CategoryFilter = ({
+  selectedCategory,
+  onSelectCategory,
+}: CategoryFilterProps) => {
+  return (
+    <Wrapper>
+      {CATEGORIES.map((category, index) => (
+        <FilterButton
+          selected={index === selectedCategory}
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
+          onClick={() => onSelectCategory(index)}
+        >
+          {category}
+        </FilterButton>
+      ))}
+    </Wrapper>
+  );
+};
+
+export default CategoryFilter;

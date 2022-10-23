@@ -2,35 +2,6 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { sliderModalState } from "../../../../atoms/pageAtoms/community/sliderModal";
 
-interface ImageSliderProps {
-  images: string[];
-}
-
-const ImageSlider = ({ images }: ImageSliderProps) => {
-  const setModalState = useSetRecoilState(sliderModalState);
-  return images.length !== 0 ? (
-    <Slider>
-      {images.map((image, index) => (
-        <DummyImage
-          src={image}
-          key={index}
-          onClick={() =>
-            setModalState({
-              show: true,
-              currentIndex: index,
-              prevIndex: index === 0 ? images.length - 1 : index - 1,
-            })
-          }
-        />
-      ))}
-    </Slider>
-  ) : (
-    <Spacer />
-  );
-};
-
-export default ImageSlider;
-
 const Slider = styled.div`
   display: flex;
   gap: 17px;
@@ -54,3 +25,32 @@ const DummyImage = styled.img`
 const Spacer = styled.div`
   height: 80px;
 `;
+
+interface ImageSliderProps {
+  images: string[];
+}
+
+const ImageSlider = ({ images }: ImageSliderProps) => {
+  const setModalState = useSetRecoilState(sliderModalState);
+  return images.length !== 0 ? (
+    <Slider>
+      {images.map((image, index) => (
+        <DummyImage
+          src={image}
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
+          onClick={() =>
+            setModalState({
+              show: true,
+              currentIndex: index,
+              prevIndex: index === 0 ? images.length - 1 : index - 1,
+            })}
+        />
+      ))}
+    </Slider>
+  ) : (
+    <Spacer />
+  );
+};
+
+export default ImageSlider;

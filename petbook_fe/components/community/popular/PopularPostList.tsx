@@ -1,5 +1,18 @@
-import PopularPostItem from "./PopularPostItem";
+/* eslint-disable react/jsx-props-no-spreading */
 import styled from "styled-components";
+import PopularPostItem from "./PopularPostItem";
+
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 20px;
+`;
+
+const List = styled.ol`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
 
 const dummy = new Array(10).fill(1).map((_, index) => ({
   rank: index + 1,
@@ -24,15 +37,3 @@ const PopularPostList = () => {
 };
 
 export default PopularPostList;
-
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0 20px;
-`;
-
-const List = styled.ol`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-`;

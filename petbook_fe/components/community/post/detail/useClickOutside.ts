@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 
-export const useClickOutside = <T extends HTMLElement>(
+const useClickOutside = <T extends HTMLElement>(
   ref: React.RefObject<T>,
   onClose: () => void
 ) => {
   useEffect(() => {
     const handleClickOutside = (e: any) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       if (ref.current && !ref.current.contains(e.target)) {
         onClose();
       }
@@ -16,3 +17,5 @@ export const useClickOutside = <T extends HTMLElement>(
     };
   }, []);
 };
+
+export default useClickOutside;

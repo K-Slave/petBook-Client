@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { NextPage } from "next";
 import styled from "styled-components";
 import HtmlHeader from "../../components/common/HtmlHeader";
@@ -25,6 +26,22 @@ const dummy = {
   images: [avatar, dummyImage1, dummyImage2, dummyImage3],
 };
 
+const Main = styled.main`
+  display: flex;
+  align-items: start;
+  max-width: 1064px;
+  width: 90vw;
+  gap: 20px;
+  margin: 40px auto;
+`;
+
+const Wrapper = styled.div`
+  max-width: 847px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
 const PostDetail: NextPage = () => {
   return (
     <>
@@ -42,19 +59,3 @@ const PostDetail: NextPage = () => {
 };
 
 export default PostDetail;
-
-const Main = styled.main`
-  display: flex;
-  align-items: start;
-  max-width: 1064px;
-  width: 90vw;
-  gap: 20px;
-  margin: 40px auto;
-`;
-
-const Wrapper = styled.div`
-  max-width: 847px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`;

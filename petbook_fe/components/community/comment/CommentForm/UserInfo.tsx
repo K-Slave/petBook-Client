@@ -4,17 +4,6 @@ const avatar =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
 const username = "arin";
 
-const UserInfo = () => {
-  return (
-    <Row>
-      <Avatar src={avatar} />
-      <p>{username}</p>
-    </Row>
-  );
-};
-
-export default UserInfo;
-
 const Row = styled.div`
   display: flex;
   align-items: center;
@@ -32,3 +21,14 @@ const Avatar = styled.img`
   border-radius: 50%;
   object-fit: cover;
 `;
+
+const UserInfo = () => {
+  return (
+    <Row>
+      <Avatar src={avatar} />
+      <p>{username}</p>
+    </Row>
+  );
+};
+
+export default UserInfo;

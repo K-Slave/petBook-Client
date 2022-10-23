@@ -8,23 +8,6 @@ interface MainSectionProps {
   sectionRef?: MutableRefObject<HTMLElement | null>;
 }
 
-const MainSection = ({
-  sectionRef,
-  title,
-  description,
-  children,
-}: MainSectionProps) => {
-  return (
-    <Section ref={sectionRef}>
-      <Heading>{title}</Heading>
-      <Text>{description}</Text>
-      {children}
-    </Section>
-  );
-};
-
-export default MainSection;
-
 const Section = styled.section`
   padding-bottom: 150px;
 `;
@@ -42,3 +25,24 @@ const Text = styled.p`
   font-size: 30px;
   margin-bottom: 32px;
 `;
+
+const MainSection = ({
+  sectionRef,
+  title,
+  description,
+  children,
+}: MainSectionProps) => {
+  return (
+    <Section ref={sectionRef}>
+      <Heading>{title}</Heading>
+      <Text>{description}</Text>
+      {children}
+    </Section>
+  );
+};
+
+export default MainSection;
+
+MainSection.defaultProps = {
+  sectionRef: undefined,
+};

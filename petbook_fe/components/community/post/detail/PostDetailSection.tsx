@@ -3,49 +3,6 @@ import DetailCommonInfo from "../../DetailCommonInfo";
 import TagList from "../../TagList";
 import ImageSlider from "./ImageSlider";
 
-interface PostDetailSectionProps {
-  avatar: string;
-  username: string;
-  date: string;
-  title: string;
-  content: string;
-  tags: string[];
-  images: string[];
-}
-
-const PostDetailSection = ({
-  avatar,
-  username,
-  date,
-  title,
-  content,
-  tags,
-  images,
-}: PostDetailSectionProps) => {
-  return (
-    <Section>
-      <Row>
-        <DetailCommonInfo avatar={avatar} username={username} date={date} />
-        <ButtonBox>
-          <button>공유</button>
-          <button>신고</button>
-        </ButtonBox>
-      </Row>
-      <Title>{title}</Title>
-      <Content>{content}</Content>
-      <ImageSlider images={images} />
-      <TagList tags={tags} width={90} height={32} fontSize={16} />
-      <Bottom>
-        <span>관람 수</span>
-        <button>좋아요 버튼</button>
-        <button>스크랩</button>
-      </Bottom>
-    </Section>
-  );
-};
-
-export default PostDetailSection;
-
 const Section = styled.section`
   display: flex;
   flex-direction: column;
@@ -100,3 +57,46 @@ const Bottom = styled.div`
     color: #7c7c7c;
   }
 `;
+
+interface PostDetailSectionProps {
+  avatar: string;
+  username: string;
+  date: string;
+  title: string;
+  content: string;
+  tags: string[];
+  images: string[];
+}
+
+const PostDetailSection = ({
+  avatar,
+  username,
+  date,
+  title,
+  content,
+  tags,
+  images,
+}: PostDetailSectionProps) => {
+  return (
+    <Section>
+      <Row>
+        <DetailCommonInfo avatar={avatar} username={username} date={date} />
+        <ButtonBox>
+          <button type="button">공유</button>
+          <button type="button">신고</button>
+        </ButtonBox>
+      </Row>
+      <Title>{title}</Title>
+      <Content>{content}</Content>
+      <ImageSlider images={images} />
+      <TagList tags={tags} width={90} height={32} fontSize={16} />
+      <Bottom>
+        <span>관람 수</span>
+        <button type="button">좋아요 버튼</button>
+        <button type="button">스크랩</button>
+      </Bottom>
+    </Section>
+  );
+};
+
+export default PostDetailSection;

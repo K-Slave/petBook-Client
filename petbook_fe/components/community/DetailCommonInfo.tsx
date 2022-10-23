@@ -5,21 +5,6 @@ interface DetailCommonInfoProps {
   username: string;
   date: string;
 }
-const DetailCommonInfo = ({
-  avatar,
-  username,
-  date,
-}: DetailCommonInfoProps) => {
-  return (
-    <Wrapper>
-      {avatar ? <Avatar src={avatar} alt="user avatar" /> : <Circle />}
-      <p className="username">{username}</p>
-      <p className="date">{date}</p>
-    </Wrapper>
-  );
-};
-
-export default DetailCommonInfo;
 
 const Avatar = styled.img`
   width: 40px;
@@ -51,3 +36,23 @@ const Wrapper = styled.div`
     margin-top: 1px;
   }
 `;
+
+const DetailCommonInfo = ({
+  avatar,
+  username,
+  date,
+}: DetailCommonInfoProps) => {
+  return (
+    <Wrapper>
+      {avatar ? <Avatar src={avatar} alt="user avatar" /> : <Circle />}
+      <p className="username">{username}</p>
+      <p className="date">{date}</p>
+    </Wrapper>
+  );
+};
+
+export default DetailCommonInfo;
+
+DetailCommonInfo.defaultProps = {
+  avatar: "",
+};

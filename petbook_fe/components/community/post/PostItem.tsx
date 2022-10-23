@@ -1,59 +1,6 @@
 import styled from "styled-components";
 import TagList from "../TagList";
 
-interface PostItemProps {
-  avatar: string;
-  username: string;
-  date: string;
-  title: string;
-  content: string;
-  tagList: string[];
-  likeCnt: number;
-  commentCnt: number;
-  viewCnt: number;
-  previewImage: string;
-}
-
-const PostItem = ({
-  avatar,
-  username,
-  date,
-  title,
-  content,
-  tagList,
-  likeCnt,
-  commentCnt,
-  viewCnt,
-  previewImage,
-}: PostItemProps) => {
-  return (
-    <Item>
-      <Column>
-        <Row>
-          <Avatar />
-          <p className="PostItem__username">{username}</p>
-          <p className="PostItem__date">{date}</p>
-        </Row>
-        <Wrapper>
-          <h3>{title}</h3>
-          <p className="PostItem__content">{content}</p>
-          <TagList tags={tagList} width={65} height={26} fontSize={14} />
-          <p className="PostItem__stats">
-            <span>공감수 {likeCnt}</span>
-            <span>/</span>
-            <span>댓글수 {commentCnt}</span>
-            <span>/</span>
-            <span>클릭수 {viewCnt}</span>
-          </p>
-        </Wrapper>
-      </Column>
-      {previewImage === "" ? null : <PreviewImage />}
-    </Item>
-  );
-};
-
-export default PostItem;
-
 const Item = styled.li`
   background: #ffffff;
   border-radius: 16px;
@@ -139,3 +86,56 @@ const Wrapper = styled.div`
     }
   }
 `;
+
+interface PostItemProps {
+  avatar: string;
+  username: string;
+  date: string;
+  title: string;
+  content: string;
+  tagList: string[];
+  likeCnt: number;
+  commentCnt: number;
+  viewCnt: number;
+  previewImage: string;
+}
+
+const PostItem = ({
+  avatar,
+  username,
+  date,
+  title,
+  content,
+  tagList,
+  likeCnt,
+  commentCnt,
+  viewCnt,
+  previewImage,
+}: PostItemProps) => {
+  return (
+    <Item>
+      <Column>
+        <Row>
+          <Avatar />
+          <p className="PostItem__username">{username}</p>
+          <p className="PostItem__date">{date}</p>
+        </Row>
+        <Wrapper>
+          <h3>{title}</h3>
+          <p className="PostItem__content">{content}</p>
+          <TagList tags={tagList} width={65} height={26} fontSize={14} />
+          <p className="PostItem__stats">
+            <span>공감수 {likeCnt}</span>
+            <span>/</span>
+            <span>댓글수 {commentCnt}</span>
+            <span>/</span>
+            <span>클릭수 {viewCnt}</span>
+          </p>
+        </Wrapper>
+      </Column>
+      {previewImage === "" ? null : <PreviewImage />}
+    </Item>
+  );
+};
+
+export default PostItem;
