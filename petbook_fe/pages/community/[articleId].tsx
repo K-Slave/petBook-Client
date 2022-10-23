@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { NextPage } from "next";
 import styled from "styled-components";
-import HtmlHeader from "../../components/common/HtmlHeader";
-import CommentSection from "../../components/community/comment/CommentSection";
-import ChatSideBanner from "../../components/community/article/detail/ChatSideBanner";
-import PostDetailSection from "../../components/community/article/detail/PostDetailSection";
-import ImageSliderModal from "../../components/community/article/detail/ImageSliderModal";
+import HtmlHeader from "@components/common/HtmlHeader";
+import CommentSection from "@components/community/comment/CommentSection";
+import ChatSideBanner from "@components/community/article/detail/ChatSideBanner";
+import PostDetailSection from "@components/community/article/detail/PostDetailSection";
+import ImageSliderModal from "@components/community/article/detail/ImageSliderModal";
 
 const avatar =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
