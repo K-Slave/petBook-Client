@@ -58,29 +58,44 @@ const Bottom = styled.div`
   }
 `;
 
-interface PostDetailSectionProps {
-  avatar: string;
-  username: string;
-  date: string;
-  title: string;
-  content: string;
-  tags: string[];
-  images: string[];
-}
+const avatar =
+  "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
 
-const PostDetailSection = ({
-  avatar,
-  username,
-  date,
-  title,
-  content,
-  tags,
-  images,
-}: PostDetailSectionProps) => {
+const dummyImage1 =
+  "https://images.unsplash.com/photo-1607599193024-de4a7601aefc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80";
+const dummyImage2 =
+  "https://images.unsplash.com/photo-1629898569904-669319348211?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80";
+const dummyImage3 =
+  "https://images.unsplash.com/photo-1612267168669-679c961c5b31?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80";
+
+const PostDetailSection = () => {
+  const dummy = {
+    id: 1,
+    title: "제목제목1",
+    content: "본문본문 1",
+    user: {
+      id: 1,
+      nickname: "테스터",
+    },
+    category: {
+      id: 1,
+      name: "질문과 답변",
+    },
+    tags: [],
+    stat: {
+      viewCount: 7,
+      likeCount: 0,
+    },
+  };
+  const { id, title, content, user, category, tags, stat } = dummy;
   return (
     <Section>
       <Row>
-        <DetailCommonInfo avatar={avatar} username={username} date={date} />
+        <DetailCommonInfo
+          avatar=""
+          username={user.nickname}
+          date="2022-02-20"
+        />
         <ButtonBox>
           <button type="button">공유</button>
           <button type="button">신고</button>
@@ -88,10 +103,10 @@ const PostDetailSection = ({
       </Row>
       <Title>{title}</Title>
       <Content>{content}</Content>
-      <ImageSlider images={images} />
+      <ImageSlider images={[avatar, dummyImage1, dummyImage2, dummyImage3]} />
       <TagList tags={tags} width={90} height={32} fontSize={16} />
       <Bottom>
-        <span>관람 수</span>
+        <span>관람 수 ${stat.viewCount}</span>
         <button type="button">좋아요 버튼</button>
         <button type="button">스크랩</button>
       </Bottom>
