@@ -1,3 +1,4 @@
+import { ParsedUrlQuery } from "querystring";
 import { QueryClient } from "react-query";
 
 export default async function getResource(
@@ -7,6 +8,7 @@ export default async function getResource(
     params?: object | undefined;
     config?: object | undefined;
   },
+  query: ParsedUrlQuery,
   searchParams: URLSearchParams,
   client: QueryClient
 ) {
@@ -15,7 +17,6 @@ export default async function getResource(
       const pageParam = searchParams.get("page");
       const page = pageParam || "1";
       const categoryId = 0;
-      console.log(page);
 
       await client.fetchQuery(`${resource.key}_${page}_${categoryId}`, () =>
         resource.fetcher({
@@ -29,15 +30,12 @@ export default async function getResource(
     }
 
     /*
-    case "CATEGORY_LIST": {
-      const currentPage = searchParams.get("/community/write?currentPage")
-        ? searchParams.get("/community/write?currentPage")
-        : "1";
 
-      await client.fetchQuery(`${resource.key}_${currentPage as string}`, () =>
-        resource.fetcher()
+    case "ARTICLE_ITEM": {
+      const path = query.articleId as string;
+      await client.fetchQuery(`${resource.key}_${path}`, () =>
+        resource.fetcher(path)
       );
-
       break;
     }
     */
