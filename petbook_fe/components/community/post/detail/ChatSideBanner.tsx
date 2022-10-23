@@ -1,28 +1,9 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import Link from "next/link";
 import styled from "styled-components";
 
 const avatar =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
-
-const ChatSideBanner = () => {
-  return (
-    <Wrapper>
-      <img src={avatar} />
-      <Background />
-      <Bottom>
-        <p>
-          arin님과 1:1 대화를 <br />
-          나눠보세요!
-        </p>
-        <Link href="#">
-          <a>1:1 대화 신청</a>
-        </Link>
-      </Bottom>
-    </Wrapper>
-  );
-};
-
-export default ChatSideBanner;
 
 const Wrapper = styled.div`
   position: relative;
@@ -60,3 +41,23 @@ const Background = styled.div`
   height: 197px;
   background: linear-gradient(0deg, #ff6e4e 0%, rgba(255, 110, 78, 0) 100%);
 `;
+
+const ChatSideBanner = () => {
+  return (
+    <Wrapper>
+      <img src={avatar} alt="user profile" />
+      <Background />
+      <Bottom>
+        <p>
+          arin님과 1:1 대화를 <br />
+          나눠보세요!
+        </p>
+        <Link href="#">
+          <a>1:1 대화 신청</a>
+        </Link>
+      </Bottom>
+    </Wrapper>
+  );
+};
+
+export default ChatSideBanner;

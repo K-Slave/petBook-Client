@@ -1,21 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { useChangeComment } from "./useChangeComment";
+import useChangeComment from "./useChangeComment";
 
 interface WriteCommentProps {
   initialComment?: string;
 }
-
-const WriteComment = ({ initialComment }: WriteCommentProps) => {
-  const { onChange } = useChangeComment();
-  return (
-    <Textarea placeholder="당신의 의견을 남겨보세요!" onChange={onChange}>
-      {initialComment ? initialComment : ""}
-    </Textarea>
-  );
-};
-
-export default WriteComment;
 
 const Textarea = styled.textarea`
   border: none;
@@ -37,3 +26,18 @@ const Textarea = styled.textarea`
     display: none;
   }
 `;
+
+const WriteComment = ({ initialComment }: WriteCommentProps) => {
+  const { onChange } = useChangeComment();
+  return (
+    <Textarea placeholder="당신의 의견을 남겨보세요!" onChange={onChange}>
+      {initialComment}
+    </Textarea>
+  );
+};
+
+export default WriteComment;
+
+WriteComment.defaultProps = {
+  initialComment: "",
+};

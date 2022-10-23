@@ -1,23 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-const About = () => {
-  console.log("About render");
-
-  return (
-    <Wrapper>
-      <div>
-        <p>
-          커뮤니티에 대한 간단한 설명 <br />
-          2줄 정도
-        </p>
-      </div>
-    </Wrapper>
-  );
-};
-
-export default React.memo(About);
-
 const Wrapper = styled.div`
   height: 200px;
   background-color: #ff6e4e;
@@ -35,3 +18,18 @@ const Wrapper = styled.div`
     line-height: 32px;
   }
 `;
+
+const About = () => {
+  return (
+    <Wrapper>
+      <div>
+        <p>
+          커뮤니티에 대한 간단한 설명 <br />
+          2줄 정도
+        </p>
+      </div>
+    </Wrapper>
+  );
+};
+
+export default React.memo(About);

@@ -1,16 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-const WriteButton = () => {
-  return (
-    <Link href={"/community/write"} passHref>
-      <Button>글쓰기</Button>
-    </Link>
-  );
-};
-
-export default WriteButton;
-
 const Button = styled.a`
   position: fixed;
 
@@ -27,3 +17,13 @@ const Button = styled.a`
   color: #fff;
   box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.2);
 `;
+
+const WriteButton = () => {
+  return (
+    <Link href="/community/write" passHref>
+      <Button>글쓰기</Button>
+    </Link>
+  );
+};
+
+export default WriteButton;

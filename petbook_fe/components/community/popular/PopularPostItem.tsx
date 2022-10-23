@@ -1,24 +1,5 @@
 import styled from "styled-components";
 
-interface PopularPostItemProps {
-  rank: number;
-  title: string;
-}
-
-const PopularPostItem = ({ rank, title }: PopularPostItemProps) => {
-  return (
-    <Item>
-      <Rank rank={rank}>{rank}</Rank>
-      <Row>
-        <Title rank={rank}>{title}</Title>
-        <Info>댓글 / 조회수</Info>
-      </Row>
-    </Item>
-  );
-};
-
-export default PopularPostItem;
-
 const Item = styled.li`
   background-color: white;
   border-radius: 12px;
@@ -54,3 +35,22 @@ const Info = styled.p`
   line-height: 19px;
   color: #ff2e00;
 `;
+
+interface PopularPostItemProps {
+  rank: number;
+  title: string;
+}
+
+const PopularPostItem = ({ rank, title }: PopularPostItemProps) => {
+  return (
+    <Item>
+      <Rank rank={rank}>{rank}</Rank>
+      <Row>
+        <Title rank={rank}>{title}</Title>
+        <Info>댓글 / 조회수</Info>
+      </Row>
+    </Item>
+  );
+};
+
+export default PopularPostItem;

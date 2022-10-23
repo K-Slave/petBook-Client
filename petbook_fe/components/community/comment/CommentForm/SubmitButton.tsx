@@ -1,16 +1,5 @@
 import styled from "styled-components";
-import { useSubmitComment } from "./useSubmitComment";
-
-const SubmitButton = () => {
-  const { onSubmit } = useSubmitComment();
-  return (
-    <Button type="submit" onClick={onSubmit}>
-      등록
-    </Button>
-  );
-};
-
-export default SubmitButton;
+import useSubmitComment from "./useSubmitComment";
 
 const Button = styled.button`
   background: #eeeeee;
@@ -25,3 +14,14 @@ const Button = styled.button`
   color: #777777;
   align-self: flex-end;
 `;
+
+const SubmitButton = () => {
+  const { onSubmit } = useSubmitComment();
+  return (
+    <Button type="submit" onClick={onSubmit}>
+      등록
+    </Button>
+  );
+};
+
+export default SubmitButton;

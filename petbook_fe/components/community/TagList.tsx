@@ -7,20 +7,6 @@ interface TagListProps {
   fontSize: number;
 }
 
-const TagList = ({ tags, width, height, fontSize }: TagListProps) => {
-  return (
-    <List>
-      {tags.map((tag, index) => (
-        <Item width={width} height={height} fontSize={fontSize} key={index}>
-          {tag}
-        </Item>
-      ))}
-    </List>
-  );
-};
-
-export default TagList;
-
 const List = styled.ul`
   display: flex;
   gap: 4px;
@@ -41,3 +27,18 @@ const Item = styled.li<{ width: number; height: number; fontSize: number }>`
     font-size: ${fontSize}px;
   `}
 `;
+
+const TagList = ({ tags, width, height, fontSize }: TagListProps) => {
+  return (
+    <List>
+      {tags.map((tag, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <Item width={width} height={height} fontSize={fontSize} key={index}>
+          {tag}
+        </Item>
+      ))}
+    </List>
+  );
+};
+
+export default TagList;

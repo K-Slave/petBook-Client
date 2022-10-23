@@ -3,44 +3,6 @@ import { MdPersonOutline } from "react-icons/md";
 import { MutableRefObject } from "react";
 import TagList from "../TagList";
 
-interface VoteItemProps {
-  image: string;
-  title: string;
-  description: string;
-  participant: number;
-  tagList: string[];
-  itemRef: MutableRefObject<HTMLLIElement | null> | null;
-}
-
-const VoteItem = ({
-  image,
-  title,
-  description,
-  participant,
-  tagList,
-  itemRef,
-}: VoteItemProps) => {
-  return (
-    <Item ref={itemRef}>
-      {image === "" ? null : <Image></Image>}
-      <Column image={image}>
-        <TagList tags={tagList} width={90} height={36} fontSize={16} />
-        <Title>{title}</Title>
-        <Desc>{description}</Desc>
-        <Bottom>
-          <Deadline>오늘 마감</Deadline>
-          <Participant>
-            <MdPersonOutline />
-            {participant}명 참여
-          </Participant>
-        </Bottom>
-      </Column>
-    </Item>
-  );
-};
-
-export default VoteItem;
-
 const Item = styled.li`
   display: flex;
   align-items: center;
@@ -108,3 +70,41 @@ const Participant = styled.p`
     height: 18px;
   }
 `;
+
+interface VoteItemProps {
+  image: string;
+  title: string;
+  description: string;
+  participant: number;
+  tagList: string[];
+  itemRef: MutableRefObject<HTMLLIElement | null> | null;
+}
+
+const VoteItem = ({
+  image,
+  title,
+  description,
+  participant,
+  tagList,
+  itemRef,
+}: VoteItemProps) => {
+  return (
+    <Item ref={itemRef}>
+      {image === "" ? null : <Image />}
+      <Column image={image}>
+        <TagList tags={tagList} width={90} height={36} fontSize={16} />
+        <Title>{title}</Title>
+        <Desc>{description}</Desc>
+        <Bottom>
+          <Deadline>오늘 마감</Deadline>
+          <Participant>
+            <MdPersonOutline />
+            {participant}명 참여
+          </Participant>
+        </Bottom>
+      </Column>
+    </Item>
+  );
+};
+
+export default VoteItem;

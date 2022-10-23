@@ -1,19 +1,6 @@
 import { BiSortAlt2 } from "react-icons/bi";
 import styled from "styled-components";
 
-const SortFilter = () => {
-  return (
-    <Wrapper>
-      <p>실시간</p>
-      <button>
-        <BiSortAlt2 />
-      </button>
-    </Wrapper>
-  );
-};
-
-export default SortFilter;
-
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
@@ -27,3 +14,16 @@ const Wrapper = styled.div`
     align-items: center;
   }
 `;
+
+const SortFilter = () => {
+  return (
+    <Wrapper>
+      <p>실시간</p>
+      <button type="button">
+        <BiSortAlt2 />
+      </button>
+    </Wrapper>
+  );
+};
+
+export default SortFilter;

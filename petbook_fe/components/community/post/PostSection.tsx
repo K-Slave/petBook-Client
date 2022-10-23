@@ -4,7 +4,24 @@ import MainSection from "../MainSection";
 import PaginationButton from "./PaginationButton";
 import PostFilter from "./PostFilter";
 import PostList from "./PostList";
-import { useScroll } from "./useScroll";
+import useScroll from "./useScroll";
+
+const dummy = Array(260)
+  .fill({
+    avatar: "",
+    username: "arin",
+    date: "2022.08.24",
+    title:
+      "질문이 들어갑니다 들어갑니다 들어갑니다 들어갑니다 들어갑니다 들어갑니다 들어갑니다",
+    content: `내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다`,
+    tagList: ["태그", "태그", "태그"],
+    likeCnt: 1,
+    commentCnt: 1,
+    viewCnt: 1,
+    previewImage: "image",
+  })
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  .map((item, index) => ({ ...item, id: index }));
 
 const PostSection = () => {
   // const board = useResource(board_list, board_list_defaults); // <- react-query 로 가져오는 API 데이터 (server-side-data store)
@@ -34,19 +51,3 @@ const PostSection = () => {
 };
 
 export default PostSection;
-
-const dummy = Array(260)
-  .fill({
-    avatar: "",
-    username: "arin",
-    date: "2022.08.24",
-    title:
-      "질문이 들어갑니다 들어갑니다 들어갑니다 들어갑니다 들어갑니다 들어갑니다 들어갑니다",
-    content: `내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다`,
-    tagList: ["태그", "태그", "태그"],
-    likeCnt: 1,
-    commentCnt: 1,
-    viewCnt: 1,
-    previewImage: "image",
-  })
-  .map((item, index) => ({ ...item, id: index }));

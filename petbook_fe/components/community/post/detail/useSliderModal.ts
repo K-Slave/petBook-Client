@@ -1,7 +1,7 @@
 import { useSetRecoilState } from "recoil";
 import { sliderModalState } from "../../../../atoms/pageAtoms/community/sliderModal";
 
-export const useSlider = (length: number) => {
+const useSlider = (length: number) => {
   const setSliderModalState = useSetRecoilState(sliderModalState);
   const movePrev = () => {
     setSliderModalState((state) => {
@@ -39,3 +39,5 @@ export const useSlider = (length: number) => {
   };
   return { moveNext, movePrev, changeCurrentIndex, closeModal };
 };
+
+export default useSlider;
