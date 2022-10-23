@@ -14,11 +14,11 @@ const sprInstance = axios.create();
 
 sprInstance.defaults.baseURL = process.env.NEXT_PUBLIC_SPR_URL;
 
-// sprInstance.defaults.headers.common["Content-Type"] = "application/json";
-// sprInstance.defaults.headers.common.accept = "*/*";
+sprInstance.defaults.headers.common["Content-Type"] = "application/json";
+sprInstance.defaults.headers.common.accept = "*/*";
 
-// if (userToken) {
-//   sprInstance.defaults.headers.common.authorization = userToken;
-// }
+if (userToken) {
+  sprInstance.defaults.headers.common.authorization = userToken;
+}
 
 export const sprPetBookClient = sprInstance;
