@@ -15,6 +15,7 @@ export default function usePagination(numPages: number) {
     router
       .push(`/community?page=${page}`, undefined, {
         scroll: false,
+        shallow: true,
       })
       .catch((error) => console.log(error));
   }, []);
