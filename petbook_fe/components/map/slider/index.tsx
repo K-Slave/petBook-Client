@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 
 //components
 import MapSlideItems from "./item";
-import SearchBar from "../../common/SearchBar";
-import PositionInfo from "./PositionInfo";
+import SearchBar from "@components/common/Searchbar";
+import PositionInfo from "./positionInfo";
 
 const SlideBox = styled.div`
   width: 30rem;

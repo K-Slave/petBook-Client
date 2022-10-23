@@ -1,21 +1,16 @@
-import { sprpetbookClient } from "../axios/axiosClient";
-import getParameters, { getAxiosItems } from "../axios/xhrFunctions";
-
-const { uri, client } = getAxiosItems(
-  "/api/v1/board/article",
-  sprpetbookClient
-);
+import { AxiosInstance } from "axios";
+import getParameters from "../axios/xhrFunctions";
+import { articleListResponse } from "./types/articleRequest";
 
 export default class ArticleAPI {
-  constructor() {
-    if (!this.instance) {
-      this.instance = this;
-    }
+  public uri = "";
 
-    return this.instance;
+  public client: AxiosInstance;
+
+  constructor(uri: string, client: AxiosInstance) {
+    this.uri = uri;
+    this.client = client;
   }
-
-  instance = this;
 
   /**
    * @param body 요청 패킷 Body 에 JSON 형태로 담을 내용입니다.
@@ -24,36 +19,38 @@ export default class ArticleAPI {
    * @param body.categoryId 게시물의 카테고리 ID 값 입니다.
    * @param config Header 메시지를 추가할때 씁니다.
    * @param config.headerObj 유저 토큰값을 헤더에 작성합니다. 없으면 에러가 납니다.
-   * @returns 응답 객체는 없습니다.
+   * @returns 생성한 게시물 정보가 들어옵니다.
    */
-  async article_create(
+  public article_create = async (
     body: {
       title: string;
       content: string;
       categoryId: number;
     },
     config: { headerObj: object }
-  ) {
+  ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: uri + "/",
+      uri: `${this.uri}/`,
       headerObj: config.headerObj,
     });
 
-    const response = await client.post<any>(requestURL, body, {
-      timeout: 10000,
-      headers: requestHeaders,
-    });
+    const response =
+      this.client &&
+      (await this.client.post<any>(requestURL, body, {
+        timeout: 10000,
+        headers: requestHeaders,
+      }));
 
     const result = {
       ...response,
       request: {
-        body: body,
-        config: config,
+        body,
+        config,
       },
     };
 
     return result;
-  }
+  };
 
   /**
    *
@@ -61,27 +58,32 @@ export default class ArticleAPI {
    * @param config Header 메시지를 추가할때 씁니다.
    * @returns 게시물 ID 에 해당하는 게시물을 반환합니다.
    */
-  async article_item(path: string, config?: { headerObj: object }) {
+  public article_item = async (
+    path: string,
+    config?: { headerObj: object }
+  ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: uri + "/" + path,
+      uri: `${this.uri}/${path}`,
       headerObj: config?.headerObj,
     });
 
-    const response = await client.get<articleResponse>(requestURL, {
-      timeout: 10000,
-      headers: requestHeaders,
-    });
+    const response =
+      this.client &&
+      (await this.client.get<articleListResponse>(requestURL, {
+        timeout: 10000,
+        headers: requestHeaders,
+      }));
 
     const result = {
       ...response,
       request: {
-        path: path,
-        config: config,
+        path,
+        config,
       },
     };
 
     return result;
-  }
+  };
 
   /**
    *
@@ -92,61 +94,35 @@ export default class ArticleAPI {
    * @param config
    * @returns categoryId 에 해당하는 게시물 리스트를 반환합니다.
    */
-  async article_list(
+  public article_list = async (
     params: {
       categoryId: number[];
       page: number;
       size: number;
     },
     config?: { headerObj: object }
-  ) {
+  ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: uri + "/list",
-      params: params,
+      uri: `${this.uri}/list`,
+      params,
       headerObj: config?.headerObj,
     });
 
-    const response = await client.get<articleListResponse>(requestURL, {
-      timeout: 10000,
-      headers: requestHeaders,
-    });
+    const response =
+      this.client &&
+      (await this.client.get<articleListResponse>(requestURL, {
+        timeout: 10000,
+        headers: requestHeaders,
+      }));
 
     const result = {
       ...response,
       request: {
-        params: params,
-        config: config,
+        params,
+        config,
       },
     };
 
     return result;
-  }
+  };
 }
-
-type articleResponse = {
-  id: number;
-  title: string;
-  content: string;
-  user: {
-    id: number;
-    nickname: string;
-  };
-  category: {
-    id: number;
-    name: string;
-  };
-};
-
-type articleListResponse = {
-  id: number;
-  title: string;
-  content: string;
-  user: {
-    id: number;
-    nickname: string;
-  };
-  category: {
-    id: number;
-    name: string;
-  };
-};

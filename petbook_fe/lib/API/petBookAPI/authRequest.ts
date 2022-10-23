@@ -1,20 +1,19 @@
-import { sprpetbookClient } from "../axios/axiosClient";
-import getParameters, { getAxiosItems } from "../axios/xhrFunctions";
+import { AxiosInstance } from "axios";
+import getParameters from "../axios/xhrFunctions";
 
-const { uri, client } = getAxiosItems("/api/v1", sprpetbookClient);
+// const { uri, client } = getAxiosItems();
 
 export default class AuthAPI {
-  constructor() {
-    if (!this.instance) {
-      this.instance = this;
-    }
+  public uri = "";
 
-    return this.instance;
+  public client: AxiosInstance;
+
+  constructor(uri: string, client: AxiosInstance) {
+    this.uri = uri;
+    this.client = client;
   }
 
-  instance = this;
-
-  async login_check(params: any, config?: { headerObj?: object }) {}
+  // public login_check = (params: any, config?: { headerObj?: object }) => {};
 
   /**
    *
@@ -25,33 +24,35 @@ export default class AuthAPI {
    * @param config Header 메시지를 추가할때 씁니다.
    * @returns 유저 토큰을 반환합니다.
    */
-  async login(
+  public login = async (
     body: {
       email: string;
       password: string;
     },
     config?: { headerObj?: object }
-  ) {
+  ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: uri + "/login",
+      uri: `${this.uri}/login`,
       headerObj: config?.headerObj,
     });
 
-    const response = await client.post<string>(requestURL, body, {
-      timeout: 10000,
-      headers: requestHeaders,
-    });
+    const response =
+      this.client &&
+      (await this.client.post<string>(requestURL, body, {
+        timeout: 10000,
+        headers: requestHeaders,
+      }));
 
     const result = {
       ...response,
       request: {
-        body: body,
-        config: config,
+        body,
+        config,
       },
     };
 
     return result;
-  }
+  };
 
   // TODO : 나중에 userAPI 새로 만들어야함
   /**
@@ -61,32 +62,34 @@ export default class AuthAPI {
    * @param config Header 메시지를 추가할때 씁니다.
    * @returns 유저 토큰을 반환합니다.
    */
-  async register(
+  public register = async (
     body: {
       email: string;
       nickname: string;
       password: string;
     },
     config?: { headerObj?: object }
-  ) {
+  ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: uri + "/user/register",
+      uri: `${this.uri}/user/register`,
       headerObj: config?.headerObj,
     });
 
-    const response = await client.post<{}>(requestURL, body, {
-      timeout: 10000,
-      headers: requestHeaders,
-    });
+    const response =
+      this.client &&
+      (await this.client.post<Record<string, never>>(requestURL, body, {
+        timeout: 10000,
+        headers: requestHeaders,
+      }));
 
     const result = {
       ...response,
       request: {
-        body: body,
-        config: config,
+        body,
+        config,
       },
     };
 
     return result;
-  }
+  };
 }

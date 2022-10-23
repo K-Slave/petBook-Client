@@ -4,7 +4,7 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import writeState from "../../atoms/pageAtoms/community/writeState";
 import useResource from "../../lib/hooks/useResource";
-import { board_list } from "../../pages/community/write";
+import { BOARD_LIST } from "../../pages/community/write";
 import WriteCategoryButton from "./WriteCategoryButton";
 
 const WriteCategorySection = styled.section`
@@ -48,21 +48,21 @@ const WriteCategory = () => {
   ];
   const [selected, setSelected] = useState(categoryKeyword[0]);
   const setWrite = useSetRecoilState(writeState);
+  const router = useRouter();
 
   const onClick: MouseEventHandler = (e) => {
     const value = e.currentTarget.childNodes[0].textContent;
-    setSelected(value ? value : categoryKeyword[categoryKeyword.length - 1]);
+
+    setSelected(value || categoryKeyword[categoryKeyword.length - 1]);
     setWrite((write) => ({
       ...write,
-      selectedCategory: value
-        ? value
-        : categoryKeyword[categoryKeyword.length - 1],
+      selectedCategory: value || categoryKeyword[categoryKeyword.length - 1],
     }));
   };
 
   const board = useResource({
-    ...board_list,
-    key: `board_list_${
+    ...BOARD_LIST,
+    key: `BOARD_LIST_${
       categoryKeyword.findIndex((elem) => elem === selected) + 1
     }`,
     params: {
@@ -75,48 +75,43 @@ const WriteCategory = () => {
   });
   console.log(board, "board");
 
-  const router = useRouter();
-
   useEffect(() => {
-    router.push(
-      `/community/write?currentPage=${
-        categoryKeyword.findIndex((elem) => elem === selected) + 1
-      }`,
-      undefined,
-      { shallow: true }
-    );
+    const navigate = async () => {
+      await router.push(
+        `/community/write?currentPage=${
+          categoryKeyword.findIndex((elem) => elem === selected) + 1
+        }`,
+        undefined,
+        { shallow: true }
+      );
+    };
+
+    navigate().catch((err) => console.error(err));
   }, [selected]);
 
   return (
-    <>
-      <WriteCategorySection>
-        <label className="Category__Section__Title">
-          카테고리를 선택해주세요
-        </label>
-        <div className="Category__Keyword__List">
-          {categoryKeyword.map((keyword, idx) => {
-            return (
-              <WriteCategoryButton
-                key={keyword}
-                idx={idx}
-                keyword={keyword}
-                selected={selected}
-                onClick={onClick}
-              />
-            );
-          })}
+    <WriteCategorySection>
+      <p className="Category__Section__Title">카테고리를 선택해주세요</p>
+      <div className="Category__Keyword__List">
+        {categoryKeyword.map((keyword, idx) => (
+          <WriteCategoryButton
+            key={keyword}
+            keyword={keyword}
+            selected={selected}
+            onClick={onClick}
+          />
+        ))}
+      </div>
+      {board.status === "success" && (
+        <div className="testttttttt">
+          {board &&
+            board.data &&
+            board.data.data &&
+            board.data.data.items &&
+            board.data.data.items.map((elem) => elem.content)}
         </div>
-        {board.status === "success" && (
-          <div className="testttttttt">
-            {board &&
-              board.data &&
-              board.data.data &&
-              board.data.data.items &&
-              board.data.data.items.map((elem) => elem.content)}
-          </div>
-        )}
-      </WriteCategorySection>
-    </>
+      )}
+    </WriteCategorySection>
   );
 };
 
