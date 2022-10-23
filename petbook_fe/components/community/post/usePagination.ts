@@ -1,9 +1,16 @@
 import { useRouter } from "next/router";
 import { useCallback, useEffect } from "react";
 
-export default function useCurrentPage(numPages: number) {
+export const usePage = () => {
   const router = useRouter();
-  const currentPage = Number(router.query?.page);
+  const pageParam = Number(router.query?.page);
+  const currentPage = Number.isNaN(pageParam) ? 1 : pageParam;
+  return currentPage;
+};
+
+export default function usePagination(numPages: number) {
+  const currentPage = usePage();
+  const router = useRouter();
   const changeCurrentPage = useCallback((page: number) => {
     router
       .push(`/community?page=${page}`, undefined, {
@@ -14,7 +21,7 @@ export default function useCurrentPage(numPages: number) {
 
   useEffect(() => {
     const page = Number(router.query?.page);
-    if (Number.isNaN(page) || page < 1) {
+    if (page < 1) {
       changeCurrentPage(1);
     } else if (page > numPages) {
       changeCurrentPage(numPages);
