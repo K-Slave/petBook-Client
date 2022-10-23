@@ -19,9 +19,14 @@ export default class CategorySprAPI {
    * @param config
    * @returns categoryId 에 해당하는 게시물 리스트를 반환합니다.
    */
-  public category_list = async (config?: { headerObj: object }) => {
+  public category_list = async (
+    params?: {
+      initUrl?: string;
+    },
+    config?: { headerObj: object }
+  ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: `${this.uri}/list`,
+      uri: `${params?.initUrl || ""}${this.uri}/list`,
       headerObj: config?.headerObj,
     });
 
