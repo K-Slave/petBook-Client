@@ -1,19 +1,19 @@
 import { NextPage } from "next";
 import React from "react";
 import styled from "styled-components";
-import { boardRequest, categorySprRequest } from "@lib/API/petBookAPI";
+import { articleRequest, categorySprRequest } from "@lib/API/petBookAPI";
 import About from "@components/community/about/About";
 import WriteButton from "@components/community/WriteButton";
 import SectionContainer from "@containers/SectionContainer";
 import { createResource } from "@lib/hooks/useResource";
 
-export const BOARD_LIST = createResource({
-  key: "board_list_1",
-  fetcher: boardRequest.board_list,
+export const ARTICLE_LIST = createResource({
+  key: "ARTICLE_LIST",
+  fetcher: articleRequest.article_list,
 });
 
 export const CATEGORY_LIST = createResource({
-  key: "category_list",
+  key: "CATEGORY_LIST",
   fetcher: categorySprRequest.category_list,
 });
 
@@ -42,10 +42,10 @@ const Community: NextPage = () => {
 };
 
 type PetbookPages = NextPage & {
-  requiredResources?: [typeof BOARD_LIST];
+  requiredResources?: [typeof ARTICLE_LIST, typeof CATEGORY_LIST];
 };
 
 const CommunityIndex: PetbookPages = Community;
-CommunityIndex.requiredResources = [BOARD_LIST]; // category_list
+CommunityIndex.requiredResources = [ARTICLE_LIST, CATEGORY_LIST]; // category_list
 
 export default CommunityIndex;
