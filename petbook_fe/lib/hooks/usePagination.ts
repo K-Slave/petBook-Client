@@ -14,7 +14,6 @@ export default function usePagination(numPages: number) {
   const changeCurrentPage = useCallback((page: number) => {
     router
       .push(`/community?page=${page}`, undefined, {
-        scroll: false,
         shallow: true,
       })
       .catch((error) => console.log(error));
