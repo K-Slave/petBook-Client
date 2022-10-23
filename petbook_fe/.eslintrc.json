@@ -50,6 +50,7 @@
     "@typescript-eslint/no-unsafe-member-access": "warn",
     "arrow-body-style": "off",
     "react-hooks/exhaustive-deps": "warn",
+    "import/no-unresolved": "off",
     "react/function-component-definition": [
       "warn",
       { "namedComponents": "arrow-function" }

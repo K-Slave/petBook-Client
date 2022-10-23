@@ -18,8 +18,14 @@
     "downlevelIteration": true,
     "incremental": true,
     "baseUrl": ".",
-    "paths": { "@components/*": ["components/*"] }
+    "paths": {
+      "@components/*": ["components/*"],
+      "@pages/*": ["pages/*"],
+      "@lib/*": ["lib/*"],
+      "@containers/*": ["containers/*"],
+      "@atoms/*": ["atoms/*"]
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*"],
   "exclude": ["node_modules"]
 }
