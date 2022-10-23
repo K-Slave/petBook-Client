@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import styled, { css } from "styled-components";
 import { useRef } from "react";
-import sliderModalState from "@atoms/pageAtoms/community/sliderModal";
+import imageModalState from "@atoms/pageAtoms/community/imageModalState";
 import useSlider from "./useSliderModal";
 import useClickOutside from "./useClickOutside";
 
@@ -89,13 +89,10 @@ const Bar = styled.button<{ current: boolean }>`
         `}
 `;
 
-interface ModalImageSliderProps {
-  images: string[];
-}
-
-const ImageSliderModal = ({ images }: ModalImageSliderProps) => {
+const ImageSliderModal = () => {
   const ref = useRef<HTMLDivElement | null>(null);
-  const { show, currentIndex, prevIndex } = useRecoilValue(sliderModalState);
+  const { show, currentIndex, prevIndex, images } =
+    useRecoilValue(imageModalState);
   const { moveNext, movePrev, changeCurrentIndex, closeModal } = useSlider(
     images.length
   );
