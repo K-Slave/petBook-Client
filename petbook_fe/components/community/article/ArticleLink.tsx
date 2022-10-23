@@ -7,10 +7,12 @@ const Article = styled.article`
   display: flex;
   align-items: center;
 
-  padding-right: 28px;
-
   border-radius: 16px;
   background: #ffffff;
+  cursor: pointer;
+  & > div {
+    width: 100%;
+  }
 `;
 
 const Column = styled.div`
@@ -90,24 +92,26 @@ const ArticleLink = ({ post }: Props) => {
   return (
     <Article>
       <Link href={`/community/${id}`} passHref>
-        <Column>
-          <Row>
-            <Avatar />
-            <p className="PostItem_nickname">{user.nickname}</p>
-            <p className="PostItem_date">{date}</p>
-          </Row>
-          <Wrapper>
-            <h3>{title}</h3>
-            <p className="PostItem_content">{content}</p>
-            <TagList tags={tags} width={65} height={26} fontSize={14} />
-            <p className="PostItem_stats">
-              <span>공감수 {stat.likeCount}</span>
-              <span>/</span>
-              <span>클릭수 {stat.viewCount}</span>
-            </p>
-          </Wrapper>
-        </Column>
-        {previewImage === "" ? null : <PreviewImage />}
+        <div>
+          <Column>
+            <Row>
+              <Avatar />
+              <p className="PostItem_nickname">{user.nickname}</p>
+              <p className="PostItem_date">{date}</p>
+            </Row>
+            <Wrapper>
+              <h3>{title}</h3>
+              <p className="PostItem_content">{content}</p>
+              <TagList tags={tags} width={65} height={26} fontSize={14} />
+              <p className="PostItem_stats">
+                <span>공감수 {stat.likeCount}</span>
+                <span>/</span>
+                <span>클릭수 {stat.viewCount}</span>
+              </p>
+            </Wrapper>
+          </Column>
+          {previewImage === "" ? null : <PreviewImage />}
+        </div>
       </Link>
     </Article>
   );
