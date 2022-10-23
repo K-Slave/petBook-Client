@@ -1,4 +1,5 @@
 import { ArticleItem } from "@lib/API/petBookAPI/types/articleRequest";
+import Link from "next/link";
 import styled from "styled-components";
 import TagList from "../TagList";
 
@@ -82,32 +83,34 @@ interface Props {
   post: ArticleItem;
 }
 
-const ArticleItemBox = ({ post }: Props) => {
-  const { title, content, user, tags, stat } = post;
+const ArticleItemLink = ({ post }: Props) => {
+  const { id, title, content, user, tags, stat } = post;
   const previewImage = "";
   const date = "2022-02-03";
   return (
     <Article>
-      <Column>
-        <Row>
-          <Avatar />
-          <p className="PostItem_nickname">{user.nickname}</p>
-          <p className="PostItem_date">{date}</p>
-        </Row>
-        <Wrapper>
-          <h3>{title}</h3>
-          <p className="PostItem_content">{content}</p>
-          <TagList tags={tags} width={65} height={26} fontSize={14} />
-          <p className="PostItem_stats">
-            <span>공감수 {stat.likeCount}</span>
-            <span>/</span>
-            <span>클릭수 {stat.viewCount}</span>
-          </p>
-        </Wrapper>
-      </Column>
-      {previewImage === "" ? null : <PreviewImage />}
+      <Link href={`/community/${id}`} passHref>
+        <Column>
+          <Row>
+            <Avatar />
+            <p className="PostItem_nickname">{user.nickname}</p>
+            <p className="PostItem_date">{date}</p>
+          </Row>
+          <Wrapper>
+            <h3>{title}</h3>
+            <p className="PostItem_content">{content}</p>
+            <TagList tags={tags} width={65} height={26} fontSize={14} />
+            <p className="PostItem_stats">
+              <span>공감수 {stat.likeCount}</span>
+              <span>/</span>
+              <span>클릭수 {stat.viewCount}</span>
+            </p>
+          </Wrapper>
+        </Column>
+        {previewImage === "" ? null : <PreviewImage />}
+      </Link>
     </Article>
   );
 };
 
-export default ArticleItemBox;
+export default ArticleItemLink;
