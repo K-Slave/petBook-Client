@@ -1,6 +1,6 @@
 import { ArticleListResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import styled from "styled-components";
-import ArticleItemBox from "./ArticleItemBox";
+import ArticleLink from "./ArticleLink";
 
 interface Props {
   posts: ArticleListResponse;
@@ -16,7 +16,7 @@ const ArticleList = ({ posts }: Props) => {
   return (
     <Wrapper>
       {posts.map((post) => (
-        <ArticleItemBox post={post} key={post.id} />
+        <ArticleLink post={post} key={post.id} />
       ))}
     </Wrapper>
   );
