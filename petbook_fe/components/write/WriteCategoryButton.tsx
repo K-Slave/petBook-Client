@@ -1,13 +1,15 @@
-import { useRouter } from "next/router";
-import { MouseEventHandler, useEffect, useState } from "react";
+import { MouseEventHandler } from "react";
 import styled from "styled-components";
-import useResource from "../../lib/hooks/useResource";
-import { board_list } from "../../pages/community";
+
+interface ButtonProps {
+  selected: string;
+  keyword: string;
+}
 
 const WriteCategoryButtonBox = styled.button`
   padding: 8.5px 14px;
 
-  ${(props: Props) => {
+  ${(props: ButtonProps) => {
     if (!props) return { backgroundColor: "#fff4e0", color: "#000" };
     if (props.selected === props.keyword) {
       return { backgroundColor: "#FF6847", color: "#fff" };
@@ -15,29 +17,27 @@ const WriteCategoryButtonBox = styled.button`
     if (props.selected !== props.keyword) {
       return { backgroundColor: "#fff4e0", color: "#000" };
     }
+
+    return { backgroundColor: "#fff4e0", color: "#000" };
   }}
 
   border-radius: 18px;
 `;
 
-type Props = {
+interface Props {
   keyword: string;
-  idx: number;
   selected: string;
   onClick: MouseEventHandler;
-};
+}
 
-const WriteCategoryButton = ({ keyword, idx, selected, onClick }: Props) => {
-  return (
-    <WriteCategoryButtonBox
-      selected={selected}
-      idx={idx}
-      keyword={keyword}
-      onClick={onClick}
-    >
-      {keyword}
-    </WriteCategoryButtonBox>
-  );
-};
+const WriteCategoryButton = ({ keyword, selected, onClick }: Props) => (
+  <WriteCategoryButtonBox
+    selected={selected}
+    keyword={keyword}
+    onClick={onClick}
+  >
+    {keyword}
+  </WriteCategoryButtonBox>
+);
 
 export default WriteCategoryButton;

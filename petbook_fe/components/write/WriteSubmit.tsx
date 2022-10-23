@@ -1,10 +1,10 @@
 import { MouseEventHandler, useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { BOARD_CREATE } from "../../pages/community/write";
 import writeState from "../../atoms/pageAtoms/community/writeState";
 import { useSetResource } from "../../lib/hooks/useResource";
 import localConsole from "../../lib/utils/localConsole";
-import { board_create } from "../../pages/community/write";
 import { Button } from "../common/Button/Button";
 
 const WriteSubmitSection = styled.section`
@@ -38,7 +38,7 @@ const WriteSubmit = () => {
   const setWrite = useSetRecoilState(writeState);
 
   const { data, isLoading, isError, isSuccess, mutate } =
-    useSetResource(board_create);
+    useSetResource(BOARD_CREATE);
 
   const onClick: MouseEventHandler<HTMLButtonElement> = () => {
     setWrite((write) => {
@@ -61,7 +61,7 @@ const WriteSubmit = () => {
       reg_user: "윤성연",
       visible_status: "Y",
     });
-  }, [input]);
+  }, [input, mutate]);
 
   localConsole.log(data);
   localConsole.log(isError);
