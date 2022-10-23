@@ -7,11 +7,11 @@ import {
   QueryClientProvider,
 } from "react-query";
 import { RecoilRoot } from "recoil";
-import HtmlHeader from "../components/common/HtmlHeader";
+import getResource from "@lib/API/parser/getResource";
+import HtmlHeader from "@components/common/HtmlHeader";
 import CommonHeader from "../components/common/CommonHeader";
 import { itrMap } from "../lib/utils/iterableFunctions";
 import tokenRedirect from "../lib/API/parser/tokenRedirect";
-import getResource from "../lib/API/parser/getResource";
 
 import "../styles/Globals.scss";
 
