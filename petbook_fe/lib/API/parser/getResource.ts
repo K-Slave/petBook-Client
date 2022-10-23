@@ -14,6 +14,7 @@ export default async function getResource(
 ) {
   let initUrl = "";
   if (typeof window === "undefined") {
+    // server-side
     initUrl = process.env.NEXT_PUBLIC_SPR_URL as string;
   }
   switch (resource.key) {
