@@ -1,7 +1,8 @@
 import { AppContext } from "next/app";
+import url from "url";
 
 export default function tokenRedirect({ ctx, router }: AppContext) {
-  const url = require("url");
+  // const url = require("url");
 
   let redirectPathname = router.pathname.concat();
 
@@ -10,21 +11,22 @@ export default function tokenRedirect({ ctx, router }: AppContext) {
     redirectPathname = router.pathname.split("login").join("");
   }
 
-  const { query } = url.parse(ctx.req?.url);
+  const { query } = url.parse(ctx.req?.url ? ctx.req?.url : "");
+  if (!query) return;
   const searchParams = new URLSearchParams(query);
 
-  const access_token = router.query.access_token
-    ? router.query.access_token
+  const accessToken = router.query.access_token
+    ? (router.query.access_token as string)
     : "";
-  const refresh_token = router.query.refresh_token
-    ? router.query.refresh_token
+  const refreshToken = router.query.refresh_token
+    ? (router.query.refresh_token as string)
     : "";
 
-  if (access_token) {
+  if (accessToken) {
     searchParams.delete("access_token");
   }
 
-  if (refresh_token) {
+  if (refreshToken) {
     searchParams.delete("refresh_token");
   }
 
@@ -37,13 +39,11 @@ export default function tokenRedirect({ ctx, router }: AppContext) {
 
   ctx.res?.writeHead(301, {
     "Set-Cookie": [
-      `access_token=${access_token}`,
-      `refresh_token=${refresh_token}`,
+      `access_token=${accessToken}`,
+      `refresh_token=${refreshToken}`,
     ],
     Location: `${redirectURL}`,
   });
 
   ctx.res?.end();
-
-  return {};
 }
