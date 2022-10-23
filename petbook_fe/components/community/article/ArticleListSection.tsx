@@ -25,7 +25,7 @@ const ArticleListSection = () => {
     () => ARTICLE_LIST.fetcher(articleListParams),
     {
       refetchOnWindowFocus: false,
-      staleTime: Infinity,
+      staleTime: 300000,
     }
   );
   console.log(page, "currentPage, ArticleListSection render");

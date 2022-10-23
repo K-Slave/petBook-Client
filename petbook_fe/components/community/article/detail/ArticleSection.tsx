@@ -75,7 +75,7 @@ const ArticleSection = () => {
     `${ARTICLE_ITEM.key}_${articleId}`,
     () => ARTICLE_ITEM.fetcher(articleId),
     {
-      staleTime: Infinity,
+      staleTime: 300000,
       refetchOnWindowFocus: false,
     }
   );
