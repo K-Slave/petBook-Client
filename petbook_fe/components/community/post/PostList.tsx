@@ -16,8 +16,7 @@ const PostList = ({ posts }: Props) => {
   return (
     <List>
       {posts.map((post) => (
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        <PostItem {...post} key={post.id} />
+        <PostItem post={post} key={post.id} />
       ))}
     </List>
   );
