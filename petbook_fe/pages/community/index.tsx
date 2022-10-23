@@ -6,6 +6,7 @@ import About from "@components/community/about/About";
 import WriteButton from "@components/community/WriteButton";
 import SectionContainer from "@containers/SectionContainer";
 import { createResource } from "@lib/hooks/useResource";
+import ArticleListSection from "@components/community/article/ArticleListSection";
 
 export const ARTICLE_LIST = createResource({
   key: "ARTICLE_LIST",
@@ -34,7 +35,7 @@ const Community: NextPage = () => {
     <Container>
       <About />
       <Sections>
-        <SectionContainer />
+        <ArticleListSection />
       </Sections>
       <WriteButton />
     </Container>
