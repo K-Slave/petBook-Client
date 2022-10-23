@@ -1,19 +1,24 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
-const pypetbookAxiosClient = axios.create();
+const userToken = Cookies.get("petBookUser");
 
-pypetbookAxiosClient.defaults.baseURL = process.env.NEXT_PUBLIC_PY_URL;
-pypetbookAxiosClient.defaults.headers.common["Content-Type"] =
-  "application/json";
+const pyInstance = axios.create();
 
-export const pypetbookClient = pypetbookAxiosClient;
+pyInstance.defaults.baseURL = process.env.NEXT_PUBLIC_PY_URL;
+pyInstance.defaults.headers.common["Content-Type"] = "application/json";
 
-const sprpetbookAxiosClient = axios.create();
+export const pyPetBookClient = pyInstance;
 
-sprpetbookAxiosClient.defaults.baseURL = process.env.NEXT_PUBLIC_SPR_URL;
+const sprInstance = axios.create();
 
-sprpetbookAxiosClient.defaults.headers.common["Content-Type"] =
-  "application/json";
-sprpetbookAxiosClient.defaults.headers.common.accept = "*/*";
+sprInstance.defaults.baseURL = process.env.NEXT_PUBLIC_SPR_URL;
 
-export const sprpetbookClient = sprpetbookAxiosClient;
+// sprInstance.defaults.headers.common["Content-Type"] = "application/json";
+// sprInstance.defaults.headers.common.accept = "*/*";
+
+// if (userToken) {
+//   sprInstance.defaults.headers.common.authorization = userToken;
+// }
+
+export const sprPetBookClient = sprInstance;

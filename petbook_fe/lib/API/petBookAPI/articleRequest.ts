@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import getParameters from "../axios/xhrFunctions";
-import { articleListResponse } from "./types/articleRequest";
+import { ArticleListResponse } from "./types/articleRequest";
 
 export default class ArticleAPI {
   public uri = "";
@@ -69,7 +69,7 @@ export default class ArticleAPI {
 
     const response =
       this.client &&
-      (await this.client.get<articleListResponse>(requestURL, {
+      (await this.client.get<ArticleListResponse>(requestURL, {
         timeout: 10000,
         headers: requestHeaders,
       }));
@@ -95,8 +95,8 @@ export default class ArticleAPI {
    * @returns categoryId 에 해당하는 게시물 리스트를 반환합니다.
    */
   public article_list = async (
-    params: {
-      categoryId: number[];
+    params?: {
+      categoryId: number[] | number | string;
       page: number;
       size: number;
     },
@@ -110,7 +110,7 @@ export default class ArticleAPI {
 
     const response =
       this.client &&
-      (await this.client.get<articleListResponse>(requestURL, {
+      (await this.client.get<ArticleListResponse>(requestURL, {
         timeout: 10000,
         headers: requestHeaders,
       }));

@@ -2,28 +2,35 @@ import React, { useState } from "react";
 import type { AppContext, AppProps } from "next/app";
 import {
   dehydrate,
+  DehydratedState,
   Hydrate,
   QueryClient,
   QueryClientProvider,
 } from "react-query";
+import urlTokenRedirect from "@lib/API/parser/urlTokenRedirect";
 import { RecoilRoot } from "recoil";
 import getResource from "@lib/API/parser/getResource";
 import HtmlHeader from "@components/common/HtmlHeader";
+import cookies from "next-cookies";
+import Cookies from "js-cookie";
+import { Router } from "next/router";
 import CommonHeader from "../components/common/CommonHeader";
 import { itrMap } from "../lib/utils/iterableFunctions";
-import tokenRedirect from "../lib/API/parser/tokenRedirect";
 
 import "../styles/Globals.scss";
 
-const NextApp = (appInitProps: AppProps) => {
-  const { Component, pageProps, router } = appInitProps;
+type DehydratedAppProps = AppProps & {
+  initProps: { router: Router; dehydratedState: DehydratedState };
+};
 
+const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
   const [queryClient] = useState(
     () =>
       new QueryClient({
         defaultOptions: {
           queries: {
-            staleTime: Infinity,
+            refetchOnWindowFocus: false,
+            staleTime: 300000,
           },
         },
       })
@@ -31,7 +38,7 @@ const NextApp = (appInitProps: AppProps) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
+      <Hydrate state={initProps.dehydratedState}>
         <RecoilRoot>
           <HtmlHeader />
           <CommonHeader pathname={router.pathname} />
@@ -45,17 +52,27 @@ const NextApp = (appInitProps: AppProps) => {
 NextApp.getInitialProps = async (context: AppContext) => {
   const { Component, router, ctx } = context;
 
+  // 소셜 로그인시, url 에 토큰이 붙어있는경우 쿠키로 변환하여 리다이렉트 시켜쥼
   if (
     router.asPath.includes("access_token") ||
     router.asPath.includes("refresh_token")
   ) {
-    tokenRedirect(context);
+    urlTokenRedirect(context);
+  }
+
+  // 쿠키 획득
+  const allCookies = cookies(ctx);
+
+  // 쿠키 만료기간 현재 접속 시각으로부터 30일 갱신
+  if (allCookies && allCookies.petBookUser) {
+    Cookies.set("petBookUser", allCookies.petBookUser, { expires: 30 });
   }
 
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 3640,
+        refetchOnWindowFocus: false,
+        staleTime: 300000,
       },
     },
   });
@@ -70,7 +87,6 @@ NextApp.getInitialProps = async (context: AppContext) => {
   } = Component;
 
   const { requiredResources } = PageComponent;
-
   const searchParams = new URLSearchParams(router.asPath);
 
   if (requiredResources) {
@@ -84,7 +100,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
   }
 
   return {
-    pageProps: {
+    initProps: {
       router,
       dehydratedState: dehydrate(queryClient),
     },
