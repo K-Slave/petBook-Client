@@ -3,22 +3,31 @@ import { QueryClient } from "react-query";
 export default async function getResource(
   resource: {
     key: string;
-    fetcher: Function;
+    fetcher: (params?: any, config?: any) => void;
     params?: object | undefined;
     config?: object | undefined;
   },
   searchParams: URLSearchParams,
   client: QueryClient
 ) {
-  const currentPage = searchParams.get("/community/write?currentPage")
-    ? searchParams.get("/community/write?currentPage")
-    : 1;
+  switch (resource.key) {
+    case "ARTICLE_LIST": {
+      const currentPage = searchParams.get("/community/write?currentPage")
+        ? searchParams.get("/community/write?currentPage")
+        : "1";
 
-  const params = {
-    currentPage: currentPage,
-  };
+      await client.fetchQuery(resource.key, () =>
+        resource.fetcher({
+          categoryId: currentPage,
+          page: 0,
+          size: 10,
+        })
+      );
 
-  const paramFetcher = () => resource.fetcher(params);
+      break;
+    }
 
-  await client.fetchQuery(resource.key, paramFetcher);
+    default:
+      await client.fetchQuery(resource.key, resource.fetcher);
+  }
 }

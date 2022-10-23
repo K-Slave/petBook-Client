@@ -10,12 +10,12 @@ import { useMutation, useQuery } from "react-query";
  */
 export default function useResource<T, P, C>(resource: {
   key: string;
-  fetcher: (params: P, config?: C) => Promise<T>;
-  params: P;
+  fetcher: (params?: P, config?: C) => Promise<T>;
+  params?: P;
   config?: C;
 }) {
   const paramFetcher = () =>
-    resource.fetcher(resource.params, resource?.config);
+    resource.fetcher(resource?.params, resource?.config);
 
   return useQuery(resource.key, paramFetcher);
 }
@@ -31,9 +31,7 @@ export default function useResource<T, P, C>(resource: {
  */
 export function createResource<T, P, C>(resource: {
   key: string;
-  fetcher: (param: P, config?: C) => Promise<T>;
-  params?: P;
-  config?: C;
+  fetcher: (params?: P, config?: C) => Promise<T>;
 }) {
   return resource;
 }
