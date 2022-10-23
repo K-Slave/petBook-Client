@@ -1,13 +1,24 @@
+import categoryState from "@atoms/pageAtoms/community/categoryState";
+import { useRecoilState } from "recoil";
 import styled, { css } from "styled-components";
 
 const CATEGORIES = [
-  "전체",
-  "질문과 답변",
-  "잡담",
-  "나눔활동",
-  "정보공유",
-  "실종신고",
-  "기타",
+  {
+    id: 1,
+    name: "질문과 답변",
+  },
+  {
+    id: 2,
+    name: "잡담",
+  },
+  {
+    id: 3,
+    name: "나눔활동",
+  },
+  {
+    id: 4,
+    name: "정보공유",
+  },
 ];
 
 const selectedStyle = css`
@@ -40,22 +51,17 @@ const FilterButton = styled.button<{ selected: boolean }>`
   font-size: 20px;
 `;
 
-interface Props {
-  selectedCategory: number;
-  onSelectCategory: (key: number) => void;
-}
-
-const CategoryFilter = ({ selectedCategory, onSelectCategory }: Props) => {
+const CategoryFilter = () => {
+  const [selectedCategory, setSelectedCategory] = useRecoilState(categoryState);
   return (
     <Wrapper>
-      {CATEGORIES.map((category, index) => (
+      {CATEGORIES.map((category) => (
         <FilterButton
-          selected={index === selectedCategory}
-          // eslint-disable-next-line react/no-array-index-key
-          key={index}
-          onClick={() => onSelectCategory(index)}
+          selected={category.id === selectedCategory.id}
+          key={category.id}
+          onClick={() => setSelectedCategory(category)}
         >
-          {category}
+          {category.name}
         </FilterButton>
       ))}
     </Wrapper>
