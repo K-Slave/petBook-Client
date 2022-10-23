@@ -14,38 +14,40 @@ const Container = styled.div<{ show: boolean }>`
   right: 0;
   bottom: 0;
   z-index: 200;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(30px);
   display: ${({ show }) => (show ? "flex" : "none")};
   flex-direction: column;
   gap: 32px;
   justify-content: center;
   align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(30px);
 `;
 
 const SliderWrapper = styled.div`
   display: flex;
-  gap: 48px;
   align-items: center;
+  gap: 48px;
 `;
 
 const Slider = styled.div`
   display: flex;
   max-width: 600px;
   max-height: 600px;
-  overflow: hidden;
   border-radius: 24px;
+  overflow: hidden;
 `;
 
 const Button = styled.button`
-  width: 52px;
-  height: 52px;
-  background: #d9d9d9;
-  border: 3px solid #000000;
-  border-radius: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 52px;
+  height: 52px;
+
+  border: 3px solid #000000;
+  border-radius: 26px;
+  background: #d9d9d9;
+
   svg {
     font-size: 30px;
   }
@@ -57,16 +59,16 @@ const StyledImage = styled.img<{
 }>`
   width: 100%;
   height: 100%;
-  object-fit: cover;
   border-radius: 24px;
+  object-fit: cover;
   transition: all 0.2s ease-in-out;
-  opacity: ${({ position }) => (position === "current" ? "1" : "0")};
   transform: ${({ position, index }) =>
     position === "current"
       ? `translateX(${-(index * 100)}%)`
       : position === "prev"
       ? `translateX(${-(index * 100) - 100}%)`
       : `translateX(${-(index * 100) + 100}%)`};
+  opacity: ${({ position }) => (position === "current" ? "1" : "0")};
 `;
 
 const BarWrapper = styled.div`

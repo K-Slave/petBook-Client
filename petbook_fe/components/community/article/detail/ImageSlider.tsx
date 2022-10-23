@@ -5,20 +5,20 @@ import imageModalState from "@atoms/pageAtoms/community/imageModalState";
 const Slider = styled.div`
   display: flex;
   gap: 17px;
-  overflow-x: scroll;
   margin: 32px 0;
+  overflow-x: scroll;
   ::-webkit-scrollbar {
     display: none;
   }
 `;
 
 const DummyImage = styled.img`
+  flex-shrink: 0;
   max-width: 354px;
   max-height: 354px;
-  background-color: #d9d9d9;
   border-radius: 16px;
+  background-color: #d9d9d9;
   object-fit: cover;
-  flex-shrink: 0;
   cursor: pointer;
 `;
 
