@@ -20,7 +20,7 @@ const ArticleListSection = () => {
     page: page - 1,
     size: limit.current,
   };
-  const { data, status } = useQuery(
+  const { data } = useQuery(
     `${ARTICLE_LIST.key}_${page}_${category.id}`,
     () => ARTICLE_LIST.fetcher(articleListParams),
     {
@@ -28,10 +28,10 @@ const ArticleListSection = () => {
       staleTime: Infinity,
     }
   );
-  console.log("board", data);
-  console.log(page, "currentPage, PostSection render");
+  console.log(page, "currentPage, ArticleListSection render");
+  console.log(category.name, "category", "ArticleListSection render");
 
-  useScroll({ top: ref.current?.offsetTop }, [page]);
+  // useScroll({ top: ref.current?.offsetTop }, [page]);
   return (
     <MainSection
       title="Live talk"
