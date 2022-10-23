@@ -1,18 +1,23 @@
-import { pypetbookClient } from "../axios/axiosClient";
-import getParameters, { getAxiosItems } from "../axios/xhrFunctions";
+import { AxiosInstance } from "axios";
+import getParameters from "../axios/xhrFunctions";
+import {
+  CategoryCreateResponse,
+  CategoryDeleteResponse,
+  CategoryListResponse,
+  CategoryUpdateResponse,
+} from "./types/categoryRequest";
 
-const { uri, client } = getAxiosItems("/category", pypetbookClient);
+// const { uri, client } = getAxiosItems("/category", pypetbookClient);
 
 export default class CategoryAPI {
-  constructor() {
-    if (!this.instance) {
-      this.instance = this;
-    }
+  public uri = "";
 
-    return this.instance;
+  public client: AxiosInstance;
+
+  constructor(uri: string, client: AxiosInstance) {
+    this.uri = uri;
+    this.client = client;
   }
-
-  instance = this;
 
   /**
    * 카테고리 조회 API
@@ -25,7 +30,7 @@ export default class CategoryAPI {
    * @param config.headerObj 옵션으로 보낼 header객체를 담아줍니다.
    * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
    */
-  async category_list(
+  public category_list = async (
     params: {
       id?: number;
       title?: string;
@@ -35,9 +40,9 @@ export default class CategoryAPI {
       numPerPage?: number;
     },
     config?: { headerObj?: object }
-  ) {
+  ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: uri,
+      uri: this.uri,
       params: {
         ...params,
         id: params.id ? params.id : 0,
@@ -48,21 +53,23 @@ export default class CategoryAPI {
       headerObj: config?.headerObj,
     });
 
-    const response = await client.get<CategoryListResponse>(requestURL, {
-      timeout: 10000,
-      headers: requestHeaders,
-    });
+    const response =
+      this.client &&
+      (await this.client.get<CategoryListResponse>(requestURL, {
+        timeout: 10000,
+        headers: requestHeaders,
+      }));
 
     const result = {
       ...response,
       request: {
-        params: params,
-        config: config,
+        params,
+        config,
       },
     };
 
     return result;
-  }
+  };
 
   /**
    * 카테고리 등록 API
@@ -73,7 +80,7 @@ export default class CategoryAPI {
    * @param params 입력할 쿼리파라미터 입니다.
    * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
    */
-  async category_create(
+  public category_create = async (
     body: {
       title: string;
       reg_user: string;
@@ -81,39 +88,41 @@ export default class CategoryAPI {
     },
     params?: string | object,
     config?: { headerObj?: object }
-  ) {
+  ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: uri,
-      params: params,
+      uri: this.uri,
+      params,
       headerObj: config?.headerObj,
     });
 
-    const response = await client.post<CategoryCreateResponse>(
-      requestURL,
-      {
-        ...body,
-        visible_status: body.visible_status ? body.visible_status : "Y",
-      },
-      {
-        timeout: 10000,
-        headers: requestHeaders,
-      }
-    );
+    const response =
+      this.client &&
+      (await this.client.post<CategoryCreateResponse>(
+        requestURL,
+        {
+          ...body,
+          visible_status: body.visible_status ? body.visible_status : "Y",
+        },
+        {
+          timeout: 10000,
+          headers: requestHeaders,
+        }
+      ));
 
     const result = {
       ...response,
       request: {
-        params: params,
+        params,
         body: {
-          body: body,
-          params: params,
-          config: config,
+          body,
+          params,
+          config,
         },
       },
     };
 
     return result;
-  }
+  };
 
   /**
    * 카테고리 수정 API
@@ -124,7 +133,7 @@ export default class CategoryAPI {
    * @param config.headerObj 옵션으로 보낼 header객체를 담아줍니다.
    * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
    */
-  async category_update(
+  public category_update = async (
     body: {
       id: number;
       create_at: string;
@@ -135,39 +144,41 @@ export default class CategoryAPI {
     },
     params?: string | object,
     config?: { headerObj?: object }
-  ) {
+  ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: uri,
-      params: params,
+      uri: this.uri,
+      params,
       headerObj: config?.headerObj,
     });
 
-    const response = await client.put<CategoryUpdateResponse>(
-      requestURL,
-      {
-        ...body,
-        visible_status: body.visible_status ? body.visible_status : "Y",
-      },
-      {
-        timeout: 10000,
-        headers: requestHeaders,
-      }
-    );
+    const response =
+      this.client &&
+      (await this.client.put<CategoryUpdateResponse>(
+        requestURL,
+        {
+          ...body,
+          visible_status: body.visible_status ? body.visible_status : "Y",
+        },
+        {
+          timeout: 10000,
+          headers: requestHeaders,
+        }
+      ));
 
     const result = {
       ...response,
       request: {
-        params: params,
+        params,
         body: {
-          body: body,
-          params: params,
-          config: config,
+          body,
+          params,
+          config,
         },
       },
     };
 
     return result;
-  }
+  };
 
   /**
    * 카테고리 삭제 API
@@ -177,87 +188,33 @@ export default class CategoryAPI {
    * @param config.headerObj 옵션으로 보낼 header객체를 담아줍니다.
    * @returns axiosResponse 객체와 요청한 파라미터및 JSON body 가 있습니다.
    */
-  async category_delete(
+  public category_delete = async (
     params: {
       id: number;
     },
     config?: { headerObj?: object }
-  ) {
+  ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: uri,
-      params: params,
+      uri: this.uri,
+      params,
       headerObj: config?.headerObj,
     });
 
-    const response = await client.delete<CategoryDeleteResponse>(requestURL, {
-      timeout: 10000,
-      headers: requestHeaders,
-    });
+    const response =
+      this.client &&
+      (await this.client.delete<CategoryDeleteResponse>(requestURL, {
+        timeout: 10000,
+        headers: requestHeaders,
+      }));
 
     const result = {
       ...response,
       request: {
-        params: params,
-        config: config,
+        params,
+        config,
       },
     };
 
     return result;
-  }
+  };
 }
-
-export type CategoryListRequest = {
-  id: number;
-  title?: string;
-  reg_user?: string;
-  visible_status: string;
-  currentPage: number;
-  numPerPage: number;
-};
-
-export type CategoryListResponse = {
-  count: number;
-  item:
-    | Array<{
-        id: number;
-        create_at: string;
-        update_at: string;
-        title: string;
-        reg_user: string;
-        visible_status: string;
-      }>
-    | [];
-};
-
-export type CategoryCreateRequest = {
-  title: string;
-  reg_user: string;
-  visible_status: string;
-};
-
-type CategoryCreateResponse =
-  | {
-      msg: string;
-    }
-  | {
-      errors: {
-        errMsg: Array<any>;
-      };
-    };
-
-export type CategoryUpdateRequest = {
-  id: number;
-  create_at: string;
-  update_at: string;
-  title: string;
-  reg_user: string;
-  visible_status: string;
-};
-
-type CategoryUpdateResponse = CategoryCreateResponse;
-
-type CategoryDeleteRequest = {
-  id: number;
-};
-
-type CategoryDeleteResponse = CategoryCreateResponse;

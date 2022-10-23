@@ -1,9 +1,9 @@
-import getParameters from "../pages/API/axios/xhrFunctions";
+import getParameters from "../lib/API/axios/xhrFunctions";
 
 class FetchInstance {
-  constructor() {
-    this.defaults = this.defaults;
-  }
+  // constructor() {
+  //   this.defaults = this.defaults;
+  // }
 
   defaults = {
     baseURL: "",
@@ -31,7 +31,7 @@ class FetchInstance {
     const { requestURL, requestHeaders } = getParameters({
       uri: url,
       baseURL: this.defaults.baseURL,
-      params: params,
+      params,
       // defaultHeader: this.defaults.headers.common,
       headerObj: config?.headerObj,
     });
@@ -58,7 +58,7 @@ class FetchInstance {
     const { requestURL, requestHeaders } = getParameters({
       uri: url,
       baseURL: this.defaults.baseURL,
-      params: params,
+      params,
       // defaultHeader: this.defaults.headers.common,
       headerObj: config?.headerObj,
     });
@@ -86,7 +86,7 @@ class FetchInstance {
     const { requestURL, requestHeaders } = getParameters({
       uri: url,
       baseURL: this.defaults.baseURL,
-      params: params,
+      params,
       // defaultHeader: this.defaults.headers.common,
       headerObj: config?.headerObj,
     });
@@ -114,7 +114,7 @@ class FetchInstance {
     const { requestURL, requestHeaders } = getParameters({
       uri: url,
       baseURL: this.defaults.baseURL,
-      params: params,
+      params,
       // defaultHeader: this.defaults.headers.common,
       headerObj: config?.headerObj,
     });
