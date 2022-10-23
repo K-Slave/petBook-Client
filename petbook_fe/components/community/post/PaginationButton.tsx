@@ -2,7 +2,7 @@ import { useRef } from "react";
 import styled, { css } from "styled-components";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import useButtonOffset from "./useButtonOffset";
-import useCurrentPage from "./useCurrentPage";
+import usePagination from "./usePagination";
 
 const Wrapper = styled.div`
   display: flex;
@@ -37,7 +37,7 @@ interface Props {
 }
 
 const PaginationButton = ({ numPages }: Props) => {
-  const { currentPage, changeCurrentPage } = useCurrentPage(numPages);
+  const { currentPage, changeCurrentPage } = usePagination(numPages);
   const btnNum = useRef(10);
   const offset = useButtonOffset({ btnNum: btnNum.current, currentPage });
   const onClickPrev = () => {
