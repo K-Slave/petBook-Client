@@ -1,6 +1,6 @@
 import { MutableRefObject } from "react";
 
-const useSlide = (root: MutableRefObject<Element | null>) => {
+export default function useSlide(root: MutableRefObject<Element | null>) {
   const onRightSlide = () => {
     if (!root.current) return;
     const position = root.current.scrollLeft;
@@ -23,6 +23,4 @@ const useSlide = (root: MutableRefObject<Element | null>) => {
     });
   };
   return { onLeftSlide, onRightSlide };
-};
-
-export default useSlide;
+}

@@ -4,34 +4,37 @@ import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import useButtonOffset from "./useButtonOffset";
 import useCurrentPage from "./useCurrentPage";
 
-interface Props {
-  numPages: number;
-}
-
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
+
   margin-top: 53px;
 `;
 
 const selectedStyle = css`
-  background-color: #000;
-  color: #fff;
-  font-weight: 700;
   border-radius: 50%;
+  background-color: #000;
+  font-weight: 700;
+  color: #fff;
 `;
 
 const Button = styled.button<{ selected: boolean }>`
   ${({ selected }) => selected && selectedStyle};
-  width: 22px;
-  height: 22px;
-  font-size: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  width: 22px;
+  height: 22px;
+
+  font-size: 16px;
 `;
+
+interface Props {
+  numPages: number;
+}
 
 const PaginationButton = ({ numPages }: Props) => {
   const { currentPage, changeCurrentPage } = useCurrentPage(numPages);

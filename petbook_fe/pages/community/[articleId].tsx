@@ -29,17 +29,20 @@ const dummy = {
 const Main = styled.main`
   display: flex;
   align-items: start;
+  gap: 20px;
+
   max-width: 1064px;
   width: 90vw;
-  gap: 20px;
+
   margin: 40px auto;
 `;
 
 const Wrapper = styled.div`
-  max-width: 847px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  max-width: 847px;
 `;
 
 const PostDetail: NextPage = () => {

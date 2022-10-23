@@ -36,12 +36,12 @@ const Info = styled.p`
   color: #ff2e00;
 `;
 
-interface PopularPostItemProps {
+interface Props {
   rank: number;
   title: string;
 }
 
-const PopularPostItem = ({ rank, title }: PopularPostItemProps) => {
+const PopularPostItem = ({ rank, title }: Props) => {
   return (
     <Item>
       <Rank rank={rank}>{rank}</Rank>

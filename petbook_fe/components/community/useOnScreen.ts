@@ -6,10 +6,10 @@ import {
   useState,
 } from "react";
 
-const useOnScreen = (
+export default function useOnScreen(
   root: MutableRefObject<Element | null>,
   target: MutableRefObject<Element | null>
-): [boolean, Dispatch<SetStateAction<boolean>>] => {
+): [boolean, Dispatch<SetStateAction<boolean>>] {
   const [isIntersecting, setIsIntersecting] = useState(false);
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -35,6 +35,4 @@ const useOnScreen = (
     };
   }, [target.current, root.current]);
   return [isIntersecting, setIsIntersecting];
-};
-
-export default useOnScreen;
+}

@@ -6,21 +6,26 @@ import TagList from "../TagList";
 const Item = styled.li`
   display: flex;
   align-items: center;
+
   height: 300px;
-  background-color: white;
+
   border-radius: 16px;
+
+  background-color: white;
 `;
 
 const Title = styled.h3`
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 32px;
-  margin: 16px 0 8px;
-  overflow: hidden;
-  text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+
+  margin: 16px 0 8px;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 32px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const Image = styled.div`
@@ -71,7 +76,7 @@ const Participant = styled.p`
   }
 `;
 
-interface VoteItemProps {
+interface Props {
   image: string;
   title: string;
   description: string;
@@ -87,7 +92,7 @@ const VoteItem = ({
   participant,
   tagList,
   itemRef,
-}: VoteItemProps) => {
+}: Props) => {
   return (
     <Item ref={itemRef}>
       {image === "" ? null : <Image />}

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
-const useButtonOffset = ({
+export default function useButtonOffset({
   btnNum,
   currentPage,
 }: {
   btnNum: number;
   currentPage: number;
-}) => {
+}) {
   const [offset, setOffset] = useState(1);
   useEffect(() => {
     if (currentPage >= offset + btnNum) {
@@ -16,6 +16,4 @@ const useButtonOffset = ({
     }
   }, [currentPage, offset]);
   return offset;
-};
-
-export default useButtonOffset;
+}

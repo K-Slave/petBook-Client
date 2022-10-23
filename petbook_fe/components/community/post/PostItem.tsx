@@ -2,11 +2,13 @@ import styled from "styled-components";
 import TagList from "../TagList";
 
 const Item = styled.li`
-  background: #ffffff;
-  border-radius: 16px;
-  padding-right: 28px;
   display: flex;
   align-items: center;
+
+  padding-right: 28px;
+
+  border-radius: 16px;
+  background: #ffffff;
 `;
 
 const Column = styled.div`
@@ -14,10 +16,10 @@ const Column = styled.div`
 `;
 
 const Avatar = styled.div`
-  background-color: lightgray;
   width: 30px;
   height: 30px;
   border-radius: 50%;
+  background-color: lightgray;
 `;
 
 const Row = styled.div`
@@ -26,68 +28,56 @@ const Row = styled.div`
   gap: 7px;
   margin-bottom: 6px;
   font-weight: 500;
-  .PostItem__username {
+  .PostItem_username {
     font-weight: 700;
     font-size: 14px;
     line-height: 17px;
   }
-  .PostItem__date {
+  .PostItem_date {
+    margin-top: 1px;
     font-size: 12px;
     color: #777777;
-    margin-top: 1px;
   }
 `;
 
 const PreviewImage = styled.div`
+  flex-shrink: 0;
   width: 385px;
   height: 207px;
   background-color: #fff6e6;
-  flex-shrink: 0;
 `;
 
 const Wrapper = styled.div`
   padding-left: 37px;
   h3 {
+    margin-bottom: 6px;
     font-weight: 500;
     font-size: 20px;
-    margin-bottom: 6px;
   }
-  .PostItem__content {
+  .PostItem_content {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-bottom: 9px;
     font-weight: 500;
     font-size: 14px;
     line-height: 22px;
     color: #747474;
-    margin-bottom: 9px;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
   }
-  .PostItem__stats {
-    font-weight: 500;
-    font-size: 12px;
-    color: #777777;
-    margin-top: 34px;
+  .PostItem_stats {
     display: flex;
     align-items: center;
     gap: 3px;
-  }
-  .PostItem__tagList {
-    display: flex;
-    gap: 4px;
-    span {
-      background: #f0f0f0;
-      border-radius: 5px;
-      color: #7c7c7c;
-      font-size: 14px;
-      font-weight: 500;
-      padding: 4px 20px;
-    }
+    margin-top: 34px;
+    font-weight: 500;
+    font-size: 12px;
+    color: #777777;
   }
 `;
 
-interface PostItemProps {
+interface Props {
   avatar: string;
   username: string;
   date: string;
@@ -111,20 +101,20 @@ const PostItem = ({
   commentCnt,
   viewCnt,
   previewImage,
-}: PostItemProps) => {
+}: Props) => {
   return (
     <Item>
       <Column>
         <Row>
           <Avatar />
-          <p className="PostItem__username">{username}</p>
-          <p className="PostItem__date">{date}</p>
+          <p className="PostItem_username">{username}</p>
+          <p className="PostItem_date">{date}</p>
         </Row>
         <Wrapper>
           <h3>{title}</h3>
-          <p className="PostItem__content">{content}</p>
+          <p className="PostItem_content">{content}</p>
           <TagList tags={tagList} width={65} height={26} fontSize={14} />
-          <p className="PostItem__stats">
+          <p className="PostItem_stats">
             <span>공감수 {likeCnt}</span>
             <span>/</span>
             <span>댓글수 {commentCnt}</span>

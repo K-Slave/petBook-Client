@@ -4,7 +4,7 @@
 import styled from "styled-components";
 import PostItem from "./PostItem";
 
-interface PostListProps {
+interface Props {
   posts: any;
 }
 
@@ -14,7 +14,7 @@ const List = styled.ul`
   gap: 12px;
 `;
 
-const PostList = ({ posts }: PostListProps) => {
+const PostList = ({ posts }: Props) => {
   return (
     <List>
       {posts.map((item: any, index: number) => (
