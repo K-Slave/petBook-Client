@@ -68,7 +68,7 @@ const dummyImage2 =
 const dummyImage3 =
   "https://images.unsplash.com/photo-1612267168669-679c961c5b31?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80";
 
-const PostDetailSection = () => {
+const ArticleSection = () => {
   const dummy = {
     id: 1,
     title: "제목제목1",
@@ -114,4 +114,4 @@ const PostDetailSection = () => {
   );
 };
 
-export default PostDetailSection;
+export default ArticleSection;
