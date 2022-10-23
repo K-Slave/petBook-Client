@@ -7,8 +7,6 @@ import {
   BoardUpdateResponse,
 } from "./types/boardRequest";
 
-// const { uri, client } = getAxiosItems("/board", pypetbookClient);
-
 export default class BoardAPI {
   public uri = "";
 
