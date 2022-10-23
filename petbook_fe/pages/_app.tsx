@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import type { AppContext, AppProps } from "next/app";
 import {
   dehydrate,
@@ -5,22 +6,16 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "react-query";
-import { useState } from "react";
 import { RecoilRoot } from "recoil";
 import HtmlHeader from "../components/common/HtmlHeader";
 import CommonHeader from "../components/common/CommonHeader";
+import { itrMap } from "../lib/utils/iterableFunctions";
+import tokenRedirect from "../lib/API/parser/tokenRedirect";
+import getResource from "../lib/API/parser/getResource";
 
 import "../styles/Globals.scss";
-// import "../styles/Texts.scss";
-// import "../styles/find/Texts.scss";
-import getResource from "./API/parser/getResource";
-import tokenRedirect from "./API/parser/tokenRedirect";
-import { itrMap } from "../lib/utils/iterableFunctions";
 
-// import { GetServerSideProps, NextApiRequest, NextApiResponse } from "next";
-// import { redirect, sendStatusCode } from "next/dist/server/api-utils";
-
-export default function NextApp(appInitProps: AppProps) {
+const NextApp = (appInitProps: AppProps) => {
   const { Component, pageProps, router } = appInitProps;
 
   const [queryClient] = useState(
@@ -45,7 +40,7 @@ export default function NextApp(appInitProps: AppProps) {
       </Hydrate>
     </QueryClientProvider>
   );
-}
+};
 
 NextApp.getInitialProps = async (context: AppContext) => {
   const { Component, router, ctx } = context;
@@ -68,7 +63,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
   const PageComponent: typeof Component & {
     requiredResources?: Array<{
       key: string;
-      fetcher: Function;
+      fetcher: () => void;
       params?: object;
       config?: object;
     }>;
@@ -81,7 +76,8 @@ NextApp.getInitialProps = async (context: AppContext) => {
   if (requiredResources) {
     await Promise.all(
       itrMap(
-        (resource) => getResource(resource, searchParams, queryClient),
+        (resource: { key: string; fetcher: () => void }) =>
+          getResource(resource, searchParams, queryClient),
         requiredResources
       )
     );
@@ -89,8 +85,10 @@ NextApp.getInitialProps = async (context: AppContext) => {
 
   return {
     pageProps: {
-      router: router,
+      router,
       dehydratedState: dehydrate(queryClient),
     },
   };
 };
+
+export default NextApp;
