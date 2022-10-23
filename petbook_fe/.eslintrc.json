@@ -53,6 +53,9 @@
     "import/no-unresolved": "off",
     "react/jsx-no-useless-fragment": "warn",
     "function-paren-newline": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/no-unsafe-call": "warn",
+    "@typescript-eslint/no-unsafe-return": "warn",
     "react/function-component-definition": [
       "warn",
       { "namedComponents": "arrow-function" }

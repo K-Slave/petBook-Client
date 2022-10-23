@@ -18,6 +18,7 @@ import CommonHeader from "../components/common/CommonHeader";
 import { itrMap } from "../lib/utils/iterableFunctions";
 
 import "../styles/Globals.scss";
+import middleWare from "@lib/API/proxy/proxyMiddleWare";
 
 type DehydratedAppProps = AppProps & {
   initProps: { router: Router; dehydratedState: DehydratedState };
@@ -51,6 +52,7 @@ const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
 
 NextApp.getInitialProps = async (context: AppContext) => {
   const { Component, router, ctx } = context;
+  middleWare();
 
   // 소셜 로그인시, url 에 토큰이 붙어있는경우 쿠키로 변환하여 리다이렉트 시켜쥼
   if (
