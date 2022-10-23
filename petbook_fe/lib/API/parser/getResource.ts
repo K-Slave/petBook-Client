@@ -12,14 +12,12 @@ export default async function getResource(
 ) {
   switch (resource.key) {
     case "ARTICLE_LIST": {
-      const currentPage = searchParams.get("/community/write?currentPage")
-        ? searchParams.get("/community/write?currentPage")
-        : "1";
+      const page = searchParams.get("/community/write?page") || "1";
 
-      await client.fetchQuery(`${resource.key}_${currentPage as string}`, () =>
+      await client.fetchQuery(`${resource.key}_${page}`, () =>
         resource.fetcher({
-          categoryId: Number(currentPage),
-          page: Number(currentPage as string) - 1,
+          categoryId: Number(page),
+          page: Number(page) - 1,
           size: 10,
         })
       );
@@ -28,11 +26,9 @@ export default async function getResource(
     }
 
     case "CATEGORY_LIST": {
-      const currentPage = searchParams.get("/community/write?currentPage")
-        ? searchParams.get("/community/write?currentPage")
-        : "1";
+      const page = searchParams.get("/community/write?page") || "1";
 
-      await client.fetchQuery(`${resource.key}_${currentPage as string}`, () =>
+      await client.fetchQuery(`${resource.key}_${page}`, () =>
         resource.fetcher()
       );
 
