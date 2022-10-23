@@ -2,7 +2,7 @@ import { ArticleItem } from "@lib/API/petBookAPI/types/articleRequest";
 import styled from "styled-components";
 import TagList from "../TagList";
 
-const Item = styled.li`
+const Article = styled.article`
   display: flex;
   align-items: center;
 
@@ -82,12 +82,12 @@ interface Props {
   post: ArticleItem;
 }
 
-const PostItem = ({ post }: Props) => {
+const ArticleItemBox = ({ post }: Props) => {
   const { title, content, user, tags, stat } = post;
   const previewImage = "";
   const date = "2022-02-03";
   return (
-    <Item>
+    <Article>
       <Column>
         <Row>
           <Avatar />
@@ -106,8 +106,8 @@ const PostItem = ({ post }: Props) => {
         </Wrapper>
       </Column>
       {previewImage === "" ? null : <PreviewImage />}
-    </Item>
+    </Article>
   );
 };
 
-export default PostItem;
+export default ArticleItemBox;

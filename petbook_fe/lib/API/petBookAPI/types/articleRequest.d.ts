@@ -24,6 +24,11 @@ export interface ArticleItem {
     id: number;
     name: string;
   };
+  tags: string[];
+  stat: {
+    viewCount: number;
+    likeCount: number;
+  };
 }
 
 export type ArticleListResponse = ArticleItem[];
