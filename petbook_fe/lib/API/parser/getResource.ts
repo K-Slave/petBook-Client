@@ -16,9 +16,10 @@ export default async function getResource(
 
       await client.fetchQuery(`${resource.key}_${page}`, () =>
         resource.fetcher({
-          categoryId: Number(page),
+          initUrl: process.env.NEXT_PUBLIC_SPR_URL as string,
+          categoryId: 1,
           page: Number(page) - 1,
-          size: 10,
+          size: 2,
         })
       );
 
@@ -29,7 +30,9 @@ export default async function getResource(
       const page = searchParams.get("/community/write?page") || "1";
 
       await client.fetchQuery(`${resource.key}_${page}`, () =>
-        resource.fetcher()
+        resource.fetcher({
+          initUrl: process.env.NEXT_PUBLIC_SPR_URL as string,
+        })
       );
 
       break;

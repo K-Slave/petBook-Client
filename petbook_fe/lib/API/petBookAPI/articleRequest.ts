@@ -96,6 +96,7 @@ export default class ArticleAPI {
    */
   public article_list = async (
     params?: {
+      initUrl?: string;
       categoryId: number[] | number | string;
       page: number;
       size: number;
@@ -103,7 +104,7 @@ export default class ArticleAPI {
     config?: { headerObj: object }
   ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: `${this.uri}/list`,
+      uri: `${params?.initUrl || ""}${this.uri}/list`,
       params,
       headerObj: config?.headerObj,
     });
@@ -114,6 +115,8 @@ export default class ArticleAPI {
         timeout: 10000,
         headers: requestHeaders,
       }));
+
+    console.log(response, "response");
 
     const result = {
       ...response,

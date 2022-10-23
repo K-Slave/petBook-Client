@@ -56,6 +56,7 @@
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/no-unsafe-call": "warn",
     "@typescript-eslint/no-unsafe-return": "warn",
+    "@typescript-eslint/require-await": "off",
     "react/function-component-definition": [
       "warn",
       { "namedComponents": "arrow-function" }
