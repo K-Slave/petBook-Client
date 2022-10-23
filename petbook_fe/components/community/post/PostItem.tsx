@@ -1,3 +1,4 @@
+import { ArticleItem } from "@lib/API/petBookAPI/types/articleRequest";
 import styled from "styled-components";
 import TagList from "../TagList";
 
@@ -28,7 +29,7 @@ const Row = styled.div`
   gap: 7px;
   margin-bottom: 6px;
   font-weight: 500;
-  .PostItem_username {
+  .PostItem_nickname {
     font-weight: 700;
     font-size: 14px;
     line-height: 17px;
@@ -78,48 +79,29 @@ const Wrapper = styled.div`
 `;
 
 interface Props {
-  avatar: string;
-  username: string;
-  date: string;
-  title: string;
-  content: string;
-  tagList: string[];
-  likeCnt: number;
-  commentCnt: number;
-  viewCnt: number;
-  previewImage: string;
+  post: ArticleItem;
 }
 
-const PostItem = ({
-  avatar,
-  username,
-  date,
-  title,
-  content,
-  tagList,
-  likeCnt,
-  commentCnt,
-  viewCnt,
-  previewImage,
-}: Props) => {
+const PostItem = ({ post }: Props) => {
+  const { title, content, user, tags, stat } = post;
+  const previewImage = "";
+  const date = "2022-02-03";
   return (
     <Item>
       <Column>
         <Row>
           <Avatar />
-          <p className="PostItem_username">{username}</p>
+          <p className="PostItem_nickname">{user.nickname}</p>
           <p className="PostItem_date">{date}</p>
         </Row>
         <Wrapper>
           <h3>{title}</h3>
           <p className="PostItem_content">{content}</p>
-          <TagList tags={tagList} width={65} height={26} fontSize={14} />
+          <TagList tags={tags} width={65} height={26} fontSize={14} />
           <p className="PostItem_stats">
-            <span>공감수 {likeCnt}</span>
+            <span>공감수 {stat.likeCount}</span>
             <span>/</span>
-            <span>댓글수 {commentCnt}</span>
-            <span>/</span>
-            <span>클릭수 {viewCnt}</span>
+            <span>클릭수 {stat.viewCount}</span>
           </p>
         </Wrapper>
       </Column>
