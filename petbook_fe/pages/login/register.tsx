@@ -100,19 +100,16 @@ const Register = () => {
   const router = useRouter();
   const [signActive, setSignActive] = useState(false);
 
+  const Sign = () => {
+    console.log("sign");
+  };
+
+  //recoil
   useEffect(() => {
     if (router.query.state === "true") {
       setSignActive(true);
     }
   }, [router]);
-
-  const Sign = () => {
-    //여기서 서버 호출
-    router.replace({
-      pathname: "/login/register",
-      query: { state: true },
-    });
-  };
 
   return (
     <>
@@ -132,11 +129,10 @@ const Register = () => {
           </div>
         ) : (
           <div className="formWrap">
-            <ValidationInput current={"이메일"} />
+            <ValidationInput axiosValue={"email"} current={"이메일"} />
             <ValidationInput current={"이메일 확인"} />
             <PasswordInput />
-            <ValidationInput current={"닉네임"} />
-            <ValidationInput current={"동물종류"} />
+            <ValidationInput axiosValue={"nicName"} current={"닉네임"} />
             <SubmitBtn onClick={Sign} className="submitBtn">
               회원가입
             </SubmitBtn>
