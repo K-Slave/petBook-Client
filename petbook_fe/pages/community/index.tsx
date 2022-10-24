@@ -18,7 +18,7 @@ export const CATEGORY_LIST = createResource({
   fetcher: categorySprRequest.category_list,
 });
 
-const Container = styled.main`
+const CommunityMain = styled.main`
   background-color: #fffbf4;
 `;
 
@@ -32,13 +32,13 @@ const Sections = styled.div`
 
 const Community: NextPage = () => {
   return (
-    <Container>
+    <CommunityMain>
       <About />
       <Sections>
         <ArticleListSection />
       </Sections>
       <WriteButton />
-    </Container>
+    </CommunityMain>
   );
 };
 
