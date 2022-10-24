@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-indent */
 import categoryState from "@atoms/pageAtoms/community/categoryState";
 import { CategoryListResponse } from "@lib/API/petBookAPI/types/categoryRequestSpr";
+import useResource from "@lib/hooks/useResource";
 import { CATEGORY_LIST } from "@pages/community";
 import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
@@ -38,14 +39,9 @@ const FilterButton = styled.button<{ selected: boolean }>`
 
 const CategoryFilter = () => {
   let categories: CategoryListResponse = [];
-  const { data, status } = useQuery(
-    CATEGORY_LIST.key,
-    () => CATEGORY_LIST.fetcher(),
-    {
-      refetchOnWindowFocus: false,
-      staleTime: Infinity,
-    }
-  );
+  const { data, status } = useResource(CATEGORY_LIST, {
+    staleTime: Infinity,
+  });
   if (status === "success") {
     categories = [{ id: 0, name: "전체" }, ...data.data];
   }
