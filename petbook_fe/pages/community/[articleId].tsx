@@ -8,7 +8,7 @@ import ImageSliderModal from "@components/community/article/detail/ImageSliderMo
 import { articleRequest } from "@lib/API/petBookAPI";
 import { createResource } from "@lib/hooks/useResource";
 
-const Main = styled.main`
+const ArticleDetailMain = styled.main`
   display: flex;
   align-items: start;
   gap: 20px;
@@ -43,13 +43,10 @@ const ArticleDetail: NextPage = () => {
   return (
     <>
       <HtmlHeader />
-      <Main>
-        <ChatSideBanner />
-        <Wrapper>
-          <ArticleSection />
-          <CommentSection />
-        </Wrapper>
-      </Main>
+      <ArticleDetailMain>
+        <ArticleSection />
+        <CommentSection />
+      </ArticleDetailMain>
       <ImageSliderModal />
     </>
   );
