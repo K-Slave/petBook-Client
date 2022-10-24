@@ -12,7 +12,11 @@ import CategorySprAPI from "./categoryRequestSpr";
  * @method board_update(data,params,config) : PUT 게시글 수정
  * @method board_delete(data,params,config) : DELETE 게시글 삭제
  */
-export const boardRequest = new BoardAPI("/board", pyPetBookClient);
+export const boardRequest = new BoardAPI(
+  process.env.NEXT_PUBLIC_PY_URL as string,
+  "/board",
+  pyPetBookClient
+);
 
 /**
  * @uri '/category'
@@ -21,7 +25,11 @@ export const boardRequest = new BoardAPI("/board", pyPetBookClient);
  * @method category_update(data,params,config) : PUT 카테고리 수정
  * @method category_delete(data,params,config) : DELETE 카테고리 삭제
  */
-export const categoryRequest = new CategoryAPI("/category", pyPetBookClient);
+export const categoryRequest = new CategoryAPI(
+  process.env.NEXT_PUBLIC_PY_URL as string,
+  "/category",
+  pyPetBookClient
+);
 
 /**
  * @uri '/api/v1'
@@ -29,7 +37,11 @@ export const categoryRequest = new CategoryAPI("/category", pyPetBookClient);
  * @method login(body,config) : POST 로그인 요청
  * @method register(body,config) : POST 회원가입 요청 (분리될수 있음)
  */
-export const authRequest = new AuthAPI("/api/v1", sprPetBookClient);
+export const authRequest = new AuthAPI(
+  process.env.NEXT_PUBLIC_SPR_URL as string,
+  "/api/v1",
+  sprPetBookClient
+);
 
 /**
  * @uri '/api/v1/board/article'
@@ -38,6 +50,7 @@ export const authRequest = new AuthAPI("/api/v1", sprPetBookClient);
  * @method article_list : GET 게시물 리스트 요청
  */
 export const articleRequest = new ArticleAPI(
+  process.env.NEXT_PUBLIC_SPR_URL as string,
   "/api/v1/board/article",
   sprPetBookClient
 );
@@ -47,6 +60,7 @@ export const articleRequest = new ArticleAPI(
  * @method category_list(config) : GET 카테고리 조회
  */
 export const categorySprRequest = new CategorySprAPI(
+  process.env.NEXT_PUBLIC_SPR_URL as string,
   "/api/v1/board/category",
   sprPetBookClient
 );

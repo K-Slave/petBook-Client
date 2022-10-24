@@ -14,9 +14,12 @@ export default class CategoryAPI {
 
   public client: AxiosInstance;
 
-  constructor(uri: string, client: AxiosInstance) {
+  private initBaseUrl = "";
+
+  constructor(initBaseUrl: string, uri: string, client: AxiosInstance) {
     this.uri = uri;
     this.client = client;
+    this.initBaseUrl = initBaseUrl;
   }
 
   /**
@@ -42,7 +45,9 @@ export default class CategoryAPI {
     config?: { headerObj?: object }
   ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: this.uri,
+      uri: `${typeof window === "undefined" ? this.initBaseUrl : ""}${
+        this.uri
+      }`,
       params: {
         ...params,
         id: params.id ? params.id : 0,
@@ -90,7 +95,9 @@ export default class CategoryAPI {
     config?: { headerObj?: object }
   ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: this.uri,
+      uri: `${typeof window === "undefined" ? this.initBaseUrl : ""}${
+        this.uri
+      }`,
       params,
       headerObj: config?.headerObj,
     });
@@ -146,7 +153,9 @@ export default class CategoryAPI {
     config?: { headerObj?: object }
   ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: this.uri,
+      uri: `${typeof window === "undefined" ? this.initBaseUrl : ""}${
+        this.uri
+      }`,
       params,
       headerObj: config?.headerObj,
     });
@@ -195,7 +204,9 @@ export default class CategoryAPI {
     config?: { headerObj?: object }
   ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: this.uri,
+      uri: `${typeof window === "undefined" ? this.initBaseUrl : ""}${
+        this.uri
+      }`,
       params,
       headerObj: config?.headerObj,
     });
