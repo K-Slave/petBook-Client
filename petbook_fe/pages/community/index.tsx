@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import React from "react";
 import styled from "styled-components";
 import { articleRequest, categorySprRequest } from "@lib/API/petBookAPI";
-import About from "@components/community/about/About";
+import About from "@components/community/About";
 import WriteButton from "@components/community/WriteButton";
 import SectionContainer from "@containers/SectionContainer";
 import { createResource } from "@lib/hooks/useResource";
