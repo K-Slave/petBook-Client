@@ -39,9 +39,7 @@ const FilterButton = styled.button<{ selected: boolean }>`
 
 const CategoryFilter = () => {
   let categories: CategoryListResponse = [];
-  const { data, status } = useResource(CATEGORY_LIST, {
-    staleTime: Infinity,
-  });
+  const { data, status } = useResource(CATEGORY_LIST);
   if (status === "success") {
     categories = [{ id: 0, name: "전체" }, ...data.data];
   }
