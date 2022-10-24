@@ -88,12 +88,13 @@ NextApp.getInitialProps = async (context: AppContext) => {
 
   const { requiredResources } = PageComponent;
   const searchParams = new URLSearchParams(router.asPath);
+  const { query } = ctx;
 
   if (requiredResources) {
     await Promise.all(
       itrMap(
         (resource: { key: string; fetcher: () => void }) =>
-          getResource(resource, searchParams, queryClient),
+          getResource(resource, query, searchParams, queryClient),
         requiredResources
       )
     );

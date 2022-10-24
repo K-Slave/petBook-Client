@@ -6,19 +6,19 @@ import {
   useState,
 } from "react";
 
-export const useOnScreen = (
+export default function useOnScreen(
   root: MutableRefObject<Element | null>,
   target: MutableRefObject<Element | null>
-): [boolean, Dispatch<SetStateAction<boolean>>] => {
-  const [isInterseting, setIsInterseting] = useState(false);
+): [boolean, Dispatch<SetStateAction<boolean>>] {
+  const [isIntersecting, setIsIntersecting] = useState(false);
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.intersectionRatio >= 0.9) {
-            setIsInterseting(true);
+            setIsIntersecting(true);
           } else {
-            setIsInterseting(false);
+            setIsIntersecting(false);
           }
         });
       },
@@ -28,11 +28,11 @@ export const useOnScreen = (
       }
     );
     const el = target && target.current;
-    if (!el) return;
+    if (!el) return undefined;
     observer.observe(el);
     return () => {
       observer.unobserve(el);
     };
   }, [target.current, root.current]);
-  return [isInterseting, setIsInterseting];
-};
+  return [isIntersecting, setIsIntersecting];
+}

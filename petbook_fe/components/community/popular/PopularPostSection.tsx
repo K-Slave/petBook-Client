@@ -1,13 +1,16 @@
-import MainSection from "../MainSection";
+import CommunitySection from "../CommunitySection";
 import WeekFilter from "./WeekFilter";
 import PopularPostList from "./PopularPostList";
 
 const PopularPostSection = () => {
   return (
-    <MainSection title="Community" description="매주 인기 게시물을 확인하세요">
+    <CommunitySection
+      title="Community"
+      description="매주 인기 게시물을 확인하세요"
+    >
       <WeekFilter />
       <PopularPostList />
-    </MainSection>
+    </CommunitySection>
   );
 };
 

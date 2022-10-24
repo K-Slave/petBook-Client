@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import getParameters from "../axios/xhrFunctions";
-import { ArticleListResponse } from "./types/articleRequest";
+import { ArticleResponse, ArticleListResponse } from "./types/articleRequest";
 
 export default class ArticleAPI {
   public uri = "";
@@ -69,7 +69,7 @@ export default class ArticleAPI {
 
     const response =
       this.client &&
-      (await this.client.get<ArticleListResponse>(requestURL, {
+      (await this.client.get<ArticleResponse>(requestURL, {
         timeout: 10000,
         headers: requestHeaders,
       }));

@@ -1,9 +1,9 @@
 import { useRef } from "react";
 import styled, { css } from "styled-components";
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
-import { useOnScreen } from "../useOnScreen";
-import { useSelect } from "../useSelect";
-import { useSlide } from "./useSlide";
+import useOnScreen from "../useOnScreen";
+import useSelect from "../useSelect";
+import useSlide from "./useSlide";
 
 const filters = [
   "8월 1째주",
@@ -25,50 +25,6 @@ const filters = [
   "6월 2째주",
   "6월 1째주",
 ];
-
-const WeekFilter = () => {
-  const [selected, onSelect] = useSelect(0);
-  const root = useRef<HTMLDivElement | null>(null);
-  const leftSide = useRef<HTMLButtonElement | null>(null);
-  const rightSide = useRef<HTMLButtonElement | null>(null);
-  const [isLeftMost] = useOnScreen(root, leftSide);
-  const [isRightMost] = useOnScreen(root, rightSide);
-  const { onLeftSlide, onRightSlide } = useSlide(root);
-
-  return (
-    <Wrapper>
-      <ControlButton disabled={isLeftMost ? true : false} onClick={onLeftSlide}>
-        <GoChevronLeft />
-      </ControlButton>
-      <Filters ref={root}>
-        {filters.map((filter, index) => (
-          <FilterButton
-            key={index}
-            selected={selected === index}
-            onClick={() => onSelect(index)}
-            ref={
-              index === 0
-                ? leftSide
-                : index == filters.length - 1
-                ? rightSide
-                : null
-            }
-          >
-            {filter}
-          </FilterButton>
-        ))}
-      </Filters>
-      <ControlButton
-        disabled={isRightMost ? true : false}
-        onClick={onRightSlide}
-      >
-        <GoChevronRight />
-      </ControlButton>
-    </Wrapper>
-  );
-};
-
-export default WeekFilter;
 
 const Wrapper = styled.div`
   width: 100%;
@@ -128,3 +84,45 @@ const FilterButton = styled.button<{ selected: boolean }>`
     margin-right: 0;
   }
 `;
+
+const WeekFilter = () => {
+  const [selected, onSelect] = useSelect(0);
+  const root = useRef<HTMLDivElement | null>(null);
+  const leftSide = useRef<HTMLButtonElement | null>(null);
+  const rightSide = useRef<HTMLButtonElement | null>(null);
+  const [isLeftMost] = useOnScreen(root, leftSide);
+  const [isRightMost] = useOnScreen(root, rightSide);
+  const { onLeftSlide, onRightSlide } = useSlide(root);
+
+  return (
+    <Wrapper>
+      <ControlButton disabled={!!isLeftMost} onClick={onLeftSlide}>
+        <GoChevronLeft />
+      </ControlButton>
+      <Filters ref={root}>
+        {filters.map((filter, index) => (
+          <FilterButton
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
+            selected={selected === index}
+            onClick={() => onSelect(index)}
+            ref={
+              index === 0
+                ? leftSide
+                : index === filters.length - 1
+                ? rightSide
+                : null
+            }
+          >
+            {filter}
+          </FilterButton>
+        ))}
+      </Filters>
+      <ControlButton disabled={!!isRightMost} onClick={onRightSlide}>
+        <GoChevronRight />
+      </ControlButton>
+    </Wrapper>
+  );
+};
+
+export default WeekFilter;

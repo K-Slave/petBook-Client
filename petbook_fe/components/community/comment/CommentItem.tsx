@@ -2,44 +2,6 @@ import { BsThreeDotsVertical, BsArrowReturnRight } from "react-icons/bs";
 import styled, { css } from "styled-components";
 import DetailCommonInfo from "../DetailCommonInfo";
 
-interface CommentItemProps {
-  id: number;
-  username: string;
-  avatar: string;
-  date: string;
-  content: string;
-  recomment: boolean;
-}
-
-const CommentItem = ({
-  username,
-  avatar,
-  date,
-  content,
-  recomment,
-}: CommentItemProps) => {
-  return (
-    <Item recomment={recomment}>
-      {recomment && <BsArrowReturnRight />}
-      <div>
-        <Row>
-          <DetailCommonInfo username={username} date={date} avatar={avatar} />
-          <button>
-            <BsThreeDotsVertical />
-          </button>
-        </Row>
-        <p className="content">{content}</p>
-        <ButtonBox>
-          <button>대댓글 달기</button>
-          <button>좋아요 버튼</button>
-        </ButtonBox>
-      </div>
-    </Item>
-  );
-};
-
-export default CommentItem;
-
 const notRecommentStyle = css`
   background-color: #fff;
 `;
@@ -87,3 +49,42 @@ const ButtonBox = styled.div`
     color: #7c7c7c;
   }
 `;
+
+interface Props {
+  id: number;
+  username: string;
+  avatar: string;
+  date: string;
+  content: string;
+  recomment: boolean;
+}
+
+const CommentItem = ({
+  id,
+  username,
+  avatar,
+  date,
+  content,
+  recomment,
+}: Props) => {
+  return (
+    <Item recomment={recomment}>
+      {recomment && <BsArrowReturnRight />}
+      <div>
+        <Row>
+          <DetailCommonInfo username={username} date={date} avatar={avatar} />
+          <button type="button">
+            <BsThreeDotsVertical />
+          </button>
+        </Row>
+        <p className="content">{content}</p>
+        <ButtonBox>
+          <button type="button">대댓글 달기</button>
+          <button type="button">좋아요 버튼</button>
+        </ButtonBox>
+      </div>
+    </Item>
+  );
+};
+
+export default CommentItem;
