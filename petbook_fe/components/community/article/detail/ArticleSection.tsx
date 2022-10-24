@@ -1,6 +1,6 @@
 import { ARTICLE_ITEM } from "@pages/community/[articleId]";
 import { useRouter } from "next/router";
-import { useQuery } from "react-query";
+import useResource from "@lib/hooks/useResource";
 import styled from "styled-components";
 import DetailCommonInfo from "../../DetailCommonInfo";
 import TagList from "../../TagList";
@@ -71,14 +71,10 @@ const dummyImages = [
 const ArticleSection = () => {
   const router = useRouter();
   const articleId = router.query.articleId as string;
-  const { data } = useQuery(
-    `${ARTICLE_ITEM.key}_${articleId}`,
-    () => ARTICLE_ITEM.fetcher(articleId),
-    {
-      staleTime: 300000,
-      refetchOnWindowFocus: false,
-    }
-  );
+  const { data } = useResource({
+    key: `${ARTICLE_ITEM.key}_${articleId}`,
+    fetcher: () => ARTICLE_ITEM.fetcher(articleId),
+  });
   if (data === undefined) {
     return <Section />;
   }

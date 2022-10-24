@@ -2,9 +2,10 @@ import { ARTICLE_LIST } from "@pages/community";
 import { useRef } from "react";
 import { useRecoilValue } from "recoil";
 import categoryState from "@atoms/pageAtoms/community/categoryState";
-import { useQuery } from "react-query";
+import useResource from "@lib/hooks/useResource";
 import { usePage } from "@lib/hooks/usePagination";
 import useScroll from "@lib/hooks/useScroll";
+import localConsole from "@lib/utils/localConsole";
 import MainSection from "../MainSection";
 import PaginationButton from "./PaginationButton";
 import ArticleFilter from "./ArticleFilter";
@@ -20,16 +21,14 @@ const ArticleListSection = () => {
     page: page - 1,
     size: limit.current,
   };
-  const { data } = useQuery(
-    `${ARTICLE_LIST.key}_${page}_${category.id}`,
-    () => ARTICLE_LIST.fetcher(articleListParams),
-    {
-      refetchOnWindowFocus: false,
-      staleTime: 300000,
-    }
+  const { data } = useResource({
+    key: `${ARTICLE_LIST.key}_${page}_${category.id}`,
+    fetcher: ARTICLE_LIST.fetcher,
+    params: articleListParams,
+  });
+  localConsole.log(
+    `ArticleListSection render => currentPage: ${page}, category: ${category.name}`
   );
-  console.log(page, "currentPage, ArticleListSection render");
-  console.log(category.name, "category", "ArticleListSection render");
 
   // useScroll({ top: ref.current?.offsetTop }, [page]);
   return (
