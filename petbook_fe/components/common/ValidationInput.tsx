@@ -1,19 +1,32 @@
 import { useSetRecoilState } from "recoil";
-import userState from "atoms/pageAtoms/login/userState";
+import { userState } from "atoms/pageAtoms/login/userState";
 interface ValidationProps {
   current: String;
+  axiosValue: String;
 }
 
-const ValidationInput = ({ current }: ValidationProps) => {
-  const setUser = useSetRecoilState(userState);
+const ValidationInput = ({ current, axiosValue }: ValidationProps) => {
+  console.log("d");
+  const setUserState = useSetRecoilState(userState);
+
+  const onChange = (e: object) => {
+    if (axiosValue) {
+      setUserState((user) => ({
+        ...user,
+        [`${axiosValue}`]: e.target.value,
+      }));
+    }
+  };
+
   return (
     <div>
       <div className="box">
         <label htmlFor={`${current}`}>{current}</label>
         <input
-          type="text"
+          type={`${axiosValue}`}
           id={`${current}`}
           placeholder={`${current}를 입력해주세요 `}
+          onChange={onChange}
         />
       </div>
       {current !== "비밀번호" ? (
