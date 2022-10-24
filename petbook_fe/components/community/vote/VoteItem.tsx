@@ -3,62 +3,29 @@ import { MdPersonOutline } from "react-icons/md";
 import { MutableRefObject } from "react";
 import TagList from "../TagList";
 
-interface VoteItemProps {
-  image: string;
-  title: string;
-  description: string;
-  participant: number;
-  tagList: string[];
-  itemRef: MutableRefObject<HTMLLIElement | null> | null;
-}
-
-const VoteItem = ({
-  image,
-  title,
-  description,
-  participant,
-  tagList,
-  itemRef,
-}: VoteItemProps) => {
-  return (
-    <Item ref={itemRef}>
-      {image === "" ? null : <Image></Image>}
-      <Column image={image}>
-        <TagList tags={tagList} width={90} height={36} fontSize={16} />
-        <Title>{title}</Title>
-        <Desc>{description}</Desc>
-        <Bottom>
-          <Deadline>오늘 마감</Deadline>
-          <Participant>
-            <MdPersonOutline />
-            {participant}명 참여
-          </Participant>
-        </Bottom>
-      </Column>
-    </Item>
-  );
-};
-
-export default VoteItem;
-
 const Item = styled.li`
   display: flex;
   align-items: center;
+
   height: 300px;
-  background-color: white;
+
   border-radius: 16px;
+
+  background-color: white;
 `;
 
 const Title = styled.h3`
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 32px;
-  margin: 16px 0 8px;
-  overflow: hidden;
-  text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+
+  margin: 16px 0 8px;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 32px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const Image = styled.div`
@@ -108,3 +75,41 @@ const Participant = styled.p`
     height: 18px;
   }
 `;
+
+interface Props {
+  image: string;
+  title: string;
+  description: string;
+  participant: number;
+  tagList: string[];
+  itemRef: MutableRefObject<HTMLLIElement | null> | null;
+}
+
+const VoteItem = ({
+  image,
+  title,
+  description,
+  participant,
+  tagList,
+  itemRef,
+}: Props) => {
+  return (
+    <Item ref={itemRef}>
+      {image === "" ? null : <Image />}
+      <Column image={image}>
+        <TagList tags={tagList} width={90} height={36} fontSize={16} />
+        <Title>{title}</Title>
+        <Desc>{description}</Desc>
+        <Bottom>
+          <Deadline>오늘 마감</Deadline>
+          <Participant>
+            <MdPersonOutline />
+            {participant}명 참여
+          </Participant>
+        </Bottom>
+      </Column>
+    </Item>
+  );
+};
+
+export default VoteItem;

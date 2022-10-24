@@ -1,32 +1,17 @@
 import styled from "styled-components";
 
-interface DetailCommonInfoProps {
-  avatar: string;
-  username: string;
-  date: string;
-}
-const DetailCommonInfo = ({
-  avatar,
-  username,
-  date,
-}: DetailCommonInfoProps) => {
-  return (
-    <Wrapper>
-      <Avatar src={avatar} alt="user avatar" />
-      <p className="username">{username}</p>
-      <p className="date">{date}</p>
-    </Wrapper>
-  );
-};
-
-export default DetailCommonInfo;
-
 const Avatar = styled.img`
-  background-color: lightgray;
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
+`;
+
+const Circle = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: lightgray;
 `;
 
 const Wrapper = styled.div`
@@ -40,8 +25,31 @@ const Wrapper = styled.div`
     line-height: 22px;
   }
   .date {
+    margin-top: 1px;
+
     font-size: 14px;
     color: #777777;
-    margin-top: 1px;
   }
 `;
+
+interface Props {
+  avatar?: string;
+  username: string;
+  date: string;
+}
+
+const DetailCommonInfo = ({ avatar, username, date }: Props) => {
+  return (
+    <Wrapper>
+      {avatar ? <Avatar src={avatar} alt="user avatar" /> : <Circle />}
+      <p className="username">{username}</p>
+      <p className="date">{date}</p>
+    </Wrapper>
+  );
+};
+
+export default DetailCommonInfo;
+
+DetailCommonInfo.defaultProps = {
+  avatar: "",
+};

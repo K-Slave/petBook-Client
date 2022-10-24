@@ -1,14 +1,18 @@
 import { atom } from "recoil";
 
-export const sliderModalState = atom<{
+const imageModalState = atom<{
   show: boolean;
   currentIndex: number;
   prevIndex: number;
+  images: string[];
 }>({
-  key: "sliderModalState",
+  key: "imageModalState",
   default: {
     show: false,
     currentIndex: 0,
     prevIndex: 0,
+    images: [],
   },
 });
+
+export default imageModalState;

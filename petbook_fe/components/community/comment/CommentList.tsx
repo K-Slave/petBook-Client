@@ -47,18 +47,6 @@ const commentDummy = [
   },
 ];
 
-const CommentList = () => {
-  return (
-    <Wrapper>
-      {commentDummy.map((comment) => (
-        <CommentItem {...comment} key={comment.id} />
-      ))}
-    </Wrapper>
-  );
-};
-
-export default CommentList;
-
 const Wrapper = styled.div`
   border-radius: 16px;
   border: 1px solid #f5edde;
@@ -71,3 +59,16 @@ const Wrapper = styled.div`
     border-bottom-right-radius: 16px;
   }
 `;
+
+const CommentList = () => {
+  return (
+    <Wrapper>
+      {commentDummy.map((comment) => (
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        <CommentItem {...comment} key={comment.id} />
+      ))}
+    </Wrapper>
+  );
+};
+
+export default CommentList;
