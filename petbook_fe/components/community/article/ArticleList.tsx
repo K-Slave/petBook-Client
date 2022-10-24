@@ -6,7 +6,7 @@ interface Props {
   posts: ArticleListResponse;
 }
 
-const Wrapper = styled.div`
+const ArticleListDiv = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -14,11 +14,11 @@ const Wrapper = styled.div`
 
 const ArticleList = ({ posts }: Props) => {
   return (
-    <Wrapper>
+    <ArticleListDiv>
       {posts.map((post) => (
         <ArticleLink post={post} key={post.id} />
       ))}
-    </Wrapper>
+    </ArticleListDiv>
   );
 };
 

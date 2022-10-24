@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-const ButtonAnchor = styled.a`
+const StyledWriteButton = styled.button`
   position: fixed;
   bottom: 30px;
   right: 30px;
@@ -23,7 +23,7 @@ const ButtonAnchor = styled.a`
 const WriteButton = () => {
   return (
     <Link href="/community/write" passHref>
-      <ButtonAnchor>글쓰기</ButtonAnchor>
+      <StyledWriteButton>글쓰기</StyledWriteButton>
     </Link>
   );
 };

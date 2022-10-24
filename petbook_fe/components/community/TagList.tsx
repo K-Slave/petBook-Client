@@ -1,12 +1,16 @@
 import styled, { css } from "styled-components";
 
-const ListUl = styled.ul`
+const TagListUl = styled.ul`
   display: flex;
   align-items: center;
   gap: 4px;
 `;
 
-const ItemLi = styled.li<{ width: number; height: number; fontSize: number }>`
+const TagListLi = styled.li<{
+  width: number;
+  height: number;
+  fontSize: number;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,14 +36,19 @@ interface Props {
 
 const TagList = ({ tags, width, height, fontSize }: Props) => {
   return (
-    <ListUl>
+    <TagListUl>
       {tags.map((tag, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <ItemLi width={width} height={height} fontSize={fontSize} key={index}>
+        <TagListLi
+          width={width}
+          height={height}
+          fontSize={fontSize}
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
+        >
           {tag}
-        </ItemLi>
+        </TagListLi>
       ))}
-    </ListUl>
+    </TagListUl>
   );
 };
 

@@ -6,59 +6,53 @@ import TagList from "../TagList";
 const Article = styled.article`
   display: flex;
   align-items: center;
-
   border-radius: 16px;
   background: #ffffff;
   cursor: pointer;
-  & > div {
-    width: 100%;
+  .ArticleLink_column {
+    padding: 32px 35px 28px 37px;
+  }
+  .ArticleLink_userInfo {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 6px;
+    font-weight: 500;
+    .ArticleLink_nickname {
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 17px;
+    }
+    .ArticleLink_date {
+      margin-top: 1px;
+      font-size: 12px;
+      color: #777777;
+    }
   }
 `;
 
-const Column = styled.div`
-  padding: 32px 35px 28px 37px;
-`;
-
-const Avatar = styled.div`
+const ArticleLinkAvatar = styled.img`
   width: 30px;
   height: 30px;
   border-radius: 50%;
   background-color: lightgray;
 `;
 
-const Row = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  margin-bottom: 6px;
-  font-weight: 500;
-  .PostItem_nickname {
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 17px;
-  }
-  .PostItem_date {
-    margin-top: 1px;
-    font-size: 12px;
-    color: #777777;
-  }
-`;
-
-const PreviewImage = styled.div`
+const ArticleLinkImg = styled.img`
   flex-shrink: 0;
   width: 385px;
   height: 207px;
   background-color: #fff6e6;
 `;
 
-const Wrapper = styled.div`
+const ArticleLinkDiv = styled.div`
   padding-left: 37px;
   h3 {
     margin-bottom: 6px;
     font-weight: 500;
     font-size: 20px;
   }
-  .PostItem_content {
+  .ArticleLink_content {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -70,7 +64,7 @@ const Wrapper = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .PostItem_stats {
+  .ArticleLink_stats {
     display: flex;
     align-items: center;
     gap: 3px;
@@ -90,30 +84,28 @@ const ArticleLink = ({ post }: Props) => {
   const previewImage = "";
   const date = "2022-02-03";
   return (
-    <Article>
-      <Link href={`/community/${id}`} passHref>
-        <div>
-          <Column>
-            <Row>
-              <Avatar />
-              <p className="PostItem_nickname">{user.nickname}</p>
-              <p className="PostItem_date">{date}</p>
-            </Row>
-            <Wrapper>
-              <h3>{title}</h3>
-              <p className="PostItem_content">{content}</p>
-              <TagList tags={tags} width={65} height={26} fontSize={14} />
-              <p className="PostItem_stats">
-                <span>공감수 {stat.likeCount}</span>
-                <span>/</span>
-                <span>클릭수 {stat.viewCount}</span>
-              </p>
-            </Wrapper>
-          </Column>
-          {previewImage === "" ? null : <PreviewImage />}
+    <Link href={`/community/${id}`} passHref>
+      <Article>
+        <div className="ArticleLink_column">
+          <div className="ArticleLink_userInfo">
+            <ArticleLinkAvatar />
+            <p className="ArticleLink_nickname">{user.nickname}</p>
+            <p className="ArticleLink_date">{date}</p>
+          </div>
+          <ArticleLinkDiv>
+            <h3>{title}</h3>
+            <p className="ArticleLink_content">{content}</p>
+            <TagList tags={tags} width={65} height={26} fontSize={14} />
+            <p className="ArticleLink_stats">
+              <span>공감수 {stat.likeCount}</span>
+              <span>/</span>
+              <span>클릭수 {stat.viewCount}</span>
+            </p>
+          </ArticleLinkDiv>
         </div>
-      </Link>
-    </Article>
+        {previewImage === "" ? null : <ArticleLinkImg />}
+      </Article>
+    </Link>
   );
 };
 
