@@ -34,7 +34,7 @@ const PasswordInput = () => {
   ];
   return (
     <div>
-      <ValidationInput current={"비밀번호"} />
+      <ValidationInput axiosValue={"password"} current={"비밀번호"} />
       <PassCheckWrap>
         {PassCheckType.map((item: any, index: number) => {
           const type = item.type;
