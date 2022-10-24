@@ -25,6 +25,7 @@ const Wrapper = styled.div`
   gap: 8px;
 
   max-width: 847px;
+  margin: 0 auto;
 `;
 
 /*
@@ -44,8 +45,10 @@ const ArticleDetail: NextPage = () => {
     <>
       <HtmlHeader />
       <ArticleDetailMain>
-        <ArticleSection />
-        <CommentSection />
+        <Wrapper>
+          <ArticleSection />
+          <CommentSection />
+        </Wrapper>
       </ArticleDetailMain>
       <ImageSliderModal />
     </>
