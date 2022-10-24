@@ -3,7 +3,6 @@ import categoryState from "@atoms/pageAtoms/community/categoryState";
 import { CategoryListResponse } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 import useResource from "@lib/hooks/useResource";
 import { CATEGORY_LIST } from "@pages/community";
-import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
 import styled, { css } from "styled-components";
 
@@ -20,12 +19,12 @@ const notSelectedStyle = css`
   color: #000;
 `;
 
-const Wrapper = styled.div`
+const CategoryFilterDiv = styled.div`
   display: flex;
   gap: 50px;
 `;
 
-const FilterButton = styled.button<{ selected: boolean }>`
+const CategoryFilterButton = styled.button<{ selected: boolean }>`
   ${({ selected }) => (selected ? selectedStyle : notSelectedStyle)};
   display: flex;
   align-items: center;
@@ -45,19 +44,19 @@ const CategoryFilter = () => {
   }
   const [selectedCategory, setSelectedCategory] = useRecoilState(categoryState);
   return (
-    <Wrapper>
+    <CategoryFilterDiv>
       {status === "success"
         ? categories.map((category) => (
-            <FilterButton
+            <CategoryFilterButton
               selected={category.id === selectedCategory.id}
               key={category.id}
               onClick={() => setSelectedCategory(category)}
             >
               {category.name}
-            </FilterButton>
+            </CategoryFilterButton>
           ))
         : null}
-    </Wrapper>
+    </CategoryFilterDiv>
   );
 };
 

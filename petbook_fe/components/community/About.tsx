@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Wrapper = styled.div`
+const AboutSection = styled.section`
   display: flex;
   align-items: center;
 
@@ -23,14 +23,14 @@ const Wrapper = styled.div`
 
 const About = () => {
   return (
-    <Wrapper>
+    <AboutSection>
       <div>
         <p>
           커뮤니티에 대한 간단한 설명 <br />
           2줄 정도
         </p>
       </div>
-    </Wrapper>
+    </AboutSection>
   );
 };
 

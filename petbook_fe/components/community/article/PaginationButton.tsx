@@ -4,7 +4,7 @@ import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import useButtonOffset from "@lib/hooks/useButtonOffset";
 import usePagination from "@lib/hooks/usePagination";
 
-const Wrapper = styled.div`
+const PaginationButtonDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,7 +20,7 @@ const selectedStyle = css`
   color: #fff;
 `;
 
-const Button = styled.button<{ selected: boolean }>`
+const StyledPaginationButton = styled.button<{ selected: boolean }>`
   ${({ selected }) => selected && selectedStyle};
   display: flex;
   justify-content: center;
@@ -47,7 +47,7 @@ const PaginationButton = ({ numPages }: Props) => {
     changeCurrentPage(offset + btnNum.current);
   };
   return (
-    <Wrapper>
+    <PaginationButtonDiv>
       {offset !== 1 && (
         <button onClick={onClickPrev} type="button">
           <FiChevronLeft />
@@ -57,21 +57,21 @@ const PaginationButton = ({ numPages }: Props) => {
         .fill(1)
         .slice(offset, btnNum.current + offset)
         .map((_, i) => (
-          <Button
+          <StyledPaginationButton
             // eslint-disable-next-line react/no-array-index-key
             key={i + offset}
             onClick={() => changeCurrentPage(i + offset)}
             selected={currentPage === offset + i}
           >
             {i + offset}
-          </Button>
+          </StyledPaginationButton>
         ))}
       {btnNum.current + offset < numPages && (
         <button onClick={onClickNext} type="button">
           <FiChevronRight />
         </button>
       )}
-    </Wrapper>
+    </PaginationButtonDiv>
   );
 };
 

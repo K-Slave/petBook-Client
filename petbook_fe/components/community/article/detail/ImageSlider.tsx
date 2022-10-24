@@ -2,7 +2,7 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import imageModalState from "@atoms/pageAtoms/community/imageModalState";
 
-const Slider = styled.div`
+const ImageSliderDiv = styled.div`
   display: flex;
   gap: 17px;
   margin: 32px 0;
@@ -12,7 +12,7 @@ const Slider = styled.div`
   }
 `;
 
-const DummyImage = styled.img`
+const ImageSliderImg = styled.img`
   flex-shrink: 0;
   max-width: 354px;
   max-height: 354px;
@@ -33,9 +33,9 @@ interface Props {
 const ImageSlider = ({ images }: Props) => {
   const setModalState = useSetRecoilState(imageModalState);
   return images.length !== 0 ? (
-    <Slider>
+    <ImageSliderDiv>
       {images.map((image, index) => (
-        <DummyImage
+        <ImageSliderImg
           src={image}
           // eslint-disable-next-line react/no-array-index-key
           key={index}
@@ -49,7 +49,7 @@ const ImageSlider = ({ images }: Props) => {
           }
         />
       ))}
-    </Slider>
+    </ImageSliderDiv>
   ) : (
     <Spacer />
   );

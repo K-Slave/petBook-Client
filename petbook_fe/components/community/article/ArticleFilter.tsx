@@ -2,7 +2,7 @@ import styled from "styled-components";
 import CategoryFilter from "./CategoryFilter";
 import SortFilter from "./SortFilter";
 
-const Wrapper = styled.div`
+const ArticleFilterDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,10 +11,10 @@ const Wrapper = styled.div`
 
 const ArticleFilter = () => {
   return (
-    <Wrapper>
+    <ArticleFilterDiv>
       <CategoryFilter />
       <SortFilter />
-    </Wrapper>
+    </ArticleFilterDiv>
   );
 };
 
