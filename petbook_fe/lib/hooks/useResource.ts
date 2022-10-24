@@ -8,27 +8,16 @@ import { useMutation, useQuery, UseQueryOptions } from "react-query";
  * @param resource.config 헤더에 담을 객체등 옵션으로 호출시 필요한 인자.
  * @returns useQuery 의 state 를 그대로 반환합니다.
  */
-export default function useResource<T, P, C>(
-  resource: {
-    key: string;
-    fetcher: (params?: P, config?: C) => Promise<T>;
-    params?: P;
-    config?: C;
-  },
-  options?: Omit<UseQueryOptions<T, unknown, T, string>, "queryKey" | "queryFn">
-) {
+export default function useResource<T, P, C>(resource: {
+  key: string;
+  fetcher: (params?: P, config?: C) => Promise<T>;
+  params?: P;
+  config?: C;
+}) {
   const paramFetcher = () =>
     resource.fetcher(resource?.params, resource?.config);
 
-  const defaultOptions = {
-    refetchOnWindowFocus: false,
-    staleTime: 30000,
-  };
-
-  return useQuery(resource.key, paramFetcher, {
-    ...defaultOptions,
-    ...options,
-  });
+  return useQuery(resource.key, paramFetcher);
 }
 
 /**
