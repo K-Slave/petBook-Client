@@ -1,11 +1,11 @@
 import React, { MutableRefObject } from "react";
 import styled from "styled-components";
 
-const Section = styled.section`
+const CommunitySectionBox = styled.section`
   padding-bottom: 150px;
 `;
 
-const SectionH2 = styled.h2`
+const CommunitySectionH2 = styled.h2`
   margin-bottom: 10px;
 
   font-family: "Montserrat", sans-serif;
@@ -14,9 +14,8 @@ const SectionH2 = styled.h2`
   color: #ff2e00;
 `;
 
-const SectionParagraph = styled.p`
+const CommunitySectionParagraph = styled.p`
   margin-bottom: 32px;
-
   font-weight: 700;
   font-size: 30px;
 `;
@@ -28,18 +27,23 @@ interface Props {
   sectionRef?: MutableRefObject<HTMLElement | null>;
 }
 
-const MainSection = ({ sectionRef, title, description, children }: Props) => {
+const CommunitySection = ({
+  sectionRef,
+  title,
+  description,
+  children,
+}: Props) => {
   return (
-    <Section ref={sectionRef}>
-      <SectionH2>{title}</SectionH2>
-      <SectionParagraph>{description}</SectionParagraph>
+    <CommunitySectionBox ref={sectionRef}>
+      <CommunitySectionH2>{title}</CommunitySectionH2>
+      <CommunitySectionParagraph>{description}</CommunitySectionParagraph>
       {children}
-    </Section>
+    </CommunitySectionBox>
   );
 };
 
-export default MainSection;
+export default CommunitySection;
 
-MainSection.defaultProps = {
+CommunitySection.defaultProps = {
   sectionRef: undefined,
 };
