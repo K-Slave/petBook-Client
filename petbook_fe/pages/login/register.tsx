@@ -1,14 +1,17 @@
 import HtmlHeader from "@components/common/HtmlHeader";
 import TopNav from "@components/TopNav";
 import ValidationInput from "@components/common/ValidationInput";
+import PasswordInput from "@components/register/PasswordInput";
 
-//
 import styled from "styled-components";
 
-//
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import PasswordInput from "@components/register/PasswordInput";
+import { useRecoilValue } from "recoil";
+
+import { createRequest, useSetResource } from "@lib/hooks/useResource";
+import { authRequest } from "@lib/API/petBookAPI";
+import { userState } from "@atoms/pageAtoms/login/userState";
 
 const Main = styled.main`
   height: calc(100vh - 61px);
@@ -97,14 +100,23 @@ const SubmitBtn = styled.div`
 `;
 
 const Register = () => {
+  const user = useRecoilValue(userState);
+
+  const REGISTER_CREATE = createRequest({
+    key: "REGISTER_CREATE",
+    requester: authRequest.register,
+  });
+
   const router = useRouter();
   const [signActive, setSignActive] = useState(false);
 
+  const { data, isLoading, isError, isSuccess, mutate } =
+    useSetResource(REGISTER_CREATE);
+
   const Sign = () => {
-    console.log("sign");
+    mutate(user);
   };
 
-  //recoil
   useEffect(() => {
     if (router.query.state === "true") {
       setSignActive(true);
@@ -130,9 +142,9 @@ const Register = () => {
         ) : (
           <div className="formWrap">
             <ValidationInput axiosValue={"email"} current={"이메일"} />
-            <ValidationInput current={"이메일 확인"} />
+            <ValidationInput axiosValue={""} current={"이메일 확인"} />
             <PasswordInput />
-            <ValidationInput axiosValue={"nicName"} current={"닉네임"} />
+            <ValidationInput axiosValue={"nickname"} current={"닉네임"} />
             <SubmitBtn onClick={Sign} className="submitBtn">
               회원가입
             </SubmitBtn>
