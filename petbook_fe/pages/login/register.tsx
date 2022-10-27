@@ -101,7 +101,6 @@ const SubmitBtn = styled.div`
 
 const Register = () => {
   const user = useRecoilValue(userState);
-
   const REGISTER_CREATE = createRequest({
     key: "REGISTER_CREATE",
     requester: authRequest.register,
@@ -118,10 +117,18 @@ const Register = () => {
   };
 
   useEffect(() => {
+    //원래는 쿼리값이 아닌 token값으로 처리해야 하지만 일단 박아놓은 상태
     if (router.query.state === "true") {
       setSignActive(true);
     }
   }, [router]);
+
+  useEffect(() => {
+    if (isSuccess === true) {
+      //원래는 쿼리값이 아닌 token값으로 처리해야 하지만 일단 박아놓은 상태
+      router.push("/login/register?state=true");
+    }
+  }, [data]);
 
   return (
     <>
