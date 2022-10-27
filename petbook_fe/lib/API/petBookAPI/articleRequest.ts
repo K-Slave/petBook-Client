@@ -1,17 +1,7 @@
-import { AxiosInstance } from "axios";
-import getParameters from "../axios/xhrFunctions";
+import RequestCore from "./RequestCore";
 import { ArticleResponse, ArticleListResponse } from "./types/articleRequest";
 
-export default class ArticleAPI {
-  public uri = "";
-
-  public client: AxiosInstance;
-
-  constructor(uri: string, client: AxiosInstance) {
-    this.uri = uri;
-    this.client = client;
-  }
-
+export default class ArticleAPI extends RequestCore {
   /**
    * @param body 요청 패킷 Body 에 JSON 형태로 담을 내용입니다.
    * @param body.title 게시물의 타이틀 입니다.
@@ -27,60 +17,42 @@ export default class ArticleAPI {
       content: string;
       categoryId: number;
     },
-    config: { headerObj: object }
+    config?: { headerObj: object }
   ) => {
-    const { requestURL, requestHeaders } = getParameters({
-      uri: `${this.uri}/`,
-      headerObj: config.headerObj,
+    const { requestURL, requestHeaders } = this.getParameters({
+      headerObj: config && config.headerObj,
     });
 
-    const response =
-      this.client &&
-      (await this.client.post<any>(requestURL, body, {
-        timeout: 10000,
-        headers: requestHeaders,
-      }));
-
-    const result = {
-      ...response,
-      request: {
-        body,
-        config,
-      },
-    };
+    const result = await this.getResult({
+      requestMethod: "POST",
+      requestURL,
+      requestHeaders,
+      body,
+    });
 
     return result;
   };
 
   /**
    *
-   * @param path 게시물 ID 값 입니다.
+   * @param pathParam 게시물 ID 값 입니다.
    * @param config Header 메시지를 추가할때 씁니다.
    * @returns 게시물 ID 에 해당하는 게시물을 반환합니다.
    */
   public article_item = async (
-    path: string,
+    pathParam: string,
     config?: { headerObj: object }
   ) => {
-    const { requestURL, requestHeaders } = getParameters({
-      uri: `${this.uri}/${path}`,
-      headerObj: config?.headerObj,
+    const { requestURL, requestHeaders } = this.getParameters({
+      pathParam,
+      headerObj: config && config.headerObj,
     });
 
-    const response =
-      this.client &&
-      (await this.client.get<ArticleResponse>(requestURL, {
-        timeout: 10000,
-        headers: requestHeaders,
-      }));
-
-    const result = {
-      ...response,
-      request: {
-        path,
-        config,
-      },
-    };
+    const result = await this.getResult<ArticleResponse>({
+      requestMethod: "GET",
+      requestURL,
+      requestHeaders,
+    });
 
     return result;
   };
@@ -96,35 +68,23 @@ export default class ArticleAPI {
    */
   public article_list = async (
     params?: {
-      initUrl?: string;
       categoryId: number[] | number | string;
       page: number;
       size: number;
     },
     config?: { headerObj: object }
   ) => {
-    const { requestURL, requestHeaders } = getParameters({
-      uri: `${params?.initUrl || ""}${this.uri}/list`,
+    const { requestURL, requestHeaders } = this.getParameters({
+      uri: "/list",
       params,
-      headerObj: config?.headerObj,
+      headerObj: config && config.headerObj,
     });
 
-    const response =
-      this.client &&
-      (await this.client.get<ArticleListResponse>(requestURL, {
-        timeout: 10000,
-        headers: requestHeaders,
-      }));
-
-    console.log(response, "response");
-
-    const result = {
-      ...response,
-      request: {
-        params,
-        config,
-      },
-    };
+    const result = await this.getResult<ArticleListResponse>({
+      requestMethod: "GET",
+      requestURL,
+      requestHeaders,
+    });
 
     return result;
   };

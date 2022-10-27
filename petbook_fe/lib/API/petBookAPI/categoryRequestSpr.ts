@@ -8,25 +8,23 @@ export default class CategorySprAPI {
 
   public client: AxiosInstance;
 
-  constructor(uri: string, client: AxiosInstance) {
+  private initBaseUrl = "";
+
+  constructor(initBaseUrl: string, uri: string, client: AxiosInstance) {
     this.uri = uri;
     this.client = client;
+    this.initBaseUrl = initBaseUrl;
   }
-
-  instance = this;
 
   /**
    * @param config
    * @returns categoryId 에 해당하는 게시물 리스트를 반환합니다.
    */
-  public category_list = async (
-    params?: {
-      initUrl?: string;
-    },
-    config?: { headerObj: object }
-  ) => {
+  public category_list = async (config?: { headerObj: object }) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: `${params?.initUrl || ""}${this.uri}/list`,
+      uri: `${typeof window === "undefined" ? this.initBaseUrl : ""}${
+        this.uri
+      }/list`,
       headerObj: config?.headerObj,
     });
 

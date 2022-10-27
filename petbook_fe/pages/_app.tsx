@@ -10,7 +10,7 @@ import {
 import cookies from "next-cookies";
 import urlTokenRedirect from "@lib/API/parser/urlTokenRedirect";
 import { RecoilRoot } from "recoil";
-import getResource from "@lib/API/parser/getResource";
+import queryParser from "@lib/API/parser/queryParser";
 import HtmlHeader from "@components/common/HtmlHeader";
 import Cookies from "js-cookie";
 import { Router } from "next/router";
@@ -87,14 +87,14 @@ NextApp.getInitialProps = async (context: AppContext) => {
   } = Component;
 
   const { requiredResources } = PageComponent;
-  const searchParams = new URLSearchParams(router.asPath);
+  // const searchParams = new URLSearchParams(router.asPath);
   const { query } = ctx;
 
   if (requiredResources) {
     await Promise.all(
       itrMap(
         (resource: { key: string; fetcher: () => void }) =>
-          getResource(resource, query, searchParams, queryClient),
+          queryParser(resource, query, queryClient),
         requiredResources
       )
     );

@@ -11,13 +11,13 @@ interface GetParametersType<T> {
 
 // baseURL + 사용자 정의 url + 사용자 정의 queryParams
 // ex: "https://@@@.com" + "/board" + "?id=0&category_id=0&visible_status=Y&currentPage=1&numPerPage=10"
-function getUrl(url: string) {
+export function getUrl(url: string) {
   if (url.includes("/")) return url;
   if (!url.includes("/")) return `/${url}`;
   return "";
 }
 
-function getQueryString<T>(params?: T) {
+export function getQueryString<T>(params?: T) {
   if (!params) return "";
 
   if (typeof params === "string") return `?${params}`;
