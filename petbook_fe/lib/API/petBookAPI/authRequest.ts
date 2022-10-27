@@ -8,9 +8,12 @@ export default class AuthAPI {
 
   public client: AxiosInstance;
 
-  constructor(uri: string, client: AxiosInstance) {
+  private initBaseUrl = "";
+
+  constructor(initBaseUrl: string, uri: string, client: AxiosInstance) {
     this.uri = uri;
     this.client = client;
+    this.initBaseUrl = initBaseUrl;
   }
 
   // public login_check = (params: any, config?: { headerObj?: object }) => {};
@@ -32,7 +35,9 @@ export default class AuthAPI {
     config?: { headerObj?: object }
   ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: `${this.uri}/login`,
+      uri: `${typeof window === "undefined" ? this.initBaseUrl : ""}${
+        this.uri
+      }/login`,
       headerObj: config?.headerObj,
     });
 
@@ -71,7 +76,9 @@ export default class AuthAPI {
     config?: { headerObj?: object }
   ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: `${this.uri}/user/register`,
+      uri: `${typeof window === "undefined" ? this.initBaseUrl : ""}${
+        this.uri
+      }/user/register`,
       headerObj: config?.headerObj,
     });
 
