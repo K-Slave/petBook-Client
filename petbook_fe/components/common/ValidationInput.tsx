@@ -1,3 +1,4 @@
+import { ChangeEventHandler } from "react";
 import { useSetRecoilState } from "recoil";
 import { userState } from "atoms/pageAtoms/login/userState";
 interface ValidationProps {
@@ -6,11 +7,10 @@ interface ValidationProps {
 }
 
 const ValidationInput = ({ current, axiosValue }: ValidationProps) => {
-  console.log("d");
   const setUserState = useSetRecoilState(userState);
 
-  const onChange = (e: object) => {
-    if (axiosValue) {
+  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    if (axiosValue !== "") {
       setUserState((user) => ({
         ...user,
         [`${axiosValue}`]: e.target.value,
