@@ -32,7 +32,6 @@ export default function useResource<T, P, C>(resource: {
 export function createResource<T, P, C>(resource: {
   key: string;
   fetcher: (params?: P, config?: C) => Promise<T>;
-  initBaseUrl: string;
 }) {
   return resource;
 }
