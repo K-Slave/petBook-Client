@@ -63,9 +63,14 @@ NextApp.getInitialProps = async (context: AppContext) => {
   // 쿠키 획득
   const allCookies = cookies(ctx);
 
-  // 쿠키 만료기간 현재 접속 시각으로부터 30일 갱신
   if (allCookies && allCookies.petBookUser) {
-    Cookies.set("petBookUser", allCookies.petBookUser, { expires: 30 });
+    Cookies.remove("petBookUser");
+
+    // 보안 옵션을 추가한 쿠키를 현재 접속 시각으로부터 30일 갱신
+    ctx.res?.setHeader(
+      "Set-Cookie",
+      `petBookUser=${allCookies.petBookUser}; SameSite=Strict; Max-Age=2592000; secure; httpOnly`
+    );
   }
 
   const queryClient = new QueryClient({
