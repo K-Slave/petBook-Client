@@ -1,69 +1,62 @@
+import QuillWrapper from "@components/common/Editor/QuillWrapper";
 import { ChangeEventHandler } from "react";
 import { useSetRecoilState } from "recoil";
-import styled from "styled-components";
 import writeState from "../../atoms/pageAtoms/community/writeState";
-import WriteEditor from "./WriteEditor";
-
-const WriteFormSection = styled.section`
-  display: grid;
-  grid-template-columns: 4.2995fr 1fr;
-  /* grid-template-columns: 847px 197px; */
-
-  width: 100%;
-  max-width: 1064px;
-
-  grid-row-gap: 20px;
-  grid-column-gap: 20px;
-
-  nav {
-    grid-row-start: 1;
-    grid-row-end: 3;
-    grid-column-start: 2;
-    grid-column-end: 3;
-  }
-`;
-
-const WriteFormInput = styled.input`
-  width: 100%;
-  max-width: 847px;
-  height: 70px;
-
-  padding: 12px 15px;
-
-  border: 1px solid #f5edde;
-  box-sizing: border-box;
-  border-radius: 12px;
-
-  &::placeholder {
-    pointer-events: none;
-
-    font-style: italic;
-    line-height: 1.3;
-    color: rgba(0, 0, 0, 0.6);
-  }
-`;
-
-const WriteFormNav = styled.nav`
-  width: 100%;
-  max-width: 197px;
-  height: 461px;
-
-  background-color: #fff5e3;
-`;
+import {
+  WriteEditorDiv,
+  WriteTitleInput,
+  WriteFormSection,
+  WriteGuideDiv,
+} from "./styled/styledWriteForm";
 
 const WriteForm = () => {
+  return (
+    <WriteFormSection>
+      <WriteForm.Input />
+      <WriteForm.Guide />
+      <WriteForm.Editor />
+    </WriteFormSection>
+  );
+};
+
+const Input = () => {
   const setWrite = useSetRecoilState(writeState);
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setWrite((write) => ({ ...write, inputTitle: e.target.value }));
   };
 
   return (
-    <WriteFormSection>
-      <WriteFormInput placeholder="제목을 입력하세요" onChange={onChange} />
-      <WriteFormNav />
-      <WriteEditor />
-    </WriteFormSection>
+    <WriteTitleInput
+      className="Write__Input"
+      placeholder="제목을 입력하세요"
+      onChange={onChange}
+    />
   );
 };
+
+const Guide = () => {
+  return <WriteGuideDiv className="Write__Guide" />;
+};
+
+const Editor = () => {
+  const setWrite = useSetRecoilState(writeState);
+  const onChange = (value: string) => {
+    setWrite((write) => ({ ...write, inputContent: value }));
+  };
+
+  return (
+    <WriteEditorDiv className="">
+      <QuillWrapper
+        theme="snow"
+        onChange={onChange}
+        placeholder={`내용을 입력하세요\n\n\n* 등록한 글은 커뮤니티에서 사용중인 닉네임으로 등록됩니다.`}
+      />
+    </WriteEditorDiv>
+  );
+};
+
+WriteForm.Input = Input;
+WriteForm.Guide = Guide;
+WriteForm.Editor = Editor;
 
 export default WriteForm;
