@@ -9,14 +9,13 @@ export default function navigator(
     locale?: string | false;
     scroll?: boolean;
   },
-  thenCallback?: ((value: void) => void | PromiseLike<void>) | null | undefined,
+  thenCallback?:
+    | ((value: boolean) => boolean | PromiseLike<boolean>)
+    | null
+    | undefined,
   catchCallback?: ((reason: any) => void | PromiseLike<void>) | null | undefined
 ) {
-  const navigate = async () => {
-    await Router.push(url, as, options);
-  };
-
-  navigate()
+  Router.push(url, as, options)
     .then(thenCallback)
     .catch(catchCallback || ((e) => console.error(e)));
 }
