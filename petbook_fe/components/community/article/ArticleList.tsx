@@ -6,13 +6,9 @@ import { usePage } from "@lib/hooks/usePagination";
 import useResource from "@lib/hooks/useResource";
 import { ARTICLE_LIST } from "@pages/community";
 import localConsole from "@lib/utils/localConsole";
-import { ItemProps } from "./ArticleItem";
+import ArticleItem from "./ArticleItem";
 
-interface Props {
-  Item: (props: ItemProps) => JSX.Element;
-}
-
-const ArticleList = ({ Item }: Props) => {
+const ArticleList = () => {
   const limit = useRef(10);
   const category = useRecoilValue(categoryState);
   const page = usePage();
@@ -33,7 +29,7 @@ const ArticleList = ({ Item }: Props) => {
   return (
     <ArticleListDiv>
       {posts.map((post) => (
-        <Item post={post} key={post.id} />
+        <ArticleItem post={post} key={post.id} />
       ))}
     </ArticleListDiv>
   );
