@@ -3,11 +3,11 @@ import Link from "next/link";
 import styled from "styled-components";
 import TagList from "../TagList";
 
-export interface ItemProps {
+interface Props {
   post: ArticleResponse;
 }
 
-const ArticleItem = ({ post }: ItemProps) => {
+const ArticleItem = ({ post }: Props) => {
   const { id, title, content, user, tags, stat } = post;
   const previewImage = "";
   const date = "2022-02-03";
