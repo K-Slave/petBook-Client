@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import CommunitySection from "../CommunitySection";
 import ArticleList from "./ArticleList";
-import ArticleItem from "./ArticleItem";
 import PaginationButton from "./PaginationButton";
 import CategoryFilter from "./CategoryFilter";
 import SortFilter from "./SortFilter";
@@ -16,7 +15,7 @@ const ArticleListSection = () => {
         <ArticleListSection.CategoryFilter />
         <ArticleListSection.SortFilter />
       </ArticleListSectionDiv>
-      <ArticleListSection.List Item={ArticleListSection.Item} />
+      <ArticleListSection.List />
       <ArticleListSection.ButtonBox />
     </CommunitySection>
   );
@@ -25,7 +24,6 @@ const ArticleListSection = () => {
 ArticleListSection.CategoryFilter = CategoryFilter;
 ArticleListSection.SortFilter = SortFilter;
 ArticleListSection.List = ArticleList;
-ArticleListSection.Item = ArticleItem;
 ArticleListSection.ButtonBox = PaginationButton;
 
 const ArticleListSectionDiv = styled.div`
