@@ -14,6 +14,6 @@ export default function useButtonOffset({
     } else if (currentPage < offset) {
       setOffset((oldOffset) => oldOffset - btnNum);
     }
-  }, [currentPage, offset]);
+  }, [currentPage]);
   return offset;
 }
