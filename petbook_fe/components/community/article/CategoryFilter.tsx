@@ -6,6 +6,30 @@ import { CATEGORY_LIST } from "@pages/community";
 import { useRecoilState } from "recoil";
 import styled, { css } from "styled-components";
 
+const CategoryFilter = () => {
+  let categories: CategoryListResponse = [];
+  const { data, status } = useResource(CATEGORY_LIST);
+  if (status === "success") {
+    categories = [{ id: 0, name: "전체" }, ...data.data];
+  }
+  const [selectedCategory, setSelectedCategory] = useRecoilState(categoryState);
+  return (
+    <CategoryFilterDiv>
+      {status === "success"
+        ? categories.map((category) => (
+            <CategoryFilterButton
+              selected={category.id === selectedCategory.id}
+              key={category.id}
+              onClick={() => setSelectedCategory(category)}
+            >
+              {category.name}
+            </CategoryFilterButton>
+          ))
+        : null}
+    </CategoryFilterDiv>
+  );
+};
+
 const selectedStyle = css`
   padding: 8px 22px;
 
@@ -35,29 +59,5 @@ const CategoryFilterButton = styled.button<{ selected: boolean }>`
 
   font-size: 20px;
 `;
-
-const CategoryFilter = () => {
-  let categories: CategoryListResponse = [];
-  const { data, status } = useResource(CATEGORY_LIST);
-  if (status === "success") {
-    categories = [{ id: 0, name: "전체" }, ...data.data];
-  }
-  const [selectedCategory, setSelectedCategory] = useRecoilState(categoryState);
-  return (
-    <CategoryFilterDiv>
-      {status === "success"
-        ? categories.map((category) => (
-            <CategoryFilterButton
-              selected={category.id === selectedCategory.id}
-              key={category.id}
-              onClick={() => setSelectedCategory(category)}
-            >
-              {category.name}
-            </CategoryFilterButton>
-          ))
-        : null}
-    </CategoryFilterDiv>
-  );
-};
 
 export default CategoryFilter;
