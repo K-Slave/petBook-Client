@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import useButtonOffset from "@lib/hooks/useButtonOffset";
 import usePagination from "@lib/hooks/usePagination";
+import getRandomKey from "@lib/utils/getRandomKey";
 
 const PaginationButton = () => {
   const numPages = useRef(10);
@@ -27,8 +28,7 @@ const PaginationButton = () => {
         .slice(offset, btnNum.current + offset)
         .map((_, i) => (
           <StyledPaginationButton
-            // eslint-disable-next-line react/no-array-index-key
-            key={i + offset}
+            key={getRandomKey()}
             onClick={() => changeCurrentPage(i + offset)}
             selected={currentPage === offset + i}
           >
