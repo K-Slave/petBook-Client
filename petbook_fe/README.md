@@ -58,6 +58,10 @@
 > 이때 모두 파일로 나누게 되면 가독성이 좋지 못합니다. \
 > 그때 사용해주시면 되겠습니다. 생각보다 가독성이 많이 좋아집니다.
 
+- Custom Hook 으로 컴포넌트 내의 로직을 모듈화 합니다.
+
+- Hook 이 필요없는 경우도 함수로 모듈화 합니다.
+
 ```
 const Header = () => {
   const [open, setOpen] = useState<boolean>(false);
