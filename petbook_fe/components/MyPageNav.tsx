@@ -45,6 +45,7 @@ const MyPageItem = styled.li<{ current: number; menuId: number }>`
   padding: 1rem 0;
   text-decoration: ${({ current, menuId }) =>
     current === menuId ? "underline" : "none"};
+
   cursor: pointer;
   & + & {
     margin-top: 0.5rem;
@@ -77,12 +78,12 @@ export const MYPAGE_MENUS = [
   },
 ];
 
-function MyPageNav({
+const MyPageNav = ({
   current,
   setCurrent,
   showNav,
   handleCloseNav,
-}: MyPageNavProps) {
+}: MyPageNavProps) => {
   const onClick = (id: number) => {
     setCurrent(id);
     handleCloseNav();
@@ -107,6 +108,6 @@ function MyPageNav({
       <Button>회원탈퇴</Button>
     </SideNav>
   );
-}
+};
 
 export default MyPageNav;
