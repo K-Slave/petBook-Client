@@ -18,20 +18,17 @@ const WriteCategory = () => {
   return (
     <WriteCategorySection>
       <p className="Category__Section__Title">카테고리를 선택해주세요</p>
-      <WriteCategory.List Button={WriteCategory.Item} />
+      <WriteCategory.List />
     </WriteCategorySection>
   );
 };
 
-interface ListProps {
-  Button: React.MemoExoticComponent<(props: ItemProps) => JSX.Element>;
-}
-
-const List = ({ Button }: ListProps) => {
-  const router = useRouter();
-  const setWrite = useSetRecoilState(writeState);
+const List = () => {
   const { data } =
     useQuery<AxiosResponse<CategoryListResponse>>("CATEGORY_LIST");
+  const router = useRouter();
+  const setWrite = useSetRecoilState(writeState);
+
   const categoryList = data?.data as CategoryListResponse;
 
   const [selected, setSelected] = useState(
@@ -44,14 +41,6 @@ const List = ({ Button }: ListProps) => {
     const value = e.currentTarget.childNodes[0].textContent;
     const resultValue = value || categoryList[categoryList.length - 1].name;
 
-    navigator(
-      `/community/write?page=${
-        categoryList.findIndex((elem) => elem.name === resultValue) + 1
-      }`,
-      undefined,
-      { shallow: true }
-    );
-
     setSelected(resultValue);
     setWrite((write) => ({
       ...write,
@@ -62,7 +51,7 @@ const List = ({ Button }: ListProps) => {
   return (
     <ListDiv className="Category__Keyword__List">
       {categoryList.map((keyword, idx) => (
-        <Button
+        <WriteCategory.Item
           key={keyword.name}
           keyword={keyword.name}
           selected={selected}
