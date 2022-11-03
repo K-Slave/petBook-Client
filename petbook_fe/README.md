@@ -62,6 +62,10 @@
 
 - Hook 이 필요없는 경우도 함수로 모듈화 합니다.
 
+- styled 변수들은 component 내의 styled 폴더안에 만들어줍니다.
+
+- 재사용 컴포넌트는 파일안에 style 과 type 등이 모두 있어야 됩니다.
+
 ```
 const Header = () => {
   const [open, setOpen] = useState<boolean>(false);
