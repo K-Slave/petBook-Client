@@ -12,10 +12,10 @@ const ArticleListSection = () => {
       description="실시간 업로드되는 유저들의 이야기"
     >
       <ArticleListSectionDiv>
-        <ArticleListSection.CategoryFilter />
+        <ArticleListSection.CategoryFilter /> {/** categoryState atom 공유 */}
         <ArticleListSection.SortFilter />
       </ArticleListSectionDiv>
-      <ArticleListSection.List />
+      <ArticleListSection.List /> {/** categoryState atom 공유 */}
       <ArticleListSection.ButtonBox />
     </CommunitySection>
   );
