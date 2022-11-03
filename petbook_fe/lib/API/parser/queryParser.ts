@@ -32,7 +32,7 @@ export default async function queryParser(
     case "ARTICLE_ITEM": {
       const path = queryParams.articleId as string;
       await client.fetchQuery(`${resource.key}_${path}`, () =>
-        resource.fetcher(path)
+        resource.fetcher(`/${path}`)
       );
       break;
     }
