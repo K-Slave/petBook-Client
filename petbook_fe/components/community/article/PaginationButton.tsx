@@ -3,6 +3,46 @@ import styled, { css } from "styled-components";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import useButtonOffset from "@lib/hooks/useButtonOffset";
 import usePagination from "@lib/hooks/usePagination";
+import getRandomKey from "@lib/utils/getRandomKey";
+
+const PaginationButton = () => {
+  const numPages = useRef(10);
+  const { currentPage, changeCurrentPage } = usePagination(numPages.current);
+  const btnNum = useRef(10);
+  const offset = useButtonOffset({ btnNum: btnNum.current, currentPage });
+  const onClickPrev = () => {
+    changeCurrentPage(offset - btnNum.current);
+  };
+  const onClickNext = () => {
+    changeCurrentPage(offset + btnNum.current);
+  };
+  return (
+    <PaginationButtonDiv>
+      {offset !== 1 && (
+        <button onClick={onClickPrev} type="button">
+          <FiChevronLeft />
+        </button>
+      )}
+      {Array(numPages.current + 1)
+        .fill(1)
+        .slice(offset, btnNum.current + offset)
+        .map((_, i) => (
+          <StyledPaginationButton
+            key={getRandomKey()}
+            onClick={() => changeCurrentPage(i + offset)}
+            selected={currentPage === offset + i}
+          >
+            {i + offset}
+          </StyledPaginationButton>
+        ))}
+      {btnNum.current + offset < numPages.current && (
+        <button onClick={onClickNext} type="button">
+          <FiChevronRight />
+        </button>
+      )}
+    </PaginationButtonDiv>
+  );
+};
 
 const PaginationButtonDiv = styled.div`
   display: flex;
@@ -31,48 +71,5 @@ const StyledPaginationButton = styled.button<{ selected: boolean }>`
 
   font-size: 16px;
 `;
-
-interface Props {
-  numPages: number;
-}
-
-const PaginationButton = ({ numPages }: Props) => {
-  const { currentPage, changeCurrentPage } = usePagination(numPages);
-  const btnNum = useRef(10);
-  const offset = useButtonOffset({ btnNum: btnNum.current, currentPage });
-  const onClickPrev = () => {
-    changeCurrentPage(offset - btnNum.current);
-  };
-  const onClickNext = () => {
-    changeCurrentPage(offset + btnNum.current);
-  };
-  return (
-    <PaginationButtonDiv>
-      {offset !== 1 && (
-        <button onClick={onClickPrev} type="button">
-          <FiChevronLeft />
-        </button>
-      )}
-      {Array(numPages + 1)
-        .fill(1)
-        .slice(offset, btnNum.current + offset)
-        .map((_, i) => (
-          <StyledPaginationButton
-            // eslint-disable-next-line react/no-array-index-key
-            key={i + offset}
-            onClick={() => changeCurrentPage(i + offset)}
-            selected={currentPage === offset + i}
-          >
-            {i + offset}
-          </StyledPaginationButton>
-        ))}
-      {btnNum.current + offset < numPages && (
-        <button onClick={onClickNext} type="button">
-          <FiChevronRight />
-        </button>
-      )}
-    </PaginationButtonDiv>
-  );
-};
 
 export default PaginationButton;
