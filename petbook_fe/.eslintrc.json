@@ -64,6 +64,7 @@
     "@typescript-eslint/require-await": "off",
     "prefer-const": "warn",
     "no-param-reassign": "warn",
+    "react/jsx-indent": "off",
     "no-use-before-define": [
       "off",
       {
