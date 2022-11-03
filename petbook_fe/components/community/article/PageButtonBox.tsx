@@ -5,7 +5,7 @@ import useButtonOffset from "@lib/hooks/useButtonOffset";
 import usePagination from "@lib/hooks/usePagination";
 import getRandomKey from "@lib/utils/getRandomKey";
 
-const PaginationButton = () => {
+const PageButtonBox = () => {
   const numPages = useRef(10);
   const { currentPage, changeCurrentPage } = usePagination(numPages.current);
   const btnNum = useRef(10);
@@ -17,7 +17,7 @@ const PaginationButton = () => {
     changeCurrentPage(offset + btnNum.current);
   };
   return (
-    <PaginationButtonDiv>
+    <PageButtonBoxDiv>
       {offset !== 1 && (
         <button onClick={onClickPrev} type="button">
           <FiChevronLeft />
@@ -27,24 +27,24 @@ const PaginationButton = () => {
         .fill(1)
         .slice(offset, btnNum.current + offset)
         .map((_, i) => (
-          <StyledPaginationButton
+          <PageButton
             key={getRandomKey()}
             onClick={() => changeCurrentPage(i + offset)}
             selected={currentPage === offset + i}
           >
             {i + offset}
-          </StyledPaginationButton>
+          </PageButton>
         ))}
       {btnNum.current + offset < numPages.current && (
         <button onClick={onClickNext} type="button">
           <FiChevronRight />
         </button>
       )}
-    </PaginationButtonDiv>
+    </PageButtonBoxDiv>
   );
 };
 
-const PaginationButtonDiv = styled.div`
+const PageButtonBoxDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,7 +60,7 @@ const selectedStyle = css`
   color: #fff;
 `;
 
-const StyledPaginationButton = styled.button<{ selected: boolean }>`
+const PageButton = styled.button<{ selected: boolean }>`
   ${({ selected }) => selected && selectedStyle};
   display: flex;
   justify-content: center;
@@ -72,4 +72,4 @@ const StyledPaginationButton = styled.button<{ selected: boolean }>`
   font-size: 16px;
 `;
 
-export default PaginationButton;
+export default PageButtonBox;
