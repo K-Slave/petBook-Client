@@ -40,5 +40,5 @@
 
 #### 22.11.03
 
-- random key값을 반환하는 getRandomKey 유틸함수 구현 (Date 객체의 getTime 메서드와 Math 객체의 random 메서드 이용)
-- 커뮤니티 게시물 리스트 관련 컴포넌트들 compound component pattern으로 리팩토링 중
+- random key값을 반환하는 `getRandomKey` 유틸함수 구현 (Date 객체의 getTime 메서드와 Math 객체의 random 메서드 이용)
+- 커뮤니티 게시물 리스트 관련 컴포넌트들 `compound component pattern`으로 리팩토링 중
