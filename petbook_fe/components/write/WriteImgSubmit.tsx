@@ -25,9 +25,9 @@ const WriteImgSubmitSection = styled.section`
 const WriteImgSubmit = () => {
   return (
     <WriteImgSubmitSection>
-      <label className='Img__Section__Title'>이미지 첨부</label>
+      <label className="Img__Section__Title">이미지 첨부</label>
       <button>
-        <BsPlus className='Img__Section__Icon' />
+        <BsPlus className="Img__Section__Icon" />
       </button>
     </WriteImgSubmitSection>
   );

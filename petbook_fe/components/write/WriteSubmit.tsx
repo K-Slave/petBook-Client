@@ -33,12 +33,11 @@ const WriteSubmitButton = styled(Button)`
 
 const WriteSubmit = () => {
   console.log("Submit render");
+  const { data, isLoading, isError, isSuccess, mutate } =
+    useSetResource(BOARD_CREATE);
 
   const [input, setInput] = useState({ inputTitle: "", inputContent: "" });
   const setWrite = useSetRecoilState(writeState);
-
-  const { data, isLoading, isError, isSuccess, mutate } =
-    useSetResource(BOARD_CREATE);
 
   const onClick: MouseEventHandler<HTMLButtonElement> = () => {
     setWrite((write) => {
