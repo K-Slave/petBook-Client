@@ -7,6 +7,7 @@ const QuillLoader = dynamic(() => import("react-quill"), {
   loading: () => <p>Loading ...</p>,
 });
 
+/** */
 type Props = {
   theme?: "snow" | "bubble" | undefined;
   onChange: (value: string) => void;
