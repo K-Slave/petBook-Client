@@ -63,11 +63,11 @@ const StyledImage = styled.img<{
   object-fit: cover;
   transition: all 0.2s ease-in-out;
   transform: ${({ position, index }) =>
-    position === "current"
+    (position === "current"
       ? `translateX(${-(index * 100)}%)`
       : position === "prev"
       ? `translateX(${-(index * 100) - 100}%)`
-      : `translateX(${-(index * 100) + 100}%)`};
+      : `translateX(${-(index * 100) + 100}%)`)};
   opacity: ${({ position }) => (position === "current" ? "1" : "0")};
 `;
 
@@ -80,7 +80,7 @@ const Bar = styled.button<{ current: boolean }>`
   border-radius: 24px;
   height: 6px;
   ${({ current }) =>
-    current
+    (current
       ? css`
           width: 80px;
           background-color: #000;
@@ -88,7 +88,7 @@ const Bar = styled.button<{ current: boolean }>`
       : css`
           width: 15px;
           background-color: #fff;
-        `}
+        `)}
 `;
 
 const ImageSliderModal = () => {
