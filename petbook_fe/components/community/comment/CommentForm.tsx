@@ -4,8 +4,8 @@ import {
   CommentState,
   commentState,
 } from "@atoms/pageAtoms/community/commentState";
-import useChangeComment from "../../../lib/hooks/useChangeComment";
-import useSubmitComment from "../../../lib/hooks/useSubmitComment";
+import useChangeComment from "@lib/hooks/useChangeComment";
+import useSubmitComment from "@lib/hooks/useSubmitComment";
 import {
   CommentFormBox,
   StyledSubmitButton,
