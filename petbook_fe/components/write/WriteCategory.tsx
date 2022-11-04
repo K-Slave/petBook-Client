@@ -1,5 +1,4 @@
 import { CategoryListResponse } from "@lib/API/petBookAPI/types/categoryRequestSpr";
-import navigator from "@lib/modules/navigator";
 import { AxiosResponse } from "axios";
 import { useRouter } from "next/router";
 import React, { MouseEventHandler, useState } from "react";
@@ -26,20 +25,15 @@ const WriteCategory = () => {
 const List = () => {
   const { data } =
     useQuery<AxiosResponse<CategoryListResponse>>("CATEGORY_LIST");
-  const router = useRouter();
   const setWrite = useSetRecoilState(writeState);
 
   const categoryList = data?.data as CategoryListResponse;
 
-  const [selected, setSelected] = useState(
-    router?.query.page
-      ? categoryList[Number(router?.query.page) - 1].name
-      : categoryList[0].name
-  );
+  const [selected, setSelected] = useState(categoryList[0].name);
 
   const onClick: MouseEventHandler = (e) => {
     const value = e.currentTarget.childNodes[0].textContent;
-    const resultValue = value || categoryList[categoryList.length - 1].name;
+    const resultValue = value || categoryList[0].name;
 
     setSelected(resultValue);
     setWrite((write) => ({
