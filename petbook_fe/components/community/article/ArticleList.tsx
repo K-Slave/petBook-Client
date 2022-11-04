@@ -56,17 +56,17 @@ const Item = ({ post }: ItemProps) => {
   return (
     <Link href={`/community/${id}`} passHref>
       <Article>
-        <div className="ArticleItem_column">
-          <div className="ArticleItem_userInfo">
+        <div className="ArticleItem_Column">
+          <div className="ArticleItem_UserInfo">
             <ArticleItemAvatar />
-            <p className="ArticleItem_nickname">{user.nickname}</p>
-            <p className="ArticleItem_date">{date}</p>
+            <p className="ArticleItem_Nickname">{user.nickname}</p>
+            <p className="ArticleItem_Date">{date}</p>
           </div>
           <ArticleItemDiv>
             <h3>{title}</h3>
-            <p className="ArticleItem_content">{content}</p>
+            <p className="ArticleItem_Content">{content}</p>
             <TagList tags={tags} width={65} height={26} fontSize={14} />
-            <p className="ArticleItem_stats">
+            <p className="ArticleItem_Stats">
               <span>공감수 {stat.likeCount}</span>
               <span>/</span>
               <span>클릭수 {stat.viewCount}</span>

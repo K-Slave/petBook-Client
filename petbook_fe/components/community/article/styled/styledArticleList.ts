@@ -12,21 +12,21 @@ const Article = styled.article`
   border-radius: 16px;
   background: #ffffff;
   cursor: pointer;
-  .ArticleItem_column {
+  .ArticleItem_Column {
     padding: 32px 35px 28px 37px;
   }
-  .ArticleItem_userInfo {
+  .ArticleItem_UserInfo {
     display: flex;
     align-items: center;
     gap: 7px;
     margin-bottom: 6px;
     font-weight: 500;
-    .ArticleItem_nickname {
+    .ArticleItem_Nickname {
       font-weight: 700;
       font-size: 14px;
       line-height: 17px;
     }
-    .ArticleItem_date {
+    .ArticleItem_Date {
       margin-top: 1px;
       font-size: 12px;
       color: #777777;
@@ -55,7 +55,7 @@ const ArticleItemDiv = styled.div`
     font-weight: 500;
     font-size: 20px;
   }
-  .ArticleItem_content {
+  .ArticleItem_Content {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -67,7 +67,7 @@ const ArticleItemDiv = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .ArticleItem_stats {
+  .ArticleItem_Stats {
     display: flex;
     align-items: center;
     gap: 3px;
