@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 
 import { createRequest, useSetResource } from "@lib/hooks/useResource";
-import { authRequest } from "@lib/API/petBookAPI";
+import { registerRequest } from "@lib/API/petBookAPI";
 import { userState } from "@atoms/pageAtoms/login/userState";
 
 const Main = styled.main`
@@ -101,7 +101,7 @@ const Register = () => {
   const user = useRecoilValue(userState);
   const REGISTER_CREATE = createRequest({
     key: "REGISTER_CREATE",
-    requester: authRequest.register,
+    requester: registerRequest.register,
   });
 
   const router = useRouter();
