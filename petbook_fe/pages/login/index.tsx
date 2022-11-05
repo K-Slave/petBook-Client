@@ -13,16 +13,16 @@ import InduceSign from "@components/login/InduceSign";
 import TopNav from "@components/TopNav";
 
 const Main = styled.main`
-  height: calc(100vh - 61px);
-  overflow: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: calc(100vh - 61px);
+  overflow: auto;
   background-color: var(--bg);
   h1 {
+    margin-bottom: 40px;
     font-size: 25px;
     font-weight: normal;
-    margin-bottom: 40px;
   }
 `;
 
@@ -30,31 +30,31 @@ const NotLogin = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #b6b6b6;
-  font-size: 20px;
   margin-bottom: 55px;
+  font-size: 20px;
+  color: #b6b6b6;
   svg {
-    font-size: 55px;
     margin-bottom: 25px;
+    font-size: 55px;
   }
 `;
 
 const LoginWrap = styled.div`
-  width: 679px;
   position: relative;
+  width: 679px;
   margin: 0 auto;
   margin-top: 194px;
   figure.pass_guide {
-    text-align: center;
     margin-top: 28px;
+    text-align: center;
     p {
       display: inline;
       font-size: 18px;
     }
     a {
-      margin-left: 8px;
-      padding: 0;
       display: inline;
+      padding: 0;
+      margin-left: 8px;
       font-size: 18px;
       font-weight: 400;
       color: #111;
@@ -62,23 +62,23 @@ const LoginWrap = styled.div`
     }
   }
   a {
-    width: 100%;
     display: block;
+    width: 100%;
     padding: 20px 0;
+    margin-bottom: 12px;
+    border-radius: 12px;
     text-align: center;
     font-weight: 700;
     font-size: 20px;
-    border-radius: 12px;
-    margin-bottom: 12px;
-    box-sizing: border-box;
     color: white;
+    box-sizing: border-box;
     &:last-child {
       margin-bottom: 0;
     }
     &.email {
       padding: 28px 0;
-      background-color: var(--main);
       margin-bottom: 60px;
+      background-color: var(--main);
     }
     &.naver {
       background-color: #41d97e;
