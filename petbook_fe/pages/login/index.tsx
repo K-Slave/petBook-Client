@@ -1,12 +1,10 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
-import HtmlHeader from "@components/common/HtmlHeader";
 
-import LoginForm from "@components/login/LoginSubmit";
+import LoginSubmit from "@components/login/LoginSubmit";
 
 import styled from "styled-components";
 import { BsCheckCircleFill } from "react-icons/bs";
-import TopNav from "@components/TopNav";
 
 const Main = styled.main`
   display: flex;
@@ -93,37 +91,36 @@ const Login = () => {
 
   const isRedirect = router.query.redirect;
   return (
-    <>
-      <HtmlHeader />
-      <TopNav />
-      <Main>
-        <LoginWrap>
-          {isRedirect ? (
-            <NotLogin>
-              <BsCheckCircleFill />
-              <p>로그인이 필요한 서비스입니다.</p>
-            </NotLogin>
-          ) : isRedirect === undefined ? (
-            <>
-              <div className="login_title">
-                <p>이색동물 유저들의 소통공간, Petbook</p>
-                <h2>로그인 후 다양한 콘텐츠를 즐겨보세요!</h2>
-              </div>
-              <LoginForm.LoginSubmitForm />
-              <LoginForm.LoginSubmitButton />
-              <LoginForm.SocialLogin />
-              <LoginForm.InduceSign />
-              <figure className="pass_guide">
-                <p>비밀번호를 잊으셨나요?</p>
-                <Link href="/password">비밀번호 찾기</Link>
-              </figure>
-            </>
-          ) : (
-            <h2>로그인 완료 / 홈으로 이동</h2>
-          )}
-        </LoginWrap>
-      </Main>
-    </>
+    <Main>
+      <LoginWrap>
+        {isRedirect ? (
+          <NotLogin>
+            <BsCheckCircleFill />
+            <p>로그인이 필요한 서비스입니다.</p>
+          </NotLogin>
+        ) : isRedirect === undefined ? (
+          <>
+            <div className="login_title">
+              <p>이색동물 유저들의 소통공간, Petbook</p>
+              <h2>로그인 후 다양한 콘텐츠를 즐겨보세요!</h2>
+            </div>
+
+            {/*  */}
+
+            <LoginSubmit />
+
+            {/*  */}
+
+            <figure className="pass_guide">
+              <p>비밀번호를 잊으셨나요?</p>
+              <Link href="/password">비밀번호 찾기</Link>
+            </figure>
+          </>
+        ) : (
+          <h2>로그인 완료 / 홈으로 이동</h2>
+        )}
+      </LoginWrap>
+    </Main>
   );
 };
 
