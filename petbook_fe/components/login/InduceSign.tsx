@@ -25,7 +25,7 @@ const InduceSign = () => {
   const router = useRouter();
   return (
     <>
-      <Container onClick={() => router.push("/login/register")}>
+      <Container onClick={() => router.push("/register")}>
         <p>아직 Petbook 계정이 없으신가요?</p>
         <h3>
           회원가입을 통해 Petbook 유저들과 <br /> 소통할 수 있어요!

@@ -122,7 +122,7 @@ const Register = () => {
 
   useEffect(() => {
     if (isSuccess === true) {
-      router.push("/login/register?state=true");
+      router.push("/register?state=true");
     }
   }, [data]);
 
