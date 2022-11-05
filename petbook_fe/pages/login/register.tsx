@@ -1,5 +1,4 @@
-import HtmlHeader from "@components/common/HtmlHeader";
-import TopNav from "@components/TopNav";
+
 import ValidationInput from "@components/common/ValidationInput";
 import PasswordInput from "@components/register/PasswordInput";
 
@@ -130,8 +129,6 @@ const Register = () => {
 
   return (
     <>
-      <HtmlHeader />
-      <TopNav />
       <Main>
         {signActive ? (
           <div className="formWrap small">
