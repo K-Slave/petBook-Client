@@ -1,10 +1,12 @@
 import { NextPage } from "next";
 import styled from "styled-components";
 import WriteForm from "@components/write/WriteForm";
-import WriteImgSubmit from "@components/write/WriteImgSubmit";
+import WriteImgSubmit from "@components/write/WriteImgAttach";
 import WriteHashTags from "@components/write/WriteHashTags";
 import WriteSubmit from "@components/write/WriteSubmit";
 import CategoryContainer from "@containers/write/CategoryContainer";
+import FormContainer from "@containers/write/FormContainer";
+import ImgAttachContainer from "@containers/write/ImgAttachContainer";
 import { createRequest, createResource } from "../../lib/hooks/useResource";
 import { boardRequest, categorySprRequest } from "../../lib/API/petBookAPI";
 
@@ -41,8 +43,8 @@ const Write: NextPage = (pageProps) => {
   return (
     <WriteMain className="Content">
       <CategoryContainer />
-      <WriteForm />
-      <WriteImgSubmit />
+      <FormContainer />
+      <ImgAttachContainer />
       <WriteHashTags />
       <WriteSubmit />
     </WriteMain>
