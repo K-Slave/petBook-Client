@@ -1,6 +1,7 @@
 import { pyPetBookClient, sprPetBookClient } from "../axios/axiosClient";
 import ArticleAPI from "./articleRequest";
 import AuthAPI from "./authRequest";
+import UserAPI from "./userRequest";
 import BoardAPI from "./boardRequest";
 import CategoryAPI from "./categoryRequest";
 import CategorySprAPI from "./categoryRequestSpr";
@@ -35,11 +36,21 @@ export const categoryRequest = new CategoryAPI(
  * @uri '/api/v1'
  * @method login_check(params,config) : GET 미구현
  * @method login(body,config) : POST 로그인 요청
- * @method register(body,config) : POST 회원가입 요청 (분리될수 있음)
+ * @method login_check(params,config) : POST 로그인 요청
  */
 export const authRequest = new AuthAPI(
   process.env.NEXT_PUBLIC_SPR_URL as string,
   "/api/v1",
+  sprPetBookClient
+);
+
+/**
+ * @uri '/api/v1/user'
+ * @method register(body,config) : POST 회원가입 요청
+ */
+export const registerRequest = new UserAPI(
+  process.env.NEXT_PUBLIC_SPR_URL as string,
+  "/api/v1/user",
   sprPetBookClient
 );
 
