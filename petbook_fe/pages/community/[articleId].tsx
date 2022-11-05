@@ -19,7 +19,7 @@ const ArticleDetailMain = styled.main`
   margin: 40px auto;
 `;
 
-const Wrapper = styled.div`
+const ArticleDetailDiv = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -45,10 +45,10 @@ const ArticleDetail: NextPage = () => {
     <>
       <HtmlHeader />
       <ArticleDetailMain>
-        <Wrapper>
+        <ArticleDetailDiv>
           <ArticleSection />
           <CommentSection />
-        </Wrapper>
+        </ArticleDetailDiv>
       </ArticleDetailMain>
       <ImageSliderModal />
     </>
