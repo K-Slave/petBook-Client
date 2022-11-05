@@ -2,11 +2,14 @@ import { NextPage } from "next";
 import React from "react";
 import styled from "styled-components";
 import { articleRequest, categorySprRequest } from "@lib/API/petBookAPI";
-import About from "@components/community/About";
+import AboutSection from "@components/community/AboutSection";
 import WriteButton from "@components/community/WriteButton";
 import SectionContainer from "@containers/SectionContainer";
 import { createResource } from "@lib/hooks/useResource";
-import ArticleListSection from "@components/community/article/ArticleListSection";
+import ArticleFilter from "@components/community/article/ArticleFilter";
+import ArticleList from "@components/community/article/ArticleList";
+import PageButtonBox from "@components/community/article/PageButtonBox";
+import CommunitySection from "@components/community/CommunitySection";
 
 export const ARTICLE_LIST = createResource({
   key: "ARTICLE_LIST",
@@ -22,7 +25,7 @@ const CommunityMain = styled.main`
   background-color: #fffbf4;
 `;
 
-const Sections = styled.div`
+const CommunityDiv = styled.div`
   width: 90vw;
   max-width: 1280px;
 
@@ -33,10 +36,17 @@ const Sections = styled.div`
 const Community: NextPage = () => {
   return (
     <CommunityMain>
-      <About />
-      <Sections>
-        <ArticleListSection />
-      </Sections>
+      <AboutSection />
+      <CommunityDiv>
+        <CommunitySection
+          title="Live talk"
+          description="실시간 업로드되는 유저들의 이야기"
+        >
+          <ArticleFilter />
+          <ArticleList />
+          <PageButtonBox />
+        </CommunitySection>
+      </CommunityDiv>
       <WriteButton />
     </CommunityMain>
   );
