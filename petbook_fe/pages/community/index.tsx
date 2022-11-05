@@ -37,16 +37,14 @@ const Community: NextPage = () => {
   return (
     <CommunityMain>
       <AboutSection />
-      <CommunityDiv>
-        <CommunitySection
-          title="Live talk"
-          description="실시간 업로드되는 유저들의 이야기"
-        >
-          <ArticleFilter />
-          <ArticleList />
-          <PageButtonBox />
-        </CommunitySection>
-      </CommunityDiv>
+      <CommunitySection
+        title="Live talk"
+        description="실시간 업로드되는 유저들의 이야기"
+      >
+        <ArticleFilter />
+        <ArticleList />
+        <PageButtonBox />
+      </CommunitySection>
       <WriteButton />
     </CommunityMain>
   );
