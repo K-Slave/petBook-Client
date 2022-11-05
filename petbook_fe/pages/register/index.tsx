@@ -1,5 +1,3 @@
-import HtmlHeader from "@components/common/HtmlHeader";
-import TopNav from "@components/TopNav";
 import ValidationInput from "@components/common/ValidationInput";
 import PasswordInput from "@components/register/PasswordInput";
 
@@ -10,16 +8,16 @@ import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 
 import { createRequest, useSetResource } from "@lib/hooks/useResource";
-import { authRequest } from "@lib/API/petBookAPI";
-import { userState } from "@atoms/pageAtoms/login/userState";
+import { registerRequest } from "@lib/API/petBookAPI";
+import { registerFormState } from "@atoms/pageAtoms/login/userState";
 
 const Main = styled.main`
-  height: calc(100vh - 61px);
   overflow: auto;
+  height: calc(100vh - 61px);
   background-color: var(--bg);
   .formWrap {
-    max-width: 679px;
     width: 100%;
+    max-width: 679px;
     margin: 0 auto;
     margin-top: 76px;
     margin-bottom: 87px;
@@ -43,9 +41,9 @@ const Main = styled.main`
         position: absolute;
         top: 50%;
         left: 30px;
-        transform: translateY(-50%);
-        color: #000000;
         opacity: 68%;
+        color: #000000;
+        transform: translateY(-50%);
       }
       input {
         padding-left: 140px;
@@ -56,19 +54,19 @@ const Main = styled.main`
       }
     }
     .err_box {
-      color: #ff6e4e;
+      margin-top: 4px;
       font-size: 15px;
       font-weight: 300;
+      color: #ff6e4e;
       line-height: 30px;
-      margin-top: 4px;
     }
 
     &.small {
       max-width: 520px;
       text-align: center;
       p {
-        font-size: 20px;
         margin-bottom: 14px;
+        font-size: 20px;
       }
       h3 {
         margin-bottom: 55px;
@@ -86,24 +84,24 @@ const Main = styled.main`
 
 const SubmitBtn = styled.div`
   width: 100%;
-  margin: 60px 0 0;
   display: block;
+  margin: 60px 0 0;
   padding: 20px 0;
+  border-radius: 12px;
   text-align: center;
   font-weight: 700;
   font-size: 20px;
   color: white;
-  border-radius: 12px;
   box-sizing: border-box;
   background-color: var(--main);
   cursor: pointer;
 `;
 
 const Register = () => {
-  const user = useRecoilValue(userState);
+  const user = useRecoilValue(registerFormState);
   const REGISTER_CREATE = createRequest({
     key: "REGISTER_CREATE",
-    requester: authRequest.register,
+    requester: registerRequest.register,
   });
 
   const router = useRouter();
@@ -117,7 +115,6 @@ const Register = () => {
   };
 
   useEffect(() => {
-    //원래는 쿼리값이 아닌 token값으로 처리해야 하지만 일단 박아놓은 상태
     if (router.query.state === "true") {
       setSignActive(true);
     }
@@ -125,40 +122,47 @@ const Register = () => {
 
   useEffect(() => {
     if (isSuccess === true) {
-      //원래는 쿼리값이 아닌 token값으로 처리해야 하지만 일단 박아놓은 상태
-      router.push("/login/register?state=true");
+      router.push("/register?state=true");
     }
   }, [data]);
 
   return (
-    <>
-      <HtmlHeader />
-      <TopNav />
-      <Main>
-        {signActive ? (
-          <div className="formWrap small">
-            <p>회원가입 완료!</p>
-            <h3>
-              지금부터 우리 동물 관리는 <br /> 펫북과 함께해요!
-            </h3>
-            <div className="submit_sucess_img"></div>
-            <div className="main_color_button" onClick={() => router.push("/")}>
-              홈으로
-            </div>
+    <Main>
+      {signActive ? (
+        <div className="formWrap small">
+          <p>회원가입 완료!</p>
+          <h3>
+            지금부터 우리 동물 관리는 <br /> 펫북과 함께해요!
+          </h3>
+          <div className="submit_sucess_img" />
+          <div className="main_color_button" onClick={() => router.push("/")}>
+            홈으로
           </div>
-        ) : (
-          <div className="formWrap">
-            <ValidationInput axiosValue={"email"} current={"이메일"} />
-            <ValidationInput axiosValue={""} current={"이메일 확인"} />
-            <PasswordInput />
-            <ValidationInput axiosValue={"nickname"} current={"닉네임"} />
-            <SubmitBtn onClick={Sign} className="submitBtn">
-              회원가입
-            </SubmitBtn>
-          </div>
-        )}
-      </Main>
-    </>
+        </div>
+      ) : (
+        <div className="formWrap">
+          <ValidationInput
+            submitType="register"
+            axiosValue="email"
+            current="이메일"
+          />
+          <ValidationInput
+            submitType="register"
+            axiosValue=""
+            current="이메일 확인"
+          />
+          <PasswordInput />
+          <ValidationInput
+            submitType="register"
+            axiosValue="nickname"
+            current="닉네임"
+          />
+          <SubmitBtn onClick={Sign} className="submitBtn">
+            회원가입
+          </SubmitBtn>
+        </div>
+      )}
+    </Main>
   );
 };
 export default Register;
