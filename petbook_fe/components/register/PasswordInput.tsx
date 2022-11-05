@@ -34,7 +34,11 @@ const PasswordInput = () => {
   ];
   return (
     <div>
-      <ValidationInput axiosValue={"password"} current={"비밀번호"} />
+      <ValidationInput
+        submitType={"register"}
+        axiosValue={"password"}
+        current={"비밀번호"}
+      />
       <PassCheckWrap>
         {PassCheckType.map((item: any, index: number) => {
           const type = item.type;

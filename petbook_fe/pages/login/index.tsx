@@ -2,14 +2,10 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import HtmlHeader from "@components/common/HtmlHeader";
 
-//
-import SocialLogin from "@components/login/SocialLogin";
-import EmailLogin from "@components/login/EmailLogin";
+import LoginForm from "@components/login/LoginSubmit";
 
-//
 import styled from "styled-components";
 import { BsCheckCircleFill } from "react-icons/bs";
-import InduceSign from "@components/login/InduceSign";
 import TopNav from "@components/TopNav";
 
 const Main = styled.main`
@@ -113,17 +109,17 @@ const Login = () => {
                 <p>이색동물 유저들의 소통공간, Petbook</p>
                 <h2>로그인 후 다양한 콘텐츠를 즐겨보세요!</h2>
               </div>
-              <SocialLogin />
-              <InduceSign />
+              <LoginForm.LoginSubmitForm />
+              <LoginForm.LoginSubmitButton />
+              <LoginForm.SocialLogin />
+              <LoginForm.InduceSign />
               <figure className="pass_guide">
                 <p>비밀번호를 잊으셨나요?</p>
-                <Link href={"/password"}>비밀번호 찾기</Link>
+                <Link href="/password">비밀번호 찾기</Link>
               </figure>
             </>
           ) : (
-            <>
-              <h2>로그인 완료 / 홈으로 이동</h2>
-            </>
+            <h2>로그인 완료 / 홈으로 이동</h2>
           )}
         </LoginWrap>
       </Main>

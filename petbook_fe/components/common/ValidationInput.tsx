@@ -1,20 +1,44 @@
 import { ChangeEventHandler } from "react";
 import { useSetRecoilState } from "recoil";
-import { userState } from "@atoms/pageAtoms/login/userState";
+import {
+  registerFormState,
+  loginFormState,
+} from "@atoms/pageAtoms/login/userState";
 interface ValidationProps {
   current: String;
   axiosValue: String;
+  submitType?: String;
 }
 
-const ValidationInput = ({ current, axiosValue }: ValidationProps) => {
-  const setUserState = useSetRecoilState(userState);
+const ValidationInput = ({
+  current,
+  axiosValue,
+  submitType,
+}: ValidationProps) => {
+  const setRegisterForm = useSetRecoilState(registerFormState);
+  const setLoginForm = useSetRecoilState(loginFormState);
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (axiosValue !== "") {
-      setUserState((user) => ({
-        ...user,
-        [`${axiosValue}`]: e.target.value,
-      }));
+      switch (submitType) {
+        case "login": {
+          setLoginForm((user) => ({
+            ...user,
+            [`${axiosValue}`]: e.target.value,
+          }));
+          break;
+        }
+        case "register": {
+          setRegisterForm((user) => ({
+            ...user,
+            [`${axiosValue}`]: e.target.value,
+          }));
+          break;
+        }
+        default: {
+          break;
+        }
+      }
     }
   };
 
