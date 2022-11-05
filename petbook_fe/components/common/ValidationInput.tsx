@@ -1,6 +1,6 @@
 import { ChangeEventHandler } from "react";
 import { useSetRecoilState } from "recoil";
-import { userState } from "atoms/pageAtoms/login/userState";
+import { userState } from "@atoms/pageAtoms/login/userState";
 interface ValidationProps {
   current: String;
   axiosValue: String;
