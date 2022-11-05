@@ -9,7 +9,7 @@ import { useRecoilValue } from "recoil";
 
 import { createRequest, useSetResource } from "@lib/hooks/useResource";
 import { registerRequest } from "@lib/API/petBookAPI";
-import { userState } from "@atoms/pageAtoms/login/userState";
+import { registerFormState } from "@atoms/pageAtoms/login/userState";
 
 const Main = styled.main`
   overflow: auto;
@@ -98,7 +98,7 @@ const SubmitBtn = styled.div`
 `;
 
 const Register = () => {
-  const user = useRecoilValue(userState);
+  const user = useRecoilValue(registerFormState);
   const REGISTER_CREATE = createRequest({
     key: "REGISTER_CREATE",
     requester: registerRequest.register,
@@ -127,32 +127,42 @@ const Register = () => {
   }, [data]);
 
   return (
-    <>
-      <Main>
-        {signActive ? (
-          <div className="formWrap small">
-            <p>회원가입 완료!</p>
-            <h3>
-              지금부터 우리 동물 관리는 <br /> 펫북과 함께해요!
-            </h3>
-            <div className="submit_sucess_img"></div>
-            <div className="main_color_button" onClick={() => router.push("/")}>
-              홈으로
-            </div>
+    <Main>
+      {signActive ? (
+        <div className="formWrap small">
+          <p>회원가입 완료!</p>
+          <h3>
+            지금부터 우리 동물 관리는 <br /> 펫북과 함께해요!
+          </h3>
+          <div className="submit_sucess_img" />
+          <div className="main_color_button" onClick={() => router.push("/")}>
+            홈으로
           </div>
-        ) : (
-          <div className="formWrap">
-            <ValidationInput axiosValue={"email"} current={"이메일"} />
-            <ValidationInput axiosValue={""} current={"이메일 확인"} />
-            <PasswordInput />
-            <ValidationInput axiosValue={"nickname"} current={"닉네임"} />
-            <SubmitBtn onClick={Sign} className="submitBtn">
-              회원가입
-            </SubmitBtn>
-          </div>
-        )}
-      </Main>
-    </>
+        </div>
+      ) : (
+        <div className="formWrap">
+          <ValidationInput
+            submitType="register"
+            axiosValue="email"
+            current="이메일"
+          />
+          <ValidationInput
+            submitType="register"
+            axiosValue=""
+            current="이메일 확인"
+          />
+          <PasswordInput />
+          <ValidationInput
+            submitType="register"
+            axiosValue="nickname"
+            current="닉네임"
+          />
+          <SubmitBtn onClick={Sign} className="submitBtn">
+            회원가입
+          </SubmitBtn>
+        </div>
+      )}
+    </Main>
   );
 };
 export default Register;

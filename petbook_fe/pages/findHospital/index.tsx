@@ -3,11 +3,7 @@ import { createResource } from "../../lib/hooks/useResource";
 import MapContainer from "../../components/map/MapContainer";
 
 const FindHospital: NextPage = (initProps: any) => {
-  return (
-    <>
-      <MapContainer />
-    </>
-  );
+  return <MapContainer />;
 };
 
 export default FindHospital;
