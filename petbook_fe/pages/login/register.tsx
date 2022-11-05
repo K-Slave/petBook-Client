@@ -1,4 +1,3 @@
-
 import ValidationInput from "@components/common/ValidationInput";
 import PasswordInput from "@components/register/PasswordInput";
 
@@ -13,12 +12,12 @@ import { authRequest } from "@lib/API/petBookAPI";
 import { userState } from "@atoms/pageAtoms/login/userState";
 
 const Main = styled.main`
-  height: calc(100vh - 61px);
   overflow: auto;
+  height: calc(100vh - 61px);
   background-color: var(--bg);
   .formWrap {
-    max-width: 679px;
     width: 100%;
+    max-width: 679px;
     margin: 0 auto;
     margin-top: 76px;
     margin-bottom: 87px;
@@ -42,9 +41,9 @@ const Main = styled.main`
         position: absolute;
         top: 50%;
         left: 30px;
-        transform: translateY(-50%);
-        color: #000000;
         opacity: 68%;
+        color: #000000;
+        transform: translateY(-50%);
       }
       input {
         padding-left: 140px;
@@ -55,19 +54,19 @@ const Main = styled.main`
       }
     }
     .err_box {
-      color: #ff6e4e;
+      margin-top: 4px;
       font-size: 15px;
       font-weight: 300;
+      color: #ff6e4e;
       line-height: 30px;
-      margin-top: 4px;
     }
 
     &.small {
       max-width: 520px;
       text-align: center;
       p {
-        font-size: 20px;
         margin-bottom: 14px;
+        font-size: 20px;
       }
       h3 {
         margin-bottom: 55px;
@@ -85,14 +84,14 @@ const Main = styled.main`
 
 const SubmitBtn = styled.div`
   width: 100%;
-  margin: 60px 0 0;
   display: block;
+  margin: 60px 0 0;
   padding: 20px 0;
+  border-radius: 12px;
   text-align: center;
   font-weight: 700;
   font-size: 20px;
   color: white;
-  border-radius: 12px;
   box-sizing: border-box;
   background-color: var(--main);
   cursor: pointer;
