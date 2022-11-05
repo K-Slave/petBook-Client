@@ -34,7 +34,6 @@ export const categoryRequest = new CategoryAPI(
 
 /**
  * @uri '/api/v1'
- * @method login_check(params,config) : GET 미구현
  * @method login(body,config) : POST 로그인 요청
  * @method login_check(params,config) : POST 로그인 요청
  */
