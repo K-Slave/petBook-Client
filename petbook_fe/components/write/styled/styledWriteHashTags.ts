@@ -32,6 +32,21 @@ const WriteHashDiv = styled.div`
   border: 1px solid #f5edde;
   border-radius: 12px;
   box-sizing: border-box;
+
+  /* transition: all 0.15s ease-in-out; */
+
+  &.Error {
+    animation: errorShake 0.1s 3;
+  }
+
+  @keyframes errorShake {
+    50% {
+      transform: translate3d(-3px, 0, 0);
+    }
+    100% {
+      transform: translate3d(3px, 0, 0);
+    }
+  }
 `;
 
 const HashInput = styled.input`
