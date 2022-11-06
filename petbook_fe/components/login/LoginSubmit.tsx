@@ -100,6 +100,11 @@ export const LoginSubmitButton = () => {
     requester: authRequest.login,
   });
 
+  // { test용
+  //   "email": "test@petbook.com",
+  //   "password": "p@55w0rd1!"
+  // }
+
   const { isSuccess, mutate } = useSetResource(LOGIN);
 
   const onSubmit = () => {
