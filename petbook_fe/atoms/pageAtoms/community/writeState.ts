@@ -1,21 +1,24 @@
 import { atom } from "recoil";
 
-export type CategoryFilterType = {
-  selectedCategory: string;
+export interface WriteStateType {
+  selectedCategory: number;
   inputTitle: string;
   inputContent: string;
-};
+  inputHash: string[];
+}
 
 const writeState = atom<{
-  selectedCategory: string;
+  selectedCategory: number;
   inputTitle: string;
   inputContent: string;
+  inputHash: string[];
 }>({
   key: "writeState",
   default: {
-    selectedCategory: "질문과 답변",
+    selectedCategory: 0,
     inputTitle: "",
     inputContent: "",
+    inputHash: [],
   },
 });
 

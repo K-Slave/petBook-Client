@@ -38,7 +38,9 @@ const List = () => {
     setSelected(resultValue);
     setWrite((write) => ({
       ...write,
-      selectedCategory: resultValue,
+      selectedCategory: categoryList.findIndex(
+        (category) => category.name === resultValue
+      ),
     }));
   };
 
