@@ -5,9 +5,9 @@ import {
   loginFormState,
 } from "@atoms/pageAtoms/login/userState";
 interface ValidationProps {
-  current: String;
-  axiosValue: String;
-  submitType?: String;
+  current: string;
+  axiosValue: string;
+  submitType: string;
 }
 
 const ValidationInput = ({
