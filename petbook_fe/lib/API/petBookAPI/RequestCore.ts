@@ -13,9 +13,9 @@ export default class RequestCore {
   public client: AxiosInstance;
 
   constructor(initBaseUrl: string, commonUri: string, client: AxiosInstance) {
+    this.initBaseUrl = initBaseUrl;
     this.commonUri = commonUri;
     this.client = client;
-    this.initBaseUrl = initBaseUrl;
   }
 
   /**
