@@ -1,14 +1,14 @@
 import ValidationInput from "@components/common/ValidationInput";
 import navigator from "@lib/modules/navigator";
+import Link from "next/link";
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-import { Container, ButtonBox } from "./styled/styledLoginSubmit";
-
-const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_PY_URL;
+import { Container, ButtonBox, PassGuide } from "./styled/styledLoginSubmit";
 
 export const SocialLogin = () => {
+  const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_PY_URL;
   const router = useRouter();
 
   const [href, setHref] = useState("");
@@ -58,23 +58,45 @@ export const InduceSign = () => {
   );
 };
 
-export const LoginSubmitButton = () => {
-  const onSubmit = () => {
-    console.log("onSubmit");
-  };
-  return <button onClick={onSubmit}>로그인</button>;
-};
-
 export const LoginSubmitForm = () => {
   return (
-    <form>
-      <ValidationInput submitType="login" axiosValue="email" current="이메일" />
-      <ValidationInput
-        submitType="login"
-        axiosValue="password"
-        current="비밀번호"
-      />
-    </form>
+    <>
+      <div className="login_title">
+        <p>이색동물 유저들의 소통공간, Petbook</p>
+        <h2>로그인 후 다양한 콘텐츠를 즐겨보세요!</h2>
+      </div>
+      <form>
+        <ValidationInput
+          submitType="login"
+          axiosValue="email"
+          current="이메일"
+        />
+        <ValidationInput
+          submitType="login"
+          axiosValue="password"
+          current="비밀번호"
+        />
+      </form>
+    </>
+  );
+};
+
+export const LoginPassGuide = () => {
+  return (
+    <PassGuide>
+      <p>비밀번호를 잊으셨나요?</p>
+      <Link href="/password">비밀번호 찾기</Link>
+    </PassGuide>
+  );
+};
+export const LoginSubmitButton = () => {
+  const onSubmit = (e) => {
+    console.log("onSubmit/test ing", e);
+  };
+  return (
+    <button type="submit" onClick={onSubmit}>
+      로그인
+    </button>
   );
 };
 
@@ -85,6 +107,7 @@ export const LoginSubmit = () => {
       <LoginSubmit.LoginSubmitButton />
       <LoginSubmit.SocialLogin />
       <LoginSubmit.InduceSign />
+      <LoginSubmit.LoginPassGuide />
     </>
   );
 };
@@ -93,5 +116,6 @@ LoginSubmit.LoginSubmitForm = LoginSubmitForm;
 LoginSubmit.LoginSubmitButton = LoginSubmitButton;
 LoginSubmit.SocialLogin = SocialLogin;
 LoginSubmit.InduceSign = InduceSign;
+LoginSubmit.LoginPassGuide = LoginPassGuide;
 
 export default LoginSubmit;
