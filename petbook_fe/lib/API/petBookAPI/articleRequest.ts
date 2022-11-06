@@ -16,6 +16,7 @@ export default class ArticleAPI extends RequestCore {
       title: string;
       content: string;
       categoryId: number;
+      tags: string[];
     },
     config?: { headerObj: object }
   ) => {
