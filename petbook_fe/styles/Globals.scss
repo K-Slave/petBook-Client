@@ -104,7 +104,7 @@ img {
 }
 
 //커스텀 input
-input:not(input[type="radio"]) {
+input:not(input.default) {
   width: 100%;
   border-radius: 16px;
   border: none;
@@ -117,7 +117,7 @@ input:focus {
 }
 input::placeholder {
   color: #797979;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 19.2px;
 }
 
