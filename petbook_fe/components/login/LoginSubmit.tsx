@@ -1,9 +1,13 @@
+import { loginFormState } from "@atoms/pageAtoms/login/userState";
 import ValidationInput from "@components/common/ValidationInput";
+import { authRequest } from "@lib/API/petBookAPI";
+import { createRequest, useSetResource } from "@lib/hooks/useResource";
 import navigator from "@lib/modules/navigator";
 import Link from "next/link";
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 
 import { Container, ButtonBox, PassGuide } from "./styled/styledLoginSubmit";
 
@@ -90,9 +94,18 @@ export const LoginPassGuide = () => {
   );
 };
 export const LoginSubmitButton = () => {
-  const onSubmit = (e) => {
-    console.log("onSubmit/test ing", e);
+  const user = useRecoilValue(loginFormState);
+  const LOGIN = createRequest({
+    key: "LOGIN",
+    requester: authRequest.login,
+  });
+
+  const { isSuccess, mutate } = useSetResource(LOGIN);
+
+  const onSubmit = () => {
+    mutate(user);
   };
+
   return (
     <button type="submit" onClick={onSubmit}>
       로그인
