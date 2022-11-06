@@ -1,6 +1,5 @@
 import { CategoryListResponse } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 import { AxiosResponse } from "axios";
-import { useRouter } from "next/router";
 import React, { MouseEventHandler, useState } from "react";
 import { useQuery } from "react-query";
 import { useSetRecoilState } from "recoil";

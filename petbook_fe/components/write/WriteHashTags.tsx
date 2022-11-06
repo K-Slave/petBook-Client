@@ -2,7 +2,11 @@ import writeState, {
   WriteStateType,
 } from "@atoms/pageAtoms/community/writeState";
 import { replaceHash } from "@lib/modules/replaceHash";
-import React, { KeyboardEventHandler, PropsWithChildren } from "react";
+import React, {
+  KeyboardEventHandler,
+  PropsWithChildren,
+  useState,
+} from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   HashInput,
@@ -14,12 +18,14 @@ import {
 
 // TODO : 최대 5개 구현, 요소가 HashTagBox 넘어가지 않도록 구현
 const WriteHashTags = () => {
+  const [isError, setIsError] = useState(false);
+
   return (
     <WriteHashTagsSection>
       <WriteHashTags.Title />
-      <WriteHashTags.TagBox>
+      <WriteHashTags.TagBox isError={isError} setIsError={setIsError}>
         <WriteHashTags.ListProvider />
-        <WriteHashTags.Input />
+        <WriteHashTags.Input setIsError={setIsError} />
       </WriteHashTags.TagBox>
     </WriteHashTagsSection>
   );
@@ -29,9 +35,25 @@ const Title = () => {
   return <HashTagTitleP className="Hash__Tag__Title">해시태그</HashTagTitleP>;
 };
 
-const TagBox = ({ children }: PropsWithChildren<any>) => {
-  return <WriteHashDiv className="Hash__Tag__Div">{children}</WriteHashDiv>;
-};
+interface TagBoxProps {
+  isError: boolean;
+  setIsError: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const TagBox = React.memo(
+  ({ children, isError, setIsError }: PropsWithChildren<TagBoxProps>) => {
+    return (
+      <WriteHashDiv
+        className={`Hash__Tag__Div ${isError ? "Error" : ""}`}
+        onAnimationEnd={() => {
+          setIsError(false);
+        }}
+      >
+        {children}
+      </WriteHashDiv>
+    );
+  }
+);
 
 const ListProvider = () => {
   const write = useRecoilValue(writeState);
@@ -52,19 +74,50 @@ const RoundBoxList = React.memo(
 );
 
 const RoundBox = React.memo(({ hashTag }: { hashTag: string }) => {
-  return <RoundHashTagButton># {hashTag}</RoundHashTagButton>;
+  const setWrite = useSetRecoilState(writeState);
+
+  const onClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    setWrite((write) => {
+      const textValue = e.currentTarget.textContent?.replace("# ", "");
+
+      const filteredTags = write.inputHash.filter((tag) => tag !== textValue);
+
+      return {
+        ...write,
+        inputHash: filteredTags,
+      };
+    });
+  };
+
+  return <RoundHashTagButton onClick={onClick}># {hashTag}</RoundHashTagButton>;
 });
 
-const Input = () => {
+interface InputProps {
+  setIsError: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Input = ({ setIsError }: InputProps) => {
   const setWrite = useSetRecoilState(writeState);
+
+  // TODO : 비속어 필터, 특수문자 필터, SQLinjection, XSS 등 추가 필터링 해야함
 
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === "Enter" && e.nativeEvent.isComposing === false) {
       setWrite((write) => {
-        replaceHash(e.currentTarget.value);
+        // 중복 필터링
         if (
-          write.inputHash.find((hashTag) => hashTag === e.currentTarget.value)
+          write.inputHash.find(
+            (hashTag) => hashTag === replaceHash(e.currentTarget.value)
+          )
         ) {
+          setIsError(true);
+          return {
+            ...write,
+          };
+        }
+
+        if (write.inputHash.length >= 5) {
+          setIsError(true);
           return {
             ...write,
           };
@@ -72,7 +125,7 @@ const Input = () => {
 
         return {
           ...write,
-          inputHash: [...write.inputHash, e.currentTarget.value],
+          inputHash: [...write.inputHash, replaceHash(e.currentTarget.value)],
         };
       });
 
