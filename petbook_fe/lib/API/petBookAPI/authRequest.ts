@@ -37,9 +37,9 @@ export default class AuthAPI {
     config?: { headerObj?: object }
   ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: `${typeof window === "undefined" ? this.initBaseUrl : ""}${
-        this.uri + "/login"
-      }`,
+      uri: `${
+        typeof window === "undefined" ? this.initBaseUrl : ""
+      }${`${this.uri}/login`}`,
       headerObj: config?.headerObj,
     });
 
@@ -74,15 +74,15 @@ export default class AuthAPI {
   public login_check = async (
     body: {
       userId: number;
-      enabled: Blob;
+      enabled: boolean;
       username: string;
     },
     config?: { headerObj?: object }
   ) => {
     const { requestURL, requestHeaders } = getParameters({
-      uri: `${typeof window === "undefined" ? this.initBaseUrl : ""}${
-        this.uri + "/login-check"
-      }`,
+      uri: `${
+        typeof window === "undefined" ? this.initBaseUrl : ""
+      }${`${this.uri}/login-check`}`,
       headerObj: config?.headerObj,
     });
 
