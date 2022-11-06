@@ -1,19 +1,19 @@
 import { NextPage } from "next";
 import styled from "styled-components";
-import WriteForm from "@components/write/WriteForm";
-import WriteImgSubmit from "@components/write/WriteImgSubmit";
-import WriteHashTags from "@components/write/WriteHashTags";
-import WriteSubmit from "@components/write/WriteSubmit";
 import CategoryContainer from "@containers/write/CategoryContainer";
+import FormContainer from "@containers/write/FormContainer";
+import ImgAttachContainer from "@containers/write/ImgAttachContainer";
+import HashTagsContainer from "@containers/write/HashTagsContainer";
+import SubmitContainer from "@containers/write/SubmitContainer";
 import { createRequest, createResource } from "../../lib/hooks/useResource";
-import { boardRequest, categorySprRequest } from "../../lib/API/petBookAPI";
+import { articleRequest, categorySprRequest } from "../../lib/API/petBookAPI";
 
 // 1. 서버 사이드에서 가져올 리소스 정의하기
 // 정의된 순서에서 이미 데이터를 가지고 내려온 상태임.
 
-export const BOARD_CREATE = createRequest({
-  key: "BOARD_CREATE",
-  requester: boardRequest.board_create,
+export const ARTICLE_CREATE = createRequest({
+  key: "ARTICLE_CREATE",
+  requester: articleRequest.article_create,
 });
 
 export const CATEGORY_LIST = createResource({
@@ -25,7 +25,6 @@ const WriteMain = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   align-items: center;
 
   width: 100%;
@@ -41,10 +40,10 @@ const Write: NextPage = (pageProps) => {
   return (
     <WriteMain className="Content">
       <CategoryContainer />
-      <WriteForm />
-      <WriteImgSubmit />
-      <WriteHashTags />
-      <WriteSubmit />
+      <FormContainer />
+      <ImgAttachContainer />
+      <HashTagsContainer />
+      <SubmitContainer />
     </WriteMain>
   );
 };
