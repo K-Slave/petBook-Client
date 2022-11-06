@@ -3,6 +3,7 @@ import ValidationInput from "@components/common/ValidationInput";
 import { authRequest } from "@lib/API/petBookAPI";
 import { createRequest, useSetResource } from "@lib/hooks/useResource";
 import navigator from "@lib/modules/navigator";
+import Cookies from "js-cookie";
 import Link from "next/link";
 
 import { useRouter } from "next/router";
@@ -105,11 +106,18 @@ export const LoginSubmitButton = () => {
   //   "password": "p@55w0rd1!"
   // }
 
-  const { isSuccess, mutate } = useSetResource(LOGIN);
+  const { data, status, isSuccess, mutate } = useSetResource(LOGIN);
 
   const onSubmit = () => {
     mutate(user);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      const { token } = data.data;
+      Cookies.set("petBookUser", token, { expires: 30 });
+    }
+  }, [isSuccess]);
 
   return (
     <button type="submit" onClick={onSubmit}>
