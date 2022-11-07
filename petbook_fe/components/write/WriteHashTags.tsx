@@ -1,13 +1,15 @@
 import writeState, {
   WriteStateType,
 } from "@atoms/pageAtoms/community/writeState";
-import { replaceHash } from "@lib/modules/replaceHash";
+import hashTagKeydown from "@lib/handler/hashTagKeydown";
+import useHashTagClear from "@lib/hooks/write/useHashTagClear";
+import useHashTagInput from "@lib/hooks/write/useHashTagInput";
 import React, {
   KeyboardEventHandler,
   PropsWithChildren,
   useState,
 } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import {
   HashInput,
   HashTagTitleP,
@@ -74,19 +76,9 @@ const RoundBoxList = React.memo(
 );
 
 const RoundBox = React.memo(({ hashTag }: { hashTag: string }) => {
-  const setWrite = useSetRecoilState(writeState);
-
+  const setClear = useHashTagClear();
   const onClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    setWrite((write) => {
-      const textValue = e.currentTarget.textContent?.replace("# ", "");
-
-      const filteredTags = write.inputHash.filter((tag) => tag !== textValue);
-
-      return {
-        ...write,
-        inputHash: filteredTags,
-      };
-    });
+    setClear(e);
   };
 
   return <RoundHashTagButton onClick={onClick}># {hashTag}</RoundHashTagButton>;
@@ -97,41 +89,20 @@ interface InputProps {
 }
 
 const Input = ({ setIsError }: InputProps) => {
-  const setWrite = useSetRecoilState(writeState);
-
-  // TODO : 비속어 필터, 특수문자 필터, SQLinjection, XSS 등 추가 필터링 해야함
+  const setInput = useHashTagInput(setIsError);
 
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if (e.key === "Enter" && e.nativeEvent.isComposing === false) {
-      setWrite((write) => {
-        // 중복 필터링
-        if (
-          write.inputHash.find(
-            (hashTag) => hashTag === replaceHash(e.currentTarget.value)
-          )
-        ) {
-          setIsError(true);
-          return {
-            ...write,
-          };
-        }
+    const { done, info } = hashTagKeydown(e, setInput);
 
-        if (write.inputHash.length >= 5) {
-          setIsError(true);
-          return {
-            ...write,
-          };
-        }
+    if (info === "space") {
+      setIsError(true);
+    }
 
-        return {
-          ...write,
-          inputHash: [...write.inputHash, replaceHash(e.currentTarget.value)],
-        };
-      });
-
+    if (done) {
       e.currentTarget.value = "";
     }
   };
+
   return (
     <HashInput
       className="default"
