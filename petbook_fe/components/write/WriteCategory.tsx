@@ -11,8 +11,6 @@ import {
 } from "./styled/styledWriteCategory";
 
 const WriteCategory = () => {
-  console.log("Category render");
-
   return (
     <WriteCategorySection>
       <p className="Category__Section__Title">카테고리를 선택해주세요</p>

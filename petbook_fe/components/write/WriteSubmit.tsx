@@ -1,5 +1,5 @@
 import { ARTICLE_CREATE } from "@pages/community/write";
-import { MouseEventHandler, useEffect, useState } from "react";
+import { MouseEventHandler } from "react";
 import { useSetRecoilState } from "recoil";
 import writeState from "../../atoms/pageAtoms/community/writeState";
 import { useSetResource } from "../../lib/hooks/useResource";
@@ -9,16 +9,14 @@ import {
 } from "./styled/styledWriteSubmit";
 
 const WriteSubmit = () => {
-  console.log("Submit render");
-
   return (
     <WriteSubmitSection>
-      <WriteSubmit.SubmitBtn />
+      <WriteSubmit.Submit />
     </WriteSubmitSection>
   );
 };
 
-const SubmitBtn = () => {
+const Submit = () => {
   const { mutate } = useSetResource(ARTICLE_CREATE);
 
   const setWrite = useSetRecoilState(writeState);
@@ -39,6 +37,6 @@ const SubmitBtn = () => {
   return <WriteSubmitButton onClick={onClick}>게시물 등록</WriteSubmitButton>;
 };
 
-WriteSubmit.SubmitBtn = SubmitBtn;
+WriteSubmit.Submit = Submit;
 
 export default WriteSubmit;

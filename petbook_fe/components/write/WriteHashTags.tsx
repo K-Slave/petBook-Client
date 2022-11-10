@@ -2,8 +2,7 @@ import writeState, {
   WriteStateType,
 } from "@atoms/pageAtoms/community/writeState";
 import hashTagKeydown from "@lib/handler/hashTagKeydown";
-import useHashTagClear from "@lib/hooks/write/useHashTagClear";
-import useHashTagInput from "@lib/hooks/write/useHashTagInput";
+import useSetHashTag from "@lib/hooks/write/useSetHashTag";
 import React, {
   KeyboardEventHandler,
   PropsWithChildren,
@@ -26,7 +25,7 @@ const WriteHashTags = () => {
     <WriteHashTagsSection>
       <WriteHashTags.Title />
       <WriteHashTags.TagBox isError={isError} setIsError={setIsError}>
-        <WriteHashTags.ListProvider />
+        <WriteHashTags.List />
         <WriteHashTags.Input setIsError={setIsError} />
       </WriteHashTags.TagBox>
     </WriteHashTagsSection>
@@ -76,9 +75,10 @@ const RoundBoxList = React.memo(
 );
 
 const RoundBox = React.memo(({ hashTag }: { hashTag: string }) => {
-  const setClear = useHashTagClear();
+  const { removeTag } = useSetHashTag();
+
   const onClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    setClear(e);
+    removeTag(e.currentTarget.value);
   };
 
   return <RoundHashTagButton onClick={onClick}># {hashTag}</RoundHashTagButton>;
@@ -89,14 +89,9 @@ interface InputProps {
 }
 
 const Input = ({ setIsError }: InputProps) => {
-  const setInput = useHashTagInput(setIsError);
-
+  const { setTags } = useSetHashTag(setIsError);
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
-    const { done, info } = hashTagKeydown(e, setInput);
-
-    if (info === "space") {
-      setIsError(true);
-    }
+    const { done } = hashTagKeydown(e, setTags, setIsError);
 
     if (done) {
       e.currentTarget.value = "";
@@ -115,6 +110,6 @@ const Input = ({ setIsError }: InputProps) => {
 WriteHashTags.Title = Title;
 WriteHashTags.TagBox = TagBox;
 WriteHashTags.Input = Input;
-WriteHashTags.ListProvider = ListProvider;
+WriteHashTags.List = ListProvider;
 
 export default WriteHashTags;
