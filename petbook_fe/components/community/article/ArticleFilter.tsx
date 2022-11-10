@@ -1,9 +1,7 @@
 import categoryState from "@atoms/pageAtoms/community/categoryState";
-import { CategoryListResponse } from "@lib/API/petBookAPI/types/categoryRequestSpr";
-import useResource from "@lib/hooks/useResource";
-import { CATEGORY_LIST } from "@pages/community";
 import { useRecoilState } from "recoil";
 import { BiSortAlt2 } from "react-icons/bi";
+import useCategories from "@lib/hooks/useCategories";
 import {
   ArticleFilterDiv,
   CategoryFilterButton,
@@ -21,11 +19,7 @@ const ArticleFilter = () => {
 };
 
 const CategoryFilter = () => {
-  let categories: CategoryListResponse = [];
-  const { data, status } = useResource(CATEGORY_LIST);
-  if (status === "success") {
-    categories = [{ id: 0, name: "전체" }, ...data.data];
-  }
+  const { categories, status } = useCategories({ all: true });
   const [selectedCategory, setSelectedCategory] = useRecoilState(categoryState);
   return (
     <CategoryFilterDiv>
