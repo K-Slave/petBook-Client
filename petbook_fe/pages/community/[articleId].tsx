@@ -10,30 +10,14 @@ import { createResource } from "@lib/hooks/useResource";
 
 const ArticleDetailMain = styled.main`
   display: flex;
-  align-items: start;
+  flex-direction: column;
   gap: 20px;
 
-  max-width: 1064px;
+  max-width: 847px;
   width: 90vw;
 
   margin: 40px auto;
 `;
-
-const ArticleDetailDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-
-  max-width: 847px;
-  margin: 0 auto;
-`;
-
-/*
-export const ARTICLE_ITEM1 = createResource({
-  key: "ARTICLE_ITEM",
-  fetcher: articleRequest.article_item,
-})
-*/
 
 export const ARTICLE_ITEM = {
   key: "ARTICLE_ITEM",
@@ -45,10 +29,8 @@ const ArticleDetail: NextPage = () => {
     <>
       <HtmlHeader />
       <ArticleDetailMain>
-        <ArticleDetailDiv>
-          <ArticleSection />
-          <CommentSection />
-        </ArticleDetailDiv>
+        <ArticleSection />
+        <CommentSection />
       </ArticleDetailMain>
       <ImageSliderModal />
     </>
@@ -60,6 +42,6 @@ type PetbookPages = NextPage & {
 };
 
 const ArticleDetailPage: PetbookPages = ArticleDetail;
-ArticleDetailPage.requiredResources = [ARTICLE_ITEM]; // category_list
+ArticleDetailPage.requiredResources = [ARTICLE_ITEM];
 
 export default ArticleDetailPage;
