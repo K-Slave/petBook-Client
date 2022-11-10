@@ -7,8 +7,8 @@ import getRandomKey from "@lib/utils/getRandomKey";
 
 const PageButtonBox = () => {
   const numPages = useRef(10);
-  const { currentPage, changeCurrentPage } = usePagination(numPages.current);
   const btnNum = useRef(10);
+  const { currentPage, changeCurrentPage } = usePagination(numPages.current);
   const offset = useButtonOffset({ btnNum: btnNum.current, currentPage });
   const onClickPrev = () => {
     changeCurrentPage(offset - btnNum.current);
