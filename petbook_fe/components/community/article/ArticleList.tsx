@@ -1,12 +1,6 @@
-import { useRef } from "react";
-import { useRecoilValue } from "recoil";
-import categoryState from "@atoms/pageAtoms/community/categoryState";
-import { usePage } from "@lib/hooks/usePagination";
-import useResource from "@lib/hooks/useResource";
-import { ARTICLE_LIST } from "@pages/community";
-import localConsole from "@lib/utils/localConsole";
-import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import Link from "next/link";
+import useArticleList from "@lib/hooks/useArticleList";
+import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import TagList from "../TagList";
 import {
   ArticleListDiv,
@@ -17,27 +11,11 @@ import {
 } from "./styled/styledArticleList";
 
 const ArticleList = () => {
-  const limit = useRef(10);
-  const category = useRecoilValue(categoryState);
-  const page = usePage();
-  const articleListParams = {
-    categoryId: category.id === 0 ? "" : category.id,
-    page: page - 1,
-    size: limit.current,
-  };
-  const { data } = useResource({
-    key: `${ARTICLE_LIST.key}_${page}_${category.id}`,
-    fetcher: ARTICLE_LIST.fetcher,
-    params: articleListParams,
-  });
-  const posts = data === undefined ? [] : data?.data;
-  localConsole.log(
-    `ArticleList render => currentPage: ${page}, category: ${category.name}`
-  );
+  const articleList = useArticleList();
   return (
     <ArticleListDiv>
-      {posts.map((post) => (
-        <ArticleList.Item post={post} key={post.id} />
+      {articleList.map((article) => (
+        <ArticleList.Item article={article} key={article.id} />
       ))}
     </ArticleListDiv>
   );
@@ -46,11 +24,11 @@ const ArticleList = () => {
 // ----------------------------------------------------------------------
 
 interface ItemProps {
-  post: ArticleResponse;
+  article: ArticleResponse;
 }
 
-const Item = ({ post }: ItemProps) => {
-  const { id, title, content, user, tags, stat } = post;
+const Item = ({ article }: ItemProps) => {
+  const { id, title, content, user, tags, stat } = article;
   const previewImage = "";
   const date = "2022-02-03";
   return (
