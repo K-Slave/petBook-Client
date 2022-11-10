@@ -23,7 +23,8 @@
       "@pages/*": ["pages/*"],
       "@lib/*": ["lib/*"],
       "@containers/*": ["containers/*"],
-      "@atoms/*": ["atoms/*"]
+      "@atoms/*": ["atoms/*"],
+      "@public/*": ["public/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*"],

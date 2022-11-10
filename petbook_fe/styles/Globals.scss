@@ -125,13 +125,15 @@ input::placeholder {
 
 //login
 .login_title {
+  text-align: center;
   p {
     font-size: 20px;
     margin-bottom: 14px;
   }
   h2 {
-    font-size: 28px;
+    font-size: 22px;
     margin-bottom: 32px;
+    margin-top: 16px;
   }
 }
 .login_form {

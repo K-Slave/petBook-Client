@@ -72,7 +72,7 @@ const PassGuide = styled.figure`
 
 const LoginWrap = styled.div`
   position: relative;
-  width: 679px;
+  width: 400px;
   margin: 0 auto;
   margin-top: 194px;
 `;
