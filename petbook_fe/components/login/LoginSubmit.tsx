@@ -5,6 +5,7 @@ import { createRequest, useSetResource } from "@lib/hooks/useResource";
 import navigator from "@lib/modules/navigator";
 import Cookies from "js-cookie";
 import Link from "next/link";
+import Image from "next/image";
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -55,7 +56,7 @@ export const SocialLogin = () => {
 export const InduceSign = () => {
   return (
     <Container onClick={() => navigator("/register")}>
-      <p>아직 Petbook 계정이 없으신가요?</p>
+      <p>로그인 후 다양한 콘텐츠를 즐겨보세요</p>
       <h3>
         회원가입을 통해 Petbook 유저들과 <br /> 소통할 수 있어요!
       </h3>
@@ -67,7 +68,12 @@ export const LoginSubmitForm = () => {
   return (
     <>
       <div className="login_title">
-        <p>이색동물 유저들의 소통공간, Petbook</p>
+        <Image
+          src="/img/common/logo/logo.svg"
+          alt="Picture of the author"
+          width={160}
+          height={27}
+        />
         <h2>로그인 후 다양한 콘텐츠를 즐겨보세요!</h2>
       </div>
       <form>
@@ -131,7 +137,7 @@ export const LoginSubmit = () => {
     <>
       <LoginSubmit.LoginSubmitForm />
       <LoginSubmit.LoginSubmitButton />
-      <LoginSubmit.SocialLogin />
+      {/* <LoginSubmit.SocialLogin /> */}
       <LoginSubmit.InduceSign />
       <LoginSubmit.LoginPassGuide />
     </>
