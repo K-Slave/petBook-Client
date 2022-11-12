@@ -12,7 +12,7 @@ export const pyPetBookClient = pyInstance;
 const sprInstance = axios.create();
 
 sprInstance.defaults.headers.common["Content-Type"] = "application/json";
-sprInstance.defaults.headers.common.accept = "*/*";
+sprInstance.defaults.headers.common.Accept = "*/*";
 
 if (userToken) {
   sprInstance.defaults.headers.common.authorization = userToken;

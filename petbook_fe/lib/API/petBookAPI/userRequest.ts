@@ -36,8 +36,8 @@ export default class UserAPI {
   ) => {
     const { requestURL, requestHeaders } = getParameters({
       uri: `${typeof window === "undefined" ? this.initBaseUrl : ""}${
-        this.uri + "/register"
-      }`,
+        this.uri
+      }/register`,
       headerObj: config?.headerObj,
     });
 

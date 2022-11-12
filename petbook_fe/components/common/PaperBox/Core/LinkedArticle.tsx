@@ -19,7 +19,7 @@ const Wrap = ({ children, as, to }: PropsWithChildren<WrapProps>) => {
     // warning
     // to 가 클라이언트 상에서 결정되서 undefined 발생
     // ssr 처리 되면 문제가 없어질것으로 보임
-    <Link href={to ? to : "/knowhow"} passHref>
+    <Link href={to || "/knowhow"} passHref>
       <InputWrap>{children}</InputWrap>
     </Link>
   );

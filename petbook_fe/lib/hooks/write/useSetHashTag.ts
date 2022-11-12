@@ -1,14 +1,20 @@
-import writeState from "@atoms/pageAtoms/community/writeState";
+import writeState, {
+  WriteStateType,
+} from "@atoms/pageAtoms/community/writeState";
 import { itrRemove } from "@lib/utils/iterableFunctions";
 import { setterError } from "@lib/utils/recoilSetterHandler";
 import replaceAll from "@lib/utils/replaceAll";
 import React from "react";
-import { useSetRecoilState } from "recoil";
+import useSelectorState from "../common/useSelectorState";
 
+// TODO : setWrite 안에 있어 가독성이 떨어지는 코드들 리팩터링
 const useSetHashTag = (
   setIsError?: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-  const setWrite = useSetRecoilState(writeState);
+  const [inputHash, setWrite] = useSelectorState<
+    WriteStateType["inputHash"],
+    WriteStateType
+  >(writeState, "inputHash");
 
   let removeTag: (textValue: string) => void;
   let setTags: (textValue: string) => void = () => undefined;

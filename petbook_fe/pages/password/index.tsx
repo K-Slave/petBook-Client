@@ -53,19 +53,17 @@ const LinkWrap = styled.div`
 `;
 const Password = () => {
   return (
-    <>
-      <Main>
-        <InfoWrap>
-          <p>이미 가입한 이력이 있어요</p>
-          <h4>이전 가입한 이메일을 확인해주세요</h4>
-        </InfoWrap>
-        <input type="text" />
-        <LinkWrap>
-          <Link href={"/login"}>기존 아이디로 로그인하기</Link>
-          <Link href={"/"}>홈으로</Link>
-        </LinkWrap>
-      </Main>
-    </>
+    <Main>
+      <InfoWrap>
+        <p>이미 가입한 이력이 있어요</p>
+        <h4>이전 가입한 이메일을 확인해주세요</h4>
+      </InfoWrap>
+      <input type="text" />
+      <LinkWrap>
+        <Link href="/login">기존 아이디로 로그인하기</Link>
+        <Link href="/">홈으로</Link>
+      </LinkWrap>
+    </Main>
   );
 };
 export default Password;

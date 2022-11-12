@@ -41,7 +41,7 @@ const SkeletoneContainer = styled.div`
 `;
 
 const Skeletone = (props: any) => {
-  return <SkeletoneContainer className='Skeletone-Contaier' {...props} />;
+  return <SkeletoneContainer className="Skeletone_Contaier" {...props} />;
 };
 
 export default Skeletone;

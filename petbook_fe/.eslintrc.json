@@ -31,16 +31,7 @@
     "React": true
   },
   "rules": {
-    "react/react-in-jsx-scope": 0,
-    "react/prefer-stateless-function": 0,
-    "react/jsx-one-expression-per-line": 0,
-    "no-nested-ternary": 0,
     "prefer-arrow-callback": "off",
-    "no-var": "error",
-    "no-unused-vars": "warn",
-    "no-dupe-keys": "error",
-    "no-confusing-arrow": "warn",
-    "react/prop-types": "off",
     "linebreak-style": "off",
     "operator-linebreak": "off",
     "implicit-arrow-linebreak": "off",
@@ -51,20 +42,45 @@
     "comma-dangle": "off",
     "import/no-cycle": "off",
     "max-len": "off",
-    "@typescript-eslint/no-unsafe-assignment": "warn",
-    "@typescript-eslint/no-unsafe-member-access": "warn",
     "arrow-body-style": "off",
-    "react-hooks/exhaustive-deps": "warn",
     "import/no-unresolved": "off",
-    "react/jsx-no-useless-fragment": "warn",
     "function-paren-newline": "off",
+    "prefer-const": "warn",
+
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/no-unsafe-call": "warn",
     "@typescript-eslint/no-unsafe-return": "warn",
     "@typescript-eslint/require-await": "off",
-    "prefer-const": "warn",
-    "no-param-reassign": "warn",
+    "@typescript-eslint/no-unsafe-argument": "warn",
+    "@typescript-eslint/no-unsafe-assignment": "warn",
+    "@typescript-eslint/no-unsafe-member-access": "warn",
+    "@typescript-eslint/no-empty-function": "warn",
+
+    "react/jsx-wrap-multilines": "off",
+    "react/jsx-curly-newline": "off",
+    "react/react-in-jsx-scope": 0,
+    "react/prefer-stateless-function": 0,
+    "react/jsx-one-expression-per-line": 0,
+    "react-hooks/exhaustive-deps": "warn",
+    "react/jsx-no-useless-fragment": "warn",
+    "react/prop-types": "off",
     "react/jsx-indent": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/function-component-definition": [
+      "warn",
+      { "namedComponents": "arrow-function" }
+    ],
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx", ".ts", "tsx"] }
+    ],
+
+    "no-nested-ternary": 0,
+    "no-var": "error",
+    "no-unused-vars": "warn",
+    "no-dupe-keys": "error",
+    "no-confusing-arrow": "warn",
+    "no-param-reassign": "warn",
     "no-use-before-define": [
       "off",
       {
@@ -76,10 +92,7 @@
       "BinaryExpression[operator='in']",
       "BinaryExpression[operator='of']"
     ],
-    "react/function-component-definition": [
-      "warn",
-      { "namedComponents": "arrow-function" }
-    ],
+
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -89,10 +102,6 @@
         "ts": "never",
         "tsx": "never"
       }
-    ],
-    "react/jsx-filename-extension": [
-      1,
-      { "extensions": [".js", ".jsx", ".ts", "tsx"] }
     ]
   }
 }

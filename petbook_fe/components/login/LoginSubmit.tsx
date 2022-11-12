@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 import { Container, ButtonBox } from "./styled/styledLoginSubmit";
 
-const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_PY_URL;
+const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_PY_URL as string;
 
 export const SocialLogin = () => {
   const router = useRouter();
@@ -62,7 +62,11 @@ export const LoginSubmitButton = () => {
   const onSubmit = () => {
     console.log("onSubmit");
   };
-  return <button onClick={onSubmit}>로그인</button>;
+  return (
+    <button type="button" onClick={onSubmit}>
+      로그인
+    </button>
+  );
 };
 
 export const LoginSubmitForm = () => {

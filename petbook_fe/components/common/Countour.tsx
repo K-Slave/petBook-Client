@@ -19,3 +19,7 @@ const CountourBox = styled.div`
 export default function Countour(props: { bgColor?: string }) {
   return <CountourBox className="Countour" {...props} />;
 }
+
+Countour.defaultProps = {
+  bgColor: "",
+};

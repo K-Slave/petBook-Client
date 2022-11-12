@@ -1,6 +1,7 @@
 import ValidationInput from "@components/common/ValidationInput";
 import { PassCheckWrap } from "./styled/styledRegisterForm";
 
+// TODO : any 사용으로 인한 ESLint 에러제거
 const PasswordInput = () => {
   const PassCheckType = [
     {
@@ -19,7 +20,7 @@ const PasswordInput = () => {
         current="비밀번호"
       />
       <PassCheckWrap>
-        {PassCheckType.map((item: any, index: number) => {
+        {PassCheckType.map((item, index: number) => {
           const { type } = item;
           return (
             <li key={index}>

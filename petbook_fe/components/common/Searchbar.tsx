@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { BsSearch } from "react-icons/bs";
 
 type ContentProps = {
-  type: String;
+  type: string;
 };
 
 const Bar = styled.div`
@@ -37,10 +37,12 @@ const MapBar = styled.div`
 `;
 
 const SearchBar = (props: PropsWithChildren<ContentProps>) => {
-  const type = props?.type === "map";
+  const { type } = props;
+  const isMapType = type === "map";
+
   return (
     <>
-      {type ? (
+      {isMapType ? (
         <MapBar>
           <input type="text" placeholder="애완동물의 종류를 입력해주세요" />
         </MapBar>

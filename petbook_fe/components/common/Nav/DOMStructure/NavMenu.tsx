@@ -34,7 +34,7 @@ const NavMenu = ({
   return (
     <LinkedNavBar>
       <LinkedNavBar.Wrap as={InputWrap}>
-        <LinkedNavBar.leftSide as={InputLeftSide} />
+        <LinkedNavBar.LeftSide as={InputLeftSide} />
         <LinkedNavBar.Menu as={InputMenu}>
           {typeof to === "string" && typeof name === "string" ? (
             <LinkedNavBar.Button
@@ -56,7 +56,7 @@ const NavMenu = ({
             ))
           )}
         </LinkedNavBar.Menu>
-        <LinkedNavBar.rightSide
+        <LinkedNavBar.RightSide
           as={InputRightSide}
           to={rightSideTo}
           value={rightSideName}
@@ -67,6 +67,13 @@ const NavMenu = ({
   );
 };
 
-// display: "inline-block",
+NavMenu.defaultProps = {
+  InputLeftSide: () => {},
+  InputRightSide: () => {},
+  currentPath: "",
+  rightSideTo: "",
+  rightSideName: "",
+  rightSideCurrentPath: "",
+};
 
 export default NavMenu;

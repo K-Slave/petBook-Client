@@ -20,7 +20,7 @@ type LeftSideProps = {
   as?: JSX.Element;
 };
 
-const leftSide = ({ children, as }: PropsWithChildren<LeftSideProps>) => {
+const LeftSide = ({ children, as }: PropsWithChildren<LeftSideProps>) => {
   if (!as) return <></>;
 
   const InputLeftSide = setNextjsElement({ as, to: "/" });
@@ -30,6 +30,10 @@ const leftSide = ({ children, as }: PropsWithChildren<LeftSideProps>) => {
       <InputLeftSide>{children}</InputLeftSide>
     </Link>
   );
+};
+
+LeftSide.defaultProps = {
+  as: () => {},
 };
 
 type MenuProps = {
@@ -54,10 +58,14 @@ const Button = ({ as, value, to, currentPath }: ButtonProps) => {
   const InputButton = setNextjsElement({ as, to, embedProps });
 
   return (
-    <Link href={"/" + to} passHref>
+    <Link href={`/${to}`} passHref>
       <InputButton>{value}</InputButton>
     </Link>
   );
+};
+
+Button.defaultProps = {
+  currentPath: "",
 };
 
 type RightSideProps = {
@@ -67,7 +75,7 @@ type RightSideProps = {
   currentPath?: string;
 };
 
-const rightSide = ({
+const RightSide = ({
   as,
   value,
   to,
@@ -75,16 +83,16 @@ const rightSide = ({
 }: PropsWithChildren<RightSideProps>) => {
   if (!as) return <></>;
 
-  if (to === typeof "object") {
+  if (to && Array.isArray(to)) {
     return <></>;
   }
 
-  if (to === typeof "string") {
+  if (to && Object.toString.call(to)) {
     const embedProps = { isCurrentPage: currentPath === to };
     const InputRightSide = setNextjsElement({ as, to, embedProps });
 
     return (
-      <Link href={"/" + to} passHref>
+      <Link href={`/${to}`} passHref>
         <InputRightSide>{value}</InputRightSide>
       </Link>
     );
@@ -93,16 +101,23 @@ const rightSide = ({
   const InputRightSide = setNextjsElement({ as, to: "/search" });
 
   return (
-    <Link href={"/search"} passHref>
+    <Link href="/search" passHref>
       <InputRightSide />
     </Link>
   );
 };
 
+RightSide.defaultProps = {
+  as: () => {},
+  value: "",
+  to: "",
+  currentPath: "",
+};
+
 LinkedNavBar.Wrap = Wrap;
-LinkedNavBar.leftSide = leftSide;
+LinkedNavBar.LeftSide = LeftSide;
 LinkedNavBar.Menu = Menu;
 LinkedNavBar.Button = Button;
-LinkedNavBar.rightSide = rightSide;
+LinkedNavBar.RightSide = RightSide;
 
 export default LinkedNavBar;

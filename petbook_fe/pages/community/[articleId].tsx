@@ -6,7 +6,7 @@ import ChatSideBanner from "@components/community/article/detail/ChatSideBanner"
 import ArticleSection from "@components/community/article/detail/ArticleSection";
 import ImageSliderModal from "@components/community/article/detail/ImageSliderModal";
 import { articleRequest } from "@lib/API/petBookAPI";
-import { createResource } from "@lib/hooks/useResource";
+import { createResource } from "@lib/hooks/common/useResource";
 
 const ArticleDetailMain = styled.main`
   display: flex;
