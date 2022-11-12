@@ -89,7 +89,7 @@ export function itrPipe(
 // console.log(fn_1(0)); // 111
 
 export function itrRemove<T>(
-  performer: <P, C>(elem: P, idx?: C) => boolean,
+  performer: (elem: any, idx?: number) => boolean,
   array: Iterable<T>
 ) {
   let index = 0;

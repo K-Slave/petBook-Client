@@ -1,9 +1,11 @@
-import writeState from "@atoms/pageAtoms/community/writeState";
-import useMemoRecoilValue from "@lib/hooks/common/useMemoRecoilValue";
+import writeState, {
+  WriteStateType,
+} from "@atoms/pageAtoms/community/writeState";
+import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
 import Image from "next/image";
-import React, { PropsWithChildren, useMemo, useRef } from "react";
+import React, { PropsWithChildren, useRef } from "react";
 import { BsPlus } from "react-icons/bs";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import {
   AddButtonBox,
   CountP,
@@ -19,51 +21,44 @@ const WriteImgAttach = () => {
     <WriteImgAttachSection>
       <WriteImgAttach.InfoBox>
         <WriteImgAttach.Title />
-        <CountProvider />
+        <WriteImgAttach.Count />
       </WriteImgAttach.InfoBox>
-      <ImgProvider />
+      <WriteImgAttach.ImgList />
       <WriteImgAttach.AddButton />
     </WriteImgAttachSection>
   );
 };
 
-const CountProvider = () => {
-  const { inputImg } = useRecoilValue(writeState);
-  const dd = useMemoRecoilValue(writeState, "inputImg");
+const Count = React.memo(() => {
+  const inputImg = useRecoilSelector<WriteStateType["inputImg"]>(
+    writeState,
+    "inputImg"
+  );
 
-  return <CountProvider.Count imgLength={inputImg.length} />;
-};
-
-const Count = React.memo(({ imgLength }: { imgLength: number }) => {
   return (
     <CountP>
-      <span className="Img__Selected__Length">{imgLength}</span>
+      <span className="Img__Selected__Length">{inputImg.length}</span>
       /5
     </CountP>
   );
 });
 
-const ImgProvider = () => {
-  const { inputImg } = useRecoilValue(writeState);
-
-  return <ImgProvider.ImgList inputImg={inputImg} />;
-};
-
-const ImgList = React.memo(({ inputImg }: { inputImg: string[] }) => {
-  console.log("List render");
+const ImgList = React.memo(() => {
+  const inputImg = useRecoilSelector<WriteStateType["inputImg"]>(
+    writeState,
+    "inputImg"
+  );
 
   return (
     <ImgListUl>
       {inputImg.map((img) => (
-        <ImgProvider.ImgItem key={img} img={img} />
+        <WriteImgAttach.ImgItem key={img} img={img} />
       ))}
     </ImgListUl>
   );
 });
 
 const ImgItem = React.memo(({ img }: { img: string }) => {
-  console.log("Item render");
-
   return (
     <ImgItemLi>
       <Image
@@ -85,6 +80,7 @@ const Title = () => {
   return <TitleP className="Img__Section__Title">이미지 첨부</TitleP>;
 };
 
+// TODO 기능 리팩터링 해야함
 const AddButton = () => {
   const btnRef = useRef<HTMLButtonElement>(null);
   const setWrite = useSetRecoilState(writeState);
@@ -103,22 +99,18 @@ const AddButton = () => {
         imgInput.click();
 
         imgInput.onchange = (changeEvent) => {
-          const fileList = imgInput.files;
+          const fileList = imgInput && imgInput.files && imgInput.files[0];
 
           if (!fileList) return undefined;
 
-          // const key = `img_${new Date().getTime().toString()}.jpg`;
-          // const img = new Image();
           const reader = new FileReader();
-
-          for (const file of fileList) {
-            reader.readAsDataURL(file);
-          }
+          reader.readAsDataURL(fileList);
 
           reader.onload = () => {
             setWrite((write) => ({
               ...write,
               inputImg: [...write.inputImg, reader.result as string],
+              inputFile: fileList,
             }));
           };
 
@@ -134,8 +126,8 @@ const AddButton = () => {
 WriteImgAttach.InfoBox = InfoBox;
 WriteImgAttach.Title = Title;
 WriteImgAttach.AddButton = AddButton;
-CountProvider.Count = Count;
-ImgProvider.ImgList = ImgList;
-ImgProvider.ImgItem = ImgItem;
+WriteImgAttach.Count = Count;
+WriteImgAttach.ImgList = ImgList;
+WriteImgAttach.ImgItem = ImgItem;
 
 export default WriteImgAttach;

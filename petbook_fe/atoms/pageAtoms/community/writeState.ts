@@ -6,6 +6,7 @@ export interface WriteStateType {
   inputContent: string;
   inputHash: string[];
   inputImg: string[];
+  inputFile: File | undefined;
 }
 
 const writeState = atom<{
@@ -14,6 +15,7 @@ const writeState = atom<{
   inputContent: string;
   inputHash: string[];
   inputImg: string[];
+  inputFile: File | undefined;
 }>({
   key: "writeState",
   default: {
@@ -22,6 +24,7 @@ const writeState = atom<{
     inputContent: "",
     inputHash: [],
     inputImg: [],
+    inputFile: undefined,
   },
 });
 

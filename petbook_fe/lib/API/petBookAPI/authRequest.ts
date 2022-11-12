@@ -38,8 +38,8 @@ export default class AuthAPI {
   ) => {
     const { requestURL, requestHeaders } = getParameters({
       uri: `${typeof window === "undefined" ? this.initBaseUrl : ""}${
-        this.uri + "/login"
-      }`,
+        this.uri
+      }/login`,
       headerObj: config?.headerObj,
     });
 
@@ -81,8 +81,8 @@ export default class AuthAPI {
   ) => {
     const { requestURL, requestHeaders } = getParameters({
       uri: `${typeof window === "undefined" ? this.initBaseUrl : ""}${
-        this.uri + "/login-check"
-      }`,
+        this.uri
+      }/login-check`,
       headerObj: config?.headerObj,
     });
 

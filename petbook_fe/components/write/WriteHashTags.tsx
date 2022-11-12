@@ -2,13 +2,13 @@ import writeState, {
   WriteStateType,
 } from "@atoms/pageAtoms/community/writeState";
 import hashTagKeydown from "@lib/handler/hashTagKeydown";
+import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
 import useSetHashTag from "@lib/hooks/write/useSetHashTag";
 import React, {
   KeyboardEventHandler,
   PropsWithChildren,
   useState,
 } from "react";
-import { useRecoilValue } from "recoil";
 import {
   HashInput,
   HashTagTitleP,
@@ -56,25 +56,22 @@ const TagBox = React.memo(
   }
 );
 
-const ListProvider = () => {
-  const write = useRecoilValue(writeState);
+const List = React.memo(() => {
+  const inputHash = useRecoilSelector<WriteStateType["inputHash"]>(
+    writeState,
+    "inputHash"
+  );
 
-  return <RoundBoxList inputHash={write.inputHash} />;
-};
+  return (
+    <>
+      {inputHash.map((hashTag) => {
+        return <WriteHashTags.Item hashTag={hashTag} />;
+      })}
+    </>
+  );
+});
 
-const RoundBoxList = React.memo(
-  ({ inputHash }: { inputHash: WriteStateType["inputHash"] }) => {
-    return (
-      <>
-        {inputHash.map((hashTag) => {
-          return <RoundBox key={`${hashTag}`} hashTag={hashTag} />;
-        })}
-      </>
-    );
-  }
-);
-
-const RoundBox = React.memo(({ hashTag }: { hashTag: string }) => {
+const Item = React.memo(({ hashTag }: { hashTag: string }) => {
   const { removeTag } = useSetHashTag();
 
   const onClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -110,6 +107,7 @@ const Input = ({ setIsError }: InputProps) => {
 WriteHashTags.Title = Title;
 WriteHashTags.TagBox = TagBox;
 WriteHashTags.Input = Input;
-WriteHashTags.List = ListProvider;
+WriteHashTags.List = List;
+WriteHashTags.Item = Item;
 
 export default WriteHashTags;

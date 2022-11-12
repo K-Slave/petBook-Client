@@ -8,14 +8,12 @@ import { useMutation, useQuery } from "react-query";
  * @param resource.config 헤더에 담을 객체등 옵션으로 호출시 필요한 인자.
  * @returns useQuery 의 state 를 그대로 반환합니다.
  */
-export default function useResource<T, P, C>(resource: {
+export default function useResource<T, P>(resource: {
   key: string;
-  fetcher: (params?: P, config?: C) => Promise<T>;
+  fetcher: (params?: P) => Promise<T>;
   params?: P;
-  config?: C;
 }) {
-  const paramFetcher = () =>
-    resource.fetcher(resource?.params, resource?.config);
+  const paramFetcher = () => resource.fetcher(resource?.params);
 
   return useQuery(resource.key, paramFetcher);
 }
@@ -29,9 +27,9 @@ export default function useResource<T, P, C>(resource: {
  * @param resource.config 헤더에 담을 객체등 옵션으로 호출시 필요한 인자.
  * @returns resource 를 담은 객체
  */
-export function createResource<T, P, C>(resource: {
+export function createResource<T, P>(resource: {
   key: string;
-  fetcher: (params?: P, config?: C) => Promise<T>;
+  fetcher: (params?: P) => Promise<T>;
 }) {
   return resource;
 }
@@ -49,5 +47,8 @@ export function createRequest<T, P>(request: {
   key: string;
   requester: (reqBody: P) => Promise<T>;
 }) {
-  return { key: request.key, requester: request.requester };
+  return {
+    key: request.key,
+    requester: request.requester,
+  };
 }

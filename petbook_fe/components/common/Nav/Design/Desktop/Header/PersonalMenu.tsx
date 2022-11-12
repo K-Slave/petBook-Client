@@ -14,7 +14,7 @@ const PersonalMenu = () => {
 
   useEffect(() => {
     const cookie = Cookies.get("access_token");
-    setToken(cookie ? cookie : "");
+    setToken(cookie || "");
   }, []);
 
   return (

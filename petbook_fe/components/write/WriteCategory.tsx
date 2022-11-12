@@ -1,9 +1,11 @@
 import { CategoryListResponse } from "@lib/API/petBookAPI/types/categoryRequestSpr";
+import useSelectorState from "@lib/hooks/common/useSelectorState";
 import { AxiosResponse } from "axios";
-import React, { MouseEventHandler, useState } from "react";
+import React, { MouseEventHandler } from "react";
 import { useQuery } from "react-query";
-import { useSetRecoilState } from "recoil";
-import writeState from "../../atoms/pageAtoms/community/writeState";
+import writeState, {
+  WriteStateType,
+} from "../../atoms/pageAtoms/community/writeState";
 import {
   ListDiv,
   WriteCategoryButtonBox,
@@ -22,17 +24,18 @@ const WriteCategory = () => {
 const List = () => {
   const { data } =
     useQuery<AxiosResponse<CategoryListResponse>>("CATEGORY_LIST");
-  const setWrite = useSetRecoilState(writeState);
+
+  const [selectedCategory, setWrite] = useSelectorState<
+    WriteStateType["selectedCategory"],
+    WriteStateType
+  >(writeState, "selectedCategory");
 
   const categoryList = data?.data as CategoryListResponse;
-
-  const [selected, setSelected] = useState(categoryList[0].name);
 
   const onClick: MouseEventHandler = (e) => {
     const value = e.currentTarget.childNodes[0].textContent;
     const resultValue = value || categoryList[0].name;
 
-    setSelected(resultValue);
     setWrite((write) => ({
       ...write,
       selectedCategory: categoryList.findIndex(
@@ -40,14 +43,13 @@ const List = () => {
       ),
     }));
   };
-
   return (
     <ListDiv className="Category__Keyword__List">
-      {categoryList.map((keyword, idx) => (
+      {categoryList.map((keyword) => (
         <WriteCategory.Item
           key={keyword.name}
+          selected={categoryList[selectedCategory].name}
           keyword={keyword.name}
-          selected={selected}
           onClick={onClick}
         />
       ))}

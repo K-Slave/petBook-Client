@@ -25,10 +25,12 @@ const TopNavBox = styled.div`
   }
 `;
 
-const TopNavWrap = (props: PropsWithChildren<{}>) => {
+const TopNavWrap = (props: PropsWithChildren<any>) => {
+  const { children } = props;
+
   return (
     <TopNavContainer>
-      <TopNavBox {...props}>{props.children}</TopNavBox>
+      <TopNavBox {...props}>{children}</TopNavBox>
     </TopNavContainer>
   );
 };
