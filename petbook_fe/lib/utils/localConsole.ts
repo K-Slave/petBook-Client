@@ -27,7 +27,6 @@ export const exceptedConsole = {
       }
 
       console.log(msg);
-      return;
     }
   },
 
@@ -43,7 +42,6 @@ export const exceptedConsole = {
       }
 
       console.log(obj);
-      return;
     }
   },
 };
@@ -69,10 +67,11 @@ const localConsole = {
             return;
           }
           console.log(msg);
-          return;
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      console.warn(e);
+    }
   },
 
   dir(obj?: any, option?: any): void {
@@ -96,10 +95,11 @@ const localConsole = {
             return;
           }
           console.dir(obj);
-          return;
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      console.warn(e);
+    }
   },
   error(data?: any) {
     try {
@@ -113,10 +113,11 @@ const localConsole = {
           domain.find((item: string) => window.location.href.includes(item))
         ) {
           console.error(data);
-          return;
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      console.warn(e);
+    }
   },
 };
 

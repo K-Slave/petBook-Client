@@ -23,15 +23,14 @@ const SimpleButtonA = styled.a`
 
     white-space: nowrap;
 
-    ${(props: SimpleButtonProps) => {
-      if (props.isCurrentPage) {
-        return {
-          fontWeight: "bold",
-          color: "#FF2E00",
-          borderBottom: "4px solid #ff2e00",
-        };
-      }
-    }}
+    ${(props: SimpleButtonProps) =>
+      props.isCurrentPage
+        ? {
+            fontWeight: "bold",
+            color: "#FF2E00",
+            borderBottom: "4px solid #ff2e00",
+          }
+        : ""}
   }
 `;
 
@@ -40,11 +39,17 @@ type SimpleButtonProps = {
 };
 
 const SimpleButton = (props: PropsWithChildren<SimpleButtonProps>) => {
+  const { children } = props;
+
   return (
     <SimpleButtonA {...props}>
-      <span className="Simple__Button__Text">{props.children}</span>
+      <span className="Simple__Button__Text">{children}</span>
     </SimpleButtonA>
   );
+};
+
+SimpleButton.defaultProps = {
+  isCurrentPage: true,
 };
 
 export default SimpleButton;

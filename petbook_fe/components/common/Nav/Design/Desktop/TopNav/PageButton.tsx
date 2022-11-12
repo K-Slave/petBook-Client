@@ -23,15 +23,14 @@ const PageButtonA = styled.a`
 
     height: 100%;
 
-    ${(props: PageButtonProps) => {
-      if (props.isCurrentPage) {
-        return {
-          fontWeight: "bold",
-          color: "#FF2E00",
-          borderBottom: "4px solid #ff2e00",
-        };
-      }
-    }}
+    ${(props: PageButtonProps) =>
+      props.isCurrentPage
+        ? {
+            fontWeight: "bold",
+            color: "#FF2E00",
+            borderBottom: "4px solid #ff2e00",
+          }
+        : ""}
   }
 
   &:hover {
@@ -45,13 +44,17 @@ type PageButtonProps = {
 };
 
 const PageButton = (props: PropsWithChildren<PageButtonProps>) => {
+  const { children } = props;
+
   return (
-    <>
-      <PageButtonA {...props}>
-        <span className="Page__Button__Text">{props.children}</span>
-      </PageButtonA>
-    </>
+    <PageButtonA {...props}>
+      <span className="Page__Button__Text">{children}</span>
+    </PageButtonA>
   );
+};
+
+PageButton.defaultProps = {
+  isCurrentPage: true,
 };
 
 export default PageButton;

@@ -5,7 +5,7 @@ import { articleRequest, categorySprRequest } from "@lib/API/petBookAPI";
 import About from "@components/community/About";
 import WriteButton from "@components/community/WriteButton";
 import SectionContainer from "@containers/SectionContainer";
-import { createResource } from "@lib/hooks/useResource";
+import { createResource } from "@lib/hooks/common/useResource";
 import ArticleListSection from "@components/community/article/ArticleListSection";
 
 export const ARTICLE_LIST = createResource({

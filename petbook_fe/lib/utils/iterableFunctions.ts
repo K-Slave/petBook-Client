@@ -87,3 +87,20 @@ export function itrPipe(
 //   (a: number) => a + 100
 // );
 // console.log(fn_1(0)); // 111
+
+export function itrRemove<T>(
+  performer: (elem: any, idx?: number) => boolean,
+  array: Iterable<T>
+) {
+  let index = 0;
+  let result = [...array];
+
+  for (const temp of array) {
+    if (performer(temp, index) === true) {
+      result = result.filter((item) => item !== temp);
+    }
+    index += 1;
+  }
+
+  return result;
+}

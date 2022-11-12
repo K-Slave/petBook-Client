@@ -1,13 +1,14 @@
 import writeState, {
   WriteStateType,
 } from "@atoms/pageAtoms/community/writeState";
-import { replaceHash } from "@lib/modules/replaceHash";
+import hashTagKeydown from "@lib/handler/hashTagKeydown";
+import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
+import useSetHashTag from "@lib/hooks/write/useSetHashTag";
 import React, {
   KeyboardEventHandler,
   PropsWithChildren,
   useState,
 } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   HashInput,
   HashTagTitleP,
@@ -24,7 +25,7 @@ const WriteHashTags = () => {
     <WriteHashTagsSection>
       <WriteHashTags.Title />
       <WriteHashTags.TagBox isError={isError} setIsError={setIsError}>
-        <WriteHashTags.ListProvider />
+        <WriteHashTags.List />
         <WriteHashTags.Input setIsError={setIsError} />
       </WriteHashTags.TagBox>
     </WriteHashTagsSection>
@@ -55,38 +56,26 @@ const TagBox = React.memo(
   }
 );
 
-const ListProvider = () => {
-  const write = useRecoilValue(writeState);
+const List = React.memo(() => {
+  const inputHash = useRecoilSelector<WriteStateType["inputHash"]>(
+    writeState,
+    "inputHash"
+  );
 
-  return <RoundBoxList inputHash={write.inputHash} />;
-};
+  return (
+    <>
+      {inputHash.map((hashTag) => {
+        return <WriteHashTags.Item hashTag={hashTag} />;
+      })}
+    </>
+  );
+});
 
-const RoundBoxList = React.memo(
-  ({ inputHash }: { inputHash: WriteStateType["inputHash"] }) => {
-    return (
-      <>
-        {inputHash.map((hashTag) => {
-          return <RoundBox key={`${hashTag}`} hashTag={hashTag} />;
-        })}
-      </>
-    );
-  }
-);
-
-const RoundBox = React.memo(({ hashTag }: { hashTag: string }) => {
-  const setWrite = useSetRecoilState(writeState);
+const Item = React.memo(({ hashTag }: { hashTag: string }) => {
+  const { removeTag } = useSetHashTag();
 
   const onClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    setWrite((write) => {
-      const textValue = e.currentTarget.textContent?.replace("# ", "");
-
-      const filteredTags = write.inputHash.filter((tag) => tag !== textValue);
-
-      return {
-        ...write,
-        inputHash: filteredTags,
-      };
-    });
+    removeTag(e.currentTarget.value);
   };
 
   return <RoundHashTagButton onClick={onClick}># {hashTag}</RoundHashTagButton>;
@@ -97,41 +86,15 @@ interface InputProps {
 }
 
 const Input = ({ setIsError }: InputProps) => {
-  const setWrite = useSetRecoilState(writeState);
-
-  // TODO : 비속어 필터, 특수문자 필터, SQLinjection, XSS 등 추가 필터링 해야함
-
+  const { setTags } = useSetHashTag(setIsError);
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if (e.key === "Enter" && e.nativeEvent.isComposing === false) {
-      setWrite((write) => {
-        // 중복 필터링
-        if (
-          write.inputHash.find(
-            (hashTag) => hashTag === replaceHash(e.currentTarget.value)
-          )
-        ) {
-          setIsError(true);
-          return {
-            ...write,
-          };
-        }
+    const { done } = hashTagKeydown(e, setTags, setIsError);
 
-        if (write.inputHash.length >= 5) {
-          setIsError(true);
-          return {
-            ...write,
-          };
-        }
-
-        return {
-          ...write,
-          inputHash: [...write.inputHash, replaceHash(e.currentTarget.value)],
-        };
-      });
-
+    if (done) {
       e.currentTarget.value = "";
     }
   };
+
   return (
     <HashInput
       className="default"
@@ -144,6 +107,7 @@ const Input = ({ setIsError }: InputProps) => {
 WriteHashTags.Title = Title;
 WriteHashTags.TagBox = TagBox;
 WriteHashTags.Input = Input;
-WriteHashTags.ListProvider = ListProvider;
+WriteHashTags.List = List;
+WriteHashTags.Item = Item;
 
 export default WriteHashTags;

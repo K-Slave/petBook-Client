@@ -1,7 +1,6 @@
 import { loginFormState } from "@atoms/pageAtoms/login/userState";
 import ValidationInput from "@components/common/ValidationInput";
 import { authRequest } from "@lib/API/petBookAPI";
-import { createRequest, useSetResource } from "@lib/hooks/useResource";
 import navigator from "@lib/modules/navigator";
 import Cookies from "js-cookie";
 import Link from "next/link";
@@ -11,6 +10,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
+import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 import {
   Container,
   ButtonBox,
@@ -19,7 +19,7 @@ import {
 } from "./styled/styledLoginSubmit";
 
 export const SocialLogin = () => {
-  const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_PY_URL;
+  const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_PY_URL as string;
   const router = useRouter();
 
   const [href, setHref] = useState("");
@@ -108,6 +108,8 @@ export const LoginPassGuide = () => {
 };
 export const LoginSubmitButton = () => {
   const user = useRecoilValue(loginFormState);
+
+  // 여기서 이거 생성하시면 안되요,,,,
   const LOGIN = createRequest({
     key: "LOGIN",
     requester: authRequest.login,

@@ -13,29 +13,29 @@ const KnowHowSection = () => {
   const sample_post = [
     {
       timeline: "1시간전",
-      contents: contents,
-      user: user,
+      contents,
+      user,
       to: "/knowhow",
       color: "",
     },
     {
       timeline: "3시간전",
-      contents: contents,
-      user: user,
+      contents,
+      user,
       to: "/knowhow",
       color: "",
     },
     {
       timeline: "1일전",
-      contents: contents,
-      user: user,
+      contents,
+      user,
       to: "/knowhow",
       color: "",
     },
     {
       timeline: "10일전",
-      contents: contents,
-      user: user,
+      contents,
+      user,
       to: "/knowhow",
       color: "",
     },
@@ -44,7 +44,7 @@ const KnowHowSection = () => {
   return (
     <KnowHowSectionBox>
       {sample_post.map((elem, idx) => {
-        return <KnowhowPaperBox key={idx} {...elem} />;
+        return <KnowhowPaperBox key={elem.contents} {...elem} />;
       })}
     </KnowHowSectionBox>
   );

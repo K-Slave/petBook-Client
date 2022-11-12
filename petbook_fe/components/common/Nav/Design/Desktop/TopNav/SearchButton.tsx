@@ -21,7 +21,7 @@ const SearchButtonA = styled.a`
   }
 `;
 
-const SearchButton = (props: PropsWithChildren<{}>) => {
+const SearchButton = (props: PropsWithChildren<any>) => {
   return (
     <SearchButtonA {...props}>
       <BsSearch className="Search__Button__Icon" />

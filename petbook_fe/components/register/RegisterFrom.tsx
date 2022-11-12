@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 
-import { createRequest, useSetResource } from "@lib/hooks/useResource";
+import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 import { registerRequest } from "@lib/API/petBookAPI";
 import { registerFormState } from "@atoms/pageAtoms/login/userState";
 
