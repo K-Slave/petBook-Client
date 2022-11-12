@@ -39,15 +39,14 @@ const Register = () => {
     requester: registerRequest.register,
   });
 
-  const { data, isLoading, isError, isSuccess, mutate } =
-    useSetResource(REGISTER_CREATE);
+  const { isSuccess, mutate } = useSetResource(REGISTER_CREATE);
 
   const Sign = () => {
     mutate(user);
   };
 
   // const setRegisterForm = useSetRecoilState(registerFormState);
-  // const setLoginForm = useSetRecoilState(loginFormState);
+
   return (
     <Main>
       <RegisterFormWrap>
