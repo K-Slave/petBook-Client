@@ -11,7 +11,12 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
-import { Container, ButtonBox, PassGuide } from "./styled/styledLoginSubmit";
+import {
+  Container,
+  ButtonBox,
+  PassGuide,
+  Submitbutton,
+} from "./styled/styledLoginSubmit";
 
 export const SocialLogin = () => {
   const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_PY_URL;
@@ -95,8 +100,9 @@ export const LoginSubmitForm = () => {
 export const LoginPassGuide = () => {
   return (
     <PassGuide>
-      <p>비밀번호를 잊으셨나요?</p>
       <Link href="/password">비밀번호 찾기</Link>
+      <Link href="/password">아이디 찾기</Link>
+      <Link href="/password">회원가입</Link>
     </PassGuide>
   );
 };
@@ -125,11 +131,7 @@ export const LoginSubmitButton = () => {
     }
   }, [isSuccess]);
 
-  return (
-    <button type="submit" onClick={onSubmit}>
-      로그인
-    </button>
-  );
+  return <Submitbutton onClick={onSubmit}>로그인</Submitbutton>;
 };
 
 export const LoginSubmit = () => {
@@ -138,7 +140,7 @@ export const LoginSubmit = () => {
       <LoginSubmit.LoginSubmitForm />
       <LoginSubmit.LoginSubmitButton />
       {/* <LoginSubmit.SocialLogin /> */}
-      <LoginSubmit.InduceSign />
+      {/* <LoginSubmit.InduceSign /> */}
       <LoginSubmit.LoginPassGuide />
     </>
   );
