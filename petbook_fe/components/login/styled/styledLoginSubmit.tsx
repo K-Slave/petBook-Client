@@ -1,5 +1,15 @@
 import styled from "styled-components";
 
+const Submitbutton = styled.button`
+  margin-top: 64px;
+  width: 100%;
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+  line-height: 52px;
+  border-radius: 8px;
+  background-color: #ff6847;
+`;
 const ButtonBox = styled.div`
   margin-top: 42px;
   a {
@@ -53,20 +63,34 @@ const Container = styled.div`
 `;
 
 const PassGuide = styled.figure`
-  margin-top: 28px;
+  margin-top: 20px;
   text-align: center;
   p {
     display: inline;
     font-size: 18px;
   }
   a {
-    display: inline;
-    padding: 0;
-    margin-left: 8px;
-    font-size: 18px;
-    font-weight: 400;
-    color: #111;
-    text-decoration: underline;
+    position: relative;
+    display: inline-block;
+    padding: 0 20px;
+    font-size: 14px;
+    color: #777774;
+    &::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 12px;
+      background-color: #e0dfd9;
+    }
+    &:last-child {
+      color: #ff6847;
+      &::after {
+        display: none;
+      }
+    }
   }
 `;
 
@@ -89,4 +113,4 @@ const NotLogin = styled.div`
     font-size: 55px;
   }
 `;
-export { ButtonBox, Container, PassGuide, LoginWrap, NotLogin };
+export { ButtonBox, Container, PassGuide, LoginWrap, NotLogin, Submitbutton };
