@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const RegisterFormWrap = styled.div`
   width: 100%;
-  max-width: 679px;
+  max-width: 400px;
   margin: 0 auto;
   margin-top: 76px;
   margin-bottom: 87px;
