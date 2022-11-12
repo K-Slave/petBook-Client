@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-indent */
 import categoryState from "@atoms/pageAtoms/community/categoryState";
 import { CategoryListResponse } from "@lib/API/petBookAPI/types/categoryRequestSpr";
-import useResource from "@lib/hooks/useResource";
+import useResource from "@lib/hooks/common/useResource";
 import { CATEGORY_LIST } from "@pages/community";
 import { useRecoilState } from "recoil";
 import styled, { css } from "styled-components";

@@ -8,14 +8,19 @@ import {
 import palette from "../../../../lib/modules/palette";
 import localConsole from "../../../../lib/utils/localConsole";
 
-type KnowhowPaperBox = {
+type KnowhowPaperBoxType = {
   timeline: string;
   contents: string;
   user: string;
   to: string;
 };
 
-const KnowhowPaperBox = ({ timeline, contents, user, to }: KnowhowPaperBox) => {
+const KnowhowPaperBox = ({
+  timeline,
+  contents,
+  user,
+  to,
+}: KnowhowPaperBoxType) => {
   // 추후에는 게시물에 랜덤한 색을 부여해서 고정되도록 구현해야함.
   const colorIdx = Math.floor(palette.paperBox.length * Math.random());
 

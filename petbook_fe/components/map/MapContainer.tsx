@@ -63,7 +63,7 @@ const MapContainer = () => {
 
   useEffect(() => {
     if (sortFilter.sortKey === "distance") {
-      setSortFilter((sortFilter) => ({
+      setSortFilter((filter) => ({
         // <- 함수형 업데이트에서 익명 함수에 매개변수를 선언하게되면 현재 state 값이 들어옵니다.
         ...sortFilter, // <- 현재 상태를 불변성을 지키도록 복사해주고
         // sortValue: exampleHashMap.get("distance"), // <- 바로 state 객체 프로퍼티에 새 값을 써줍니다.
@@ -72,12 +72,10 @@ const MapContainer = () => {
   }, [sortFilter.sortKey]); // <- sortFilter 의 key 값이 변하면 실행됨.
 
   return (
-    <>
-      <Main>
-        <MapFilterSlider />
-        <MapComponent />
-      </Main>
-    </>
+    <Main>
+      <MapFilterSlider />
+      <MapComponent />
+    </Main>
   );
 };
 

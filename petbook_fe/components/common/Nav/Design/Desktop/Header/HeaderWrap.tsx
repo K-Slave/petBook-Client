@@ -19,10 +19,12 @@ const HeaderBox = styled.div`
   height: 60px;
 `;
 
-const HeaderWrap = (props: PropsWithChildren<{}>) => {
+const HeaderWrap = (props: PropsWithChildren<any>) => {
+  const { children } = props;
+
   return (
     <HeaderContainer>
-      <HeaderBox {...props}>{props.children}</HeaderBox>
+      <HeaderBox {...props}>{children}</HeaderBox>
     </HeaderContainer>
   );
 };

@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { useRecoilValue } from "recoil";
 import categoryState from "@atoms/pageAtoms/community/categoryState";
 import { usePage } from "@lib/hooks/usePagination";
-import useResource from "@lib/hooks/useResource";
+import useResource from "@lib/hooks/common/useResource";
 import { ARTICLE_LIST } from "@pages/community";
 import localConsole from "@lib/utils/localConsole";
 import ArticleItem from "./ArticleItem";

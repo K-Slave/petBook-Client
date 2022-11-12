@@ -70,19 +70,45 @@ export type ButtonProps = {
 };
 
 export const Button = (props: PropsWithChildren<ButtonProps>) => {
-  return props.to ? (
-    <Link href={props.to} prefetch passHref>
-      <StyledLink {...props}>{props.children}</StyledLink>
+  const { to, children } = props;
+
+  return to ? (
+    <Link href={to} prefetch passHref>
+      <StyledLink {...props}>{children}</StyledLink>
     </Link>
   ) : (
-    <StyledButton {...props}>{props.children}</StyledButton>
+    <StyledButton {...props}>{children}</StyledButton>
   );
 };
 
+Button.defaultProps = {
+  className: "",
+  children: () => {},
+  to: "",
+  fullWidth: true,
+  fontColor: "",
+  bgColor: "",
+  onClick: () => {},
+  style: {},
+};
+
 export const BorderButton = (props: PropsWithChildren<ButtonProps>) => {
-  return props.to ? (
-    <BorderStyledLink {...props}>{props.children}</BorderStyledLink>
+  const { to, children } = props;
+
+  return to ? (
+    <BorderStyledLink {...props}>{children}</BorderStyledLink>
   ) : (
-    <BorderStyledButton {...props}>{props.children}</BorderStyledButton>
+    <BorderStyledButton {...props}>{children}</BorderStyledButton>
   );
+};
+
+BorderButton.defaultProps = {
+  className: "",
+  children: () => {},
+  to: "",
+  fullWidth: true,
+  fontColor: "",
+  bgColor: "",
+  onClick: () => {},
+  style: {},
 };

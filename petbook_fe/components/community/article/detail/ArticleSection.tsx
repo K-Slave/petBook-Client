@@ -1,6 +1,6 @@
 import { ARTICLE_ITEM } from "@pages/community/[articleId]";
 import { useRouter } from "next/router";
-import useResource from "@lib/hooks/useResource";
+import useResource from "@lib/hooks/common/useResource";
 import styled from "styled-components";
 import DetailCommonInfo from "../../DetailCommonInfo";
 import TagList from "../../TagList";
