@@ -7,6 +7,55 @@ import imageModalState from "@atoms/pageAtoms/community/imageModalState";
 import useImageSlider from "./useImageSlider";
 import useClickOutside from "./useClickOutside";
 
+const ImageSliderModal = () => {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const { show, currentIndex, prevIndex, images } =
+    useRecoilValue(imageModalState);
+  const { moveNext, movePrev, changeCurrentIndex, closeModal } = useImageSlider(
+    images.length
+  );
+  useClickOutside(ref, closeModal);
+  return (
+    <Container show={show}>
+      <SliderWrapper ref={ref}>
+        <Button onClick={movePrev}>
+          <IoChevronBack />
+        </Button>
+        <Slider>
+          {images.map((image, index) => (
+            <StyledImage
+              src={image}
+              key={index}
+              index={index}
+              position={
+                index === currentIndex
+                  ? "current"
+                  : index === prevIndex
+                  ? "prev"
+                  : "next"
+              }
+            />
+          ))}
+        </Slider>
+        <Button onClick={moveNext}>
+          <IoChevronForward />
+        </Button>
+      </SliderWrapper>
+      <BarWrapper>
+        {Array(images.length)
+          .fill(0)
+          .map((_, index) => (
+            <Bar
+              key={index}
+              current={index === currentIndex}
+              onClick={() => changeCurrentIndex(index)}
+            />
+          ))}
+      </BarWrapper>
+    </Container>
+  );
+};
+
 const Container = styled.div<{ show: boolean }>`
   position: fixed;
   top: 0;
@@ -90,54 +139,5 @@ const Bar = styled.button<{ current: boolean }>`
           background-color: #fff;
         `)}
 `;
-
-const ImageSliderModal = () => {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const { show, currentIndex, prevIndex, images } =
-    useRecoilValue(imageModalState);
-  const { moveNext, movePrev, changeCurrentIndex, closeModal } = useImageSlider(
-    images.length
-  );
-  useClickOutside(ref, closeModal);
-  return (
-    <Container show={show}>
-      <SliderWrapper ref={ref}>
-        <Button onClick={movePrev}>
-          <IoChevronBack />
-        </Button>
-        <Slider>
-          {images.map((image, index) => (
-            <StyledImage
-              src={image}
-              key={index}
-              index={index}
-              position={
-                index === currentIndex
-                  ? "current"
-                  : index === prevIndex
-                  ? "prev"
-                  : "next"
-              }
-            />
-          ))}
-        </Slider>
-        <Button onClick={moveNext}>
-          <IoChevronForward />
-        </Button>
-      </SliderWrapper>
-      <BarWrapper>
-        {Array(images.length)
-          .fill(0)
-          .map((_, index) => (
-            <Bar
-              key={index}
-              current={index === currentIndex}
-              onClick={() => changeCurrentIndex(index)}
-            />
-          ))}
-      </BarWrapper>
-    </Container>
-  );
-};
 
 export default ImageSliderModal;
