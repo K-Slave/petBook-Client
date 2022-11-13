@@ -1,12 +1,13 @@
 import { NextPage } from "next";
 import styled from "styled-components";
 import HtmlHeader from "@components/common/HtmlHeader";
-import CommentSection from "@components/community/comment/CommentSection";
 import ChatSideBanner from "@components/community/article/detail/ChatSideBanner";
 import ArticleSection from "@components/community/article/detail/ArticleSection";
 import ImageSliderModal from "@components/community/article/detail/ImageSliderModal";
 import { articleRequest } from "@lib/API/petBookAPI";
 import { createResource } from "@lib/hooks/common/useResource";
+import CommentList from "@components/community/comment/CommentList";
+import CommentForm from "@components/community/comment/CommentForm";
 
 const ArticleDetailMain = styled.main`
   display: flex;
@@ -17,6 +18,12 @@ const ArticleDetailMain = styled.main`
   width: 90vw;
 
   margin: 40px auto;
+`;
+
+const CommentSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;
 
 export const ARTICLE_ITEM = {
@@ -30,7 +37,10 @@ const ArticleDetail: NextPage = () => {
       <HtmlHeader />
       <ArticleDetailMain>
         <ArticleSection />
-        <CommentSection />
+        <CommentSection>
+          <CommentList />
+          <CommentForm />
+        </CommentSection>
       </ArticleDetailMain>
       <ImageSliderModal />
     </>
