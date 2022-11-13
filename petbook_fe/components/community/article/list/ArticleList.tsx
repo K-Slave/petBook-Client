@@ -1,7 +1,7 @@
 import Link from "next/link";
 import useArticleList from "@lib/hooks/useArticleList";
 import { ArticleListResponse, ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
-import TagList from "../TagList";
+import TagList from "../../TagList";
 import {
   ArticleListDiv,
   ArticleItemImg,
