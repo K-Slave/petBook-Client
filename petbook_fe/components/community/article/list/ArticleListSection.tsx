@@ -1,4 +1,4 @@
-import CommunitySection from "../CommunitySection";
+import CommunitySection from "../../CommunitySection";
 import ArticleList from "./ArticleList";
 import PageButtonBox from "./PageButtonBox";
 import ArticleFilter from "./ArticleFilter";
