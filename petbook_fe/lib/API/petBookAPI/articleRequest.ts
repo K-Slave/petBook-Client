@@ -34,6 +34,21 @@ export default class ArticleAPI extends RequestCore {
     return result;
   };
 
+  // public img_create = async (body: File, config?: { headerObj: object }) => {
+  //   const { requestURL, requestHeaders } = this.getParameters({
+  //     headerObj: config && config.headerObj,
+  //   });
+
+  //   const result = await this.getResult({
+  //     requestMethod: "POST",
+  //     requestURL,
+  //     requestHeaders,
+  //     body,
+  //   });
+
+  //   return result;
+  // };
+
   /**
    *
    * @param pathParam 게시물 ID 값 입니다.

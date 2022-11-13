@@ -5,7 +5,7 @@ import { articleRequest, categorySprRequest } from "@lib/API/petBookAPI";
 import AboutSection from "@components/community/AboutSection";
 import WriteButton from "@components/community/WriteButton";
 import SectionContainer from "@containers/SectionContainer";
-import { createResource } from "@lib/hooks/useResource";
+import { createResource } from "@lib/hooks/common/useResource";
 import ArticleFilter from "@components/community/article/ArticleFilter";
 import ArticleList from "@components/community/article/ArticleList";
 import PageButtonBox from "@components/community/article/PageButtonBox";

@@ -1,6 +1,6 @@
 import { ARTICLE_ITEM } from "@pages/community/[articleId]";
 import { useRouter } from "next/router";
-import useResource from "@lib/hooks/useResource";
+import useResource from "@lib/hooks/common/useResource";
 import { useSetRecoilState } from "recoil";
 import imageModalState from "@atoms/pageAtoms/community/imageModalState";
 import getRandomKey from "@lib/utils/getRandomKey";
