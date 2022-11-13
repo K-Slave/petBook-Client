@@ -1,6 +1,6 @@
 import Link from "next/link";
 import useArticleList from "@lib/hooks/useArticleList";
-import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
+import { ArticleListResponse, ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import TagList from "../TagList";
 import {
   ArticleListDiv,
@@ -11,7 +11,7 @@ import {
 } from "./styled/styledArticleList";
 
 const ArticleList = () => {
-  const articleList = useArticleList();
+  const articleList: ArticleListResponse = useArticleList();
   return (
     <ArticleListDiv>
       {articleList.map((article) => (

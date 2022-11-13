@@ -33,20 +33,21 @@ const LogoButtonA = styled.a`
   }
 `;
 
-const LogoButton = (props: PropsWithChildren<{}>) => {
+const LogoButton = (props: PropsWithChildren<any>) => {
+  const { children } = props;
   return (
     <LogoButtonA {...props}>
       <span className="Petbook__Logo__Img">
-        <span>🐇</span> {/* 나중에 로고이미지 생기면 교체*/}
+        <span>🐇</span> {/* 나중에 로고이미지 생기면 교체 */}
       </span>
       <img
         className="Petbook__Logo__Text"
-        srcSet={`${Logo__Img.src} 1920w`}
-        sizes={"77px"}
+        srcSet={`${Logo__Img.src as string} 1920w`}
+        sizes="77px"
         src={Logo__Img.src}
         alt=""
       />
-      {props.children}
+      {children}
     </LogoButtonA>
   );
 };

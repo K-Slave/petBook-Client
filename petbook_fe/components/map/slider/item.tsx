@@ -40,14 +40,15 @@ const ItemTitle = styled.h4`
   margin-top: 24px;
 `;
 
-const MapSlideItems = ({ searchItems }: any) => {
+// TODO : any 사용으로 인한 ESLint 에러제거
+const MapSlideItems = ({ searchItems }) => {
   return (
     <>
       {/* 구조에 따라 다르게 진행될 예정 - 임시  */}
       <ItemTitle>01. 주변병원 추천</ItemTitle>
       <ItemBox>
         {searchItems &&
-          searchItems[0].map((item: any, index: number) => {
+          searchItems[0].map((item, index) => {
             const detailItem = item.mapDetailList;
             return (
               <li key={index}>
@@ -57,7 +58,7 @@ const MapSlideItems = ({ searchItems }: any) => {
                 {detailItem ? (
                   <ItemInfo>
                     {detailItem &&
-                      detailItem.map((list: any, index: number) => {
+                      detailItem.map((list, index) => {
                         <li key={index}>
                           <div>{list.addrName}</div>
                           <div>{list.phoneNum}</div>

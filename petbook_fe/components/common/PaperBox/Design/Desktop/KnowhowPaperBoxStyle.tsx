@@ -29,9 +29,10 @@ type WrapProps = {
 };
 
 export const KnowhowPaperWrap = (props: PropsWithChildren<WrapProps>) => {
+  const { children } = props;
   return (
-    <KnowhowPaperWrapBox className='QALinked__Article__Wrap' {...props}>
-      {props.children}
+    <KnowhowPaperWrapBox className="QALinked__Article__Wrap" {...props}>
+      {children}
     </KnowhowPaperWrapBox>
   );
 };
@@ -41,9 +42,9 @@ const KnowhowPaperTopBox = styled.h2`
   font-weight: 700;
 `;
 
-export const KnowhowPaperTop = ({ children }: PropsWithChildren<{}>) => {
+export const KnowhowPaperTop = ({ children }: PropsWithChildren<any>) => {
   return (
-    <KnowhowPaperTopBox className='QALinked__Article__Top'>
+    <KnowhowPaperTopBox className="QALinked__Article__Top">
       {children}
     </KnowhowPaperTopBox>
   );
@@ -58,7 +59,7 @@ const KnowhowPaperMainBox = styled.p`
   font-weight: 500;
 `;
 
-export const KnowhowPaperMain = ({ children }: PropsWithChildren<{}>) => {
+export const KnowhowPaperMain = ({ children }: PropsWithChildren<any>) => {
   return <KnowhowPaperMainBox>{children}</KnowhowPaperMainBox>;
 };
 
@@ -68,6 +69,6 @@ const UserProfileTagBox = styled.div`
   color: rgba(0, 0, 0, 0.6);
 `;
 
-export const UserProfileTag = ({ children }: PropsWithChildren<{}>) => {
+export const UserProfileTag = ({ children }: PropsWithChildren<any>) => {
   return <UserProfileTagBox>{children}</UserProfileTagBox>;
 };

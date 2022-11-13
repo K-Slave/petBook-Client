@@ -5,8 +5,15 @@ import FormContainer from "@containers/write/FormContainer";
 import ImgAttachContainer from "@containers/write/ImgAttachContainer";
 import HashTagsContainer from "@containers/write/HashTagsContainer";
 import SubmitContainer from "@containers/write/SubmitContainer";
-import { createRequest, createResource } from "../../lib/hooks/useResource";
-import { articleRequest, categorySprRequest } from "../../lib/API/petBookAPI";
+import {
+  createRequest,
+  createResource,
+} from "../../lib/hooks/common/useResource";
+import {
+  articleRequest,
+  categorySprRequest,
+  imgRequest,
+} from "../../lib/API/petBookAPI";
 
 // 1. 서버 사이드에서 가져올 리소스 정의하기
 // 정의된 순서에서 이미 데이터를 가지고 내려온 상태임.
@@ -19,6 +26,11 @@ export const ARTICLE_CREATE = createRequest({
 export const CATEGORY_LIST = createResource({
   key: "CATEGORY_LIST",
   fetcher: categorySprRequest.category_list,
+});
+
+export const IMG_CREATE = createRequest({
+  key: "IMG_CREATE",
+  requester: imgRequest.img_create,
 });
 
 const WriteMain = styled.main`
@@ -35,8 +47,6 @@ const WriteMain = styled.main`
 `;
 
 const Write: NextPage = (pageProps) => {
-  console.log(pageProps, "Write render");
-
   return (
     <WriteMain className="Content">
       <CategoryContainer />

@@ -8,7 +8,7 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "https://petbook-server.herokuapp.com/api/:path*",
+        destination: "https://api.petbook.site/api/:path*",
       },
     ];
   },

@@ -3,7 +3,7 @@ import { ARTICLE_LIST } from "@pages/community";
 import { useRef } from "react";
 import { useRecoilValue } from "recoil";
 import { usePage } from "./usePagination";
-import useResource from "./useResource";
+import useResource from "./common/useResource";
 
 export default function useArticleList() {
     const size = useRef(10);

@@ -2,9 +2,8 @@ import styled from "styled-components";
 import { IoIosArrowBack } from "react-icons/io";
 import { useEffect, useState } from "react";
 
-//components
-import MapSlideItems from "./item";
 import SearchBar from "@components/common/Searchbar";
+import MapSlideItems from "./item";
 import PositionInfo from "./positionInfo";
 
 const SlideBox = styled.div`
@@ -55,12 +54,11 @@ const MapFilterSlider = () => {
   const [filterActive, setFilterActive] = useState(false);
   const [searchItems, setSearchItems] = useState<any>([]);
 
-  const handleSlide = () => {
+  const handleSlide = () =>
     filterActive === false ? setFilterActive(true) : setFilterActive(false);
-  };
 
   useEffect(() => {
-    let mapData = [
+    const mapData = [
       {
         text: "1",
         value: 0,
@@ -112,19 +110,17 @@ const MapFilterSlider = () => {
   }, [filterActive]);
 
   return (
-    <>
-      <SlideBox style={{ right: filterActive === true ? "0rem" : "-30rem" }}>
-        <Handler onClick={handleSlide}>
-          <IoIosArrowBack />
-          <h3>펼쳐보기</h3>
-        </Handler>
-        <SlideContainer>
-          <SearchBar type="map" />
-          <PositionInfo />
-          <MapSlideItems searchItems={[searchItems]} />
-        </SlideContainer>
-      </SlideBox>
-    </>
+    <SlideBox style={{ right: filterActive === true ? "0rem" : "-30rem" }}>
+      <Handler onClick={handleSlide}>
+        <IoIosArrowBack />
+        <h3>펼쳐보기</h3>
+      </Handler>
+      <SlideContainer>
+        <SearchBar type="map" />
+        <PositionInfo />
+        <MapSlideItems searchItems={[searchItems]} />
+      </SlideContainer>
+    </SlideBox>
   );
 };
 

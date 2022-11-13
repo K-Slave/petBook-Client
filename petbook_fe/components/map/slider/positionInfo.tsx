@@ -16,12 +16,10 @@ const Position = styled.hgroup`
 
 const PositionInfo = () => {
   return (
-    <>
-      <Position>
-        <h2>선택위치</h2>
-        <button>위치 수정</button>
-      </Position>
-    </>
+    <Position>
+      <h2>선택위치</h2>
+      <button type="button">위치 수정</button>
+    </Position>
   );
 };
 export default PositionInfo;

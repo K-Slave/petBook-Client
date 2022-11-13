@@ -1,5 +1,5 @@
 import WriteCategory from "@components/write/WriteCategory";
-import useResource from "@lib/hooks/useResource";
+import useResource from "@lib/hooks/common/useResource";
 import { CATEGORY_LIST } from "@pages/community/write";
 import React from "react";
 
