@@ -1,7 +1,7 @@
 import categoryState from "@atoms/pageAtoms/community/categoryState";
 import { useRecoilState } from "recoil";
 import { BiSortAlt2 } from "react-icons/bi";
-import useCategories from "@lib/hooks/useCategories";
+import useCategories from "@lib/hooks/article/useCategories";
 import {
   ArticleFilterDiv,
   CategoryFilterButton,
