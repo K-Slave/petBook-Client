@@ -6,9 +6,9 @@ import AboutSection from "@components/community/AboutSection";
 import WriteButton from "@components/community/WriteButton";
 import SectionContainer from "@containers/SectionContainer";
 import { createResource } from "@lib/hooks/common/useResource";
-import ArticleFilter from "@components/community/article/ArticleFilter";
-import ArticleList from "@components/community/article/ArticleList";
-import PageButtonBox from "@components/community/article/PageButtonBox";
+import ArticleFilter from "@components/community/article/list/ArticleFilter";
+import ArticleList from "@components/community/article/list/ArticleList";
+import PageButtonBox from "@components/community/article/list/PageButtonBox";
 import CommunitySection from "@components/community/CommunitySection";
 
 export const ARTICLE_LIST = createResource({
@@ -21,21 +21,16 @@ export const CATEGORY_LIST = createResource({
   fetcher: categorySprRequest.category_list,
 });
 
-const CommunityMain = styled.main`
-  background-color: #fffbf4;
-`;
-
 const CommunityDiv = styled.div`
   width: 90vw;
   max-width: 1280px;
-
   margin: 0 auto;
   padding-top: 80px;
 `;
 
 const Community: NextPage = () => {
   return (
-    <CommunityMain>
+    <main>
       <AboutSection />
       <CommunityDiv>
         <CommunitySection
@@ -48,7 +43,7 @@ const Community: NextPage = () => {
         </CommunitySection>
       </CommunityDiv>
       <WriteButton />
-    </CommunityMain>
+    </main>
   );
 };
 
