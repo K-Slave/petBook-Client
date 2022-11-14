@@ -101,7 +101,7 @@ const MapSlideItems = () => {
         mapDetailList: [],
       },
     ];
-    setSearchItems(mapData); // 진짜 모르겟음..
+    setSearchItems(mapData);
   }, []);
   return (
     <>
