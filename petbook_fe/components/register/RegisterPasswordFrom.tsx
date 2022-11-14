@@ -1,7 +1,6 @@
 import ValidationInput from "@components/common/ValidationInput";
 import { PassCheckWrap } from "./styled/styledRegisterForm";
 
-// TODO : any 사용으로 인한 ESLint 에러제거
 const PasswordInput = () => {
   const PassCheckType = [
     {
