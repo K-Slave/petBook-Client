@@ -18,7 +18,7 @@ import {
 import TagList from "../../TagList";
 
 const ArticleList = () => {
-  const { articles, totalPages } = useArticleList();
+  const { status, articles, totalPages } = useArticleList();
   return (
     <ArticleListDiv>
       {articles.map((article) => (
