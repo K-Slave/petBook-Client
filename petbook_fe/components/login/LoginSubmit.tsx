@@ -11,12 +11,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
-import {
-  Container,
-  ButtonBox,
-  PassGuide,
-  Submitbutton,
-} from "./styled/styledLoginSubmit";
+import { Container, ButtonBox, PassGuide } from "./styled/styledLoginSubmit";
 
 export const SocialLogin = () => {
   const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_PY_URL as string;
@@ -72,7 +67,7 @@ export const InduceSign = () => {
 export const LoginSubmitForm = () => {
   return (
     <>
-      <div className="login_title">
+      <div className="Login_Title">
         <Image
           src="/img/common/logo/logo.svg"
           alt="Picture of the author"
@@ -134,7 +129,11 @@ export const LoginSubmitButton = () => {
     }
   }, [isSuccess]);
 
-  return <Submitbutton onClick={onSubmit}>로그인</Submitbutton>;
+  return (
+    <button type="button" className="Primary" onClick={onSubmit}>
+      로그인
+    </button>
+  );
 };
 
 export const LoginSubmit = () => {

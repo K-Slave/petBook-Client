@@ -29,7 +29,7 @@ const ButtonBox = styled.div`
     &.email {
       padding: 28px 0;
       margin-bottom: 60px;
-      background-color: var(--main);
+      background-color: var(--primary);
     }
     &.naver {
       background-color: #41d97e;
@@ -48,7 +48,7 @@ const Container = styled.div`
   border-radius: 20px;
   box-sizing: border-box;
   color: white;
-  background-color: var(--main);
+  background-color: var(--primary);
   cursor: pointer;
   p {
     opacity: 0.7;

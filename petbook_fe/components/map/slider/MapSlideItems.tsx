@@ -23,7 +23,7 @@ const ItemBox = styled.ul`
         position: absolute;
         left: 0;
         top: 0;
-        background-color: var(--main-map);
+        background-color: var(--primary-map);
         color: white;
       }
     }
