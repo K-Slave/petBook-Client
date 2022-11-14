@@ -18,6 +18,7 @@ import TagList from "../../TagList";
 
 const ArticleList = () => {
   const { status, articles, totalPages } = useArticleList();
+  // loading 상태일 때의 UI 추가 예정
   return (
     <ArticleListDiv>
       {articles.map((article) => (
@@ -63,7 +64,7 @@ const Item = ({ article }: { article: ArticleResponse }) => {
 
 const PageButtonBox = ({ totalPages } : { totalPages: number }) => {
   const btnNum = 2;
-  const { currentPage, changeCurrentPage, offset } = usePagination({ totalPages, btnNum });
+  const { currentPage, changeCurrentPage, offset } = usePagination({ totalPages, btnNum, basePath: "/community" });
   const onClickPrevButton = () => {
     changeCurrentPage(offset - btnNum);
   };
