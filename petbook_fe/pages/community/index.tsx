@@ -8,7 +8,6 @@ import SectionContainer from "@containers/SectionContainer";
 import { createResource } from "@lib/hooks/common/useResource";
 import ArticleFilter from "@components/community/article/list/ArticleFilter";
 import ArticleList from "@components/community/article/list/ArticleList";
-import PageButtonBox from "@components/community/article/list/PageButtonBox";
 import CommunitySection from "@components/community/CommunitySection";
 
 export const ARTICLE_LIST = createResource({
@@ -39,7 +38,6 @@ const Community: NextPage = () => {
         >
           <ArticleFilter />
           <ArticleList />
-          <PageButtonBox />
         </CommunitySection>
       </CommunityDiv>
       <WriteButton />
