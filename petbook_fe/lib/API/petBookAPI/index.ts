@@ -6,6 +6,7 @@ import BoardAPI from "./boardRequest";
 import CategoryAPI from "./categoryRequest";
 import CategorySprAPI from "./categoryRequestSpr";
 import ImgAPI from "./imgRequest";
+import CommentAPI from "./commentRequest";
 
 /**
  * @uri '/board'
@@ -67,7 +68,7 @@ export const articleRequest = new ArticleAPI(
 );
 
 /**
- * @uri '/api/v1/category'
+ * @uri '/api/v1/board/category'
  * @method category_list(config) : GET 카테고리 조회
  */
 export const categorySprRequest = new CategorySprAPI(
@@ -83,5 +84,18 @@ export const categorySprRequest = new CategorySprAPI(
 export const imgRequest = new ImgAPI(
   process.env.NEXT_PUBLIC_SPR_URL as string,
   "/api/v1/board/image",
+  sprPetBookClient
+);
+
+/**
+ * @uri '/api/v1/comment'
+ * @method comment_create : POST 댓글 생성
+ * @method comment_update : PUT 댓글 수정
+ * @method comment_delete : DELETE 댓글삭제
+ * @method comment_list : GET 댓글 조회
+ */
+export const commentRequest = new CommentAPI(
+  process.env.NEXT_PUBLIC_SPR_URL as string,
+  "/api/v1/comment",
   sprPetBookClient
 );
