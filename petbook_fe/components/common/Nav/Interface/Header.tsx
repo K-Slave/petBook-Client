@@ -10,9 +10,15 @@ type Props = {
 };
 
 const Header = ({ path }: Props) => {
-  const pages = ["none", "none"];
-  const pageNames = ["토끼", "햄스터"];
-  const parsedPath = path.split("/");
+  const defaultValue = {
+    pages: ["/", "/"],
+    pageNames: ["토끼", "햄스터"],
+  };
+
+  const rightValue = {
+    pages: "/login",
+    pageNames: "로그인",
+  };
 
   return (
     <NavMenu
@@ -29,9 +35,12 @@ const Header = ({ path }: Props) => {
       }
       InputButton={<SimpleButton />}
       InputRightSide={<PersonalMenu />}
-      to={pages}
-      name={pageNames}
-      currentPath={parsedPath[1]}
+      to={defaultValue.pages}
+      name={defaultValue.pageNames}
+      currentPath={path}
+      rightSideTo={rightValue.pages}
+      rightSideName={rightValue.pageNames}
+      rightSideCurrentPath={path}
     />
   );
 };
