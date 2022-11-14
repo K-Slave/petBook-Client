@@ -1,5 +1,4 @@
 import React, { PropsWithChildren } from "react";
-import localConsole from "./localConsole";
 
 type SetChildType = {
   as: JSX.Element;
@@ -7,23 +6,29 @@ type SetChildType = {
   embedProps?: any;
 };
 
-export default function setNextjsElement({ as, to, embedProps }: SetChildType) {
-  // console.log(as.props, "as.props");
-
-  if (to || to === "") {
-    const As = ({ children, onClick, href, ref }: PropsWithChildren<any>) =>
-      React.cloneElement(
-        as,
-        { ...as.props, ...embedProps, onClick, href, ref },
-        children
-      );
-    return React.forwardRef(({ onClick, href, children }: any, ref: any) => (
-      <As onClick={onClick} href={href} ref={ref} {...as.props} {...embedProps}>
-        {children}
-      </As>
-    ));
-  }
-
+export default function setNextjsElement({ as, embedProps }: SetChildType) {
   return ({ children }: PropsWithChildren<any>) =>
     React.cloneElement(as, { ...as.props, ...embedProps }, children);
+}
+
+export function setNextjsForwardRef({ as, to, embedProps }: SetChildType) {
+  const As = ({ children, onClick, href }: PropsWithChildren<any>) => {
+    return React.cloneElement(
+      as,
+      { onClick, href, ...as.props, ...embedProps },
+      children
+    );
+  };
+
+  if (to === "/login") {
+    console.log(embedProps);
+  }
+
+  return React.forwardRef(({ onClick, href, children }: any, ref) => {
+    return (
+      <As onClick={onClick} href={href} {...as.props} {...embedProps}>
+        {children}
+      </As>
+    );
+  });
 }
