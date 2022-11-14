@@ -1,14 +1,25 @@
+import { loginFormState } from "@atoms/pageAtoms/login/userState";
 import ValidationInput from "@components/common/ValidationInput";
+import { authRequest } from "@lib/API/petBookAPI";
 import navigator from "@lib/modules/navigator";
+import Cookies from "js-cookie";
+import Link from "next/link";
+import Image from "next/image";
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 
-import { Container, ButtonBox } from "./styled/styledLoginSubmit";
-
-const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_PY_URL as string;
+import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
+import {
+  Container,
+  ButtonBox,
+  PassGuide,
+  Submitbutton,
+} from "./styled/styledLoginSubmit";
 
 export const SocialLogin = () => {
+  const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_PY_URL as string;
   const router = useRouter();
 
   const [href, setHref] = useState("");
@@ -50,7 +61,7 @@ export const SocialLogin = () => {
 export const InduceSign = () => {
   return (
     <Container onClick={() => navigator("/register")}>
-      <p>아직 Petbook 계정이 없으신가요?</p>
+      <p>로그인 후 다양한 콘텐츠를 즐겨보세요</p>
       <h3>
         회원가입을 통해 Petbook 유저들과 <br /> 소통할 수 있어요!
       </h3>
@@ -58,28 +69,71 @@ export const InduceSign = () => {
   );
 };
 
-export const LoginSubmitButton = () => {
-  const onSubmit = () => {
-    console.log("onSubmit");
-  };
+export const LoginSubmitForm = () => {
   return (
-    <button type="button" onClick={onSubmit}>
-      로그인
-    </button>
+    <>
+      <div className="login_title">
+        <Image
+          src="/img/common/logo/logo.svg"
+          alt="Picture of the author"
+          width={160}
+          height={27}
+        />
+        <h2>로그인 후 다양한 콘텐츠를 즐겨보세요!</h2>
+      </div>
+      <form>
+        <ValidationInput
+          submitType="login"
+          axiosValue="email"
+          current="이메일"
+        />
+        <ValidationInput
+          submitType="login"
+          axiosValue="password"
+          current="비밀번호"
+        />
+      </form>
+    </>
   );
 };
 
-export const LoginSubmitForm = () => {
+export const LoginPassGuide = () => {
   return (
-    <form>
-      <ValidationInput submitType="login" axiosValue="email" current="이메일" />
-      <ValidationInput
-        submitType="login"
-        axiosValue="password"
-        current="비밀번호"
-      />
-    </form>
+    <PassGuide>
+      <Link href="/password">비밀번호 찾기</Link>
+      <Link href="/password">아이디 찾기</Link>
+      <Link href="/password">회원가입</Link>
+    </PassGuide>
   );
+};
+export const LoginSubmitButton = () => {
+  const user = useRecoilValue(loginFormState);
+
+  // 여기서 이거 생성하시면 안되요,,,,
+  const LOGIN = createRequest({
+    key: "LOGIN",
+    requester: authRequest.login,
+  });
+
+  // { test용
+  //   "email": "test@petbook.com",
+  //   "password": "p@55w0rd1!"
+  // }
+
+  const { data, status, isSuccess, mutate } = useSetResource(LOGIN);
+
+  const onSubmit = () => {
+    mutate(user);
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      const { token } = data.data;
+      Cookies.set("petBookUser", token, { expires: 30 });
+    }
+  }, [isSuccess]);
+
+  return <Submitbutton onClick={onSubmit}>로그인</Submitbutton>;
 };
 
 export const LoginSubmit = () => {
@@ -87,8 +141,9 @@ export const LoginSubmit = () => {
     <>
       <LoginSubmit.LoginSubmitForm />
       <LoginSubmit.LoginSubmitButton />
-      <LoginSubmit.SocialLogin />
-      <LoginSubmit.InduceSign />
+      {/* <LoginSubmit.SocialLogin /> */}
+      {/* <LoginSubmit.InduceSign /> */}
+      <LoginSubmit.LoginPassGuide />
     </>
   );
 };
@@ -97,5 +152,6 @@ LoginSubmit.LoginSubmitForm = LoginSubmitForm;
 LoginSubmit.LoginSubmitButton = LoginSubmitButton;
 LoginSubmit.SocialLogin = SocialLogin;
 LoginSubmit.InduceSign = InduceSign;
+LoginSubmit.LoginPassGuide = LoginPassGuide;
 
 export default LoginSubmit;

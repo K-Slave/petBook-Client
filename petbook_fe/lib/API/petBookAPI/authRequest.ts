@@ -1,25 +1,6 @@
-import { AxiosInstance } from "axios";
-import getParameters from "../axios/xhrFunctions";
+import RequestCore from "./RequestCore";
 
-import { AuthLoginRequest, AuthLoginCheckRequest } from "./types/authRequest";
-
-// const { uri, client } = getAxiosItems();
-
-export default class AuthAPI {
-  public uri = "";
-
-  public client: AxiosInstance;
-
-  private initBaseUrl = "";
-
-  constructor(initBaseUrl: string, uri: string, client: AxiosInstance) {
-    this.uri = uri;
-    this.client = client;
-    this.initBaseUrl = initBaseUrl;
-  }
-
-  // public login_check = (params: any, config?: { headerObj?: object }) => {};
-
+export default class AuthAPI extends RequestCore {
   /**
    *
    * 로그인 API
@@ -36,27 +17,17 @@ export default class AuthAPI {
     },
     config?: { headerObj?: object }
   ) => {
-    const { requestURL, requestHeaders } = getParameters({
-      uri: `${typeof window === "undefined" ? this.initBaseUrl : ""}${
-        this.uri
-      }/login`,
-      headerObj: config?.headerObj,
+    const { requestURL, requestHeaders } = this.getParameters({
+      uri: "/login",
+      headerObj: config && config.headerObj,
     });
 
-    const response =
-      this.client &&
-      (await this.client.post<AuthLoginRequest>(requestURL, body, {
-        timeout: 10000,
-        headers: requestHeaders,
-      }));
-
-    const result = {
-      ...response,
-      request: {
-        body,
-        config,
-      },
-    };
+    const result = await this.getResult({
+      requestMethod: "POST",
+      requestURL,
+      requestHeaders,
+      body,
+    });
 
     return result;
   };
@@ -74,32 +45,22 @@ export default class AuthAPI {
   public login_check = async (
     body: {
       userId: number;
-      enabled: Blob;
+      enabled: boolean;
       username: string;
     },
     config?: { headerObj?: object }
   ) => {
-    const { requestURL, requestHeaders } = getParameters({
-      uri: `${typeof window === "undefined" ? this.initBaseUrl : ""}${
-        this.uri
-      }/login-check`,
-      headerObj: config?.headerObj,
+    const { requestURL, requestHeaders } = this.getParameters({
+      uri: "/login-check",
+      headerObj: config && config.headerObj,
     });
 
-    const response =
-      this.client &&
-      (await this.client.post<AuthLoginCheckRequest>(requestURL, body, {
-        timeout: 10000,
-        headers: requestHeaders,
-      }));
-
-    const result = {
-      ...response,
-      request: {
-        body,
-        config,
-      },
-    };
+    const result = await this.getResult({
+      requestMethod: "POST",
+      requestURL,
+      requestHeaders,
+      body,
+    });
 
     return result;
   };

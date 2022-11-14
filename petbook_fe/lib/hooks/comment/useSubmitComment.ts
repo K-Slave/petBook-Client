@@ -9,6 +9,7 @@ import {
 export default function useSubmitComment() {
   const setComment = useSetRecoilState(commentState);
   const [input, setInput] = useState<CommentState>(initialCommentState);
+
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setComment((comment) => {
@@ -26,7 +27,6 @@ export default function useSubmitComment() {
     } else {
       // post api, 새로운 댓글
     }
-    console.log(input);
   }, [input]);
 
   return {

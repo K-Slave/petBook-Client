@@ -1,39 +1,30 @@
 import { NextPage } from "next";
 import styled from "styled-components";
 import HtmlHeader from "@components/common/HtmlHeader";
-import CommentSection from "@components/community/comment/CommentSection";
 import ChatSideBanner from "@components/community/article/detail/ChatSideBanner";
 import ArticleSection from "@components/community/article/detail/ArticleSection";
 import ImageSliderModal from "@components/community/article/detail/ImageSliderModal";
 import { articleRequest } from "@lib/API/petBookAPI";
 import { createResource } from "@lib/hooks/common/useResource";
+import CommentList from "@components/community/comment/CommentList";
+import CommentForm from "@components/community/comment/CommentForm";
 
 const ArticleDetailMain = styled.main`
   display: flex;
-  align-items: start;
+  flex-direction: column;
   gap: 20px;
 
-  max-width: 1064px;
+  max-width: 847px;
   width: 90vw;
 
   margin: 40px auto;
 `;
 
-const Wrapper = styled.div`
+const CommentSection = styled.section`
   display: flex;
   flex-direction: column;
   gap: 8px;
-
-  max-width: 847px;
-  margin: 0 auto;
 `;
-
-/*
-export const ARTICLE_ITEM1 = createResource({
-  key: "ARTICLE_ITEM",
-  fetcher: articleRequest.article_item,
-})
-*/
 
 export const ARTICLE_ITEM = {
   key: "ARTICLE_ITEM",
@@ -45,10 +36,11 @@ const ArticleDetail: NextPage = () => {
     <>
       <HtmlHeader />
       <ArticleDetailMain>
-        <Wrapper>
-          <ArticleSection />
-          <CommentSection />
-        </Wrapper>
+        <ArticleSection />
+        <CommentSection>
+          <CommentList />
+          <CommentForm />
+        </CommentSection>
       </ArticleDetailMain>
       <ImageSliderModal />
     </>
@@ -60,6 +52,6 @@ type PetbookPages = NextPage & {
 };
 
 const ArticleDetailPage: PetbookPages = ArticleDetail;
-ArticleDetailPage.requiredResources = [ARTICLE_ITEM]; // category_list
+ArticleDetailPage.requiredResources = [ARTICLE_ITEM];
 
 export default ArticleDetailPage;

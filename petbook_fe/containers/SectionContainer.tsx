@@ -1,7 +1,6 @@
 import React from "react";
 import KnowHowSection from "../components/common/PaperBox/Interface/KnowHowSection";
 import PopularPostSection from "../components/community/popular/PopularPostSection";
-import PostSection from "../components/community/article/ArticleListSection";
 import VoteSection from "../components/community/vote/VoteSection";
 
 const SectionContainer = () => {
@@ -9,7 +8,6 @@ const SectionContainer = () => {
     <>
       <VoteSection />
       <PopularPostSection />
-      <PostSection />
       <KnowHowSection />
     </>
   );

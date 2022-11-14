@@ -1,21 +1,6 @@
-import { AxiosInstance } from "axios";
-import getParameters from "../axios/xhrFunctions";
+import RequestCore from "./RequestCore";
 
-import { UserCreateRequest } from "./types/userRequest";
-
-export default class UserAPI {
-  public uri = "";
-
-  public client: AxiosInstance;
-
-  private initBaseUrl = "";
-
-  constructor(initBaseUrl: string, uri: string, client: AxiosInstance) {
-    this.uri = uri;
-    this.client = client;
-    this.initBaseUrl = initBaseUrl;
-  }
-
+export default class UserAPI extends RequestCore {
   /**
    *
    * 유저 회원가입 API
@@ -34,27 +19,16 @@ export default class UserAPI {
     },
     config?: { headerObj?: object }
   ) => {
-    const { requestURL, requestHeaders } = getParameters({
-      uri: `${typeof window === "undefined" ? this.initBaseUrl : ""}${
-        this.uri
-      }/register`,
-      headerObj: config?.headerObj,
+    const { requestURL, requestHeaders } = this.getParameters({
+      uri: "/register",
+      headerObj: config && config.headerObj,
     });
-
-    const response =
-      this.client &&
-      (await this.client.post<UserCreateRequest>(requestURL, body, {
-        timeout: 10000,
-        headers: requestHeaders,
-      }));
-
-    const result = {
-      ...response,
-      request: {
-        body,
-        config,
-      },
-    };
+    const result = await this.getResult({
+      requestMethod: "POST",
+      requestURL,
+      requestHeaders,
+      body,
+    });
 
     return result;
   };
