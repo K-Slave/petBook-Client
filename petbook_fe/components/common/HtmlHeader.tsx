@@ -9,13 +9,13 @@ const HtmlHeader = () => {
       <script
         async
         type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5c682ad42a1b2dc53379222a3b46761"
+        src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=d5c682ad42a1b2dc53379222a3b46761&autoload=false"
       />
-      <script
+      {/* <script
         async
         type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"
-      />
+        src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"
+      /> */}
     </Head>
   );
 };
