@@ -37,17 +37,17 @@ const Item = ({ article }: { article: ArticleResponse }) => {
   return (
     <Link href={`/community/${id}`} passHref>
       <ItemArticle>
-        <div className="ArticleItem_Column">
-          <div className="ArticleItem_UserInfo">
+        <div className="Item_Column">
+          <div className="Item_UserInfo">
             <ItemAvatar />
-            <p className="ArticleItem_Nickname">{user.nickname}</p>
-            <p className="ArticleItem_Date">{createdAt.split("T")[0]}</p>
+            <p className="Item_Nickname">{user.nickname}</p>
+            <p className="Item_Date">{createdAt.split("T")[0]}</p>
           </div>
           <ItemDiv>
             <h3>{title}</h3>
-            <p className="ArticleItem_Content">{content}</p>
+            <p className="Item_Content">{content}</p>
             <TagList tags={tags} width={65} height={26} fontSize={14} />
-            <p className="ArticleItem_Stats">
+            <p className="Item_Stats">
               <span>공감수 {stat.likeCount}</span>
               <span>/</span>
               <span>클릭수 {stat.viewCount}</span>
