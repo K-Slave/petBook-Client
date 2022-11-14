@@ -11,7 +11,7 @@ const CommentFormBox = styled.form`
   flex-direction: column;
 `;
 
-const StyledSubmitButton = styled.button`
+const CommentFormButton = styled.button`
   background: #eeeeee;
   border-radius: 21px;
   width: 67px;
@@ -25,7 +25,7 @@ const StyledSubmitButton = styled.button`
   align-self: flex-end;
 `;
 
-const UserInfoDiv = styled.div`
+const CommentFormDiv = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
@@ -33,17 +33,16 @@ const UserInfoDiv = styled.div`
   p {
     font-size: 14px;
   }
+  img {
+    width: 20px;
+    height: 20px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    object-fit: cover;
+  }
 `;
 
-const UserInfoImg = styled.img`
-  width: 20px;
-  height: 20px;
-  background-color: #d9d9d9;
-  border-radius: 50%;
-  object-fit: cover;
-`;
-
-const WriteCommentTextarea = styled.textarea`
+const CommentFormTextarea = styled.textarea`
   border: none;
   resize: none;
   width: 100%;
@@ -66,8 +65,7 @@ const WriteCommentTextarea = styled.textarea`
 
 export {
   CommentFormBox,
-  StyledSubmitButton,
-  UserInfoDiv,
-  UserInfoImg,
-  WriteCommentTextarea,
+  CommentFormButton,
+  CommentFormDiv,
+  CommentFormTextarea,
 };
