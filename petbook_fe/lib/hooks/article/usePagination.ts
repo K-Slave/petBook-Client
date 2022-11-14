@@ -10,16 +10,16 @@ export const usePage = () => {
   return currentPage;
 };
 
-export default function usePagination({ totalPages, btnNum } : { totalPages: number, btnNum: number }) {
+export default function usePagination({ totalPages, btnNum, basePath } : { totalPages: number, btnNum: number, basePath: string }) {
   const [offset, setOffset] = useState(1);
   const currentPage = usePage();
   const changeCurrentPage = useCallback((page: number) => {
-    navigator(`/community?page=${page}`, undefined, {
+    navigator(`${basePath}?page=${page}`, undefined, {
       shallow: true,
     });
   }, []);
 
-  // currentPage가 1 ~ tatolPages range에 존재하는지 판단
+  // currentPage가 1 ~ totalPages range에 존재하는지 판단
   useEffect(() => {
     if (totalPages === 0) return;
     localConsole.log("test page range");
