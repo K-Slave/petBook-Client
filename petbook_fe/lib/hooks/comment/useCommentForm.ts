@@ -1,15 +1,18 @@
-import { commentState } from "@atoms/pageAtoms/community/commentState";
+import commentState from "@atoms/pageAtoms/community/commentState";
 import localConsole from "@lib/utils/localConsole";
 import { COMMENT_CREATE } from "@pages/community/[articleId]";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { MutableRefObject, useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { useSetResource } from "../common/useResource";
 
-export default function useCommentForm(initialContent: string) {
+export default function useCommentForm({ initialContent, textareaRef } : {
+  initialContent: string,
+  textareaRef: MutableRefObject<HTMLTextAreaElement | null>
+}) {
     const router = useRouter();
     const setComment = useSetRecoilState(commentState);
-    const { mutate: createComment } = useSetResource(COMMENT_CREATE);
+    const { mutate: createComment, isSuccess: isCreateSuccess } = useSetResource(COMMENT_CREATE);
     const onChange = (
       e:
         | React.ChangeEvent<HTMLInputElement>
@@ -32,6 +35,7 @@ export default function useCommentForm(initialContent: string) {
           } else {
             // comment_update
           }
+          if (textareaRef.current != null) textareaRef.current.value = "";
           return { content: "", commentId: null, parentId: null };
         });
     };
