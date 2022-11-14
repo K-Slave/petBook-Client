@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 
 const ItemBox = styled.ul`
   margin-top: 12px;
@@ -22,7 +23,7 @@ const ItemBox = styled.ul`
         position: absolute;
         left: 0;
         top: 0;
-        background-color: var(--main-map);
+        background-color: var(--primary-map);
         color: white;
       }
     }
@@ -41,29 +42,89 @@ const ItemTitle = styled.h4`
 `;
 
 // TODO : any 사용으로 인한 ESLint 에러제거
-const MapSlideItems = ({ searchItems }) => {
+
+interface Props {
+  text: string;
+  value: number;
+  mapDetailList: Array<{ addrName: string; phoneNum: string }> | [];
+}
+const MapSlideItems = () => {
+  const [searchItems, setSearchItems] = useState<Props[]>([]);
+  useEffect(() => {
+    const mapData = [
+      {
+        text: "1",
+        value: 0,
+        mapDetailList: [
+          {
+            addrName: "청담",
+            phoneNum: "010-3333-4444",
+          },
+          {
+            addrName: "서초",
+            phoneNum: "010-3333-4444",
+          },
+        ],
+      },
+      {
+        text: "2",
+        value: 1,
+        mapDetailList: [
+          {
+            addrName: "강남",
+            phoneNum: "010-3333-4444",
+          },
+          {
+            addrName: "구월",
+            phoneNum: "010-3333-4444",
+          },
+        ],
+      },
+      {
+        text: "3",
+        value: 2,
+        mapDetailList: [
+          {
+            addrName: "청담",
+            phoneNum: "010-3333-4444",
+          },
+        ],
+      },
+      {
+        text: "4",
+        value: 3,
+        mapDetailList: [],
+      },
+      {
+        text: "5",
+        value: 3,
+        mapDetailList: [],
+      },
+    ];
+    setSearchItems(mapData);
+  }, []);
   return (
     <>
       {/* 구조에 따라 다르게 진행될 예정 - 임시  */}
       <ItemTitle>01. 주변병원 추천</ItemTitle>
       <ItemBox>
         {searchItems &&
-          searchItems[0].map((item, index) => {
+          searchItems.map((item) => {
             const detailItem = item.mapDetailList;
             return (
-              <li key={index}>
+              <li key={item.value}>
                 <figure>
                   <figcaption>{item.text}</figcaption>
                 </figure>
                 {detailItem ? (
                   <ItemInfo>
-                    {detailItem &&
+                    {/* {detailItem &&
                       detailItem.map((list, index) => {
                         <li key={index}>
                           <div>{list.addrName}</div>
                           <div>{list.phoneNum}</div>
                         </li>;
-                      })}
+                      })} */}
                   </ItemInfo>
                 ) : (
                   <div>정보없음</div>
