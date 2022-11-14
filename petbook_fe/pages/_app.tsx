@@ -52,27 +52,6 @@ const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
 NextApp.getInitialProps = async (context: AppContext) => {
   const { Component, router, ctx } = context;
 
-  // 소셜 로그인시, url 에 토큰이 붙어있는경우 쿠키로 변환하여 리다이렉트 시켜쥼
-  if (
-    router.asPath.includes("access_token") ||
-    router.asPath.includes("refresh_token")
-  ) {
-    urlTokenRedirect(context);
-  }
-
-  // 쿠키 획득
-  const allCookies = cookies(ctx);
-
-  if (allCookies && allCookies.petBookUser) {
-    Cookies.remove("petBookUser");
-
-    // 보안 옵션을 추가한 쿠키를 현재 접속 시각으로부터 30일 갱신
-    ctx.res?.setHeader(
-      "Set-Cookie",
-      `petBookUser=${allCookies.petBookUser}; SameSite=Strict; Max-Age=2592000; secure; httpOnly`
-    );
-  }
-
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -82,27 +61,52 @@ NextApp.getInitialProps = async (context: AppContext) => {
     },
   });
 
-  const PageComponent: typeof Component & {
-    requiredResources?: Array<{
-      key: string;
-      fetcher: () => void;
-      params?: object;
-      config?: object;
-    }>;
-  } = Component;
+  try {
+    // 소셜 로그인시, url 에 토큰이 붙어있는경우 쿠키로 변환하여 리다이렉트 시켜쥼
+    if (
+      router.asPath.includes("access_token") ||
+      router.asPath.includes("refresh_token")
+    ) {
+      urlTokenRedirect(context);
+    }
 
-  const { requiredResources } = PageComponent;
-  // const searchParams = new URLSearchParams(router.asPath);
-  const { query } = ctx;
+    // 쿠키 획득
+    const allCookies = cookies(ctx);
 
-  if (requiredResources) {
-    await Promise.all(
-      itrMap(
-        (resource: { key: string; fetcher: () => void }) =>
-          queryParser(resource, query, queryClient),
-        requiredResources
-      )
-    );
+    if (allCookies && allCookies.petBookUser) {
+      Cookies.remove("petBookUser");
+
+      // 보안 옵션을 추가한 쿠키를 현재 접속 시각으로부터 30일 갱신
+      ctx.res?.setHeader(
+        "Set-Cookie",
+        `petBookUser=${allCookies.petBookUser}; SameSite=Strict; Max-Age=2592000; secure; httpOnly`
+      );
+    }
+
+    const PageComponent: typeof Component & {
+      requiredResources?: Array<{
+        key: string;
+        fetcher: () => void;
+        params?: object;
+        config?: object;
+      }>;
+    } = Component;
+
+    const { requiredResources } = PageComponent;
+    // const searchParams = new URLSearchParams(router.asPath);
+    const { query } = ctx;
+
+    if (requiredResources) {
+      await Promise.all(
+        itrMap(
+          (resource: { key: string; fetcher: () => void }) =>
+            queryParser(resource, query, queryClient),
+          requiredResources
+        )
+      );
+    }
+  } catch (e) {
+    console.error(e);
   }
 
   return {
@@ -112,5 +116,23 @@ NextApp.getInitialProps = async (context: AppContext) => {
     },
   };
 };
+
+// export const getServerSideProps: GetServerSideProps = async (ctx) => {
+//   const token = ctx.params?.token
+//   const invite = await fetch(...)
+
+//   if ([403, 404].includes(invite.status)) {
+//     return {
+//       notFound: true,
+//     }
+//   }
+
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(ctx.locale!, ['common'])),
+//       token
+//     },
+//   }
+// }
 
 export default NextApp;
