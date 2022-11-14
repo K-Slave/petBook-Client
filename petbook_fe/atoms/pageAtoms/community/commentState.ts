@@ -1,18 +1,16 @@
 import { atom } from "recoil";
 
 export interface CommentState {
-  comment: string;
-  id?: number;
-  parentId?: number;
+  content: string;
+  commentId: number | null;
+  parentId: number | null;
 }
-
-export const initialCommentState = {
-  comment: "",
-  id: undefined,
-  parentId: undefined,
-};
 
 export const commentState = atom<CommentState>({
   key: "commentState",
-  default: initialCommentState,
+  default: {
+    content: "",
+    commentId: null,
+    parentId: null,
+  },
 });
