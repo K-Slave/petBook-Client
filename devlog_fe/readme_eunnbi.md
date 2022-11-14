@@ -47,6 +47,6 @@
 #### 22.11.14
 
 - 게시물 목록 조회 api response body 수정에 따라 프론트 측도 코드 수정
-  - `ArticleListResponse` interface 수정
-  -  `totalElement` 값을 이용해 `totalPages` 값 구하여 `PageButtonBox` 렌더링
+  - `ArticleListResponse` interface 수정 및 interface에 맞게 코드 수정
+  - `totalElement` 값을 이용해 `totalPages` 값 구하여 `PageButtonBox` 렌더링
 - `loading` 상태 UI 추가 예정
