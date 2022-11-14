@@ -33,7 +33,7 @@ const LeftSide = ({ children, as }: PropsWithChildren<LeftSideProps>) => {
 };
 
 LeftSide.defaultProps = {
-  as: () => {},
+  as: <></>,
 };
 
 type MenuProps = {
@@ -87,7 +87,7 @@ const RightSide = ({
     return <></>;
   }
 
-  if (to && Object.toString.call(to)) {
+  if (to && typeof to === "string") {
     const embedProps = { isCurrentPage: currentPath === to };
     const InputRightSide = setNextjsElement({ as, to, embedProps });
 
@@ -108,7 +108,7 @@ const RightSide = ({
 };
 
 RightSide.defaultProps = {
-  as: () => {},
+  as: <></>,
   value: "",
   to: "",
   currentPath: "",

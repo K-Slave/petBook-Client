@@ -68,8 +68,8 @@ const NavMenu = ({
 };
 
 NavMenu.defaultProps = {
-  InputLeftSide: () => {},
-  InputRightSide: () => {},
+  InputLeftSide: <></>,
+  InputRightSide: <></>,
   currentPath: "",
   rightSideTo: "",
   rightSideName: "",
