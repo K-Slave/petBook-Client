@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const ArticleListDiv = styled.div`
   display: flex;
@@ -6,7 +6,7 @@ const ArticleListDiv = styled.div`
   gap: 12px;
 `;
 
-const Article = styled.article`
+const ItemArticle = styled.article`
   display: flex;
   align-items: center;
   border-radius: 16px;
@@ -34,21 +34,21 @@ const Article = styled.article`
   }
 `;
 
-const ArticleItemAvatar = styled.img`
+const ItemAvatar = styled.img`
   width: 30px;
   height: 30px;
   border-radius: 50%;
   background-color: lightgray;
 `;
 
-const ArticleItemImg = styled.img`
+const ItemImg = styled.img`
   flex-shrink: 0;
   width: 385px;
   height: 207px;
   background-color: #fff6e6;
 `;
 
-const ArticleItemDiv = styled.div`
+const ItemDiv = styled.div`
   padding-left: 37px;
   h3 {
     margin-bottom: 6px;
@@ -78,10 +78,40 @@ const ArticleItemDiv = styled.div`
   }
 `;
 
+const PageButtonBoxDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  margin-top: 53px;
+`;
+
+const selectedStyle = css`
+  border-radius: 50%;
+  background-color: #000;
+  font-weight: 700;
+  color: #fff;
+`;
+
+const PageButton = styled.button<{ selected: boolean }>`
+  ${({ selected }) => selected && selectedStyle};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 22px;
+  height: 22px;
+
+  font-size: 16px;
+`;
+
 export {
   ArticleListDiv,
-  ArticleItemAvatar,
-  ArticleItemDiv,
-  ArticleItemImg,
-  Article,
+  ItemAvatar,
+  ItemDiv,
+  ItemImg,
+  ItemArticle,
+  PageButtonBoxDiv,
+  PageButton
 };
