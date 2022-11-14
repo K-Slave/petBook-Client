@@ -5,7 +5,7 @@ export const registerFormState = atom<{
   password: string;
   nickname: string;
 }>({
-  key: "userState",
+  key: "registerFormState",
   default: {
     email: "",
     password: "",
@@ -17,7 +17,7 @@ export const loginFormState = atom<{
   email: string;
   password: string;
 }>({
-  key: "userState",
+  key: "loginFormState",
   default: {
     email: "",
     password: "",
