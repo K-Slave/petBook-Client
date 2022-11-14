@@ -11,7 +11,7 @@ type NavMenuProps = {
   name: string | string[];
   currentPath?: string;
 
-  rightSideTo?: string | string[];
+  rightSideTo: string | string[];
   rightSideName?: string | string[];
   rightSideCurrentPath?: string;
 };
@@ -48,6 +48,7 @@ const NavMenu = ({
             typeof name === "object" &&
             to.map((page, idx) => (
               <LinkedNavBar.Button
+                key={`${page}_${name[idx]}`}
                 as={InputButton}
                 to={page}
                 value={name[idx]}
@@ -61,7 +62,14 @@ const NavMenu = ({
           to={rightSideTo}
           value={rightSideName}
           currentPath={rightSideCurrentPath}
-        />
+        >
+          <LinkedNavBar.Button
+            as={InputButton}
+            to={typeof rightSideTo === "string" ? rightSideTo : "/"}
+            value={typeof rightSideName === "string" ? rightSideName : "/"}
+            currentPath={rightSideCurrentPath}
+          />
+        </LinkedNavBar.RightSide>
       </LinkedNavBar.Wrap>
     </LinkedNavBar>
   );
@@ -71,7 +79,6 @@ NavMenu.defaultProps = {
   InputLeftSide: <></>,
   InputRightSide: <></>,
   currentPath: "",
-  rightSideTo: "",
   rightSideName: "",
   rightSideCurrentPath: "",
 };

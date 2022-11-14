@@ -1,6 +1,8 @@
 import Link from "next/link";
 import React, { PropsWithChildren } from "react";
-import setNextjsElement from "../../../../lib/utils/setNextjsElement";
+import setNextjsElement, {
+  setNextjsForwardRef,
+} from "../../../../lib/utils/setNextjsElement";
 
 const LinkedNavBar = ({ children }: PropsWithChildren<any>) => {
   return children;
@@ -20,10 +22,11 @@ type LeftSideProps = {
   as?: JSX.Element;
 };
 
-const LeftSide = ({ children, as }: PropsWithChildren<LeftSideProps>) => {
+const LeftSide = (props: PropsWithChildren<LeftSideProps>) => {
+  const { children, as } = props;
   if (!as) return <></>;
 
-  const InputLeftSide = setNextjsElement({ as, to: "/" });
+  const InputLeftSide = setNextjsForwardRef({ as, to: "/", ...props });
 
   return (
     <Link href="/" passHref>
@@ -54,16 +57,15 @@ type ButtonProps = {
 };
 
 const Button = ({ as, value, to, currentPath }: ButtonProps) => {
-  const embedProps = { isCurrentPage: currentPath === to };
-  const InputButton = setNextjsElement({ as, to, embedProps });
+  const embedProps = { isCurrentPage: to !== "/" && currentPath?.includes(to) };
+  const InputButton = setNextjsForwardRef({ as, to, embedProps });
 
   return (
-    <Link href={`/${to}`} passHref>
+    <Link href={`${to}`} passHref>
       <InputButton>{value}</InputButton>
     </Link>
   );
 };
-
 Button.defaultProps = {
   currentPath: "",
 };
@@ -77,6 +79,7 @@ type RightSideProps = {
 
 const RightSide = ({
   as,
+  children,
   value,
   to,
   currentPath,
@@ -88,17 +91,28 @@ const RightSide = ({
   }
 
   if (to && typeof to === "string") {
-    const embedProps = { isCurrentPage: currentPath === to };
-    const InputRightSide = setNextjsElement({ as, to, embedProps });
+    const embedProps = {
+      isCurrentPage: to !== "/" && currentPath?.includes(to),
+    };
+
+    const InputRightSide = setNextjsForwardRef({
+      as,
+      to,
+      embedProps,
+    });
+
+    // if (to === "/login") {
+    //   console.log(InputRightSide, "login props");
+    // }
 
     return (
-      <Link href={`/${to}`} passHref>
+      <Link href={`${to}`} passHref>
         <InputRightSide>{value}</InputRightSide>
       </Link>
     );
   }
 
-  const InputRightSide = setNextjsElement({ as, to: "/search" });
+  const InputRightSide = setNextjsForwardRef({ as, to: "/search" });
 
   return (
     <Link href="/search" passHref>
