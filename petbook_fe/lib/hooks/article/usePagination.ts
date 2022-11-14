@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import navigator from "@lib/modules/navigator";
+import localConsole from "@lib/utils/localConsole";
 
 export const usePage = () => {
   const router = useRouter();
@@ -9,7 +10,8 @@ export const usePage = () => {
   return currentPage;
 };
 
-export default function usePagination(totalPages: number) {
+export default function usePagination({ totalPages, btnNum } : { totalPages: number, btnNum: number }) {
+  const [offset, setOffset] = useState(1);
   const currentPage = usePage();
   const changeCurrentPage = useCallback((page: number) => {
     navigator(`/community?page=${page}`, undefined, {
@@ -19,7 +21,7 @@ export default function usePagination(totalPages: number) {
 
   useEffect(() => {
     if (totalPages === 0) return;
-    console.log("page change");
+    localConsole.log("test page range");
     if (currentPage < 1) {
       changeCurrentPage(1);
     } else if (currentPage > totalPages) {
@@ -27,8 +29,18 @@ export default function usePagination(totalPages: number) {
     }
   }, [currentPage, totalPages]);
 
+  useEffect(() => {
+    localConsole.log("test button offset");
+    if (currentPage >= offset + btnNum) {
+      setOffset((oldOffset) => oldOffset + btnNum);
+    } else if (currentPage < offset) {
+      setOffset((oldOffset) => oldOffset - btnNum);
+    }
+  }, [currentPage]);
+
   return {
     currentPage,
     changeCurrentPage,
+    offset
   };
 }
