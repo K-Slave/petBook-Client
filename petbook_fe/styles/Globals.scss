@@ -4,11 +4,27 @@
 //컬러설정
 
 :root {
-  --main: #ff6e4e;
-  --main-map: #f0892f; //맵 전용 컬러
+  //primary
+  --primary: #ff6847;
+  --primary-hover: #ff542f;
   --bg: #fffbf4;
-  --test: #fff6e5;
-  --figureBg: #d9d9d9;
+
+  //secondary
+  --secondary: #ffcfc5;
+  --secondary-hover: #ffcfc5;
+
+  //map
+  --map-primary: #f0892f;
+  --map-figureBg: #ffcfc5;
+
+  //button
+  --disabled: #e0dfd9;
+  --disabled-font: #c5c4bd;
+
+  //action
+  --success: #2bc128;
+  --error: #ff0000;
+  --brand: #ff6847;
 }
 
 * {
@@ -80,18 +96,6 @@ img {
   margin: 0 auto;
 }
 
-.logo_box {
-  display: flex;
-  justify-content: left;
-  align-items: center;
-}
-.main_logo {
-  width: 77px;
-  height: 30px;
-  background-image: url("../public/img/common/logo/Petbook_logo.svg");
-  background-repeat: no-repeat;
-}
-
 .flex {
   display: flex;
   align-items: center;
@@ -115,7 +119,7 @@ input:not(input.default) {
 }
 
 input:focus {
-  outline: solid 1px var(--main);
+  outline: solid 1px var(--primary);
 }
 input::placeholder {
   color: #797979;
@@ -124,7 +128,7 @@ input::placeholder {
 }
 
 //login
-.login_title {
+.Login_Title {
   text-align: center;
   p {
     font-size: 20px;
@@ -136,47 +140,49 @@ input::placeholder {
     margin-top: 16px;
   }
 }
-.login_form {
-  margin-bottom: 20px;
-  input {
-    margin-bottom: 10px;
-  }
-}
-.automatic_login {
-  margin-bottom: 40px;
-}
-.action {
-  font-size: 14px;
-  color: #444;
-  margin: 30px 0 102px 0;
-  li {
-    cursor: pointer;
-    a {
-      color: #444;
-      font-size: inherit;
-    }
-    &:first-child {
-      margin-right: 70px;
-    }
-  }
-}
 
 button {
   cursor: pointer;
   border: transparent;
   background-color: transparent;
   font-family: Pretendard, sans-serif;
+  padding: 14px 0;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.125rem;
 }
 
-.main_color_button {
-  border-radius: 12px;
+// defult button
+button.Primary {
+  width: 100%;
+  border-radius: 8px;
   color: white;
-  font-size: 20px;
-  font-weight: 700;
-  padding: 20px 0;
-  text-align: center;
-  background-color: var(--main);
-  cursor: pointer;
+  background-color: var(--primary);
+  transition: all 0.3s ease;
+}
+button.Primary:hover {
+  background-color: var(--primary-hover);
+}
+
+//secondary
+button.Secondary {
+  width: 100%;
+  border-radius: 8px;
+  color: white;
+  background-color: var(--secondary);
+  transition: all 0.3s ease;
+}
+button.Secondary:hover {
+  background-color: var(--secondary-hover);
+}
+
+// disabled button
+button.Disabled {
+  width: 100%;
+  border-radius: 8px;
+  color: var(--disabled-font);
+  background-color: var(--disabled);
+  transition: all 0.3s ease;
 }
 
 // 모바일 환경 접속시 전역 스타일링

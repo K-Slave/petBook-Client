@@ -25,12 +25,12 @@ const Bar = styled.div`
 const MapBar = styled.div`
   width: 100%;
   input {
-    border: solid 2px var(--main);
+    border: solid 2px var(--primary);
     font-size: 16px;
     border-radius: 10px;
     padding: 13px 0 14px 53px;
     &::placeholder {
-      color: var(--main);
+      color: var(--primary);
       opacity: 0.6;
     }
   }
