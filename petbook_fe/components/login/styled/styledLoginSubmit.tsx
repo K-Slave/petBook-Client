@@ -1,7 +1,46 @@
 import styled from "styled-components";
 
+const Submitbutton = styled.button`
+  margin-top: 64px;
+  width: 100%;
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+  line-height: 52px;
+  border-radius: 8px;
+  background-color: #ff6847;
+`;
 const ButtonBox = styled.div`
   margin-top: 42px;
+  a {
+    display: block;
+    width: 100%;
+    padding: 20px 0;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+    color: white;
+    box-sizing: border-box;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &.email {
+      padding: 28px 0;
+      margin-bottom: 60px;
+      background-color: var(--main);
+    }
+    &.naver {
+      background-color: #41d97e;
+    }
+    &.kakao {
+      background-color: #ffc700;
+    }
+    &.google {
+      background-color: #7270ff;
+    }
+  }
 `;
 const Container = styled.div`
   padding: 41px 35px;
@@ -23,4 +62,55 @@ const Container = styled.div`
   }
 `;
 
-export { ButtonBox, Container };
+const PassGuide = styled.figure`
+  margin-top: 20px;
+  text-align: center;
+  p {
+    display: inline;
+    font-size: 18px;
+  }
+  a {
+    position: relative;
+    display: inline-block;
+    padding: 0 20px;
+    font-size: 14px;
+    color: #777774;
+    &::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 12px;
+      background-color: #e0dfd9;
+    }
+    &:last-child {
+      color: #ff6847;
+      &::after {
+        display: none;
+      }
+    }
+  }
+`;
+
+const LoginWrap = styled.div`
+  position: relative;
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 194px;
+`;
+
+const NotLogin = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 55px;
+  font-size: 20px;
+  color: #b6b6b6;
+  svg {
+    margin-bottom: 25px;
+    font-size: 55px;
+  }
+`;
+export { ButtonBox, Container, PassGuide, LoginWrap, NotLogin, Submitbutton };

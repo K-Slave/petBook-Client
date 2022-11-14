@@ -5,6 +5,6 @@ export interface AuthLoginRequest {
 
 export interface AuthLoginCheckRequest {
   userId: number;
-  enabled: Blob;
+  enabled: boolean;
   username: string;
 }

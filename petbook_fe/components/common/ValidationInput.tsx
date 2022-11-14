@@ -1,14 +1,14 @@
-import { ChangeEventHandler } from "react";
-import { useSetRecoilState } from "recoil";
 import {
-  registerFormState,
   loginFormState,
+  registerFormState,
 } from "@atoms/pageAtoms/login/userState";
+import React, { ChangeEventHandler } from "react";
+import { useSetRecoilState } from "recoil";
 
 interface ValidationProps {
   current: string;
   axiosValue: string;
-  submitType?: string;
+  submitType: string;
 }
 
 const ValidationInput = ({
@@ -63,8 +63,8 @@ const ValidationInput = ({
   );
 };
 
-ValidationInput.defaultProps = {
-  submitType: "",
-};
+// ValidationInput.defaultProps = {
+//   submitType: "",
+// };
 
 export default ValidationInput;

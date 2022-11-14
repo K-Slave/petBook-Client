@@ -3,6 +3,7 @@ import Header from "./Nav/Interface/Header";
 import TopNav from "./Nav/Interface/TopNav";
 
 const CommonHeader = ({ pathname }: { pathname: string }) => {
+  console.log(pathname);
   return (
     <>
       <div className="Header__Wrap">

@@ -1,62 +1,17 @@
 import { ARTICLE_ITEM } from "@pages/community/[articleId]";
 import { useRouter } from "next/router";
 import useResource from "@lib/hooks/common/useResource";
-import styled from "styled-components";
+import { useSetRecoilState } from "recoil";
+import imageModalState from "@atoms/pageAtoms/community/imageModalState";
+import getRandomKey from "@lib/utils/getRandomKey";
 import DetailCommonInfo from "../../DetailCommonInfo";
 import TagList from "../../TagList";
-import ImageSlider from "./ImageSlider";
-
-const ArticleSectionBox = styled.section`
-  display: flex;
-  flex-direction: column;
-  padding: 48px 40px 32px;
-  border: 1px solid #f5edde;
-  border-radius: 16px;
-  background-color: #fff;
-  .ArticleSection_topRow {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .ArticleSection_buttonBox {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-    & > button {
-      font-weight: 500;
-      font-size: 14px;
-      color: #7c7c7c;
-    }
-  }
-  .ArticleSection_bottomRow {
-    display: flex;
-    align-items: center;
-    margin-top: 27px;
-    gap: 28px;
-    & > button,
-    & > span {
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 17px;
-      color: #7c7c7c;
-    }
-  }
-`;
-
-const ArticleSectionH2 = styled.h2`
-  margin: 59px 0 26px;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 30px;
-  color: #444444;
-`;
-
-const ArticleSectionParagraph = styled.p`
-  font-weight: 500;
-  font-size: 17px;
-  line-height: 31px;
-  color: #747474;
-`;
+import {
+  ArticleSectionBox,
+  ImageSliderDiv,
+  ImageSliderImg,
+  Spacer,
+} from "./styled/styledArticleSection";
 
 const dummyImages = [
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80",
@@ -76,30 +31,59 @@ const ArticleSection = () => {
     return <ArticleSectionBox />;
   }
 
-  const { id, title, content, user, category, tags, stat } = data.data;
+  const { id, title, content, user, category, tags, stat, createdAt } = data.data;
   return (
     <ArticleSectionBox>
-      <div className="ArticleSection_topRow">
+      <div className="ArticleSection_Top_Row">
         <DetailCommonInfo
           avatar=""
           username={user.nickname}
-          date="2022-02-20"
+          date={createdAt.split("T")[0]}
         />
-        <div className="ArticleSection_buttonBox">
+        <div className="ArticleSection_Button_Box">
           <button type="button">공유</button>
           <button type="button">신고</button>
         </div>
       </div>
-      <ArticleSectionH2>{title}</ArticleSectionH2>
-      <ArticleSectionParagraph>{content}</ArticleSectionParagraph>
+      <h2>{title}</h2>
+      <p>{content}</p>
       <ImageSlider images={dummyImages} />
       <TagList tags={tags} width={90} height={32} fontSize={16} />
-      <div className="ArticleSection_bottomRow">
+      <div className="ArticleSection_Bottom_Row">
         <span>관람 수 {stat.viewCount}</span>
         <button type="button">좋아요 버튼</button>
         <button type="button">스크랩</button>
       </div>
     </ArticleSectionBox>
+  );
+};
+
+// ------------------------------------------
+
+interface Props {
+  images: string[];
+}
+
+const ImageSlider = ({ images }: Props) => {
+  const setModalState = useSetRecoilState(imageModalState);
+  return images.length !== 0 ? (
+    <ImageSliderDiv>
+      {images.map((image, index) => (
+        <ImageSliderImg
+          src={image}
+          key={getRandomKey()}
+          onClick={() =>
+            setModalState({
+              show: true,
+              currentIndex: index,
+              prevIndex: index === 0 ? images.length - 1 : index - 1,
+              images,
+            })}
+        />
+      ))}
+    </ImageSliderDiv>
+  ) : (
+    <Spacer />
   );
 };
 

@@ -1,7 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 
-const AboutSection = styled.section`
+const AboutSection = () => {
+  return (
+    <AboutSectionBox>
+      <div>
+        <p>
+          커뮤니티에 대한 간단한 설명 <br />
+          2줄 정도
+        </p>
+      </div>
+    </AboutSectionBox>
+  );
+};
+
+const AboutSectionBox = styled.section`
   display: flex;
   align-items: center;
 
@@ -21,17 +34,4 @@ const AboutSection = styled.section`
   }
 `;
 
-const About = () => {
-  return (
-    <AboutSection>
-      <div>
-        <p>
-          커뮤니티에 대한 간단한 설명 <br />
-          2줄 정도
-        </p>
-      </div>
-    </AboutSection>
-  );
-};
-
-export default React.memo(About);
+export default React.memo(AboutSection);
