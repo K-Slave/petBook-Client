@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector, useRecoilValue } from "recoil";
 
 export interface WriteStateType {
   selectedCategory: number;

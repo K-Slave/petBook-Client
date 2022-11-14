@@ -5,7 +5,7 @@ import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
 import Image from "next/image";
 import React, { PropsWithChildren, useRef } from "react";
 import { BsPlus } from "react-icons/bs";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   AddButtonBox,
   CountP,
@@ -48,6 +48,10 @@ const ImgList = React.memo(() => {
     writeState,
     "inputImg"
   );
+
+  // const { inputImg } = useRecoilValue(writeState);
+
+  console.log("render");
 
   return (
     <ImgListUl>
@@ -93,7 +97,7 @@ const AddButton = () => {
         const imgInput = document?.createElement("input");
         imgInput.setAttribute("class", "default");
         imgInput.setAttribute("type", "file");
-        imgInput.setAttribute("accept", "image/jpg");
+        imgInput.setAttribute("accept", "image/*");
         imgInput.setAttribute("aria-label", "이미지 첨부 버튼");
         imgInput.setAttribute("aria-labelledby", "이미지 첨부 버튼");
         imgInput.click();
