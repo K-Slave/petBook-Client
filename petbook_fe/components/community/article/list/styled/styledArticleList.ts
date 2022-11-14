@@ -83,7 +83,6 @@ const PageButtonBoxDiv = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
-
   margin-top: 53px;
 `;
 
@@ -94,16 +93,17 @@ const selectedStyle = css`
   color: #fff;
 `;
 
-const PageButton = styled.button<{ selected: boolean }>`
-  ${({ selected }) => selected && selectedStyle};
+const PageButton = styled.button<{ selected: boolean }>` 
   display: flex;
   justify-content: center;
   align-items: center;
-
   width: 22px;
   height: 22px;
-
+  padding: 0;
   font-size: 16px;
+  font-weight: normal;
+
+  ${({ selected }) => selected && selectedStyle};
 `;
 
 export {

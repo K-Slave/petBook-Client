@@ -17,6 +17,8 @@ const selectedStyle = css`
 `;
 
 const notSelectedStyle = css`
+  padding: 0;
+  font-weight: normal;
   color: #000;
 `;
 
@@ -26,9 +28,7 @@ const CategoryFilterButton = styled.button<{ selected: boolean }>`
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-
   border-radius: 20px;
-
   font-size: 20px;
 `;
 
