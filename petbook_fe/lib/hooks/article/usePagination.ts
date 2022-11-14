@@ -19,6 +19,7 @@ export default function usePagination({ totalPages, btnNum } : { totalPages: num
     });
   }, []);
 
+  // currentPage가 1 ~ tatolPages range에 존재하는지 판단
   useEffect(() => {
     if (totalPages === 0) return;
     localConsole.log("test page range");
@@ -29,6 +30,7 @@ export default function usePagination({ totalPages, btnNum } : { totalPages: num
     }
   }, [currentPage, totalPages]);
 
+  // currentPage 변화에 따른 button offset 판단
   useEffect(() => {
     localConsole.log("test button offset");
     if (currentPage >= offset + btnNum) {
