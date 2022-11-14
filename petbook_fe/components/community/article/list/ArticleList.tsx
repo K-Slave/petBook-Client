@@ -1,46 +1,49 @@
 import Link from "next/link";
 import useArticleList from "@lib/hooks/article/useArticleList";
-import { ArticleListResponse, ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
-import TagList from "../../TagList";
+import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
+import useButtonOffset from "@lib/hooks/article/useButtonOffset";
+import usePagination from "@lib/hooks/article/usePagination";
+import getRandomKey from "@lib/utils/getRandomKey";
+import { useRef } from "react";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import {
   ArticleListDiv,
-  ArticleItemImg,
-  ArticleItemDiv,
-  ArticleItemAvatar,
-  Article,
+  ItemImg,
+  ItemDiv,
+  ItemAvatar,
+  ItemArticle,
+  PageButton,
+  PageButtonBoxDiv
 } from "./styled/styledArticleList";
+import TagList from "../../TagList";
 
 const ArticleList = () => {
-  const articleList: ArticleListResponse = useArticleList();
+  const { articles, totalPages } = useArticleList();
   return (
     <ArticleListDiv>
-      {articleList.map((article) => (
+      {articles.map((article) => (
         <ArticleList.Item article={article} key={article.id} />
       ))}
+      <ArticleList.PageButtonBox totalPages={totalPages} />
     </ArticleListDiv>
   );
 };
 
 // ----------------------------------------------------------------------
 
-interface ItemProps {
-  article: ArticleResponse;
-}
-
-const Item = ({ article }: ItemProps) => {
-  const { id, title, content, user, tags, stat } = article;
+const Item = ({ article }: { article: ArticleResponse }) => {
+  const { id, title, content, user, tags, stat, createdAt } = article;
   const previewImage = "";
-  const date = "2022-02-03";
   return (
     <Link href={`/community/${id}`} passHref>
-      <Article>
+      <ItemArticle>
         <div className="ArticleItem_Column">
           <div className="ArticleItem_UserInfo">
-            <ArticleItemAvatar />
+            <ItemAvatar />
             <p className="ArticleItem_Nickname">{user.nickname}</p>
-            <p className="ArticleItem_Date">{date}</p>
+            <p className="ArticleItem_Date">{createdAt.split("T")[0]}</p>
           </div>
-          <ArticleItemDiv>
+          <ItemDiv>
             <h3>{title}</h3>
             <p className="ArticleItem_Content">{content}</p>
             <TagList tags={tags} width={65} height={26} fontSize={14} />
@@ -49,14 +52,55 @@ const Item = ({ article }: ItemProps) => {
               <span>/</span>
               <span>클릭수 {stat.viewCount}</span>
             </p>
-          </ArticleItemDiv>
+          </ItemDiv>
         </div>
-        {previewImage === "" ? null : <ArticleItemImg />}
-      </Article>
+        {previewImage === "" ? null : <ItemImg />}
+      </ItemArticle>
     </Link>
   );
 };
 
+// -----------------------------------------------------------------
+
+const PageButtonBox = ({ totalPages } : { totalPages: number }) => {
+  const btnNum = useRef(10);
+  const { currentPage, changeCurrentPage } = usePagination(totalPages);
+  const offset = useButtonOffset({ btnNum: btnNum.current, currentPage });
+  const onClickPrev = () => {
+    changeCurrentPage(offset - btnNum.current);
+  };
+  const onClickNext = () => {
+    changeCurrentPage(offset + btnNum.current);
+  };
+  return (
+    <PageButtonBoxDiv>
+      {offset !== 1 && (
+        <button onClick={onClickPrev} type="button">
+          <FiChevronLeft />
+        </button>
+      )}
+      {Array(totalPages + 1)
+        .fill(1)
+        .slice(offset, btnNum.current + offset)
+        .map((_, i) => (
+          <PageButton
+            key={getRandomKey()}
+            onClick={() => changeCurrentPage(i + offset)}
+            selected={currentPage === offset + i}
+          >
+            {i + offset}
+          </PageButton>
+        ))}
+      {btnNum.current + offset < totalPages && (
+        <button onClick={onClickNext} type="button">
+          <FiChevronRight />
+        </button>
+      )}
+    </PageButtonBoxDiv>
+  );
+};
+
 ArticleList.Item = Item;
+ArticleList.PageButtonBox = PageButtonBox;
 
 export default ArticleList;
