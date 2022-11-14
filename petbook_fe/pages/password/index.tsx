@@ -43,7 +43,7 @@ const LinkWrap = styled.div`
     font-weight: bold;
     display: block;
     &:first-child {
-      background-color: var(--main);
+      background-color: var(--primary);
       margin-bottom: 12px;
     }
     &:last-child {
