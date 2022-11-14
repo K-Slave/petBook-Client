@@ -41,7 +41,7 @@ const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
       <Hydrate state={initProps.dehydratedState}>
         <RecoilRoot>
           <HtmlHeader />
-          <CommonHeader pathname={router.pathname} />
+          {/* <CommonHeader pathname={router.pathname} /> */}
           <Component />
         </RecoilRoot>
       </Hydrate>
