@@ -9,8 +9,10 @@ import { RecoilState, selector, useRecoilValue } from "recoil";
 // 이 커스텀훅을 사용하면 됩니다.
 
 const atomSelector = (atom: RecoilState<any>, selectProperty: string) => {
+  const uniqueProperty = new Date().getTime() + Math.random();
+
   return selector({
-    key: `${atom.key}_${selectProperty}`,
+    key: `${atom.key}_${selectProperty}_${uniqueProperty}`,
     get: ({ get }) => {
       const atomValue = get(atom);
       return atomValue[`${selectProperty}`];
