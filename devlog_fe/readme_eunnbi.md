@@ -42,3 +42,11 @@
 
 - random key값을 반환하는 `getRandomKey` 유틸함수 구현 (Date 객체의 getTime 메서드와 Math 객체의 random 메서드 이용)
 - 커뮤니티 게시물 리스트 관련 컴포넌트들 `compound component pattern`으로 리팩토링 중
+
+
+#### 22.11.14
+
+- 게시물 목록 조회 api response body 수정에 따라 프론트 측도 코드 수정
+  - `ArticleListResponse` interface 수정
+  -  `totalElement` 값을 이용해 `totalPages` 값 구하여 `PageButtonBox` 렌더링
+- `loading` 상태 UI 추가 예정
