@@ -3,20 +3,21 @@ import { CommentCreateRequest, CommentUpdateRequest } from "./types/commentReque
 
 export default class CommentAPI extends RequestCore {
     /**
-   * @param body 요청 패킷 Body 에 JSON 형태로 담을 내용입니다.
-   * @param body.content 댓글 내용입니다.
-   * @param body.articleId 게시물의 ID 값입니다.
-   * @param body.parentId 댓글의 부모 ID 값입니다.
-   * @param config Header 메시지를 추가할때 씁니다.
-   * @param config.headerObj 유저 토큰값을 헤더에 작성합니다. 없으면 에러가 납니다.
+   * @param payload
+   * @param payload.body 요청 패킷 Body 에 JSON 형태로 담을 내용입니다.
+   * @param payload.body.content 댓글 내용입니다.
+   * @param payload.body.articleId 게시물의 ID 값입니다.
+   * @param payload.body.parentId 댓글의 부모 ID 값입니다.
+   * @param payload.headerObj 유저 토큰값을 헤더에 작성합니다. 없으면 에러가 납니다.
    * @returns 생성한 댓글 정보가 들어옵니다.
    */
-    public comment_create = async (
+    public comment_create = async (payload: {
         body: CommentCreateRequest,
-        config?: { headerObj: object }
-    ) => {
+        headerObj?: object
+    }) => {
+        const { body, headerObj } = payload;
         const { requestURL, requestHeaders } = this.getParameters({
-            headerObj: config && config.headerObj,
+            headerObj
           });
 
           const result = await this.getResult({
@@ -30,21 +31,22 @@ export default class CommentAPI extends RequestCore {
 
     /**
    *
-   * @param pathParam 댓글 ID값입니다.
-   * @param body 요청 패킷 Body 에 JSON 형태로 담을 내용입니다.
-   * @param body.content 댓글 내용입니다.
-   * @param config Header 메시지를 추가할때 씁니다.
-   * @param config.headerObj 유저 토큰값을 헤더에 작성합니다. 없으면 에러가 납니다.
+   * @param payload
+   * @param payload.pathParam 댓글 ID값입니다.
+   * @param payload.body 요청 패킷 Body에 JSON 형태로 담을 내용입니다.
+   * @param payload.body.content 댓글 내용입니다.
+   * @param payload.headerObj 유저 토큰값을 헤더에 작성합니다. 없으면 에러가 납니다.
    * @returns 업데이트된 댓글 정보가 들어옵니다.
    */
-    public comment_update = async (
+    public comment_update = async (payload: {
         pathParam: string,
-        body: CommentUpdateRequest,
-        config?: { headerObj: object}
-    ) => {
+        body: CommentCreateRequest,
+        headerObj?: object
+    }) => {
+        const { pathParam, body, headerObj } = payload;
         const { requestURL, requestHeaders } = this.getParameters({
             pathParam,
-            headerObj: config && config.headerObj,
+            headerObj
         });
         const result = await this.getResult({
             requestMethod: "PUT",
@@ -57,15 +59,19 @@ export default class CommentAPI extends RequestCore {
 
      /**
    *
-   * @param pathParam 댓글 ID값입니다.
-   * @param config Header 메시지를 추가할때 씁니다.
-   * @param config.headerObj 유저 토큰값을 헤더에 작성합니다. 없으면 에러가 납니다.
+   * @param payload
+   * @param payload.pathParam 댓글 ID값입니다.
+   * @param payload.headerObj 유저 토큰값을 헤더에 작성합니다. 없으면 에러가 납니다.
    * @returns 업데이트된 댓글 정보가 들어옵니다.
    */
-    public comment_delete = async (pathParam: string, config?: { headerObj: object}) => {
+    public comment_delete = async (payload: {
+        pathParam: string,
+        headerObj?: object
+    }) => {
+        const { pathParam, headerObj } = payload;
         const { requestURL, requestHeaders } = this.getParameters({
             pathParam,
-            headerObj: config && config.headerObj,
+            headerObj
         });
         const result = this.getResult({
             requestMethod: "DELETE",
@@ -77,14 +83,19 @@ export default class CommentAPI extends RequestCore {
 
      /**
    *
-   * @param params 입력할 쿼리파라미터 입니다.
-   * @param params.articleId 게시물 ID값입니다.
+   * @param payload
+   * @param payload.params 입력할 쿼리파라미터 입니다.
+   * @param payload.params.articleId 게시물 ID값입니다.
    * @param config Header 메시지를 추가할때 씁니다.
    * @returns 게시물의 댓글 리스트를 반환합니다.
    */
-    public comment_list = async (config?: { headerObj: object }) => {
+    public comment_list = async (payload: {
+        params: { articleId: number },
+        headerObj?: object,
+    }) => {
+        const { headerObj } = payload;
         const { requestURL, requestHeaders } = this.getParameters({
-            headerObj: config && config.headerObj,
+            headerObj
         });
         const result = this.getResult({
             requestMethod: "GET",
