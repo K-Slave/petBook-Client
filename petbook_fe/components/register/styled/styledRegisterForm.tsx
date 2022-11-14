@@ -45,25 +45,6 @@ const RegisterFormWrap = styled.div`
     color: #ff6e4e;
     line-height: 30px;
   }
-
-  &.small {
-    max-width: 520px;
-    text-align: center;
-    p {
-      margin-bottom: 14px;
-      font-size: 20px;
-    }
-    h3 {
-      margin-bottom: 55px;
-      font-size: 28px;
-    }
-    .submit_sucess_img {
-      height: 297px;
-      width: 100%;
-      margin-bottom: 28px;
-      background-color: var(--test);
-    }
-  }
 `;
 
 const PassCheckWrap = styled.ul`

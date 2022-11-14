@@ -28,7 +28,7 @@ const SubmitBtn = styled.div`
   font-size: 20px;
   color: white;
   box-sizing: border-box;
-  background-color: var(--main);
+  background-color: var(--primary);
   cursor: pointer;
 `;
 
