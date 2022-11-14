@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 import styled from "styled-components";
 
 const SimpleButtonA = styled.a`
@@ -49,7 +49,7 @@ const SimpleButton = (props: PropsWithChildren<SimpleButtonProps>) => {
 };
 
 SimpleButton.defaultProps = {
-  isCurrentPage: true,
+  isCurrentPage: undefined,
 };
 
 export default SimpleButton;
