@@ -20,10 +20,6 @@ export function setNextjsForwardRef({ as, to, embedProps }: SetChildType) {
     );
   };
 
-  if (to === "/login") {
-    console.log(embedProps);
-  }
-
   return React.forwardRef(({ onClick, href, children }: any, ref) => {
     return (
       <As onClick={onClick} href={href} {...as.props} {...embedProps}>
