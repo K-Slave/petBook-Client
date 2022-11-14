@@ -2,14 +2,14 @@ import categoryState from "@atoms/pageAtoms/community/categoryState";
 import { ARTICLE_LIST } from "@pages/community";
 import { useRef } from "react";
 import { useRecoilValue } from "recoil";
-import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
+import { ArticleListResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import { UseQueryResult } from "react-query";
 import { usePage } from "./usePagination";
 import useResource from "../common/useResource";
 
 export default function useArticleList(): {
   status: UseQueryResult["status"];
-  articles: ArticleResponse[];
+  articles: ArticleListResponse["articles"];
   totalPages: number;
 } {
   // params
