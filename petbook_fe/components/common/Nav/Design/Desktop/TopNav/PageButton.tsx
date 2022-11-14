@@ -54,7 +54,7 @@ const PageButton = (props: PropsWithChildren<PageButtonProps>) => {
 };
 
 PageButton.defaultProps = {
-  isCurrentPage: true,
+  isCurrentPage: undefined,
 };
 
 export default PageButton;
