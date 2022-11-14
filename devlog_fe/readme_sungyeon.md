@@ -92,6 +92,7 @@ https://github.com/K-Slave/petBook-Client/commit/9b7bae2d91b14047844ce27dc8c6257
 // TODO
 
 - 22.10.18 투두 리스트
+
   > 1. Authrization 깔끔 하게 처리하는 구조 작업 ( 쿠키 만료 관리 및 도메인 등 토큰 관리 )
   > 2. URL 이미지 import 작업 필요
   > 3. 화면 기획 참여 ?
@@ -99,3 +100,10 @@ https://github.com/K-Slave/petBook-Client/commit/9b7bae2d91b14047844ce27dc8c6257
   > 5. 회의록,,,,,,,작성,,,,
   > 6. 강의 마저 듣고 함수형 프로그래밍 코드들 추가하기
   > 7. CI/CD 및 Test 자동화 알아보기
+
+- 22.11.14 TODO 리스트
+  > 1. 공용 토스트메시지 구현
+  > 2. 게시물 등록 마무리하기
+  > 3. 빌드성공 시켜서 배포 및 도메인 연결
+  > 4. useRecoilSelector 마무리하기
+  > 5. 코드 리팩터링
