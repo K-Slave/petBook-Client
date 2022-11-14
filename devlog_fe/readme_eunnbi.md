@@ -50,3 +50,4 @@
   - `ArticleListResponse` interface 수정 및 interface에 맞게 코드 수정
   - `totalElement` 값을 이용해 `totalPages` 값 구하여 `PageButtonBox` 렌더링
 - `loading` 상태 UI 추가 예정
+- **카테고리만 변경할 시 페이지 값을 유지하지 않고 1로 초기화되어야 하는지 물어보기**
