@@ -104,7 +104,7 @@ https://github.com/K-Slave/petBook-Client/commit/9b7bae2d91b14047844ce27dc8c6257
 - 22.11.14 TODO 리스트
   > 1. 공용 토스트메시지 구현
   > 2. 게시물 등록 마무리하기
-  > 3. 빌드성공 시켜서 배포 및 도메인 연결
+  > 3. 빌드성공 시켜서 배포 및 도메인 연결 중
   > 4. useRecoilSelector 마무리하기
   > 5. 코드 리팩터링
   > 6. localConsole 수정하기 (클래스로 가능)
