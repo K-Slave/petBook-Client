@@ -1,12 +1,15 @@
 import { commentState } from "@atoms/pageAtoms/community/commentState";
 import localConsole from "@lib/utils/localConsole";
+import { COMMENT_CREATE } from "@pages/community/[articleId]";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
+import { useSetResource } from "../common/useResource";
 
 export default function useCommentForm(initialContent: string) {
     const router = useRouter();
     const setComment = useSetRecoilState(commentState);
+    const { mutate: createComment } = useSetResource(COMMENT_CREATE);
     const onChange = (
       e:
         | React.ChangeEvent<HTMLInputElement>
@@ -18,13 +21,14 @@ export default function useCommentForm(initialContent: string) {
 
     const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        const { articleId } = router.query;
+        const { articleId } = router.query as { articleId: string };
         setComment((comment) => {
           const { content, commentId, parentId } = comment;
-          localConsole.log(`content: ${content}, commentId: ${commentId || "null"}, parentId: ${parentId || "null"}, articleId: ${articleId as string}`);
+          localConsole.log(`content: ${content}, commentId: ${commentId || "null"}, parentId: ${parentId || "null"}, articleId: ${articleId}`);
           if (content === "") return comment;
           if (commentId === null) {
             // comment_create
+            // createComment({ content, parentId, articleId: Number(articleId) });
           } else {
             // comment_update
           }
