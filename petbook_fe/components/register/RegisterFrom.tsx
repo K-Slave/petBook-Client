@@ -32,12 +32,13 @@ const SubmitBtn = styled.div`
   cursor: pointer;
 `;
 
+const REGISTER_CREATE = createRequest({
+  key: "REGISTER_CREATE",
+  requester: registerRequest.register,
+});
+
 const Register = () => {
   const user = useRecoilValue(registerFormState);
-  const REGISTER_CREATE = createRequest({
-    key: "REGISTER_CREATE",
-    requester: registerRequest.register,
-  });
 
   const { isSuccess, mutate } = useSetResource(REGISTER_CREATE);
 
