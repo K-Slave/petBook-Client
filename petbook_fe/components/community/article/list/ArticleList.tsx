@@ -1,10 +1,9 @@
 import Link from "next/link";
 import useArticleList from "@lib/hooks/article/useArticleList";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
-import useButtonOffset from "@lib/hooks/article/useButtonOffset";
 import usePagination from "@lib/hooks/article/usePagination";
 import getRandomKey from "@lib/utils/getRandomKey";
-import { useRef } from "react";
+import React from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import {
   ArticleListDiv,
@@ -63,36 +62,40 @@ const Item = ({ article }: { article: ArticleResponse }) => {
 // -----------------------------------------------------------------
 
 const PageButtonBox = ({ totalPages } : { totalPages: number }) => {
-  const btnNum = useRef(10);
-  const { currentPage, changeCurrentPage } = usePagination(totalPages);
-  const offset = useButtonOffset({ btnNum: btnNum.current, currentPage });
-  const onClickPrev = () => {
-    changeCurrentPage(offset - btnNum.current);
+  const btnNum = 2;
+  const { currentPage, changeCurrentPage, offset } = usePagination({ totalPages, btnNum });
+  const onClickPrevButton = () => {
+    changeCurrentPage(offset - btnNum);
   };
-  const onClickNext = () => {
-    changeCurrentPage(offset + btnNum.current);
+  const onClickNextButton = () => {
+    changeCurrentPage(offset + btnNum);
+  };
+  const onClickPageButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const { textContent } = e.currentTarget;
+    changeCurrentPage(Number(textContent));
   };
   return (
     <PageButtonBoxDiv>
       {offset !== 1 && (
-        <button onClick={onClickPrev} type="button">
+        <button onClick={onClickPrevButton} type="button">
           <FiChevronLeft />
         </button>
       )}
       {Array(totalPages + 1)
         .fill(1)
-        .slice(offset, btnNum.current + offset)
+        .slice(offset, btnNum + offset)
         .map((_, i) => (
           <PageButton
+            type="button"
             key={getRandomKey()}
-            onClick={() => changeCurrentPage(i + offset)}
+            onClick={onClickPageButton}
             selected={currentPage === offset + i}
           >
-            {i + offset}
+            { i + offset }
           </PageButton>
         ))}
-      {btnNum.current + offset < totalPages && (
-        <button onClick={onClickNext} type="button">
+      {btnNum + offset <= totalPages && (
+        <button onClick={onClickNextButton} type="button">
           <FiChevronRight />
         </button>
       )}
