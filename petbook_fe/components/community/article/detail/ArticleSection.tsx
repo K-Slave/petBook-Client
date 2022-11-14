@@ -31,14 +31,14 @@ const ArticleSection = () => {
     return <ArticleSectionBox />;
   }
 
-  const { id, title, content, user, category, tags, stat } = data.data;
+  const { id, title, content, user, category, tags, stat, createdAt } = data.data;
   return (
     <ArticleSectionBox>
       <div className="ArticleSection_Top_Row">
         <DetailCommonInfo
           avatar=""
           username={user.nickname}
-          date="2022-02-20"
+          date={createdAt.split("T")[0]}
         />
         <div className="ArticleSection_Button_Box">
           <button type="button">공유</button>
