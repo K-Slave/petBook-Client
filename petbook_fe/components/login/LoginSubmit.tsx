@@ -106,30 +106,31 @@ export const LoginPassGuide = () => {
     </PassGuide>
   );
 };
+
+// 여기서 이거 생성하시면 안되요,,,,
+const LOGIN = createRequest({
+  key: "LOGIN",
+  requester: authRequest.login,
+});
+
 export const LoginSubmitButton = () => {
-  const user = useRecoilValue(loginFormState);
-
-  // 여기서 이거 생성하시면 안되요,,,,
-  const LOGIN = createRequest({
-    key: "LOGIN",
-    requester: authRequest.login,
-  });
-
   // { test용
   //   "email": "test@petbook.com",
   //   "password": "p@55w0rd1!"
   // }
+  const user = useRecoilValue(loginFormState);
 
-  const { data, status, isSuccess, mutate } = useSetResource(LOGIN);
+  const { data, isSuccess, mutate } = useSetResource(LOGIN);
 
   const onSubmit = () => {
     mutate(user);
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      const { token } = data.data;
-      Cookies.set("petBookUser", token, { expires: 30 });
+    if (isSuccess && data) {
+      console.log("test");
+      // const { token } = data.data;
+      // Cookies.set("petBookUser", token, { expires: 30 });
     }
   }, [isSuccess]);
 
