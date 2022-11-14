@@ -9,7 +9,7 @@ export const usePage = () => {
   return currentPage;
 };
 
-export default function usePagination(numPages: number) {
+export default function usePagination(totalPages: number) {
   const currentPage = usePage();
   const changeCurrentPage = useCallback((page: number) => {
     navigator(`/community?page=${page}`, undefined, {
@@ -18,12 +18,14 @@ export default function usePagination(numPages: number) {
   }, []);
 
   useEffect(() => {
+    if (totalPages === 0) return;
+    console.log("page change");
     if (currentPage < 1) {
       changeCurrentPage(1);
-    } else if (currentPage > numPages) {
-      changeCurrentPage(numPages);
+    } else if (currentPage > totalPages) {
+      changeCurrentPage(totalPages);
     }
-  }, [currentPage]);
+  }, [currentPage, totalPages]);
 
   return {
     currentPage,
