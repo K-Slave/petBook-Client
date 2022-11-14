@@ -3,7 +3,7 @@
 const path = require("path");
 
 const nextConfig = {
-  reactStrictMode: true,
+  // reactStrictMode: true,
   async rewrites() {
     return [
       {
