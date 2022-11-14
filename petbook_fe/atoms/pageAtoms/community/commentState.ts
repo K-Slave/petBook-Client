@@ -1,12 +1,12 @@
 import { atom } from "recoil";
 
-export interface CommentState {
+interface CommentState {
   content: string;
   commentId: number | null;
   parentId: number | null;
 }
 
-export const commentState = atom<CommentState>({
+const commentState = atom<CommentState>({
   key: "commentState",
   default: {
     content: "",
@@ -14,3 +14,5 @@ export const commentState = atom<CommentState>({
     parentId: null,
   },
 });
+
+export default commentState;
