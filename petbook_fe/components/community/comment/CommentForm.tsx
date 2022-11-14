@@ -1,17 +1,12 @@
-import { useSetRecoilState } from "recoil";
-import { useEffect } from "react";
 import {
   CommentState,
-  commentState,
 } from "@atoms/pageAtoms/community/commentState";
-import useChangeComment from "@lib/hooks/comment/useChangeComment";
-import useSubmitComment from "@lib/hooks/comment/useSubmitComment";
+import useCommentForm from "@lib/hooks/comment/useCommentForm";
 import {
   CommentFormBox,
-  StyledSubmitButton,
-  UserInfoDiv,
-  UserInfoImg,
-  WriteCommentTextarea,
+  CommentFormButton,
+  CommentFormDiv,
+  CommentFormTextarea,
 } from "./styled/styledCommentForm";
 
 const avatar =
@@ -19,70 +14,31 @@ const avatar =
 const username = "arin";
 
 interface Props {
-  initialCommentState?: CommentState;
+  initialContent?: CommentState["content"];
 }
 
-const CommentForm = ({ initialCommentState }: Props) => {
-  const setComment = useSetRecoilState(commentState);
-  useEffect(() => {
-    if (initialCommentState) {
-      setComment(initialCommentState);
-    }
-  }, []);
+const CommentForm = ({ initialContent } : Props) => {
+  const { onChange, onSubmit } = useCommentForm(initialContent || "");
   return (
     <CommentFormBox>
-      <CommentForm.UserInfo />
-      <CommentForm.WriteComment initialComment={initialCommentState?.comment} />
-      <CommentForm.SubmitButton />
+      <CommentFormDiv>
+        <img src={avatar} alt="user profile" />
+        <p>{username}</p>
+      </CommentFormDiv>
+      <CommentFormTextarea
+        placeholder="당신의 의견을 남겨보세요!"
+        onChange={onChange}
+        defaultValue={initialContent}
+      />
+      <CommentFormButton type="submit" onClick={onSubmit}>
+        등록
+      </CommentFormButton>
     </CommentFormBox>
   );
 };
 
-// ------------------------------------------------------------------
-
-const UserInfo = () => {
-  return (
-    <UserInfoDiv>
-      <UserInfoImg src={avatar} />
-      <p>{username}</p>
-    </UserInfoDiv>
-  );
-};
-
-interface WriteCommentProps {
-  initialComment?: string;
-}
-
-const WriteComment = ({ initialComment }: WriteCommentProps) => {
-  const { onChange } = useChangeComment();
-  return (
-    <WriteCommentTextarea
-      placeholder="당신의 의견을 남겨보세요!"
-      onChange={onChange}
-    >
-      {initialComment}
-    </WriteCommentTextarea>
-  );
-};
-
-const SubmitButton = () => {
-  const { onSubmit } = useSubmitComment();
-  return (
-    <StyledSubmitButton type="submit" onClick={onSubmit}>
-      등록
-    </StyledSubmitButton>
-  );
-};
-
-WriteComment.defaultProps = {
-  initialComment: "",
-};
-
-CommentForm.UserInfo = UserInfo;
-CommentForm.WriteComment = WriteComment;
-CommentForm.SubmitButton = SubmitButton;
 CommentForm.defaultProps = {
-  initialCommentState: undefined,
+  initialContent: "",
 };
 
 export default CommentForm;
