@@ -28,16 +28,17 @@ const SubmitBtn = styled.div`
   font-size: 20px;
   color: white;
   box-sizing: border-box;
-  background-color: var(--main);
+  background-color: var(--primary);
   cursor: pointer;
 `;
 
+const REGISTER_CREATE = createRequest({
+  key: "REGISTER_CREATE",
+  requester: registerRequest.register,
+});
+
 const Register = () => {
   const user = useRecoilValue(registerFormState);
-  const REGISTER_CREATE = createRequest({
-    key: "REGISTER_CREATE",
-    requester: registerRequest.register,
-  });
 
   const { isSuccess, mutate } = useSetResource(REGISTER_CREATE);
 

@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { IoIosArrowBack } from "react-icons/io";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import SearchBar from "@components/common/Searchbar";
-import MapSlideItems from "./item";
+import MapSlideItems from "@components/map/slider/MapSlideItems";
 import PositionInfo from "./positionInfo";
 
 const SlideBox = styled.div`
@@ -52,62 +52,9 @@ const SlideContainer = styled.div`
 
 const MapFilterSlider = () => {
   const [filterActive, setFilterActive] = useState(false);
-  const [searchItems, setSearchItems] = useState<any>([]);
 
   const handleSlide = () =>
     filterActive === false ? setFilterActive(true) : setFilterActive(false);
-
-  useEffect(() => {
-    const mapData = [
-      {
-        text: "1",
-        value: 0,
-        mapDetailList: [
-          {
-            addrName: "청담",
-            phoneNum: "010-3333-4444",
-          },
-          {
-            addrName: "서초",
-            phoneNum: "010-3333-4444",
-          },
-        ],
-      },
-      {
-        text: "2",
-        value: 1,
-        mapDetailList: [
-          {
-            addrName: "강남",
-            phoneNum: "010-3333-4444",
-          },
-          {
-            addrName: "구월",
-            phoneNum: "010-3333-4444",
-          },
-        ],
-      },
-      {
-        text: "3",
-        value: 2,
-        mapDetailList: [
-          {
-            addrName: "청담",
-            phoneNum: "010-3333-4444",
-          },
-        ],
-      },
-      {
-        text: "4",
-        value: 3,
-      },
-      {
-        text: "5",
-        value: 3,
-      },
-    ];
-    setSearchItems(mapData);
-  }, [filterActive]);
 
   return (
     <SlideBox style={{ right: filterActive === true ? "0rem" : "-30rem" }}>
@@ -118,7 +65,7 @@ const MapFilterSlider = () => {
       <SlideContainer>
         <SearchBar type="map" />
         <PositionInfo />
-        <MapSlideItems searchItems={[searchItems]} />
+        <MapSlideItems />
       </SlideContainer>
     </SlideBox>
   );

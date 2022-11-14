@@ -11,12 +11,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
-import {
-  Container,
-  ButtonBox,
-  PassGuide,
-  Submitbutton,
-} from "./styled/styledLoginSubmit";
+import { Container, ButtonBox, PassGuide } from "./styled/styledLoginSubmit";
 
 export const SocialLogin = () => {
   const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_PY_URL as string;
@@ -72,7 +67,7 @@ export const InduceSign = () => {
 export const LoginSubmitForm = () => {
   return (
     <>
-      <div className="login_title">
+      <div className="Login_Title">
         <Image
           src="/img/common/logo/logo.svg"
           alt="Picture of the author"
@@ -106,34 +101,39 @@ export const LoginPassGuide = () => {
     </PassGuide>
   );
 };
+
+// 여기서 이거 생성하시면 안되요,,,,
+const LOGIN = createRequest({
+  key: "LOGIN",
+  requester: authRequest.login,
+});
+
 export const LoginSubmitButton = () => {
-  const user = useRecoilValue(loginFormState);
-
-  // 여기서 이거 생성하시면 안되요,,,,
-  const LOGIN = createRequest({
-    key: "LOGIN",
-    requester: authRequest.login,
-  });
-
   // { test용
   //   "email": "test@petbook.com",
   //   "password": "p@55w0rd1!"
   // }
+  const user = useRecoilValue(loginFormState);
 
-  const { data, status, isSuccess, mutate } = useSetResource(LOGIN);
+  const { data, isSuccess, mutate } = useSetResource(LOGIN);
 
   const onSubmit = () => {
     mutate(user);
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      const { token } = data.data;
-      Cookies.set("petBookUser", token, { expires: 30 });
+    if (isSuccess && data) {
+      console.log("test");
+      // const { token } = data.data;
+      // Cookies.set("petBookUser", token, { expires: 30 });
     }
   }, [isSuccess]);
 
-  return <Submitbutton onClick={onSubmit}>로그인</Submitbutton>;
+  return (
+    <button type="button" className="Primary" onClick={onSubmit}>
+      로그인
+    </button>
+  );
 };
 
 export const LoginSubmit = () => {
