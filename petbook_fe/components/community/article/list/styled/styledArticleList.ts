@@ -12,21 +12,21 @@ const ItemArticle = styled.article`
   border-radius: 16px;
   background: #ffffff;
   cursor: pointer;
-  .ArticleItem_Column {
+  .Item_Column {
     padding: 32px 35px 28px 37px;
   }
-  .ArticleItem_UserInfo {
+  .Item_UserInfo {
     display: flex;
     align-items: center;
     gap: 7px;
     margin-bottom: 6px;
     font-weight: 500;
-    .ArticleItem_Nickname {
+    .Item_Nickname {
       font-weight: 700;
       font-size: 14px;
       line-height: 17px;
     }
-    .ArticleItem_Date {
+    .Item_Date {
       margin-top: 1px;
       font-size: 12px;
       color: #777777;
@@ -55,7 +55,7 @@ const ItemDiv = styled.div`
     font-weight: 500;
     font-size: 20px;
   }
-  .ArticleItem_Content {
+  .Item_Content {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -67,7 +67,7 @@ const ItemDiv = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .ArticleItem_Stats {
+  .Item_Stats {
     display: flex;
     align-items: center;
     gap: 3px;
