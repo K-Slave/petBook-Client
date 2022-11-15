@@ -10,6 +10,43 @@ let domain: Array<string> = [];
 // localConsole('dd') => localhost, 197.125.18.2:3000, /list?query=*** : 'dd'
 // exceptedConsole('dd') => '/list?query', '3000' 을 제외한 모든 url : 'dd'
 
+class LocalConsoleInstance {
+  public domain: Array<string> = [];
+
+  public console;
+
+  constructor() {
+    if (process.env.NODE_ENV !== "production") {
+      this.console = console;
+    }
+
+    if (process.env.NODE_ENV === "production") {
+      delete this.console;
+    }
+
+    return this;
+  }
+}
+
+const localConsole = new LocalConsoleInstance()?.console;
+
+export default localConsole;
+
+// if (allowDomain) {
+//   domain = allowDomain;
+//   // if (domain.length > 0) {
+//   //   if (
+//   //     domain.find((item: string) => window.location.href.includes(item))
+//   //   ) {
+//   //     if (option) {
+//   //       console.log(msg, option);
+//   //       return;
+//   //     }
+//   //     console.log(msg);
+//   //   }
+//   // }
+// }
+
 export function InitlocalConsole(userDomain: Array<string>) {
   domain = userDomain;
 }
@@ -46,79 +83,79 @@ export const exceptedConsole = {
   },
 };
 
-const localConsole = {
-  log(msg?: any, option?: any): void {
-    try {
-      if (window.location.href.includes("localhost")) {
-        if (option) {
-          console.log(msg, option);
-          return;
-        }
-        console.log(msg);
-        return;
-      }
+// const localConsole = {
+//   log(msg?: any, option?: any): void {
+//     try {
+//       if (window.location.href.includes("localhost")) {
+//         if (option) {
+//           console.log(msg, option);
+//           return;
+//         }
+//         console.log(msg);
+//         return;
+//       }
 
-      if (domain.length > 0) {
-        if (
-          domain.find((item: string) => window.location.href.includes(item))
-        ) {
-          if (option) {
-            console.log(msg, option);
-            return;
-          }
-          console.log(msg);
-        }
-      }
-    } catch (e) {
-      console.warn(e);
-    }
-  },
+//       if (domain.length > 0) {
+//         if (
+//           domain.find((item: string) => window.location.href.includes(item))
+//         ) {
+//           if (option) {
+//             console.log(msg, option);
+//             return;
+//           }
+//           console.log(msg);
+//         }
+//       }
+//     } catch (e) {
+//       console.warn(e);
+//     }
+//   },
 
-  dir(obj?: any, option?: any): void {
-    try {
-      if (window.location.href.includes("localhost")) {
-        if (option) {
-          console.dir(obj, option);
-          return;
-        }
+//   dir(obj?: any, option?: any): void {
+//     try {
+//       if (window.location.href.includes("localhost")) {
+//         if (option) {
+//           console.dir(obj, option);
+//           return;
+//         }
 
-        console.dir(obj);
-        return;
-      }
+//         console.dir(obj);
+//         return;
+//       }
 
-      if (domain.length > 0) {
-        if (
-          domain.find((item: string) => window.location.href.includes(item))
-        ) {
-          if (option) {
-            console.dir(obj, option);
-            return;
-          }
-          console.dir(obj);
-        }
-      }
-    } catch (e) {
-      console.warn(e);
-    }
-  },
-  error(data?: any) {
-    try {
-      if (window.location.href.includes("localhost")) {
-        console.error(data);
-        return;
-      }
+//       if (domain.length > 0) {
+//         if (
+//           domain.find((item: string) => window.location.href.includes(item))
+//         ) {
+//           if (option) {
+//             console.dir(obj, option);
+//             return;
+//           }
+//           console.dir(obj);
+//         }
+//       }
+//     } catch (e) {
+//       console.warn(e);
+//     }
+//   },
+//   error(data?: any) {
+//     try {
+//       if (window.location.href.includes("localhost")) {
+//         console.error(data);
+//         return;
+//       }
 
-      if (domain.length > 0) {
-        if (
-          domain.find((item: string) => window.location.href.includes(item))
-        ) {
-          console.error(data);
-        }
-      }
-    } catch (e) {
-      console.warn(e);
-    }
-  },
-};
+//       if (domain.length > 0) {
+//         if (
+//           domain.find((item: string) => window.location.href.includes(item))
+//         ) {
+//           console.error(data);
+//         }
+//       }
+//     } catch (e) {
+//       console.warn(e);
+//     }
+//   },
+// };
 
-export default localConsole;
+// export default localConsole;

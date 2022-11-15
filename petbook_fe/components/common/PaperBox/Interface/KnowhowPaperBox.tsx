@@ -6,7 +6,6 @@ import {
   UserProfileTag,
 } from "../Design/Desktop/KnowhowPaperBoxStyle";
 import palette from "../../../../lib/modules/palette";
-import localConsole from "../../../../lib/utils/localConsole";
 
 type KnowhowPaperBoxType = {
   timeline: string;
