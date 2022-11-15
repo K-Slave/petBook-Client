@@ -1,11 +1,8 @@
 import { RecoilState, useSetRecoilState } from "recoil";
 import useRecoilSelector from "./useRecoilSelector";
 
-const useSelectorState = <T, P>(
-  atom: RecoilState<P>,
-  selectProperty: string
-) => {
-  const selectorValue = useRecoilSelector<T>(atom, selectProperty);
+const useSelectorState = <T, P>(atom: RecoilState<T>, selectProperty: P) => {
+  const selectorValue = useRecoilSelector(atom, selectProperty);
   const recoilSetter = useSetRecoilState(atom);
 
   return [selectorValue, recoilSetter] as [
