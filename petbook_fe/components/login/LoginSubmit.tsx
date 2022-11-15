@@ -120,14 +120,12 @@ export const LoginSubmitButton = () => {
   const onSubmit = () => {
     mutate(user);
   };
-
   useEffect(() => {
-    if (isSuccess && data) {
-      console.log("test");
-      // const { token } = data.data;
-      // Cookies.set("petBookUser", token, { expires: 30 });
+    if (isSuccess) {
+      const { token } = data.data;
+      Cookies.set("petBookUser", token, { expires: 30 });
     }
-  }, [isSuccess]);
+  }, [isSuccess, data]);
 
   return (
     <button type="button" className="Primary" onClick={onSubmit}>
