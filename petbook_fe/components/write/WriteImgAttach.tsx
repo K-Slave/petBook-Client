@@ -30,10 +30,9 @@ const WriteImgAttach = () => {
 };
 
 const Count = React.memo(() => {
-  const inputImg = useRecoilSelector<WriteStateType["inputImg"]>(
-    writeState,
-    "inputImg"
-  );
+  const { inputImg } = useRecoilSelector(writeState, {
+    inputImg: [] as string[],
+  });
 
   return (
     <CountP>
@@ -44,10 +43,9 @@ const Count = React.memo(() => {
 });
 
 const ImgList = React.memo(() => {
-  const inputImg = useRecoilSelector<WriteStateType["inputImg"]>(
-    writeState,
-    "inputImg"
-  );
+  const { inputImg } = useRecoilSelector(writeState, {
+    inputImg: [] as string[],
+  });
 
   // const { inputImg } = useRecoilValue(writeState);
 
