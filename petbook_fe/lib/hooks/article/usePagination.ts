@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import navigator from "@lib/modules/navigator";
-import localConsole from "@lib/utils/localConsole";
+import { localConsole } from "@pages/_app";
 
 export const usePage = () => {
   const router = useRouter();
@@ -10,7 +10,15 @@ export const usePage = () => {
   return currentPage;
 };
 
-export default function usePagination({ totalPages, btnNum, basePath } : { totalPages: number, btnNum: number, basePath: string }) {
+export default function usePagination({
+  totalPages,
+  btnNum,
+  basePath,
+}: {
+  totalPages: number;
+  btnNum: number;
+  basePath: string;
+}) {
   const [offset, setOffset] = useState(1);
   const currentPage = usePage();
   const changeCurrentPage = useCallback((page: number) => {
@@ -22,7 +30,7 @@ export default function usePagination({ totalPages, btnNum, basePath } : { total
   // currentPage가 1 ~ totalPages range에 존재하는지 판단
   useEffect(() => {
     if (totalPages === 0) return;
-    localConsole.log("test page range");
+    localConsole?.log("test page range");
     if (currentPage < 1) {
       changeCurrentPage(1);
     } else if (currentPage > totalPages) {
@@ -32,7 +40,7 @@ export default function usePagination({ totalPages, btnNum, basePath } : { total
 
   // currentPage 변화에 따른 button offset 판단
   useEffect(() => {
-    localConsole.log("test button offset");
+    localConsole?.log("test button offset");
     if (currentPage >= offset + btnNum) {
       setOffset((oldOffset) => oldOffset + btnNum);
     } else if (currentPage < offset) {
@@ -43,6 +51,6 @@ export default function usePagination({ totalPages, btnNum, basePath } : { total
   return {
     currentPage,
     changeCurrentPage,
-    offset
+    offset,
   };
 }
