@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
+import { UserLoginRequest } from "@lib/API/petBookAPI/types/userRequest";
 import { Container, ButtonBox, PassGuide } from "./styled/styledLoginSubmit";
 
 export const SocialLogin = () => {
@@ -120,9 +121,10 @@ export const LoginSubmitButton = () => {
   const onSubmit = () => {
     mutate(user);
   };
+
   useEffect(() => {
     if (isSuccess) {
-      const { token } = data.data;
+      const { token } = data?.data as UserLoginRequest;
       Cookies.set("petBookUser", token, { expires: 30 });
     }
   }, [isSuccess, data]);
