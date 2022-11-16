@@ -98,7 +98,7 @@ export const LoginPassGuide = () => {
     <PassGuide>
       <Link href="/password">비밀번호 찾기</Link>
       <Link href="/password">아이디 찾기</Link>
-      <Link href="/password">회원가입</Link>
+      <Link href="/register">회원가입</Link>
     </PassGuide>
   );
 };
@@ -126,6 +126,7 @@ export const LoginSubmitButton = () => {
     if (isSuccess) {
       const { token } = data?.data as UserLoginRequest;
       Cookies.set("petBookUser", token, { expires: 30 });
+      navigator("/info");
     }
   }, [isSuccess, data]);
 
