@@ -3,3 +3,7 @@ export interface UserCreateRequest {
   nickname: string;
   password: string;
 }
+
+export interface UserLoginRequest {
+  token: string;
+}
