@@ -8,10 +8,12 @@ import { RecoilState, selector, useRecoilValue } from "recoil";
 // 원하는 값만이 변경될때 렌더링 되는 훅이 필요하다면?
 // 이 커스텀훅을 사용하면 됩니다.
 
+// 인자로 받아왔던 객체의 key 를 획득
 const getKeys = (obj: any) => {
   return Object.keys(obj)[0];
 };
 
+// 인자로 받아왔던 객체에 selector 가 반환한 atomValue 를 할당
 const getSelectorResult = (targetProp: string, targetValue: any) => {
   const resultObj: any = {};
 
@@ -37,7 +39,7 @@ const atomSelector = (atom: RecoilState<any>, selectProperty: string) => {
  * @generic 대상 값의 타입입니다.
  * @param atom 대상 atom 입니다
  * @param selectProperty 대상 객체의 프로퍼티 이름입니다.
- * @returns 객체가 아닌 선택한 value 만 리턴됩니다.
+ * @returns 대상 객체에 atomValue 를 할당한 객체가 리턴됩니다.
  */
 const useRecoilSelector = <T, P>(atom: RecoilState<T>, selectProperty: P) => {
   const targetProp = getKeys(selectProperty);
