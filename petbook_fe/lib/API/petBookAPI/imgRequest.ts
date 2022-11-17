@@ -5,15 +5,13 @@ export default class ImgAPI extends RequestCore {
     header?: object;
     body: File | undefined;
   }) => {
-    const { header, body } = payload;
-
     const { requestURL, requestHeaders } = this.getParameters({
-      headerObj: header,
+      headerObj: payload.header,
     });
 
     const formData = new FormData();
 
-    formData.append("file", body as File);
+    formData.append("file", payload.body as File);
     // formData.append("comment", "테스트용 이미지");
     // formData.append("content_id", "1111");
 

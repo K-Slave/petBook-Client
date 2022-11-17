@@ -1,12 +1,9 @@
 import { CategoryListResponse } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 import useSelectorState from "@lib/hooks/common/useSelectorState";
-import localConsole from "@lib/utils/localConsole";
 import { AxiosResponse } from "axios";
 import React, { MouseEventHandler } from "react";
 import { useQuery } from "react-query";
-import writeState, {
-  WriteStateType,
-} from "../../atoms/pageAtoms/community/writeState";
+import writeState from "../../atoms/pageAtoms/community/writeState";
 import {
   ListDiv,
   WriteCategoryButtonBox,

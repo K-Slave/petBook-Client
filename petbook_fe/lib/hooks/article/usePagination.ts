@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import navigator from "@lib/modules/navigator";
-import { localConsole } from "@pages/_app";
+import localConsole from "@lib/utils/localConsole";
 
 export const usePage = () => {
   const router = useRouter();
