@@ -28,23 +28,27 @@
 }
 
 * {
-  box-sizing: border-box; /* 엘리먼트의 box-sizing 값을 border-box 로 설정 */
-  padding: 0;
   margin: 0;
+  padding: 0;
+
+  box-sizing: border-box; /* 엘리먼트의 box-sizing 값을 border-box 로 설정 */
+
+  font-family: Pretendard, sans-serif;
+  font-style: normal;
+
+  // outline: none;
 }
 
 html,
 body {
   position: relative;
-  width: 100%;
+  z-index: 0;
 
+  width: 100%;
   min-height: 100%;
 
-  font-family: Pretendard, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  transition: all 0.3s ease-in-out;
 
   background-color: #fffbf4;
 }
@@ -75,8 +79,11 @@ a {
   text-decoration: none;
 }
 
-ul {
+ul,
+li,
+ol {
   list-style: none;
+  list-style-type: none;
 }
 
 hr {
@@ -108,6 +115,7 @@ img {
 }
 
 //커스텀 input
+
 input:not(input.default) {
   padding: 20px 22px;
   width: 100%;
@@ -121,6 +129,7 @@ input:not(input.default) {
 input:focus {
   outline: solid 1px var(--primary);
 }
+
 input::placeholder {
   color: #797979;
   font-size: 1rem;
@@ -131,11 +140,11 @@ input::placeholder {
 .Login_Title {
   text-align: center;
   p {
-    font-size: 20px;
+    font-size: 1.25rem;
     margin-bottom: 14px;
   }
   h2 {
-    font-size: 22px;
+    font-size: 1.375rem;
     margin-bottom: 32px;
     margin-top: 16px;
   }
@@ -145,16 +154,16 @@ button {
   cursor: pointer;
   border: transparent;
   background-color: transparent;
-  font-family: Pretendard, sans-serif;
-  padding: 14px 0;
+
   text-align: center;
-  font-weight: 700;
-  font-size: 1.125rem;
 }
 
 // defult button
 button.Primary {
   width: 100%;
+
+  padding: 14px 0;
+
   border-radius: 8px;
   color: white;
   background-color: var(--primary);
@@ -167,6 +176,9 @@ button.Primary:hover {
 //secondary
 button.Secondary {
   width: 100%;
+
+  padding: 14px 0;
+
   border-radius: 8px;
   color: white;
   background-color: var(--secondary);
@@ -179,6 +191,9 @@ button.Secondary:hover {
 // disabled button
 button.Disabled {
   width: 100%;
+
+  padding: 14px 0;
+
   border-radius: 8px;
   color: var(--disabled-font);
   background-color: var(--disabled);
@@ -189,8 +204,7 @@ button.Disabled {
 @media screen and (max-width: 600px) {
   html,
   body {
-    position: "relative";
-    height: calc(100vh - 1px);
+    position: relative;
   }
   // 사파리 ios web ui 뷰포트 이슈
   footer {
