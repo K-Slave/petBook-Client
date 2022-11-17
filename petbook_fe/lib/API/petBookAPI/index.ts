@@ -1,38 +1,10 @@
-import { pyPetBookClient, sprPetBookClient } from "../axios/axiosClient";
+import { sprPetBookClient } from "../axios/axiosClient";
 import ArticleAPI from "./articleRequest";
 import AuthAPI from "./authRequest";
 import UserAPI from "./userRequest";
-import BoardAPI from "./boardRequest";
-import CategoryAPI from "./categoryRequest";
 import CategorySprAPI from "./categoryRequestSpr";
 import ImgAPI from "./imgRequest";
 import CommentAPI from "./commentRequest";
-
-/**
- * @uri '/board'
- * @method board_list(params,config) : GET 게시글 조회
- * @method board_create(data,params,config) : POST 게시글 등록
- * @method board_update(data,params,config) : PUT 게시글 수정
- * @method board_delete(data,params,config) : DELETE 게시글 삭제
- */
-export const boardRequest = new BoardAPI(
-  process.env.NEXT_PUBLIC_PY_URL as string,
-  "/board",
-  pyPetBookClient
-);
-
-/**
- * @uri '/category'
- * @method category_list(params,config) : GET 카테고리 조회
- * @method category_create(data,params,config) : POST 카테고리 등록
- * @method category_update(data,params,config) : PUT 카테고리 수정
- * @method category_delete(data,params,config) : DELETE 카테고리 삭제
- */
-export const categoryRequest = new CategoryAPI(
-  process.env.NEXT_PUBLIC_PY_URL as string,
-  "/category",
-  pyPetBookClient
-);
 
 /**
  * @uri '/api/v1'

@@ -62,14 +62,7 @@ const NavMenu = ({
           to={rightSideTo}
           value={rightSideName}
           currentPath={rightSideCurrentPath}
-        >
-          <LinkedNavBar.Button
-            as={InputButton}
-            to={typeof rightSideTo === "string" ? rightSideTo : "/"}
-            value={typeof rightSideName === "string" ? rightSideName : "/"}
-            currentPath={rightSideCurrentPath}
-          />
-        </LinkedNavBar.RightSide>
+        />
       </LinkedNavBar.Wrap>
     </LinkedNavBar>
   );

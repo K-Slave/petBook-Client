@@ -1,8 +1,7 @@
 import React from "react";
 import HeaderWrap from "../Design/Desktop/Header/HeaderWrap";
 import LogoButton from "../Design/Desktop/Header/LogoButton";
-import PersonalMenu from "../Design/Desktop/Header/PersonalMenu";
-import SimpleButton from "../Design/Desktop/Header/SimpleButton";
+import PersonalMenu from "../Design/Desktop/Header/PersonalButton";
 import NavMenu from "../DOMStructure/NavMenu";
 
 type Props = {
@@ -33,7 +32,7 @@ const Header = ({ path }: Props) => {
           }}
         />
       }
-      InputButton={<SimpleButton />}
+      InputButton={<PersonalMenu />}
       InputRightSide={<PersonalMenu />}
       to={defaultValue.pages}
       name={defaultValue.pageNames}
