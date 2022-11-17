@@ -3,9 +3,7 @@ import useSelectorState from "@lib/hooks/common/useSelectorState";
 import { AxiosResponse } from "axios";
 import React, { MouseEventHandler } from "react";
 import { useQuery } from "react-query";
-import writeState, {
-  WriteStateType,
-} from "../../atoms/pageAtoms/community/writeState";
+import writeState from "../../atoms/pageAtoms/community/writeState";
 import {
   ListDiv,
   WriteCategoryButtonBox,
@@ -25,10 +23,9 @@ const List = () => {
   const { data } =
     useQuery<AxiosResponse<CategoryListResponse>>("CATEGORY_LIST");
 
-  const [selectedCategory, setWrite] = useSelectorState<
-    WriteStateType["selectedCategory"],
-    WriteStateType
-  >(writeState, "selectedCategory");
+  const [{ selectedCategory }, setWrite] = useSelectorState(writeState, {
+    selectedCategory: 0,
+  });
 
   const categoryList = data?.data as CategoryListResponse;
 
@@ -43,6 +40,7 @@ const List = () => {
       ),
     }));
   };
+
   return (
     <ListDiv className="Category__Keyword__List">
       {categoryList.map((keyword) => (

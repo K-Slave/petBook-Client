@@ -12,7 +12,7 @@ const TopNav = ({ path }: Props) => {
   const pages = ["/", "/community", "/findHospital", "/chat"];
   const pageNames = ["홈", "커뮤니티", "병원정보", "채팅"];
 
-  const rightSidePages = "search";
+  const rightSidePages = "/search";
   const rightSidePageNames = "";
 
   return (

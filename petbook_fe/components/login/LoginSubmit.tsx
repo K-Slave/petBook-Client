@@ -1,5 +1,5 @@
 import { loginFormState } from "@atoms/pageAtoms/login/userState";
-import ValidationInput from "@components/common/ValidationInput";
+import LoginInput from "@components/login/LoginInputBox";
 import { authRequest } from "@lib/API/petBookAPI";
 import navigator from "@lib/modules/navigator";
 import Cookies from "js-cookie";
@@ -11,7 +11,8 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
-import { Container, ButtonBox, PassGuide } from "./styled/styledLoginSubmit";
+import { UserLoginRequest } from "@lib/API/petBookAPI/types/userRequest";
+import { ButtonBox, PassGuide } from "./styled/styledLoginSubmit";
 
 export const SocialLogin = () => {
   const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_PY_URL as string;
@@ -53,17 +54,6 @@ export const SocialLogin = () => {
   );
 };
 
-export const InduceSign = () => {
-  return (
-    <Container onClick={() => navigator("/register")}>
-      <p>로그인 후 다양한 콘텐츠를 즐겨보세요</p>
-      <h3>
-        회원가입을 통해 Petbook 유저들과 <br /> 소통할 수 있어요!
-      </h3>
-    </Container>
-  );
-};
-
 export const LoginSubmitForm = () => {
   return (
     <>
@@ -77,12 +67,8 @@ export const LoginSubmitForm = () => {
         <h2>로그인 후 다양한 콘텐츠를 즐겨보세요!</h2>
       </div>
       <form>
-        <ValidationInput
-          submitType="login"
-          axiosValue="email"
-          current="이메일"
-        />
-        <ValidationInput
+        <LoginInput submitType="login" axiosValue="email" current="이메일" />
+        <LoginInput
           submitType="login"
           axiosValue="password"
           current="비밀번호"
@@ -97,7 +83,7 @@ export const LoginPassGuide = () => {
     <PassGuide>
       <Link href="/password">비밀번호 찾기</Link>
       <Link href="/password">아이디 찾기</Link>
-      <Link href="/password">회원가입</Link>
+      <Link href="/register">회원가입</Link>
     </PassGuide>
   );
 };
@@ -122,12 +108,12 @@ export const LoginSubmitButton = () => {
   };
 
   useEffect(() => {
-    if (isSuccess && data) {
-      console.log("test");
-      // const { token } = data.data;
-      // Cookies.set("petBookUser", token, { expires: 30 });
+    if (isSuccess) {
+      const { token } = data?.data as UserLoginRequest;
+      Cookies.set("petBookUser", token, { expires: 30 });
+      navigator("/info");
     }
-  }, [isSuccess]);
+  }, [isSuccess, data]);
 
   return (
     <button type="button" className="Primary" onClick={onSubmit}>
@@ -142,7 +128,6 @@ export const LoginSubmit = () => {
       <LoginSubmit.LoginSubmitForm />
       <LoginSubmit.LoginSubmitButton />
       {/* <LoginSubmit.SocialLogin /> */}
-      {/* <LoginSubmit.InduceSign /> */}
       <LoginSubmit.LoginPassGuide />
     </>
   );
@@ -151,7 +136,6 @@ export const LoginSubmit = () => {
 LoginSubmit.LoginSubmitForm = LoginSubmitForm;
 LoginSubmit.LoginSubmitButton = LoginSubmitButton;
 LoginSubmit.SocialLogin = SocialLogin;
-LoginSubmit.InduceSign = InduceSign;
 LoginSubmit.LoginPassGuide = LoginPassGuide;
 
 export default LoginSubmit;

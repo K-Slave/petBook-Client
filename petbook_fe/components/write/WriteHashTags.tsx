@@ -57,10 +57,9 @@ const TagBox = React.memo(
 );
 
 const List = React.memo(() => {
-  const inputHash = useRecoilSelector<WriteStateType["inputHash"]>(
-    writeState,
-    "inputHash"
-  );
+  const { inputHash } = useRecoilSelector(writeState, {
+    inputHash: [] as string[],
+  });
 
   return (
     <>

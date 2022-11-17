@@ -1,11 +1,9 @@
-import writeState, {
-  WriteStateType,
-} from "@atoms/pageAtoms/community/writeState";
+import writeState from "@atoms/pageAtoms/community/writeState";
 import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
 import Image from "next/image";
 import React, { PropsWithChildren, useRef } from "react";
 import { BsPlus } from "react-icons/bs";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import {
   AddButtonBox,
   CountP,
@@ -30,10 +28,9 @@ const WriteImgAttach = () => {
 };
 
 const Count = React.memo(() => {
-  const inputImg = useRecoilSelector<WriteStateType["inputImg"]>(
-    writeState,
-    "inputImg"
-  );
+  const { inputImg } = useRecoilSelector(writeState, {
+    inputImg: [] as string[],
+  });
 
   return (
     <CountP>
@@ -44,14 +41,9 @@ const Count = React.memo(() => {
 });
 
 const ImgList = React.memo(() => {
-  const inputImg = useRecoilSelector<WriteStateType["inputImg"]>(
-    writeState,
-    "inputImg"
-  );
-
-  // const { inputImg } = useRecoilValue(writeState);
-
-  console.log("render");
+  const { inputImg } = useRecoilSelector(writeState, {
+    inputImg: [] as string[],
+  });
 
   return (
     <ImgListUl>
