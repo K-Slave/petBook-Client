@@ -14,6 +14,12 @@ import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 import { UserLoginRequest } from "@lib/API/petBookAPI/types/userRequest";
 import { ButtonBox, PassGuide } from "./styled/styledLoginSubmit";
 
+// 여기서 이거 생성하시면 안되요,,,,
+const LOGIN = createRequest({
+  key: "LOGIN",
+  requester: authRequest.login,
+});
+
 export const SocialLogin = () => {
   const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_PY_URL as string;
   const router = useRouter();
@@ -73,13 +79,6 @@ export const LoginSubmitForm = () => {
           axiosValue="password"
           current="비밀번호"
         />
-        {/* <div>
-          <span>아이디 또는 비밀번호를 확인하세요</span>
-          <div>
-            <label htmlFor="login" />
-            <input id="login" className="default" type="checkbox" />
-          </div>
-        </div> */}
       </form>
     </>
   );
@@ -95,25 +94,16 @@ export const LoginPassGuide = () => {
   );
 };
 
-// 여기서 이거 생성하시면 안되요,,,,
-const LOGIN = createRequest({
-  key: "LOGIN",
-  requester: authRequest.login,
-});
-
 export const LoginSubmitButton = () => {
   // { test용
   //   "email": "test@petbook.com",
   //   "password": "p@55w0rd1!"
   // }
   const user = useRecoilValue(loginFormState);
-
   const { data, isSuccess, mutate } = useSetResource(LOGIN);
-
   const onSubmit = () => {
     mutate(user);
   };
-
   useEffect(() => {
     if (isSuccess) {
       const { token } = data?.data as UserLoginRequest;
