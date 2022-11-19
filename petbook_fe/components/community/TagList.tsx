@@ -1,20 +1,16 @@
 import getRandomKey from "@lib/utils/getRandomKey";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 interface Props {
   tags: string[];
-  width: number;
-  height: number;
   fontSize: number;
 }
 
-const TagList = ({ tags, width, height, fontSize }: Props) => {
+const TagList = ({ tags, fontSize }: Props) => {
   return (
     <TagListUl>
       {tags.map((tag) => (
         <TagListLi
-          width={width}
-          height={height}
           fontSize={fontSize}
           key={getRandomKey()}
         >
@@ -32,24 +28,17 @@ const TagListUl = styled.ul`
 `;
 
 const TagListLi = styled.li<{
-  width: number;
-  height: number;
   fontSize: number;
 }>`
   display: flex;
   align-items: center;
   justify-content: center;
-
+  padding: 5px 15px;
   border-radius: 5px;
-
   background-color: #f0f0f0;
   color: #7c7c7c;
   font-weight: 500;
-  ${({ width, height, fontSize }) => css`
-    width: ${width}px;
-    height: ${height}px;
-    font-size: ${fontSize}px;
-  `}
+  font-size: ${({ fontSize }) => `${fontSize}px`};
 `;
 
 export default TagList;
