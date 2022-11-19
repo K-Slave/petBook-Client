@@ -25,6 +25,9 @@
   --success: #2bc128;
   --error: #ff0000;
   --brand: #ff6847;
+
+  //font
+  --font_black_02: #565653;
 }
 
 * {
@@ -119,7 +122,6 @@ img {
 }
 
 //커스텀 input
-
 input:not(input.default) {
   padding: 20px 22px 20px 48px;
   width: 100%;
@@ -129,15 +131,49 @@ input:not(input.default) {
   outline: solid 1px #f5edde;
   box-sizing: border-box;
 }
-
 input:focus {
   outline: solid 1px var(--primary);
 }
-
 input::placeholder {
   color: #797979;
-  font-size: 0.875rem;
   line-height: 19.2px;
+  font-size: 0.875rem;
+}
+input[type="checkbox"] {
+  width: 14px !important;
+  height: 14px !important;
+  margin-right: 7px;
+  visibility: hidden;
+  position: relative;
+  font-size: 14px;
+}
+
+// input checkbox 타입의 스타일을 정의합니다
+label:has(input[type="checkbox"]) {
+  position: relative;
+}
+label:has(input[type="checkbox"]) p {
+  font-size: 14px;
+  color: var(--font_black_02);
+}
+
+label:has(input[type="checkbox"])::before {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background-image: url(/img/common/register/checkbox.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+label:has(input[type="checkbox"]:checked)::before {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background-image: url(/img/common/register/checkbox_active.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 button.emphasis {
@@ -145,9 +181,7 @@ button.emphasis {
   top: 50%;
   right: 20px;
   transform: translateY(-50%);
-
   display: block;
-
   width: auto;
   color: var(--primary);
   font-size: 0.875rem;
