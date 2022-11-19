@@ -7,7 +7,6 @@ const RegisterFormWrap = styled.div`
   margin-top: 76px;
   margin-bottom: 87px;
   > div {
-    margin-bottom: 26px;
     &:last-child {
       margin-bottom: 0;
     }
@@ -66,4 +65,16 @@ const PassCheckWrap = styled.ul`
   }
 `;
 
-export { RegisterFormWrap, PassCheckWrap };
+const IconBox = styled.div`
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+`;
+const InputBox = styled.div`
+  position: relative;
+  margin-bottom: 8px;
+`;
+export { RegisterFormWrap, PassCheckWrap, IconBox, InputBox };

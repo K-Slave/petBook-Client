@@ -1,4 +1,4 @@
-import ValidationInput from "@components/common/ValidationInput";
+import RegisterInputBox from "@components/register/RegisterInputBox";
 import { PassCheckWrap } from "./styled/styledRegisterForm";
 
 const PasswordInput = () => {
@@ -13,9 +13,9 @@ const PasswordInput = () => {
   ];
   return (
     <div>
-      <ValidationInput
-        submitType="register"
-        axiosValue="password"
+      <RegisterInputBox
+        IconType="Password"
+        axiosValue="nickname"
         current="비밀번호"
       />
       <PassCheckWrap>
@@ -23,7 +23,12 @@ const PasswordInput = () => {
           const { type } = item;
           return (
             <li key={item.value}>
-              <input type="radio" id={item.value} checked={item.check} />
+              <input
+                className="default"
+                type="radio"
+                id={item.value}
+                checked={item.check}
+              />
               <label
                 className={item.check ? "active" : ""}
                 htmlFor={item.value}

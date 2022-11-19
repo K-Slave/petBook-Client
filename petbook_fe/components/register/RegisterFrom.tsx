@@ -5,7 +5,7 @@ import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 import { registerRequest } from "@lib/API/petBookAPI";
 import { registerFormState } from "@atoms/pageAtoms/login/userState";
 
-import ValidationInput from "@components/common/ValidationInput";
+import RegisterInputBox from "@components/register/RegisterInputBox";
 import PasswordInput from "@components/register/RegisterPasswordFrom";
 
 // styled
@@ -51,19 +51,14 @@ const Register = () => {
   return (
     <Main>
       <RegisterFormWrap>
-        <ValidationInput
-          submitType="register"
+        <RegisterInputBox
+          IconType="Login"
           axiosValue="email"
           current="이메일"
         />
-        <ValidationInput
-          submitType="register"
-          axiosValue=""
-          current="이메일 확인"
-        />
         <PasswordInput />
-        <ValidationInput
-          submitType="register"
+        <RegisterInputBox
+          IconType="Nicname"
           axiosValue="nickname"
           current="닉네임"
         />
