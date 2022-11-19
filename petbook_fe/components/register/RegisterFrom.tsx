@@ -18,19 +18,15 @@ const Main = styled.main`
   background-color: var(--bg);
 `;
 
-const SubmitBtn = styled.div`
-  width: 100%;
-  display: block;
-  margin: 60px 0 0;
-  padding: 20px 0;
-  border-radius: 12px;
-  text-align: center;
-  font-weight: 700;
-  font-size: 20px;
-  color: white;
-  box-sizing: border-box;
-  background-color: var(--primary);
-  cursor: pointer;
+const Terms = styled.ul`
+  margin-top: 33px;
+  margin-bottom: 47px;
+  li {
+    margin-bottom: 15px;
+    label {
+      display: flex;
+    }
+  }
 `;
 
 const REGISTER_CREATE = createRequest({
@@ -38,19 +34,34 @@ const REGISTER_CREATE = createRequest({
   requester: registerRequest.register,
 });
 
+const TermsWrap = () => {
+  return (
+    <Terms>
+      <li>
+        <div>
+          <label htmlFor="terms">
+            <input type="checkbox" id="terms" />
+            <p>펫북 이용 약관에 동의합니다 [필수]</p>
+          </label>
+        </div>
+      </li>
+      <li>
+        <div>
+          <label htmlFor="privacy">
+            <input type="checkbox" id="privacy" />
+            <p>개인정보 수집 및 이용에 동의합니다 [필수]</p>
+          </label>
+        </div>
+      </li>
+    </Terms>
+  );
+};
+
 const Register = () => {
-  const user = useRecoilValue(registerFormState);
-
-  const { isSuccess, mutate } = useSetResource(REGISTER_CREATE);
-
-  const Sign = () => {
-    mutate(user);
-  };
-
   // const setRegisterForm = useSetRecoilState(registerFormState);
 
   return (
-    <Main>
+    <div>
       <RegisterFormWrap>
         <div className="Login_Title">
           <Image
@@ -71,11 +82,41 @@ const Register = () => {
           axiosValue="nickname"
           current="닉네임"
         />
-        <button type="button" onClick={Sign} className="Primary">
-          회원가입
-        </button>
+
+        <RegisterContainer.TermsWrap />
+
+        <RegisterContainer.RegisterButton />
       </RegisterFormWrap>
+    </div>
+  );
+};
+
+const RegisterButton = () => {
+  const user = useRecoilValue(registerFormState);
+
+  const { isSuccess, mutate } = useSetResource(REGISTER_CREATE);
+
+  const Sign = () => {
+    mutate(user);
+  };
+
+  return (
+    <button type="button" onClick={Sign} className="Primary">
+      회원가입 완료
+    </button>
+  );
+};
+
+const RegisterContainer = () => {
+  return (
+    <Main>
+      <RegisterContainer.Register />
     </Main>
   );
 };
-export default Register;
+
+RegisterContainer.Register = Register;
+RegisterContainer.TermsWrap = TermsWrap;
+RegisterContainer.RegisterButton = RegisterButton;
+
+export default RegisterContainer;
