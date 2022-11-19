@@ -73,6 +73,13 @@ export const LoginSubmitForm = () => {
           axiosValue="password"
           current="비밀번호"
         />
+        {/* <div>
+          <span>아이디 또는 비밀번호를 확인하세요</span>
+          <div>
+            <label htmlFor="login" />
+            <input id="login" className="default" type="checkbox" />
+          </div>
+        </div> */}
       </form>
     </>
   );
