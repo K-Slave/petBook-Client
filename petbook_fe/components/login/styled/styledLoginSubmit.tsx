@@ -126,6 +126,10 @@ const InputBox = styled.div`
   position: relative;
   margin-bottom: 8px;
 `;
+const AutomaticLabel = styled.label`
+  float: right;
+  margin: 4px 0 35px;
+`;
 
 export {
   ButtonBox,
@@ -136,4 +140,5 @@ export {
   Submitbutton,
   IconBox,
   InputBox,
+  AutomaticLabel,
 };
