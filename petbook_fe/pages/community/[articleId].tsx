@@ -16,8 +16,13 @@ export const ARTICLE_ITEM = {
 
 export const COMMENT_CREATE = createRequest({
   key: "COMMENT_CREATE",
-  requester: commentRequest.comment_create
+  requester: commentRequest.comment_create,
 });
+
+export const COMMENT_LIST = {
+  key: "COMMENT_LIST",
+  fetcher: commentRequest.comment_list,
+};
 
 const ArticleDetail: NextPage = () => {
   return (
@@ -53,10 +58,10 @@ const CommentSection = styled.section`
 `;
 
 type PetbookPages = NextPage & {
-  requiredResources?: [typeof ARTICLE_ITEM];
+  requiredResources?: [typeof ARTICLE_ITEM, typeof COMMENT_LIST];
 };
 
 const ArticleDetailPage: PetbookPages = ArticleDetail;
-ArticleDetailPage.requiredResources = [ARTICLE_ITEM];
+ArticleDetailPage.requiredResources = [ARTICLE_ITEM, COMMENT_LIST];
 
 export default ArticleDetailPage;
