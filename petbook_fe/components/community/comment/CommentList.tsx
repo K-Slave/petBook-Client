@@ -1,59 +1,38 @@
 import { BsThreeDotsVertical, BsArrowReturnRight } from "react-icons/bs";
-import { CommentListDiv, ItemDiv } from "./styled/styledCommentList";
+import useResource from "@lib/hooks/common/useResource";
+import { COMMENT_LIST } from "@pages/community/[articleId]";
+import { useRouter } from "next/router";
+import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
 import DetailCommonInfo from "../DetailCommonInfo";
+import { CommentListDiv, ItemDiv } from "./styled/styledCommentList";
 
-const dummyAvatar =
+const avatar =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
 
-const commentDummy = [
-  {
-    id: 1,
-    username: "arin",
-    date: "2022.08.30",
-    avatar: dummyAvatar,
-    content: `내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다내용이 들어갑니다 내용이 들어갑니다  내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다내용이 들어갑니다 내용이 들어갑니다 `,
-    recomment: false,
-  },
-  {
-    id: 2,
-    username: "arin",
-    date: "2022.08.30",
-    avatar: dummyAvatar,
-    content: `내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다내용이 들어갑니다 내용이 들어갑니다  내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다내용이 들어갑니다 내용이 들어갑니다 `,
-    recomment: true,
-  },
-  {
-    id: 3,
-    username: "arin",
-    date: "2022.08.30",
-    avatar: dummyAvatar,
-    content: `내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다내용이 들어갑니다 내용이 들어갑니다  내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다내용이 들어갑니다 내용이 들어갑니다 `,
-    recomment: true,
-  },
-  {
-    id: 4,
-    username: "arin",
-    date: "2022.08.30",
-    avatar: dummyAvatar,
-    content: `내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다내용이 들어갑니다 내용이 들어갑니다  내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다내용이 들어갑니다 내용이 들어갑니다 `,
-    recomment: false,
-  },
-  {
-    id: 5,
-    username: "arin",
-    date: "2022.08.30",
-    avatar: dummyAvatar,
-    content: `내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다내용이 들어갑니다 내용이 들어갑니다  내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다 내용이 들어갑니다내용이 들어갑니다 내용이 들어갑니다 `,
-    recomment: false,
-  },
-];
-
 const CommentList = () => {
+  const router = useRouter();
+  const articleId = router.query.articleId as string;
+  const { data } = useResource({
+    key: COMMENT_LIST.key,
+    fetcher: () =>
+      COMMENT_LIST.fetcher({
+        articleId,
+      }),
+  });
+
   return (
     <CommentListDiv>
-      {commentDummy.map((comment) => (
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        <CommentList.Item {...comment} key={comment.id} />
+      {data?.data.map((comment) => (
+        <>
+          <CommentList.Item
+            comment={comment.parent}
+            isChild=""
+            key={comment.parent.id}
+          />
+          {comment.children.map((child) => (
+            <CommentList.Item comment={child} isChild="true" key={child.id} />
+          ))}
+        </>
       ))}
     </CommentListDiv>
   );
@@ -62,28 +41,22 @@ const CommentList = () => {
 // ----------------------------------------------------
 
 interface ItemProps {
-  id: number;
-  username: string;
-  avatar: string;
-  date: string;
-  content: string;
-  recomment: boolean;
+  comment: CommentItem;
+  isChild: string;
 }
 
-const Item = ({
-  id,
-  username,
-  avatar,
-  date,
-  content,
-  recomment,
-}: ItemProps) => {
+const Item = ({ comment, isChild }: ItemProps) => {
+  const { user, createdAt, content, likeCount, id, articleId } = comment;
   return (
-    <ItemDiv recomment={recomment}>
-      {recomment && <BsArrowReturnRight />}
+    <ItemDiv isChild={isChild}>
+      {isChild && <BsArrowReturnRight />}
       <div>
         <div className="Item_Row">
-          <DetailCommonInfo username={username} date={date} avatar={avatar} />
+          <DetailCommonInfo
+            username={user.nickname}
+            date={createdAt.split("T")[0]}
+            avatar={avatar}
+          />
           <button type="button">
             <BsThreeDotsVertical />
           </button>
