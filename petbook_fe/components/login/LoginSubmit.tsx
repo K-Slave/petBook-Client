@@ -67,12 +67,8 @@ export const LoginSubmitForm = () => {
         <h2>로그인 후 다양한 콘텐츠를 즐겨보세요!</h2>
       </div>
       <form>
-        <LoginInput submitType="login" axiosValue="email" current="이메일" />
-        <LoginInput
-          submitType="login"
-          axiosValue="password"
-          current="비밀번호"
-        />
+        <LoginInput IconType="Login" axiosValue="email" current="이메일" />
+        <LoginInput IconType="" axiosValue="password" current="비밀번호" />
       </form>
     </>
   );
