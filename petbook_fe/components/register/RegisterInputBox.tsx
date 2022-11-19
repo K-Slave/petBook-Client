@@ -34,7 +34,7 @@ const RegisterInput = ({ current, axiosValue, IconType }: LoginProps) => {
         </label>
         {axiosValue === "nickname" ? (
           <button type="button" className="emphasis">
-            중복하기
+            중복확인
           </button>
         ) : (
           <></>

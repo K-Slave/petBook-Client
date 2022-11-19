@@ -12,7 +12,11 @@ import { useRecoilValue } from "recoil";
 
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 import { UserLoginRequest } from "@lib/API/petBookAPI/types/userRequest";
-import { ButtonBox, PassGuide } from "./styled/styledLoginSubmit";
+import {
+  ButtonBox,
+  PassGuide,
+  AutomaticLabel,
+} from "./styled/styledLoginSubmit";
 
 // 여기서 이거 생성하시면 안되요,,,,
 const LOGIN = createRequest({
@@ -80,6 +84,10 @@ export const LoginSubmitForm = () => {
           current="비밀번호"
         />
       </form>
+      <AutomaticLabel htmlFor="login">
+        <input type="checkbox" id="login" />
+        <p>로그인 상태유지</p>
+      </AutomaticLabel>
     </>
   );
 };

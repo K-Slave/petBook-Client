@@ -99,13 +99,6 @@ img {
   width: 100%;
 }
 
-//배경요소 내부 컨테이너 박스 설정
-.inner_container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
 .flex {
   display: flex;
   align-items: center;
@@ -116,7 +109,9 @@ img {
 .flex.center {
   justify-content: center;
 }
-
+.Float_Right {
+  float: right;
+}
 .hidden {
   display: none;
 }
@@ -151,6 +146,7 @@ input[type="checkbox"] {
 // input checkbox 타입의 스타일을 정의합니다
 label:has(input[type="checkbox"]) {
   position: relative;
+  display: flex;
 }
 label:has(input[type="checkbox"]) p {
   font-size: 14px;
@@ -160,8 +156,8 @@ label:has(input[type="checkbox"]) p {
 label:has(input[type="checkbox"])::before {
   content: "";
   position: absolute;
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   background-image: url(/img/common/register/checkbox.svg);
   background-repeat: no-repeat;
   background-size: contain;
@@ -169,8 +165,8 @@ label:has(input[type="checkbox"])::before {
 label:has(input[type="checkbox"]:checked)::before {
   content: "";
   position: absolute;
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   background-image: url(/img/common/register/checkbox_active.svg);
   background-repeat: no-repeat;
   background-size: contain;

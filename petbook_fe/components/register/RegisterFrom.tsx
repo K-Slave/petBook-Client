@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
+import { useEffect } from "react";
 import Image from "next/image";
 
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 import { registerRequest } from "@lib/API/petBookAPI";
 import { registerFormState } from "@atoms/pageAtoms/login/userState";
+
+import navigator from "@lib/modules/navigator";
 
 import RegisterInputBox from "@components/register/RegisterInputBox";
 import PasswordInput from "@components/register/RegisterPasswordFrom";
@@ -23,9 +26,6 @@ const Terms = styled.ul`
   margin-bottom: 47px;
   li {
     margin-bottom: 15px;
-    label {
-      display: flex;
-    }
   }
 `;
 
@@ -82,9 +82,7 @@ const Register = () => {
           axiosValue="nickname"
           current="닉네임"
         />
-
         <RegisterContainer.TermsWrap />
-
         <RegisterContainer.RegisterButton />
       </RegisterFormWrap>
     </div>
@@ -94,11 +92,17 @@ const Register = () => {
 const RegisterButton = () => {
   const user = useRecoilValue(registerFormState);
 
-  const { isSuccess, mutate } = useSetResource(REGISTER_CREATE);
+  const { data, isSuccess, mutate } = useSetResource(REGISTER_CREATE);
 
   const Sign = () => {
     mutate(user);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigator("/info");
+    }
+  }, [data]);
 
   return (
     <button type="button" onClick={Sign} className="Primary">
