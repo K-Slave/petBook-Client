@@ -4,14 +4,13 @@ const ArticleFilterDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   margin-bottom: 32px;
 `;
 
 const selectedStyle = css`
   padding: 8px 22px;
-
   background-color: #000;
-
   font-weight: 700;
   color: #fff;
 `;
@@ -35,6 +34,7 @@ const CategoryFilterButton = styled.button<{ selected: boolean }>`
 const CategoryFilterDiv = styled.div`
   display: flex;
   gap: 50px;
+  flex-wrap: wrap;
 `;
 
 const SortFilterDiv = styled.div`
