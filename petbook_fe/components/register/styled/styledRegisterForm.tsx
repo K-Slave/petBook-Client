@@ -6,6 +6,9 @@ const RegisterFormWrap = styled.div`
   margin: 0 auto;
   margin-top: 76px;
   margin-bottom: 87px;
+  .Login_Title {
+    margin-bottom: 40px;
+  }
   > div {
     &:last-child {
       margin-bottom: 0;

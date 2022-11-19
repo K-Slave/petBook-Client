@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
+import Image from "next/image";
 
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 import { registerRequest } from "@lib/API/petBookAPI";
@@ -51,6 +52,14 @@ const Register = () => {
   return (
     <Main>
       <RegisterFormWrap>
+        <div className="Login_Title">
+          <Image
+            src="/img/common/logo/logo.svg"
+            alt="Picture of the author"
+            width={160}
+            height={27}
+          />
+        </div>
         <RegisterInputBox
           IconType="Login"
           axiosValue="email"
