@@ -1,14 +1,15 @@
 import { loginFormState } from "@atoms/pageAtoms/login/userState";
 import React, { ChangeEventHandler } from "react";
 import { useSetRecoilState } from "recoil";
+import { IconBox, InputBox } from "./styled/styledLoginSubmit";
 
 interface LoginProps {
   current: string;
   axiosValue: string;
-  submitType: string;
+  IconType: string;
 }
 
-const LoginInput = ({ current, axiosValue, submitType }: LoginProps) => {
+const LoginInput = ({ current, axiosValue, IconType }: LoginProps) => {
   const setLoginForm = useSetRecoilState(loginFormState);
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setLoginForm((user) => ({
@@ -19,15 +20,19 @@ const LoginInput = ({ current, axiosValue, submitType }: LoginProps) => {
 
   return (
     <div>
-      <div className="box">
-        <label htmlFor={`${current}`}>{current}</label>
-        <input
-          type={`${axiosValue}`}
-          id={`${current}`}
-          placeholder={`${current}를 입력해주세요 `}
-          onChange={onChange}
-        />
-      </div>
+      <InputBox>
+        <IconBox>
+          <div className={`${IconType}`} />
+        </IconBox>
+        <label htmlFor={`${current}`}>
+          <input
+            type={`${axiosValue}`}
+            id={`${current}`}
+            placeholder={`${current}를 입력해주세요 `}
+            onChange={onChange}
+          />
+        </label>
+      </InputBox>
     </div>
   );
 };
