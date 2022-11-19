@@ -37,6 +37,14 @@ export default async function queryParser(
       break;
     }
 
+    case "COMMENT_LIST": {
+      const path = queryParams.articleId as string;
+      await client.fetchQuery(`${resource.key}_${path}`, () =>
+        resource.fetcher({ articleId: path })
+      );
+      break;
+    }
+
     case "CATEGORY_LIST": {
       await client.fetchQuery(`${resource.key}`, () => resource.fetcher());
       break;
