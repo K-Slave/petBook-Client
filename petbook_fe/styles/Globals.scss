@@ -114,10 +114,14 @@ img {
   justify-content: center;
 }
 
+.hidden {
+  display: none;
+}
+
 //커스텀 input
 
 input:not(input.default) {
-  padding: 20px 22px;
+  padding: 20px 22px 20px 48px;
   width: 100%;
   height: 48px;
   border-radius: 8px;
@@ -132,8 +136,21 @@ input:focus {
 
 input::placeholder {
   color: #797979;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 19.2px;
+}
+
+button.emphasis {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+
+  display: block;
+
+  width: auto;
+  color: var(--primary);
+  font-size: 0.875rem;
 }
 
 //login
@@ -165,6 +182,8 @@ button.Primary {
   padding: 14px 0;
 
   border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.125rem;
   color: white;
   background-color: var(--primary);
   transition: all 0.3s ease;

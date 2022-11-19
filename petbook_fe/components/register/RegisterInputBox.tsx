@@ -1,7 +1,7 @@
-import { loginFormState } from "@atoms/pageAtoms/login/userState";
+import { registerFormState } from "@atoms/pageAtoms/login/userState";
 import React, { ChangeEventHandler } from "react";
 import { useSetRecoilState } from "recoil";
-import { IconBox, InputBox } from "./styled/styledLoginSubmit";
+import { IconBox, InputBox } from "./styled/styledRegisterForm";
 
 interface LoginProps {
   current: string;
@@ -9,8 +9,8 @@ interface LoginProps {
   IconType: string;
 }
 
-const LoginInput = ({ current, axiosValue, IconType }: LoginProps) => {
-  const setLoginForm = useSetRecoilState(loginFormState);
+const RegisterInput = ({ current, axiosValue, IconType }: LoginProps) => {
+  const setLoginForm = useSetRecoilState(registerFormState);
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setLoginForm((user) => ({
       ...user,
@@ -32,8 +32,15 @@ const LoginInput = ({ current, axiosValue, IconType }: LoginProps) => {
             onChange={onChange}
           />
         </label>
+        {axiosValue === "nickname" ? (
+          <button type="button" className="emphasis">
+            중복하기
+          </button>
+        ) : (
+          <></>
+        )}
       </InputBox>
     </div>
   );
 };
-export default LoginInput;
+export default RegisterInput;

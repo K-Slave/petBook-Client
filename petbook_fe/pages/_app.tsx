@@ -18,6 +18,7 @@ import CommonHeader from "../components/common/CommonHeader";
 import { itrMap } from "../lib/utils/iterableFunctions";
 
 import "../styles/Globals.scss";
+import "../styles/Icon.scss";
 
 type DehydratedAppProps = AppProps & {
   initProps: { router: Router; dehydratedState: DehydratedState };

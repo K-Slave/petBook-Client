@@ -113,4 +113,27 @@ const NotLogin = styled.div`
     font-size: 55px;
   }
 `;
-export { ButtonBox, Container, PassGuide, LoginWrap, NotLogin, Submitbutton };
+
+const IconBox = styled.div`
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+`;
+const InputBox = styled.div`
+  position: relative;
+  margin-bottom: 8px;
+`;
+
+export {
+  ButtonBox,
+  Container,
+  PassGuide,
+  LoginWrap,
+  NotLogin,
+  Submitbutton,
+  IconBox,
+  InputBox,
+};

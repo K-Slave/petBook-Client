@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
+import Image from "next/image";
 
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 import { registerRequest } from "@lib/API/petBookAPI";
 import { registerFormState } from "@atoms/pageAtoms/login/userState";
 
-import ValidationInput from "@components/common/ValidationInput";
+import RegisterInputBox from "@components/register/RegisterInputBox";
 import PasswordInput from "@components/register/RegisterPasswordFrom";
 
 // styled
@@ -51,25 +52,28 @@ const Register = () => {
   return (
     <Main>
       <RegisterFormWrap>
-        <ValidationInput
-          submitType="register"
+        <div className="Login_Title">
+          <Image
+            src="/img/common/logo/logo.svg"
+            alt="Picture of the author"
+            width={160}
+            height={27}
+          />
+        </div>
+        <RegisterInputBox
+          IconType="Login"
           axiosValue="email"
           current="이메일"
         />
-        <ValidationInput
-          submitType="register"
-          axiosValue=""
-          current="이메일 확인"
-        />
         <PasswordInput />
-        <ValidationInput
-          submitType="register"
+        <RegisterInputBox
+          IconType="Nicname"
           axiosValue="nickname"
           current="닉네임"
         />
-        <SubmitBtn onClick={Sign} className="Submit__Btn">
+        <button type="button" onClick={Sign} className="Primary">
           회원가입
-        </SubmitBtn>
+        </button>
       </RegisterFormWrap>
     </Main>
   );
