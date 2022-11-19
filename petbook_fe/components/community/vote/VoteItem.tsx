@@ -97,7 +97,7 @@ const VoteItem = ({
     <Item ref={itemRef}>
       {image === "" ? null : <Image />}
       <Column image={image}>
-        <TagList tags={tagList} width={90} height={36} fontSize={16} />
+        <TagList tags={tagList} fontSize={16} />
         <Title>{title}</Title>
         <Desc>{description}</Desc>
         <Bottom>
