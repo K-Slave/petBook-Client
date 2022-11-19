@@ -68,6 +68,6 @@ export const imgRequest = new ImgAPI(
  */
 export const commentRequest = new CommentAPI(
   process.env.NEXT_PUBLIC_SPR_URL as string,
-  "/api/v1/comment",
+  "/api/v1/board/comment",
   sprPetBookClient
 );
