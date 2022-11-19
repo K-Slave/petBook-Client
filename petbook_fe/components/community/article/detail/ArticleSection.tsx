@@ -30,7 +30,6 @@ const ArticleSection = () => {
   if (data === undefined) {
     return <ArticleSectionBox />;
   }
-
   const { id, title, content, user, category, tags, stat, createdAt } = data.data;
   return (
     <ArticleSectionBox>
@@ -46,9 +45,9 @@ const ArticleSection = () => {
         </div>
       </div>
       <h2>{title}</h2>
-      <p>{content}</p>
+      <div dangerouslySetInnerHTML={{ __html: content }} />
       <ImageSlider images={dummyImages} />
-      <TagList tags={tags} width={90} height={32} fontSize={16} />
+      <TagList tags={tags} fontSize={16} />
       <div className="ArticleSection_Bottom_Row">
         <span>관람 수 {stat.viewCount}</span>
         <button type="button">좋아요 버튼</button>
