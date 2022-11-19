@@ -45,8 +45,8 @@ const Item = ({ article }: { article: ArticleResponse }) => {
           </div>
           <ItemDiv>
             <h3>{title}</h3>
-            <p className="Item_Content">{content}</p>
-            <TagList tags={tags} width={65} height={26} fontSize={14} />
+            <div className="Item_Content" dangerouslySetInnerHTML={{ __html: content }} />
+            <TagList tags={tags} fontSize={14} />
             <p className="Item_Stats">
               <span>공감수 {stat.likeCount}</span>
               <span>/</span>
