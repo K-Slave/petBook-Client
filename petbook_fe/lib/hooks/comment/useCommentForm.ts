@@ -33,14 +33,12 @@ export default function useCommentForm({
       const { content, commentId, parentId } = comment;
       if (content === "") return comment;
       if (commentId === null) {
-        /*
         createComment({
           body: { content, parentId, articleId: Number(articleId) },
           headerObj: {
-            Authorization: `Bearer ${String(process.env.NEXT_PUBLIC_TOKEN)}`,
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwZXRib29rIiwiaWF0IjoxNjY4ODIxMTk0LCJlbWFpbCI6InRlc3RAcGV0Ym9vay5jb20ifQ.JNGsNT7Y_VsIbibvF4IHL6svArDwF0MHmbd9gM3xqcs`,
           },
         });
-        */
       } else {
         /*
         updateComment({
@@ -60,7 +58,7 @@ export default function useCommentForm({
       );
       */
       if (textareaRef.current != null) textareaRef.current.value = "";
-      return { content: "", commentId: null, parentId: null };
+      return { content: "", commentId: null, parentId: 0 };
     });
   };
   useEffect(() => {
