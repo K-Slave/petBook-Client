@@ -1,15 +1,15 @@
 import styled, { css } from "styled-components";
 
-const notRecommentStyle = css`
+const notChildStyle = css`
   background-color: #fff;
 `;
 
-const recommentStyle = css`
+const childStyle = css`
   background-color: #fcf9f4;
 `;
 
-const ItemDiv = styled.div<{ recomment: boolean }>`
-  ${({ recomment }) => (recomment ? recommentStyle : notRecommentStyle)};
+const ItemDiv = styled.div<{ isChild: string }>`
+  ${({ isChild }) => (isChild ? childStyle : notChildStyle)};
   width: 100%;
   padding: 32px 42px 32px 40px;
   display: flex;
