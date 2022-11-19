@@ -68,7 +68,11 @@ export const LoginSubmitForm = () => {
       </div>
       <form>
         <LoginInput IconType="Login" axiosValue="email" current="이메일" />
-        <LoginInput IconType="" axiosValue="password" current="비밀번호" />
+        <LoginInput
+          IconType="Password"
+          axiosValue="password"
+          current="비밀번호"
+        />
       </form>
     </>
   );
