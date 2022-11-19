@@ -71,9 +71,9 @@ const Register = () => {
           axiosValue="nickname"
           current="닉네임"
         />
-        <SubmitBtn onClick={Sign} className="Submit__Btn">
+        <button type="button" onClick={Sign} className="Primary">
           회원가입
-        </SubmitBtn>
+        </button>
       </RegisterFormWrap>
     </Main>
   );

@@ -32,6 +32,13 @@ const RegisterInput = ({ current, axiosValue, IconType }: LoginProps) => {
             onChange={onChange}
           />
         </label>
+        {axiosValue === "nickname" ? (
+          <button type="button" className="emphasis">
+            중복하기
+          </button>
+        ) : (
+          <></>
+        )}
       </InputBox>
     </div>
   );
