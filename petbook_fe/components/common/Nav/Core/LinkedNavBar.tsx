@@ -57,7 +57,9 @@ type ButtonProps = {
 };
 
 const Button = ({ as, value, to, currentPath }: ButtonProps) => {
-  const embedProps = { isCurrentPage: to !== "/" && currentPath?.includes(to) };
+  const embedProps = {
+    isCurrentPage: to === "/" ? currentPath === to : currentPath?.includes(to),
+  };
   const InputButton = setNextjsForwardRef({ as, to, embedProps });
 
   return (
@@ -92,7 +94,8 @@ const RightSide = ({
 
   if (to && typeof to === "string") {
     const embedProps = {
-      isCurrentPage: to !== "/" && currentPath?.includes(to),
+      isCurrentPage:
+        to === "/" ? currentPath === to : currentPath?.includes(to),
     };
 
     const InputRightSide = setNextjsForwardRef({

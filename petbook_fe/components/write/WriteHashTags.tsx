@@ -1,12 +1,13 @@
-import writeState, {
-  WriteStateType,
-} from "@atoms/pageAtoms/community/writeState";
+import writeState from "@atoms/pageAtoms/community/writeState";
+import hashTagBlur from "@lib/handler/hashTagBlur";
 import hashTagKeydown from "@lib/handler/hashTagKeydown";
 import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
 import useSetHashTag from "@lib/hooks/write/useSetHashTag";
 import React, {
+  FocusEventHandler,
   KeyboardEventHandler,
   PropsWithChildren,
+  useRef,
   useState,
 } from "react";
 import {
@@ -43,12 +44,25 @@ interface TagBoxProps {
 
 const TagBox = React.memo(
   ({ children, isError, setIsError }: PropsWithChildren<TagBoxProps>) => {
+    const tagBoxRef = useRef<HTMLDivElement>(null);
+
+    const onFocus: FocusEventHandler<HTMLDivElement> = (e) => {
+      e.currentTarget.style.outline = "solid 1px var(--primary)";
+    };
+
+    const onBlur: FocusEventHandler<HTMLDivElement> = (e) => {
+      e.currentTarget.style.removeProperty("outline");
+    };
+
     return (
       <WriteHashDiv
         className={`Hash__Tag__Div ${isError ? "Error" : ""}`}
+        ref={tagBoxRef}
         onAnimationEnd={() => {
           setIsError(false);
         }}
+        onFocus={onFocus}
+        onBlur={onBlur}
       >
         {children}
       </WriteHashDiv>
@@ -74,7 +88,7 @@ const Item = React.memo(({ hashTag }: { hashTag: string }) => {
   const { removeTag } = useSetHashTag();
 
   const onClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    removeTag(e.currentTarget.value);
+    removeTag(hashTag);
   };
 
   return <RoundHashTagButton onClick={onClick}># {hashTag}</RoundHashTagButton>;
@@ -94,11 +108,21 @@ const Input = ({ setIsError }: InputProps) => {
     }
   };
 
+  const onBlur: FocusEventHandler<HTMLInputElement> = (e) => {
+    // const { done } = hashTagBlur(e, setTags, setIsError);
+    e.currentTarget.value = "";
+
+    // if (done) {
+    // e.currentTarget.value = "";
+    // }
+  };
+
   return (
     <HashInput
       className="default"
       placeholder="# 입력 (최대 5개)"
       onKeyDown={onKeyDown}
+      onBlur={onBlur}
     />
   );
 };

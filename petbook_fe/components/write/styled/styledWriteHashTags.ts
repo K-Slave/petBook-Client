@@ -1,4 +1,3 @@
-import { Button } from "@components/common/Button/Button";
 import styled from "styled-components";
 
 const WriteHashTagsSection = styled.section`
@@ -13,6 +12,9 @@ const WriteHashTagsSection = styled.section`
 `;
 
 const HashTagTitleP = styled.p`
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 19px;
   font-weight: bold;
 `;
 
@@ -38,15 +40,6 @@ const WriteHashDiv = styled.div`
   &.Error {
     animation: errorShake 0.1s 3;
   }
-
-  @keyframes errorShake {
-    50% {
-      transform: translate3d(-3px, 0, 0);
-    }
-    100% {
-      transform: translate3d(3px, 0, 0);
-    }
-  }
 `;
 
 const HashInput = styled.input`
@@ -60,9 +53,16 @@ const HashInput = styled.input`
   border: none;
   border-radius: 12px;
 
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 19px;
+
   &::placeholder {
     pointer-events: none;
 
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 19px;
     color: #999999;
   }
 
@@ -71,7 +71,7 @@ const HashInput = styled.input`
   }
 `;
 
-const RoundHashTagButton = styled(Button)`
+const RoundHashTagButton = styled.button`
   padding: 8px 14px 9px;
 
   border-radius: 18px;
@@ -80,9 +80,10 @@ const RoundHashTagButton = styled(Button)`
   white-space: nowrap;
   font-style: normal;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 19px;
 `;
+
 export {
   WriteHashTagsSection,
   WriteHashDiv,

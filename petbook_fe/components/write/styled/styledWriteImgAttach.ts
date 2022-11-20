@@ -14,15 +14,13 @@ const WriteImgAttachSection = styled.section`
     width: 77px;
     height: 77px;
 
-    background-color: #fff;
+    /* background-color: #fff; */
   }
 `;
 
 const InfoBoxDiv = styled.div`
-  font-family: "Pretendard";
-  font-style: normal;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 1rem;
 `;
 
 const TitleP = styled.span`
@@ -49,6 +47,8 @@ const ImgListUl = styled.ul`
 `;
 
 const ImgItemLi = styled.li`
+  position: relative;
+
   width: 77px;
   height: 77px;
 
@@ -57,9 +57,58 @@ const ImgItemLi = styled.li`
   img {
     border-radius: 8px;
   }
+
+  .Cancle__Button {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 19px;
+    height: 19px;
+
+    border-radius: 100%;
+    background-color: #d9d9d9;
+
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: rgba(190, 190, 190);
+    }
+
+    svg {
+      width: 18.5px;
+      height: 18.5px;
+    }
+  }
 `;
 
-const AddButtonBox = styled.button``;
+const AddButtonBox = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #fff;
+
+  transition: all 0.5s ease-in-out;
+
+  svg {
+    background: transparent;
+    background-color: transparent;
+  }
+
+  &:hover {
+    transition-delay: 0.5s;
+    background-color: #cccccc;
+
+    svg {
+      animation: rotate 1s 0.5s ease 1;
+    }
+  }
+`;
 
 export {
   WriteImgAttachSection,

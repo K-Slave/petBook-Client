@@ -1,7 +1,10 @@
 import { atom } from "recoil";
 
 export interface WriteStateType {
-  selectedCategory: number;
+  selectedCategory: {
+    idx: number;
+    name: string;
+  };
   inputTitle: string;
   inputContent: string;
   inputHash: string[];
@@ -10,7 +13,10 @@ export interface WriteStateType {
 }
 
 const writeState = atom<{
-  selectedCategory: number;
+  selectedCategory: {
+    idx: number;
+    name: string;
+  };
   inputTitle: string;
   inputContent: string;
   inputHash: string[];
@@ -19,7 +25,10 @@ const writeState = atom<{
 }>({
   key: "writeState",
   default: {
-    selectedCategory: 0,
+    selectedCategory: {
+      idx: 0,
+      name: "",
+    },
     inputTitle: "",
     inputContent: "",
     inputHash: [],
