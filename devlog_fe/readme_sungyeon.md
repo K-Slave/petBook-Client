@@ -121,9 +121,10 @@ https://github.com/K-Slave/petBook-Client/commit/9b7bae2d91b14047844ce27dc8c6257
 > 컴포넌트 디자인 패턴 자체가 하나의 값을 사용하도록 유도하지만, 분명 두개이상의 값을 사용할일이 있을것이다.
 
 - 22.11.17 TODO 리스트
+  > [x] write 페이지 작업
+  > [x] categoryList API 리다이렉팅 이슈
 
-> 1. 공용 토스트메시지 구현
-> 2. write 페이지 작업
-> 3. next 서버 로깅 조사
-> 4. categoryList API 리다이렉팅 이슈
-> 5. 서버 ssh 관련 환경 작업
+> 1. 공용 토스트메시지 구현 >> toastify.js 사용
+> 2. next 서버 로깅 조사
+> 3. api 서버 ssh 관련 환경 작업
+> 4. vercel webhook 이용한 디스코드 배포알림
