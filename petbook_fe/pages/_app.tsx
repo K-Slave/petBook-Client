@@ -50,6 +50,8 @@ const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
       process.env.NEXT_PUBLIC_TESTER;
   }
 
+  // 웹 후크 연동 테스트
+
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={initProps.dehydratedState}>
