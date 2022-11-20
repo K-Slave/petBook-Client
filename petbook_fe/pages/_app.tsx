@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import localConsole from "@lib/utils/localConsole";
 import type { AppContext, AppProps } from "next/app";
 import {
   dehydrate,
@@ -42,7 +41,14 @@ const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
       })
   );
 
-  sprPetBookClient.defaults.headers.common.Authorization = initProps.token;
+  if (initProps.token) {
+    sprPetBookClient.defaults.headers.common.Authorization = initProps.token;
+  }
+
+  if (!initProps.token) {
+    sprPetBookClient.defaults.headers.common.Authorization = process.env
+      .NEXT_PUBLIC_TESTER as string;
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
