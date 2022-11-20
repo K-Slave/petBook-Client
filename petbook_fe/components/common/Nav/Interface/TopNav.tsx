@@ -9,11 +9,12 @@ type Props = {
 };
 
 const TopNav = ({ path }: Props) => {
-  const pages = ["/", "/community", "/findHospital", "/chat"];
-  const pageNames = ["홈", "커뮤니티", "병원정보", "채팅"];
-
-  const rightSidePages = "/search";
-  const rightSidePageNames = "";
+  const topNavObj = {
+    pages: ["/", "/community", "/findHospital", "/chat"],
+    pageNames: ["홈", "커뮤니티", "병원정보", "채팅"],
+    rightSidePages: "/search",
+    rightSidePageNames: "",
+  };
 
   return (
     <NavMenu
@@ -21,11 +22,11 @@ const TopNav = ({ path }: Props) => {
       InputMenu={<div style={{ display: "flex", height: "100%" }} />}
       InputButton={<PageButton />}
       InputRightSide={<SearchButton />}
-      to={pages}
-      name={pageNames}
+      to={topNavObj.pages}
+      name={topNavObj.pageNames}
       currentPath={path}
-      rightSideTo={rightSidePages}
-      rightSideName={rightSidePageNames}
+      rightSideTo={topNavObj.rightSidePages}
+      rightSideName={topNavObj.rightSidePageNames}
       rightSideCurrentPath={path}
     />
   );

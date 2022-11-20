@@ -5,6 +5,8 @@ import FormContainer from "@containers/write/FormContainer";
 import ImgAttachContainer from "@containers/write/ImgAttachContainer";
 import HashTagsContainer from "@containers/write/HashTagsContainer";
 import SubmitContainer from "@containers/write/SubmitContainer";
+import localConsole from "@lib/utils/localConsole";
+import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import {
   createRequest,
   createResource,
@@ -44,9 +46,15 @@ const WriteMain = styled.main`
   height: auto;
 
   margin: 0 auto;
+  padding: 0 10px;
 `;
 
-const Write: NextPage = (pageProps) => {
+const Write: NextPage = (pageProps: any) => {
+  localConsole?.log(
+    sprPetBookClient?.defaults.headers.common,
+    "sprPetBookClient"
+  );
+
   return (
     <WriteMain className="Content">
       <CategoryContainer />

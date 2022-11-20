@@ -7,7 +7,7 @@ const PageButtonA = styled.a`
 
   transition: all 0.3s ease-in-out;
 
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: normal;
   color: rgba(0, 0, 0, 0.6);
 
@@ -16,12 +16,16 @@ const PageButtonA = styled.a`
   outline: none;
   border: none;
 
+  white-space: nowrap;
+
   .Page__Button__Text {
     display: flex;
     justify-content: center;
     align-items: center;
 
-    height: 100%;
+    box-sizing: content-box;
+
+    height: calc(100% - 4px);
 
     ${(props: PageButtonProps) =>
       props.isCurrentPage

@@ -107,8 +107,23 @@ https://github.com/K-Slave/petBook-Client/commit/9b7bae2d91b14047844ce27dc8c6257
   > 2. 게시물 등록 마무리하기
   > 3. 코드 리팩터링
   > 4. next 서버 로깅 (vercel production)
-  > 5. categoryList API 리다이렉팅 이슈
+  > 5. categoryList API 리다이렉팅 이슈 << 11.17 아직 해결 안되었음
 
   > [x] useRecoilSelector 마무리하기
   > [x] localConsole 수정하기 (클래스로 가능)
   > [x] 빌드성공 시켜서 배포 및 도메인 연결
+
+- 22.11.17 devlog
+
+> selector 를 통해 렌더링이 최적화된 값을 가져오는 useRecoilSelector 를 작업했는데,
+> 도저히 두개이상의 프로퍼티를 가진 객체를 꺼내올 수가 없었다.
+> 이 경우에는 selector 를 새로 만드는것이 정답인것 같다.
+> 컴포넌트 디자인 패턴 자체가 하나의 값을 사용하도록 유도하지만, 분명 두개이상의 값을 사용할일이 있을것이다.
+
+- 22.11.17 TODO 리스트
+
+> 1. 공용 토스트메시지 구현
+> 2. write 페이지 작업
+> 3. next 서버 로깅 조사
+> 4. categoryList API 리다이렉팅 이슈
+> 5. 서버 ssh 관련 환경 작업
