@@ -22,7 +22,7 @@ const Main = styled.main`
 `;
 
 const Terms = styled.ul`
-  margin-top: 33px;
+  margin-top: 62px;
   margin-bottom: 47px;
   li {
     margin-bottom: 15px;
