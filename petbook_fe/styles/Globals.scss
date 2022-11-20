@@ -211,3 +211,25 @@ button.Disabled {
     padding-bottom: calc(1em + env(safe-area-inset-bottom));
   }
 }
+
+@keyframes errorShake {
+  50% {
+    transform: translate3d(-3px, 0, 0);
+  }
+  100% {
+    transform: translate3d(3px, 0, 0);
+  }
+}
+
+@keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}

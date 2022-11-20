@@ -1,18 +1,16 @@
-import Cookies from "js-cookie";
-import Link from "next/link";
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import styled from "styled-components";
 
 const PersonalMenuA = styled.a`
-  position: relative;
-  left: 35px;
+  /* position: relative;
+  left: 35px; */
 
   height: 100%;
   padding: 0 35px;
 
   transition: all 0.3s ease-in-out;
 
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: normal;
   color: #000;
   &:hover {

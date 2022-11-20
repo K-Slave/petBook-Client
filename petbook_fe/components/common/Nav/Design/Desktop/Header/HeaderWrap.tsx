@@ -15,7 +15,7 @@ const HeaderBox = styled.div`
   gap: 30px;
 
   width: 100%;
-  max-width: 1280px;
+  max-width: 1315px;
   height: 60px;
 `;
 
