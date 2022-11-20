@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import RegisterFrom from "@components/register/RegisterFrom";
+import RegisterForm from "@components/register/RegisterForm";
 
 const Container = styled.main`
   overflow: auto;
@@ -10,7 +10,7 @@ const Container = styled.main`
 const Register = () => {
   return (
     <Container>
-      <RegisterFrom />
+      <RegisterForm />
     </Container>
   );
 };
