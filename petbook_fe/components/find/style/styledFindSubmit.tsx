@@ -7,9 +7,9 @@ export const TitleWrap = styled.div`
   text-align: center;
   margin-bottom: 32px;
   p {
-    margin-top: 16px;
     font-size: 1.375rem;
     font-weight: bold;
+    margin-top: 16px;
   }
 `;
 export const ButtonWrap = styled.div`

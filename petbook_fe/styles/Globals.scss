@@ -135,12 +135,12 @@ input::placeholder {
   font-size: 0.875rem;
 }
 input[type="checkbox"] {
-  width: 14px !important;
-  height: 14px !important;
-  margin-right: 7px;
-  visibility: hidden;
   position: relative;
-  font-size: 14px;
+  visibility: hidden;
+  margin-right: 7px;
+  width: 20px !important;
+  height: 20px !important;
+  font-size: 0.875rem;
 }
 
 // input checkbox 타입의 스타일을 정의합니다
@@ -149,15 +149,16 @@ label:has(input[type="checkbox"]) {
   display: flex;
 }
 label:has(input[type="checkbox"]) p {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--font_black_02);
+  line-height: 20px;
 }
 
 label:has(input[type="checkbox"])::before {
   content: "";
   position: absolute;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   background-image: url(/img/common/register/checkbox.svg);
   background-repeat: no-repeat;
   background-size: contain;
@@ -165,8 +166,8 @@ label:has(input[type="checkbox"])::before {
 label:has(input[type="checkbox"]:checked)::before {
   content: "";
   position: absolute;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   background-image: url(/img/common/register/checkbox_active.svg);
   background-repeat: no-repeat;
   background-size: contain;
@@ -179,7 +180,7 @@ button.emphasis {
   transform: translateY(-50%);
   display: block;
   width: auto;
-  color: var(--primary);
+  color: var(--disabled-font);
   font-size: 0.875rem;
 }
 
