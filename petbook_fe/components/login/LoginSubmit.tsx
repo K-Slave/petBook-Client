@@ -95,8 +95,8 @@ export const LoginSubmitForm = () => {
 export const LoginPassGuide = () => {
   return (
     <PassGuide>
-      <Link href="/password">비밀번호 찾기</Link>
-      <Link href="/password">아이디 찾기</Link>
+      <Link href="/find/pass">비밀번호 찾기</Link>
+      <Link href="/find/id">아이디 찾기</Link>
       <Link href="/register">회원가입</Link>
     </PassGuide>
   );
