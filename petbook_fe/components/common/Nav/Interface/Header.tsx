@@ -10,7 +10,7 @@ type Props = {
 
 const Header = ({ path }: Props) => {
   const defaultValue = {
-    pages: ["/", "/"],
+    pages: ["/none", "/none"],
     pageNames: ["토끼", "햄스터"],
   };
 

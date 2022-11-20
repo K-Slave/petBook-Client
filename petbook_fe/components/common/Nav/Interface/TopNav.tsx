@@ -1,3 +1,4 @@
+import localConsole from "@lib/utils/localConsole";
 import React from "react";
 import PageButton from "../Design/Desktop/TopNav/PageButton";
 import SearchButton from "../Design/Desktop/TopNav/SearchButton";
@@ -9,6 +10,8 @@ type Props = {
 };
 
 const TopNav = ({ path }: Props) => {
+  localConsole?.log(path, "path");
+
   const topNavObj = {
     pages: ["/", "/community", "/findHospital", "/chat"],
     pageNames: ["홈", "커뮤니티", "병원정보", "채팅"],
