@@ -135,11 +135,11 @@ input::placeholder {
   font-size: 0.875rem;
 }
 input[type="checkbox"] {
+  position: relative;
+  visibility: hidden;
+  margin-right: 7px;
   width: 14px !important;
   height: 14px !important;
-  margin-right: 7px;
-  visibility: hidden;
-  position: relative;
   font-size: 14px;
 }
 
