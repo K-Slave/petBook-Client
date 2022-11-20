@@ -12,7 +12,9 @@ const WriteCategorySection = styled.section`
   margin-bottom: 32px;
 
   .Category__Section__Title {
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 19px;
   }
 `;
 
@@ -31,10 +33,18 @@ interface ButtonProps {
 const WriteCategoryButtonBox = styled.button`
   padding: 8.5px 14px;
 
+  border-radius: 18px;
+
+  white-space: nowrap;
+
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 19px;
+
   ${(props: ButtonProps) => {
     if (!props) return { backgroundColor: "#fff4e0", color: "#000" };
     if (props.selected === props.keyword) {
-      return { backgroundColor: "#FF6847", color: "#fff" };
+      return { backgroundColor: "#FF6847", fontWeight: "700", color: "#fff" };
     }
     if (props.selected !== props.keyword) {
       return { backgroundColor: "#fff4e0", color: "#000" };
@@ -42,8 +52,6 @@ const WriteCategoryButtonBox = styled.button`
 
     return { backgroundColor: "#fff4e0", color: "#000" };
   }}
-
-  border-radius: 18px;
 `;
 
 export { WriteCategorySection, ListDiv, WriteCategoryButtonBox };

@@ -1,3 +1,4 @@
+import localConsole from "@lib/utils/localConsole";
 import RequestCore from "./RequestCore";
 import { ArticleResponse, ArticleListResponse } from "./types/articleRequest";
 
@@ -11,24 +12,27 @@ export default class ArticleAPI extends RequestCore {
    * @param config.headerObj 유저 토큰값을 헤더에 작성합니다. 없으면 에러가 납니다.
    * @returns 생성한 게시물 정보가 들어옵니다.
    */
-  public article_create = async (
+  public article_create = async (payload: {
+    header?: object;
     body: {
       title: string;
       content: string;
       categoryId: number;
       tags: string[];
-    },
-    config?: { headerObj: object }
-  ) => {
+    };
+  }) => {
     const { requestURL, requestHeaders } = this.getParameters({
-      headerObj: config && config.headerObj,
+      headerObj: payload.header,
     });
+
+    localConsole?.log(this.client.defaults.headers);
+    localConsole?.log(requestHeaders, "requestHeaders");
 
     const result = await this.getResult({
       requestMethod: "POST",
       requestURL,
       requestHeaders,
-      body,
+      body: payload.body,
     });
 
     return result;

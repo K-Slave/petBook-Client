@@ -1,7 +1,7 @@
 import { CategoryListResponse } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 import useSelectorState from "@lib/hooks/common/useSelectorState";
 import { AxiosResponse } from "axios";
-import React, { MouseEventHandler } from "react";
+import React, { MouseEventHandler, useEffect } from "react";
 import { useQuery } from "react-query";
 import writeState from "../../atoms/pageAtoms/community/writeState";
 import {
@@ -24,7 +24,10 @@ const List = () => {
     useQuery<AxiosResponse<CategoryListResponse>>("CATEGORY_LIST");
 
   const [{ selectedCategory }, setWrite] = useSelectorState(writeState, {
-    selectedCategory: 0,
+    selectedCategory: {
+      idx: 0,
+      name: "",
+    },
   });
 
   const categoryList = data?.data as CategoryListResponse;
@@ -35,18 +38,34 @@ const List = () => {
 
     setWrite((write) => ({
       ...write,
-      selectedCategory: categoryList.findIndex(
-        (category) => category.name === resultValue
-      ),
+      selectedCategory: {
+        idx: categoryList.findIndex(
+          (category) => category.name === resultValue
+        ),
+
+        name: categoryList[
+          categoryList.findIndex((category) => category.name === resultValue)
+        ].name,
+      },
     }));
   };
+
+  useEffect(() => {
+    setWrite((write) => ({
+      ...write,
+      selectedCategory: {
+        idx: write.selectedCategory.idx,
+        name: categoryList[selectedCategory.idx].name,
+      },
+    }));
+  }, []);
 
   return (
     <ListDiv className="Category__Keyword__List">
       {categoryList.map((keyword) => (
         <WriteCategory.Item
           key={keyword.name}
-          selected={categoryList[selectedCategory].name}
+          selected={categoryList[selectedCategory.idx].name}
           keyword={keyword.name}
           onClick={onClick}
         />
