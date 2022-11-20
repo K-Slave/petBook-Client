@@ -17,6 +17,7 @@
     "isolatedModules": true,
     "downlevelIteration": true,
     "incremental": true,
+    "useUnknownInCatchVariables": false,
     "baseUrl": ".",
     "paths": {
       "@components/*": ["components/*"],

@@ -3,8 +3,8 @@ import { BsSearch } from "react-icons/bs";
 import styled from "styled-components";
 
 const SearchButtonA = styled.a`
-  position: relative;
-  left: 35px;
+  /* position: relative;
+  left: 35px; */
 
   display: inline-flex;
   justify-content: center;
