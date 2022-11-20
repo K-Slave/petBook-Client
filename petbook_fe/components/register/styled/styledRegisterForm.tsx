@@ -78,6 +78,26 @@ const IconBox = styled.div`
 `;
 const InputBox = styled.div`
   position: relative;
-  margin-bottom: 8px;
+  margin-bottom: 52px;
 `;
-export { RegisterFormWrap, PassCheckWrap, IconBox, InputBox };
+
+const RegisterInfoText = styled.p`
+  position: absolute;
+  left: 20px;
+  top: 56px;
+  font-size: 0.875rem;
+  line-height: 20px;
+  color: var(--success);
+  &::before {
+    content: "";
+    position: absolute;
+    left: -24px;
+    width: 20px;
+    height: 20px;
+    background-image: url(/img/common/register/check_icon.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+`;
+
+export { RegisterFormWrap, PassCheckWrap, IconBox, InputBox, RegisterInfoText };
