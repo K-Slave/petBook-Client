@@ -1,8 +1,10 @@
 import writeState from "@atoms/pageAtoms/community/writeState";
 import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
+import useSelectorState from "@lib/hooks/common/useSelectorState";
 import Image from "next/image";
 import React, { PropsWithChildren, useRef } from "react";
 import { BsPlus } from "react-icons/bs";
+import { IoIosClose } from "react-icons/io";
 import { useSetRecoilState } from "recoil";
 import {
   AddButtonBox,
@@ -55,6 +57,15 @@ const ImgList = React.memo(() => {
 });
 
 const ImgItem = React.memo(({ img }: { img: string }) => {
+  const setWrite = useSetRecoilState(writeState);
+
+  const onClick = () => {
+    setWrite((write) => ({
+      ...write,
+      inputImg: write.inputImg.filter((imgItem) => imgItem !== img),
+    }));
+  };
+
   return (
     <ImgItemLi>
       <Image
@@ -64,6 +75,9 @@ const ImgItem = React.memo(({ img }: { img: string }) => {
         width={77}
         height={77}
       />
+      <button type="button" className="Cancle__Button" onClick={onClick}>
+        <IoIosClose />
+      </button>
     </ImgItemLi>
   );
 });
@@ -79,7 +93,13 @@ const Title = () => {
 // TODO 기능 리팩터링 해야함
 const AddButton = () => {
   const btnRef = useRef<HTMLButtonElement>(null);
-  const setWrite = useSetRecoilState(writeState);
+  const [{ inputImg }, setWrite] = useSelectorState(writeState, {
+    inputImg: [] as string[],
+  });
+
+  if (inputImg.length >= 5) {
+    return <></>;
+  }
 
   return (
     <AddButtonBox

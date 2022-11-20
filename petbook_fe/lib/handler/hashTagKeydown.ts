@@ -1,11 +1,11 @@
 // hashTag keyDown 이벤트 핸들러
 // "Enter" 일때만 인자로 받은 setter 함수를 실행시키고
 // 이외에는 result 객체를 상태 형태로 리턴해요
-export default function hashTagKeydown(
+const hashTagKeydown = (
   keyDownEvent: React.KeyboardEvent<HTMLInputElement>,
   setter: (textValue: string) => void,
   errorSetter: React.Dispatch<React.SetStateAction<boolean>>
-): { done: boolean; info: string } {
+): { done: boolean; info: string } => {
   if (keyDownEvent.nativeEvent.isComposing) {
     return { done: false, info: "composing" };
   }
@@ -27,4 +27,6 @@ export default function hashTagKeydown(
     default:
       return { done: false, info: keyDownEvent.key };
   }
-}
+};
+
+export default hashTagKeydown;

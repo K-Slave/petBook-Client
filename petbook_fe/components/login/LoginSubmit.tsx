@@ -18,7 +18,6 @@ import {
   AutomaticLabel,
 } from "./styled/styledLoginSubmit";
 
-// 여기서 이거 생성하시면 안되요,,,,
 const LOGIN = createRequest({
   key: "LOGIN",
   requester: authRequest.login,
@@ -115,6 +114,8 @@ export const LoginSubmitButton = () => {
   useEffect(() => {
     if (isSuccess) {
       const { token } = data?.data as UserLoginRequest;
+
+      localConsole?.log(token, "token");
       Cookies.set("petBookUser", token, { expires: 30 });
       navigator("/info");
     }
