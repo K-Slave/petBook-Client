@@ -45,9 +45,9 @@ const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
     sprPetBookClient.defaults.headers.common.Authorization = initProps.token;
   }
 
-  if (!initProps.token) {
-    sprPetBookClient.defaults.headers.common.Authorization = process.env
-      .NEXT_PUBLIC_TESTER as string;
+  if (!initProps.token && process.env.NEXT_PUBLIC_TESTER) {
+    sprPetBookClient.defaults.headers.common.Authorization =
+      process.env.NEXT_PUBLIC_TESTER;
   }
 
   return (
