@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "react-query";
+import { useMutation, UseMutationOptions, useQuery } from "react-query";
 
 /**
  * @function useResource : GET 요청 결과를 받아오는 useQuery 를 내포한 Hook
@@ -37,8 +37,16 @@ export function createResource<T, P>(resource: {
 export function useSetResource<T, P>(request: {
   key: string;
   requester: (reqBody: P) => Promise<T>;
+  options?: Omit<
+    UseMutationOptions<T, unknown, P, unknown>,
+    "mutationFn" | "mutationKey"
+  >;
 }) {
-  const queryState = useMutation(request.key, request.requester);
+  const queryState = useMutation(
+    request.key,
+    request.requester,
+    request.options
+  );
 
   return queryState;
 }
