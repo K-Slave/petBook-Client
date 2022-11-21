@@ -5,18 +5,14 @@ import {
   COMMENT_UPDATE,
 } from "@pages/community/[articleId]";
 import { useRouter } from "next/router";
-import { MutableRefObject, useEffect } from "react";
+import { MutableRefObject } from "react";
 import { useQueryClient } from "react-query";
 import { useSetRecoilState } from "recoil";
 import { useSetResource } from "../common/useResource";
 
-export default function useCommentForm({
-  initialContent,
-  textareaRef,
-}: {
-  initialContent: string;
-  textareaRef: MutableRefObject<HTMLTextAreaElement | null>;
-}) {
+export default function useSubmitComment(
+  textareaRef: MutableRefObject<HTMLTextAreaElement | null>
+) {
   const router = useRouter();
   const { articleId } = router.query as { articleId: string };
   const setComment = useSetRecoilState(commentState);
@@ -69,20 +65,5 @@ export default function useCommentForm({
       return { content: "", commentId: null, parentId: null };
     });
   };
-
-  const onChange = (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    const { value } = e.target;
-    setComment((comment) => ({ ...comment, content: value }));
-  };
-
-  useEffect(() => {
-    if (initialContent !== "") {
-      setComment((comment) => ({ ...comment, content: initialContent }));
-    }
-  }, [initialContent]);
-  return { onChange, onSubmit };
+  return { onSubmit };
 }
