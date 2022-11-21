@@ -1,4 +1,5 @@
-import useCommentForm from "@lib/hooks/comment/useCommentForm";
+import useChangeComment from "@lib/hooks/comment/useChangeComment";
+import useSubmitComment from "@lib/hooks/comment/useSubmitComment";
 import { useRef } from "react";
 import {
   CommentFormBox,
@@ -13,10 +14,8 @@ const username = "arin";
 
 const CommentForm = ({ initialContent }: { initialContent?: string }) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-  const { onChange, onSubmit } = useCommentForm({
-    initialContent: initialContent || "",
-    textareaRef,
-  });
+  const { onChange } = useChangeComment(initialContent || "");
+  const { onSubmit } = useSubmitComment(textareaRef);
   return (
     <CommentFormBox>
       <CommentFormDiv>
