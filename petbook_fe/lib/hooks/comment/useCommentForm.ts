@@ -1,7 +1,12 @@
 import commentState from "@atoms/pageAtoms/community/commentState";
-import { COMMENT_CREATE, COMMENT_UPDATE } from "@pages/community/[articleId]";
+import {
+  COMMENT_CREATE,
+  COMMENT_LIST,
+  COMMENT_UPDATE,
+} from "@pages/community/[articleId]";
 import { useRouter } from "next/router";
 import { MutableRefObject, useEffect } from "react";
+import { useQueryClient } from "react-query";
 import { useSetRecoilState } from "recoil";
 import { useSetResource } from "../common/useResource";
 
@@ -13,31 +18,41 @@ export default function useCommentForm({
   textareaRef: MutableRefObject<HTMLTextAreaElement | null>;
 }) {
   const router = useRouter();
+  const { articleId } = router.query as { articleId: string };
   const setComment = useSetRecoilState(commentState);
-  const { mutate: createComment, isSuccess: isCreateSuccess } =
-    useSetResource(COMMENT_CREATE);
-  const { mutate: updateComment, isSuccess: isUpdateSuccess } = useSetResource(COMMENT_UPDATE);
-  const onChange = (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    const { value } = e.target;
-    setComment((comment) => ({ ...comment, content: value }));
-  };
+  const queryClient = useQueryClient();
+  const { mutate: createComment } = useSetResource({
+    ...COMMENT_CREATE,
+    options: {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(`${COMMENT_LIST.key}_${articleId}`);
+      },
+      onError: () => {
+        alert("댓글 등록에 실패했습니다. 다시 등록해주세요 😢");
+      },
+    },
+  });
+  const { mutate: updateComment } = useSetResource({
+    ...COMMENT_UPDATE,
+    options: {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(`${COMMENT_LIST.key}_${articleId}`);
+      },
+      onError: () => {
+        alert("댓글 수정에 실패했습니다. 다시 수정해주세요 😢");
+      },
+    },
+  });
 
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const { articleId } = router.query as { articleId: string };
+
     setComment((comment) => {
       const { content, commentId, parentId } = comment;
       if (content === "") return comment;
       if (commentId === null) {
         createComment({
           body: { content, parentId, articleId: Number(articleId) },
-          headerObj: {
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwZXRib29rIiwiaWF0IjoxNjY4ODIxMTk0LCJlbWFpbCI6InRlc3RAcGV0Ym9vay5jb20ifQ.JNGsNT7Y_VsIbibvF4IHL6svArDwF0MHmbd9gM3xqcs`,
-          },
         });
       } else {
         /*
@@ -50,21 +65,24 @@ export default function useCommentForm({
         });
         */
       }
-      /*
-      console.log(
-        `content: ${content}, commentId: ${commentId || "null"}, parentId: ${
-          parentId || "null"
-        }, articleId: ${articleId}`
-      );
-      */
       if (textareaRef.current != null) textareaRef.current.value = "";
-      return { content: "", commentId: null, parentId: 0 };
+      return { content: "", commentId: null, parentId: null };
     });
   };
+
+  const onChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { value } = e.target;
+    setComment((comment) => ({ ...comment, content: value }));
+  };
+
   useEffect(() => {
     if (initialContent !== "") {
       setComment((comment) => ({ ...comment, content: initialContent }));
     }
-  }, []);
-  return { onChange, onSubmit, isCreateSuccess, isUpdateSuccess };
+  }, [initialContent]);
+  return { onChange, onSubmit };
 }

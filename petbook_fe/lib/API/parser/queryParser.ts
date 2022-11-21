@@ -38,9 +38,9 @@ export default async function queryParser(
     }
 
     case "COMMENT_LIST": {
-      const path = queryParams.articleId as string;
-      await client.fetchQuery(`${resource.key}_${path}`, () =>
-        resource.fetcher({ articleId: path })
+      const articleId = queryParams.articleId as string;
+      await client.fetchQuery(`${resource.key}_${articleId}`, () =>
+        resource.fetcher({ articleId })
       );
       break;
     }
