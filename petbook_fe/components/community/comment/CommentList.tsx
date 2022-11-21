@@ -1,18 +1,12 @@
-import { BsThreeDotsVertical, BsArrowReturnRight } from "react-icons/bs";
+import { BsArrowReturnRight } from "react-icons/bs";
 import useResource, { useSetResource } from "@lib/hooks/common/useResource";
 import { COMMENT_DELETE, COMMENT_LIST } from "@pages/community/[articleId]";
 import { useRouter } from "next/router";
 import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
-import React, { Fragment, MouseEventHandler, useState } from "react";
+import React, { Fragment, MouseEventHandler } from "react";
 import { useQueryClient } from "react-query";
-import { useSetRecoilState } from "recoil";
-import commentState from "@atoms/pageAtoms/community/commentState";
-import useChangeComment from "@lib/hooks/comment/useChangeComment";
-import useSelectorState from "@lib/hooks/common/useSelectorState";
-import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
 import DetailCommonInfo from "../DetailCommonInfo";
 import { CommentListDiv, ItemDiv } from "./styled/styledCommentList";
-import { CommentFormMain } from "./CommentForm";
 
 const avatar =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
