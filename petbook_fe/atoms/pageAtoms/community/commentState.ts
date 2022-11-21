@@ -3,7 +3,7 @@ import { atom } from "recoil";
 interface CommentState {
   content: string;
   commentId: number | null;
-  parentId: number;
+  parentId: number | null;
 }
 
 const commentState = atom<CommentState>({
@@ -11,7 +11,7 @@ const commentState = atom<CommentState>({
   default: {
     content: "",
     commentId: null,
-    parentId: 0,
+    parentId: null,
   },
 });
 
