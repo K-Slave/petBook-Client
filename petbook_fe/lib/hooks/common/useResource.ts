@@ -37,16 +37,8 @@ export function createResource<T, P>(resource: {
 export function useSetResource<T, P>(request: {
   key: string;
   requester: (reqBody: P) => Promise<T>;
-  options?: Omit<
-    UseMutationOptions<T, unknown, P, unknown>,
-    "mutationFn" | "mutationKey"
-  >;
 }) {
-  const queryState = useMutation(
-    request.key,
-    request.requester,
-    request.options
-  );
+  const queryState = useMutation(request.key, request.requester);
 
   return queryState;
 }
