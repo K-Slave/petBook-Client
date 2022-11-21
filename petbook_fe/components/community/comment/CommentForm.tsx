@@ -13,12 +13,10 @@ const username = "arin";
 
 const CommentForm = ({ initialContent }: { initialContent?: string }) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-  const { onChange, onSubmit, isCreateSuccess, isUpdateSuccess } = useCommentForm({
+  const { onChange, onSubmit } = useCommentForm({
     initialContent: initialContent || "",
     textareaRef,
   });
-  // console.log(isCreateSuccess);
-  // console.log(isUpdateSuccess);
   return (
     <CommentFormBox>
       <CommentFormDiv>
