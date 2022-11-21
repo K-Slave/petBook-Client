@@ -17,12 +17,14 @@ export default function useSubmitComment(
   const { articleId } = router.query as { articleId: string };
   const setComment = useSetRecoilState(commentState);
   const queryClient = useQueryClient();
+  const onSuccess = async () => {
+    if (textareaRef.current != null) textareaRef.current.value = "";
+    await queryClient.invalidateQueries(`${COMMENT_LIST.key}_${articleId}`);
+  };
   const { mutate: createComment } = useSetResource({
     ...COMMENT_CREATE,
     options: {
-      onSuccess: async () => {
-        await queryClient.invalidateQueries(`${COMMENT_LIST.key}_${articleId}`);
-      },
+      onSuccess,
       onError: () => {
         alert("댓글 등록에 실패했습니다. 다시 등록해주세요 😢");
       },
@@ -31,9 +33,7 @@ export default function useSubmitComment(
   const { mutate: updateComment } = useSetResource({
     ...COMMENT_UPDATE,
     options: {
-      onSuccess: async () => {
-        await queryClient.invalidateQueries(`${COMMENT_LIST.key}_${articleId}`);
-      },
+      onSuccess,
       onError: () => {
         alert("댓글 수정에 실패했습니다. 다시 수정해주세요 😢");
       },
@@ -58,7 +58,6 @@ export default function useSubmitComment(
         });
         */
       }
-      if (textareaRef.current != null) textareaRef.current.value = "";
       return { content: "", commentId: null, parentId: null };
     });
   };
