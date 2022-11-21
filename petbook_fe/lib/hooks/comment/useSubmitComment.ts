@@ -55,9 +55,6 @@ export default function useSubmitComment(
         updateComment({
           body: { content },
           pathParam: String(commentId),
-          headerObj: {
-            Authorization: `Bearer ${String(process.env.NEXT_PUBLIC_TOKEN)}`,
-          },
         });
         */
       }
