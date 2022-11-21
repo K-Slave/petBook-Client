@@ -1,8 +1,7 @@
 import commentState from "@atoms/pageAtoms/community/commentState";
-import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 
-export default function useChangeComment(initialContent: string) {
+export default function useChangeComment() {
   const setComment = useSetRecoilState(commentState);
 
   const onChange = (
@@ -13,11 +12,5 @@ export default function useChangeComment(initialContent: string) {
     const { value } = e.target;
     setComment((comment) => ({ ...comment, content: value }));
   };
-
-  useEffect(() => {
-    if (initialContent !== "") {
-      setComment((comment) => ({ ...comment, content: initialContent }));
-    }
-  }, [initialContent]);
   return { onChange };
 }
