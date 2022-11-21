@@ -15,6 +15,9 @@ const ItemDiv = styled.div<{ isChild: string }>`
   display: flex;
   gap: 14px;
   border-bottom: 1px solid #eeeeee;
+  & > div {
+    width: 100%;
+  }
   .Item_Content {
     margin: 16px 0 10px;
     padding-right: 30px;

@@ -13,7 +13,7 @@ const CommentList = () => {
   const router = useRouter();
   const articleId = router.query.articleId as string;
   const { data } = useResource({
-    key: COMMENT_LIST.key,
+    key: `${COMMENT_LIST.key}_${articleId}`,
     fetcher: () =>
       COMMENT_LIST.fetcher({
         articleId,
