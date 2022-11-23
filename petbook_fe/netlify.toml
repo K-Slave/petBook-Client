@@ -1,6 +1,6 @@
 [build]
-command = "next build" 	// next export는 하지 않는다.
-publish = ".next"		// plugin 문서나 여러 블로그에는 publish directory를 "out"으로 지정했으나, 나의 경우는 publish directory를 ".next"로 지정해주니 정상적으로 배포되었다.
+  command = "yarn build"
+  publish = ".next"
 
 [[plugins]]
-package = "@netlify/plugin-nextjs"
+  package = "@netlify/plugin-nextjs"
