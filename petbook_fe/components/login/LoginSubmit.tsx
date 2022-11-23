@@ -122,7 +122,8 @@ export const LoginSubmitButton = () => {
       navigator("/info");
     }
     if (isError) {
-      setErrorText(error.response.data.message);
+      // error type 린트에러
+      // setErrorText(error.response.data.message );
       setErrorState(true);
     } else {
       setErrorState(false);
