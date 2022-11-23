@@ -94,7 +94,7 @@ const RegisterInfoText = styled.p`
     left: -24px;
     width: 20px;
     height: 20px;
-    background-image: url(/img/common/register/check_icon.svg);
+    background-image: url(/img/common/register/check_icon_green.svg);
     background-repeat: no-repeat;
     background-size: contain;
   }
