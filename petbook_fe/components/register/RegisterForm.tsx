@@ -92,17 +92,20 @@ const Register = () => {
 const RegisterButton = () => {
   const user = useRecoilValue(registerFormState);
 
-  const { data, isSuccess, mutate } = useSetResource(REGISTER_CREATE);
+  const { data, isSuccess, isError, error, mutate } =
+    useSetResource(REGISTER_CREATE);
 
   const Sign = () => {
     mutate(user);
   };
-
   useEffect(() => {
     if (isSuccess) {
       navigator("/info");
     }
-  }, [data]);
+    if (isError) {
+      alert(error.response.data.message);
+    }
+  }, [isError, data]);
 
   return (
     <button type="button" onClick={Sign} className="Primary">

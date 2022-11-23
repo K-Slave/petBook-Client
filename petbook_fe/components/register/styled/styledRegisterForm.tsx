@@ -70,11 +70,11 @@ const PassCheckWrap = styled.ul`
 
 const IconBox = styled.div`
   position: absolute;
-  left: 20px;
+  left: 16px;
   top: 50%;
   transform: translateY(-50%);
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
 `;
 const InputBox = styled.div`
   position: relative;
@@ -94,7 +94,7 @@ const RegisterInfoText = styled.p`
     left: -24px;
     width: 20px;
     height: 20px;
-    background-image: url(/img/common/register/check_icon.svg);
+    background-image: url(/img/common/register/check_icon_green.svg);
     background-repeat: no-repeat;
     background-size: contain;
   }

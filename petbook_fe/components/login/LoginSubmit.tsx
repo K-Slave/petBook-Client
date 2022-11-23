@@ -105,8 +105,9 @@ export const LoginSubmitButton = () => {
   //   "password": "p@55w0rd1!"
   // }
   const [errorState, setErrorState] = useState(false);
+  const [errorText, setErrorText] = useState("");
   const user = useRecoilValue(loginFormState);
-  const { data, isSuccess, isError, mutate } = useSetResource(LOGIN);
+  const { data, isSuccess, error, isError, mutate } = useSetResource(LOGIN);
   const onSubmit = () => {
     mutate(user);
   };
@@ -121,6 +122,7 @@ export const LoginSubmitButton = () => {
       navigator("/info");
     }
     if (isError) {
+      setErrorText(error.response.data.message);
       setErrorState(true);
     } else {
       setErrorState(false);
@@ -130,9 +132,7 @@ export const LoginSubmitButton = () => {
   return (
     <>
       <div>
-        <InfoText errorState={errorState}>
-          아이디 또는 비밀번호를 확인하세요
-        </InfoText>
+        <InfoText errorState={errorState}>{errorText}</InfoText>
         <AutomaticLabel htmlFor="login">
           <input type="checkbox" id="login" />
           <p>로그인 상태유지</p>
