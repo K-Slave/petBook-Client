@@ -103,7 +103,8 @@ const RegisterButton = () => {
       navigator("/info");
     }
     if (isError) {
-      alert(error.response.data.message);
+      // 린트에러 unknown 타입
+      // alert(error.response.data.message);
     }
   }, [isError, data]);
 
