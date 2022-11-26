@@ -1,4 +1,5 @@
 import commentState from "@atoms/pageAtoms/community/commentState";
+import { CommentErrorResponse } from "@lib/API/petBookAPI/types/commentRequest";
 import {
   COMMENT_CREATE,
   COMMENT_LIST,
@@ -32,7 +33,7 @@ export default function useSubmitComment(
 
     setComment((comment) => {
       const { content, commentId, parentId } = comment;
-      if (content === "") return comment;
+      if (content === "") return comment; // form validation
       if (commentId === null) {
         createComment(
           {
@@ -40,24 +41,28 @@ export default function useSubmitComment(
           },
           {
             onSuccess,
-            onError: () => {
-              alert("댓글 등록에 실패했습니다. 다시 등록해주세요 😢");
+            onError: (error) => {
+              const commentError = error as CommentErrorResponse;
+              alert(`${commentError.response.data.message} 😢`);
             },
           }
         );
       } else {
+        /*
         updateComment(
           {
             body: { content },
-            pathParam: String(commentId),
+            pathParam: `/${commentId}`,
           },
           {
             onSuccess,
-            onError: () => {
-              alert("댓글 수정에 실패했습니다. 다시 등록해주세요 😢");
+            onError: (error) => {
+              const commentError = error as CommentErrorResponse;
+              alert(`${commentError.response.data.message} 😢`);
             },
           }
         );
+        */
       }
       return { content: "", commentId: null, parentId: null };
     });

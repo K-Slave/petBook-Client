@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const CommentFormBox = styled.form`
+const CommentFormBox = styled.div`
   width: 100%;
   height: 175px;
   background: #ffffff;
@@ -42,6 +42,11 @@ const CommentFormDiv = styled.div`
   }
 `;
 
+const CommentFormMainBox = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
 const CommentFormTextarea = styled.textarea`
   border: none;
   resize: none;
@@ -68,4 +73,5 @@ export {
   CommentFormButton,
   CommentFormDiv,
   CommentFormTextarea,
+  CommentFormMainBox,
 };

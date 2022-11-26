@@ -27,3 +27,15 @@ export interface CommentListRequest {
   params: { articleId: number };
   headerObj?: object;
 }
+
+export interface CommentErrorResponse {
+  response: {
+    data: {
+      error: string;
+      message: string;
+      path: string;
+      status: number;
+      timestamp: string;
+    };
+  };
+}
