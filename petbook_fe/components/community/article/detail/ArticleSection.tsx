@@ -25,12 +25,13 @@ const ArticleSection = () => {
   const articleId = router.query.articleId as string;
   const { data } = useResource({
     key: `${ARTICLE_ITEM.key}_${articleId}`,
-    fetcher: () => ARTICLE_ITEM.fetcher(articleId),
+    fetcher: () => ARTICLE_ITEM.fetcher(`/${articleId}`),
   });
   if (data === undefined) {
     return <ArticleSectionBox />;
   }
-  const { id, title, content, user, category, tags, stat, createdAt } = data.data;
+  const { id, title, content, user, category, tags, stat, createdAt } =
+    data.data;
   return (
     <ArticleSectionBox>
       <div className="ArticleSection_Top_Row">
@@ -77,7 +78,8 @@ const ImageSlider = ({ images }: Props) => {
               currentIndex: index,
               prevIndex: index === 0 ? images.length - 1 : index - 1,
               images,
-            })}
+            })
+          }
         />
       ))}
     </ImageSliderDiv>
