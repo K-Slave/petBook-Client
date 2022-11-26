@@ -104,7 +104,13 @@ const Submit = () => {
           .catch((err) => localConsole?.error(err));
       };
 
-      submitRun();
+      if (write.inputImg) {
+        submitRun();
+      }
+
+      if (!write.inputImg) {
+        articleRun();
+      }
 
       return {
         ...write,
