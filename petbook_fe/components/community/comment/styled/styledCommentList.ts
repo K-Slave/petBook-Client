@@ -19,7 +19,7 @@ const ItemDiv = styled.div<{ isChild: string }>`
     width: 100%;
   }
   .Item_Content {
-    margin: 16px 0 10px;
+    margin-bottom: 10px;
     padding-right: 30px;
     font-weight: 500;
     font-size: 14px;
@@ -29,6 +29,12 @@ const ItemDiv = styled.div<{ isChild: string }>`
   .Item_Row {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 16px;
+    & > div {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
   }
   .Item_Button_Box {
     display: flex;

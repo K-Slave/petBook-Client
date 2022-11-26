@@ -2,6 +2,7 @@ import { ARTICLE_ITEM } from "@pages/community/[articleId]";
 import { useRouter } from "next/router";
 import useResource from "@lib/hooks/common/useResource";
 import { useSetRecoilState } from "recoil";
+import DOMPurify from "isomorphic-dompurify";
 import imageModalState from "@atoms/pageAtoms/community/imageModalState";
 import getRandomKey from "@lib/utils/getRandomKey";
 import DetailCommonInfo from "../../DetailCommonInfo";
@@ -46,7 +47,7 @@ const ArticleSection = () => {
         </div>
       </div>
       <h2>{title}</h2>
-      <div dangerouslySetInnerHTML={{ __html: content }} />
+      <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }} />
       <ImageSlider images={dummyImages} />
       <TagList tags={tags} fontSize={16} />
       <div className="ArticleSection_Bottom_Row">
