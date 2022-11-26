@@ -1,6 +1,6 @@
 import { registerFormState } from "@atoms/pageAtoms/login/userState";
 import React, { ChangeEventHandler } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   IconBox,
   InputBox,
@@ -16,6 +16,16 @@ interface LoginProps {
 interface InfoProps {
   type: string;
 }
+
+interface buttonValue {
+  axiosValue: string;
+}
+
+/**
+ *
+ * @param param0 props 인증 메세지
+ * @returns
+ */
 const RegisterInputInfo = ({ type }: InfoProps) => {
   let infoText = "";
   switch (type) {
@@ -38,6 +48,50 @@ const RegisterInputInfo = ({ type }: InfoProps) => {
   return <RegisterInfoText>{infoText}</RegisterInfoText>;
 };
 
+/**
+ *
+ * @param param0 인증 / 중복확인 버튼
+ * @returns
+ */
+const RegisterModalButton = ({ axiosValue }: buttonValue) => {
+  let buttonName = "";
+  switch (axiosValue) {
+    case "email": {
+      buttonName = "인증하기";
+      break;
+    }
+    case "password": {
+      buttonName = "";
+      break;
+    }
+    case "nickname": {
+      buttonName = "중복확인";
+      break;
+    }
+    default: {
+      buttonName = "";
+      break;
+    }
+  }
+
+  const modalValue = useRecoilValue(registerFormState);
+
+  const onClick = () => {
+    console.log(axiosValue, modalValue, "상태값 확인");
+  };
+
+  return (
+    <button type="button" onClick={onClick} className="emphasis">
+      {buttonName}
+    </button>
+  );
+};
+
+/**
+ *
+ * @param param0 input box 설정 영역입니다
+ * @returns
+ */
 const RegisterInput = ({ current, axiosValue, IconType }: LoginProps) => {
   const setLoginForm = useSetRecoilState(registerFormState);
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -56,19 +110,21 @@ const RegisterInput = ({ current, axiosValue, IconType }: LoginProps) => {
         <label htmlFor={`${current}`}>
           <input
             type={`${axiosValue}`}
-            id={`${current}`}
+            id={`${axiosValue}`}
             placeholder={`${current}를 입력해주세요 `}
             onChange={onChange}
           />
         </label>
         <RegisterInputInfo type={`${axiosValue}`} />
-        {axiosValue === "nickname" ? (
+        <RegisterModalButton axiosValue={axiosValue} />
+
+        {/* {axiosValue === "nickname"  (
           <button type="button" className="emphasis">
             중복확인
           </button>
         ) : (
           <></>
-        )}
+        )} */}
       </InputBox>
     </div>
   );
