@@ -21,13 +21,12 @@ const CategoryNav = () => {
 
 const allButtonStyle = css`
     background-color: var(--black_01);
-    color: white;
+    color: white !important;
     font-weight: bold;
 `;
 
 const otherButtonStyle = css`
     background-color: white;
-    color: var(--black_01);
 `;
 
 const CategoryNavButton = styled.button<{ name: string }>`
@@ -38,7 +37,7 @@ const CategoryNavButton = styled.button<{ name: string }>`
   flex-shrink: 0;
   width: 160px;
   height: 52px;
-  font-size: 16px;
+  font-size: 16px !important;
   border-radius: 8px;
 `;
 
