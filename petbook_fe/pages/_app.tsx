@@ -42,12 +42,11 @@ const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
   );
 
   if (initProps.token) {
-    sprPetBookClient.defaults.headers.common.Authorization = initProps.token;
+    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${initProps.token}`;
   }
 
   if (!initProps.token && process.env.NEXT_PUBLIC_TESTER) {
-    sprPetBookClient.defaults.headers.common.Authorization =
-      process.env.NEXT_PUBLIC_TESTER;
+    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${process.env.NEXT_PUBLIC_TESTER}`;
   }
 
   // 웹 후크 연동 테스트
@@ -110,18 +109,26 @@ NextApp.getInitialProps = async (context: AppContext) => {
     } = Component;
 
     const { requiredResources } = PageComponent;
-    // const searchParams = new URLSearchParams(router.asPath);
     const { query } = ctx;
-
-    if (requiredResources) {
-      await Promise.all(
-        itrMap(
-          (resource: { key: string; fetcher: () => void }) =>
-            queryParser(resource, query, queryClient),
-          requiredResources
-        )
-      );
+    if (PageComponent.getInitialProps) {
+        const { resources } = await PageComponent.getInitialProps(ctx) as {resources: Array<{
+          key: string;
+          fetcher: () => void;
+          params?: object;
+          config?: object;
+        }>};
+        const newResources = (requiredResources && resources) ? requiredResources.concat(resources) : resources || (requiredResources || null);
+        if (newResources) {
+          await Promise.all(
+            itrMap(
+              (resource: { key: string; fetcher: () => void }) =>
+                queryParser(resource, query, queryClient),
+                newResources
+            )
+          );
+        }
     }
+    // const searchParams = new URLSearchParams(router.asPath);
   } catch (e) {
     console.error(e);
   }
