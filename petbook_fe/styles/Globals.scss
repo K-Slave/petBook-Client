@@ -262,11 +262,6 @@ button.Disabled {
   transition: all 0.3s ease;
 }
 
-.One_Line_Text {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
 
 // 모바일 환경 접속시 전역 스타일링
 @media screen and (max-width: 600px) {
