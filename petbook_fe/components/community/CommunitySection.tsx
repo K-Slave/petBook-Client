@@ -1,49 +1,45 @@
-import React, { MutableRefObject } from "react";
+import React from "react";
+import Link from "next/link";
 import styled from "styled-components";
 
 const CommunitySectionBox = styled.section`
-  padding-bottom: 150px;
+  margin-bottom: 56px;
+  .heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    color: var(--black_01);
+    h3 {
+      font-size: 22px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }   
 `;
-
-const CommunitySectionH2 = styled.h2`
-  margin-bottom: 10px;
-
-  font-family: "Montserrat", sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  color: #ff2e00;
-`;
-
-const CommunitySectionParagraph = styled.p`
-  margin-bottom: 32px;
-  font-weight: 700;
-  font-size: 30px;
-`;
-
 interface Props {
   title: string;
-  description: string;
-  children: React.ReactNode;
-  sectionRef?: MutableRefObject<HTMLElement | null>;
+  more?: boolean;
 }
 
 const CommunitySection = ({
-  sectionRef,
   title,
-  description,
+  more,
   children,
-}: Props) => {
+}: React.PropsWithChildren<Props>) => {
   return (
-    <CommunitySectionBox ref={sectionRef}>
-      <CommunitySectionH2>{title}</CommunitySectionH2>
-      <CommunitySectionParagraph>{description}</CommunitySectionParagraph>
+    <CommunitySectionBox>
+      <div className="heading">
+        <h3>{title}</h3>
+        {more && <Link href="/community" passHref><button type="button">더보기</button></Link>}
+      </div>
       {children}
     </CommunitySectionBox>
   );
 };
 
-export default CommunitySection;
-
 CommunitySection.defaultProps = {
-  sectionRef: undefined,
+  more: false
 };
+
+export default CommunitySection;
