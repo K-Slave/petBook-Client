@@ -12,7 +12,7 @@ const HotArticleList = () => {
     <PopularPostListBox>
       {dummy.map((data) =>
         <li key={data.id}>
-          <span className="One_Line_Text">{data.title}</span>
+          <span className="PopularPostList_title">{data.title}</span>
           <span className="PopularPostList_stats">
             <span>
               <span className="Heart_Img" />
@@ -40,6 +40,11 @@ const PopularPostListBox = styled.ol`
     align-items: center;
     justify-content: space-between;
     gap: 50px;
+  }
+  .PopularPostList_title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .PopularPostList_stats {
     flex-shrink: 0;
