@@ -1,5 +1,6 @@
 import useResource from "@lib/hooks/common/useResource";
 import { ARTICLE_LIST } from "@pages/community";
+import Link from "next/link";
 import styled from "styled-components";
 
 const QnaArticleList = () => {
@@ -7,16 +8,18 @@ const QnaArticleList = () => {
     return (
         <ListBox>
             {data?.data.articles.slice(0, 4).map((article) =>
-                <Article key={article.id}>
-                    <h4>{article.title}</h4>
-                    <div>
-                        <div className="Article_user">
-                            <span className="Article_username">{article.user.nickname}</span>
-                            <span className="Article_year">1년차</span>
+                <Link key={article.id} href={`/community/${article.id}`} passHref>
+                    <Article>
+                        <h4>{article.title}</h4>
+                        <div>
+                            <div className="Article_user">
+                                <span className="Article_username">{article.user.nickname}</span>
+                                <span className="Article_year">1년차</span>
+                            </div>
+                            <span className="Article_date">1일전</span>
                         </div>
-                        <span className="Article_date">1일전</span>
-                    </div>
-                </Article>
+                    </Article>
+                </Link>
             )}
         </ListBox>
 
@@ -35,8 +38,9 @@ const Article = styled.article`
     justify-content: space-between;
     height: 220px;
     padding: 32px;
-    background-color: var(--bg_01);
+    background-color: var(--bg_white_01);
     border-radius: 16px;
+    cursor: pointer;
     h4 {
         display: -webkit-box;
         -webkit-box-orient: vertical;
@@ -53,7 +57,6 @@ const Article = styled.article`
         flex-wrap: wrap;
     }
     .Article_username {
-
         font-size: 14px;
         color: var(--black_02);
     }
