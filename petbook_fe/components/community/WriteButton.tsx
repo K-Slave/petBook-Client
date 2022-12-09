@@ -5,25 +5,31 @@ const StyledWriteButton = styled.button`
   position: fixed;
   bottom: 30px;
   right: 30px;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
-  width: 54px;
-  height: 54px;
-
-  border-radius: 50%;
-
-  background-color: #ff2e00;
+  gap: 11px;
+  width: 130px;
+  height: 60px;
+  border-radius: 40px;
+  background-color: var(--primary);
   color: #fff;
-  box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.2);
+  font-size: 18px;
+  box-shadow: 0px 24px 16px -16px rgba(69, 66, 54, 0.25);
+  span {
+    width: 20px;
+    height: 20px;
+    background: url("/img/common/pencil_edit.svg") no-repeat;
+  }
 `;
 
 const WriteButton = () => {
   return (
     <Link href="/community/write" passHref>
-      <StyledWriteButton>글쓰기</StyledWriteButton>
+      <StyledWriteButton>
+        <span />
+        글쓰기
+      </StyledWriteButton>
     </Link>
   );
 };
