@@ -5,13 +5,22 @@ import { articleRequest, categorySprRequest } from "@lib/API/petBookAPI";
 import AboutSection from "@components/community/AboutSection";
 import WriteButton from "@components/community/WriteButton";
 import { createResource } from "@lib/hooks/common/useResource";
-import ArticleFilter from "@components/community/article/list/ArticleFilter";
-import ArticleList from "@components/community/article/list/ArticleList";
 import CommunitySection from "@components/community/CommunitySection";
+import HotArticleList from "@components/community/HotArticleList";
+import CategoryNav from "@components/community/CategoryNav";
+import ArticleBoxGrid from "@components/community/ArticleBoxGrid";
+import QuestionList from "@components/community/QnaArticleList";
+import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 
-export const ARTICLE_LIST = createResource({
-  key: "ARTICLE_LIST",
-  fetcher: articleRequest.article_list,
+export const ARTICLE_LIST = ({ category, page, size } : {
+  category: CategoryItem,
+  page: number,
+  size: number
+}) => createResource({
+  key: `ARTICLE_LIST_${category.name}`,
+  fetcher: () => articleRequest.article_list({
+    categoryId: category.id === 0 ? "" : category.id, page, size
+  }),
 });
 
 export const CATEGORY_LIST = createResource({
@@ -31,12 +40,15 @@ const Community: NextPage = () => {
     <main>
       <AboutSection />
       <CommunityDiv>
-        <CommunitySection
-          title="Live talk"
-          description="실시간 업로드되는 유저들의 이야기"
-        >
-          <ArticleFilter />
-          <ArticleList />
+        <CommunitySection title="지금 당신의 답변을 기다리고 있어요" more>
+          <QuestionList />
+        </CommunitySection>
+        <CommunitySection title="이번주 hot 인기글" more>
+          <HotArticleList />
+        </CommunitySection>
+        <CommunitySection title="실시간 live talk">
+          <CategoryNav />
+          <ArticleBoxGrid />
         </CommunitySection>
       </CommunityDiv>
       <WriteButton />
@@ -45,10 +57,18 @@ const Community: NextPage = () => {
 };
 
 type PetbookPages = NextPage & {
-  requiredResources?: [typeof ARTICLE_LIST, typeof CATEGORY_LIST];
+  requiredResources?: [typeof CATEGORY_LIST];
 };
 
 const CommunityIndex: PetbookPages = Community;
-CommunityIndex.requiredResources = [ARTICLE_LIST, CATEGORY_LIST]; // category_list
+CommunityIndex.requiredResources = [CATEGORY_LIST];
+
+CommunityIndex.getInitialProps = async () => {
+  const { data } = await CATEGORY_LIST.fetcher();
+  const resources = data.concat([{ id: 0, name: "전체" }]).map((category) => ARTICLE_LIST({ category, page: 0, size: 5 }));
+  return {
+    resources
+  };
+};
 
 export default CommunityIndex;
