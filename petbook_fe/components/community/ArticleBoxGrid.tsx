@@ -33,7 +33,11 @@ const Box = ({ category } : { category: CategoryItem }) => {
             <BoxUL>
                 {data?.data.articles.map((article) =>
                     <li key={article.id}>
-                        <span className="One_Line_Text">{article.title}</span>
+                        <Link href={`/community/${article.id}`} passHref>
+                            <span className="Box_title">
+                                {article.title}
+                            </span>
+                        </Link>
                         <span className="Box_scrap">
                             <span className="Box_scrap_img" />
                             <span>000</span>
@@ -51,7 +55,6 @@ const BoxArticle = styled.article`
     padding: 36px;
     background-color: white;
     border-radius: 16px;
-    color: var(--black_01);
     h3 {
         font-weight: bold;
         font-size: 22px;
@@ -73,6 +76,12 @@ const BoxUL = styled.ul`
         align-items: center;
         gap: 10px;
     }
+    .Box_title {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        cursor: pointer;    
+    }
     .Box_scrap {
         display: flex;
         align-items: center;
@@ -84,7 +93,6 @@ const BoxUL = styled.ul`
         width: 24px;
         height: 24px;
     }
-    
 `;
 
 ArticleBoxGrid.Box = Box;
