@@ -1,7 +1,5 @@
 import { ParsedUrlQuery } from "querystring";
 import { QueryClient } from "react-query";
-import { articleRequest } from "../petBookAPI";
-import { CategoryItem } from "../petBookAPI/types/categoryRequestSpr";
 
 export default async function queryParser(
   resource: {
