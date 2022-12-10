@@ -8,6 +8,7 @@ import { articleRequest, commentRequest } from "@lib/API/petBookAPI";
 import { createRequest, createResource } from "@lib/hooks/common/useResource";
 import CommentList from "@components/community/comment/CommentList";
 import CommentForm from "@components/community/comment/CommentForm";
+import BackButton from "@components/community/BackButton";
 
 export const ARTICLE_ITEM = {
   key: "ARTICLE_ITEM",
@@ -39,11 +40,13 @@ const ArticleDetail: NextPage = () => {
     <>
       <HtmlHeader />
       <ArticleDetailMain>
+        <BackButton position="start" />
         <ArticleSection />
         <CommentSection>
-          <CommentList />
           <CommentForm />
+          <CommentList />
         </CommentSection>
+        <BackButton position="end" />
       </ArticleDetailMain>
       <ImageSliderModal />
     </>
@@ -64,7 +67,7 @@ const ArticleDetailMain = styled.main`
 const CommentSection = styled.section`
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 24px;
 `;
 
 type PetbookPages = NextPage & {
