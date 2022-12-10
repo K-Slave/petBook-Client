@@ -1,7 +1,6 @@
 import QuillWrapper from "@components/common/Editor/QuillWrapper";
 import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
 import useSelectorState from "@lib/hooks/common/useSelectorState";
-import localConsole from "@lib/utils/localConsole";
 import React, {
   ChangeEventHandler,
   KeyboardEventHandler,
@@ -58,7 +57,12 @@ const Guide = () => {
     <WriteGuideDiv className="Write__Guide">
       <h5 className="Write__Guide__Title">{selectedCategory.name} ?</h5>
       <p className="Write__Guide__Content">
-        {selectedCategory.name}을 쓰는 방법에 대한 가이드가 올라갑니다.
+        {/* {selectedCategory.name}을 쓰는 방법에 대한 가이드가 올라갑니다. */}
+        {`
+          궁금한
+          것을 자유롭게 질문해보세요! -(내 아이 품종) -(내 아이 나이) -(내 아이
+          특징) 등을 작성하면 답변에 큰 도움이 될 수 있어요!
+        `}
       </p>
     </WriteGuideDiv>
   );
