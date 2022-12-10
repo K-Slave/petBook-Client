@@ -1,6 +1,7 @@
 import QuillWrapper from "@components/common/Editor/QuillWrapper";
 import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
 import useSelectorState from "@lib/hooks/common/useSelectorState";
+import localConsole from "@lib/utils/localConsole";
 import React, {
   ChangeEventHandler,
   KeyboardEventHandler,
