@@ -4,13 +4,13 @@ const ArticleSectionBox = styled.section`
   display: flex;
   flex-direction: column;
   padding: 48px 40px 32px;
-  border: 1px solid #f5edde;
   border-radius: 16px;
   background-color: #fff;
   .ArticleSection_Top_Row {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 20px;
   }
   .ArticleSection_Button_Box {
     display: flex;
@@ -35,19 +35,18 @@ const ArticleSectionBox = styled.section`
       color: #7c7c7c;
     }
   }
-
-  h2 {
-    margin: 59px 0 26px;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 30px;
-    color: #444444;
+  .ArticleSection_Content {
+    margin: 32px 0;
+    color: var(--black_01);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 160%;
   }
-  p {
-    font-weight: 500;
-    font-size: 17px;
-    line-height: 31px;
-    color: #747474;
+  h2 {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 32px;
+    color: var(--black_01);
   }
 `;
 
@@ -72,7 +71,7 @@ const ImageSliderImg = styled.img`
 `;
 
 const Spacer = styled.div`
-  height: 80px;
+  height: 32px;
 `;
 
 export { ArticleSectionBox, ImageSliderDiv, ImageSliderImg, Spacer };
