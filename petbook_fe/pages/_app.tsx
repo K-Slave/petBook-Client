@@ -17,8 +17,12 @@ import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import CommonHeader from "../components/common/CommonHeader";
 import { itrMap } from "../lib/utils/iterableFunctions";
 
+import 'swiper/scss';
+import 'swiper/scss/navigation';
+import 'swiper/scss/pagination';
 import "../styles/Globals.scss";
 import "../styles/Icon.scss";
+import "../styles/Swiper.scss";
 
 type DehydratedAppProps = AppProps & {
   initProps: {
