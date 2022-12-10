@@ -1,0 +1,33 @@
+.swiper {
+    width: 100%;
+}
+
+.swiper-wrapper {
+    height: auto;
+}
+
+.swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 220px;
+    margin-bottom: 20px;
+}
+
+.swiper-pagination {
+    position: relative;
+}
+
+.swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background: var(--black_06);
+    opacity: 1;
+}
+  
+.swiper-pagination-bullet-active {
+    width: 40px;
+    background: var(--primary);
+    border-radius: 8px;
+}
