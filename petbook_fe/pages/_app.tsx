@@ -32,6 +32,13 @@ type DehydratedAppProps = AppProps & {
   };
 };
 
+type Resources = Array<{
+  key: string;
+  fetcher: () => void;
+  params?: object;
+  config?: object;
+}>;
+
 const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
   const [queryClient] = useState(
     () =>
@@ -104,33 +111,27 @@ NextApp.getInitialProps = async (context: AppContext) => {
     }
 
     const PageComponent: typeof Component & {
-      requiredResources?: Array<{
-        key: string;
-        fetcher: () => void;
-        params?: object;
-        config?: object;
-      }>;
+      requiredResources?: Resources;
     } = Component;
 
     const { requiredResources } = PageComponent;
     const { query } = ctx;
-    if (PageComponent.getInitialProps) {
-        const { resources } = await PageComponent.getInitialProps(ctx) as {resources: Array<{
-          key: string;
-          fetcher: () => void;
-          params?: object;
-          config?: object;
-        }>};
-        const newResources = (requiredResources && resources) ? requiredResources.concat(resources) : resources || (requiredResources || null);
-        if (newResources) {
-          await Promise.all(
-            itrMap(
-              (resource: { key: string; fetcher: () => void }) =>
-                queryParser(resource, query, queryClient),
-                newResources
-            )
-          );
-        }
+
+    let newResources: Resources | undefined;
+    if (PageComponent.getInitialProps) { // 동적으로 resource를 생성해야 하는 경우
+        const { resources } = await PageComponent.getInitialProps(ctx) as {resources: Resources | undefined};
+        newResources = resources;
+    }
+
+    const resources = (requiredResources && newResources) ? requiredResources.concat(newResources) : newResources || (requiredResources || null);
+    if (resources) {
+      await Promise.all(
+        itrMap(
+          (resource: { key: string; fetcher: () => void }) =>
+            queryParser(resource, query, queryClient),
+            resources
+        )
+      );
     }
     // const searchParams = new URLSearchParams(router.asPath);
   } catch (e) {
