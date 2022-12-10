@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "react-query";
+import { useMutation, UseMutationOptions, useQuery } from "react-query";
 
 /**
  * @function useResource : GET 요청 결과를 받아오는 useQuery 를 내포한 Hook
