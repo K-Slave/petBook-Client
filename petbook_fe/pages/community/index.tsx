@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import React from "react";
 import styled from "styled-components";
 import { articleRequest, categorySprRequest } from "@lib/API/petBookAPI";
-import AboutSection from "@components/community/AboutSection";
+import CommunityBanner from "@components/community/CommunityBanner";
 import WriteButton from "@components/community/WriteButton";
 import { createResource } from "@lib/hooks/common/useResource";
 import CommunitySection from "@components/community/CommunitySection";
@@ -28,31 +28,30 @@ export const CATEGORY_LIST = createResource({
   fetcher: categorySprRequest.category_list,
 });
 
-const CommunityDiv = styled.div`
+const Main = styled.main`
   width: 90vw;
-  max-width: 1280px;
+  max-width: 1260px;
   margin: 0 auto;
-  padding-top: 80px;
+  padding-top: 52px;
+  margin-bottom: 100px;
 `;
 
 const Community: NextPage = () => {
   return (
-    <main>
-      <AboutSection />
-      <CommunityDiv>
-        <CommunitySection title="지금 당신의 답변을 기다리고 있어요" more>
-          <QuestionList />
-        </CommunitySection>
-        <CommunitySection title="이번주 hot 인기글" more>
-          <HotArticleList />
-        </CommunitySection>
-        <CommunitySection title="실시간 live talk">
-          <CategoryNav />
-          <ArticleBoxGrid />
-        </CommunitySection>
-      </CommunityDiv>
+    <Main>
+      <CommunityBanner />
+      <CommunitySection title="지금 당신의 답변을 기다리고 있어요" more>
+        <QuestionList />
+      </CommunitySection>
+      <CommunitySection title="이번주 hot 인기글" more>
+        <HotArticleList />
+      </CommunitySection>
+      <CommunitySection title="실시간 live talk">
+        <CategoryNav />
+        <ArticleBoxGrid />
+      </CommunitySection>
       <WriteButton />
-    </main>
+    </Main>
   );
 };
 
