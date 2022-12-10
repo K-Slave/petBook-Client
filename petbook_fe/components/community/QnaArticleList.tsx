@@ -2,6 +2,7 @@ import useResource from "@lib/hooks/common/useResource";
 import { ARTICLE_LIST } from "@pages/community";
 import Link from "next/link";
 import styled from "styled-components";
+import CommonInfo from "./CommonInfo";
 
 const QnaArticleList = () => {
     const { data } = useResource(ARTICLE_LIST({ category: { id: 1, name: "질문과 답변" }, page: 0, size: 4 }));
@@ -11,13 +12,7 @@ const QnaArticleList = () => {
                 <Link key={article.id} href={`/community/${article.id}`} passHref>
                     <Article>
                         <h4>{article.title}</h4>
-                        <div>
-                            <div className="Article_user">
-                                <span className="Article_username">{article.user.nickname}</span>
-                                <span className="Article_year">1년차</span>
-                            </div>
-                            <span className="Article_date">1일전</span>
-                        </div>
+                        <CommonInfo username={article.user.nickname} year={1} date={article.createdAt} />
                     </Article>
                 </Link>
             )}
@@ -49,30 +44,6 @@ const Article = styled.article`
         text-overflow: ellipsis;
         margin-bottom: 22px;
         
-    }
-    .Article_user {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        flex-wrap: wrap;
-    }
-    .Article_username {
-        font-size: 14px;
-        color: var(--black_02);
-    }
-    .Article_date {
-        display: block;
-        margin-top: 10px;
-        font-size: 14px;
-        color: var(--black_05);
-    }
-    .Article_year {
-        padding: 3px 10px;
-        background-color: var(--black_07);
-        border-radius: 100px;
-        color: var(--black_02);
-        font-size: 10px;
-        font-weight: 500;
     }
 `;
 
