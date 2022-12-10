@@ -17,6 +17,7 @@ import {
   ButtonBox,
   PassGuide,
   AutomaticLabel,
+  InfoText,
 } from "./styled/styledLoginSubmit";
 
 const LOGIN = createRequest({
@@ -84,10 +85,6 @@ export const LoginSubmitForm = () => {
           current="비밀번호"
         />
       </form>
-      <AutomaticLabel htmlFor="login">
-        <input type="checkbox" id="login" />
-        <p>로그인 상태유지</p>
-      </AutomaticLabel>
     </>
   );
 };
@@ -107,12 +104,16 @@ export const LoginSubmitButton = () => {
   //   "email": "test@petbook.com",
   //   "password": "p@55w0rd1!"
   // }
+  const [errorState, setErrorState] = useState(false);
+  const [errorText, setErrorText] = useState("");
   const user = useRecoilValue(loginFormState);
-  const { data, isSuccess, mutate } = useSetResource(LOGIN);
+  const { data, isSuccess, error, isError, mutate } = useSetResource(LOGIN);
   const onSubmit = () => {
     mutate(user);
   };
+
   useEffect(() => {
+    console.log(errorState);
     if (isSuccess) {
       const { token } = data?.data as UserLoginRequest;
 
@@ -120,12 +121,28 @@ export const LoginSubmitButton = () => {
       Cookies.set("petBookUser", token, { expires: 30 });
       navigator("/info");
     }
-  }, [isSuccess, data]);
+    if (isError) {
+      // error type 린트에러
+      // setErrorText(error.response.data.message );
+      setErrorState(true);
+    } else {
+      setErrorState(false);
+    }
+  }, [isError, data]);
 
   return (
-    <button type="button" className="Primary" onClick={onSubmit}>
-      로그인
-    </button>
+    <>
+      <div>
+        <InfoText errorState={errorState}>{errorText}</InfoText>
+        <AutomaticLabel htmlFor="login">
+          <input type="checkbox" id="login" />
+          <p>로그인 상태유지</p>
+        </AutomaticLabel>
+      </div>
+      <button type="button" className="Primary" onClick={onSubmit}>
+        로그인
+      </button>
+    </>
   );
 };
 

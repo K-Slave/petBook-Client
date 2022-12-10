@@ -116,11 +116,11 @@ const NotLogin = styled.div`
 
 const IconBox = styled.div`
   position: absolute;
-  left: 20px;
+  left: 16px;
   top: 50%;
   transform: translateY(-50%);
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
 `;
 const InputBox = styled.div`
   position: relative;
@@ -129,6 +129,29 @@ const InputBox = styled.div`
 const AutomaticLabel = styled.label`
   float: right;
   margin: 4px 0 35px;
+`;
+interface Props {
+  errorState: boolean;
+}
+const InfoText = styled.p<Props>`
+  position: absolute;
+  left: 24px;
+  display: ${(p) => (p.errorState === false ? "none" : "inline-block")};
+  margin-top: 4px;
+  font-size: 0.875rem;
+  color: var(--error);
+  line-height: 20px;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -26px;
+    width: 20px;
+    height: 20px;
+    background-image: url(/img/common/register/error_icon.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
 `;
 
 export {
@@ -141,4 +164,5 @@ export {
   IconBox,
   InputBox,
   AutomaticLabel,
+  InfoText,
 };

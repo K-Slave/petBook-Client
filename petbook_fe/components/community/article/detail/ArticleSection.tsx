@@ -2,6 +2,7 @@ import { ARTICLE_ITEM } from "@pages/community/[articleId]";
 import { useRouter } from "next/router";
 import useResource from "@lib/hooks/common/useResource";
 import { useSetRecoilState } from "recoil";
+import DOMPurify from "isomorphic-dompurify";
 import imageModalState from "@atoms/pageAtoms/community/imageModalState";
 import getRandomKey from "@lib/utils/getRandomKey";
 import DetailCommonInfo from "../../DetailCommonInfo";
@@ -25,12 +26,13 @@ const ArticleSection = () => {
   const articleId = router.query.articleId as string;
   const { data } = useResource({
     key: `${ARTICLE_ITEM.key}_${articleId}`,
-    fetcher: () => ARTICLE_ITEM.fetcher(articleId),
+    fetcher: () => ARTICLE_ITEM.fetcher(`/${articleId}`),
   });
   if (data === undefined) {
     return <ArticleSectionBox />;
   }
-  const { id, title, content, user, category, tags, stat, createdAt } = data.data;
+  const { id, title, content, user, category, tags, stat, createdAt } =
+    data.data;
   return (
     <ArticleSectionBox>
       <div className="ArticleSection_Top_Row">
@@ -45,7 +47,7 @@ const ArticleSection = () => {
         </div>
       </div>
       <h2>{title}</h2>
-      <div dangerouslySetInnerHTML={{ __html: content }} />
+      <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }} />
       <ImageSlider images={dummyImages} />
       <TagList tags={tags} fontSize={16} />
       <div className="ArticleSection_Bottom_Row">
@@ -77,7 +79,8 @@ const ImageSlider = ({ images }: Props) => {
               currentIndex: index,
               prevIndex: index === 0 ? images.length - 1 : index - 1,
               images,
-            })}
+            })
+          }
         />
       ))}
     </ImageSliderDiv>

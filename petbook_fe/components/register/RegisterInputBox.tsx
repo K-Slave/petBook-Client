@@ -1,7 +1,11 @@
 import { registerFormState } from "@atoms/pageAtoms/login/userState";
 import React, { ChangeEventHandler } from "react";
-import { useSetRecoilState } from "recoil";
-import { IconBox, InputBox } from "./styled/styledRegisterForm";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  IconBox,
+  InputBox,
+  RegisterInfoText,
+} from "./styled/styledRegisterForm";
 
 interface LoginProps {
   current: string;
@@ -9,6 +13,85 @@ interface LoginProps {
   IconType: string;
 }
 
+interface InfoProps {
+  type: string;
+}
+
+interface buttonValue {
+  axiosValue: string;
+}
+
+/**
+ *
+ * @param param0 props 인증 메세지
+ * @returns
+ */
+const RegisterInputInfo = ({ type }: InfoProps) => {
+  let infoText = "";
+  switch (type) {
+    case "email": {
+      infoText = "인증이 완료되었습니다.";
+      break;
+    }
+    case "nickname": {
+      infoText = "사용 가능한 닉네임 입니다";
+      break;
+    }
+    case "password": {
+      infoText = "비밀번호가 일치합니다";
+      break;
+    }
+    default: {
+      infoText = "안내문구가 출력됩니다";
+    }
+  }
+  return <RegisterInfoText>{infoText}</RegisterInfoText>;
+};
+
+/**
+ *
+ * @param param0 인증 / 중복확인 버튼
+ * @returns
+ */
+const RegisterModalButton = ({ axiosValue }: buttonValue) => {
+  let buttonName = "";
+  switch (axiosValue) {
+    case "email": {
+      buttonName = "인증하기";
+      break;
+    }
+    case "password": {
+      buttonName = "";
+      break;
+    }
+    case "nickname": {
+      buttonName = "중복확인";
+      break;
+    }
+    default: {
+      buttonName = "";
+      break;
+    }
+  }
+
+  const modalValue = useRecoilValue(registerFormState);
+
+  const onClick = () => {
+    console.log(axiosValue, modalValue, "상태값 확인");
+  };
+
+  return (
+    <button type="button" onClick={onClick} className="emphasis">
+      {buttonName}
+    </button>
+  );
+};
+
+/**
+ *
+ * @param param0 input box 설정 영역입니다
+ * @returns
+ */
 const RegisterInput = ({ current, axiosValue, IconType }: LoginProps) => {
   const setLoginForm = useSetRecoilState(registerFormState);
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -27,18 +110,21 @@ const RegisterInput = ({ current, axiosValue, IconType }: LoginProps) => {
         <label htmlFor={`${current}`}>
           <input
             type={`${axiosValue}`}
-            id={`${current}`}
+            id={`${axiosValue}`}
             placeholder={`${current}를 입력해주세요 `}
             onChange={onChange}
           />
         </label>
-        {axiosValue === "nickname" ? (
+        <RegisterInputInfo type={`${axiosValue}`} />
+        <RegisterModalButton axiosValue={axiosValue} />
+
+        {/* {axiosValue === "nickname"  (
           <button type="button" className="emphasis">
             중복확인
           </button>
         ) : (
           <></>
-        )}
+        )} */}
       </InputBox>
     </div>
   );

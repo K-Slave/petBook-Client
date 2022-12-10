@@ -3,6 +3,7 @@ import useArticleList from "@lib/hooks/article/useArticleList";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import usePagination from "@lib/hooks/article/usePagination";
 import getRandomKey from "@lib/utils/getRandomKey";
+import DOMPurify from "isomorphic-dompurify";
 import React from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import {
@@ -12,7 +13,7 @@ import {
   ItemAvatar,
   ItemArticle,
   PageButton,
-  PageButtonBoxDiv
+  PageButtonBoxDiv,
 } from "./styled/styledArticleList";
 import TagList from "../../TagList";
 
@@ -45,7 +46,10 @@ const Item = ({ article }: { article: ArticleResponse }) => {
           </div>
           <ItemDiv>
             <h3>{title}</h3>
-            <div className="Item_Content" dangerouslySetInnerHTML={{ __html: content }} />
+            <div
+              className="Item_Content"
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
+            />
             <TagList tags={tags} fontSize={14} />
             <p className="Item_Stats">
               <span>공감수 {stat.likeCount}</span>
@@ -62,16 +66,22 @@ const Item = ({ article }: { article: ArticleResponse }) => {
 
 // -----------------------------------------------------------------
 
-const PageButtonBox = ({ totalPages } : { totalPages: number }) => {
+const PageButtonBox = ({ totalPages }: { totalPages: number }) => {
   const btnNum = 2;
-  const { currentPage, changeCurrentPage, offset } = usePagination({ totalPages, btnNum, basePath: "/community" });
+  const { currentPage, changeCurrentPage, offset } = usePagination({
+    totalPages,
+    btnNum,
+    basePath: "/community",
+  });
   const onClickPrevButton = () => {
     changeCurrentPage(offset - btnNum);
   };
   const onClickNextButton = () => {
     changeCurrentPage(offset + btnNum);
   };
-  const onClickPageButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const onClickPageButton = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     const { textContent } = e.currentTarget;
     changeCurrentPage(Number(textContent));
   };
@@ -92,7 +102,7 @@ const PageButtonBox = ({ totalPages } : { totalPages: number }) => {
             onClick={onClickPageButton}
             selected={currentPage === offset + i}
           >
-            { i + offset }
+            {i + offset}
           </PageButton>
         ))}
       {btnNum + offset <= totalPages && (
