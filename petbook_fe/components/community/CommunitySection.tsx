@@ -3,7 +3,7 @@ import Link from "next/link";
 import styled from "styled-components";
 
 const CommunitySectionBox = styled.section`
-  margin-bottom: 56px;
+  margin-top: 56px;
   color: var(--black_01);
   .heading {
     display: flex;
