@@ -41,14 +41,14 @@ const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
       })
   );
 
-  // if (initProps.token) {
-  //   sprPetBookClient.defaults.headers.common.Authorization = initProps.token;
-  // }
+  if (initProps.token) {
+    sprPetBookClient.defaults.headers.common.Authorization = initProps.token;
+  }
 
-  // if (!initProps.token && process.env.NEXT_PUBLIC_TESTER) {
-  //   sprPetBookClient.defaults.headers.common.Authorization =
-  //     process.env.NEXT_PUBLIC_TESTER;
-  // }
+  if (!initProps.token && process.env.NEXT_PUBLIC_TESTER) {
+    sprPetBookClient.defaults.headers.common.Authorization =
+      process.env.NEXT_PUBLIC_TESTER;
+  }
 
   // 웹 후크 연동 테스트
 
