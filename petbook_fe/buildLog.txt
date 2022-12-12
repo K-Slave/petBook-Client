@@ -1,0 +1,477 @@
+info  - Loaded env from D:\steven\Front-End_Repo\petBook\petbook_fe\.env.local
+info  - Loaded env from D:\steven\Front-End_Repo\petBook\petbook_fe\.env.production
+info  - Checking validity of types...
+
+./pages/community/write.tsx
+53:26  Warning: 'pageProps' is defined but never used.  no-unused-vars
+53:26  Warning: 'pageProps' is defined but never used.  @typescript-eslint/no-unused-vars
+53:37  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./pages/community/[articleId].tsx
+4:8  Warning: 'ChatSideBanner' is defined but never used.  no-unused-vars
+4:8  Warning: 'ChatSideBanner' is defined but never used.  @typescript-eslint/no-unused-vars
+8:25  Warning: 'createResource' is defined but never used.  no-unused-vars
+8:25  Warning: 'createResource' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./pages/findHospital/index.tsx
+2:10  Warning: 'createResource' is defined but never used.  no-unused-vars
+2:10  Warning: 'createResource' is defined but never used.  @typescript-eslint/no-unused-vars
+5:33  Warning: 'initProps' is defined but never used.  no-unused-vars
+5:33  Warning: 'initProps' is defined but never used.  @typescript-eslint/no-unused-vars
+5:44  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./pages/index.tsx
+7:8  Warning: 'KnowhowPaperBox' is defined but never used.  no-unused-vars
+7:8  Warning: 'KnowhowPaperBox' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./pages/_app.tsx
+126:5  Warning: Unexpected console statement.  no-console
+
+./components/common/Button/Button.tsx
+17:12  Warning: Arrow function used ambiguously with a conditional expression.  no-confusing-arrow
+63:14  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+73:15  Warning: Unsafe array destructuring of a tuple element with an `any` value.  @typescript-eslint/no-unsafe-assignment
+86:19  Warning: Unexpected empty method 'children'.  @typescript-eslint/no-empty-function
+91:18  Warning: Unexpected empty method 'onClick'.  @typescript-eslint/no-empty-function
+96:15  Warning: Unsafe array destructuring of a tuple element with an `any` value.  @typescript-eslint/no-unsafe-assignment
+107:19  Warning: Unexpected empty method 'children'.  @typescript-eslint/no-empty-function
+112:18  Warning: Unexpected empty method 'onClick'.  @typescript-eslint/no-empty-function
+
+./components/common/Countour.tsx
+11:23  Warning: Arrow function used ambiguously with a conditional expression.  no-confusing-arrow
+11:31  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+12:5  Warning: Unsafe return of an `any` typed value.  @typescript-eslint/no-unsafe-return
+12:5  Warning: Unsafe member access .bgColor on an `any` value.  @typescript-eslint/no-unsafe-member-access
+12:21  Warning: Unsafe member access .bgColor on an `any` value.  @typescript-eslint/no-unsafe-member-access
+19:16  Warning: Function component is not an arrow function  react/function-component-definition
+
+./components/common/Editor/QuillWrapper.tsx
+15:5  Warning: 'value' is defined but never used.  no-unused-vars
+16:5  Warning: 'delta' is defined but never used.  no-unused-vars
+16:12  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+17:5  Warning: 'source' is defined but never used.  no-unused-vars
+17:13  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+18:5  Warning: 'editor' is defined but never used.  no-unused-vars
+20:16  Warning: 'event' is defined but never used.  no-unused-vars
+20:23  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+51:19  Warning: Unexpected empty method 'onChange'.  @typescript-eslint/no-empty-function
+
+./components/common/MapComponent.tsx
+1:11  Warning: 'kakao' is defined but never used.  no-unused-vars
+1:11  Warning: 'kakao' is defined but never used.  @typescript-eslint/no-unused-vars
+24:16  Warning: 'setCenter' is defined but never used.  no-unused-vars
+24:16  Warning: 'setCenter' is defined but never used.  @typescript-eslint/no-unused-vars
+32:16  Warning: 'panTo' is defined but never used.  no-unused-vars
+32:16  Warning: 'panTo' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./components/common/modal/Modal.tsx
+31:3  Warning: Unexpected console statement.  no-console
+33:5  Warning: Unexpected console statement.  no-console
+35:9  Warning: 'openModal' is assigned a value but never used.  no-unused-vars
+35:9  Warning: 'openModal' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+36:5  Warning: Unexpected console statement.  no-console
+
+./components/common/Nav/Core/LinkedNavBar.tsx
+7:55  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+8:3  Warning: Unsafe return of an `any` typed value.  @typescript-eslint/no-unsafe-return
+27:19  Warning: Fragments should contain more than one child - otherwise, there’s no need for a Fragment at all.  react/jsx-no-useless-fragment
+39:7  Warning: Fragments should contain more than one child - otherwise, there’s no need for a Fragment at all.  react/jsx-no-useless-fragment
+84:3  Warning: 'children' is defined but never used.  no-unused-vars
+84:3  Warning: 'children' is defined but never used.  @typescript-eslint/no-unused-vars
+89:19  Warning: Fragments should contain more than one child - otherwise, there’s no need for a Fragment at all.  react/jsx-no-useless-fragment
+92:12  Warning: Fragments should contain more than one child - otherwise, there’s no need for a Fragment at all.  react/jsx-no-useless-fragment
+128:7  Warning: Fragments should contain more than one child - otherwise, there’s no need for a Fragment at all.  react/jsx-no-useless-fragment
+
+./components/common/Nav/Design/Desktop/Header/HeaderWrap.tsx
+22:46  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+23:9  Warning: Unsafe assignment of an `any` value.  @typescript-eslint/no-unsafe-assignment
+
+./components/common/Nav/Design/Desktop/Header/LogoButton.tsx
+3:8  Warning: Identifier 'Logo__Img' is not in camel case.  camelcase
+36:46  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+37:9  Warning: Unsafe assignment of an `any` value.  @typescript-eslint/no-unsafe-assignment
+43:7  Warning: Do not use <img>. Use Image from 'next/image' instead. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+45:20  Warning: Identifier 'Logo__Img' is not in camel case.  camelcase
+45:20  Warning: Unsafe member access .src on an `any` value.  @typescript-eslint/no-unsafe-member-access
+47:14  Warning: Identifier 'Logo__Img' is not in camel case.  camelcase
+47:14  Warning: Unsafe assignment of an `any` value.  @typescript-eslint/no-unsafe-assignment
+47:14  Warning: Unsafe member access .src on an `any` value.  @typescript-eslint/no-unsafe-member-access
+
+./components/common/Nav/Design/Desktop/Header/PersonalButton.tsx
+1:36  Warning: 'useEffect' is defined but never used.  no-unused-vars
+1:36  Warning: 'useEffect' is defined but never used.  @typescript-eslint/no-unused-vars
+1:47  Warning: 'useState' is defined but never used.  no-unused-vars
+1:47  Warning: 'useState' is defined but never used.  @typescript-eslint/no-unused-vars
+29:7  Warning: Arrow function used ambiguously with a conditional expression.  no-confusing-arrow
+45:49  Warning: 'ref' is defined but never used.  no-unused-vars
+45:49  Warning: 'ref' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./components/common/Nav/Design/Desktop/TopNav/PageButton.tsx
+30:7  Warning: Arrow function used ambiguously with a conditional expression.  no-confusing-arrow
+
+./components/common/Nav/Design/Desktop/TopNav/SearchButton.tsx
+24:48  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./components/common/Nav/Design/Desktop/TopNav/TopNavWrap.tsx
+28:46  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+29:9  Warning: Unsafe assignment of an `any` value.  @typescript-eslint/no-unsafe-assignment
+
+./components/common/Nav/DOMStructure/NavMenu.tsx
+72:18  Warning: Fragments should contain more than one child - otherwise, there’s no need for a Fragment at all.  react/jsx-no-useless-fragment
+73:19  Warning: Fragments should contain more than one child - otherwise, there’s no need for a Fragment at all.  react/jsx-no-useless-fragment
+
+./components/common/PaperBox/Core/LinkedArticle.tsx
+5:56  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+6:3  Warning: Unsafe return of an `any` typed value.  @typescript-eslint/no-unsafe-return
+
+./components/common/PaperBox/Design/Desktop/KnowhowPaperBoxStyle.tsx
+2:18  Warning: 'css' is defined but never used.  no-unused-vars
+2:18  Warning: 'css' is defined but never used.  @typescript-eslint/no-unused-vars
+17:23  Warning: Arrow function used ambiguously with a conditional expression.  no-confusing-arrow
+45:65  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+62:66  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+72:64  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./components/common/PaperBox/Interface/KnowhowPaperBox.tsx
+26:9  Warning: Identifier 'sample_color' is not in camel case.  camelcase
+30:43  Warning: Identifier 'sample_color' is not in camel case.  camelcase
+
+./components/common/PaperBox/Interface/KnowHowSection.tsx
+2:8  Warning: 'palette' is defined but never used.  no-unused-vars
+2:8  Warning: 'palette' is defined but never used.  @typescript-eslint/no-unused-vars
+13:9  Warning: Identifier 'sample_post' is not in camel case.  camelcase
+46:8  Warning: Identifier 'sample_post' is not in camel case.  camelcase
+46:31  Warning: 'idx' is defined but never used.  no-unused-vars
+46:31  Warning: 'idx' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./components/common/Responsive.tsx
+24:44  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./components/common/Searchbar.tsx
+44:5  Warning: Fragments should contain more than one child - otherwise, there’s no need for a Fragment at all.  react/jsx-no-useless-fragment
+
+./components/common/Skeletone.tsx
+43:27  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./components/common/ValidationInput.tsx
+60:9  Warning: Fragments should contain more than one child - otherwise, there’s no need for a Fragment at all.  react/jsx-no-useless-fragment
+
+./components/community/article/detail/ArticleSection.tsx
+34:11  Warning: 'id' is assigned a value but never used.  no-unused-vars
+34:11  Warning: 'id' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+34:37  Warning: 'category' is assigned a value but never used.  no-unused-vars
+34:37  Warning: 'category' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+50:12  Warning: Dangerous property 'dangerouslySetInnerHTML' found  react/no-danger
+
+./components/community/article/detail/ChatSideBanner.tsx
+47:7  Warning: Do not use <img>. Use Image from 'next/image' instead. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/community/article/detail/useClickOutside.ts
+8:36  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+10:48  Warning: Unsafe member access .target on an `any` value.  @typescript-eslint/no-unsafe-member-access
+18:6  Warning: React Hook useEffect has missing dependencies: 'onClose' and 'ref'. Either include them or remove the dependency array. If 'onClose' changes too often, find the parent component that defines it and wrap that definition in useCallback.  react-hooks/exhaustive-deps
+
+./components/community/article/list/ArticleList.tsx
+21:11  Warning: 'status' is assigned a value but never used.  no-unused-vars
+21:11  Warning: 'status' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+51:15  Warning: Dangerous property 'dangerouslySetInnerHTML' found  react/no-danger
+
+./components/community/comment/CommentForm.tsx
+20:9  Warning: Do not use <img>. Use Image from 'next/image' instead. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/community/comment/CommentList.tsx
+29:7  Warning: Unexpected alert.  no-alert
+42:13  Warning: Unexpected alert.  no-alert
+82:37  Warning: 'likeCount' is assigned a value but never used.  no-unused-vars
+82:37  Warning: 'likeCount' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+82:52  Warning: 'articleId' is assigned a value but never used.  no-unused-vars
+82:52  Warning: 'articleId' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./components/community/useOnScreen.ts
+36:6  Warning: React Hook useEffect has missing dependencies: 'root' and 'target'. Either include them or remove the dependency array. Mutable values like 'target.current' aren't valid dependencies because mutating them doesn't re-render the component.  react-hooks/exhaustive-deps
+
+./components/community/useSelect.ts
+5:14  Warning: 'key' is defined but never used.  no-unused-vars
+
+./components/find/FindInputBox.tsx
+1:10  Warning: 'registerFormState' is defined but never used.  no-unused-vars
+1:10  Warning: 'registerFormState' is defined but never used.  @typescript-eslint/no-unused-vars
+3:10  Warning: 'useSetRecoilState' is defined but never used.  no-unused-vars
+3:10  Warning: 'useSetRecoilState' is defined but never used.  @typescript-eslint/no-unused-vars
+16:5  Warning: Unexpected console statement.  no-console
+
+./components/Keyvisual.tsx
+29:1  Warning: Function component is not an arrow function  react/function-component-definition
+
+./components/login/LoginSubmit.tsx
+108:21  Warning: 'setErrorText' is assigned a value but never used.  no-unused-vars
+108:21  Warning: 'setErrorText' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+110:28  Warning: 'error' is assigned a value but never used.  no-unused-vars
+110:28  Warning: 'error' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+116:5  Warning: Unexpected console statement.  no-console
+131:6  Warning: React Hook useEffect has missing dependencies: 'errorState' and 'isSuccess'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+
+./components/map/MapContainer.tsx
+2:26  Warning: 'useRecoilValue' is defined but never used.  no-unused-vars
+2:26  Warning: 'useRecoilValue' is defined but never used.  @typescript-eslint/no-unused-vars
+55:9  Warning: Identifier 'sample_hospitalData' is not in camel case.  camelcase
+55:9  Warning: 'sample_hospitalData' is assigned a value but never used.  no-unused-vars
+55:9  Warning: 'sample_hospitalData' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+66:22  Warning: 'filter' is defined but never used.  no-unused-vars
+66:22  Warning: 'filter' is defined but never used.  @typescript-eslint/no-unused-vars
+72:6  Warning: React Hook useEffect has missing dependencies: 'setSortFilter' and 'sortFilter'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+
+./components/map/slider/index.tsx
+56:23  Warning: Arrow function used ambiguously with a conditional expression.  no-confusing-arrow
+
+./components/MyPageNav.tsx
+21:18  Warning: Arrow function used ambiguously with a conditional expression.  no-confusing-arrow
+46:22  Warning: Arrow function used ambiguously with a conditional expression.  no-confusing-arrow
+58:16  Warning: 'menuId' is defined but never used.  no-unused-vars
+
+./components/MyPageSection.tsx
+19:1  Warning: Function component is not an arrow function  react/function-component-definition
+
+./components/register/RegisterForm.tsx
+95:37  Warning: 'error' is assigned a value but never used.  no-unused-vars
+95:37  Warning: 'error' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+109:6  Warning: React Hook useEffect has a missing dependency: 'isSuccess'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./components/register/RegisterInputBox.tsx
+80:5  Warning: Unexpected console statement.  no-console
+
+./components/write/styled/styledWriteForm.tsx
+1:8  Warning: 'localConsole' is defined but never used.  no-unused-vars
+1:8  Warning: 'localConsole' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./components/write/WriteCategory.tsx
+61:6  Warning: React Hook useEffect has missing dependencies: 'categoryList', 'selectedCategory.idx', and 'setWrite'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+
+./components/write/WriteForm.tsx
+18:3  Warning: 'WriteContentLengthP' is defined but never used.  no-unused-vars
+18:3  Warning: 'WriteContentLengthP' is defined but never used.  @typescript-eslint/no-unused-vars
+78:20  Warning: 'setReadOnly' is assigned a value but never used.  no-unused-vars
+78:20  Warning: 'setReadOnly' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+99:52  Warning: Expected to return a value at the end of arrow function.  consistent-return
+103:7  Warning: Assignment to property of function parameter 'event'.  no-param-reassign
+120:7  Warning: Assignment to property of function parameter 'event'.  no-param-reassign
+131:5  Warning: 'delta' is defined but never used.  no-unused-vars
+131:5  Warning: 'delta' is defined but never used.  @typescript-eslint/no-unused-vars
+131:12  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+132:5  Warning: 'source' is defined but never used.  no-unused-vars
+132:5  Warning: 'source' is defined but never used.  @typescript-eslint/no-unused-vars
+132:13  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+133:5  Warning: 'editor' is defined but never used.  no-unused-vars
+133:5  Warning: 'editor' is defined but never used.  @typescript-eslint/no-unused-vars
+134:5  Warning: Expected to return a value at the end of arrow function.  consistent-return
+
+./components/write/WriteHashTags.tsx
+93:64  Warning: 'e' is defined but never used.  no-unused-vars
+93:64  Warning: 'e' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./components/write/WriteImgAttach.tsx
+6:10  Warning: 'BsPlus' is defined but never used.  no-unused-vars
+6:10  Warning: 'BsPlus' is defined but never used.  @typescript-eslint/no-unused-vars
+38:50  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+68:10  Warning: Fragments should contain more than one child - otherwise, there’s no need for a Fragment at all.  react/jsx-no-useless-fragment
+105:12  Warning: Fragments should contain more than one child - otherwise, there’s no need for a Fragment at all.  react/jsx-no-useless-fragment
+112:17  Warning: 'clickEvent' is defined but never used.  no-unused-vars
+112:17  Warning: 'clickEvent' is defined but never used.  @typescript-eslint/no-unused-vars
+121:30  Warning: 'changeEvent' is defined but never used.  no-unused-vars
+121:30  Warning: 'changeEvent' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./lib/API/parser/queryParser.ts
+7:15  Warning: 'params' is defined but never used.  no-unused-vars
+7:24  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+7:29  Warning: 'config' is defined but never used.  no-unused-vars
+7:38  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./lib/API/petBookAPI/types/boardRequest.d.ts
+42:19  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./lib/handler/drag.ts
+9:5  Warning: Assignment to property of function parameter 'isClick'.  no-param-reassign
+10:5  Warning: Assignment to property of function parameter 'targetOffset'.  no-param-reassign
+14:5  Warning: Assignment to property of function parameter 'isClick'.  no-param-reassign
+26:7  Warning: Assignment to property of function parameter 'scrollRef'.  no-param-reassign
+27:7  Warning: Assignment to property of function parameter 'targetOffset'.  no-param-reassign
+
+./lib/handler/hashTagBlur.ts
+6:12  Warning: 'textValue' is defined but never used.  no-unused-vars
+
+./lib/handler/hashTagKeydown.ts
+6:12  Warning: 'textValue' is defined but never used.  no-unused-vars
+
+./lib/hooks/article/usePagination.ts
+28:6  Warning: React Hook useCallback has a missing dependency: 'basePath'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+39:6  Warning: React Hook useEffect has a missing dependency: 'changeCurrentPage'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+49:6  Warning: React Hook useEffect has missing dependencies: 'btnNum' and 'offset'. Either include them or remove the dependency array. If 'setOffset' needs the current value of 'btnNum', you can also switch to useReducer instead of useState and read 'btnNum' in the reducer.  react-hooks/exhaustive-deps
+
+./lib/hooks/comment/useSubmitComment.ts
+21:19  Warning: 'updateComment' is assigned a value but never used.  no-unused-vars
+21:19  Warning: 'updateComment' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+25:38  Warning: Assignment to property of function parameter 'textareaRef'.  no-param-reassign
+46:15  Warning: Unexpected alert.  no-alert
+
+./lib/hooks/common/useRecoilSelector.ts
+12:23  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+13:22  Warning: Unsafe argument of type `any` assigned to a parameter of type `{}`.  @typescript-eslint/no-unsafe-argument
+17:61  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+18:20  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+20:3  Warning: Unsafe assignment of an `any` value.  @typescript-eslint/no-unsafe-assignment
+20:3  Warning: Unsafe member access [targetProp] on an `any` value.  @typescript-eslint/no-unsafe-member-access
+22:3  Warning: Unsafe return of an `any` typed value.  @typescript-eslint/no-unsafe-return
+25:41  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+31:13  Warning: Unsafe assignment of an `any` value.  @typescript-eslint/no-unsafe-assignment
+32:7  Warning: Unsafe return of an `any` typed value.  @typescript-eslint/no-unsafe-return
+32:14  Warning: Unsafe member access [selectProperty] on an `any` value.  @typescript-eslint/no-unsafe-member-access
+46:9  Warning: Unsafe assignment of an `any` value.  @typescript-eslint/no-unsafe-assignment
+47:9  Warning: Unsafe assignment of an `any` value.  @typescript-eslint/no-unsafe-assignment
+
+./lib/hooks/common/useResource.ts
+1:23  Warning: 'UseMutationOptions' is defined but never used.  no-unused-vars
+1:23  Warning: 'UseMutationOptions' is defined but never used.  @typescript-eslint/no-unused-vars
+13:13  Warning: 'params' is defined but never used.  no-unused-vars
+32:13  Warning: 'params' is defined but never used.  no-unused-vars
+39:15  Warning: 'reqBody' is defined but never used.  no-unused-vars
+48:15  Warning: 'reqBody' is defined but never used.  no-unused-vars
+
+./lib/hooks/useScroll.ts
+5:9  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+12:6  Warning: React Hook useEffect was passed a dependency list that is not an array literal. This means we can't statically verify whether you've passed the correct dependencies.  react-hooks/exhaustive-deps
+12:6  Warning: React Hook useEffect has a missing dependency: 'to'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./lib/hooks/write/useSetHashTag.ts
+3:8  Warning: 'localConsole' is defined but never used.  no-unused-vars
+3:8  Warning: 'localConsole' is defined but never used.  @typescript-eslint/no-unused-vars
+19:19  Warning: 'textValue' is defined but never used.  no-unused-vars
+20:17  Warning: 'textValue' is defined but never used.  no-unused-vars
+22:3  Warning: 'removeTag' is never reassigned. Use 'const' instead.  prefer-const
+
+./lib/modules/navigator.ts
+13:9  Warning: 'value' is defined but never used.  no-unused-vars
+16:21  Warning: 'reason' is defined but never used.  no-unused-vars
+16:29  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+20:37  Warning: Unexpected console statement.  no-console
+
+./lib/modules/throttle.ts
+1:40  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+3:20  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+7:9  Warning: Unsafe call of an `any` typed value.  @typescript-eslint/no-unsafe-call
+
+./lib/utils/cleanObject.ts
+1:42  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+3:9  Warning: Unsafe assignment of an `any` value.  @typescript-eslint/no-unsafe-assignment
+6:33  Warning: Unsafe argument of type `any` assigned to a parameter of type `{}`.  @typescript-eslint/no-unsafe-argument
+10:10  Warning: Unsafe member access [prop] on an `any` value.  @typescript-eslint/no-unsafe-member-access
+11:14  Warning: Unsafe member access [prop] on an `any` value.  @typescript-eslint/no-unsafe-member-access
+16:3  Warning: Unsafe return of an `any` typed value.  @typescript-eslint/no-unsafe-return
+
+./lib/utils/getRandomIdx.ts
+1:45  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./lib/utils/iterableFunctions.ts
+2:44  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+10:15  Warning: 'elem' is defined but never used.  no-unused-vars
+10:21  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+10:26  Warning: 'idx' is defined but never used.  no-unused-vars
+10:43  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+11:22  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+19:3  Warning: Unsafe return of an `any[]` typed value.  @typescript-eslint/no-unsafe-return
+25:15  Warning: 'elem' is defined but never used.  no-unused-vars
+25:21  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+25:26  Warning: 'idx' is defined but never used.  no-unused-vars
+25:43  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+26:22  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+34:3  Warning: Unsafe return of an `any[]` typed value.  @typescript-eslint/no-unsafe-return
+39:15  Warning: 'result' is defined but never used.  no-unused-vars
+39:23  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+39:28  Warning: 'data' is defined but never used.  no-unused-vars
+39:34  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+39:42  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+40:26  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+41:23  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+41:39  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+44:5  Warning: Assignment to function parameter 'acc'.  no-param-reassign
+44:27  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+45:5  Warning: Assignment to function parameter 'iterable'.  no-param-reassign
+46:5  Warning: Unsafe assignment of an `any` value.  @typescript-eslint/no-unsafe-assignment
+46:5  Warning: Assignment to function parameter 'acc'.  no-param-reassign
+49:43  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+50:5  Warning: Unsafe assignment of an `any` value.  @typescript-eslint/no-unsafe-assignment
+50:5  Warning: Assignment to function parameter 'acc'.  no-param-reassign
+58:33  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+59:35  Warning: Unsafe return of an `any` typed value.  @typescript-eslint/no-unsafe-return
+59:35  Warning: Unsafe call of an `any` typed value.  @typescript-eslint/no-unsafe-call
+76:11  Warning: 'values' is defined but never used.  no-unused-vars
+77:19  Warning: 'value' is defined but never used.  no-unused-vars
+92:15  Warning: 'elem' is defined but never used.  no-unused-vars
+92:21  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+92:26  Warning: 'idx' is defined but never used.  no-unused-vars
+
+./lib/utils/iterableGenerators.ts
+2:23  Warning: Assignment to function parameter 'i'.  no-param-reassign
+5:57  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./lib/utils/localConsole.ts
+55:13  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+55:27  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+62:9  Warning: Unexpected console statement.  no-console
+66:7  Warning: Unexpected console statement.  no-console
+70:13  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+70:27  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+77:9  Warning: Unexpected console statement.  no-console
+81:7  Warning: Unexpected console statement.  no-console
+
+./lib/utils/recoilSetterHandler.ts
+3:14  Warning: 'value' is defined but never used.  no-unused-vars
+
+./lib/utils/setNextjsElement.tsx
+6:16  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+10:43  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+11:28  Warning: Unsafe argument of type `any` assigned to a parameter of type `(Partial<any> & Attributes) | undefined`.  @typescript-eslint/no-unsafe-argument
+11:60  Warning: Unsafe argument of type `any` assigned to a parameter of type `ReactNode`.  @typescript-eslint/no-unsafe-argument
+14:43  Warning: 'to' is defined but never used.  no-unused-vars
+14:43  Warning: 'to' is defined but never used.  @typescript-eslint/no-unused-vars
+15:62  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+18:7  Warning: Unsafe argument of type `any` assigned to a parameter of type `(Partial<any> & Attributes) | undefined`.  @typescript-eslint/no-unsafe-argument
+18:9  Warning: Unsafe assignment of an `any` value.  @typescript-eslint/no-unsafe-assignment
+18:18  Warning: Unsafe assignment of an `any` value.  @typescript-eslint/no-unsafe-assignment
+19:7  Warning: Unsafe argument of type `any` assigned to a parameter of type `ReactNode`.  @typescript-eslint/no-unsafe-argument
+23:57  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+23:62  Warning: 'ref' is defined but never used.  no-unused-vars
+23:62  Warning: 'ref' is defined but never used.  @typescript-eslint/no-unused-vars
+25:20  Warning: Unsafe assignment of an `any` value.  @typescript-eslint/no-unsafe-assignment
+25:35  Warning: Unsafe assignment of an `any` value.  @typescript-eslint/no-unsafe-assignment
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+info  - Creating an optimized production build...
+info  - Disabled SWC as replacement for Babel because of custom Babel configuration ".babelrc" https://nextjs.org/docs/messages/swc-disabled
+info  - Compiled successfully
+info  - Collecting page data...
+Page                                       Size     First Load JS
+┌ λ /                                      752 B           147 kB
+├   /_app                                  0 B             147 kB
+├ λ /404                                   1.36 kB         148 kB
+├ λ /community                             4.39 kB         172 kB
+├ λ /community/[articleId]                 5.41 kB         173 kB
+├ λ /community/write                       9.91 kB         174 kB
+├   └ css/bfa332423b7a608a.css             3.5 kB
+├ λ /find/id                               1.2 kB          152 kB
+├ λ /find/pass                             1.22 kB         152 kB
+├ λ /findHospital                          2.61 kB         150 kB
+├ λ /info                                  393 B           147 kB
+├ λ /login                                 3.5 kB          167 kB
+├ λ /mypage                                3.19 kB         150 kB
+├ λ /password                              812 B           147 kB
+├ λ /register                              2.45 kB         166 kB
+└ λ /search                                253 B           147 kB
++ First Load JS shared by all              147 kB
+  ├ chunks/framework-a87821de553db91d.js   45 kB
+  ├ chunks/main-e0138788257995f5.js        25.9 kB
+  ├ chunks/pages/_app-5ad2fcd60c223dc0.js  73.9 kB
+  ├ chunks/webpack-f0bee8642ca0be73.js     1.86 kB
+  └ css/bd6208fcf0fcf618.css               1.42 kB
+
+λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
+
