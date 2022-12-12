@@ -16,6 +16,7 @@ import {
   categorySprRequest,
   imgRequest,
 } from "../../lib/API/petBookAPI";
+import styles from "../../styles/Write.module.scss";
 
 // 1. 서버 사이드에서 가져올 리소스 정의하기
 // 정의된 순서에서 이미 데이터를 가지고 내려온 상태임.
@@ -39,10 +40,10 @@ const WriteMain = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 
   width: 100%;
-  max-width: 1064px;
+  max-width: 1000px;
   height: auto;
 
   margin: 0 auto;
@@ -56,7 +57,7 @@ const Write: NextPage = (pageProps: any) => {
   );
 
   return (
-    <WriteMain className="Content">
+    <WriteMain className={`Content ${styles.Write__Page}`}>
       <CategoryContainer />
       <FormContainer />
       <ImgAttachContainer />
