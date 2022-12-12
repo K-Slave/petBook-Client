@@ -5,6 +5,8 @@ import {
   CommentFormBox,
   CommentFormButton,
   CommentFormTextarea,
+  RectangleBoxDiv,
+  Rectangle
 } from "./styled/styledCommentForm";
 
 const CommentForm = ({
@@ -17,12 +19,13 @@ const CommentForm = ({
   const { onSubmit } = useSubmitComment(textareaRef);
   return (
     <CommentFormBox>
-       <CommentFormTextarea
-         placeholder="당신의 의견을 남겨보세요!"
-         onChange={onChange}
-         ref={textareaRef}
-         defaultValue={initialContent}
-       />
+      <RectangleBox />
+      <CommentFormTextarea
+        placeholder="당신의 의견을 남겨보세요!"
+        onChange={onChange}
+        ref={textareaRef}
+        defaultValue={initialContent}
+      />
       <CommentFormButton className="Primary" type="submit" onClick={onSubmit}>
         {initialContent ? "댓글 수정" : "댓글 등록"}
       </CommentFormButton>
@@ -32,6 +35,21 @@ const CommentForm = ({
 
 CommentForm.defaultProps = {
   initialContent: "",
+};
+
+const RectangleBox = () => {
+  return (
+    <RectangleBoxDiv>
+      <div>
+        <Rectangle />
+        <Rectangle />
+      </div>
+      <div>
+        <Rectangle />
+        <Rectangle />
+      </div>
+    </RectangleBoxDiv>
+  );
 };
 
 export default CommentForm;
