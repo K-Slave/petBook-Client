@@ -22,7 +22,7 @@ const dummyImages = [
   "https://images.unsplash.com/photo-1612267168669-679c961c5b31?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
 ];
 
-const ArticleSection = ({ data } : { data: ArticleResponse | undefined }) => {
+const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
   if (data === undefined) {
     return <ArticleSectionBox />;
   }
@@ -42,15 +42,16 @@ const ArticleSection = ({ data } : { data: ArticleResponse | undefined }) => {
         date={createdAt}
         year={1}
       />
-      {content ?
+      {content ? (
         <div
           dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
           className="ArticleSection_Content"
         />
-        : <Spacer />
-      }
+      ) : (
+        <Spacer />
+      )}
       {/* <ImageSlider images={dummyImages} /> */}
-      <TagList tags={tags} />
+      <TagList tags={tags} fontSize={14} />
       <div className="ArticleSection_Bottom_Row">
         <button type="button">좋아요</button>
         <button type="button">스크랩</button>

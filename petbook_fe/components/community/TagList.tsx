@@ -3,17 +3,14 @@ import styled from "styled-components";
 
 interface Props {
   tags: string[];
+  fontSize: number;
 }
 
-const TagList = ({ tags }: Props) => {
+const TagList = ({ tags, fontSize }: Props) => {
   return (
     <TagListUl>
       {tags.map((tag) => (
-        <TagListLi
-          key={getRandomKey()}
-        >
-          {tag}
-        </TagListLi>
+        <TagListLi key={getRandomKey()}>{tag}</TagListLi>
       ))}
     </TagListUl>
   );

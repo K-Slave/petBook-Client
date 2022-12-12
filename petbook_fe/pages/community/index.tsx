@@ -12,15 +12,21 @@ import ArticleBoxGrid from "@components/community/ArticleBoxGrid";
 import QuestionList from "@components/community/QnaArticleList";
 import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 
-export const ARTICLE_LIST = ({ category, page, size } : {
-  category: CategoryItem,
-  page: number,
-  size: number
-}) => createResource({
-  key: `ARTICLE_LIST_${category.name}`,
-  fetcher: () => articleRequest.article_list({
-    categoryId: category.id === 0 ? "" : category.id, page, size
-  }),
+// 에러나서 수정할게 !
+// export const ARTICLE_LIST = ({ category, page, size } : {
+//   category: CategoryItem,
+// page: number,
+// size: number
+// }) => createResource({
+//   key: `ARTICLE_LIST_${category.name}`,
+//   fetcher: () => articleRequest.article_list({
+//     categoryId: category.id === 0 ? "" : category.id, page, size
+//   }),
+// });
+
+export const ARTICLE_LIST = createResource({
+  key: `ARTICLE_LIST`,
+  fetcher: articleRequest.article_list,
 });
 
 export const CATEGORY_LIST = createResource({
@@ -64,9 +70,11 @@ CommunityIndex.requiredResources = [CATEGORY_LIST];
 
 CommunityIndex.getInitialProps = async () => {
   const { data } = await CATEGORY_LIST.fetcher();
-  const resources = data.concat([{ id: 0, name: "전체" }]).map((category) => ARTICLE_LIST({ category, page: 0, size: 5 }));
+  // const resources = data
+  //   .concat([{ id: 0, name: "전체" }])
+  //   .map((category) => ARTICLE_LIST({ category, page: 0, size: 5 }));
   return {
-    resources
+    // resources,
   };
 };
 
