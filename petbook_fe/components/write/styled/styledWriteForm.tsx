@@ -3,35 +3,40 @@ import styled from "styled-components";
 
 const WriteFormSection = styled.section`
   display: grid;
-  grid-template-columns: 4.2995fr 1fr;
-  /* grid-template-columns: 847px 197px; */
+  grid-template-columns: 3.88fr 1fr;
+  /* grid-template-columns: 776px 200px; */
 
   width: 100%;
-  max-width: 1064px;
+  max-width: 1000px;
 
   grid-row-gap: 20px;
-  grid-column-gap: 20px;
+  grid-column-gap: 24px;
 `;
 
 const WriteTitleInput = styled.input`
   width: 100%;
-  max-width: 847px;
-  height: 70px;
+  max-width: 776px;
+  height: 48px;
 
-  padding: 12px 15px;
+  padding: 11px 26px;
 
-  border: 1px solid #f5edde;
-  box-sizing: border-box;
-  border-radius: 12px;
+  /* border: 1px solid #f5edde; */
+  /* box-sizing: border-box; */
+
+  border: none;
+  border-radius: 8px;
 
   font-weight: 400;
   font-size: 1rem;
-  line-height: 30px;
+  line-height: 1.625rem;
 
   &::placeholder {
     pointer-events: none;
 
-    color: rgba(0, 0, 0, 0.6);
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.625rem;
+    color: #c5c4bd;
   }
 `;
 
@@ -43,26 +48,29 @@ const WriteGuideDiv = styled.div`
 
   display: flex;
   flex-direction: column;
+  align-self: flex-end;
   gap: 8px;
 
   width: 100%;
-  max-width: 197px;
-  height: 461px;
+  max-width: 200px;
+  height: 489px;
 
-  padding: 35px 20px;
+  padding: 33px 16px;
 
-  background-color: #fff5e3;
+  background-color: #eeede7;
+  border-radius: 8px;
 
   .Write__Guide__Title {
     font-size: 1rem;
     font-weight: 500;
-    line-height: 30px;
+    line-height: 1.875rem;
   }
 
   .Write__Guide__Content {
-    font-size: 1rem;
     font-weight: 400;
-    line-height: 26px;
+    font-size: 1rem;
+    line-height: 1.625rem;
+    color: #777774;
   }
 `;
 
@@ -70,8 +78,8 @@ const WriteEditorDiv = styled.div`
   position: relative;
 
   width: 100%;
-  max-width: 847px;
-  height: 371px;
+  max-width: 776px;
+  height: 430px;
 
   .quill {
     height: calc(100% - 42px);
@@ -80,16 +88,17 @@ const WriteEditorDiv = styled.div`
   .ql-toolbar {
     background-color: #ffffff;
 
-    border: 1px solid #f5edde;
-    border-radius: 16px 16px 0 0;
+    border: none;
+    border-bottom: 1px solid #f8f7f2;
+    border-radius: 8px 8px 0 0;
     /* box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.16); */
   }
 
   .ql-container {
     background-color: #ffffff;
 
-    border: 1px solid #f5edde;
-    border-radius: 0 0 16px 16px;
+    border: none;
+    border-radius: 0 0 8px 8px;
     /* box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.16); */
   }
 
@@ -111,6 +120,15 @@ const WriteEditorDiv = styled.div`
 
       word-break: break-all;
     }
+  }
+
+  .ql-editor.ql-blank::before {
+    font-family: "Pretendard";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.625rem;
+    color: #c5c4bd;
   }
 `;
 

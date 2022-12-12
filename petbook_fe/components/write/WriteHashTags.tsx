@@ -1,5 +1,4 @@
 import writeState from "@atoms/pageAtoms/community/writeState";
-import hashTagBlur from "@lib/handler/hashTagBlur";
 import hashTagKeydown from "@lib/handler/hashTagKeydown";
 import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
 import useSetHashTag from "@lib/hooks/write/useSetHashTag";
@@ -34,7 +33,11 @@ const WriteHashTags = () => {
 };
 
 const Title = () => {
-  return <HashTagTitleP className="Hash__Tag__Title">해시태그</HashTagTitleP>;
+  return (
+    <HashTagTitleP className="Hash__Tag__Title">
+      # 해시태그를 달아주세요
+    </HashTagTitleP>
+  );
 };
 
 interface TagBoxProps {
@@ -120,7 +123,7 @@ const Input = ({ setIsError }: InputProps) => {
   return (
     <HashInput
       className="default"
-      placeholder="# 입력 (최대 5개)"
+      placeholder="#추가입력"
       onKeyDown={onKeyDown}
       onBlur={onBlur}
     />

@@ -145,7 +145,7 @@ const Editor = () => {
 
   return (
     <WriteEditorDiv
-      className=""
+      className="Write__Editor__Wrap"
       ref={editorRef}
       onKeyDown={onKeyPress}
       onKeyUp={onKeyPress}
@@ -158,48 +158,48 @@ const Editor = () => {
         theme="snow"
         onChange={onChange}
         onKeyPress={onKeyPress}
-        placeholder={`내용을 입력하세요\n\n\n* 등록한 글은 커뮤니티에서 사용중인 닉네임으로 등록됩니다.`}
+        placeholder="내용을 입력하세요"
         value={inputContent}
         readOnly={readOnly}
       />
-      <WriteForm.Length pureText={pureText} />
+      {/* <WriteForm.Length pureText={pureText} /> */}
     </WriteEditorDiv>
   );
 };
 
-const Length = ({ pureText }: { pureText: string }) => {
-  const MaxRef = useRef<HTMLSpanElement>(null);
+// const Length = ({ pureText }: { pureText: string }) => {
+//   const MaxRef = useRef<HTMLSpanElement>(null);
 
-  if (
-    MaxRef.current &&
-    pureText.length >= 500 &&
-    MaxRef.current.style.color !== "#FF512B"
-  ) {
-    MaxRef.current.style.color = "#FF512B";
-  }
+//   if (
+//     MaxRef.current &&
+//     pureText.length >= 500 &&
+//     MaxRef.current.style.color !== "#FF512B"
+//   ) {
+//     MaxRef.current.style.color = "#FF512B";
+//   }
 
-  if (
-    MaxRef.current &&
-    pureText.length < 500 &&
-    MaxRef.current.style.color === "rgb(255, 81, 43)"
-  ) {
-    MaxRef.current.style.removeProperty("color");
-  }
+//   if (
+//     MaxRef.current &&
+//     pureText.length < 500 &&
+//     MaxRef.current.style.color === "rgb(255, 81, 43)"
+//   ) {
+//     MaxRef.current.style.removeProperty("color");
+//   }
 
-  return (
-    <WriteContentLengthP className="Editor__Content__Length">
-      <span className="Max__Length" ref={MaxRef}>
-        {/* {pureText.length >= 500 ? 500 : pureText.length} */}
-        {pureText.length}
-      </span>
-      /500
-    </WriteContentLengthP>
-  );
-};
+//   return (
+//     <WriteContentLengthP className="Editor__Content__Length">
+//       <span className="Max__Length" ref={MaxRef}>
+//         {/* {pureText.length >= 500 ? 500 : pureText.length} */}
+//         {pureText.length}
+//       </span>
+//       /500
+//     </WriteContentLengthP>
+//   );
+// };
 
 WriteForm.Input = Input;
 WriteForm.Guide = Guide;
 WriteForm.Editor = Editor;
-WriteForm.Length = Length;
+// WriteForm.Length = Length;
 
 export default WriteForm;
