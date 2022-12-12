@@ -9,6 +9,7 @@ import { useSetRecoilState } from "recoil";
 import {
   AddButtonBox,
   CountP,
+  IllustImg,
   ImgItemLi,
   ImgListUl,
   InfoBoxDiv,
@@ -19,6 +20,7 @@ import {
 const WriteImgAttach = () => {
   return (
     <WriteImgAttachSection>
+      <WriteImgAttach.Illust />
       <WriteImgAttach.InfoBox>
         <WriteImgAttach.Title />
         <WriteImgAttach.Count />
@@ -29,17 +31,24 @@ const WriteImgAttach = () => {
   );
 };
 
-const Count = React.memo(() => {
-  const { inputImg } = useRecoilSelector(writeState, {
-    inputImg: [] as string[],
-  });
+const Illust = () => {
+  return <IllustImg src="" alt="" />;
+};
 
-  return (
-    <CountP>
-      <span className="Img__Selected__Length">{inputImg.length}</span>
-      /5
-    </CountP>
-  );
+const InfoBox = ({ children }: PropsWithChildren<any>) => {
+  return <InfoBoxDiv>{children}</InfoBoxDiv>;
+};
+
+const Title = () => {
+  return <TitleP className="Img__Section__Title">이미지첨부</TitleP>;
+};
+
+const Count = React.memo(() => {
+  // const { inputImg } = useRecoilSelector(writeState, {
+  //   inputImg: [] as string[],
+  // });
+
+  return <CountP>최대 5장</CountP>;
 });
 
 const ImgList = React.memo(() => {
@@ -47,13 +56,16 @@ const ImgList = React.memo(() => {
     inputImg: [] as string[],
   });
 
-  return (
-    <ImgListUl>
-      {inputImg.map((img) => (
-        <WriteImgAttach.ImgItem key={img} img={img} />
-      ))}
-    </ImgListUl>
-  );
+  if (inputImg && inputImg.length > 0) {
+    return (
+      <ImgListUl>
+        {inputImg.map((img) => (
+          <WriteImgAttach.ImgItem key={img} img={img} />
+        ))}
+      </ImgListUl>
+    );
+  }
+  return <></>;
 });
 
 const ImgItem = React.memo(({ img }: { img: string }) => {
@@ -81,14 +93,6 @@ const ImgItem = React.memo(({ img }: { img: string }) => {
     </ImgItemLi>
   );
 });
-
-const InfoBox = ({ children }: PropsWithChildren<any>) => {
-  return <InfoBoxDiv>{children}</InfoBoxDiv>;
-};
-
-const Title = () => {
-  return <TitleP className="Img__Section__Title">이미지 첨부</TitleP>;
-};
 
 // TODO 기능 리팩터링 해야함
 const AddButton = () => {
@@ -134,11 +138,12 @@ const AddButton = () => {
         };
       }}
     >
-      <BsPlus className="Img__Section__Icon" />
+      추가하기
     </AddButtonBox>
   );
 };
 
+WriteImgAttach.Illust = Illust;
 WriteImgAttach.InfoBox = InfoBox;
 WriteImgAttach.Title = Title;
 WriteImgAttach.AddButton = AddButton;

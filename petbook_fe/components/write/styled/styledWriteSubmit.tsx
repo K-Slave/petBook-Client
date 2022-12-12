@@ -12,17 +12,17 @@ const WriteSubmitSection = styled.section`
 `;
 
 const WriteSubmitButton = styled(Button)`
-  width: 320px;
-  height: 64px;
+  width: 400px;
+  height: 60px;
 
-  background-color: #ff6e4e;
+  background-color: #ff6847;
 
   border-radius: 8px;
 
-  font-size: 20px;
-  font-weight: bold;
-  letter-spacing: 0;
-  color: #fff;
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  color: #f8f7f2;
 `;
 
 export { WriteSubmitSection, WriteSubmitButton };

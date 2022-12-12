@@ -52,12 +52,13 @@ const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
       })
   );
 
-  if (initProps.token) {
-    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${initProps.token}`;
+  if (initProps.token && typeof window === "undefined") {
+    sprPetBookClient.defaults.headers.common.Authorization = initProps.token;
   }
 
-  if (!initProps.token && process.env.NEXT_PUBLIC_TESTER) {
-    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${process.env.NEXT_PUBLIC_TESTER}`;
+  if (process.env.NEXT_PUBLIC_TESTER) {
+    sprPetBookClient.defaults.headers.common.Authorization =
+      process.env.NEXT_PUBLIC_TESTER;
   }
 
   // 웹 후크 연동 테스트
@@ -103,7 +104,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
       // 보안 옵션을 추가한 쿠키를 현재 접속 시각으로부터 30일 갱신
       ctx.res?.setHeader(
         "Set-Cookie",
-        `petBookUser=${allCookies.petBookUser}; Path=/; SameSite=Strict; Max-Age=2592000; secure; httpOnly`
+        `petBookUser=${allCookies.petBookUser}; Path=/ SameSite=Strict; Max-Age=2592000; secure; httpOnly`
       );
 
       sprPetBookClient.defaults.headers.common.Authorization =
