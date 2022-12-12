@@ -22,10 +22,11 @@ const Button = styled.button<{ position: Position}>`
     align-items: center;
     justify-content: center;
     gap: 6px;
-    width: 220px;
     height: 52px;
+    padding: 13px 28px 13px 19px;
     border-radius: 8px;
     font-size: 16px;
+    line-height: 25.6px;
     background-color: #fff;
     color: var(--black_02);
     align-self: ${({ position }) => (position === "start" ? "flex-start" : "flex-end")};
