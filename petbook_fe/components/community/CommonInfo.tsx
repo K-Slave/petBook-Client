@@ -1,4 +1,5 @@
 import getTimeForToday from "@lib/modules/getTimeForToday";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 interface Props {
@@ -9,6 +10,10 @@ interface Props {
 }
 
 const CommonInfo = ({ avatar, username, year, date }: Props) => {
+  const [time, setTime] = useState(getTimeForToday(date));
+  useEffect(() => {
+    setTime(getTimeForToday(date));
+  }, [date]);
   return (
     <Wrapper>
       {avatar && <Avatar src={avatar} alt="user avatar" />}
@@ -17,7 +22,7 @@ const CommonInfo = ({ avatar, username, year, date }: Props) => {
           <span className="username">{username}</span>
           <span className="year">{year}년차</span>
         </div>
-        <span className="date">{getTimeForToday(date)}</span>
+        <span className="date">{time}</span>
       </div>
     </Wrapper>
   );
