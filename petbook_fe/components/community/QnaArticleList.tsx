@@ -33,7 +33,6 @@ const Article = styled.article`
     justify-content: space-between;
     height: 220px;
     padding: 32px;
-    background-color: var(--bg_white_01);
     border-radius: 16px;
     cursor: pointer;
     h4 {
@@ -42,8 +41,19 @@ const Article = styled.article`
         -webkit-line-clamp: 4;
         overflow: hidden;
         text-overflow: ellipsis;
-        margin-bottom: 22px;
-        
+        margin-bottom: 22px;  
+    }
+    &:first-child {
+        background-color: #ffedd1;
+    }
+    &:nth-child(2) {
+        background-color: #ffe7d1;
+    }
+    &:nth-child(3) {
+        background-color: #fcf7c8;
+    }
+    &:nth-child(4) {
+        background-color: #ffe2dc;
     }
 `;
 
