@@ -2,11 +2,16 @@ import styled from "styled-components";
 
 const WriteImgAttachSection = styled.section`
   display: flex;
-  gap: 13px;
+  align-items: center;
+  gap: 12px;
 
   width: 100%;
 
-  margin-top: 50px;
+  margin-top: 32px;
+  padding: 26px 24px 25px;
+
+  border-radius: 8px;
+  background-color: #fff;
 
   font-weight: bold;
 
@@ -18,7 +23,17 @@ const WriteImgAttachSection = styled.section`
   }
 `;
 
+const IllustImg = styled.img`
+  width: 52px;
+  height: 52px;
+  background-color: #eeede7;
+`;
+
 const InfoBoxDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   font-weight: 700;
   font-size: 1rem;
 `;
@@ -27,18 +42,17 @@ const TitleP = styled.span`
   overflow: hidden;
   white-space: nowrap;
 
-  line-height: 19px;
-
-  color: #000000;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #9292be;
 `;
 
 const CountP = styled.p`
-  line-height: 30px;
-  color: rgba(0, 0, 0, 0.6);
-
-  .Img__Selected__Length {
-    color: #ff512b;
-  }
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.625rem;
+  color: #c5c4bd;
 `;
 
 const ImgListUl = styled.ul`
@@ -87,31 +101,29 @@ const ImgItemLi = styled.li`
 `;
 
 const AddButtonBox = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 32px;
 
-  background-color: #fff;
+  padding: 4px 16px;
 
-  transition: all 0.5s ease-in-out;
+  border-radius: 40px;
+  background-color: #ffcfc5;
 
-  svg {
-    background: transparent;
-    background-color: transparent;
-  }
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  letter-spacing: -0.02em;
+  color: #ff6847;
+
+  transition: all 0.3s ease-in-out;
 
   &:hover {
-    transition-delay: 0.5s;
-    background-color: #cccccc;
-
-    svg {
-      animation: rotate 1s 0.5s ease 1;
-    }
+    opacity: 0.5;
   }
 `;
 
 export {
   WriteImgAttachSection,
+  IllustImg,
   InfoBoxDiv,
   TitleP,
   CountP,
