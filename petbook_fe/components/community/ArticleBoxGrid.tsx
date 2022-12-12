@@ -40,7 +40,7 @@ const Box = ({ category } : { category: CategoryItem }) => {
                         </Link>
                         <span className="Box_scrap">
                             <span className="Box_scrap_img" />
-                            <span>000</span>
+                            <span>0</span>
                         </span>
                     </li>)}
             </BoxUL>
