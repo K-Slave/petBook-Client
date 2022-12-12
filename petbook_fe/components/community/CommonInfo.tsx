@@ -10,7 +10,7 @@ interface Props {
 }
 
 const CommonInfo = ({ avatar, username, year, date }: Props) => {
-  const [time, setTime] = useState(getTimeForToday(date));
+  const [time, setTime] = useState("");
   useEffect(() => {
     setTime(getTimeForToday(date));
   }, [date]);
