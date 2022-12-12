@@ -5,7 +5,8 @@ import { useSetRecoilState } from "recoil";
 import DOMPurify from "isomorphic-dompurify";
 import imageModalState from "@atoms/pageAtoms/community/imageModalState";
 import getRandomKey from "@lib/utils/getRandomKey";
-import DetailCommonInfo from "../../DetailCommonInfo";
+import CommonInfo from "@components/community/CommonInfo";
+import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import TagList from "../../TagList";
 import {
   ArticleSectionBox,
@@ -21,38 +22,37 @@ const dummyImages = [
   "https://images.unsplash.com/photo-1612267168669-679c961c5b31?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
 ];
 
-const ArticleSection = () => {
-  const router = useRouter();
-  const articleId = router.query.articleId as string;
-  const { data } = useResource({
-    key: `${ARTICLE_ITEM.key}_${articleId}`,
-    fetcher: () => ARTICLE_ITEM.fetcher(`/${articleId}`),
-  });
+const ArticleSection = ({ data } : { data: ArticleResponse | undefined }) => {
   if (data === undefined) {
     return <ArticleSectionBox />;
   }
-  const { id, title, content, user, category, tags, stat, createdAt } =
-    data.data;
+  const { id, title, content, user, category, tags, stat, createdAt } = data;
   return (
     <ArticleSectionBox>
       <div className="ArticleSection_Top_Row">
-        <DetailCommonInfo
-          avatar=""
-          username={user.nickname}
-          date={createdAt.split("T")[0]}
-        />
+        <h2>{title}</h2>
         <div className="ArticleSection_Button_Box">
           <button type="button">공유</button>
           <button type="button">신고</button>
         </div>
       </div>
-      <h2>{title}</h2>
-      <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }} />
-      <ImageSlider images={dummyImages} />
-      <TagList tags={tags} fontSize={16} />
+      <CommonInfo
+        avatar={dummyImages[0]}
+        username={user.nickname}
+        date={createdAt}
+        year={1}
+      />
+      {content ?
+        <div
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
+          className="ArticleSection_Content"
+        />
+        : <Spacer />
+      }
+      {/* <ImageSlider images={dummyImages} /> */}
+      <TagList tags={tags} />
       <div className="ArticleSection_Bottom_Row">
-        <span>관람 수 {stat.viewCount}</span>
-        <button type="button">좋아요 버튼</button>
+        <button type="button">좋아요</button>
         <button type="button">스크랩</button>
       </div>
     </ArticleSectionBox>

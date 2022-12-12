@@ -1,13 +1,11 @@
 import { NextPage } from "next";
 import styled from "styled-components";
 import HtmlHeader from "@components/common/HtmlHeader";
-import ChatSideBanner from "@components/community/article/detail/ChatSideBanner";
-import ArticleSection from "@components/community/article/detail/ArticleSection";
 import ImageSliderModal from "@components/community/article/detail/ImageSliderModal";
 import { articleRequest, commentRequest } from "@lib/API/petBookAPI";
 import { createRequest, createResource } from "@lib/hooks/common/useResource";
-import CommentList from "@components/community/comment/CommentList";
-import CommentForm from "@components/community/comment/CommentForm";
+import BackButton from "@components/community/BackButton";
+import ArticleContainer from "@containers/ArticleContainer";
 
 export const ARTICLE_ITEM = {
   key: "ARTICLE_ITEM",
@@ -39,11 +37,9 @@ const ArticleDetail: NextPage = () => {
     <>
       <HtmlHeader />
       <ArticleDetailMain>
-        <ArticleSection />
-        <CommentSection>
-          <CommentList />
-          <CommentForm />
-        </CommentSection>
+        <BackButton position="start" />
+        <ArticleContainer />
+        <BackButton position="end" />
       </ArticleDetailMain>
       <ImageSliderModal />
     </>
@@ -59,12 +55,6 @@ const ArticleDetailMain = styled.main`
   width: 90vw;
 
   margin: 40px auto;
-`;
-
-const CommentSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
 `;
 
 type PetbookPages = NextPage & {

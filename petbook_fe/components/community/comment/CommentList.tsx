@@ -5,13 +5,17 @@ import { useRouter } from "next/router";
 import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
 import React, { Fragment, MouseEventHandler } from "react";
 import { useQueryClient } from "react-query";
-import DetailCommonInfo from "../DetailCommonInfo";
-import { CommentListDiv, ItemDiv } from "./styled/styledCommentList";
+import CommonInfo from "../CommonInfo";
+import { CommentListDiv, NormalItemDiv, LikeButton, ScrapButton, QnaItemDiv, QnaItemBubble } from "./styled/styledCommentList";
 
 const avatar =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
 
-const CommentList = () => {
+interface Props {
+  Item: (props: ItemProps) => JSX.Element;
+}
+
+const CommentList = ({ Item } : Props) => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const articleId = router.query.articleId as string;
@@ -50,14 +54,14 @@ const CommentList = () => {
     <CommentListDiv>
       {data?.data.map((comment) => (
         <Fragment key={comment.parent.id}>
-          <CommentList.Item
+          <Item
             comment={comment.parent}
             isChild=""
             onDelete={onDelete}
             key={comment.parent.id}
           />
           {comment.children.map((child) => (
-            <CommentList.Item
+            <Item
               comment={child}
               isChild="true"
               onDelete={onDelete}
@@ -78,35 +82,61 @@ interface ItemProps {
   onDelete: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Item = ({ comment, isChild, onDelete }: ItemProps) => {
+export const NormalItem = ({ comment, isChild, onDelete }: ItemProps) => {
   const { user, createdAt, content, likeCount, id, articleId } = comment;
   return (
-    <ItemDiv isChild={isChild}>
+    <NormalItemDiv isChild={isChild}>
       {isChild && <BsArrowReturnRight />}
       <div>
-        <div className="Item_Row">
-          <DetailCommonInfo
+        <div className="NormalItem_Row">
+          <CommonInfo
             username={user.nickname}
-            date={createdAt.split("T")[0]}
+            date={createdAt}
             avatar={avatar}
+            year={1}
           />
-          <div>
-            <button type="button">수정</button>
-            <button type="button" data-commentid={id} onClick={onDelete}>
-              삭제
-            </button>
-          </div>
         </div>
         <p className="Item_Content">{content}</p>
         <div className="Item_Button_Box">
-          <button type="button">대댓글 달기</button>
-          <button type="button">좋아요 버튼</button>
+          <div>
+            <LikeButton type="button" />
+            <span>{likeCount}</span>
+          </div>
+          <div>
+            <ScrapButton type="button" />
+            <span>0</span>
+          </div>
         </div>
       </div>
-    </ItemDiv>
+    </NormalItemDiv>
   );
 };
 
-CommentList.Item = Item;
+export const QnaItem = ({ comment, isChild, onDelete } : ItemProps) => {
+  const { user, createdAt, content, likeCount, id, articleId } = comment;
+  return (
+    <QnaItemDiv>
+      <CommonInfo
+        username={user.nickname}
+        date={createdAt}
+        avatar={avatar}
+        year={1}
+      />
+      <QnaItemBubble>
+        <p className="Item_Content">{content}</p>
+        <div className="Item_Button_Box">
+          <div>
+            <LikeButton type="button" />
+            <span>{likeCount}</span>
+          </div>
+          <div>
+            <ScrapButton type="button" />
+            <span>0</span>
+          </div>
+        </div>
+      </QnaItemBubble>
+    </QnaItemDiv>
+  );
+};
 
 export default CommentList;
