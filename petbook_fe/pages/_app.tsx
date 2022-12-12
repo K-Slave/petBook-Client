@@ -53,12 +53,12 @@ const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
   );
 
   if (initProps.token && typeof window === "undefined") {
-    sprPetBookClient.defaults.headers.common.Authorization = initProps.token;
+    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${initProps.token}`;
   }
 
   if (process.env.NEXT_PUBLIC_TESTER) {
     sprPetBookClient.defaults.headers.common.Authorization =
-      process.env.NEXT_PUBLIC_TESTER;
+      `Bearer ${process.env.NEXT_PUBLIC_TESTER}`;
   }
 
   // 웹 후크 연동 테스트
