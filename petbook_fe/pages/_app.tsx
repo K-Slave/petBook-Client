@@ -107,7 +107,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
       );
 
       sprPetBookClient.defaults.headers.common.Authorization =
-        allCookies.petBookUser;
+        `Bearer ${allCookies.petBookUser}`;
     }
 
     const PageComponent: typeof Component & {
