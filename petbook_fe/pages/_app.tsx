@@ -17,8 +17,12 @@ import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import CommonHeader from "../components/common/CommonHeader";
 import { itrMap } from "../lib/utils/iterableFunctions";
 
+import 'swiper/scss';
+import 'swiper/scss/navigation';
+import 'swiper/scss/pagination';
 import "../styles/Globals.scss";
 import "../styles/Icon.scss";
+import "../styles/Swiper.scss";
 
 type DehydratedAppProps = AppProps & {
   initProps: {
@@ -27,6 +31,13 @@ type DehydratedAppProps = AppProps & {
     token: string;
   };
 };
+
+type Resources = Array<{
+  key: string;
+  fetcher: () => void;
+  params?: object;
+  config?: object;
+}>;
 
 const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
   const [queryClient] = useState(
@@ -42,12 +53,11 @@ const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
   );
 
   if (initProps.token) {
-    sprPetBookClient.defaults.headers.common.Authorization = initProps.token;
+    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${initProps.token}`;
   }
 
   if (!initProps.token && process.env.NEXT_PUBLIC_TESTER) {
-    sprPetBookClient.defaults.headers.common.Authorization =
-      process.env.NEXT_PUBLIC_TESTER;
+    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${process.env.NEXT_PUBLIC_TESTER}`;
   }
 
   // 웹 후크 연동 테스트
@@ -101,27 +111,29 @@ NextApp.getInitialProps = async (context: AppContext) => {
     }
 
     const PageComponent: typeof Component & {
-      requiredResources?: Array<{
-        key: string;
-        fetcher: () => void;
-        params?: object;
-        config?: object;
-      }>;
+      requiredResources?: Resources;
     } = Component;
 
     const { requiredResources } = PageComponent;
-    // const searchParams = new URLSearchParams(router.asPath);
     const { query } = ctx;
 
-    if (requiredResources) {
+    let newResources: Resources | undefined;
+    if (PageComponent.getInitialProps) { // 동적으로 resource를 생성해야 하는 경우
+        const { resources } = await PageComponent.getInitialProps(ctx) as {resources: Resources | undefined};
+        newResources = resources;
+    }
+
+    const resources = (requiredResources && newResources) ? requiredResources.concat(newResources) : newResources || (requiredResources || null);
+    if (resources) {
       await Promise.all(
         itrMap(
           (resource: { key: string; fetcher: () => void }) =>
             queryParser(resource, query, queryClient),
-          requiredResources
+            resources
         )
       );
     }
+    // const searchParams = new URLSearchParams(router.asPath);
   } catch (e) {
     console.error(e);
   }

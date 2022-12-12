@@ -4,28 +4,12 @@ import { useRef } from "react";
 import {
   CommentFormBox,
   CommentFormButton,
-  CommentFormDiv,
   CommentFormTextarea,
-  CommentFormMainBox,
+  RectangleBoxDiv,
+  Rectangle
 } from "./styled/styledCommentForm";
 
-const avatar =
-  "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
-const username = "arin";
-
-const CommentForm = () => {
-  return (
-    <CommentFormBox>
-      <CommentFormDiv>
-        <img src={avatar} alt="user profile" />
-        <p>{username}</p>
-      </CommentFormDiv>
-      <CommentFormMain />
-    </CommentFormBox>
-  );
-};
-
-export const CommentFormMain = ({
+const CommentForm = ({
   initialContent,
 }: {
   initialContent?: string;
@@ -34,22 +18,38 @@ export const CommentFormMain = ({
   const { onChange } = useChangeComment();
   const { onSubmit } = useSubmitComment(textareaRef);
   return (
-    <CommentFormMainBox>
+    <CommentFormBox>
+      <RectangleBox />
       <CommentFormTextarea
         placeholder="당신의 의견을 남겨보세요!"
         onChange={onChange}
         ref={textareaRef}
         defaultValue={initialContent}
       />
-      <CommentFormButton type="submit" onClick={onSubmit}>
-        {initialContent ? "수정" : "등록"}
+      <CommentFormButton className="Primary" type="submit" onClick={onSubmit}>
+        {initialContent ? "댓글 수정" : "댓글 등록"}
       </CommentFormButton>
-    </CommentFormMainBox>
+    </CommentFormBox>
   );
 };
 
-CommentFormMain.defaultProps = {
+CommentForm.defaultProps = {
   initialContent: "",
+};
+
+const RectangleBox = () => {
+  return (
+    <RectangleBoxDiv>
+      <div>
+        <Rectangle />
+        <Rectangle />
+      </div>
+      <div>
+        <Rectangle />
+        <Rectangle />
+      </div>
+    </RectangleBoxDiv>
+  );
 };
 
 export default CommentForm;
