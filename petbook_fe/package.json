@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build 1> buildLog.txt 2> errorLog.txt",
+    "build": "next build",
     "prebuild": "ts-node ./scripts/preRunner.ts && next build 1> buildLog.txt 2> errorLog.txt && ts-node ./scripts/postRunner.ts",
     "start": "next start",
     "lint": "next lint",
