@@ -1,4 +1,4 @@
-import getTimeForToday from "@lib/modules/getTimeForToday";
+import getTimeForToday from "@lib/utils/getTimeForToday";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
