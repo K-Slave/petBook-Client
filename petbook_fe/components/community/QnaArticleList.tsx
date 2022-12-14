@@ -1,11 +1,16 @@
-import useResource from "@lib/hooks/common/useResource";
-import { ARTICLE_LIST } from "@pages/community";
+import useResource, { createResource } from "@lib/hooks/common/useResource";
+import { createArticleListResource } from "@pages/community";
 import Link from "next/link";
 import styled from "styled-components";
 import CommonInfo from "./CommonInfo";
 
+const QNA_CATEGORY = {
+    id: 1,
+    name: "질문과 답변"
+};
+
 const QnaArticleList = () => {
-    const { data } = useResource(ARTICLE_LIST({ category: { id: 1, name: "질문과 답변" }, page: 0, size: 4 }));
+    const { data } = useResource(createArticleListResource(QNA_CATEGORY));
     return (
         <ListBox>
             {data?.data.articles.slice(0, 4).map((article) =>
