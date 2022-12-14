@@ -32,6 +32,7 @@ const Input = () => {
   const [{ inputTitle }, setWrite] = useSelectorState(writeState, {
     inputTitle: "",
   });
+
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setWrite((write) => ({ ...write, inputTitle: e.target.value }));
   };
