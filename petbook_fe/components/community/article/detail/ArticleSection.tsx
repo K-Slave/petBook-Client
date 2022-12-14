@@ -1,6 +1,3 @@
-import { ARTICLE_ITEM } from "@pages/community/[articleId]";
-import { useRouter } from "next/router";
-import useResource from "@lib/hooks/common/useResource";
 import { useSetRecoilState } from "recoil";
 import DOMPurify from "isomorphic-dompurify";
 import imageModalState from "@atoms/pageAtoms/community/imageModalState";
@@ -42,13 +39,16 @@ const ArticleSection = ({ data } : { data: ArticleResponse | undefined }) => {
         date={createdAt}
         year={1}
       />
-      {content ?
-        <div
-          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
-          className="ArticleSection_Content"
-        />
-        : <Spacer />
-      }
+      {category.name === "질문과 답변" ?
+        <Spacer /> :
+        (content ?
+          <div
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
+            className="ArticleSection_Content"
+          />
+          : 
+          <Spacer />
+      )}
       {/* <ImageSlider images={dummyImages} /> */}
       <TagList tags={tags} />
       <div className="ArticleSection_Bottom_Row">
