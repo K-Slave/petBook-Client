@@ -4,8 +4,16 @@
 
 const path = require("path");
 
-const nextConfig = {
-  // reactStrictMode: true,
+module.exports = {
+  sassOptions: {
+    includePaths: [path.join(__dirname, "styles")],
+  },
+  webpack: (
+    config,
+    { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack } // options
+  ) => {
+    return config;
+  },
   async rewrites() {
     return [
       {
@@ -13,22 +21,5 @@ const nextConfig = {
         destination: "https://api.petbook.site/api/:path*",
       },
     ];
-  },
-};
-
-module.exports = nextConfig;
-
-module.exports = {
-  sassOptions: {
-    includePaths: [path.join(__dirname, "styles")],
-  },
-};
-
-module.exports = {
-  webpack: (
-    config,
-    { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack } // options
-  ) => {
-    return config;
   },
 };
