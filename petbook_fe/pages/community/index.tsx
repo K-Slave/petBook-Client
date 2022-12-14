@@ -65,7 +65,7 @@ CommunityIndex.getInitialProps = async () => {
   const { data } = await CATEGORY_LIST.fetcher();
   const resources = data.concat([{ id: 0, name: "전체" }]).map((category) => createArticleListResource(category));
   return {
-    resources
+    // resources,
   };
 };
 

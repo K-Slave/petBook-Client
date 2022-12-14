@@ -9,11 +9,7 @@ const TagList = ({ tags }: Props) => {
   return (
     <TagListUl>
       {tags.map((tag) => (
-        <TagListLi
-          key={getRandomKey()}
-        >
-          {tag}
-        </TagListLi>
+        <TagListLi key={getRandomKey()}>{tag}</TagListLi>
       ))}
     </TagListUl>
   );
