@@ -22,3 +22,9 @@ export interface ArticleListResponse {
   articles: ArticleItem[],
   totalElements: number;
 }
+
+export interface ArticleListRequest {
+  categoryId: number | string | number[];
+  page: number;
+  size: number;
+}
