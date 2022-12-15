@@ -1,71 +1,30 @@
 import React from "react";
-import styled, { css } from "styled-components";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
-import { Pagination, Navigation } from "swiper";
+import styled from "styled-components";
+import { SwiperSlide } from "swiper/react";
+import CustomSwiper, { SlidePrevButton, SlideNextButton } from "@components/common/CustomSwiper";
 
 const CommunityBannerBox = styled.div`
   display: flex;
   align-items: center;
+  gap: 20px;
+  .swiper-slide {
+    height: 220px;
+  }
 `;
 
 const CommunityBanner = () => {
   return (
     <CommunityBannerBox>
       <SlidePrevButton />
-      <Swiper
-        loop
-        navigation={{ prevEl: "#swiper-back", nextEl: "#swiper-forward" }}
-        pagination={{ clickable: true }}
-        modules={[Navigation, Pagination]}
-      >
-              <SwiperSlide><AboutSlide /></SwiperSlide>
-              <SwiperSlide>Slide 2</SwiperSlide>
-              <SwiperSlide>Slide 3</SwiperSlide>
-      </Swiper>
+      <CustomSwiper>
+          <SwiperSlide><AboutSlide /></SwiperSlide>
+          <SwiperSlide>Slide 2</SwiperSlide>
+          <SwiperSlide>Slide 3</SwiperSlide>
+      </CustomSwiper>
       <SlideNextButton />
     </CommunityBannerBox>
   );
 };
-
-const SlideNextButton = () => {
-  const swiper = useSwiper();
-  const onClick = () => {
-    if (swiper) {
-      swiper.slideNext();
-    }
-  };
-  return (
-    <NextButton onClick={onClick} type="button" id="swiper-forward" />
-  );
-};
-
-const SlidePrevButton = () => {
-  const swiper = useSwiper();
-  const onClick = () => {
-    if (swiper) {
-      swiper.slidePrev();
-    }
-  };
-  return (
-    <PrevButton onClick={onClick} type="button" id="swiper-back" />
-  );
-};
-
-const buttonStyle = css`
-  width: 30px;
-  height: 30px;
-  transform: translateY(-60%);
-`;
-
-const PrevButton = styled.button`
-  ${buttonStyle};
-  background: url("/img/common/chevron_left.svg") no-repeat center center;
-`;
-
-const NextButton = styled.button`
-  ${buttonStyle};
-  background: url("/img/common/chevron_right.svg") no-repeat center center;
-`;
 
 const AboutSlide = React.memo(() => {
   return (
