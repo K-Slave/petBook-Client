@@ -4,12 +4,14 @@ import imageModalState from "@atoms/pageAtoms/community/imageModalState";
 import getRandomKey from "@lib/utils/getRandomKey";
 import CommonInfo from "@components/community/CommonInfo";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
+import DropdownMenu from "@components/common/DropdownMenu";
 import TagList from "../../TagList";
 import {
   ArticleSectionBox,
   ImageSliderDiv,
   ImageSliderImg,
   Spacer,
+  MenuListBox
 } from "./styled/styledArticleSection";
 
 const dummyImages = [
@@ -28,10 +30,7 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
     <ArticleSectionBox>
       <div className="ArticleSection_Top_Row">
         <h2>{title}</h2>
-        <div className="ArticleSection_Button_Box">
-          <button type="button">공유</button>
-          <button type="button">신고</button>
-        </div>
+        <DropdownMenu MenuList={<MenuList />} />
       </div>
       <CommonInfo
         avatar={dummyImages[0]}
@@ -46,16 +45,27 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
             className="ArticleSection_Content"
           />
-          : 
+          :
           <Spacer />
       )}
-      {/* <ImageSlider images={dummyImages} /> */}
+      <ImageSlider images={dummyImages} />
       <TagList tags={tags} />
       <div className="ArticleSection_Bottom_Row">
         <button type="button">좋아요</button>
         <button type="button">스크랩</button>
       </div>
     </ArticleSectionBox>
+  );
+};
+
+// ---------------------------------------
+
+const MenuList = () => {
+  return (
+    <MenuListBox>
+      <button type="button">수정</button>
+      <button type="button">삭제</button>
+    </MenuListBox>
   );
 };
 
