@@ -30,7 +30,11 @@ const Main = styled.main`
   margin-bottom: 100px;
 `;
 
-const Community: NextPage = () => {
+type PetbookPage = NextPage & {
+  requiredResources?: (typeof CATEGORY_LIST | ReturnType<typeof createResourceByCategory>)[];
+};
+
+const Community: PetbookPage = () => {
   return (
     <Main>
       <CommunityBanner />
@@ -49,19 +53,14 @@ const Community: NextPage = () => {
   );
 };
 
-type PetbookPages = NextPage & {
-  requiredResources?: [typeof CATEGORY_LIST];
-};
-
-const CommunityIndex: PetbookPages = Community;
-CommunityIndex.requiredResources = [CATEGORY_LIST];
-
-CommunityIndex.getInitialProps = async () => {
+export const getServerSideProps = async () => {
   const { data } = await CATEGORY_LIST.fetcher();
   const resources = data.concat([{ id: 0, name: "전체" }]).map((category) => createResourceByCategory(category));
+  Community.requiredResources = [...resources, CATEGORY_LIST];
+
   return {
-    resources
+    props: { }
   };
 };
 
-export default CommunityIndex;
+export default Community;
