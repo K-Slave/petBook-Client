@@ -39,7 +39,7 @@ type Resources = Array<{
   config?: object;
 }>;
 
-const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
+const NextApp = ({ Component, initProps, router, pageProps }: DehydratedAppProps) => {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -69,7 +69,7 @@ const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
         <RecoilRoot>
           <HtmlHeader />
           <CommonHeader pathname={router.pathname} />
-          <Component />
+          <Component {...pageProps} />
         </RecoilRoot>
       </Hydrate>
     </QueryClientProvider>
