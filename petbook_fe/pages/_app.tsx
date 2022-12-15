@@ -32,13 +32,6 @@ type DehydratedAppProps = AppProps & {
   };
 };
 
-type Resources = Array<{
-  key: string;
-  fetcher: () => void;
-  params?: object;
-  config?: object;
-}>;
-
 const NextApp = ({ Component, initProps, router, pageProps }: DehydratedAppProps) => {
   const [queryClient] = useState(
     () =>
@@ -112,25 +105,23 @@ NextApp.getInitialProps = async (context: AppContext) => {
     }
 
     const PageComponent: typeof Component & {
-      requiredResources?: Resources;
+      requiredResources?: Array<{
+        key: string;
+        fetcher: () => void;
+        params?: object;
+        config?: object;
+      }>;
     } = Component;
 
     const { requiredResources } = PageComponent;
     const { query } = ctx;
 
-    let newResources: Resources | undefined;
-    if (PageComponent.getInitialProps) { // 동적으로 resource를 생성해야 하는 경우
-        const { resources } = await PageComponent.getInitialProps(ctx) as {resources: Resources | undefined};
-        newResources = resources;
-    }
-
-    const resources = (requiredResources && newResources) ? requiredResources.concat(newResources) : newResources || (requiredResources || null);
-    if (resources) {
+    if (requiredResources) {
       await Promise.all(
         itrMap(
           (resource: { key: string; fetcher: () => void }) =>
             queryParser(resource, query, queryClient),
-            resources
+            requiredResources
         )
       );
     }
