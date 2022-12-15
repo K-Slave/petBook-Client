@@ -1,4 +1,5 @@
 import { menuListStyle } from "@components/common/DropdownMenu";
+import Image from "next/image";
 import styled from "styled-components";
 
 const ArticleSectionBox = styled.section`
@@ -43,21 +44,17 @@ const ArticleSectionBox = styled.section`
 
 const ImageSliderDiv = styled.div`
   display: flex;
+  align-items: center;
   gap: 17px;
-  margin: 32px 0;
-  overflow-x: scroll;
-  ::-webkit-scrollbar {
-    display: none;
+  .swiper-slide {
+    position: relative;
+    width: 354px !important;
+    height: 354px;
   }
 `;
 
-const ImageSliderImg = styled.img`
-  flex-shrink: 0;
-  max-width: 354px;
-  max-height: 354px;
+const ImageSliderImg = styled(Image)`
   border-radius: 16px;
-  background-color: #d9d9d9;
-  object-fit: cover;
   cursor: pointer;
 `;
 
