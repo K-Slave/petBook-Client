@@ -1,11 +1,12 @@
-import { NextPage } from "next";
+import { GetServerSidePropsContext, NextPage } from "next";
 import styled from "styled-components";
 import HtmlHeader from "@components/common/HtmlHeader";
 import ImageSliderModal from "@components/community/article/detail/ImageSliderModal";
 import { articleRequest, commentRequest } from "@lib/API/petBookAPI";
-import { createRequest, createResource } from "@lib/hooks/common/useResource";
+import { createRequest } from "@lib/hooks/common/useResource";
 import BackButton from "@components/community/BackButton";
 import ArticleContainer from "@containers/ArticleContainer";
+import cookies from "next-cookies";
 
 export const ARTICLE_ITEM = {
   key: "ARTICLE_ITEM",
@@ -32,13 +33,17 @@ export const COMMENT_DELETE = createRequest({
   requester: commentRequest.comment_delete
 });
 
-const ArticleDetail: NextPage = () => {
+type PetbookPage = NextPage<ReturnType<typeof getServerSideProps>["props"]> & {
+  requiredResources?: [typeof ARTICLE_ITEM] | [typeof ARTICLE_ITEM, typeof COMMENT_LIST];
+};
+
+const ArticleDetail: PetbookPage = ({ token }) => {
   return (
     <>
       <HtmlHeader />
       <ArticleDetailMain>
         <BackButton position="start" />
-        <ArticleContainer />
+        <ArticleContainer isLogin={token !== null} />
         <BackButton position="end" />
       </ArticleDetailMain>
       <ImageSliderModal />
@@ -57,11 +62,19 @@ const ArticleDetailMain = styled.main`
   margin: 40px auto;
 `;
 
-type PetbookPages = NextPage & {
-  requiredResources?: [typeof ARTICLE_ITEM, typeof COMMENT_LIST];
+export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
+  const allCookies = cookies(ctx);
+  const token = allCookies.petBookUser;
+  if (token) {
+    ArticleDetail.requiredResources = [ARTICLE_ITEM, COMMENT_LIST];
+  } else {
+    ArticleDetail.requiredResources = [ARTICLE_ITEM];
+  }
+  return {
+    props: {
+      token: (token === undefined || token === "") ? null : token
+    }
+  };
 };
 
-const ArticleDetailPage: PetbookPages = ArticleDetail;
-ArticleDetailPage.requiredResources = [ARTICLE_ITEM, COMMENT_LIST];
-
-export default ArticleDetailPage;
+export default ArticleDetail;
