@@ -1,5 +1,5 @@
-import useResource, { createResource } from "@lib/hooks/common/useResource";
-import { createArticleListResource } from "@pages/community";
+import useResource from "@lib/hooks/common/useResource";
+import { createResourceByCategory } from "@pages/community";
 import Link from "next/link";
 import styled from "styled-components";
 import CommonInfo from "./CommonInfo";
@@ -10,7 +10,7 @@ const QNA_CATEGORY = {
 };
 
 const QnaArticleList = () => {
-    const { data } = useResource(createArticleListResource(QNA_CATEGORY));
+    const { data } = useResource(createResourceByCategory(QNA_CATEGORY));
     return (
         <ListBox>
             {data?.data.articles.slice(0, 4).map((article) =>

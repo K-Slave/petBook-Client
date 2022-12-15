@@ -1,6 +1,6 @@
 import useCategories from "@lib/hooks/article/useCategories";
 import useResource from "@lib/hooks/common/useResource";
-import { createArticleListResource } from "@pages/community";
+import { createResourceByCategory } from "@pages/community";
 import Link from "next/link";
 import styled from "styled-components";
 import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
@@ -23,7 +23,7 @@ const ArticleBoxGridDiv = styled.div`
 `;
 
 const Box = ({ category } : { category: CategoryItem }) => {
-    const { data } = useResource(createArticleListResource(category));
+    const { data } = useResource(createResourceByCategory(category));
     return (
         <BoxArticle>
             <div>
