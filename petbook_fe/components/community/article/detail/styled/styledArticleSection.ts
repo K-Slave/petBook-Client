@@ -1,3 +1,4 @@
+import { menuListStyle } from "@components/common/DropdownMenu";
 import styled from "styled-components";
 
 const ArticleSectionBox = styled.section`
@@ -11,16 +12,6 @@ const ArticleSectionBox = styled.section`
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
-  }
-  .ArticleSection_Button_Box {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-    & > button {
-      font-weight: 500;
-      font-size: 14px;
-      color: #7c7c7c;
-    }
   }
   .ArticleSection_Bottom_Row {
     display: flex;
@@ -74,4 +65,8 @@ const Spacer = styled.div`
   height: 32px;
 `;
 
-export { ArticleSectionBox, ImageSliderDiv, ImageSliderImg, Spacer };
+const MenuListBox = styled.div`
+  ${menuListStyle};
+`;
+
+export { ArticleSectionBox, ImageSliderDiv, ImageSliderImg, Spacer, MenuListBox };
