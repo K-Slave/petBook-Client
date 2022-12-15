@@ -12,13 +12,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
                 return res.status(200).json({ success: true });
             }
             case "DELETE": {
-                res.setHeader('Set-Cookie', `${String(req.body.key)}=; Path=/; SameSite=Strict;`);
+                res.setHeader('Set-Cookie', `${String(req.body.key)}=;`);
                 return res.status(200).json({ success: true });
             }
             default:
                 break;
         }
-    } catch (error: any) {
+    } catch (error) {
         return res.status(500).json({ ...error, message: error.message, success: false });
     }
 }
