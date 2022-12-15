@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import useClickOutside from "@lib/hooks/common/useClickOutside";
+import React, { useRef, useState } from "react";
 import styled, { css } from "styled-components";
 
 const DropdownMenu = ({ MenuList }: { MenuList: React.ReactNode }) => {
@@ -6,17 +7,7 @@ const DropdownMenu = ({ MenuList }: { MenuList: React.ReactNode }) => {
     const onToggle = () => setShow((state) => !state);
     const onClose = () => setShow(false);
     const ref = useRef<HTMLDivElement | null>(null);
-    const handleClickOutside = (e: any) => {
-        if (ref.current && !ref.current.contains(e.target)) {
-            onClose();
-        }
-    };
-    useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
+    useClickOutside(ref, onClose);
     return (
         <MenuBox ref={ref}>
             <MenuIcon type="button" onClick={onToggle} />
