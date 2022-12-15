@@ -10,6 +10,10 @@ interface ArticleItem {
     id: number;
     name: string;
   };
+  images: {
+    id: number;
+    imageUrl: string;
+  }[];
   tags: string[];
   stat: {
     viewCount: number;
@@ -17,6 +21,7 @@ interface ArticleItem {
   },
   createdAt: string;
 }
+
 export type ArticleResponse = ArticleItem;
 export interface ArticleListResponse {
   articles: ArticleItem[],
