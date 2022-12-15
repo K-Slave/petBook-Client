@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext, NextPage } from "next";
+import { NextPage, NextPageContext } from "next";
 import styled from "styled-components";
 import HtmlHeader from "@components/common/HtmlHeader";
 import ImageSliderModal from "@components/community/article/detail/ImageSliderModal";
@@ -6,7 +6,8 @@ import { articleRequest, commentRequest } from "@lib/API/petBookAPI";
 import { createRequest } from "@lib/hooks/common/useResource";
 import BackButton from "@components/community/BackButton";
 import ArticleContainer from "@containers/ArticleContainer";
-import cookies from "next-cookies";
+import { sprPetBookClient } from "@lib/API/axios/axiosClient";
+import { getHttpOnlyCookie } from "@lib/utils/httpOnlyCookie";
 
 export const ARTICLE_ITEM = {
   key: "ARTICLE_ITEM",
@@ -33,7 +34,10 @@ export const COMMENT_DELETE = createRequest({
   requester: commentRequest.comment_delete
 });
 
-type PetbookPage = NextPage<ReturnType<typeof getServerSideProps>["props"]> & {
+interface Props {
+  token: string | null;
+}
+type PetbookPage = NextPage<Props> & {
   requiredResources?: [typeof ARTICLE_ITEM] | [typeof ARTICLE_ITEM, typeof COMMENT_LIST];
 };
 
@@ -62,18 +66,16 @@ const ArticleDetailMain = styled.main`
   margin: 40px auto;
 `;
 
-export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
-  const allCookies = cookies(ctx);
-  const token = allCookies.petBookUser;
+ArticleDetail.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+  const token = await getHttpOnlyCookie({ ctx, key: "petBookUser" });
   if (token) {
+    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
     ArticleDetail.requiredResources = [ARTICLE_ITEM, COMMENT_LIST];
   } else {
     ArticleDetail.requiredResources = [ARTICLE_ITEM];
   }
   return {
-    props: {
-      token: (token === undefined || token === "") ? null : token
-    }
+    token: (token === undefined || token === "") ? null : token
   };
 };
 
