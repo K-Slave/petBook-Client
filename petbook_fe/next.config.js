@@ -22,4 +22,7 @@ module.exports = {
       },
     ];
   },
+  images: {
+    domains: ["objectstorage.ap-seoul-1.oraclecloud.com"]
+  }
 };
