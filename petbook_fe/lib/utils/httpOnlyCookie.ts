@@ -1,4 +1,7 @@
-export async function setHttpOnlyCookie(cookie : { key: string, value: string }) {
+import { NextPageContext } from "next";
+import cookies from "next-cookies";
+
+export async function setHttpOnlyCookie(cookie : { key: string, value: string }): Promise<{ success: boolean }> {
     const res = await fetch("/api/cookie", {
         method: "POST",
         headers: {
@@ -10,7 +13,7 @@ export async function setHttpOnlyCookie(cookie : { key: string, value: string })
     return data;
 }
 
-export async function removeHttpOnlyCookie(key: string) {
+export async function removeHttpOnlyCookie(key: string): Promise<{ success: boolean }> {
     const res = await fetch("/api/cookie", {
         method: "DELETE",
         headers: {
@@ -20,4 +23,15 @@ export async function removeHttpOnlyCookie(key: string) {
     });
     const data = await res.json();
     return data;
+}
+
+export async function getHttpOnlyCookie({ ctx, key }: { ctx: NextPageContext, key: string }): Promise<string | undefined> {
+    if (typeof window === "undefined") { // server-side
+        const allCookies = cookies(ctx);
+        return new Promise((resolve) => { resolve(allCookies.petBookUser); });
+    }
+    // client-side
+    const res = await fetch(`/api/cookie?key=${key}`);
+    const { value } = await res.json();
+    return value;
 }
