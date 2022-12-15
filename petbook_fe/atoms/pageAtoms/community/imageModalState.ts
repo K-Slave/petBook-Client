@@ -1,17 +1,16 @@
+import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import { atom } from "recoil";
 
 const imageModalState = atom<{
   show: boolean;
-  currentIndex: number;
-  prevIndex: number;
-  images: string[];
+  images: ArticleResponse["images"];
+  initialImageIndex: number;
 }>({
   key: "imageModalState",
   default: {
     show: false,
-    currentIndex: 0,
-    prevIndex: 0,
     images: [],
+    initialImageIndex: 0,
   },
 });
 
