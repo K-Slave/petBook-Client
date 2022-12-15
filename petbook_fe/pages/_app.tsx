@@ -71,6 +71,7 @@ const NextApp = ({ Component, initProps, router, pageProps }: DehydratedAppProps
 
 NextApp.getInitialProps = async (context: AppContext) => {
   const { Component, router, ctx } = context;
+  let pageProps = {};
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -113,6 +114,10 @@ NextApp.getInitialProps = async (context: AppContext) => {
       }>;
     } = Component;
 
+    if (PageComponent.getInitialProps) {
+      pageProps = await PageComponent.getInitialProps(ctx);
+    }
+
     const { requiredResources } = PageComponent;
     const { query } = ctx;
 
@@ -136,6 +141,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
       dehydratedState: dehydrate(queryClient),
       token: allCookies?.petBookUser,
     },
+    pageProps
   };
 };
 
