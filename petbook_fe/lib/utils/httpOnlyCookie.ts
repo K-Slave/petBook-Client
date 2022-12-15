@@ -1,5 +1,5 @@
 export async function setHttpOnlyCookie(cookie : { key: string, value: string }) {
-    const res = await fetch("/api/token", {
+    const res = await fetch("/api/cookie", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -11,7 +11,7 @@ export async function setHttpOnlyCookie(cookie : { key: string, value: string })
 }
 
 export async function removeHttpOnlyCookie(key: string) {
-    const res = await fetch("/api/token", {
+    const res = await fetch("/api/cookie", {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"
