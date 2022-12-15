@@ -53,14 +53,10 @@ const Community: PetbookPage = () => {
   );
 };
 
-export const getServerSideProps = async () => {
+Community.getInitialProps = async () => {
   const { data } = await CATEGORY_LIST.fetcher();
   const resources = data.concat([{ id: 0, name: "전체" }]).map((category) => createResourceByCategory(category));
   Community.requiredResources = [...resources, CATEGORY_LIST];
-
-  return {
-    props: { }
-  };
 };
 
 export default Community;
