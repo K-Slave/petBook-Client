@@ -1,143 +1,71 @@
-/* eslint-disable react/no-array-index-key */
-import { useRecoilValue } from "recoil";
-import { IoChevronBack, IoChevronForward } from "react-icons/io5";
-import styled, { css } from "styled-components";
+import { useRecoilState } from "recoil";
+import styled from "styled-components";
 import { useRef } from "react";
 import imageModalState from "@atoms/pageAtoms/community/imageModalState";
-import useImageSlider from "./useImageSlider";
-import useClickOutside from "./useClickOutside";
+import CustomSwiper, { SlideNextButton, SlidePrevButton } from "@components/common/CustomSwiper";
+import { SwiperSlide } from "swiper/react";
+import Image from "next/image";
+import useClickOutside from "@lib/hooks/common/useClickOutside";
+
+const prevElId = "swiper_back";
+const nextElId = "swiper_forward";
 
 const ImageSliderModal = () => {
   const ref = useRef<HTMLDivElement | null>(null);
-  const { show, currentIndex, prevIndex, images } =
-    useRecoilValue(imageModalState);
-  const { moveNext, movePrev, changeCurrentIndex, closeModal } = useImageSlider(
-    images.length
-  );
+  const [{ show, images, initialImageIndex }, setImageModalState] = useRecoilState(imageModalState);
+  const closeModal = () => setImageModalState((state) => ({ ...state, show: false }));
   useClickOutside(ref, closeModal);
   return (
-    <Container show={show}>
-      <SliderWrapper ref={ref}>
-        <Button onClick={movePrev}>
-          <IoChevronBack />
-        </Button>
-        <Slider>
-          {images.map((image, index) => (
-            <StyledImage
-              src={image}
-              key={index}
-              index={index}
-              position={
-                index === currentIndex
-                  ? "current"
-                  : index === prevIndex
-                  ? "prev"
-                  : "next"
-              }
-            />
-          ))}
-        </Slider>
-        <Button onClick={moveNext}>
-          <IoChevronForward />
-        </Button>
-      </SliderWrapper>
-      <BarWrapper>
-        {Array(images.length)
-          .fill(0)
-          .map((_, index) => (
-            <Bar
-              key={index}
-              current={index === currentIndex}
-              onClick={() => changeCurrentIndex(index)}
-            />
-          ))}
-      </BarWrapper>
-    </Container>
+    show ?
+    <Container>
+      <SliderDiv ref={ref}>
+        <SlidePrevButton prevElId={prevElId} />
+        <CustomSwiper
+          initialSlide={initialImageIndex}
+          prevElId={prevElId}
+          nextElId={nextElId}
+        >
+          {images.map((image) =>
+            <SwiperSlide key={image.id}>
+              <Image src={image.imageUrl} layout="fill" objectFit="cover" />
+            </SwiperSlide>
+          )}
+        </CustomSwiper>
+        <SlideNextButton nextElId={nextElId} />
+      </SliderDiv>
+    </Container> :
+    null
   );
 };
 
-const Container = styled.div<{ show: boolean }>`
+const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 200;
-  display: ${({ show }) => (show ? "flex" : "none")};
-  flex-direction: column;
-  gap: 32px;
+  display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(30px);
+  background: rgba(86, 86, 83, 0.4);
+  backdrop-filter: blur(15px);
 `;
 
-const SliderWrapper = styled.div`
+const SliderDiv = styled.div`
   display: flex;
   align-items: center;
-  gap: 48px;
-`;
-
-const Slider = styled.div`
-  display: flex;
-  max-width: 600px;
-  max-height: 600px;
-  border-radius: 24px;
-  overflow: hidden;
-`;
-
-const Button = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-
-  border: 3px solid #000000;
-  border-radius: 26px;
-  background: #d9d9d9;
-
-  svg {
-    font-size: 30px;
+  gap: 20px;
+  .swiper-wrapper {
+    position: relative;
+    max-width: 500px;
+    max-height: 500px;
+    width: 70vmin;
+    height: 70vmin;
   }
-`;
-
-const StyledImage = styled.img<{
-  position: "current" | "prev" | "next";
-  index: number;
-}>`
-  width: 100%;
-  height: 100%;
-  border-radius: 24px;
-  object-fit: cover;
-  transition: all 0.2s ease-in-out;
-  transform: ${({ position, index }) =>
-    (position === "current"
-      ? `translateX(${-(index * 100)}%)`
-      : position === "prev"
-      ? `translateX(${-(index * 100) - 100}%)`
-      : `translateX(${-(index * 100) + 100}%)`)};
-  opacity: ${({ position }) => (position === "current" ? "1" : "0")};
-`;
-
-const BarWrapper = styled.div`
-  display: flex;
-  gap: 4px;
-`;
-
-const Bar = styled.button<{ current: boolean }>`
-  border-radius: 24px;
-  height: 6px;
-  ${({ current }) =>
-    (current
-      ? css`
-          width: 80px;
-          background-color: #000;
-        `
-      : css`
-          width: 15px;
-          background-color: #fff;
-        `)}
+  img {
+    border-radius: 24px;
+  }
 `;
 
 export default ImageSliderModal;
