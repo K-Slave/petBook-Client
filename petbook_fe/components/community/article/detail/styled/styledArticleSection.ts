@@ -14,17 +14,22 @@ const ArticleSectionBox = styled.section`
     justify-content: space-between;
     margin-bottom: 20px;
   }
-  .ArticleSection_Bottom_Row {
+  .ArticleSection_Button_Box {
     display: flex;
+    justify-content: center;
     align-items: center;
     margin-top: 27px;
     gap: 28px;
-    & > button,
-    & > span {
+    & > div {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--black_03);
+    }
+    button {
       font-weight: 500;
       font-size: 14px;
-      line-height: 17px;
-      color: #7c7c7c;
+      color: var(--black_03);
     }
   }
   .ArticleSection_Content {
