@@ -28,7 +28,7 @@ export async function removeHttpOnlyCookie(key: string): Promise<{ success: bool
 export async function getHttpOnlyCookie({ ctx, key }: { ctx: NextPageContext, key: string }): Promise<string | undefined> {
     if (typeof window === "undefined") { // server-side
         const allCookies = cookies(ctx);
-        return new Promise((resolve) => { resolve(allCookies.petBookUser); });
+        return Promise.resolve(allCookies[key]);
     }
     // client-side
     const res = await fetch(`/api/cookie?key=${key}`);
