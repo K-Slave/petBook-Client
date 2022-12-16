@@ -117,7 +117,7 @@ export default class ArticleAPI extends RequestCore {
    */
   public article_create_like = async (payload: {
     pathParam: string;
-    headerObj: object;
+    headerObj?: object;
   }) => {
     const { pathParam, headerObj } = payload;
     const { requestURL, requestHeaders } = this.getParameters({
@@ -141,7 +141,7 @@ export default class ArticleAPI extends RequestCore {
    */
   public article_delete_like = async (payload: {
     pathParam: string;
-    headerObj: object;
+    headerObj?: object;
   }) => {
     const { pathParam, headerObj } = payload;
     const { requestURL, requestHeaders } = this.getParameters({
