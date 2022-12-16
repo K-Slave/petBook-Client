@@ -16,7 +16,7 @@ const CommunityBanner = () => {
   return (
     <CommunityBannerBox>
       <SlidePrevButton />
-      <CustomSwiper>
+      <CustomSwiper loop>
           <SwiperSlide><AboutSlide /></SwiperSlide>
           <SwiperSlide>Slide 2</SwiperSlide>
           <SwiperSlide>Slide 3</SwiperSlide>
