@@ -3,10 +3,11 @@ import useResource, { useSetResource } from "@lib/hooks/common/useResource";
 import { COMMENT_CREATE_LIKE, COMMENT_DELETE, COMMENT_DELETE_LIKE, COMMENT_LIST } from "@pages/community/[articleId]";
 import { useRouter } from "next/router";
 import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
-import React, { Fragment, MouseEventHandler } from "react";
+import React, { Fragment, MouseEventHandler, useRef, useState } from "react";
 import { useQueryClient } from "react-query";
 import styled from "styled-components";
 import DropdownMenu, { menuListStyle } from "@components/common/DropdownMenu";
+import debounce from "@lib/modules/debounce";
 import CommonInfo from "../CommonInfo";
 import { CommentListDiv, NormalItemDiv, LikeButton, ScrapButton, QnaItemDiv, QnaItemBubble } from "./styled/styledCommentList";
 
@@ -15,6 +16,12 @@ const avatar =
 
 interface Props {
   Item: (props: ItemProps) => JSX.Element;
+}
+
+interface onLikeParams {
+  commentId: number;
+  isLiked: boolean;
+  initialLiked: boolean;
 }
 
 const CommentList = ({ Item } : Props) => {
@@ -31,6 +38,7 @@ const CommentList = ({ Item } : Props) => {
   const { mutate: deleteComment } = useSetResource(COMMENT_DELETE);
   const { mutate: createLikeComment } = useSetResource(COMMENT_CREATE_LIKE);
   const { mutate: deleteLikeComment } = useSetResource(COMMENT_DELETE_LIKE);
+  const timeoutId = useRef<ReturnType<typeof setTimeout> | null>(null);
   const onSuccess = async () => {
     await queryClient.invalidateQueries(
       `${COMMENT_LIST.key}_${articleId}`
@@ -54,32 +62,28 @@ const CommentList = ({ Item } : Props) => {
     }
   };
 
-  const onLike = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const commentId = e.currentTarget.dataset.commentid;
-    const isLiked = e.currentTarget.dataset.isliked;
-    if (commentId === undefined || isLiked === undefined) {
-      alert("실패했습니다. 다시 시도해주세요 😢");
-    } else if (isLiked === "true") {
-        deleteLikeComment({
-          pathParam: commentId
-        }, {
-          onSuccess,
-          onError: () => {
-            alert("좋아요 취소에 실패했습니다. 다시 시도해주세요 😢");
-          }
-        });
-      } else {
-        createLikeComment({
-          pathParam: commentId
-        }, {
-          onSuccess,
-          onError: () => {
-            alert("좋아요에 실패했습니다. 다시 시도해주세요 😢");
-          }
-        });
-      }
-  };
-
+  const onLike = debounce(({ commentId, isLiked, initialLiked } : onLikeParams) => {
+    if (isLiked === initialLiked) return;
+    if (!isLiked) {
+      deleteLikeComment({
+        pathParam: `${commentId}`
+      }, {
+        onSuccess,
+        onError: () => {
+          alert("좋아요 취소에 실패했습니다. 다시 시도해주세요 😢");
+        }
+      });
+    } else {
+      createLikeComment({
+        pathParam: `${commentId}`
+      }, {
+        onSuccess,
+        onError: () => {
+          alert("좋아요에 실패했습니다. 다시 시도해주세요 😢");
+        }
+      });
+    }
+  }, 3000, timeoutId);
   return (
     <CommentListDiv>
       {data?.data.map((comment) => (
@@ -112,11 +116,16 @@ interface ItemProps {
   comment: CommentItem;
   isChild: string;
   onDelete: MouseEventHandler<HTMLButtonElement>;
-  onLike: MouseEventHandler<HTMLButtonElement>;
+  onLike: (params: onLikeParams) => void;
 }
 
 export const NormalItem = ({ comment, isChild, onDelete, onLike }: ItemProps) => {
-  const { user, createdAt, content, likeCount, id, articleId, isLiked } = comment;
+  const { user, createdAt, content, likeCount, id, articleId, isLiked: initialLiked } = comment;
+  const [isLiked, setIsLiked] = useState(initialLiked);
+  const clickLikeButton = () => {
+    onLike({ commentId: id, isLiked, initialLiked });
+    setIsLiked((state) => !state);
+  };
   return (
     <NormalItemDiv isChild={isChild}>
       {isChild && <BsArrowReturnRight />}
@@ -133,8 +142,8 @@ export const NormalItem = ({ comment, isChild, onDelete, onLike }: ItemProps) =>
         <p className="Item_Content">{content}</p>
         <div className="Item_Button_Box">
           <div>
-            <LikeButton type="button" onClick={onLike} data-commentid={id} data-isliked={isLiked} />
-            <span>{likeCount}</span>
+            <LikeButton type="button" onClick={clickLikeButton} />
+            <span>{likeCount + ((!initialLiked && isLiked) ? 1 : (initialLiked && !isLiked) ? -1 : 0)}</span>
           </div>
           <div>
             <ScrapButton type="button" />
@@ -147,7 +156,12 @@ export const NormalItem = ({ comment, isChild, onDelete, onLike }: ItemProps) =>
 };
 
 export const QnaItem = ({ comment, isChild, onDelete, onLike } : ItemProps) => {
-  const { user, createdAt, content, likeCount, id, articleId, isLiked } = comment;
+  const { user, createdAt, content, likeCount, id, articleId, isLiked: initialLiked } = comment;
+  const [isLiked, setIsLiked] = useState(initialLiked);
+  const clickLikeButton = () => {
+    onLike({ commentId: id, isLiked, initialLiked });
+    setIsLiked((state) => !state);
+  };
   return (
     <QnaItemDiv>
       <CommonInfo
@@ -163,8 +177,8 @@ export const QnaItem = ({ comment, isChild, onDelete, onLike } : ItemProps) => {
         </div>
         <div className="Item_Button_Box">
           <div>
-          <LikeButton type="button" onClick={onLike} data-commentid={id} data-isliked={isLiked} />
-            <span>{likeCount}</span>
+          <LikeButton type="button" onClick={clickLikeButton} />
+            <span>{likeCount + ((isLiked && !initialLiked) ? 1 : (!isLiked && initialLiked) ? -1 : 0)}</span>
           </div>
           <div>
             <ScrapButton type="button" />
