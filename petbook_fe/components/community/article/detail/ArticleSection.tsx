@@ -9,6 +9,8 @@ import { SwiperSlide } from "swiper/react";
 import { useSetResource } from "@lib/hooks/common/useResource";
 import { ARTICLE_CREATE_LIKE, ARTICLE_DELETE_LIKE, ARTICLE_ITEM } from "@pages/community/[articleId]";
 import { useQueryClient } from "react-query";
+import debounce from "@lib/modules/debounce";
+import { useRef } from "react";
 import TagList from "../../TagList";
 import {
   ArticleSectionBox,
@@ -24,6 +26,7 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
   const queryClient = useQueryClient();
   const { mutate: createLikeArticle } = useSetResource(ARTICLE_CREATE_LIKE);
   const { mutate: deleteLikeArticle } = useSetResource(ARTICLE_DELETE_LIKE);
+  const timeoutId = useRef<ReturnType<typeof setTimeout> | null>(null);
   if (data === undefined) {
     return <ArticleSectionBox />;
   }
@@ -31,11 +34,11 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
   const onLikeSuccess = async () => {
     await queryClient.invalidateQueries(`${ARTICLE_ITEM.key}_${id}`);
   };
-  const onLike = () => {
-    createLikeArticle({ pathParam: `${id}` }, {
+  const callCreateLikeArticle = debounce(({ articleId } : { articleId: number }) => {
+    createLikeArticle({ pathParam: `${articleId}` }, {
       onSuccess: onLikeSuccess,
       onError: () => {
-        deleteLikeArticle({ pathParam: `${id}` }, {
+        deleteLikeArticle({ pathParam: `${articleId}` }, {
           onSuccess: onLikeSuccess,
           onError: () => {
             alert("실패했습니다. 다시 시도해주세요 😢");
@@ -43,7 +46,8 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
         });
       }
     });
-  };
+  }, 3000, timeoutId);
+
   return (
     <ArticleSectionBox>
       <div className="ArticleSection_Top_Row">
@@ -70,7 +74,7 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
       <TagList tags={tags} />
       <div className="ArticleSection_Button_Box">
         <div>
-          <button type="button" onClick={onLike}>좋아요</button>
+          <button type="button">좋아요</button>
           <span>{stat.likeCount}</span>
         </div>
         <div>
