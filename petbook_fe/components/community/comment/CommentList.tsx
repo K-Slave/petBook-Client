@@ -1,6 +1,6 @@
 import { BsArrowReturnRight } from "react-icons/bs";
 import useResource, { useSetResource } from "@lib/hooks/common/useResource";
-import { COMMENT_DELETE, COMMENT_LIST } from "@pages/community/[articleId]";
+import { COMMENT_CREATE_LIKE, COMMENT_DELETE, COMMENT_DELETE_LIKE, COMMENT_LIST } from "@pages/community/[articleId]";
 import { useRouter } from "next/router";
 import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
 import React, { Fragment, MouseEventHandler } from "react";
@@ -29,27 +29,55 @@ const CommentList = ({ Item } : Props) => {
       }),
   });
   const { mutate: deleteComment } = useSetResource(COMMENT_DELETE);
+  const { mutate: createLikeComment } = useSetResource(COMMENT_CREATE_LIKE);
+  const { mutate: deleteLikeComment } = useSetResource(COMMENT_DELETE_LIKE);
+  const onSuccess = async () => {
+    await queryClient.invalidateQueries(
+      `${COMMENT_LIST.key}_${articleId}`
+    );
+  };
   const onDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const commentId = e.currentTarget.dataset.commentid;
     if (commentId === undefined) {
       alert("댓글 삭제에 실패했습니다. 다시 시도해주세요 😢");
     } else {
-      deleteComment(
-        {
+      deleteComment({
           pathParam: `/${commentId}`,
         },
         {
-          onSuccess: async () => {
-            await queryClient.invalidateQueries(
-              `${COMMENT_LIST.key}_${articleId}`
-            );
-          },
+          onSuccess,
           onError: () => {
             alert("댓글 삭제에 실패했습니다. 다시 시도해주세요 😢");
           },
         }
       );
     }
+  };
+
+  const onLike = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const commentId = e.currentTarget.dataset.commentid;
+    const isLiked = e.currentTarget.dataset.isliked;
+    if (commentId === undefined || isLiked === undefined) {
+      alert("실패했습니다. 다시 시도해주세요 😢");
+    } else if (isLiked === "true") {
+        deleteLikeComment({
+          pathParam: commentId
+        }, {
+          onSuccess,
+          onError: () => {
+            alert("좋아요 취소에 실패했습니다. 다시 시도해주세요 😢");
+          }
+        });
+      } else {
+        createLikeComment({
+          pathParam: commentId
+        }, {
+          onSuccess,
+          onError: () => {
+            alert("좋아요에 실패했습니다. 다시 시도해주세요 😢");
+          }
+        });
+      }
   };
 
   return (
@@ -60,6 +88,7 @@ const CommentList = ({ Item } : Props) => {
             comment={comment.parent}
             isChild=""
             onDelete={onDelete}
+            onLike={onLike}
             key={comment.parent.id}
           />
           {comment.children.map((child) => (
@@ -67,6 +96,7 @@ const CommentList = ({ Item } : Props) => {
               comment={child}
               isChild="true"
               onDelete={onDelete}
+              onLike={onLike}
               key={child.id}
             />
           ))}
@@ -82,10 +112,11 @@ interface ItemProps {
   comment: CommentItem;
   isChild: string;
   onDelete: MouseEventHandler<HTMLButtonElement>;
+  onLike: MouseEventHandler<HTMLButtonElement>;
 }
 
-export const NormalItem = ({ comment, isChild, onDelete }: ItemProps) => {
-  const { user, createdAt, content, likeCount, id, articleId } = comment;
+export const NormalItem = ({ comment, isChild, onDelete, onLike }: ItemProps) => {
+  const { user, createdAt, content, likeCount, id, articleId, isLiked } = comment;
   return (
     <NormalItemDiv isChild={isChild}>
       {isChild && <BsArrowReturnRight />}
@@ -97,12 +128,12 @@ export const NormalItem = ({ comment, isChild, onDelete }: ItemProps) => {
             avatar={avatar}
             year={1}
           />
-          <DropdownMenu MenuList={<MenuList onDelete={onDelete} commentId={comment.id} />} />
+          <DropdownMenu MenuList={<MenuList onDelete={onDelete} commentId={id} />} />
         </div>
         <p className="Item_Content">{content}</p>
         <div className="Item_Button_Box">
           <div>
-            <LikeButton type="button" />
+            <LikeButton type="button" onClick={onLike} data-commentid={id} data-isliked={isLiked} />
             <span>{likeCount}</span>
           </div>
           <div>
@@ -115,8 +146,8 @@ export const NormalItem = ({ comment, isChild, onDelete }: ItemProps) => {
   );
 };
 
-export const QnaItem = ({ comment, isChild, onDelete } : ItemProps) => {
-  const { user, createdAt, content, likeCount, id, articleId } = comment;
+export const QnaItem = ({ comment, isChild, onDelete, onLike } : ItemProps) => {
+  const { user, createdAt, content, likeCount, id, articleId, isLiked } = comment;
   return (
     <QnaItemDiv>
       <CommonInfo
@@ -132,7 +163,7 @@ export const QnaItem = ({ comment, isChild, onDelete } : ItemProps) => {
         </div>
         <div className="Item_Button_Box">
           <div>
-            <LikeButton type="button" />
+          <LikeButton type="button" onClick={onLike} data-commentid={id} data-isliked={isLiked} />
             <span>{likeCount}</span>
           </div>
           <div>
