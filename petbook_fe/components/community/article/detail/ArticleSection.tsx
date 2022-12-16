@@ -6,6 +6,9 @@ import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import DropdownMenu from "@components/common/DropdownMenu";
 import CustomSwiper, { SlideNextButton, SlidePrevButton } from "@components/common/CustomSwiper";
 import { SwiperSlide } from "swiper/react";
+import { useSetResource } from "@lib/hooks/common/useResource";
+import { ARTICLE_CREATE_LIKE, ARTICLE_DELETE_LIKE, ARTICLE_ITEM } from "@pages/community/[articleId]";
+import { useQueryClient } from "react-query";
 import TagList from "../../TagList";
 import {
   ArticleSectionBox,
@@ -18,10 +21,29 @@ import {
 const dummyImage = "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
 
 const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
+  const queryClient = useQueryClient();
+  const { mutate: createLikeArticle } = useSetResource(ARTICLE_CREATE_LIKE);
+  const { mutate: deleteLikeArticle } = useSetResource(ARTICLE_DELETE_LIKE);
   if (data === undefined) {
     return <ArticleSectionBox />;
   }
   const { id, title, content, user, category, tags, stat, createdAt, images } = data;
+  const onLikeSuccess = async () => {
+    await queryClient.invalidateQueries(`${ARTICLE_ITEM.key}_${id}`);
+  };
+  const onLike = () => {
+    createLikeArticle({ pathParam: `${id}` }, {
+      onSuccess: onLikeSuccess,
+      onError: () => {
+        deleteLikeArticle({ pathParam: `${id}` }, {
+          onSuccess: onLikeSuccess,
+          onError: () => {
+            alert("실패했습니다. 다시 시도해주세요 😢");
+          }
+        });
+      }
+    });
+  };
   return (
     <ArticleSectionBox>
       <div className="ArticleSection_Top_Row">
@@ -46,9 +68,15 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
       )}
       {images.length !== 0 && <ImageSlider images={images} />}
       <TagList tags={tags} />
-      <div className="ArticleSection_Bottom_Row">
-        <button type="button">좋아요</button>
-        <button type="button">스크랩</button>
+      <div className="ArticleSection_Button_Box">
+        <div>
+          <button type="button" onClick={onLike}>좋아요</button>
+          <span>{stat.likeCount}</span>
+        </div>
+        <div>
+          <button type="button">스크랩</button>
+          <span>0</span>
+        </div>
       </div>
     </ArticleSectionBox>
   );
