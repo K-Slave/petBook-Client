@@ -21,6 +21,7 @@ const ImageSliderModal = () => {
       <SliderDiv ref={ref}>
         <SlidePrevButton prevElId={prevElId} />
         <CustomSwiper
+          loop
           initialSlide={initialImageIndex}
           prevElId={prevElId}
           nextElId={nextElId}
@@ -65,6 +66,9 @@ const SliderDiv = styled.div`
   }
   img {
     border-radius: 24px;
+  }
+  svg {
+    color: #000;
   }
 `;
 
