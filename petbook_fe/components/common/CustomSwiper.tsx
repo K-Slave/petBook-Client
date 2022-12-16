@@ -1,4 +1,5 @@
 import React from "react";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import styled, { css } from "styled-components";
 import { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperProps, useSwiper } from "swiper/react";
@@ -42,7 +43,9 @@ export const SlideNextButton = ({ nextElId }: Pick<Props, "nextElId">) => {
         }
     };
     return (
-        <NextButton onClick={onClick} type="button" id={nextElId} />
+        <Button onClick={onClick} type="button" id={nextElId}>
+            <FiChevronRight />
+        </Button>
     );
 };
 
@@ -58,7 +61,9 @@ export const SlidePrevButton = ({ prevElId }: Pick<Props, "prevElId">) => {
         }
     };
     return (
-        <PrevButton onClick={onClick} type="button" id={prevElId} />
+        <Button onClick={onClick} type="button" id={prevElId}>
+            <FiChevronLeft />
+        </Button>
     );
 };
 
@@ -66,18 +71,15 @@ SlidePrevButton.defaultProps = {
     prevElId: defaultPrevElId
 };
 
-const buttonStyle = css`
+const Button = styled.button`
     width: 30px;
     height: 30px;
     transform: translateY(-60%);
-`;
-
-const PrevButton = styled.button`
-    ${buttonStyle};
-    background: url("/img/common/chevron_left.svg") no-repeat center center;
-`;
-
-const NextButton = styled.button`
-    ${buttonStyle};
-    background: url("/img/common/chevron_right.svg") no-repeat center center;
+    svg {
+        font-size: 1.3rem;
+        color: var(--black_02);
+    }
+    &:disabled svg {
+        color: var(--black_06);
+    }
 `;
