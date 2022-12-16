@@ -1,12 +1,12 @@
 import { MutableRefObject } from "react";
 
-export default function debounce(
-    callback: () => void,
+export default function debounce<P extends object | undefined>(
+    callback: (params: P) => void,
     ms: number,
-    timeoutId: MutableRefObject<ReturnType<typeof setTimeout> | undefined>
+    timeoutId: MutableRefObject<ReturnType<typeof setTimeout> | null>
 ) {
-    return (e?: any) => {
+    return (params: P) => {
         if (timeoutId.current) clearTimeout(timeoutId.current);
-        timeoutId.current = setTimeout(callback, ms);
+        timeoutId.current = setTimeout(() => callback(params), ms);
     };
 }
