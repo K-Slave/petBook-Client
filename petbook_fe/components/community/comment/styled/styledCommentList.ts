@@ -11,6 +11,7 @@ const QnaItemBubble = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  gap: 32px;
   padding: 28px 32px;
   background-color: #fff;
   border-radius: 16px;
@@ -27,8 +28,8 @@ const QnaItemBubble = styled.div`
     left: -20px;
     margin-top: -20px;
   }
-  p {
-    margin-bottom: 10px !important;
+  div {
+    margin: 0 !important;
   }
 `;
 
@@ -50,11 +51,6 @@ const NormalItemDiv = styled.div<{ isChild: string }>`
   & > div {
     width: 100%;
   }
-  .NormalItem_Row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 24px;
-  }
 `;
 
 const CommentListDiv = styled.div`
@@ -62,7 +58,6 @@ const CommentListDiv = styled.div`
   flex-direction: column;
   gap: 16px;
   .Item_Content {
-    margin-bottom: 32px;
     font-weight: 400;
     font-size: 14px;
     line-height: 24px;
@@ -73,11 +68,17 @@ const CommentListDiv = styled.div`
     gap: 12px;
     align-items: center;
     justify-content: flex-end;
+    margin-top: 32px;
     color: var(--black_03);
     & > div {
       display: flex;
       align-items: center;
     }
+  }
+  .Item_Row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
   }
 `;
 

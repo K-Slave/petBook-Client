@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
 import React, { Fragment, MouseEventHandler } from "react";
 import { useQueryClient } from "react-query";
+import styled from "styled-components";
+import DropdownMenu, { menuListStyle } from "@components/common/DropdownMenu";
 import CommonInfo from "../CommonInfo";
 import { CommentListDiv, NormalItemDiv, LikeButton, ScrapButton, QnaItemDiv, QnaItemBubble } from "./styled/styledCommentList";
 
@@ -88,13 +90,14 @@ export const NormalItem = ({ comment, isChild, onDelete }: ItemProps) => {
     <NormalItemDiv isChild={isChild}>
       {isChild && <BsArrowReturnRight />}
       <div>
-        <div className="NormalItem_Row">
+        <div className="Item_Row">
           <CommonInfo
             username={user.nickname}
             date={createdAt}
             avatar={avatar}
             year={1}
           />
+          <DropdownMenu MenuList={<MenuList onDelete={onDelete} commentId={comment.id} />} />
         </div>
         <p className="Item_Content">{content}</p>
         <div className="Item_Button_Box">
@@ -123,7 +126,10 @@ export const QnaItem = ({ comment, isChild, onDelete } : ItemProps) => {
         year={1}
       />
       <QnaItemBubble>
-        <p className="Item_Content">{content}</p>
+        <div className="Item_Row">
+          <p className="Item_Content">{content}</p>
+          <DropdownMenu MenuList={<MenuList onDelete={onDelete} commentId={comment.id} />} />
+        </div>
         <div className="Item_Button_Box">
           <div>
             <LikeButton type="button" />
@@ -138,5 +144,24 @@ export const QnaItem = ({ comment, isChild, onDelete } : ItemProps) => {
     </QnaItemDiv>
   );
 };
+
+// -------------------------------------------------
+
+interface MenuListProps extends Pick<ItemProps, "onDelete"> {
+  commentId: number;
+}
+
+const MenuList = ({ onDelete, commentId } : MenuListProps) => {
+  return (
+    <MenuListBox>
+      <button type="button">수정</button>
+      <button type="button" onClick={onDelete} data-commentid={commentId}>삭제</button>
+    </MenuListBox>
+  );
+};
+
+const MenuListBox = styled.div`
+  ${menuListStyle};
+`;
 
 export default CommentList;
