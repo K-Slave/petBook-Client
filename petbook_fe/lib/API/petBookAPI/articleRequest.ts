@@ -108,4 +108,52 @@ export default class ArticleAPI extends RequestCore {
 
     return result;
   };
+
+  /**
+   *
+   * @param payload
+   * @param payload.pathParam 게시물 ID값입니다.
+   * @returns 응답이 따로 없고, status code로 성공 여부 판단
+   */
+  public article_create_like = async (payload: {
+    pathParam: string;
+    headerObj: object;
+  }) => {
+    const { pathParam, headerObj } = payload;
+    const { requestURL, requestHeaders } = this.getParameters({
+      uri: `/${pathParam}/like`,
+      headerObj
+    });
+
+    const result = await this.getResult({
+      requestMethod: "POST",
+      requestURL,
+      requestHeaders
+    });
+    return result;
+  };
+
+  /**
+   *
+   * @param payload
+   * @param payload.pathParam 게시물 ID값입니다.
+   * @returns 응답이 따로 없고, status code로 성공 여부 판단
+   */
+  public article_delete_like = async (payload: {
+    pathParam: string;
+    headerObj: object;
+  }) => {
+    const { pathParam, headerObj } = payload;
+    const { requestURL, requestHeaders } = this.getParameters({
+      uri: `/${pathParam}/like`,
+      headerObj
+    });
+
+    const result = await this.getResult({
+      requestMethod: "DELETE",
+      requestURL,
+      requestHeaders
+    });
+    return result;
+  };
 }
