@@ -30,7 +30,7 @@ const FindInputBox = ({ current, axiosValue, IconType }: LoginProps) => {
           <input
             type={`${axiosValue}`}
             id={`${current}`}
-            placeholder={`${current}를 입력해주세요 `}
+            placeholder={`${current}을 입력해주세요 `}
             onChange={onChange}
           />
         </label>
