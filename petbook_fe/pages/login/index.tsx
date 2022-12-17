@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 import { LoginIndex } from "@components/login/LoginIndex";
+import { Modal } from "@components/common/modal/Modal";
+import { useState } from "react";
 
 const Main = styled.main`
   display: flex;
@@ -17,8 +19,15 @@ const Main = styled.main`
 `;
 
 const Login = () => {
+  const [modal, setModal] = useState(false);
+
+  const handleCloseModal = () => {
+    setModal(false);
+  };
+
   return (
     <Main>
+      <Modal state={modal} handleCloseModal={handleCloseModal} />
       <LoginIndex />
     </Main>
   );

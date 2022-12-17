@@ -27,16 +27,18 @@ export const ModalActionButton = () => {
     </ModalButton>
   );
 };
-export const Modal = (state: boolean) => {
-  console.log(state);
+
+type ModalProps = {
+  state: boolean;
+  handleCloseModal: () => void;
+};
+
+export const Modal = ({ state, handleCloseModal }: ModalProps) => {
   const closeModal = () => {
-    console.log("dd");
-  };
-  const openModal = () => {
-    console.log("dd");
+    handleCloseModal();
   };
   return (
-    <ModalContainer>
+    <ModalContainer props={state}>
       <ModalItemWrap>
         <Image
           src="/img/common/logo/logo.svg"

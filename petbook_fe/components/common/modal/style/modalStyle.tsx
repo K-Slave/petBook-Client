@@ -8,11 +8,12 @@ export const ModalBg = styled.div`
   height: 100%;
   background-color: rgba(86, 86, 83, 0.3);
 `;
-export const ModalContainer = styled.div`
+export const ModalContainer = styled.div<{ props: boolean }>`
   position: fixed;
   left: 0;
   top: 0;
   z-index: 999;
+  display: ${({ props }) => (props === true ? "block" : "none")};
   width: 100vw;
   height: 100vh;
 `;
