@@ -92,8 +92,9 @@ export const LoginSubmitForm = () => {
 export const LoginPassGuide = () => {
   return (
     <PassGuide>
-      <Link href="/find/pass">비밀번호 찾기</Link>
-      <Link href="/find/id">아이디 찾기</Link>
+      <Link href="/find/pass">계정을 잊으셨나요?</Link>
+      {/* <Link href="/find/pass">비밀번호 찾기</Link>
+      <Link href="/find/id">아이디 찾기</Link> */}
       <Link href="/register">회원가입</Link>
     </PassGuide>
   );
@@ -111,9 +112,7 @@ export const LoginSubmitButton = () => {
   const onSubmit = () => {
     mutate(user);
   };
-
   useEffect(() => {
-    console.log(errorState);
     if (isSuccess) {
       const { token } = data?.data as UserLoginRequest;
 
@@ -123,7 +122,7 @@ export const LoginSubmitButton = () => {
     }
     if (isError) {
       // error type 린트에러
-      // setErrorText(error.response.data.message );
+      // setErrorText(error.response.data.message);
       setErrorState(true);
     } else {
       setErrorState(false);
