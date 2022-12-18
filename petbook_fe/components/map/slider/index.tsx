@@ -21,7 +21,7 @@ const Handler = styled.div`
   width: 54px;
   height: 100px;
   position: absolute;
-  background-color: #f0892f;
+  background-color: var(--primary);
   color: white;
   z-index: 8;
   left: -54px;

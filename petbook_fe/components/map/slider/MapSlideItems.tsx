@@ -97,7 +97,7 @@ const MapSlideItems = () => {
       },
       {
         text: "5",
-        value: 3,
+        value: 4,
         mapDetailList: [],
       },
     ];
