@@ -3,10 +3,9 @@ import styled from "styled-components";
 
 interface Props {
   tags: string[];
-  fontSize: number;
 }
 
-const TagList = ({ tags, fontSize }: Props) => {
+const TagList = ({ tags }: Props) => {
   return (
     <TagListUl>
       {tags.map((tag) => (
