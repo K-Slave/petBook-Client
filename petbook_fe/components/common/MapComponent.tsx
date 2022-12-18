@@ -10,7 +10,19 @@ const MapBox = styled.div`
   height: 100vh;
 `;
 
-const MapComponent = () => {
+type MapData = {
+  id: string;
+  name: string;
+  roadAddress: string;
+  lat: string;
+  lng: string;
+}[];
+
+interface Props {
+  mapData: MapData;
+}
+
+const MapComponent = ({ mapData }: Props) => {
   useEffect(() => {
     const { kakao } = window;
 
@@ -23,7 +35,7 @@ const MapComponent = () => {
       if (!container) return;
       const map = new kakao.maps.Map(container, options);
 
-      hospitalData.forEach((el) => {
+      mapData.forEach((el) => {
         const markerPosition = new kakao.maps.LatLng(
           Number(el.lng),
           Number(el.lat)
