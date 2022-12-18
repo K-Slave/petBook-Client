@@ -25,7 +25,8 @@
       "@lib/*": ["lib/*"],
       "@containers/*": ["containers/*"],
       "@atoms/*": ["atoms/*"],
-      "@public/*": ["public/*"]
+      "@public/*": ["public/*"],
+      "@data/*": ["data/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*"],
