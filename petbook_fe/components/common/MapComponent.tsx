@@ -2,28 +2,47 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 
+// data
+
 const MapBox = styled.div`
   width: 100vw;
   height: 100vh;
 `;
 
-const MapComponent = () => {
+export type MapData = {
+  id: string;
+  name: string;
+  roadAddress: string;
+  lat: string;
+  lng: string;
+}[];
+
+interface Props {
+  mapData: MapData;
+}
+
+const MapComponent = ({ mapData }: Props) => {
   useEffect(() => {
     const { kakao } = window;
     kakao.maps.load(() => {
       const container = document.getElementById("map");
       const options = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        center: new kakao.maps.LatLng(37.514454, 127.0528269),
         level: 3,
       };
-
       if (!container) return;
-
       const map = new kakao.maps.Map(container, options);
+      mapData?.forEach((el) => {
+        const markerPosition = new kakao.maps.LatLng(
+          Number(el.lng),
+          Number(el.lat)
+        );
+        new kakao.maps.Marker({ map, position: markerPosition }).setMap(map);
+      });
 
       function setCenter() {
         // 이동할 위도 경도 위치를 생성합니다
-        const moveLatLon = new kakao.maps.LatLng(33.452613, 126.570888);
+        const moveLatLon = new kakao.maps.LatLng(37.514454, 127.0528269);
 
         // 지도 중심을 이동 시킵니다
         map.setCenter(moveLatLon);
@@ -31,14 +50,14 @@ const MapComponent = () => {
 
       function panTo() {
         // 이동할 위도 경도 위치를 생성합니다
-        const moveLatLon = new kakao.maps.LatLng(33.45058, 126.574942);
+        const moveLatLon = new kakao.maps.LatLng(37.514454, 127.0528269);
 
         // 지도 중심을 부드럽게 이동시킵니다
         // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
         map.panTo(moveLatLon);
       }
     });
-  }, []);
+  }, [mapData]);
   return <MapBox id="map" />;
 };
 

@@ -1,9 +1,18 @@
-import { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useEffect, useState, PropsWithChildren } from "react";
+import { useRecoilState } from "recoil";
+import { useQueryClient } from "react-query";
 import styled from "styled-components";
+import navigator from "@lib/modules/navigator";
+// data
+import hospitalData from "@data/all_hospital.json";
+import hamsterData from "@data/test_hamster.json";
+import rabbitData from "@data/test_rabbit.json";
+import { useRouter } from "next/router";
+
 import sortFilterState from "../../atoms/pageAtoms/filter/sortFilter";
-import MapComponent from "../common/MapComponent";
+import MapComponent, { MapData } from "../common/MapComponent";
 import MapFilterSlider from "./slider";
+
 // import useResource from "../../hooks/useResource";
 
 // Recoil 을 실제 컴포넌트단위에서 사용하는 방법
@@ -49,17 +58,90 @@ const Main = styled.main`
   overflow: hidden;
   position: relative;
 `;
+const CategoryFilterWrap = styled.ul`
+  position: absolute;
+  z-index: 999;
+  left: 20px;
+  top: 20px;
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+`;
+
+const CatergoryFilterItem = styled.li<{ active: boolean }>`
+  button {
+    text-align: center;
+    font-size: 12px;
+    border-right: solid 1px var(--bg);
+    padding: 8px 20px;
+    color: ${(props) => (props.active === true ? "#fff" : "#111")};
+    background-color: ${(props) =>
+      props.active === true ? "var(--primary)" : "#fff"};
+    font-weight: bold;
+  }
+  &:last-child button {
+    border-right: none;
+  }
+`;
+
+const category = [
+  {
+    id: 0,
+    name: "전체",
+    value: "all",
+    active: true,
+  },
+  {
+    id: 1,
+    name: "햄스터",
+    value: "ham",
+    active: false,
+  },
+  {
+    id: 2,
+    name: "토끼",
+    value: "rabbit",
+    active: false,
+  },
+];
+
+type ButtonType = {
+  id: number;
+  name: string;
+  value: string;
+  active: boolean;
+}[];
+
+interface Props {
+  buttonState: ButtonType;
+  changeCategory: (el: number) => void;
+}
+
+export const CategoryFilter = ({ buttonState, changeCategory }: Props) => {
+  return (
+    <CategoryFilterWrap>
+      {buttonState &&
+        buttonState.map((item) => {
+          return (
+            <CatergoryFilterItem
+              onClick={() => changeCategory(item.id)}
+              active={item.active}
+              key={item.id}
+            >
+              <button type="button">{item.name}</button>
+            </CatergoryFilterItem>
+          );
+        })}
+    </CategoryFilterWrap>
+  );
+};
 
 const MapContainer = () => {
-  // 지금은 병원정보가 없기때문에 그냥 데이터를 객체로 바로 선언해서 사용.
-  const sample_hospitalData = [
-    "안산 종합 동물병원",
-    "아프리카 동물병원",
-    "건국대학교 수의대 병원",
-  ];
-
   // const hospitalData = useResource(hospitalResource) // <- react-query 로 가져오는 API 데이터 (server-side-data store)
   const [sortFilter, setSortFilter] = useRecoilState(sortFilterState); // <- recoil 에서 사용하는 전역 상태값. (client-side-state store)
+  const [mapData, setMapdata] = useState<MapData>([]); // <- recoil 에서 사용하는 전역 상태값. (client-side-state store)
+  const [buttonState, setButtonState] = useState(category);
+  const router = useRouter();
 
   useEffect(() => {
     if (sortFilter.sortKey === "distance") {
@@ -71,12 +153,71 @@ const MapContainer = () => {
     }
   }, [sortFilter.sortKey]); // <- sortFilter 의 key 값이 변하면 실행됨.
 
+  const changeCategory = (el: number) => {
+    let newArr = buttonState.map((element) => {
+      element.active = false;
+      return element;
+    });
+
+    newArr[el] = {
+      ...buttonState[el],
+      active: true,
+    };
+
+    setButtonState([...newArr]);
+  };
+
+  useEffect(() => {
+    switch (router.query.find) {
+      case "all": {
+        setMapdata(hospitalData);
+        break;
+      }
+      case "ham": {
+        setMapdata(hamsterData);
+        break;
+      }
+      case "rabbit": {
+        setMapdata(rabbitData);
+        break;
+      }
+      default: {
+        setMapdata(hospitalData);
+        break;
+      }
+    }
+  }, [router]);
+
+  useEffect(() => {
+    let call = buttonState.filter((item) => {
+      return item.active === true;
+    });
+    switch (call[0]?.value) {
+      case "ham": {
+        navigator("/findHospital?find=ham");
+        break;
+      }
+      case "rabbit": {
+        navigator("/findHospital?find=rabbit");
+        break;
+      }
+      default: {
+        navigator("/findHospital?find=all");
+      }
+    }
+  }, [buttonState]);
+
   return (
     <Main>
+      <MapContainer.CategoryFilter
+        changeCategory={changeCategory}
+        buttonState={buttonState}
+      />
       <MapFilterSlider />
-      <MapComponent />
+      <MapComponent mapData={mapData} />
     </Main>
   );
 };
+MapContainer.CategoryFilter = CategoryFilter;
 
 export default MapContainer;
