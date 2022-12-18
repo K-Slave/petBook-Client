@@ -50,7 +50,7 @@ const Item = ({ article }: { article: ArticleResponse }) => {
               className="Item_Content"
               dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
             />
-            <TagList tags={tags} fontSize={14} />
+            <TagList tags={tags} />
             <p className="Item_Stats">
               <span>공감수 {stat.likeCount}</span>
               <span>/</span>
