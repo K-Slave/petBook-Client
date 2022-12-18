@@ -5,13 +5,11 @@ import path from "path";
 
 dotenv.config();
 
+console.log("post runner start");
+
 const webhookClient = new WebhookClient({
   url: process.env.TEST_WEBHOOK_URL as string,
 });
-
-// url: process.env.TEST_WEBHOOK_URL as string,
-// console.log(process.env.NODE_ENV, "NODE_ENV");
-// console.log(process.env.TEST_WEBHOOK_URL, "process.env.TEST_WEBHOOK_URL");
 
 const buildLogPath = path.join(__dirname, "../buildLog.txt");
 const errorLogPath = path.join(__dirname, "../errorLog.txt");
