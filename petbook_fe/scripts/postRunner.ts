@@ -6,7 +6,7 @@ import path from "path";
 dotenv.config();
 
 const webhookClient = new WebhookClient({
-  url: "https://discord.com/api/webhooks/1044966698060623902/8SuHHBWIkMPt57e2O4jgGrgbbkPZjJNdkSXFRVJlLLX3MAzB5f_JTKnYn69DgAV4-WCH",
+  url: process.env.TEST_WEBHOOK_URL as string,
 });
 
 // url: process.env.TEST_WEBHOOK_URL as string,
@@ -16,9 +16,8 @@ const webhookClient = new WebhookClient({
 const buildLogPath = path.join(__dirname, "../buildLog.txt");
 const errorLogPath = path.join(__dirname, "../errorLog.txt");
 
-const buildLog = fs.readFileSync(buildLogPath, { encoding: "utf-8" });
-const errorLog = fs.readFileSync(errorLogPath, { encoding: "utf-8" });
-
+const buildLog = fs.readFileSync(buildLogPath, "utf-8");
+const errorLog = fs.readFileSync(errorLogPath, "utf-8");
 const embedContents = (content: string) => {
   return new EmbedBuilder().setTitle(content).setColor(0x00ffff);
 };
@@ -32,6 +31,8 @@ if (buildLog.includes("success")) {
     Buffer.from(buildLog, "utf-8"),
     { name: "buildLog.txt" }
   );
+
+  console.log(buildLog);
 
   webhookClient
     .send({
@@ -49,6 +50,8 @@ if (buildLog.includes("success")) {
     Buffer.from(errorLog, "utf-8"),
     { name: "errorLog.txt" }
   );
+
+  console.log(errorLog);
 
   webhookClient
     .send({

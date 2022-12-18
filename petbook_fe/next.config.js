@@ -4,8 +4,16 @@
 
 const path = require("path");
 
-const nextConfig = {
-  // reactStrictMode: true,
+module.exports = {
+  sassOptions: {
+    includePaths: [path.join(__dirname, "styles")],
+  },
+  webpack: (
+    config,
+    { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack } // options
+  ) => {
+    return config;
+  },
   async rewrites() {
     return [
       {
@@ -14,21 +22,7 @@ const nextConfig = {
       },
     ];
   },
-};
-
-module.exports = nextConfig;
-
-module.exports = {
-  sassOptions: {
-    includePaths: [path.join(__dirname, "styles")],
-  },
-};
-
-module.exports = {
-  webpack: (
-    config,
-    { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack } // options
-  ) => {
-    return config;
-  },
+  images: {
+    domains: ["objectstorage.ap-seoul-1.oraclecloud.com"]
+  }
 };
