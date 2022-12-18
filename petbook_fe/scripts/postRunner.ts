@@ -24,7 +24,9 @@ const embedContents = (content: string) => {
 
 const date = new Date();
 
-const time = `${date.getFullYear()}년 ${date.getMonth()}월 ${date.getDay()}일 ${date.getHours()}시 ${date.getMinutes()}분 ${date.getSeconds()}초`;
+const time = `${
+  date.getFullYear() + 1
+}년 ${date.getMonth()}월 ${date.getDay()}일 ${date.getHours()}시 ${date.getMinutes()}분 ${date.getSeconds()}초`;
 
 if (buildLog.includes("success")) {
   const buildTextAttach = new AttachmentBuilder(

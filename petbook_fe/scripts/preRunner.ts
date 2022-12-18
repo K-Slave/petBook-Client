@@ -15,12 +15,14 @@ const webhookClient = new WebhookClient({
 // console.log(process.env.TEST_WEBHOOK_URL, "process.env.TEST_WEBHOOK_URL");
 
 const embedContents = (content: string) => {
-  return new EmbedBuilder().setTitle(content).setColor(0x00ffff);
+  return new EmbedBuilder().setTitle(content).setColor(0xffd400);
 };
 
 const date = new Date();
 
-const time = `${date.getFullYear()}년 ${date.getMonth()}월 ${date.getDay()}일 ${date.getHours()}시 ${date.getMinutes()}분 ${date.getSeconds()}초`;
+const time = `${
+  date.getFullYear() + 1
+}년 ${date.getMonth()}월 ${date.getDay()}일 ${date.getHours()}시 ${date.getMinutes()}분 ${date.getSeconds()}초`;
 
 webhookClient
   .send({
