@@ -3,16 +3,13 @@ import * as dotenv from "dotenv";
 import { loadEnvConfig } from "@next/env";
 import fs from "fs";
 import path from "path";
+import localConsole from "@lib/utils/localConsole";
 
 dotenv.config();
 
 const webhookClient = new WebhookClient({
   url: process.env.TEST_WEBHOOK_URL as string,
 });
-
-// url: process.env.TEST_WEBHOOK_URL as string,
-// console.log(process.env.NODE_ENV, "NODE_ENV");
-// console.log(process.env.TEST_WEBHOOK_URL, "process.env.TEST_WEBHOOK_URL");
 
 const embedContents = (content: string) => {
   return new EmbedBuilder().setTitle(content).setColor(0xffd400);
