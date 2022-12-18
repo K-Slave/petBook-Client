@@ -1,11 +1,16 @@
 import { useEffect, useState, PropsWithChildren } from "react";
 import { useRecoilState } from "recoil";
+import { useQueryClient } from "react-query";
 import styled from "styled-components";
+import navigator from "@lib/modules/navigator";
 // data
 import hospitalData from "@data/all_hospital.json";
+import hamsterData from "@data/test_hamster.json";
+import rabbitData from "@data/test_rabbit.json";
+import { useRouter } from "next/router";
 
 import sortFilterState from "../../atoms/pageAtoms/filter/sortFilter";
-import MapComponent from "../common/MapComponent";
+import MapComponent, { MapData } from "../common/MapComponent";
 import MapFilterSlider from "./slider";
 
 // import useResource from "../../hooks/useResource";
@@ -121,6 +126,7 @@ export const CategoryFilter = ({ buttonState, changeCategory }: Props) => {
             <CatergoryFilterItem
               onClick={() => changeCategory(item.id)}
               active={item.active}
+              key={item.id}
             >
               <button type="button">{item.name}</button>
             </CatergoryFilterItem>
@@ -133,7 +139,9 @@ export const CategoryFilter = ({ buttonState, changeCategory }: Props) => {
 const MapContainer = () => {
   // const hospitalData = useResource(hospitalResource) // <- react-query 로 가져오는 API 데이터 (server-side-data store)
   const [sortFilter, setSortFilter] = useRecoilState(sortFilterState); // <- recoil 에서 사용하는 전역 상태값. (client-side-state store)
-  const [mapData, setMapdata] = useState(hospitalData); // <- recoil 에서 사용하는 전역 상태값. (client-side-state store)
+  const [mapData, setMapdata] = useState<MapData>([]); // <- recoil 에서 사용하는 전역 상태값. (client-side-state store)
+  const [buttonState, setButtonState] = useState(category);
+  const router = useRouter();
 
   useEffect(() => {
     if (sortFilter.sortKey === "distance") {
@@ -145,10 +153,7 @@ const MapContainer = () => {
     }
   }, [sortFilter.sortKey]); // <- sortFilter 의 key 값이 변하면 실행됨.
 
-  const [buttonState, setButtonState] = useState(category);
-
   const changeCategory = (el: number) => {
-    console.log(el);
     let newArr = buttonState.map((element) => {
       element.active = false;
       return element;
@@ -161,6 +166,46 @@ const MapContainer = () => {
 
     setButtonState([...newArr]);
   };
+
+  useEffect(() => {
+    switch (router.query.find) {
+      case "all": {
+        setMapdata(hospitalData);
+        break;
+      }
+      case "ham": {
+        setMapdata(hamsterData);
+        break;
+      }
+      case "rabbit": {
+        setMapdata(rabbitData);
+        break;
+      }
+      default: {
+        setMapdata(hospitalData);
+        break;
+      }
+    }
+  }, [router]);
+
+  useEffect(() => {
+    let call = buttonState.filter((item) => {
+      return item.active === true;
+    });
+    switch (call[0]?.value) {
+      case "ham": {
+        navigator("/findHospital?find=ham");
+        break;
+      }
+      case "rabbit": {
+        navigator("/findHospital?find=rabbit");
+        break;
+      }
+      default: {
+        navigator("/findHospital?find=all");
+      }
+    }
+  }, [buttonState]);
 
   return (
     <Main>

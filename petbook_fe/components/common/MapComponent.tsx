@@ -1,16 +1,16 @@
 /* global kakao */
 import { useEffect } from "react";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 // data
-import hospitalData from "@data/all_hospital.json";
 
 const MapBox = styled.div`
   width: 100vw;
   height: 100vh;
 `;
 
-type MapData = {
+export type MapData = {
   id: string;
   name: string;
   roadAddress: string;
@@ -23,9 +23,9 @@ interface Props {
 }
 
 const MapComponent = ({ mapData }: Props) => {
+  const router = useRouter();
   useEffect(() => {
     const { kakao } = window;
-
     kakao.maps.load(() => {
       const container = document.getElementById("map");
       const options = {
@@ -34,8 +34,7 @@ const MapComponent = ({ mapData }: Props) => {
       };
       if (!container) return;
       const map = new kakao.maps.Map(container, options);
-
-      mapData.forEach((el) => {
+      mapData?.forEach((el) => {
         const markerPosition = new kakao.maps.LatLng(
           Number(el.lng),
           Number(el.lat)
@@ -60,7 +59,7 @@ const MapComponent = ({ mapData }: Props) => {
         map.panTo(moveLatLon);
       }
     });
-  }, []);
+  }, [mapData]);
   return <MapBox id="map" />;
 };
 
