@@ -19,6 +19,7 @@ const Main = styled.main`
 `;
 
 const Login = () => {
+  // 공통으로 만들어야함
   const [modal, setModal] = useState(false);
 
   const handleCloseModal = () => {
