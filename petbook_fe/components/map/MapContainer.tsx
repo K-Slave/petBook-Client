@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import sortFilterState from "../../atoms/pageAtoms/filter/sortFilter";
@@ -49,8 +49,87 @@ const Main = styled.main`
   overflow: hidden;
   position: relative;
 `;
+const CategoryFilterWrap = styled.ul`
+  position: absolute;
+  z-index: 999;
+  left: 20px;
+  top: 20px;
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+`;
 
-const MapContainer = () => {
+const CatergoryFilterItem = styled.li<{ active: boolean }>`
+  button {
+    text-align: center;
+    font-size: 12px;
+    border-right: solid 1px var(--bg);
+    padding: 8px 20px;
+    color: ${(props) => (props.active === true ? "#fff" : "#111")};
+    background-color: ${(props) =>
+      props.active === true ? "var(--primary)" : "#fff"};
+    font-weight: bold;
+  }
+  &:last-child button {
+    border-right: none;
+  }
+`;
+
+const category = [
+  {
+    id: 0,
+    name: "전체",
+    value: "all",
+    active: true,
+  },
+  {
+    id: 1,
+    name: "햄스터",
+    value: "ham",
+    active: false,
+  },
+  {
+    id: 2,
+    name: "토끼",
+    value: "rabbit",
+    active: false,
+  },
+];
+export const CategoryFilter = () => {
+  const [buttonState, setButtonState] = useState(category);
+
+  const changeCategory = (el: number) => {
+    let newArr = buttonState.map((element) => {
+      element.active = false;
+      return element;
+    });
+
+    newArr[el] = {
+      ...buttonState[el],
+      active: true,
+    };
+
+    setButtonState([...newArr]);
+  };
+  return (
+    <CategoryFilterWrap>
+      {buttonState &&
+        buttonState.map((item) => {
+          return (
+            <CatergoryFilterItem
+              onClick={() => {
+                changeCategory(item.id);
+              }}
+              active={item.active}
+            >
+              <button type="button">{item.name}</button>
+            </CatergoryFilterItem>
+          );
+        })}
+    </CategoryFilterWrap>
+  );
+};
+export const MapContainer = () => {
   // 지금은 병원정보가 없기때문에 그냥 데이터를 객체로 바로 선언해서 사용.
   const sample_hospitalData = [
     "안산 종합 동물병원",
@@ -73,10 +152,12 @@ const MapContainer = () => {
 
   return (
     <Main>
+      <MapContainer.CategoryFilter />
       <MapFilterSlider />
       <MapComponent />
     </Main>
   );
 };
+MapContainer.CategoryFilter = CategoryFilter;
 
 export default MapContainer;
