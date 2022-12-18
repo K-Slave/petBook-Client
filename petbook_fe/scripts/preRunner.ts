@@ -7,7 +7,7 @@ import path from "path";
 dotenv.config();
 
 const webhookClient = new WebhookClient({
-  url: "https://discord.com/api/webhooks/1044966698060623902/8SuHHBWIkMPt57e2O4jgGrgbbkPZjJNdkSXFRVJlLLX3MAzB5f_JTKnYn69DgAV4-WCH",
+  url: process.env.TEST_WEBHOOK_URL as string,
 });
 
 // url: process.env.TEST_WEBHOOK_URL as string,

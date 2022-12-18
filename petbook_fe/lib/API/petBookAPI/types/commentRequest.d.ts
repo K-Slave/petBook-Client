@@ -15,6 +15,7 @@ export interface CommentItem {
   };
   articleId: number;
   likeCount: number;
+  isLiked: boolean;
   createdAt: string;
 }
 

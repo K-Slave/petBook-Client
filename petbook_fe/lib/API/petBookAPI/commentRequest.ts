@@ -65,7 +65,6 @@ export default class CommentAPI extends RequestCore {
    *
    * @param payload
    * @param payload.pathParam 댓글 ID값입니다.
-   * @param payload.headerObj 유저 토큰값을 헤더에 작성합니다. 없으면 에러가 납니다.
    * @returns 업데이트된 댓글 정보가 들어옵니다.
    */
   public comment_delete = async (payload: {
@@ -87,9 +86,8 @@ export default class CommentAPI extends RequestCore {
 
   /**
    *
-   * @param payload
-   * @param payload.params 입력할 쿼리파라미터 입니다.
-   * @param payload.params.articleId 게시물 ID값입니다.
+   * @param params 입력할 쿼리파라미터 입니다.
+   * @param params.articleId 게시물 ID값입니다.
    * @param config Header 메시지를 추가할때 씁니다.
    * @returns 게시물의 댓글 리스트를 반환합니다.
    */
@@ -104,6 +102,52 @@ export default class CommentAPI extends RequestCore {
     });
     const result = this.getResult<CommentListResponse>({
       requestMethod: "GET",
+      requestURL,
+      requestHeaders,
+    });
+    return result;
+  };
+
+  /**
+   *
+   * @param payload
+   * @param payload.pathParam 댓글 ID값입니다.
+   * @returns 응답이 따로 없고, status code로 성공 여부 판단
+   */
+  public comment_create_like = async (payload: {
+    pathParam: string;
+    headerObj?: object;
+  }) => {
+    const { pathParam, headerObj } = payload;
+    const { requestURL, requestHeaders } = this.getParameters({
+      uri: `/${pathParam}/like`,
+      headerObj,
+    });
+    const result = this.getResult({
+      requestMethod: "POST",
+      requestURL,
+      requestHeaders,
+    });
+    return result;
+  };
+
+  /**
+   *
+   * @param payload
+   * @param payload.pathParam 댓글 ID값입니다.
+   * @returns 응답이 따로 없고, status code로 성공 여부 판단
+   */
+  public comment_delete_like = async (payload: {
+    pathParam: string;
+    headerObj?: object;
+  }) => {
+    const { pathParam, headerObj } = payload;
+    const { requestURL, requestHeaders } = this.getParameters({
+      uri: `/${pathParam}/like`,
+      headerObj,
+    });
+    const result = this.getResult({
+      requestMethod: "DELETE",
       requestURL,
       requestHeaders,
     });

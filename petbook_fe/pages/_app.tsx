@@ -17,8 +17,12 @@ import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import CommonHeader from "../components/common/CommonHeader";
 import { itrMap } from "../lib/utils/iterableFunctions";
 
+import 'swiper/scss';
+import 'swiper/scss/navigation';
+import 'swiper/scss/pagination';
 import "../styles/Globals.scss";
 import "../styles/Icon.scss";
+import "../styles/Swiper.scss";
 
 type DehydratedAppProps = AppProps & {
   initProps: {
@@ -28,7 +32,7 @@ type DehydratedAppProps = AppProps & {
   };
 };
 
-const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
+const NextApp = ({ Component, initProps, router, pageProps }: DehydratedAppProps) => {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -42,12 +46,12 @@ const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
   );
 
   if (initProps.token && typeof window === "undefined") {
-    sprPetBookClient.defaults.headers.common.Authorization = initProps.token;
+    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${initProps.token}`;
   }
 
   if (process.env.NEXT_PUBLIC_TESTER) {
     sprPetBookClient.defaults.headers.common.Authorization =
-      process.env.NEXT_PUBLIC_TESTER;
+      `Bearer ${process.env.NEXT_PUBLIC_TESTER}`;
   }
 
   // 웹 후크 연동 테스트
@@ -58,7 +62,7 @@ const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
         <RecoilRoot>
           <HtmlHeader />
           <CommonHeader pathname={router.pathname} />
-          <Component />
+          <Component {...pageProps} />
         </RecoilRoot>
       </Hydrate>
     </QueryClientProvider>
@@ -67,6 +71,7 @@ const NextApp = ({ Component, initProps, router }: DehydratedAppProps) => {
 
 NextApp.getInitialProps = async (context: AppContext) => {
   const { Component, router, ctx } = context;
+  let pageProps = {};
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -97,7 +102,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
       );
 
       sprPetBookClient.defaults.headers.common.Authorization =
-        allCookies.petBookUser;
+        `Bearer ${allCookies.petBookUser}`;
     }
 
     const PageComponent: typeof Component & {
@@ -109,8 +114,11 @@ NextApp.getInitialProps = async (context: AppContext) => {
       }>;
     } = Component;
 
+    if (PageComponent.getInitialProps) {
+      pageProps = await PageComponent.getInitialProps(ctx);
+    }
+
     const { requiredResources } = PageComponent;
-    // const searchParams = new URLSearchParams(router.asPath);
     const { query } = ctx;
 
     if (requiredResources) {
@@ -118,10 +126,11 @@ NextApp.getInitialProps = async (context: AppContext) => {
         itrMap(
           (resource: { key: string; fetcher: () => void }) =>
             queryParser(resource, query, queryClient),
-          requiredResources
+            requiredResources
         )
       );
     }
+    // const searchParams = new URLSearchParams(router.asPath);
   } catch (e) {
     console.error(e);
   }
@@ -132,6 +141,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
       dehydratedState: dehydrate(queryClient),
       token: allCookies?.petBookUser,
     },
+    pageProps
   };
 };
 
