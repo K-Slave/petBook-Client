@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 const Container = styled.main`
   overflow: auto;
+  margin: 0 auto;
+  max-width: 25rem;
+  width: calc(100% - 32px);
   height: calc(100vh - 61px);
   background-color: var(--bg);
 `;

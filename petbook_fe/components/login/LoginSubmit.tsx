@@ -92,8 +92,9 @@ export const LoginSubmitForm = () => {
 export const LoginPassGuide = () => {
   return (
     <PassGuide>
-      <Link href="/find/pass">비밀번호 찾기</Link>
-      <Link href="/find/id">아이디 찾기</Link>
+      <Link href="/find/pass">계정을 잊으셨나요?</Link>
+      {/* <Link href="/find/pass">비밀번호 찾기</Link>
+      <Link href="/find/id">아이디 찾기</Link> */}
       <Link href="/register">회원가입</Link>
     </PassGuide>
   );
@@ -105,15 +106,20 @@ export const LoginSubmitButton = () => {
   //   "password": "p@55w0rd1!"
   // }
   const [errorState, setErrorState] = useState(false);
-  const [errorText, setErrorText] = useState("");
+  const [errorText, setErrorText] = useState<unknown>();
+  const [autoLogin, setAutoLogin] = useState(false);
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    console.log(newValue);
+  };
+
   const user = useRecoilValue(loginFormState);
   const { data, isSuccess, error, isError, mutate } = useSetResource(LOGIN);
   const onSubmit = () => {
     mutate(user);
   };
-
   useEffect(() => {
-    console.log(errorState);
     if (isSuccess) {
       const { token } = data?.data as UserLoginRequest;
 
@@ -123,7 +129,9 @@ export const LoginSubmitButton = () => {
     }
     if (isError) {
       // error type 린트에러
-      // setErrorText(error.response.data.message );
+      const errorObj = error as any;
+
+      setErrorText(errorObj.response.data.message);
       setErrorState(true);
     } else {
       setErrorState(false);
@@ -135,7 +143,7 @@ export const LoginSubmitButton = () => {
       <div>
         <InfoText errorState={errorState}>{errorText}</InfoText>
         <AutomaticLabel htmlFor="login">
-          <input type="checkbox" id="login" />
+          <input type="checkbox" id="login" onChange={onChange} />
           <p>로그인 상태유지</p>
         </AutomaticLabel>
       </div>
