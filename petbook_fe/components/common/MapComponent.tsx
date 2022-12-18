@@ -1,7 +1,6 @@
 /* global kakao */
 import { useEffect } from "react";
 import styled from "styled-components";
-import { useRouter } from "next/router";
 
 // data
 
@@ -23,7 +22,6 @@ interface Props {
 }
 
 const MapComponent = ({ mapData }: Props) => {
-  const router = useRouter();
   useEffect(() => {
     const { kakao } = window;
     kakao.maps.load(() => {
