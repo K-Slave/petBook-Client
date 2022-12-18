@@ -1,9 +1,13 @@
-import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useEffect, useState, PropsWithChildren } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+// data
+import hospitalData from "@data/all_hospital.json";
+
 import sortFilterState from "../../atoms/pageAtoms/filter/sortFilter";
 import MapComponent from "../common/MapComponent";
 import MapFilterSlider from "./slider";
+
 // import useResource from "../../hooks/useResource";
 
 // Recoil 을 실제 컴포넌트단위에서 사용하는 방법
@@ -95,10 +99,56 @@ const category = [
     active: false,
   },
 ];
-export const CategoryFilter = () => {
+
+type ButtonType = {
+  id: number;
+  name: string;
+  value: string;
+  active: boolean;
+}[];
+
+interface Props {
+  buttonState: ButtonType;
+  changeCategory: (el: number) => void;
+}
+
+export const CategoryFilter = ({ buttonState, changeCategory }: Props) => {
+  return (
+    <CategoryFilterWrap>
+      {buttonState &&
+        buttonState.map((item) => {
+          return (
+            <CatergoryFilterItem
+              onClick={() => changeCategory(item.id)}
+              active={item.active}
+            >
+              <button type="button">{item.name}</button>
+            </CatergoryFilterItem>
+          );
+        })}
+    </CategoryFilterWrap>
+  );
+};
+
+const MapContainer = () => {
+  // const hospitalData = useResource(hospitalResource) // <- react-query 로 가져오는 API 데이터 (server-side-data store)
+  const [sortFilter, setSortFilter] = useRecoilState(sortFilterState); // <- recoil 에서 사용하는 전역 상태값. (client-side-state store)
+  const [mapData, setMapdata] = useState(hospitalData); // <- recoil 에서 사용하는 전역 상태값. (client-side-state store)
+
+  useEffect(() => {
+    if (sortFilter.sortKey === "distance") {
+      setSortFilter((filter) => ({
+        // <- 함수형 업데이트에서 익명 함수에 매개변수를 선언하게되면 현재 state 값이 들어옵니다.
+        ...sortFilter, // <- 현재 상태를 불변성을 지키도록 복사해주고
+        // sortValue: exampleHashMap.get("distance"), // <- 바로 state 객체 프로퍼티에 새 값을 써줍니다.
+      }));
+    }
+  }, [sortFilter.sortKey]); // <- sortFilter 의 key 값이 변하면 실행됨.
+
   const [buttonState, setButtonState] = useState(category);
 
   const changeCategory = (el: number) => {
+    console.log(el);
     let newArr = buttonState.map((element) => {
       element.active = false;
       return element;
@@ -111,50 +161,15 @@ export const CategoryFilter = () => {
 
     setButtonState([...newArr]);
   };
-  return (
-    <CategoryFilterWrap>
-      {buttonState &&
-        buttonState.map((item) => {
-          return (
-            <CatergoryFilterItem
-              onClick={() => {
-                changeCategory(item.id);
-              }}
-              active={item.active}
-            >
-              <button type="button">{item.name}</button>
-            </CatergoryFilterItem>
-          );
-        })}
-    </CategoryFilterWrap>
-  );
-};
-export const MapContainer = () => {
-  // 지금은 병원정보가 없기때문에 그냥 데이터를 객체로 바로 선언해서 사용.
-  const sample_hospitalData = [
-    "안산 종합 동물병원",
-    "아프리카 동물병원",
-    "건국대학교 수의대 병원",
-  ];
-
-  // const hospitalData = useResource(hospitalResource) // <- react-query 로 가져오는 API 데이터 (server-side-data store)
-  const [sortFilter, setSortFilter] = useRecoilState(sortFilterState); // <- recoil 에서 사용하는 전역 상태값. (client-side-state store)
-
-  useEffect(() => {
-    if (sortFilter.sortKey === "distance") {
-      setSortFilter((filter) => ({
-        // <- 함수형 업데이트에서 익명 함수에 매개변수를 선언하게되면 현재 state 값이 들어옵니다.
-        ...sortFilter, // <- 현재 상태를 불변성을 지키도록 복사해주고
-        // sortValue: exampleHashMap.get("distance"), // <- 바로 state 객체 프로퍼티에 새 값을 써줍니다.
-      }));
-    }
-  }, [sortFilter.sortKey]); // <- sortFilter 의 key 값이 변하면 실행됨.
 
   return (
     <Main>
-      <MapContainer.CategoryFilter />
+      <MapContainer.CategoryFilter
+        changeCategory={changeCategory}
+        buttonState={buttonState}
+      />
       <MapFilterSlider />
-      <MapComponent />
+      <MapComponent mapData={mapData} />
     </Main>
   );
 };
