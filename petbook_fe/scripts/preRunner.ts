@@ -17,32 +17,10 @@ const embedContents = (content: string) => {
     .setDescription(`${time}`);
 };
 
-const date = new Date();
-
-const toISOStringWithTimezone = (dateObj: Date) => {
-  const tzOffset = -date.getTimezoneOffset();
-  const diff = tzOffset >= 0 ? "+" : "-";
-  const pad = (n: number) => `${Math.floor(Math.abs(n))}`.padStart(2, "0");
-  return (
-    date.getFullYear() +
-    "-" +
-    pad(dateObj.getMonth() + 1) +
-    "-" +
-    pad(dateObj.getDate()) +
-    "T" +
-    pad(dateObj.getHours()) +
-    ":" +
-    pad(dateObj.getMinutes()) +
-    ":" +
-    pad(dateObj.getSeconds()) +
-    diff +
-    pad(tzOffset / 60) +
-    ":" +
-    pad(tzOffset % 60)
-  );
-};
-
-// const latest =
+const initDate = new Date().toString().replace("GMT+0000", "GMT+0900");
+const parsedDateStr = Date.parse(initDate);
+const date = new Date(parsedDateStr);
+const kstDate = date.toString();
 
 const time = `날짜  ${(date.getMonth() + 1).toString()}/${date.getDate()}
 시간  ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}
@@ -55,7 +33,7 @@ webhookClient
     avatarURL:
       "https://cdn.discordapp.com/app-icons/1044621624864940163/87fe18353f90a7a4c275be945afc14e5.png?size=512",
     embeds: [embedContents(`petBook Web Client 빌드 시작`)],
-    content: `빌드중... \n시작시간 : ${date.toString()}
+    content: `빌드중... \n시작시간 : ${kstDate}
     `,
   })
   .then((d) => d)
