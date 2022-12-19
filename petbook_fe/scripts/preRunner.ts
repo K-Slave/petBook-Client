@@ -1,8 +1,14 @@
 import { EmbedBuilder, WebhookClient } from "discord.js";
 import * as dotenv from "dotenv";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import envSelector from "./envSelector";
 
 dotenv.config();
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault("Asia/Seoul");
 
 const env = envSelector("develop");
 
@@ -17,13 +23,10 @@ const embedContents = (content: string) => {
     .setDescription(`${time}`);
 };
 
-const initDate = new Date().toUTCString().replace("GMT", "GMT+0900");
-const parsedDateStr = Date.parse(initDate);
-const date = new Date(parsedDateStr);
-const kstDate = date.toString();
+const date = dayjs().tz();
 
-const time = `날짜  ${(date.getMonth() + 1).toString()}/${date.getDate()}
-시간  ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}
+const time = `날짜  ${(date.month() + 1).toString()}/${date.date()}
+시간  ${date.hour()}:${date.minute()}:${date.second()}
 마지막 업데이트  ??
 `;
 
@@ -33,7 +36,7 @@ webhookClient
     avatarURL:
       "https://cdn.discordapp.com/app-icons/1044621624864940163/87fe18353f90a7a4c275be945afc14e5.png?size=512",
     embeds: [embedContents(`petBook Web Client 빌드 시작`)],
-    content: `빌드중... \n시작시간 : ${kstDate}
+    content: `빌드중... \n시작시간 : ${date.format("YYYY-MM-DDTHH:mm:ss.SSSZ")}
     `,
   })
   .then((d) => d)
