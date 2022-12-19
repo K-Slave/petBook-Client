@@ -31,9 +31,10 @@ const embedContents = (content: string) => {
 
 const date = dayjs().tz();
 
-const time = `날짜  ${(date.month() + 1).toString()}/${date.date()}
-시간  ${date.hour()}:${date.minute()}:${date.second()}
-빌드 타임  ??
+const time = `빌드 종료 : ${(date.month() + 1).toString()}/${date.date()} - ${
+  date.hour() < 10 ? "0" + date.hour() : date.hour()
+}:${date.minute()}:${date.second()}
+빌드 하는데 걸린 시간 : ??
 `;
 
 if (buildLog.includes("success")) {

@@ -25,9 +25,10 @@ const embedContents = (content: string) => {
 
 const date = dayjs().tz();
 
-const time = `날짜  ${(date.month() + 1).toString()}/${date.date()}
-시간  ${date.hour()}:${date.minute()}:${date.second()}
-마지막 업데이트  ??
+const time = `빌드 시작 : ${(date.month() + 1).toString()}/${date.date()} - ${
+  date.hour() < 10 ? "0" + date.hour() : date.hour()
+}:${date.minute()}:${date.second()}
+마지막으로 업데이트 함 : ??
 `;
 
 webhookClient
