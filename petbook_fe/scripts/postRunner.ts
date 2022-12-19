@@ -23,29 +23,10 @@ const embedContents = (content: string) => {
   return new EmbedBuilder().setTitle(content).setDescription(`${time}`);
 };
 
-const date = new Date();
-const toISOStringWithTimezone = (dateObj: Date) => {
-  const tzOffset = -date.getTimezoneOffset();
-  const diff = tzOffset >= 0 ? "+" : "-";
-  const pad = (n: number) => `${Math.floor(Math.abs(n))}`.padStart(2, "0");
-  return (
-    date.getFullYear() +
-    "-" +
-    pad(dateObj.getMonth() + 1) +
-    "-" +
-    pad(dateObj.getDate()) +
-    "T" +
-    pad(dateObj.getHours()) +
-    ":" +
-    pad(dateObj.getMinutes()) +
-    ":" +
-    pad(dateObj.getSeconds()) +
-    diff +
-    pad(tzOffset / 60) +
-    ":" +
-    pad(tzOffset % 60)
-  );
-};
+const initDate = new Date().toString().replace("GMT+0000", "GMT+0900");
+const parsedDateStr = Date.parse(initDate);
+const date = new Date(parsedDateStr);
+const kstDate = date.toString();
 
 const time = `날짜  ${(date.getMonth() + 1).toString()}/${date.getDate()}
 시간  ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}
@@ -68,7 +49,7 @@ if (buildLog.includes("success")) {
         embedContents(`petBook Web Client 빌드 성공 !`).setColor(0x008d62),
       ],
       files: [buildTextAttach],
-      content: `빌드 성공\n종료시간 : ${date.toString()}`,
+      content: `빌드 성공\n종료시간 : ${kstDate}`,
     })
     .then((d) => d)
     .catch((e) => e);
@@ -87,7 +68,7 @@ if (buildLog.includes("success")) {
         embedContents(`petBook Web Client 빌드 실패`).setColor(0x9b111e),
       ],
       files: [errorTextAttach],
-      content: `빌드 실패\n종료시간 : ${date.toString()}`,
+      content: `빌드 실패\n종료시간 : ${kstDate}`,
     })
     .then((d) => d)
     .catch((e) => e);
