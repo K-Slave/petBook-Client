@@ -17,7 +17,7 @@ const embedContents = (content: string) => {
     .setDescription(`${time}`);
 };
 
-const initDate = new Date().toString().replace("GMT+0000", "GMT+0900");
+const initDate = new Date().toUTCString().replace("GMT", "GMT+0900");
 const parsedDateStr = Date.parse(initDate);
 const date = new Date(parsedDateStr);
 const kstDate = date.toString();
