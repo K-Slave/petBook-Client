@@ -2,9 +2,15 @@ import { EmbedBuilder, WebhookClient, AttachmentBuilder } from "discord.js";
 import * as dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import envSelector from "./envSelector";
 
 dotenv.config();
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault("Asia/Seoul");
 
 const env = envSelector("develop");
 
@@ -23,13 +29,10 @@ const embedContents = (content: string) => {
   return new EmbedBuilder().setTitle(content).setDescription(`${time}`);
 };
 
-const initDate = new Date().toUTCString().replace("GMT", "GMT+0900");
-const parsedDateStr = Date.parse(initDate);
-const date = new Date(parsedDateStr);
-const kstDate = date.toString();
+const date = dayjs().tz();
 
-const time = `날짜  ${(date.getMonth() + 1).toString()}/${date.getDate()}
-시간  ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}
+const time = `날짜  ${(date.month() + 1).toString()}/${date.date()}
+시간  ${date.hour()}:${date.minute()}:${date.second()}
 빌드 타임  ??
 `;
 
@@ -49,7 +52,9 @@ if (buildLog.includes("success")) {
         embedContents(`petBook Web Client 빌드 성공 !`).setColor(0x008d62),
       ],
       files: [buildTextAttach],
-      content: `빌드 성공\n종료시간 : ${kstDate}`,
+      content: `빌드 성공\n종료시간 : ${date.format(
+        "YYYY-MM-DDTHH:mm:ss.SSSZ"
+      )}`,
     })
     .then((d) => d)
     .catch((e) => e);
@@ -68,7 +73,9 @@ if (buildLog.includes("success")) {
         embedContents(`petBook Web Client 빌드 실패`).setColor(0x9b111e),
       ],
       files: [errorTextAttach],
-      content: `빌드 실패\n종료시간 : ${kstDate}`,
+      content: `빌드 실패\n종료시간 : ${date.format(
+        "YYYY-MM-DDTHH:mm:ss.SSSZ"
+      )}`,
     })
     .then((d) => d)
     .catch((e) => e);
