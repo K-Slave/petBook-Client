@@ -75,12 +75,14 @@ const Register = () => {
           IconType="Login"
           axiosValue="email"
           current="이메일"
+          registerInfoText="인증번호 4자리"
         />
         <PasswordInput />
         <RegisterInputBox
           IconType="Nicname"
           axiosValue="nickname"
           current="닉네임"
+          registerInfoText="이름"
         />
         <RegisterContainer.TermsWrap />
         <RegisterContainer.RegisterButton />
