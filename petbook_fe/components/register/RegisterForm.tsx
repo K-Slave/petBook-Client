@@ -34,6 +34,12 @@ const REGISTER_CREATE = createRequest({
   requester: registerRequest.register,
 });
 
+// 내부에서 쓰일거임
+export const REGISTER_CHECK_EMAIL = createRequest({
+  key: "REGISTER_CHECK_EMAIL",
+  requester: registerRequest.registerCheckEmail,
+});
+
 const TermsWrap = () => {
   return (
     <Terms>
