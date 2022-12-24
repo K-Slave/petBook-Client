@@ -2,6 +2,7 @@ import { registerFormState } from "@atoms/pageAtoms/login/userState";
 import React, { ChangeEventHandler } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
+  InputWrap,
   IconBox,
   InputBox,
   RegisterInfoText,
@@ -102,7 +103,21 @@ const RegisterInput = ({ current, axiosValue, IconType }: LoginProps) => {
   };
 
   return (
-    <div>
+    <InputWrap>
+      <InputBox>
+        <IconBox>
+          <div className={`${IconType}`} />
+        </IconBox>
+        <label htmlFor={`${current}`}>
+          <input
+            type={`${axiosValue}`}
+            id={`${axiosValue}`}
+            placeholder={`${current}을 입력해주세요 `}
+            onChange={onChange}
+          />
+        </label>
+      </InputBox>
+
       <InputBox>
         <IconBox>
           <div className={`${IconType}`} />
@@ -117,16 +132,8 @@ const RegisterInput = ({ current, axiosValue, IconType }: LoginProps) => {
         </label>
         <RegisterInputInfo type={`${axiosValue}`} />
         <RegisterModalButton axiosValue={axiosValue} />
-
-        {/* {axiosValue === "nickname"  (
-          <button type="button" className="emphasis">
-            중복확인
-          </button>
-        ) : (
-          <></>
-        )} */}
       </InputBox>
-    </div>
+    </InputWrap>
   );
 };
 export default RegisterInput;
