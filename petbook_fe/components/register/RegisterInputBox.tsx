@@ -1,6 +1,10 @@
 import { registerFormState } from "@atoms/pageAtoms/login/userState";
 import React, { ChangeEventHandler } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetResource } from "@lib/hooks/common/useResource";
+
+import { REGISTER_CHECK_EMAIL } from "@components/register/RegisterForm";
+
 import {
   InputWrap,
   IconBox,
@@ -78,7 +82,15 @@ const RegisterModalButton = ({ axiosValue }: buttonValue) => {
 
   const modalValue = useRecoilValue(registerFormState);
 
+  const { data, isSuccess, isError, error, mutate } =
+    useSetResource(REGISTER_CHECK_EMAIL);
+
+  console.log(data);
+
   const onClick = () => {
+    if (axiosValue === "email") {
+      mutate({ userId: modalValue.email });
+    }
     console.log(axiosValue, modalValue, "상태값 확인");
   };
 
