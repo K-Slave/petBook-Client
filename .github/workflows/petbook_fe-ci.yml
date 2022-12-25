@@ -29,7 +29,12 @@ jobs:
       - name: yarn run build
         uses: borales/actions-yarn@v4
         with:
-          cmd: build lint
+          cmd: build
+          dir: ./petbook_fe
+      - name: yarn run lint
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: lint
           dir: ./petbook_fe
       - name: Discord notification
         env:
