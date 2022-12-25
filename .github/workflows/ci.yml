@@ -2,6 +2,7 @@ name: petbook frontend Node.js CI
 
 # 구독할 이벤트
 on:
+  workflow_dispatch:
   push:
     branches: [main, github-action-ci]
   pull_request:
