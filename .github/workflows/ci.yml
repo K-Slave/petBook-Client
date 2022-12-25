@@ -31,3 +31,9 @@ jobs:
         with:
           cmd: build
           dir: ./petbook_fe
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'petbook-fe ci finished: {{ GITHUB_ACTION }} as {{ EVENT_PAYLOAD.pull_request.id }}'
