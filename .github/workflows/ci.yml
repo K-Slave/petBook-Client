@@ -24,10 +24,10 @@ jobs:
       - name: yarn install
         uses: borales/actions-yarn@v4
         with:
-          cmd: yarn install
+          cmd: install
           dir: ./petbook_fe
       - name: yarn run build
         uses: borales/actions-yarn@v4
         with:
-          cmd: yarn build
+          cmd: build
           dir: ./petbook_fe
