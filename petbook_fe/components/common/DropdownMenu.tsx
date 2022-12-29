@@ -32,14 +32,15 @@ export const menuListStyle = css`
     position: absolute;
     top: 24px;
     right: 0;
-    width: 50px;
+    width: 100px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 10px 0;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 0 16px 20px;
     background-color: white;
     border: 1px solid var(--bg_white_01);
-    border-radius: 5px;
+    box-shadow: 0px 8px 12px rgba(50, 26, 9, 0.1); border-radius: 12px;
 `;
 
 export default DropdownMenu;
