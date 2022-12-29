@@ -16,7 +16,7 @@ const QnaItemBubble = styled.div`
   background-color: #fff;
   border-radius: 16px;
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     display: block;
     width: 0;
@@ -82,10 +82,18 @@ const CommentListDiv = styled.div`
   }
 `;
 
-const LikeButton = styled.button`
+const LikeButton = styled.button<{ isLiked: string }>`
   width: 24px;
   height: 24px;
-  background: url("/img/common/heart.svg") no-repeat center center;
+  & + .Item_likeCount {
+    color: ${({ isLiked }) => (isLiked ? "var(--primary)" : "var(--black_03)")};
+  }
+  background-image: ${({ isLiked }) =>
+    (isLiked
+      ? "url('/img/common/heart_filled.svg')"
+      : "url('/img/common/heart_blank.svg')")};
+  background-repeat: no-repeat;
+  background-position: center center;
 `;
 
 const ScrapButton = styled.button`
@@ -93,4 +101,11 @@ const ScrapButton = styled.button`
   height: 24px;
   background: url("/img/common/scrap.svg") no-repeat center center;
 `;
-export { CommentListDiv, NormalItemDiv, QnaItemDiv, QnaItemBubble, LikeButton, ScrapButton };
+export {
+  CommentListDiv,
+  NormalItemDiv,
+  QnaItemDiv,
+  QnaItemBubble,
+  LikeButton,
+  ScrapButton,
+};
