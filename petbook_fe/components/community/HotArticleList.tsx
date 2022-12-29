@@ -4,13 +4,14 @@ import styled from "styled-components";
 
 const dummy = new Array(5).fill(1).map((_, index) => ({
   id: index + 1,
-  title: "제목이 들어갑니다 제목이 들어갑니다제목이 들어갑니다제목이 들어갑니다 제목이 들어갑니다 제목이 들어갑니다제목이 들어갑니다제목이 들어갑니다",
+  title:
+    "제목이 들어갑니다 제목이 들어갑니다제목이 들어갑니다제목이 들어갑니다 제목이 들어갑니다 제목이 들어갑니다제목이 들어갑니다제목이 들어갑니다",
 }));
 
 const HotArticleList = () => {
   return (
     <PopularPostListBox>
-      {dummy.map((data) =>
+      {dummy.map((data) => (
         <li key={data.id}>
           <span className="PopularPostList_title">{data.title}</span>
           <span className="PopularPostList_stats">
@@ -19,11 +20,12 @@ const HotArticleList = () => {
               <span>000</span>
             </span>
             <span>
-            <span className="Scrap_Img" />
+              <span className="Scrap_Img" />
               <span>000</span>
             </span>
           </span>
-        </li>)}
+        </li>
+      ))}
     </PopularPostListBox>
   );
 };
@@ -57,7 +59,7 @@ const PopularPostListBox = styled.ol`
     }
   }
   .Heart_Img {
-    background: url("/img/common/heart.svg") no-repeat; 
+    background: url("/img/common/heart_blank.svg") no-repeat;
     width: 24px;
     height: 24px;
   }
