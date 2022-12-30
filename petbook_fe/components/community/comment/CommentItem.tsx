@@ -1,5 +1,5 @@
 import DropdownMenu, { menuListStyle } from "@components/common/DropdownMenu";
-import { useState } from "react";
+import useLike from "@lib/hooks/comment/useLike";
 import { BsArrowReturnRight } from "react-icons/bs";
 import styled from "styled-components";
 import CommonInfo from "../CommonInfo";
@@ -19,7 +19,7 @@ export const NormalItem = ({
   comment,
   isChild,
   onDelete,
-  onLike,
+  updateIsLiked,
 }: ItemProps) => {
   const {
     user,
@@ -30,11 +30,11 @@ export const NormalItem = ({
     articleId,
     isLiked: initialLiked,
   } = comment;
-  const [isLiked, setIsLiked] = useState(initialLiked);
-  const clickLikeButton = () => {
-    onLike({ commentId: id, isLiked: !isLiked, initialLiked });
-    setIsLiked((state) => !state);
-  };
+  const { isLiked, clickLikeButton } = useLike({
+    id,
+    initialLiked,
+    updateIsLiked,
+  });
   return (
     <NormalItemDiv isChild={isChild}>
       {isChild && <BsArrowReturnRight />}
@@ -77,7 +77,12 @@ export const NormalItem = ({
   );
 };
 
-export const QnaItem = ({ comment, isChild, onDelete, onLike }: ItemProps) => {
+export const QnaItem = ({
+  comment,
+  isChild,
+  onDelete,
+  updateIsLiked,
+}: ItemProps) => {
   const {
     user,
     createdAt,
@@ -87,11 +92,11 @@ export const QnaItem = ({ comment, isChild, onDelete, onLike }: ItemProps) => {
     articleId,
     isLiked: initialLiked,
   } = comment;
-  const [isLiked, setIsLiked] = useState(initialLiked);
-  const clickLikeButton = () => {
-    onLike({ commentId: id, isLiked: !isLiked, initialLiked });
-    setIsLiked((state) => !state);
-  };
+  const { isLiked, clickLikeButton } = useLike({
+    id,
+    initialLiked,
+    updateIsLiked,
+  });
   return (
     <QnaItemDiv>
       <CommonInfo
