@@ -10,19 +10,14 @@ import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
 import React, { Fragment, MouseEventHandler, useRef } from "react";
 import { useQueryClient } from "react-query";
 import debounce from "@lib/modules/debounce";
+import { updateIsLikedParams } from "@lib/hooks/comment/useLike";
 import { CommentListDiv } from "./styled/styledCommentList";
-
-export interface onLikeParams {
-  commentId: number;
-  isLiked: boolean;
-  initialLiked: boolean;
-}
 
 export interface ItemProps {
   comment: CommentItem;
   isChild: string;
   onDelete: MouseEventHandler<HTMLButtonElement>;
-  onLike: (params: onLikeParams) => void;
+  updateIsLiked: (params: updateIsLikedParams) => void;
 }
 
 interface Props {
@@ -66,8 +61,8 @@ const CommentList = ({ Item }: Props) => {
     }
   };
 
-  const onLike = debounce(
-    ({ commentId, isLiked, initialLiked }: onLikeParams) => {
+  const updateIsLiked = debounce(
+    ({ commentId, isLiked, initialLiked }: updateIsLikedParams) => {
       if (isLiked === initialLiked) return;
       if (!isLiked) {
         deleteLikeComment(
@@ -106,7 +101,7 @@ const CommentList = ({ Item }: Props) => {
             comment={comment.parent}
             isChild=""
             onDelete={onDelete}
-            onLike={onLike}
+            updateIsLiked={updateIsLiked}
             key={comment.parent.id}
           />
           {comment.children.map((child) => (
@@ -114,7 +109,7 @@ const CommentList = ({ Item }: Props) => {
               comment={child}
               isChild="true"
               onDelete={onDelete}
-              onLike={onLike}
+              updateIsLiked={updateIsLiked}
               key={child.id}
             />
           ))}
