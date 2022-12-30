@@ -31,6 +31,7 @@
     "React": true
   },
   "rules": {
+    "prefer-template": "off",
     "prefer-arrow-callback": "off",
     "linebreak-style": "off",
     "operator-linebreak": "off",
@@ -51,6 +52,7 @@
     "import/no-extraneous-dependencies": "off",
     "no-return-await": "warn",
 
+    "@typescript-eslint/restrict-plus-operands": "off",
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/no-unsafe-call": "warn",
     "@typescript-eslint/no-unsafe-return": "warn",

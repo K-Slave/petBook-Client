@@ -106,7 +106,7 @@ export const LoginSubmitButton = () => {
   //   "password": "p@55w0rd1!"
   // }
   const [errorState, setErrorState] = useState(false);
-  const [errorText, setErrorText] = useState<unknown>();
+  const [errorText, setErrorText] = useState();
   const [autoLogin, setAutoLogin] = useState(false);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
