@@ -1,4 +1,4 @@
-import ArticleSection from "@components/community/article/detail/ArticleSection";
+import ArticleSection from "@components/community/article/ArticleSection";
 import CommentForm from "@components/community/comment/CommentForm";
 import { NormalItem, QnaItem } from "@components/community/comment/CommentItem";
 import CommentList from "@components/community/comment/CommentList";

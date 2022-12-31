@@ -1,7 +1,6 @@
 import { NextPage, NextPageContext } from "next";
 import styled from "styled-components";
-import HtmlHeader from "@components/common/HtmlHeader";
-import ImageSliderModal from "@components/community/article/detail/ImageSliderModal";
+import ImageSliderModal from "@components/community/article/ImageSliderModal";
 import { articleRequest, commentRequest } from "@lib/API/petBookAPI";
 import { createRequest } from "@lib/hooks/common/useResource";
 import BackButton from "@components/community/BackButton";
@@ -17,12 +16,12 @@ export const ARTICLE_ITEM = {
 
 export const ARTICLE_CREATE_LIKE = createRequest({
   key: "ARTICLE_CREATE_LIKE",
-  requester: articleRequest.article_create_like
+  requester: articleRequest.article_create_like,
 });
 
 export const ARTICLE_DELETE_LIKE = createRequest({
   key: "ARTICLE_DELETE_LIKE",
-  requester: articleRequest.article_delete_like
+  requester: articleRequest.article_delete_like,
 });
 
 export const COMMENT_LIST = {
@@ -37,29 +36,31 @@ export const COMMENT_CREATE = createRequest({
 
 export const COMMENT_UPDATE = createRequest({
   key: "COMMENT_UPDATE",
-  requester: commentRequest.comment_update
+  requester: commentRequest.comment_update,
 });
 
 export const COMMENT_DELETE = createRequest({
   key: "COMMENT_DELETE",
-  requester: commentRequest.comment_delete
+  requester: commentRequest.comment_delete,
 });
 
 export const COMMENT_CREATE_LIKE = createRequest({
   key: "COMMENT_CREATE_LIKE",
-  requester: commentRequest.comment_create_like
+  requester: commentRequest.comment_create_like,
 });
 
 export const COMMENT_DELETE_LIKE = createRequest({
   key: "COMMENT_DELETE_LIKE",
-  requester: commentRequest.comment_delete_like
+  requester: commentRequest.comment_delete_like,
 });
 
 interface Props {
   token: string | null;
 }
 type PetbookPage = NextPage<Props> & {
-  requiredResources?: [typeof ARTICLE_ITEM] | [typeof ARTICLE_ITEM, typeof COMMENT_LIST];
+  requiredResources?:
+    | [typeof ARTICLE_ITEM]
+    | [typeof ARTICLE_ITEM, typeof COMMENT_LIST];
 };
 
 const ArticleDetail: PetbookPage = ({ token }) => {
@@ -71,18 +72,17 @@ const ArticleDetail: PetbookPage = ({ token }) => {
   }, [token]);
   return (
     <>
-      <HtmlHeader />
-      <ArticleDetailMain>
+      <Main>
         <BackButton position="start" />
         <ArticleContainer isLogin={token !== null} />
         <BackButton position="end" />
-      </ArticleDetailMain>
+      </Main>
       <ImageSliderModal />
     </>
   );
 };
 
-const ArticleDetailMain = styled.main`
+const Main = styled.main`
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -93,7 +93,9 @@ const ArticleDetailMain = styled.main`
   margin: 40px auto;
 `;
 
-ArticleDetail.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
+ArticleDetail.getInitialProps = async (
+  ctx: NextPageContext
+): Promise<Props> => {
   const token = await getHttpOnlyCookie({ ctx, key: "petBookUser" });
   if (token) {
     // sprPetBookClient in server-side and client-side
@@ -103,7 +105,7 @@ ArticleDetail.getInitialProps = async (ctx: NextPageContext): Promise<Props> => 
     ArticleDetail.requiredResources = [ARTICLE_ITEM];
   }
   return {
-    token: (token === undefined || token === "") ? null : token
+    token: token === undefined || token === "" ? null : token,
   };
 };
 
