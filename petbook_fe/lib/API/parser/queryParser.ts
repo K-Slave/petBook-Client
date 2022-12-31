@@ -10,6 +10,20 @@ export default async function queryParser(
   client: QueryClient
 ) {
   switch (resource.key) {
+    case "ARTICLE_LIST": {
+      const page = queryParams.page || "1";
+      const category = (queryParams.category as string).split("_");
+      await client.fetchQuery(
+        `${resource.key}_${category[0]}_${page as string}`,
+        () =>
+          resource.fetcher({
+            categoryId: category[1] === "0" ? "" : category[1],
+            page: Number(page) - 1,
+            size: 10,
+          })
+      );
+      break;
+    }
     // 게시물 단건조회 api 호출 로직 추가
     case "ARTICLE_ITEM": {
       const path = queryParams.articleId as string;
@@ -28,7 +42,9 @@ export default async function queryParser(
     }
 
     case "CATEGORY_LIST": {
-      await client.fetchQuery(`${resource.key}`, () => resource.fetcher());
+      if (typeof window === "undefined") {
+        await client.fetchQuery(`${resource.key}`, () => resource.fetcher());
+      }
       break;
     }
 
