@@ -4,6 +4,7 @@ import { createResourceByCategory } from "@pages/community";
 import Link from "next/link";
 import styled from "styled-components";
 import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
+import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 
 const ArticleBoxGrid = () => {
   const { categories } = useCategories({ all: true });
@@ -28,7 +29,9 @@ const Box = ({ category } : { category: CategoryItem }) => {
         <BoxArticle>
             <div>
                 <h3>{category.name}</h3>
-                <Link href="/community" passHref><button type="button">더보기</button></Link>
+                <Link href={getHrefWithCategory(category)} passHref>
+                  <button type="button">더보기</button>
+                </Link>
             </div>
             <BoxUL>
                 {data?.data.articles.map((article) =>
