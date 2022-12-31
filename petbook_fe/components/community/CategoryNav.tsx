@@ -1,7 +1,6 @@
 import useCategories from "@lib/hooks/article/useCategories";
 import useCategory from "@lib/hooks/article/useCategory";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
-import { CATEGORY_LIST } from "@pages/community";
 import Link from "next/link";
 import styled, { css } from "styled-components";
 
@@ -25,10 +24,6 @@ const CategoryNav = () => {
         : null}
     </CategoryNavDiv>
   );
-};
-
-CategoryNav.defaultProps = {
-  resourceKey: CATEGORY_LIST.key
 };
 
 const allButtonStyle = css`
