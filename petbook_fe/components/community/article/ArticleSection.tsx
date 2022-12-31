@@ -4,23 +4,33 @@ import imageModalState from "@atoms/pageAtoms/community/imageModalState";
 import CommonInfo from "@components/community/CommonInfo";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import DropdownMenu from "@components/common/DropdownMenu";
-import CustomSwiper, { SlideNextButton, SlidePrevButton } from "@components/common/CustomSwiper";
+import CustomSwiper, {
+  SlideNextButton,
+  SlidePrevButton,
+} from "@components/common/CustomSwiper";
 import { SwiperSlide } from "swiper/react";
 import { useSetResource } from "@lib/hooks/common/useResource";
-import { ARTICLE_CREATE_LIKE, ARTICLE_DELETE_LIKE, ARTICLE_ITEM } from "@pages/community/[articleId]";
+import {
+  ARTICLE_CREATE_LIKE,
+  ARTICLE_DELETE_LIKE,
+  ARTICLE_ITEM,
+} from "@pages/community/[articleId]";
 import { useQueryClient } from "react-query";
 import debounce from "@lib/modules/debounce";
 import { useRef } from "react";
-import TagList from "../../TagList";
+import ScrapButton from "@components/community/styled/ScrapButton.styled";
+import LikeButton from "@components/community/styled/LikeButton.styled";
+import TagList from "../TagList";
 import {
   ArticleSectionBox,
   ImageSliderDiv,
   ImageSliderImg,
   Spacer,
-  MenuListBox
+  MenuListBox,
 } from "./styled/styledArticleSection";
 
-const dummyImage = "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
+const dummyImage =
+  "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
 
 const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
   const queryClient = useQueryClient();
@@ -30,23 +40,34 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
   if (data === undefined) {
     return <ArticleSectionBox />;
   }
-  const { id, title, content, user, category, tags, stat, createdAt, images } = data;
+  const { id, title, content, user, category, tags, stat, createdAt, images } =
+    data;
   const onLikeSuccess = async () => {
     await queryClient.invalidateQueries(`${ARTICLE_ITEM.key}_${id}`);
   };
-  const callCreateLikeArticle = debounce(({ articleId } : { articleId: number }) => {
-    createLikeArticle({ pathParam: `${articleId}` }, {
-      onSuccess: onLikeSuccess,
-      onError: () => {
-        deleteLikeArticle({ pathParam: `${articleId}` }, {
+  const callCreateLikeArticle = debounce(
+    ({ articleId }: { articleId: number }) => {
+      createLikeArticle(
+        { pathParam: `${articleId}` },
+        {
           onSuccess: onLikeSuccess,
           onError: () => {
-            alert("실패했습니다. 다시 시도해주세요 😢");
-          }
-        });
-      }
-    });
-  }, 3000, timeoutId);
+            deleteLikeArticle(
+              { pathParam: `${articleId}` },
+              {
+                onSuccess: onLikeSuccess,
+                onError: () => {
+                  alert("실패했습니다. 다시 시도해주세요 😢");
+                },
+              }
+            );
+          },
+        }
+      );
+    },
+    3000,
+    timeoutId
+  );
 
   return (
     <ArticleSectionBox>
@@ -60,25 +81,25 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
         date={createdAt}
         year={1}
       />
-      {category.name === "질문과 답변" ?
-        <Spacer /> :
-        (content ?
-          <div
-            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
-            className="ArticleSection_Content"
-          />
-          :
-          <Spacer />
+      {category.name === "질문과 답변" ? (
+        <Spacer />
+      ) : content ? (
+        <div
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
+          className="ArticleSection_Content"
+        />
+      ) : (
+        <Spacer />
       )}
       {images.length !== 0 && <ImageSlider images={images} />}
       <TagList tags={tags} />
       <div className="ArticleSection_Button_Box">
         <div>
-          <button type="button">좋아요</button>
+          <LikeButton isLiked="" />
           <span>{stat.likeCount}</span>
         </div>
         <div>
-          <button type="button">스크랩</button>
+          <ScrapButton />
           <span>0</span>
         </div>
       </div>
@@ -100,7 +121,7 @@ const MenuList = () => {
 // ------------------------------------------
 
 interface Props {
-  images: ArticleResponse["images"]
+  images: ArticleResponse["images"];
 }
 
 const ImageSlider = ({ images }: Props) => {
@@ -116,11 +137,16 @@ const ImageSlider = ({ images }: Props) => {
               setModalState({
                 show: true,
                 images,
-                initialImageIndex: index
+                initialImageIndex: index,
               })
             }
           >
-            <ImageSliderImg src={image.imageUrl} layout="fill" objectFit="cover" />
+            <ImageSliderImg
+              src={image.imageUrl}
+              layout="fill"
+              objectFit="cover"
+              priority
+            />
           </SwiperSlide>
         ))}
       </CustomSwiper>

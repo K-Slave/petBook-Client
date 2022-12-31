@@ -23,7 +23,6 @@ const ArticleSectionBox = styled.section`
     & > div {
       display: flex;
       align-items: center;
-      gap: 5px;
       color: var(--black_03);
     }
     button {
@@ -71,4 +70,10 @@ const MenuListBox = styled.div`
   ${menuListStyle};
 `;
 
-export { ArticleSectionBox, ImageSliderDiv, ImageSliderImg, Spacer, MenuListBox };
+export {
+  ArticleSectionBox,
+  ImageSliderDiv,
+  ImageSliderImg,
+  Spacer,
+  MenuListBox,
+};
