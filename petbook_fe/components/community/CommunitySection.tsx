@@ -23,19 +23,23 @@ const CommunitySectionBox = styled.section`
 `;
 interface Props {
   title: string;
-  more?: boolean;
+  moreHref?: string;
 }
 
 const CommunitySection = ({
   title,
-  more,
+  moreHref,
   children,
 }: React.PropsWithChildren<Props>) => {
   return (
     <CommunitySectionBox>
       <div className="heading">
         <h3>{title}</h3>
-        {more && <Link href="/community" passHref><button type="button">더보기</button></Link>}
+        {moreHref &&
+          <Link href={moreHref} passHref>
+            <button type="button">더보기</button>
+          </Link>
+        }
       </div>
       {children}
     </CommunitySectionBox>
@@ -43,7 +47,7 @@ const CommunitySection = ({
 };
 
 CommunitySection.defaultProps = {
-  more: false
+  moreHref: ""
 };
 
 export default CommunitySection;
