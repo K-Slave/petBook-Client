@@ -6,6 +6,8 @@ import getRandomKey from "@lib/utils/getRandomKey";
 import DOMPurify from "isomorphic-dompurify";
 import React from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import useCategory from "@lib/hooks/article/useCategory";
+import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 import {
   ArticleListDiv,
   ItemImg,
@@ -15,7 +17,7 @@ import {
   PageButton,
   PageButtonBoxDiv,
 } from "./styled/styledArticleList";
-import TagList from "../../TagList";
+import TagList from "./TagList";
 
 const ArticleList = () => {
   const { status, articles, totalPages } = useArticleList();
@@ -68,10 +70,11 @@ const Item = ({ article }: { article: ArticleResponse }) => {
 
 const PageButtonBox = ({ totalPages }: { totalPages: number }) => {
   const btnNum = 2;
+  const { categoryId, categoryName } = useCategory();
   const { currentPage, changeCurrentPage, offset } = usePagination({
     totalPages,
     btnNum,
-    basePath: "/community",
+    basePath: getHrefWithCategory({ id: categoryId, name: categoryName }),
   });
   const onClickPrevButton = () => {
     changeCurrentPage(offset - btnNum);
