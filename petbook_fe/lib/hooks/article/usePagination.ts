@@ -22,8 +22,10 @@ export default function usePagination({
   const [offset, setOffset] = useState(1);
   const currentPage = usePage();
   const changeCurrentPage = useCallback((page: number) => {
-    navigator(`${basePath}?page=${page}`, undefined, {
+    const path = basePath.includes("?") ? `${basePath}&page=${page}` : `${basePath}?page=${page}`;
+    navigator(path, undefined, {
       shallow: true,
+      scroll: true
     });
   }, []);
 
