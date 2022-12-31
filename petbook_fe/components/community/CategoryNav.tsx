@@ -1,15 +1,23 @@
 import useCategories from "@lib/hooks/article/useCategories";
+import useCategory from "@lib/hooks/article/useCategory";
+import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
+import { CATEGORY_LIST } from "@pages/community";
 import Link from "next/link";
 import styled, { css } from "styled-components";
 
 const CategoryNav = () => {
   const { categories, status } = useCategories({ all: true });
+  const { categoryName } = useCategory();
   return (
     <CategoryNavDiv>
       {status === "success"
         ? categories.map((category) => (
-            <Link href="/community" passHref key={category.id}>
-              <CategoryNavButton name={category.name}>
+            <Link
+              href={getHrefWithCategory(category)}
+              passHref
+              key={category.id}
+            >
+              <CategoryNavButton active={categoryName === category.name ? "true" : ""}>
                 {category.name}
               </CategoryNavButton>
             </Link>
@@ -19,29 +27,34 @@ const CategoryNav = () => {
   );
 };
 
+CategoryNav.defaultProps = {
+  resourceKey: CATEGORY_LIST.key
+};
+
 const allButtonStyle = css`
-    background-color: var(--black_01);
-    color: white !important;
-    font-weight: bold;
+  background-color: var(--black_01);
+  color: var(--bg_white_02) !important;
+  font-weight: bold;
 `;
 
 const otherButtonStyle = css`
-    background-color: white;
+  background-color: white;
+  color: var(--black_01);
 `;
 
-const CategoryNavButton = styled.button<{ name: string }>`
-  ${({ name }) => (name === "전체" ? allButtonStyle : otherButtonStyle)}
+export const CategoryNavButton = styled.button<{ active: string }>`
+  ${({ active }) => (active ? allButtonStyle : otherButtonStyle)}
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 160px;
+  width: 110px;
   height: 52px;
   font-size: 16px !important;
   border-radius: 8px;
 `;
 
-const CategoryNavDiv = styled.div`
+export const CategoryNavDiv = styled.div`
   display: flex;
   gap: 16px;
   flex-wrap: wrap;

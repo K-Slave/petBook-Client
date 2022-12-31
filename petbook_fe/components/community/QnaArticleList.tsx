@@ -4,7 +4,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import CommonInfo from "./CommonInfo";
 
-const QNA_CATEGORY = {
+export const QNA_CATEGORY = {
     id: 1,
     name: "질문과 답변"
 };
