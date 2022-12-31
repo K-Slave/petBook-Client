@@ -26,7 +26,7 @@ const ArticleListPage: PetBookPage = () => {
   return (
     <Main>
         <h1>{categoryName}</h1>
-      <CategoryNav resourceKey={CATEGORY_LIST.key} />
+      <CategoryNav />
       <ArticleList />
       <WriteButton />
     </Main>
