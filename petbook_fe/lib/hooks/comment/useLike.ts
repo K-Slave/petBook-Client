@@ -6,15 +6,17 @@ export interface updateIsLikedParams {
   initialLiked: boolean;
 }
 
+export interface useLikeParams {
+  id: number;
+  initialLiked: boolean;
+  updateIsLiked: (params: updateIsLikedParams) => void;
+}
+
 export default function useLike({
   id,
   initialLiked,
   updateIsLiked,
-}: {
-  id: number;
-  initialLiked: boolean;
-  updateIsLiked: (params: updateIsLikedParams) => void;
-}) {
+}: useLikeParams) {
   const [isLiked, setIsLiked] = useState(initialLiked);
   const clickLikeButton = () => {
     updateIsLiked({ commentId: id, isLiked: !isLiked, initialLiked });
