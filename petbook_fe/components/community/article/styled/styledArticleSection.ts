@@ -1,5 +1,4 @@
 import { menuListStyle } from "@components/common/DropdownMenu";
-import Image from "next/image";
 import styled from "styled-components";
 
 const ArticleSectionBox = styled.section`
@@ -19,7 +18,7 @@ const ArticleSectionBox = styled.section`
     justify-content: center;
     align-items: center;
     margin-top: 27px;
-    gap: 28px;
+    gap: 12px;
     & > div {
       display: flex;
       align-items: center;
@@ -45,25 +44,6 @@ const ArticleSectionBox = styled.section`
   }
 `;
 
-const ImageSliderDiv = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 17px;
-  .swiper-slide {
-    position: relative;
-    width: 354px !important;
-    height: 354px;
-  }
-  .swiper-pagination {
-     display: none;
-   }
-`;
-
-const ImageSliderImg = styled(Image)`
-  border-radius: 16px;
-  cursor: pointer;
-`;
-
 const Spacer = styled.div`
   height: 32px;
 `;
@@ -72,10 +52,4 @@ const MenuListBox = styled.div`
   ${menuListStyle};
 `;
 
-export {
-  ArticleSectionBox,
-  ImageSliderDiv,
-  ImageSliderImg,
-  Spacer,
-  MenuListBox,
-};
+export { ArticleSectionBox, Spacer, MenuListBox };
