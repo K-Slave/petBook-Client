@@ -51,7 +51,7 @@ ArticleListPage.getInitialProps = async (
 ) => {
   const { query } = ctx;
   const page = Number(query.page);
-  const [id, name] = (query.category as string).split("_");
+  const [name, id] = (query.category as string).split("_");
   ArticleListPage.requiredResources = [
     createArticleListResource({
       category: { id: Number(id), name },
