@@ -54,6 +54,9 @@ const ImageSliderDiv = styled.div`
     width: 354px !important;
     height: 354px;
   }
+  .swiper-pagination {
+     display: none;
+   }
 `;
 
 const ImageSliderImg = styled(Image)`
