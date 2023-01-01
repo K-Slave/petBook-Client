@@ -37,7 +37,7 @@ const Box = ({ category } : { category: CategoryItem }) => {
             <BoxUL>
                 {data?.data.articles.map((article) =>
                     <li key={article.id}>
-                        <Link href={`/community/${article.id}`} passHref>
+                        <Link href={`/community/list/${article.id}`} passHref>
                             <span className="Box_title">
                                 {article.title}
                             </span>
