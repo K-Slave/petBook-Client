@@ -63,3 +63,5 @@ jobs:
       - ci-notify
     if: ${{ success() && github.event_name == 'push' }}
     uses: ./.github/workflows/petBook-Web-Client-CD.yml
+    with:
+      status: "success"
