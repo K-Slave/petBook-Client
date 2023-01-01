@@ -5,19 +5,15 @@ import usePagination from "@lib/hooks/article/usePagination";
 import getRandomKey from "@lib/utils/getRandomKey";
 import DOMPurify from "isomorphic-dompurify";
 import React from "react";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import useActiveCategory from "@lib/hooks/article/useActiveCategory";
-import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 import {
   ArticleListDiv,
-  ItemImg,
-  ItemDiv,
-  ItemAvatar,
   ItemArticle,
   PageButton,
   PageButtonBoxDiv,
 } from "./styled/styledArticleList";
-import TagList from "./TagList";
+import { HeartBlankIcon } from "./HeartIcon";
+import { BookmarkBlankIcon } from "./BookmarkIcon";
+import CommonInfo from "./CommonInfo";
 
 const ArticleList = () => {
   const { status, articles, totalPages } = useArticleList();
@@ -36,31 +32,32 @@ const ArticleList = () => {
 
 const Item = ({ article }: { article: ArticleResponse }) => {
   const { id, title, content, user, tags, stat, createdAt } = article;
-  const previewImage = "";
   return (
     <Link href={`/community/${id}`} passHref>
       <ItemArticle>
-        <div className="Item_Column">
-          <div className="Item_UserInfo">
-            <ItemAvatar />
-            <p className="Item_Nickname">{user.nickname}</p>
-            <p className="Item_Date">{createdAt.split("T")[0]}</p>
+        <h3>{title}</h3>
+        <div
+          className="Item_Content"
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
+        />
+        <div className="Item_Row">
+          <div className="Item_Stats">
+            <div>
+              <HeartBlankIcon />
+              <span>{stat.likeCount}</span>
+            </div>
+            <div>
+              <BookmarkBlankIcon />
+              <span>0</span>
+            </div>
           </div>
-          <ItemDiv>
-            <h3>{title}</h3>
-            <div
-              className="Item_Content"
-              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
-            />
-            <TagList tags={tags} />
-            <p className="Item_Stats">
-              <span>공감수 {stat.likeCount}</span>
-              <span>/</span>
-              <span>클릭수 {stat.viewCount}</span>
-            </p>
-          </ItemDiv>
+          <CommonInfo
+            username={user.nickname}
+            date={createdAt}
+            year={1}
+            className="reverse-row"
+          />
         </div>
-        {previewImage === "" ? null : <ItemImg />}
       </ItemArticle>
     </Link>
   );
@@ -70,11 +67,10 @@ const Item = ({ article }: { article: ArticleResponse }) => {
 
 const PageButtonBox = ({ totalPages }: { totalPages: number }) => {
   const btnNum = 2;
-  const { categoryId, categoryName } = useActiveCategory();
   const { currentPage, changeCurrentPage, offset } = usePagination({
     totalPages,
     btnNum,
-    basePath: getHrefWithCategory({ id: categoryId, name: categoryName }),
+    basePath: "/community/list"
   });
   const onClickPrevButton = () => {
     changeCurrentPage(offset - btnNum);
@@ -92,7 +88,9 @@ const PageButtonBox = ({ totalPages }: { totalPages: number }) => {
     <PageButtonBoxDiv>
       {offset !== 1 && (
         <button onClick={onClickPrevButton} type="button">
-          <FiChevronLeft />
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18L9 12L15 6" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </button>
       )}
       {Array(totalPages + 1)
@@ -110,7 +108,9 @@ const PageButtonBox = ({ totalPages }: { totalPages: number }) => {
         ))}
       {btnNum + offset <= totalPages && (
         <button onClick={onClickNextButton} type="button">
-          <FiChevronRight />
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 18L15 12L9 6" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </button>
       )}
     </PageButtonBoxDiv>
