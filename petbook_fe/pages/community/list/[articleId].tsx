@@ -54,6 +54,13 @@ export const COMMENT_DELETE_LIKE = createRequest({
   requester: commentRequest.comment_delete_like,
 });
 
+export type CreateLikeResource =
+  | typeof ARTICLE_CREATE_LIKE
+  | typeof COMMENT_CREATE_LIKE;
+export type DeleteLikeResource =
+  | typeof ARTICLE_DELETE_LIKE
+  | typeof COMMENT_DELETE_LIKE;
+
 interface Props {
   token: string | null;
 }
