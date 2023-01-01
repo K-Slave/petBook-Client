@@ -1,15 +1,18 @@
 import DropdownMenu, { menuListStyle } from "@components/common/DropdownMenu";
-import useLike from "@lib/hooks/comment/useLike";
+import useLike, { useLikeParams } from "@lib/hooks/comment/useLike";
 import { BsArrowReturnRight } from "react-icons/bs";
 import styled from "styled-components";
+import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
 import CommonInfo from "../CommonInfo";
-import LikeButton from "../styled/LikeButton.styled";
-import ScrapButton from "../styled/ScrapButton.styled";
+import { BookmarkBlankIcon, BookmarkFilledIcon } from "../BookmarkIcon";
+import { HeartBlankIcon, HeartFilledIcon } from "../HeartIcon";
 import { ItemProps } from "./CommentList";
 import {
+  LikeButtonBox,
   NormalItemDiv,
   QnaItemBubble,
   QnaItemDiv,
+  ScrapButtonBox,
 } from "./styled/styledCommentItem";
 
 const avatar =
@@ -30,11 +33,6 @@ export const NormalItem = ({
     articleId,
     isLiked: initialLiked,
   } = comment;
-  const { isLiked, clickLikeButton } = useLike({
-    id,
-    initialLiked,
-    updateIsLiked,
-  });
   return (
     <NormalItemDiv isChild={isChild}>
       {isChild && <BsArrowReturnRight />}
@@ -52,25 +50,13 @@ export const NormalItem = ({
         </div>
         <p className="Item_Content">{content}</p>
         <div className="Item_Button_Box">
-          <div>
-            <LikeButton
-              type="button"
-              onClick={clickLikeButton}
-              isLiked={isLiked ? "true" : ""}
-            />
-            <span className="Item_likeCount">
-              {likeCount +
-                (!initialLiked && isLiked
-                  ? 1
-                  : initialLiked && !isLiked
-                  ? -1
-                  : 0)}
-            </span>
-          </div>
-          <div>
-            <ScrapButton type="button" />
-            <span>0</span>
-          </div>
+          <LikeButton
+            id={id}
+            initialLiked={initialLiked}
+            updateIsLiked={updateIsLiked}
+            likeCount={likeCount}
+          />
+          <ScrapButton />
         </div>
       </div>
     </NormalItemDiv>
@@ -92,11 +78,6 @@ export const QnaItem = ({
     articleId,
     isLiked: initialLiked,
   } = comment;
-  const { isLiked, clickLikeButton } = useLike({
-    id,
-    initialLiked,
-    updateIsLiked,
-  });
   return (
     <QnaItemDiv>
       <CommonInfo
@@ -113,25 +94,13 @@ export const QnaItem = ({
           />
         </div>
         <div className="Item_Button_Box">
-          <div>
-            <LikeButton
-              type="button"
-              onClick={clickLikeButton}
-              isLiked={isLiked ? "true" : ""}
-            />
-            <span className="Item_likeCount">
-              {likeCount +
-                (isLiked && !initialLiked
-                  ? 1
-                  : !isLiked && initialLiked
-                  ? -1
-                  : 0)}
-            </span>
-          </div>
-          <div>
-            <ScrapButton type="button" />
-            <span>0</span>
-          </div>
+          <LikeButton
+            id={id}
+            initialLiked={initialLiked}
+            updateIsLiked={updateIsLiked}
+            likeCount={likeCount}
+          />
+          <ScrapButton />
         </div>
       </QnaItemBubble>
     </QnaItemDiv>
@@ -158,3 +127,41 @@ const MenuList = ({ onDelete, commentId }: MenuListProps) => {
 const MenuListBox = styled.div`
   ${menuListStyle};
 `;
+
+// --------------------------------------------------------------------
+
+type LikeButtonProps = useLikeParams & Pick<CommentItem, "likeCount">;
+
+const LikeButton = ({ id, initialLiked, updateIsLiked, likeCount } : LikeButtonProps) => {
+  const { isLiked, clickLikeButton } = useLike({
+    id,
+    initialLiked,
+    updateIsLiked,
+  });
+  return (
+    <LikeButtonBox
+      type="button"
+      onClick={clickLikeButton}
+      isLiked={isLiked ? "true" : ""}
+    >
+      {isLiked ? <HeartFilledIcon /> : <HeartBlankIcon />}
+      <span className={`likeCount ${isLiked ? "active" : ""}`}>
+      {likeCount +
+        (!initialLiked && isLiked
+          ? 1
+          : initialLiked && !isLiked
+          ? -1
+          : 0)}
+      </span>
+    </LikeButtonBox>
+  );
+};
+
+const ScrapButton = () => {
+  return (
+    <ScrapButtonBox type="button" isScrap="">
+      <BookmarkBlankIcon />
+      <span>0</span>
+    </ScrapButtonBox>
+  );
+};

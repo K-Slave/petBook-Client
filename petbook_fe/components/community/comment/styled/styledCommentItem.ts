@@ -1,9 +1,31 @@
 import styled, { css } from "styled-components";
 
+const commonStyle = css`
+  .Item_Content {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: var(--black_01);
+  }
+  .Item_Button_Box {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 32px;
+  }
+  .Item_Row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+`;
+
 const QnaItemDiv = styled.div`
   display: flex;
   align-items: center;
   gap: 38px;
+  ${commonStyle};
 `;
 
 const QnaItemBubble = styled.div`
@@ -51,6 +73,23 @@ const NormalItemDiv = styled.div<{ isChild: string }>`
   & > div {
     width: 100%;
   }
+  ${commonStyle};
 `;
 
-export { QnaItemBubble, QnaItemDiv, NormalItemDiv };
+const commonButtonStyle = css`
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+`;
+
+const LikeButtonBox = styled.button<{ isLiked: string }>`
+  ${commonButtonStyle};
+  color: ${({ isLiked }) => (isLiked ? "var(--primary)" : "var(--black_03)")};
+`;
+
+const ScrapButtonBox = styled.button<{ isScrap: string }>`
+  ${commonButtonStyle};
+  color: ${({ isScrap }) => (isScrap ? "var(--black_01)" : "var(--black_03)")};
+`;
+
+export { QnaItemBubble, QnaItemDiv, NormalItemDiv, LikeButtonBox, ScrapButtonBox };
