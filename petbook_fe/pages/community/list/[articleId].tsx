@@ -7,7 +7,7 @@ import BackButton from "@components/community/BackButton";
 import ArticleContainer from "@containers/ArticleContainer";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { getHttpOnlyCookie } from "@lib/utils/httpOnlyCookie";
-import { createContext } from "react";
+import { createContext, useEffect } from "react";
 
 export const ARTICLE_ITEM = {
   key: "ARTICLE_ITEM",
@@ -66,6 +66,11 @@ type PetbookPage = NextPage<Props> & {
 export const tokenContext = createContext<Props["token"]>(null);
 
 const ArticleDetail: PetbookPage = ({ token }) => {
+  useEffect(() => {
+    if (token) {
+      sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
+    }
+  }, [token]);
   return (
     <>
       <Main>
