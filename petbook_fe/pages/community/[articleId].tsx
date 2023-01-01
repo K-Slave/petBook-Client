@@ -86,10 +86,8 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   gap: 20px;
-
-  max-width: 847px;
-  width: 90vw;
-
+  max-width: 1260px;
+  width: 100%;
   margin: 40px auto;
 `;
 
