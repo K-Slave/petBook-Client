@@ -1,5 +1,5 @@
 import ArticleList from "@components/community/ArticleList";
-import CategoryNav from "@components/community/CategoryNav";
+import CategoryNav, { CategoryNavButton, CategoryNavDiv } from "@components/community/CategoryNav";
 import WriteButton from "@components/community/WriteButton";
 import { articleRequest, categorySprRequest } from "@lib/API/petBookAPI";
 import useActiveCategory from "@lib/hooks/article/useActiveCategory";
@@ -25,7 +25,7 @@ const ArticleListPage: PetBookPage = () => {
   const { categoryName } = useActiveCategory();
   return (
     <Main>
-        <h1>{categoryName}</h1>
+      <h1>{categoryName}</h1>
       <CategoryNav />
       <ArticleList />
       <WriteButton />
@@ -45,6 +45,13 @@ const Main = styled.main`
       line-height: 50px;
       font-size: 34px;
       margin-bottom: 20px;
+    }
+    ${CategoryNavDiv} {
+      gap: 8px;
+    }
+    ${CategoryNavButton} {
+      width: 110px;
+      height: 44px;
     }
 `;
 

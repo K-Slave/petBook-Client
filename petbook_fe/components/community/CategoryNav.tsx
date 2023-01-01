@@ -47,7 +47,7 @@ export const CategoryNavButton = styled.button<{ active: string }>`
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 110px;
+  width: 132px;
   height: 52px;
   font-size: 16px !important;
   border-radius: 8px;
