@@ -6,7 +6,7 @@ import getRandomKey from "@lib/utils/getRandomKey";
 import DOMPurify from "isomorphic-dompurify";
 import React from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import useCategory from "@lib/hooks/article/useCategory";
+import useActiveCategory from "@lib/hooks/article/useActiveCategory";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 import {
   ArticleListDiv,
@@ -70,7 +70,7 @@ const Item = ({ article }: { article: ArticleResponse }) => {
 
 const PageButtonBox = ({ totalPages }: { totalPages: number }) => {
   const btnNum = 2;
-  const { categoryId, categoryName } = useCategory();
+  const { categoryId, categoryName } = useActiveCategory();
   const { currentPage, changeCurrentPage, offset } = usePagination({
     totalPages,
     btnNum,

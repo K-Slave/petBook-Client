@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-export default function useCategory() {
+export default function useActiveCategory() {
     const router = useRouter();
     const { category } = router.query;
     if (category === undefined) {
