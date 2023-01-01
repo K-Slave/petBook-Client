@@ -18,8 +18,6 @@ import {
 import { useQueryClient } from "react-query";
 import debounce from "@lib/modules/debounce";
 import { useRef } from "react";
-import ScrapButton from "@components/community/styled/ScrapButton.styled";
-import LikeButton from "@components/community/styled/LikeButton.styled";
 import TagList from "../TagList";
 import {
   ArticleSectionBox,
@@ -28,6 +26,8 @@ import {
   Spacer,
   MenuListBox,
 } from "./styled/styledArticleSection";
+import { HeartBlankIcon, HeartFilledIcon } from "../HeartIcon";
+import { BookmarkBlankIcon } from "../BookmarkIcon";
 
 const dummyImage =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
@@ -95,12 +95,16 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
       <TagList tags={tags} />
       <div className="ArticleSection_Button_Box">
         <div>
-          <LikeButton isLiked="" />
-          <span>{stat.likeCount}</span>
+          <button type="button">
+            <HeartBlankIcon />
+          </button>
+          <span className="likeCount">{stat.likeCount}</span>
         </div>
         <div>
-          <ScrapButton />
-          <span>0</span>
+          <button type="button">
+            <BookmarkBlankIcon />
+          </button>
+          <span className="scrapCount">0</span>
         </div>
       </div>
     </ArticleSectionBox>

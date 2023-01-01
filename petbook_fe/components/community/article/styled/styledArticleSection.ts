@@ -26,9 +26,8 @@ const ArticleSectionBox = styled.section`
       color: var(--black_03);
     }
     button {
-      font-weight: 500;
-      font-size: 14px;
-      color: var(--black_03);
+      display: flex;
+      align-items: center;
     }
   }
   .ArticleSection_Content {
