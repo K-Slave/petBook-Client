@@ -4,9 +4,10 @@ import {
   COMMENT_CREATE,
   COMMENT_LIST,
   COMMENT_UPDATE,
+  tokenContext,
 } from "@pages/community/list/[articleId]";
 import { useRouter } from "next/router";
-import { MutableRefObject } from "react";
+import { MutableRefObject, useContext } from "react";
 import { useQueryClient } from "react-query";
 import { useSetRecoilState } from "recoil";
 import { useSetResource } from "../common/useResource";
@@ -14,6 +15,7 @@ import { useSetResource } from "../common/useResource";
 export default function useSubmitComment(
   textareaRef: MutableRefObject<HTMLTextAreaElement | null>
 ) {
+  const token = useContext(tokenContext);
   const setComment = useSetRecoilState(commentState);
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -30,7 +32,10 @@ export default function useSubmitComment(
 
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
+    if (token === null) {
+      alert("🔒 로그인해주세요!");
+      return;
+    }
     setComment((comment) => {
       const { content, commentId, parentId } = comment;
       if (content === "") return comment; // form validation

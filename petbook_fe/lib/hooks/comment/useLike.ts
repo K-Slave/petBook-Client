@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { tokenContext } from "@pages/community/list/[articleId]";
+import { useContext, useState } from "react";
 
 export interface updateIsLikedParams {
   commentId: number;
@@ -17,8 +18,13 @@ export default function useLike({
   initialLiked,
   updateIsLiked,
 }: useLikeParams) {
+  const token = useContext(tokenContext);
   const [isLiked, setIsLiked] = useState(initialLiked);
   const clickLikeButton = () => {
+    if (token === null) {
+      alert("🔒 로그인해주세요!");
+      return;
+    }
     updateIsLiked({ commentId: id, isLiked: !isLiked, initialLiked });
     setIsLiked((state) => !state);
   };
