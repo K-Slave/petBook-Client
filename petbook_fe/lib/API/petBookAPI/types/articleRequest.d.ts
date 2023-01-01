@@ -18,13 +18,14 @@ interface ArticleItem {
   stat: {
     viewCount: number;
     likeCount: number;
-  },
+  };
+  isLike: boolean;
   createdAt: string;
 }
 
 export type ArticleResponse = ArticleItem;
 export interface ArticleListResponse {
-  articles: ArticleItem[],
+  articles: ArticleItem[];
   totalElements: number;
 }
 
