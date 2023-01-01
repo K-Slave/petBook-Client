@@ -4,7 +4,7 @@ import { ArticleListResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import { UseQueryResult } from "react-query";
 import { usePage } from "./usePagination";
 import useResource from "../common/useResource";
-import useCategory from "./useCategory";
+import useCategory from "./useActiveCategory";
 
 export default function useArticleList(): {
   status: UseQueryResult["status"];
