@@ -33,7 +33,7 @@ const ArticleList = () => {
 const Item = ({ article }: { article: ArticleResponse }) => {
   const { id, title, content, user, tags, stat, createdAt } = article;
   return (
-    <Link href={`/community/${id}`} passHref>
+    <Link href={`/community/list/${id}`} passHref>
       <ItemArticle>
         <h3>{title}</h3>
         <div
