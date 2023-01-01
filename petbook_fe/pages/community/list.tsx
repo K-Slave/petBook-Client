@@ -2,7 +2,7 @@ import ArticleList from "@components/community/ArticleList";
 import CategoryNav from "@components/community/CategoryNav";
 import WriteButton from "@components/community/WriteButton";
 import { articleRequest, categorySprRequest } from "@lib/API/petBookAPI";
-import useCategory from "@lib/hooks/article/useCategory";
+import useActiveCategory from "@lib/hooks/article/useActiveCategory";
 import { createResource } from "@lib/hooks/common/useResource";
 import { NextPage } from "next";
 import styled from "styled-components";
@@ -22,7 +22,7 @@ type PetBookPage = NextPage & {
 }
 
 const ArticleListPage: PetBookPage = () => {
-  const { categoryName } = useCategory();
+  const { categoryName } = useActiveCategory();
   return (
     <Main>
         <h1>{categoryName}</h1>
