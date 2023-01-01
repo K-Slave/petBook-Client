@@ -1,4 +1,4 @@
-name: petbook frontend Node.js CI
+name: petBook Web Client CI
 
 # 구독할 이벤트
 on:
@@ -52,9 +52,9 @@ jobs:
           discord-webhook: ${{ secrets.DISCORD_WEBHOOK }}
           username: "petBot"
           avatar-url: "https://cdn.discordapp.com/app-icons/1044621624864940163/87fe18353f90a7a4c275be945afc14e5.png?size=512"
-          title: "petBook Web Client ${{ github.workflow }} {{ github.event_name }}"
+          title: "${{ github.workflow }} : ${{ github.event_name }}"
           description: "빌드 상태 : {{STATUS}}"
-          include-details: "false"
+          # include-details: "false"
           color-success: "#008d62"
           color-failure: "#9b111e"
           color-cancelled: "#ffd400"
