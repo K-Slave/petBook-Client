@@ -131,9 +131,10 @@ type LikeButtonProps = Pick<CommentItem, "id" | "likeCount"> & {
 };
 
 const LikeButton = ({ id, liked, likeCount } : LikeButtonProps) => {
-  const { isLiked, clickLikeButton } = useLikeDebounce({
+  const { isLiked, clickLikeButton, computedLikeCount } = useLikeDebounce({
     id,
     liked,
+    likeCount
   });
   return (
     <LikeButtonBox
@@ -143,12 +144,7 @@ const LikeButton = ({ id, liked, likeCount } : LikeButtonProps) => {
     >
       {isLiked ? <HeartFilledIcon /> : <HeartBlankIcon />}
       <span className={`likeCount ${isLiked ? "active" : ""}`}>
-      {likeCount +
-        (!liked && isLiked
-          ? 1
-          : liked && !isLiked
-          ? -1
-          : 0)}
+        {computedLikeCount}
       </span>
     </LikeButtonBox>
   );
