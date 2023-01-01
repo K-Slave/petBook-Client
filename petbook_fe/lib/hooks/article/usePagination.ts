@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import navigator from "@lib/modules/navigator";
 import localConsole from "@lib/utils/localConsole";
 
@@ -22,7 +22,7 @@ export default function usePagination({
   const [offset, setOffset] = useState(1);
   const currentPage = usePage();
   const router = useRouter();
-  const changeCurrentPage = useCallback((page: number) => {
+  const changeCurrentPage = (page: number) => {
     const params = new URLSearchParams(router.asPath.split("?")[1]);
     params.delete("page");
     const path = params.toString().length !== 0 ? `${basePath}?${params.toString()}&page=${page}` : `${basePath}?page=${page}`;
@@ -30,7 +30,7 @@ export default function usePagination({
       shallow: true,
       scroll: true
     });
-  }, []);
+  };
 
   // currentPage가 1 ~ totalPages range에 존재하는지 판단
   useEffect(() => {
