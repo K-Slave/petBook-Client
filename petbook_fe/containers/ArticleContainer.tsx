@@ -3,7 +3,7 @@ import CommentForm from "@components/community/comment/CommentForm";
 import { NormalItem, QnaItem } from "@components/community/comment/CommentItem";
 import CommentList from "@components/community/comment/CommentList";
 import useResource from "@lib/hooks/common/useResource";
-import { ARTICLE_ITEM } from "@pages/community/[articleId]";
+import { ARTICLE_ITEM } from "@pages/community/list/[articleId]";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 

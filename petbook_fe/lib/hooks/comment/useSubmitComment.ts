@@ -4,7 +4,7 @@ import {
   COMMENT_CREATE,
   COMMENT_LIST,
   COMMENT_UPDATE,
-} from "@pages/community/[articleId]";
+} from "@pages/community/list/[articleId]";
 import { useRouter } from "next/router";
 import { MutableRefObject } from "react";
 import { useQueryClient } from "react-query";

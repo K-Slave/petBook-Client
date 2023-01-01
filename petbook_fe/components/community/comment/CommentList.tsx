@@ -4,7 +4,7 @@ import {
   COMMENT_DELETE,
   COMMENT_DELETE_LIKE,
   COMMENT_LIST,
-} from "@pages/community/[articleId]";
+} from "@pages/community/list/[articleId]";
 import { useRouter } from "next/router";
 import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
 import React, { Fragment, MouseEventHandler, useRef } from "react";

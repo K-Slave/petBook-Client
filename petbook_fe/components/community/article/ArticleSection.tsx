@@ -14,7 +14,7 @@ import {
   ARTICLE_CREATE_LIKE,
   ARTICLE_DELETE_LIKE,
   ARTICLE_ITEM,
-} from "@pages/community/[articleId]";
+} from "@pages/community/list/[articleId]";
 import { useQueryClient } from "react-query";
 import debounce from "@lib/modules/debounce";
 import { useRef } from "react";

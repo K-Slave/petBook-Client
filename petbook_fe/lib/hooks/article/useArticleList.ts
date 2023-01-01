@@ -1,4 +1,4 @@
-import { ARTICLE_LIST } from "@pages/community/list";
+import { ARTICLE_LIST } from "@pages/community/list/index";
 import { useRef } from "react";
 import { ArticleListResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import { UseQueryResult } from "react-query";
