@@ -1,5 +1,5 @@
 import DropdownMenu, { menuListStyle } from "@components/common/DropdownMenu";
-import useLike, { useLikeParams } from "@lib/hooks/comment/useLike";
+import useLikeDebounce from "@lib/hooks/comment/useLikeDebounce";
 import { BsArrowReturnRight } from "react-icons/bs";
 import styled from "styled-components";
 import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
@@ -22,7 +22,6 @@ export const NormalItem = ({
   comment,
   isChild,
   onDelete,
-  updateIsLiked,
 }: ItemProps) => {
   const {
     user,
@@ -31,7 +30,7 @@ export const NormalItem = ({
     likeCount,
     id,
     articleId,
-    isLiked: initialLiked,
+    isLiked,
   } = comment;
   return (
     <NormalItemDiv isChild={isChild}>
@@ -52,8 +51,7 @@ export const NormalItem = ({
         <div className="Item_Button_Box">
           <LikeButton
             id={id}
-            initialLiked={initialLiked}
-            updateIsLiked={updateIsLiked}
+            liked={isLiked}
             likeCount={likeCount}
           />
           <ScrapButton />
@@ -67,7 +65,6 @@ export const QnaItem = ({
   comment,
   isChild,
   onDelete,
-  updateIsLiked,
 }: ItemProps) => {
   const {
     user,
@@ -76,7 +73,7 @@ export const QnaItem = ({
     likeCount,
     id,
     articleId,
-    isLiked: initialLiked,
+    isLiked,
   } = comment;
   return (
     <QnaItemDiv>
@@ -96,8 +93,7 @@ export const QnaItem = ({
         <div className="Item_Button_Box">
           <LikeButton
             id={id}
-            initialLiked={initialLiked}
-            updateIsLiked={updateIsLiked}
+            liked={isLiked}
             likeCount={likeCount}
           />
           <ScrapButton />
@@ -130,13 +126,14 @@ const MenuListBox = styled.div`
 
 // --------------------------------------------------------------------
 
-type LikeButtonProps = useLikeParams & Pick<CommentItem, "likeCount">;
+type LikeButtonProps = Pick<CommentItem, "id" | "likeCount"> & {
+  liked: boolean;
+};
 
-const LikeButton = ({ id, initialLiked, updateIsLiked, likeCount } : LikeButtonProps) => {
-  const { isLiked, clickLikeButton } = useLike({
+const LikeButton = ({ id, liked, likeCount } : LikeButtonProps) => {
+  const { isLiked, clickLikeButton } = useLikeDebounce({
     id,
-    initialLiked,
-    updateIsLiked,
+    liked,
   });
   return (
     <LikeButtonBox
@@ -147,9 +144,9 @@ const LikeButton = ({ id, initialLiked, updateIsLiked, likeCount } : LikeButtonP
       {isLiked ? <HeartFilledIcon /> : <HeartBlankIcon />}
       <span className={`likeCount ${isLiked ? "active" : ""}`}>
       {likeCount +
-        (!initialLiked && isLiked
+        (!liked && isLiked
           ? 1
-          : initialLiked && !isLiked
+          : liked && !isLiked
           ? -1
           : 0)}
       </span>
