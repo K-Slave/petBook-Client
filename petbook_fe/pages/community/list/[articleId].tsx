@@ -7,7 +7,7 @@ import BackButton from "@components/community/BackButton";
 import ArticleContainer from "@containers/ArticleContainer";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { getHttpOnlyCookie } from "@lib/utils/httpOnlyCookie";
-import { useEffect } from "react";
+import { createContext } from "react";
 
 export const ARTICLE_ITEM = {
   key: "ARTICLE_ITEM",
@@ -63,18 +63,16 @@ type PetbookPage = NextPage<Props> & {
     | [typeof ARTICLE_ITEM, typeof COMMENT_LIST];
 };
 
+export const tokenContext = createContext<Props["token"]>(null);
+
 const ArticleDetail: PetbookPage = ({ token }) => {
-  useEffect(() => {
-    if (token) {
-      // sprPetBookClient in client-side
-      sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
-    }
-  }, [token]);
   return (
     <>
       <Main>
         <BackButton position="start" />
-        <ArticleContainer isLogin={token !== null} />
+        <tokenContext.Provider value={token}>
+          <ArticleContainer />
+        </tokenContext.Provider>
         <BackButton position="end" />
       </Main>
       <ImageSliderModal />
@@ -96,15 +94,12 @@ ArticleDetail.getInitialProps = async (
 ): Promise<Props> => {
   const token = await getHttpOnlyCookie({ ctx, key: "petBookUser" });
   if (token) {
-    // sprPetBookClient in server-side and client-side
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
-    ArticleDetail.requiredResources = [ARTICLE_ITEM, COMMENT_LIST];
-  } else {
-    ArticleDetail.requiredResources = [ARTICLE_ITEM];
   }
   return {
     token: token === undefined || token === "" ? null : token,
   };
 };
+ArticleDetail.requiredResources = [ARTICLE_ITEM, COMMENT_LIST];
 
 export default ArticleDetail;
