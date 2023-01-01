@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import Image from "next/image";
 import styled from "styled-components";
+import { BookmarkBlankIcon } from "./BookmarkIcon";
+import { HeartBlankIcon } from "./HeartIcon";
 
 const dummy = new Array(5).fill(1).map((_, index) => ({
   id: index + 1,
@@ -16,11 +18,11 @@ const HotArticleList = () => {
           <span className="PopularPostList_title">{data.title}</span>
           <span className="PopularPostList_stats">
             <span>
-              <span className="Heart_Img" />
+              <HeartBlankIcon />
               <span>000</span>
             </span>
             <span>
-              <span className="Scrap_Img" />
+              <BookmarkBlankIcon />
               <span>000</span>
             </span>
           </span>
@@ -57,16 +59,6 @@ const PopularPostListBox = styled.ol`
       display: flex;
       align-items: center;
     }
-  }
-  .Heart_Img {
-    background: url("/img/common/heart_blank.svg") no-repeat;
-    width: 24px;
-    height: 24px;
-  }
-  .Scrap_Img {
-    background: url("/img/common/scrap.svg") no-repeat;
-    width: 24px;
-    height: 24px;
   }
 `;
 
