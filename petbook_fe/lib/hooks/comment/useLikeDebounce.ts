@@ -9,11 +9,6 @@ export interface updateIsLikedParams {
   initialLiked: MutableRefObject<boolean>
 }
 
-export interface useLikeParams {
-  id: number;
-  liked: boolean;
-}
-
 function useUpdateLikeDebounce() {
   const { mutate: createLikeComment } = useSetResource(COMMENT_CREATE_LIKE);
   const { mutate: deleteLikeComment } = useSetResource(COMMENT_DELETE_LIKE);
@@ -54,7 +49,12 @@ function useUpdateLikeDebounce() {
 export default function useLikeDebounce({
   id,
   liked,
-}: useLikeParams) {
+  likeCount
+}: {
+  id: number;
+  liked: boolean;
+  likeCount: number;
+}) {
   const token = useContext(tokenContext);
   const initialLiked = useRef(liked);
   const [isLiked, setIsLiked] = useState(liked);
@@ -71,5 +71,11 @@ export default function useLikeDebounce({
   return {
     isLiked,
     clickLikeButton,
+    computedLikeCount: likeCount +
+      (!liked && isLiked
+        ? 1
+        : liked && !isLiked
+        ? -1
+        : 0)
   };
 }
