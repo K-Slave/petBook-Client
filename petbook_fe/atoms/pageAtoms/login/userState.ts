@@ -13,6 +13,15 @@ export const registerFormState = atom<{
   },
 });
 
+export const registerFormCheckEmail = atom<{
+  userId: string;
+}>({
+  key: "registerFormCheckEmail",
+  default: {
+    userId: "",
+  },
+});
+
 export const loginFormState = atom<{
   email: string;
   password: string;
