@@ -1,37 +1,27 @@
 import DropdownMenu, { menuListStyle } from "@components/common/DropdownMenu";
-import useLikeDebounce from "@lib/hooks/comment/useLikeDebounce";
 import { BsArrowReturnRight } from "react-icons/bs";
 import styled from "styled-components";
-import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
+import {
+  COMMENT_CREATE_LIKE,
+  COMMENT_DELETE_LIKE,
+} from "@pages/community/list/[articleId]";
 import CommonInfo from "../CommonInfo";
 import { BookmarkBlankIcon, BookmarkFilledIcon } from "../BookmarkIcon";
-import { HeartBlankIcon, HeartFilledIcon } from "../HeartIcon";
 import { ItemProps } from "./CommentList";
 import {
-  LikeButtonBox,
   NormalItemDiv,
   QnaItemBubble,
   QnaItemDiv,
   ScrapButtonBox,
 } from "./styled/styledCommentItem";
+import LikeButton from "../LikeButton";
 
 const avatar =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
 
-export const NormalItem = ({
-  comment,
-  isChild,
-  onDelete,
-}: ItemProps) => {
-  const {
-    user,
-    createdAt,
-    content,
-    likeCount,
-    id,
-    articleId,
-    isLiked,
-  } = comment;
+export const NormalItem = ({ comment, isChild, onDelete }: ItemProps) => {
+  const { user, createdAt, content, likeCount, id, articleId, isLiked } =
+    comment;
   return (
     <NormalItemDiv isChild={isChild}>
       {isChild && <BsArrowReturnRight />}
@@ -53,6 +43,8 @@ export const NormalItem = ({
             id={id}
             liked={isLiked}
             likeCount={likeCount}
+            CREATE_LIKE_RESOURCE={COMMENT_CREATE_LIKE}
+            DELETE_LIKE_RESOURCE={COMMENT_DELETE_LIKE}
           />
           <ScrapButton />
         </div>
@@ -61,20 +53,9 @@ export const NormalItem = ({
   );
 };
 
-export const QnaItem = ({
-  comment,
-  isChild,
-  onDelete,
-}: ItemProps) => {
-  const {
-    user,
-    createdAt,
-    content,
-    likeCount,
-    id,
-    articleId,
-    isLiked,
-  } = comment;
+export const QnaItem = ({ comment, isChild, onDelete }: ItemProps) => {
+  const { user, createdAt, content, likeCount, id, articleId, isLiked } =
+    comment;
   return (
     <QnaItemDiv>
       <CommonInfo
@@ -95,6 +76,8 @@ export const QnaItem = ({
             id={id}
             liked={isLiked}
             likeCount={likeCount}
+            CREATE_LIKE_RESOURCE={COMMENT_CREATE_LIKE}
+            DELETE_LIKE_RESOURCE={COMMENT_DELETE_LIKE}
           />
           <ScrapButton />
         </div>
@@ -125,30 +108,6 @@ const MenuListBox = styled.div`
 `;
 
 // --------------------------------------------------------------------
-
-type LikeButtonProps = Pick<CommentItem, "id" | "likeCount"> & {
-  liked: boolean;
-};
-
-const LikeButton = ({ id, liked, likeCount } : LikeButtonProps) => {
-  const { isLiked, clickLikeButton, computedLikeCount } = useLikeDebounce({
-    id,
-    liked,
-    likeCount
-  });
-  return (
-    <LikeButtonBox
-      type="button"
-      onClick={clickLikeButton}
-      isLiked={isLiked ? "true" : ""}
-    >
-      {isLiked ? <HeartFilledIcon /> : <HeartBlankIcon />}
-      <span className={`likeCount ${isLiked ? "active" : ""}`}>
-        {computedLikeCount}
-      </span>
-    </LikeButtonBox>
-  );
-};
 
 const ScrapButton = () => {
   return (
