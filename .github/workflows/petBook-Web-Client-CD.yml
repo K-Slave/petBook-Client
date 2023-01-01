@@ -1,9 +1,11 @@
 name: petBook Web Client CD
 
 on:
-  workflow_dispatch:
-  push:
-    branches: [fe]
+  workflow_call:
+    inputs:
+      status:
+        required: true
+        type: string
 # https://github.com/vercel/examples/tree/main/ci-cd/github-actions
 # 이거 참조해주세욤
 
