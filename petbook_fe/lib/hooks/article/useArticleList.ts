@@ -1,4 +1,4 @@
-import { ARTICLE_LIST } from "@pages/community/list/index";
+import { createArticleListResource } from "@pages/community/list/index";
 import { useRef } from "react";
 import { ArticleListResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import { UseQueryResult } from "react-query";
@@ -12,20 +12,15 @@ export default function useArticleList(): {
   totalPages: number;
 } {
   // params
-  const size = useRef(10);
+  const size = useRef(20);
   const page = usePage();
-  const { categoryName, categoryId } = useCategory();
+  const { categoryName: name, categoryId: id } = useCategory();
 
   // fetch data
-  const { data, status } = useResource({
-    key: `${ARTICLE_LIST.key}_${categoryName}_${page}`,
-    fetcher: ARTICLE_LIST.fetcher,
-    params: {
-      categoryId: categoryId === 0 ? "" : categoryId,
-      page: page - 1,
-      size: size.current,
-    }
-  });
+  const { data, status } = useResource(createArticleListResource({
+    category: { id, name },
+    page
+  }));
 
   // return data
   const articleList = {
