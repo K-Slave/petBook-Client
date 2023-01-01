@@ -13,7 +13,7 @@ export const usePage = () => {
 export default function usePagination({
   totalPages,
   btnNum,
-  basePath,
+  basePath
 }: {
   totalPages: number;
   btnNum: number;
@@ -21,8 +21,11 @@ export default function usePagination({
 }) {
   const [offset, setOffset] = useState(1);
   const currentPage = usePage();
+  const router = useRouter();
   const changeCurrentPage = useCallback((page: number) => {
-    const path = basePath.includes("?") ? `${basePath}&page=${page}` : `${basePath}?page=${page}`;
+    const params = new URLSearchParams(router.asPath.split("?")[1]);
+    params.delete("page");
+    const path = params.toString().length !== 0 ? `${basePath}?${params.toString()}&page=${page}` : `${basePath}?page=${page}`;
     navigator(path, undefined, {
       shallow: true,
       scroll: true
