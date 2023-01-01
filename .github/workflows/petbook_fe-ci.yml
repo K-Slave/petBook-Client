@@ -40,7 +40,6 @@ jobs:
     name: Discord Notification
     runs-on: ubuntu-latest
     needs:
-      - lint
       - build
     if: ${{ always() }}
     steps:
