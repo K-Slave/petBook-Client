@@ -65,3 +65,5 @@ jobs:
     uses: ./.github/workflows/petBook-Web-Client-CD.yml
     with:
       status: "success"
+    secrets:
+      VERCEL_DEPLOY_TOKEN: ${{ secrets.VERCEL_DEPLOY_TOKEN }}

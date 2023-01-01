@@ -8,6 +8,9 @@ on:
       status:
         required: true
         type: string
+    secrets:
+      VERCEL_DEPLOY_TOKEN:
+        required: true
 # https://github.com/vercel/examples/tree/main/ci-cd/github-actions
 # 이거 참조해주세욤
 
