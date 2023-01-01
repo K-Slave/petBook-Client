@@ -7,7 +7,7 @@ import { ARTICLE_ITEM } from "@pages/community/list/[articleId]";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
-const ArticleContainer = ({ isLogin }: { isLogin: boolean }) => {
+const ArticleContainer = () => {
   const router = useRouter();
   const articleId = router.query.articleId as string;
   const { data } = useResource({
@@ -17,8 +17,7 @@ const ArticleContainer = ({ isLogin }: { isLogin: boolean }) => {
   return (
     <>
       <ArticleSection data={data?.data} />
-      {isLogin && (
-        <CommentSection>
+      <CommentSection>
           {data?.data.category.name === "질문과 답변" ? (
             <>
               <CommentList Item={QnaItem} />
@@ -30,8 +29,7 @@ const ArticleContainer = ({ isLogin }: { isLogin: boolean }) => {
               <CommentList Item={NormalItem} />
             </>
           )}
-        </CommentSection>
-      )}
+      </CommentSection>
     </>
   );
 };
