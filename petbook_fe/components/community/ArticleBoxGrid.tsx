@@ -5,6 +5,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
+import { BookmarkBlankIcon } from "./BookmarkIcon";
 
 const ArticleBoxGrid = () => {
   const { categories } = useCategories({ all: true });
@@ -42,7 +43,7 @@ const Box = ({ category } : { category: CategoryItem }) => {
                             </span>
                         </Link>
                         <span className="Box_scrap">
-                            <span className="Box_scrap_img" />
+                            <BookmarkBlankIcon />
                             <span>0</span>
                         </span>
                     </li>)}
@@ -90,11 +91,6 @@ const BoxUL = styled.ul`
     align-items: center;
     color: var(--black_03);
     flex-shrink: 0;
-  }
-  .Box_scrap_img {
-    background: url("/img/common/scrap.svg") no-repeat;
-    width: 24px;
-    height: 24px;
   }
 `;
 
