@@ -1,25 +1,29 @@
+import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 import useCategories from "@lib/hooks/article/useCategories";
-import useCategory from "@lib/hooks/article/useCategory";
+import useActiveCategory from "@lib/hooks/article/useActiveCategory";
+import navigator from "@lib/modules/navigator";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
-import Link from "next/link";
 import styled, { css } from "styled-components";
 
 const CategoryNav = () => {
   const { categories, status } = useCategories({ all: true });
-  const { categoryName } = useCategory();
+  const { categoryName } = useActiveCategory();
+  const onClick = (category: CategoryItem) => () => {
+    navigator(getHrefWithCategory(category), undefined, {
+      shallow: true
+    });
+  };
   return (
     <CategoryNavDiv>
       {status === "success"
         ? categories.map((category) => (
-            <Link
-              href={getHrefWithCategory(category)}
-              passHref
-              key={category.id}
-            >
-              <CategoryNavButton active={categoryName === category.name ? "true" : ""}>
+              <CategoryNavButton
+                key={category.id}
+                onClick={onClick(category)}
+                active={categoryName === category.name ? "true" : ""}
+              >
                 {category.name}
               </CategoryNavButton>
-            </Link>
           ))
         : null}
     </CategoryNavDiv>
