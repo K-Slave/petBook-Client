@@ -7,9 +7,10 @@ interface Props {
   username: string;
   year: number;
   date: string;
+  className?: string;
 }
 
-const CommonInfo = ({ avatar, username, year, date }: Props) => {
+const CommonInfo = ({ avatar, username, year, date, className }: Props) => {
   const [time, setTime] = useState("");
   useEffect(() => {
     setTime(getTimeForToday(date));
@@ -17,7 +18,7 @@ const CommonInfo = ({ avatar, username, year, date }: Props) => {
   return (
     <Wrapper>
       {avatar && <Avatar src={avatar} alt="user avatar" />}
-      <div>
+      <div className={className}>
         <div className="row">
           <span className="username">{username}</span>
           <span className="year">{year}년차</span>
@@ -26,6 +27,11 @@ const CommonInfo = ({ avatar, username, year, date }: Props) => {
       </div>
     </Wrapper>
   );
+};
+
+CommonInfo.defaultProps = {
+  avatar: "",
+  className: ""
 };
 
 const Avatar = styled.img`
@@ -68,7 +74,3 @@ const Wrapper = styled.div`
 `;
 
 export default CommonInfo;
-
-CommonInfo.defaultProps = {
-  avatar: "",
-};
