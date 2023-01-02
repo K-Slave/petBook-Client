@@ -8,8 +8,10 @@ import { createResource } from "@lib/hooks/common/useResource";
 import CommunitySection from "@components/community/CommunitySection";
 import HotArticleList from "@components/community/HotArticleList";
 import CategoryNav from "@components/community/CategoryNav";
-import ArticleBoxGrid from "@components/community/ArticleBoxGrid";
-import QuestionList, { QNA_CATEGORY } from "@components/community/QnaArticleList";
+import ArticlePreviewList from "@components/community/ArticlePreviewList";
+import QnaArticleList, {
+  QNA_CATEGORY,
+} from "@components/community/QnaArticleList";
 import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 
@@ -51,14 +53,14 @@ const Community: PetbookPage = () => {
         title="지금 당신의 답변을 기다리고 있어요"
         moreHref={getHrefWithCategory(QNA_CATEGORY)}
       >
-        <QuestionList />
+        <QnaArticleList />
       </CommunitySection>
       <CommunitySection title="이번주 hot 인기글">
         <HotArticleList />
       </CommunitySection>
       <CommunitySection title="실시간 live talk">
         <CategoryNav />
-        <ArticleBoxGrid />
+        <ArticlePreviewList />
       </CommunitySection>
       <WriteButton />
     </Main>
