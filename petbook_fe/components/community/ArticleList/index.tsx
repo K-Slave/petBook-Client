@@ -1,19 +1,19 @@
 import Link from "next/link";
-import useArticleList from "@lib/hooks/article/useArticleList";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
-import usePagination from "@lib/hooks/article/usePagination";
 import getRandomKey from "@lib/utils/getRandomKey";
 import DOMPurify from "isomorphic-dompurify";
 import React from "react";
+import { HeartBlankIcon } from "@components/common/icon/HeartIcon";
+import { BookmarkBlankIcon } from "@components/common/icon/BookmarkIcon";
+import CommonInfo from "@components/community/CommonInfo";
+import usePagination from "./usePagination";
+import useArticleList from "./useArticleList";
 import {
   ArticleListDiv,
   ItemArticle,
   PageButton,
   PageButtonBoxDiv,
-} from "./styled/styledArticleList";
-import { HeartBlankIcon } from "./HeartIcon";
-import { BookmarkBlankIcon } from "./BookmarkIcon";
-import CommonInfo from "./CommonInfo";
+} from "./styled";
 
 const ArticleList = () => {
   const { status, articles, totalPages } = useArticleList();
@@ -70,7 +70,7 @@ const PageButtonBox = ({ totalPages }: { totalPages: number }) => {
   const { currentPage, changeCurrentPage, offset } = usePagination({
     totalPages,
     btnNum,
-    basePath: "/community/list"
+    basePath: "/community/list",
   });
   const onClickPrevButton = () => {
     changeCurrentPage(offset - btnNum);
@@ -88,8 +88,20 @@ const PageButtonBox = ({ totalPages }: { totalPages: number }) => {
     <PageButtonBoxDiv>
       {offset !== 1 && (
         <button onClick={onClickPrevButton} type="button">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 18L9 12L15 6" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 18L9 12L15 6"
+              stroke="black"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </button>
       )}
@@ -108,8 +120,20 @@ const PageButtonBox = ({ totalPages }: { totalPages: number }) => {
         ))}
       {btnNum + offset <= totalPages && (
         <button onClick={onClickNextButton} type="button">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9 18L15 12L9 6" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M9 18L15 12L9 6"
+              stroke="black"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </button>
       )}
