@@ -50,6 +50,11 @@ const Spacer = styled.div`
 
 const MenuListBox = styled.div`
   ${menuListStyle};
+  button {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+  }
 `;
 
 export { ArticleSectionBox, Spacer, MenuListBox };
