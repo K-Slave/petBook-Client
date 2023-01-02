@@ -1,6 +1,5 @@
 import { NextPage, NextPageContext } from "next";
 import styled from "styled-components";
-import ImageSliderModal from "@components/community/article/ImageSliderModal";
 import { articleRequest, commentRequest } from "@lib/API/petBookAPI";
 import { createRequest } from "@lib/hooks/common/useResource";
 import BackButton from "@components/community/BackButton";
@@ -79,16 +78,13 @@ const ArticleDetail: PetbookPage = ({ token }) => {
     }
   }, [token]);
   return (
-    <>
-      <Main>
-        <BackButton position="start" />
-        <tokenContext.Provider value={token}>
-          <ArticleContainer />
-        </tokenContext.Provider>
-        <BackButton position="end" />
-      </Main>
-      <ImageSliderModal />
-    </>
+    <Main>
+      <BackButton position="start" />
+      <tokenContext.Provider value={token}>
+        <ArticleContainer />
+      </tokenContext.Provider>
+      <BackButton position="end" />
+    </Main>
   );
 };
 

@@ -1,7 +1,5 @@
-import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { useRef } from "react";
-import imageModalState from "@atoms/pageAtoms/community/imageModalState";
 import CustomSwiper, {
   SlideNextButton,
   SlidePrevButton,
@@ -9,19 +7,22 @@ import CustomSwiper, {
 import { SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import useClickOutside from "@lib/hooks/common/useClickOutside";
+import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import { Container } from "../CommunityModal/styled";
 
 const prevElId = "swiper_back";
 const nextElId = "swiper_forward";
 
-const ImageSliderModal = () => {
+interface Props {
+  images: ArticleResponse["images"];
+  initialImageIndex: number;
+  closeModal: () => void;
+}
+
+const ImageSliderModal = ({ images, initialImageIndex, closeModal }: Props) => {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [{ show, images, initialImageIndex }, setImageModalState] =
-    useRecoilState(imageModalState);
-  const closeModal = () =>
-    setImageModalState((state) => ({ ...state, show: false }));
   useClickOutside(ref, closeModal);
-  return show ? (
+  return (
     <Container>
       <SliderDiv ref={ref}>
         <SlidePrevButton prevElId={prevElId} />
@@ -40,7 +41,7 @@ const ImageSliderModal = () => {
         <SlideNextButton nextElId={nextElId} />
       </SliderDiv>
     </Container>
-  ) : null;
+  );
 };
 
 const SliderDiv = styled.div`
