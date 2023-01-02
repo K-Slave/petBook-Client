@@ -6,15 +6,17 @@ import {
   ARTICLE_CREATE_LIKE,
   ARTICLE_DELETE_LIKE,
 } from "@pages/community/list/[articleId]";
+import { BookmarkBlankIcon } from "@components/common/icon/BookmarkIcon";
+import useModal from "@lib/hooks/common/useModal";
 import TagList from "../TagList";
 import {
   ArticleSectionBox,
   Spacer,
   MenuListBox,
 } from "./styled/styledArticleSection";
-import { BookmarkBlankIcon } from "../BookmarkIcon";
 import ImageSlider from "./ImageSlider";
 import LikeButton from "../LikeButton";
+import CommunityModal from "../CommunityModal";
 
 const dummyImage =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
@@ -40,7 +42,7 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
     <ArticleSectionBox>
       <div className="ArticleSection_Top_Row">
         <h2>{title}</h2>
-        <DropdownMenu MenuList={<MenuList />} />
+        <DropdownMenu MenuList={<MenuList id={id} title={title} />} />
       </div>
       <CommonInfo
         avatar={dummyImage}
@@ -81,11 +83,23 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
 
 // ---------------------------------------
 
-const MenuList = () => {
+const MenuList = ({ id, title }: Pick<ArticleResponse, "id" | "title">) => {
+  const { openModal, closeModal } = useModal();
+  const clickDeletionButton = () => {
+    openModal(CommunityModal, {
+      subTitle: title,
+      modalTitle: "정말 이 글을 삭제하시겠습니까?",
+      closeModal,
+      clickCancelButton: closeModal,
+      clickConfirmButton: closeModal,
+    });
+  };
   return (
     <MenuListBox>
       <button type="button">수정</button>
-      <button type="button">삭제</button>
+      <button type="button" onClick={clickDeletionButton}>
+        삭제
+      </button>
     </MenuListBox>
   );
 };

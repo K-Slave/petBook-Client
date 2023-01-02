@@ -3,7 +3,6 @@ import { useRef } from "react";
 import { Container, ModalBox, ButtonBox } from "./styled";
 
 interface Props {
-  open: boolean;
   subTitle?: string;
   modalTitle: string;
   modalContent?: React.ReactNode;
@@ -13,7 +12,6 @@ interface Props {
 }
 
 const CommunityModal = ({
-  open,
   subTitle,
   modalTitle,
   modalContent,
@@ -23,7 +21,7 @@ const CommunityModal = ({
 }: Props) => {
   const ref = useRef<HTMLDivElement | null>(null);
   useClickOutside(ref, closeModal);
-  return open ? (
+  return (
     <Container>
       <ModalBox ref={ref}>
         <p>{subTitle}</p>
@@ -39,7 +37,7 @@ const CommunityModal = ({
         </ButtonBox>
       </ModalBox>
     </Container>
-  ) : null;
+  );
 };
 
 CommunityModal.defaultProps = {
