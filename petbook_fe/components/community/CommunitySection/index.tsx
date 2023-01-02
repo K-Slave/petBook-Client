@@ -35,11 +35,11 @@ const CommunitySection = ({
     <CommunitySectionBox>
       <div className="heading">
         <h3>{title}</h3>
-        {moreHref &&
+        {moreHref && (
           <Link href={moreHref} passHref>
             <button type="button">더보기</button>
           </Link>
-        }
+        )}
       </div>
       {children}
     </CommunitySectionBox>
@@ -47,7 +47,7 @@ const CommunitySection = ({
 };
 
 CommunitySection.defaultProps = {
-  moreHref: ""
+  moreHref: "",
 };
 
 export default CommunitySection;

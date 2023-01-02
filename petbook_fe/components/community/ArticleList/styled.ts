@@ -1,12 +1,12 @@
 import styled, { css } from "styled-components";
 
-const ArticleListDiv = styled.div`
+export const ArticleListDiv = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
 `;
 
-const ItemArticle = styled.article`
+export const ItemArticle = styled.article`
   display: flex;
   flex-direction: column;
   border-radius: 16px;
@@ -55,7 +55,7 @@ const ItemArticle = styled.article`
   }
 `;
 
-const PageButtonBoxDiv = styled.div`
+export const PageButtonBoxDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,7 +68,6 @@ const PageButtonBoxDiv = styled.div`
     svg {
       margin: 0 10px;
     }
-
   }
 `;
 
@@ -76,7 +75,7 @@ const selectedStyle = css`
   color: var(--black_01);
 `;
 
-const PageButton = styled.button<{ selected: boolean }>` 
+export const PageButton = styled.button<{ selected: boolean }>`
   width: 32px;
   height: 32px;
   padding: 0;
@@ -85,10 +84,3 @@ const PageButton = styled.button<{ selected: boolean }>`
   color: var(--black_05);
   ${({ selected }) => selected && selectedStyle};
 `;
-
-export {
-  ArticleListDiv,
-  ItemArticle,
-  PageButtonBoxDiv,
-  PageButton
-};

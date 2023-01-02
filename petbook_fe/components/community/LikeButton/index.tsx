@@ -4,8 +4,11 @@ import {
   CreateLikeResource,
   DeleteLikeResource,
 } from "@pages/community/list/[articleId]";
-import LikeButtonBox from "./styled/styledLikeButton";
-import { HeartFilledIcon, HeartBlankIcon } from "./HeartIcon";
+import {
+  HeartFilledIcon,
+  HeartBlankIcon,
+} from "@components/common/icon/HeartIcon";
+import LikeButtonBox from "./styled";
 
 export type LikeButtonProps = Pick<CommentItem, "id" | "likeCount"> & {
   liked: boolean;
