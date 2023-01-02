@@ -5,8 +5,11 @@ import {
   COMMENT_CREATE_LIKE,
   COMMENT_DELETE_LIKE,
 } from "@pages/community/list/[articleId]";
-import CommonInfo from "../CommonInfo";
-import { BookmarkBlankIcon, BookmarkFilledIcon } from "../BookmarkIcon";
+import CommonInfo from "@components/community/CommonInfo";
+import {
+  BookmarkBlankIcon,
+  BookmarkFilledIcon,
+} from "@components/common/icon/BookmarkIcon";
 import { ItemProps } from "./CommentList";
 import {
   NormalItemDiv,
