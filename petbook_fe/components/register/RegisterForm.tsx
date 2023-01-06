@@ -34,11 +34,16 @@ const REGISTER_CREATE = createRequest({
   requester: registerRequest.register,
 });
 
-// 내부에서 쓰일거임
+// 내부에서 쓰일거임 : 이메일 확인
 export const REGISTER_CHECK_EMAIL = createRequest({
   key: "REGISTER_CHECK_EMAIL",
   requester: registerRequest.registerCheckEmail,
 });
+// 내부에서 쓰일거임 : 닉네임 확인
+export const REGISTER_CHECK_NICKNAME = {
+  key: "REGISTER_CHECK_NICKNAME",
+  fetcher: registerRequest.registerCheckNickname,
+};
 
 const TermsWrap = () => {
   return (
@@ -79,6 +84,7 @@ const Register = () => {
         </div>
         <RegisterInputBox
           IconType="Login"
+          checkIconType="Login_Passcode_Disabled"
           axiosValue="email"
           current="이메일"
           registerInfoText="인증번호 4자리"
@@ -86,6 +92,7 @@ const Register = () => {
         <PasswordInput />
         <RegisterInputBox
           IconType="Nicname"
+          checkIconType="Name"
           axiosValue="nickname"
           current="닉네임"
           registerInfoText="이름"

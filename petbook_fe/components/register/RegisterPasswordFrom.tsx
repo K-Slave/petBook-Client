@@ -16,6 +16,7 @@ const PasswordInput = () => {
       <RegisterInputBox
         IconType="Password"
         axiosValue="password"
+        checkIconType="Password_Check_Disabled"
         current="비밀번호 : 영문 8자리 이상 대소문자 + 숫자 + 특수문자 "
         registerInfoText="비밀번호 확인"
       />
