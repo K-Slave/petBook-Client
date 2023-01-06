@@ -22,6 +22,15 @@ export const registerFormCheckEmail = atom<{
   },
 });
 
+export const registerFormCheckNickname = atom<{
+  nickname: string;
+}>({
+  key: "registerFormCheckNickname",
+  default: {
+    nickname: "",
+  },
+});
+
 export const loginFormState = atom<{
   email: string;
   password: string;

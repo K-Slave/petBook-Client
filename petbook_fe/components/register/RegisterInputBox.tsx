@@ -1,9 +1,15 @@
-import { registerFormState } from "@atoms/pageAtoms/login/userState";
+import {
+  registerFormState,
+  registerFormCheckNickname,
+} from "@atoms/pageAtoms/login/userState";
 import React, { ChangeEventHandler } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { useSetResource } from "@lib/hooks/common/useResource";
+import useResource, { useSetResource } from "@lib/hooks/common/useResource";
 
-import { REGISTER_CHECK_EMAIL } from "@components/register/RegisterForm";
+import {
+  REGISTER_CHECK_EMAIL,
+  REGISTER_CHECK_NICKNAME,
+} from "@components/register/RegisterForm";
 
 import {
   InputWrap,
@@ -17,6 +23,7 @@ interface LoginProps {
   axiosValue: string;
   IconType: string;
   registerInfoText: string;
+  checkIconType: string;
 }
 
 interface InfoProps {
@@ -91,7 +98,6 @@ const RegisterModalButton = ({ axiosValue }: buttonValue) => {
     if (axiosValue === "email") {
       mutate({ userId: modalValue.email });
     }
-    console.log(axiosValue, modalValue, "상태값 확인");
   };
 
   return (
@@ -100,7 +106,50 @@ const RegisterModalButton = ({ axiosValue }: buttonValue) => {
     </button>
   );
 };
+/**
+ *
+ * @param param0 인증 / 중복확인 버튼
+ * @returns
+ */
+const RegisterNicnameCheckButton = ({ axiosValue }: buttonValue) => {
+  let buttonName = "";
+  switch (axiosValue) {
+    case "email": {
+      buttonName = "인증하기";
+      break;
+    }
+    case "password": {
+      buttonName = "";
+      break;
+    }
+    case "nickname": {
+      buttonName = "중복확인";
+      break;
+    }
+    default: {
+      buttonName = "";
+      break;
+    }
+  }
 
+  const modalValue = useRecoilValue(registerFormCheckNickname);
+  const { data } = useResource({
+    key: `REGISTER_CHECK_EMAIL`,
+    fetcher: () =>
+      REGISTER_CHECK_NICKNAME.fetcher({
+        nickname: modalValue.nickname,
+      }),
+  });
+  const onClick = () => {
+    console.log(data);
+  };
+
+  return (
+    <button type="button" onClick={onClick} className="emphasis">
+      {buttonName}
+    </button>
+  );
+};
 /**
  *
  * @param param0 input box 설정 영역입니다
@@ -111,6 +160,7 @@ const RegisterInput = ({
   axiosValue,
   IconType,
   registerInfoText,
+  checkIconType,
 }: LoginProps) => {
   const setLoginForm = useSetRecoilState(registerFormState);
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -135,13 +185,17 @@ const RegisterInput = ({
             onChange={onChange}
           />
         </label>
-        <RegisterModalButton axiosValue={axiosValue} />
+        {axiosValue === "nickname" ? (
+          <RegisterNicnameCheckButton axiosValue={axiosValue} />
+        ) : (
+          <RegisterModalButton axiosValue={axiosValue} />
+        )}
       </InputBox>
 
       {/* 확인관련 */}
       <InputBox>
         <IconBox>
-          <div className={`${IconType}`} />
+          <div className={`${checkIconType}`} />
         </IconBox>
         <label htmlFor={`${current}`}>
           <input
