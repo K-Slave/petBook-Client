@@ -11,9 +11,14 @@ import navigator from "@lib/modules/navigator";
 
 import RegisterInputBox from "@components/register/RegisterInputBox";
 import PasswordInput from "@components/register/RegisterPasswordFrom";
+import RegisterNameForm from "@components/register/RegisterNameForm";
 
 // styled
-import { RegisterFormWrap, SpaceTopWrap } from "./styled/styledRegisterForm";
+import {
+  RegisterFormWrap,
+  SpaceTopWrap,
+  RegisterInfoText,
+} from "./styled/styledRegisterForm";
 
 const Main = styled.main`
   overflow: auto;
@@ -84,30 +89,31 @@ const Register = () => {
           />
         </div>
 
-        {/* Form data */}
-        <RegisterInputBox
-          IconType="Login"
-          axiosValue="email"
-          current="이메일"
-        />
-        <RegisterInputBox
-          IconType="Login_Passcode_Disabled"
-          axiosValue="email_num"
-          current="인증번호 4자리"
-        />
+        {/* Form data fix */}
+        <div>
+          <RegisterInputBox
+            IconType="Login"
+            axiosValue="email"
+            current="이메일"
+          />
+          <RegisterInputBox
+            IconType="Login_Passcode_Disabled"
+            axiosValue="email_num"
+            current="인증번호 4자리"
+          />
+          <RegisterInfoText state={false}>
+            <p>인증이 완료되었습니다</p>
+          </RegisterInfoText>
+        </div>
         {/*  */}
         <SpaceTopWrap>
           <PasswordInput />
         </SpaceTopWrap>
         {/*  */}
         <SpaceTopWrap>
-          <RegisterInputBox IconType="Name" axiosValue="name" current="이름" />
-          <RegisterInputBox
-            IconType="Nicname"
-            axiosValue="nickname"
-            current="닉네임"
-          />
+          <RegisterNameForm />
         </SpaceTopWrap>
+        {/*  */}
         <RegisterContainer.TermsWrap />
         <RegisterContainer.RegisterButton />
       </RegisterFormWrap>

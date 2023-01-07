@@ -89,8 +89,6 @@ const RegisterModalButton = ({ axiosValue }: buttonValue) => {
   const { data, isSuccess, isError, error, mutate } =
     useSetResource(REGISTER_CHECK_EMAIL);
 
-  console.log(data);
-
   const onClick = () => {
     if (axiosValue === "email") {
       mutate({ userId: modalValue.email });
@@ -128,17 +126,20 @@ const RegisterNicnameCheckButton = ({ axiosValue }: buttonValue) => {
       break;
     }
   }
-
-  const modalValue = useRecoilValue(registerFormCheckNickname);
-  const { data } = useResource({
-    key: `REGISTER_CHECK_EMAIL`,
-    fetcher: () =>
-      REGISTER_CHECK_NICKNAME.fetcher({
-        nickname: modalValue.nickname,
-      }),
-  });
+  const setLoginForm = useSetRecoilState(registerFormCheckNickname);
+  const modalValue = useRecoilValue(registerFormState);
+  // const modalValue = useRecoilValue(registerFormCheckNickname);
+  // const { data } = useResource({
+  //   key: `REGISTER_CHECK_EMAIL`,
+  //   fetcher: () =>
+  //     REGISTER_CHECK_NICKNAME.fetcher({
+  //       nickname: modalValue.nickname,
+  //     }),
+  // });
   const onClick = () => {
-    console.log(data);
+    setLoginForm(() => ({
+      nickname: modalValue.nickname,
+    }));
   };
 
   return (
@@ -152,13 +153,7 @@ const RegisterNicnameCheckButton = ({ axiosValue }: buttonValue) => {
  * @param param0 input box 설정 영역입니다
  * @returns
  */
-const RegisterInput = ({
-  current,
-  axiosValue,
-  IconType,
-  registerInfoText,
-  checkIconType,
-}: LoginProps) => {
+const RegisterInput = ({ current, axiosValue, IconType }: LoginProps) => {
   const setLoginForm = useSetRecoilState(registerFormState);
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setLoginForm((user) => ({

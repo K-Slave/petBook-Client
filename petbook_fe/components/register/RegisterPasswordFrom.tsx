@@ -28,7 +28,9 @@ const PasswordInput = () => {
         axiosValue="password_check"
         current="비밀번호를 입력해주세요"
       />
-      <RegisterInfoText state={success}>비밀번호가 일치합니다</RegisterInfoText>
+      <RegisterInfoText state={success}>
+        <p>비밀번호가 일치합니다</p>
+      </RegisterInfoText>
     </>
   );
 };
