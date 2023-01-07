@@ -122,13 +122,13 @@ const Register = () => {
 };
 
 const RegisterButton = () => {
-  const user = useRecoilValue(registerFormState);
+  const registerForm = useRecoilValue(registerFormState);
 
   const { data, isSuccess, isError, error, mutate } =
     useSetResource(REGISTER_CREATE);
 
   const Sign = () => {
-    mutate(user);
+    mutate(registerForm);
   };
   useEffect(() => {
     if (isSuccess) {

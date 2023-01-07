@@ -84,14 +84,14 @@ const RegisterModalButton = ({ axiosValue }: buttonValue) => {
     }
   }
 
-  const modalValue = useRecoilValue(registerFormState);
+  const registerForm = useRecoilValue(registerFormState);
 
   const { data, isSuccess, isError, error, mutate } =
     useSetResource(REGISTER_CHECK_EMAIL);
 
   const onClick = () => {
     if (axiosValue === "email") {
-      mutate({ userId: modalValue.email });
+      mutate({ userId: registerForm.email });
     }
   };
 
@@ -126,8 +126,8 @@ const RegisterNicnameCheckButton = ({ axiosValue }: buttonValue) => {
       break;
     }
   }
-  const setLoginForm = useSetRecoilState(CheckNicknameState);
-  const modalValue = useRecoilValue(registerFormState);
+  const checkNicknameFrom = useSetRecoilState(CheckNicknameState);
+  const registerForm = useRecoilValue(registerFormState);
   // const modalValue = useRecoilValue(CheckNicknameState);
   // const { data } = useResource({
   //   key: `REGISTER_CHECK_EMAIL`,
@@ -137,8 +137,8 @@ const RegisterNicnameCheckButton = ({ axiosValue }: buttonValue) => {
   //     }),
   // });
   const onClick = () => {
-    setLoginForm(() => ({
-      nickname: modalValue.nickname,
+    checkNicknameFrom(() => ({
+      nickname: registerForm.nickname,
     }));
   };
 
