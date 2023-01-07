@@ -114,10 +114,10 @@ export const LoginSubmitButton = () => {
     console.log(newValue);
   };
 
-  const user = useRecoilValue(loginFormState);
+  const loginForm = useRecoilValue(loginFormState);
   const { data, isSuccess, error, isError, mutate } = useSetResource(LOGIN);
   const onSubmit = () => {
-    mutate(user);
+    mutate(loginForm);
   };
   useEffect(() => {
     if (isSuccess) {

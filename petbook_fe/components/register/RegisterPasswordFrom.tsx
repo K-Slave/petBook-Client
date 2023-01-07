@@ -6,15 +6,15 @@ import { RegisterInfoText } from "./styled/styledRegisterForm";
 
 const PasswordInput = () => {
   const [success, setSuccess] = useState(false);
-  const modalValue = useRecoilValue(registerFormState);
+  const registerForm = useRecoilValue(registerFormState);
 
   useEffect(() => {
-    if (modalValue.password === modalValue.password_check) {
+    if (registerForm.password === registerForm.password_check) {
       setSuccess(true);
     } else {
       setSuccess(false);
     }
-  }, [modalValue]);
+  }, [registerForm]);
 
   return (
     <>

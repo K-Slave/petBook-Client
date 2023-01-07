@@ -9,20 +9,21 @@ import { RegisterInfoText } from "./styled/styledRegisterForm";
 
 const PasswordInput = () => {
   const [success, setSuccess] = useState(false);
-  const modalValue = useRecoilValue(CheckNicknameState);
-  const cc = () => {
-    const { dd }: any = useResource({
-      key: `REGISTER_CHECK_EMAIL`,
-      fetcher: () =>
-        REGISTER_CHECK_NICKNAME.fetcher({
-          nickname: modalValue.nickname,
-        }),
-    });
-    return dd;
-  };
+  const checkNickname = useRecoilValue(CheckNicknameState);
+
+  // const cc = () => {
+  //   const { dd }: any = useResource({
+  //     key: `REGISTER_CHECK_EMAIL`,
+  //     fetcher: () =>
+  //       REGISTER_CHECK_NICKNAME.fetcher({
+  //         nickname: modalValue.nickname,
+  //       }),
+  //   });
+  //   return dd;
+  // };
   useEffect(() => {
-    console.log(cc);
-  }, [modalValue]);
+    console.log(checkNickname);
+  }, [checkNickname]);
 
   return (
     <>
