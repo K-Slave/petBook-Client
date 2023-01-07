@@ -77,9 +77,6 @@ const IconBox = styled.div`
   height: 24px;
 `;
 
-const InputWrap = styled.section`
-  margin-bottom: 52px;
-`;
 const InputBox = styled.div`
   position: relative;
   margin-bottom: 8px;
@@ -104,11 +101,4 @@ const RegisterInfoText = styled.p`
   }
 `;
 
-export {
-  RegisterFormWrap,
-  PassCheckWrap,
-  IconBox,
-  InputBox,
-  RegisterInfoText,
-  InputWrap,
-};
+export { RegisterFormWrap, PassCheckWrap, IconBox, InputBox, RegisterInfoText };
