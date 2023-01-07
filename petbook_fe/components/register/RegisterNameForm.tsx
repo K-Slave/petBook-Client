@@ -4,12 +4,12 @@ import { useRecoilValue } from "recoil";
 import useResource from "@lib/hooks/common/useResource";
 import { REGISTER_CHECK_NICKNAME } from "@components/register/RegisterForm";
 
-import { registerFormCheckNickname } from "@atoms/pageAtoms/login/userState";
+import { CheckNicknameState } from "@atoms/pageAtoms/login/userState";
 import { RegisterInfoText } from "./styled/styledRegisterForm";
 
 const PasswordInput = () => {
   const [success, setSuccess] = useState(false);
-  const modalValue = useRecoilValue(registerFormCheckNickname);
+  const modalValue = useRecoilValue(CheckNicknameState);
   const cc = () => {
     const { dd }: any = useResource({
       key: `REGISTER_CHECK_EMAIL`,

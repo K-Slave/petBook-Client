@@ -1,6 +1,6 @@
 import {
   registerFormState,
-  registerFormCheckNickname,
+  CheckNicknameState,
 } from "@atoms/pageAtoms/login/userState";
 import React, { ChangeEventHandler } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -126,9 +126,9 @@ const RegisterNicnameCheckButton = ({ axiosValue }: buttonValue) => {
       break;
     }
   }
-  const setLoginForm = useSetRecoilState(registerFormCheckNickname);
+  const setLoginForm = useSetRecoilState(CheckNicknameState);
   const modalValue = useRecoilValue(registerFormState);
-  // const modalValue = useRecoilValue(registerFormCheckNickname);
+  // const modalValue = useRecoilValue(CheckNicknameState);
   // const { data } = useResource({
   //   key: `REGISTER_CHECK_EMAIL`,
   //   fetcher: () =>
