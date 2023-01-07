@@ -16,9 +16,12 @@ const PasswordInput = () => {
       <RegisterInputBox
         IconType="Password"
         axiosValue="password"
-        checkIconType="Password_Check_Disabled"
-        current="비밀번호 : 영문 8자리 이상 대소문자 + 숫자 + 특수문자 "
-        registerInfoText="비밀번호 확인"
+        current="비밀번호를 입력해주세요"
+      />
+      <RegisterInputBox
+        IconType="Password_Check_Disabled"
+        axiosValue="password"
+        current="비밀번호를 입력해주세요"
       />
       {/* <PassCheckWrap>
         {PassCheckType.map((item) => {

@@ -12,7 +12,6 @@ import {
 } from "@components/register/RegisterForm";
 
 import {
-  InputWrap,
   IconBox,
   InputBox,
   RegisterInfoText,
@@ -22,8 +21,6 @@ interface LoginProps {
   current: string;
   axiosValue: string;
   IconType: string;
-  registerInfoText: string;
-  checkIconType: string;
 }
 
 interface InfoProps {
@@ -171,7 +168,7 @@ const RegisterInput = ({
   };
 
   return (
-    <InputWrap>
+    <article>
       {/* 인증관련 */}
       <InputBox>
         <IconBox>
@@ -191,23 +188,7 @@ const RegisterInput = ({
           <RegisterModalButton axiosValue={axiosValue} />
         )}
       </InputBox>
-
-      {/* 확인관련 */}
-      <InputBox>
-        <IconBox>
-          <div className={`${checkIconType}`} />
-        </IconBox>
-        <label htmlFor={`${current}`}>
-          <input
-            type="text"
-            id={`${axiosValue}`}
-            placeholder={`${registerInfoText}`}
-            onChange={onChange}
-          />
-        </label>
-        <RegisterInputInfo type={`${axiosValue}`} />
-      </InputBox>
-    </InputWrap>
+    </article>
   );
 };
 export default RegisterInput;

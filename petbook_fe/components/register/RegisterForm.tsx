@@ -74,6 +74,7 @@ const Register = () => {
   return (
     <div>
       <RegisterFormWrap>
+        {/* img */}
         <div className="Login_Title">
           <Image
             src="/img/common/logo/logo.svg"
@@ -82,20 +83,24 @@ const Register = () => {
             height={27}
           />
         </div>
+
+        {/* Form data */}
         <RegisterInputBox
           IconType="Login"
-          checkIconType="Login_Passcode_Disabled"
           axiosValue="email"
           current="이메일"
-          registerInfoText="인증번호 4자리"
+        />
+        <RegisterInputBox
+          IconType="Login_Passcode_Disabled"
+          axiosValue="email_num"
+          current="인증번호 4자리"
         />
         <PasswordInput />
+        <RegisterInputBox IconType="Name" axiosValue="name" current="이름" />
         <RegisterInputBox
           IconType="Nicname"
-          checkIconType="Name"
           axiosValue="nickname"
           current="닉네임"
-          registerInfoText="이름"
         />
         <RegisterContainer.TermsWrap />
         <RegisterContainer.RegisterButton />
