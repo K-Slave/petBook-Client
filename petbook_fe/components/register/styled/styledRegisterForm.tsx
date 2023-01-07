@@ -117,7 +117,7 @@ const RegisterInfoText = styled.div`
 `;
 
 const SpaceTopWrap = styled.div`
-  margin-top: 32px;
+  margin-top: 26px;
   position: relative;
 `;
 
