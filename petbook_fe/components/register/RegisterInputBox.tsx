@@ -169,7 +169,6 @@ const RegisterInput = ({
 
   return (
     <article>
-      {/* 인증관련 */}
       <InputBox>
         <IconBox>
           <div className={`${IconType}`} />
