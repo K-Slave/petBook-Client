@@ -82,10 +82,14 @@ const InputBox = styled.div`
   margin-bottom: 8px;
 `;
 
+export type textProps = {
+  state: boolean;
+};
+
 const RegisterInfoText = styled.p`
+  display: ${(props: textProps) => (props.state === false ? "none" : "block")};
   position: absolute;
   left: 20px;
-  top: 56px;
   font-size: 0.875rem;
   line-height: 20px;
   color: var(--success);
@@ -101,4 +105,16 @@ const RegisterInfoText = styled.p`
   }
 `;
 
-export { RegisterFormWrap, PassCheckWrap, IconBox, InputBox, RegisterInfoText };
+const SpaceTopWrap = styled.div`
+  margin-top: 52px;
+  position: relative;
+`;
+
+export {
+  RegisterFormWrap,
+  PassCheckWrap,
+  IconBox,
+  InputBox,
+  RegisterInfoText,
+  SpaceTopWrap,
+};

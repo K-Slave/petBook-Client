@@ -1,18 +1,23 @@
+import { useEffect, useState } from "react";
 import RegisterInputBox from "@components/register/RegisterInputBox";
-// import { PassCheckWrap } from "./styled/styledRegisterForm";
+import { useRecoilValue } from "recoil";
+import { registerFormState } from "@atoms/pageAtoms/login/userState";
+import { RegisterInfoText } from "./styled/styledRegisterForm";
 
 const PasswordInput = () => {
-  // const PassCheckType = [
-  //   {
-  //     type: "영어 대문자 포함",
-  //     value: "english",
-  //     check: true,
-  //   },
-  //   { type: "특수문자 포함", value: "spacial", check: false },
-  //   { type: "8자 이상", value: "limit", check: false },
-  // ];
+  const [success, setSuccess] = useState(false);
+  const modalValue = useRecoilValue(registerFormState);
+
+  useEffect(() => {
+    if (modalValue.password === modalValue.password_check) {
+      setSuccess(true);
+    } else {
+      setSuccess(false);
+    }
+  }, [modalValue]);
+
   return (
-    <div>
+    <>
       <RegisterInputBox
         IconType="Password"
         axiosValue="password"
@@ -20,31 +25,11 @@ const PasswordInput = () => {
       />
       <RegisterInputBox
         IconType="Password_Check_Disabled"
-        axiosValue="password"
+        axiosValue="password_check"
         current="비밀번호를 입력해주세요"
       />
-      {/* <PassCheckWrap>
-        {PassCheckType.map((item) => {
-          const { type } = item;
-          return (
-            <li key={item.value}>
-              <input
-                className="default"
-                type="radio"
-                id={item.value}
-                checked={item.check}
-              />
-              <label
-                className={item.check ? "active" : ""}
-                htmlFor={item.value}
-              >
-                {type}
-              </label>
-            </li>
-          );
-        })}
-      </PassCheckWrap> */}
-    </div>
+      <RegisterInfoText state={success}>비밀번호가 일치합니다</RegisterInfoText>
+    </>
   );
 };
 

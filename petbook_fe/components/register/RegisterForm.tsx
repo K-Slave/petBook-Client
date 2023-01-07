@@ -13,7 +13,7 @@ import RegisterInputBox from "@components/register/RegisterInputBox";
 import PasswordInput from "@components/register/RegisterPasswordFrom";
 
 // styled
-import { RegisterFormWrap } from "./styled/styledRegisterForm";
+import { RegisterFormWrap, SpaceTopWrap } from "./styled/styledRegisterForm";
 
 const Main = styled.main`
   overflow: auto;
@@ -95,13 +95,19 @@ const Register = () => {
           axiosValue="email_num"
           current="인증번호 4자리"
         />
-        <PasswordInput />
-        <RegisterInputBox IconType="Name" axiosValue="name" current="이름" />
-        <RegisterInputBox
-          IconType="Nicname"
-          axiosValue="nickname"
-          current="닉네임"
-        />
+        {/*  */}
+        <SpaceTopWrap>
+          <PasswordInput />
+        </SpaceTopWrap>
+        {/*  */}
+        <SpaceTopWrap>
+          <RegisterInputBox IconType="Name" axiosValue="name" current="이름" />
+          <RegisterInputBox
+            IconType="Nicname"
+            axiosValue="nickname"
+            current="닉네임"
+          />
+        </SpaceTopWrap>
         <RegisterContainer.TermsWrap />
         <RegisterContainer.RegisterButton />
       </RegisterFormWrap>
