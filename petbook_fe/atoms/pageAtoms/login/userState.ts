@@ -14,19 +14,19 @@ export const registerFormState = atom<{
   },
 });
 
-export const registerFormCheckEmail = atom<{
+export const registerFormCheckEmailState = atom<{
   userId: string;
 }>({
-  key: "registerFormCheckEmail",
+  key: "registerFormCheckEmailState",
   default: {
     userId: "",
   },
 });
 
-export const registerFormCheckNickname = atom<{
+export const CheckNicknameState = atom<{
   nickname: string;
 }>({
-  key: "registerFormCheckNickname",
+  key: "CheckNicknameState",
   default: {
     nickname: "",
   },
