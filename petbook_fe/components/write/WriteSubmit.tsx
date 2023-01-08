@@ -25,40 +25,10 @@ const Submit = () => {
   const articleMutation = useSetResource(ARTICLE_CREATE);
   const imgMutation = useSetResource(IMG_CREATE);
 
+  localConsole?.log(articleMutation.status, "articleMutation.status");
+
   const setWrite = useSetRecoilState(writeState);
 
-  // setWrite((write) => {
-  //   imgMutation
-  //     .mutateAsync({
-  //       header: multipartHeader,
-  //       body: write.inputFile,
-  //     })
-  //     .then(() => {
-  //       articleMutation.mutate({
-  //         body: {
-  //           title: write.inputTitle,
-  //           content: write.inputContent,
-  //           categoryId: write.selectedCategory.idx + 1,
-  //           tags: write.inputHash,
-  //         },
-  //       });
-
-  //       setWrite((writes) => {
-  //         return {
-  //           ...writes,
-  //           inputTitle: "",
-  //           inputContent: "",
-  //           inputHash: [],
-  //           inputImg: [],
-  //         };
-  //       });
-  //     })
-  //     .catch(() => {});
-
-  //   return {
-  //     ...write,
-  //   };
-  // });
   const onClick: MouseEventHandler<HTMLButtonElement> = () => {
     setWrite((write) => {
       const asyncWrite = {
@@ -74,53 +44,60 @@ const Submit = () => {
         return mutateState.data;
       };
 
-      const articlePromise = async () => {
+      const articlePromise = async (imgId?: number | number[]) => {
         const mutateState = await articleMutation.mutateAsync({
           body: {
             title: asyncWrite.inputTitle,
             content: asyncWrite.inputContent,
             categoryId: asyncWrite.selectedCategory.idx + 1,
             tags: asyncWrite.inputHash,
+            imageIds: imgId ? (Array.isArray(imgId) ? imgId : [imgId]) : [],
           },
         });
 
         return mutateState.data as ArticleResponse;
       };
 
-      const submitRun = () => {
-        imgPromise()
-          .then((imgRes) => {
-            localConsole?.log(imgRes, "imgRes");
-            articleRun();
+      const defaultSubmit = (imgId?: number | number[]) => {
+        articlePromise(imgId)
+          .then((articleRes) => {
+            navigator(`/community/list/${articleRes.id}`);
           })
           .catch((err) => localConsole?.error(err));
       };
 
-      const articleRun = () => {
-        articlePromise()
-          .then((articleRes) => {
-            navigator(`/community/${articleRes.id}`);
+      const withImgSubmitRun = () => {
+        imgPromise()
+          .then((imgRes) => {
+            localConsole?.log(imgRes, "imgRes");
+            defaultSubmit(imgRes.id);
           })
           .catch((err) => localConsole?.error(err));
       };
 
       if (write.inputImg) {
-        submitRun();
+        withImgSubmitRun();
       }
 
-      if (!write.inputImg) {
-        articleRun();
+      if (!write.inputImg || write.inputImg.length === 0) {
+        defaultSubmit();
       }
 
       return {
         ...write,
-        inputTitle: "",
-        inputContent: "",
-        inputHash: [],
-        inputImg: [],
       };
     });
   };
+
+  if (articleMutation.status === "success") {
+    setWrite((write) => ({
+      ...write,
+      inputTitle: "",
+      inputContent: "",
+      inputHash: [],
+      inputImg: [],
+    }));
+  }
 
   return <WriteSubmitButton onClick={onClick}>게시물 등록</WriteSubmitButton>;
 };
