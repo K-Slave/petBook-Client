@@ -92,9 +92,10 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-width: 1260px;
+  max-width: 1330px;
   width: 100%;
-  margin: 40px auto;
+  margin: 0 auto;
+  padding: 52px 35px 0;
 `;
 
 ArticleDetail.getInitialProps = async (

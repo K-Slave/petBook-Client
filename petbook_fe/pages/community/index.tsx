@@ -32,9 +32,9 @@ export const createResourceByCategory = (category: CategoryItem) => ({
 
 const Main = styled.main`
   width: 100%;
-  max-width: 1260px;
+  max-width: 1330px;
   margin: 0 auto;
-  padding-top: 52px;
+  padding: 52px 35px 0;
   margin-bottom: 100px;
 `;
 
