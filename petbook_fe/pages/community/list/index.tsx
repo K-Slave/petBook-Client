@@ -73,9 +73,10 @@ ArticleListPage.getInitialProps = async (ctx: NextPageContext) => {
 };
 
 const Main = styled.main`
-  max-width: 1260px;
+  max-width: 1330px;
   width: 100%;
-  margin: 52px auto;
+  margin: 0 auto;
+  padding: 52px 35px;
   h1 {
     color: var(--black_01);
     font-weight: 700;
