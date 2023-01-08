@@ -8,6 +8,7 @@ export default class ArticleAPI extends RequestCore {
    * @param body.title 게시물의 타이틀 입니다.
    * @param body.content 게시물의 컨텐츠 입니다.
    * @param body.categoryId 게시물의 카테고리 ID 값 입니다.
+   * @param body.imageIds 해당 게시물에 해당하는 이미지 ID 값 입니다
    * @param config Header 메시지를 추가할때 씁니다.
    * @param config.headerObj 유저 토큰값을 헤더에 작성합니다. 없으면 에러가 납니다.
    * @returns 생성한 게시물 정보가 들어옵니다.
@@ -18,6 +19,7 @@ export default class ArticleAPI extends RequestCore {
       title: string;
       content: string;
       categoryId: number;
+      imageIds: number[];
       tags: string[];
     };
   }) => {
@@ -122,13 +124,13 @@ export default class ArticleAPI extends RequestCore {
     const { pathParam, headerObj } = payload;
     const { requestURL, requestHeaders } = this.getParameters({
       uri: `/${pathParam}/like`,
-      headerObj
+      headerObj,
     });
 
     const result = await this.getResult({
       requestMethod: "POST",
       requestURL,
-      requestHeaders
+      requestHeaders,
     });
     return result;
   };
@@ -146,13 +148,13 @@ export default class ArticleAPI extends RequestCore {
     const { pathParam, headerObj } = payload;
     const { requestURL, requestHeaders } = this.getParameters({
       uri: `/${pathParam}/like`,
-      headerObj
+      headerObj,
     });
 
     const result = await this.getResult({
       requestMethod: "DELETE",
       requestURL,
-      requestHeaders
+      requestHeaders,
     });
     return result;
   };
