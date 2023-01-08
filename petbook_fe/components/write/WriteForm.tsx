@@ -1,7 +1,6 @@
 import QuillWrapper from "@components/common/Editor/QuillWrapper";
 import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
 import useSelectorState from "@lib/hooks/common/useSelectorState";
-import localConsole from "@lib/utils/localConsole";
 import React, {
   ChangeEventHandler,
   KeyboardEventHandler,
@@ -15,7 +14,6 @@ import {
   WriteTitleInput,
   WriteFormSection,
   WriteGuideDiv,
-  WriteContentLengthP,
 } from "./styled/styledWriteForm";
 
 const WriteForm = () => {
@@ -105,10 +103,6 @@ const Editor = () => {
       return false;
     }
 
-    if (pureText.length >= 490) {
-      localConsole?.log(event, "event");
-    }
-
     if (
       !keyList.includes(event.key) &&
       !keyList.includes(event.nativeEvent.key) &&
@@ -132,8 +126,6 @@ const Editor = () => {
     source: any,
     editor: ReactQuill.UnprivilegedEditor
   ) => {
-    // localConsole?.log(delta, "delta");
-
     if (pureText.length >= 500) {
       setWrite((write) => ({ ...write }));
       return "";
@@ -141,8 +133,6 @@ const Editor = () => {
 
     setWrite((write) => ({ ...write, inputContent: value }));
   };
-
-  localConsole?.log(readOnly, "readOnly");
 
   return (
     <WriteEditorDiv

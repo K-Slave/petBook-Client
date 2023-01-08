@@ -67,6 +67,44 @@ body {
   background-color: var(--bg_white_02);
 }
 
+.Skeleton__Box {
+  background-color: var(--template);
+
+  @-webkit-keyframes Skeletone-gradient {
+    0% {
+      filter: brightness(85%);
+    }
+
+    50% {
+      filter: brightness(100%);
+    }
+
+    100% {
+      filter: brightness(85%);
+    }
+  }
+
+  @keyframes Skeletone-gradient {
+    0% {
+      filter: brightness(85%);
+    }
+
+    50% {
+      filter: brightness(100%);
+    }
+
+    100% {
+      filter: brightness(85%);
+    }
+  }
+
+  /* 해당되는 컴포넌트에 적용 */
+  & {
+    -webkit-animation: Skeletone-gradient 1.3s infinite ease-in-out;
+    animation: Skeletone-gradient 1.3s infinite ease-in-out;
+  }
+}
+
 .Header__Wrap {
   position: fixed;
   z-index: 100;
