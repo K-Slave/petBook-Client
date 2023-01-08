@@ -81,7 +81,7 @@ const List = React.memo(() => {
   return (
     <>
       {inputHash.map((hashTag) => {
-        return <WriteHashTags.Item hashTag={hashTag} />;
+        return <WriteHashTags.Item key={hashTag} hashTag={hashTag} />;
       })}
     </>
   );
