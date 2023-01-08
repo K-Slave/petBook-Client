@@ -9,12 +9,15 @@ import { RegisterInfoText } from "./styled/styledRegisterForm";
 
 const PasswordInput = () => {
   const [success, setSuccess] = useState(false);
+  const [nicknameInfo, setNicknameInfo] = useState("사용 가능한 닉네임 입니다");
   const checkNickname = useRecoilValue(CheckNicknameState);
 
   const { data, mutate } = useSetResource(REGISTER_CHECK_NICKNAME);
 
   useEffect(() => {
-    mutate(checkNickname);
+    if (checkNickname.nickname !== "") {
+      mutate(checkNickname);
+    }
   }, [checkNickname]);
 
   useEffect(() => {
@@ -38,7 +41,7 @@ const PasswordInput = () => {
         current="닉네임"
       />
       <RegisterInfoText state={success}>
-        <p>사용 가능한 닉네임 입니다</p>
+        <p>{nicknameInfo}</p>
       </RegisterInfoText>
     </>
   );
