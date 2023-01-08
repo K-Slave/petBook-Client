@@ -77,31 +77,48 @@ const IconBox = styled.div`
   height: 24px;
 `;
 
-const InputWrap = styled.section`
-  margin-bottom: 52px;
-`;
 const InputBox = styled.div`
   position: relative;
   margin-bottom: 8px;
 `;
 
-const RegisterInfoText = styled.p`
-  position: absolute;
-  left: 20px;
-  top: 56px;
+export type textProps = {
+  state?: boolean;
+};
+
+const RegisterInfoText = styled.div`
+  position: relative;
+  height: 20px;
+  left: 0px;
+  padding-left: 24px;
   font-size: 0.875rem;
   line-height: 20px;
   color: var(--success);
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  p {
+    transition: all 0.3s ease-in-out;
+    position: absolute;
+    top: ${(props: textProps) => (props.state === false ? "-20px" : "0")};
+  }
   &::before {
     content: "";
     position: absolute;
-    left: -24px;
+    left: 0;
     width: 20px;
     height: 20px;
     background-image: url(/img/common/register/check_icon_green.svg);
     background-repeat: no-repeat;
     background-size: contain;
+
+    transition: all 0.3s ease-in-out;
+    top: ${(props: textProps) => (props.state === false ? "-20px" : "0")};
   }
+`;
+
+const SpaceTopWrap = styled.div`
+  margin-top: 26px;
+  position: relative;
 `;
 
 export {
@@ -110,5 +127,5 @@ export {
   IconBox,
   InputBox,
   RegisterInfoText,
-  InputWrap,
+  SpaceTopWrap,
 };

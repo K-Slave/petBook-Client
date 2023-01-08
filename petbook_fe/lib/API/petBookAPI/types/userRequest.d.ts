@@ -8,9 +8,9 @@ export interface UserLoginRequest {
   token: string;
 }
 
-// user duplication check
+// user nickname duplication check
 export interface UserCheckNickname {
-  verificationCode: string;
+  nicknameExist: string;
 }
 export interface UserCheckEmail {
   nicknameExist: boolean;
