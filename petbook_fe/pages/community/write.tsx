@@ -22,17 +22,17 @@ import styles from "../../styles/Write.module.scss";
 // 정의된 순서에서 이미 데이터를 가지고 내려온 상태임.
 
 export const ARTICLE_CREATE = createRequest({
-  key: "ARTICLE_CREATE",
+  key: ["ARTICLE_CREATE"],
   requester: articleRequest.article_create,
 });
 
 export const CATEGORY_LIST = createResource({
-  key: "CATEGORY_LIST",
+  key: ["CATEGORY_LIST"],
   fetcher: categorySprRequest.category_list,
 });
 
 export const IMG_CREATE = createRequest({
-  key: "IMG_CREATE",
+  key: ["IMG_CREATE"],
   requester: imgRequest.img_create,
 });
 
