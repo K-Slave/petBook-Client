@@ -11,9 +11,14 @@ import navigator from "@lib/modules/navigator";
 
 import RegisterInputBox from "@components/register/RegisterInputBox";
 import PasswordInput from "@components/register/RegisterPasswordFrom";
+import RegisterNameForm from "@components/register/RegisterNameForm";
 
 // styled
-import { RegisterFormWrap } from "./styled/styledRegisterForm";
+import {
+  RegisterFormWrap,
+  SpaceTopWrap,
+  RegisterInfoText,
+} from "./styled/styledRegisterForm";
 
 const Main = styled.main`
   overflow: auto;
@@ -22,7 +27,7 @@ const Main = styled.main`
 `;
 
 const Terms = styled.ul`
-  margin-top: 62px;
+  margin-top: 22px;
   margin-bottom: 47px;
   li {
     margin-bottom: 15px;
@@ -34,11 +39,16 @@ const REGISTER_CREATE = createRequest({
   requester: registerRequest.register,
 });
 
-// 내부에서 쓰일거임
+// 내부에서 쓰일거임 : 이메일 확인
 export const REGISTER_CHECK_EMAIL = createRequest({
   key: "REGISTER_CHECK_EMAIL",
   requester: registerRequest.registerCheckEmail,
 });
+// 내부에서 쓰일거임 : 닉네임 확인
+export const REGISTER_CHECK_NICKNAME = {
+  key: "REGISTER_CHECK_NICKNAME",
+  requester: registerRequest.registerCheckNickname,
+};
 
 const TermsWrap = () => {
   return (
@@ -69,6 +79,7 @@ const Register = () => {
   return (
     <div>
       <RegisterFormWrap>
+        {/* img */}
         <div className="Login_Title">
           <Image
             src="/img/common/logo/logo.svg"
@@ -77,19 +88,32 @@ const Register = () => {
             height={27}
           />
         </div>
-        <RegisterInputBox
-          IconType="Login"
-          axiosValue="email"
-          current="이메일"
-          registerInfoText="인증번호 4자리"
-        />
-        <PasswordInput />
-        <RegisterInputBox
-          IconType="Nicname"
-          axiosValue="nickname"
-          current="닉네임"
-          registerInfoText="이름"
-        />
+
+        {/* Form data fix */}
+        <div>
+          <RegisterInputBox
+            IconType="Login"
+            axiosValue="email"
+            current="이메일"
+          />
+          <RegisterInputBox
+            IconType="Login_Passcode_Disabled"
+            axiosValue="email_num"
+            current="인증번호 4자리"
+          />
+          <RegisterInfoText state={false}>
+            <p>인증이 완료되었습니다</p>
+          </RegisterInfoText>
+        </div>
+        {/*  */}
+        <SpaceTopWrap>
+          <PasswordInput />
+        </SpaceTopWrap>
+        {/*  */}
+        <SpaceTopWrap>
+          <RegisterNameForm />
+        </SpaceTopWrap>
+        {/*  */}
         <RegisterContainer.TermsWrap />
         <RegisterContainer.RegisterButton />
       </RegisterFormWrap>
@@ -98,13 +122,13 @@ const Register = () => {
 };
 
 const RegisterButton = () => {
-  const user = useRecoilValue(registerFormState);
+  const registerForm = useRecoilValue(registerFormState);
 
   const { data, isSuccess, isError, error, mutate } =
     useSetResource(REGISTER_CREATE);
 
   const Sign = () => {
-    mutate(user);
+    mutate(registerForm);
   };
   useEffect(() => {
     if (isSuccess) {
@@ -118,7 +142,7 @@ const RegisterButton = () => {
 
   return (
     <button type="button" onClick={Sign} className="Primary">
-      회원가입 완료
+      회원가입
     </button>
   );
 };
