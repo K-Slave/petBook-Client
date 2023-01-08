@@ -29,7 +29,7 @@ const CommunityModal = ({
         {modalContent}
         <ButtonBox>
           <button type="button" onClick={clickCancelButton}>
-            유지하기
+            취소
           </button>
           <button type="button" onClick={clickConfirmButton}>
             삭제하기
