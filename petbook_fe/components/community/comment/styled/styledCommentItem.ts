@@ -82,14 +82,9 @@ const commonButtonStyle = css`
   font-size: 16px;
 `;
 
-const LikeButtonBox = styled.button<{ isLiked: string }>`
-  ${commonButtonStyle};
-  color: ${({ isLiked }) => (isLiked ? "var(--primary)" : "var(--black_03)")};
-`;
-
 const ScrapButtonBox = styled.button<{ isScrap: string }>`
   ${commonButtonStyle};
   color: ${({ isScrap }) => (isScrap ? "var(--black_01)" : "var(--black_03)")};
 `;
 
-export { QnaItemBubble, QnaItemDiv, NormalItemDiv, LikeButtonBox, ScrapButtonBox };
+export { QnaItemBubble, QnaItemDiv, NormalItemDiv, ScrapButtonBox };

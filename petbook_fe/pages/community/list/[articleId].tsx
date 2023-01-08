@@ -1,6 +1,5 @@
 import { NextPage, NextPageContext } from "next";
 import styled from "styled-components";
-import ImageSliderModal from "@components/community/article/ImageSliderModal";
 import { articleRequest, commentRequest } from "@lib/API/petBookAPI";
 import { createRequest } from "@lib/hooks/common/useResource";
 import BackButton from "@components/community/BackButton";
@@ -54,6 +53,13 @@ export const COMMENT_DELETE_LIKE = createRequest({
   requester: commentRequest.comment_delete_like,
 });
 
+export type CreateLikeResource =
+  | typeof ARTICLE_CREATE_LIKE
+  | typeof COMMENT_CREATE_LIKE;
+export type DeleteLikeResource =
+  | typeof ARTICLE_DELETE_LIKE
+  | typeof COMMENT_DELETE_LIKE;
+
 interface Props {
   token: string | null;
 }
@@ -72,16 +78,13 @@ const ArticleDetail: PetbookPage = ({ token }) => {
     }
   }, [token]);
   return (
-    <>
-      <Main>
-        <BackButton position="start" />
-        <tokenContext.Provider value={token}>
-          <ArticleContainer />
-        </tokenContext.Provider>
-        <BackButton position="end" />
-      </Main>
-      <ImageSliderModal />
-    </>
+    <Main>
+      <BackButton position="start" />
+      <tokenContext.Provider value={token}>
+        <ArticleContainer />
+      </tokenContext.Provider>
+      <BackButton position="end" />
+    </Main>
   );
 };
 
