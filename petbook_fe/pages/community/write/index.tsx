@@ -10,13 +10,13 @@ import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import {
   createRequest,
   createResource,
-} from "../../lib/hooks/common/useResource";
+} from "../../../lib/hooks/common/useResource";
 import {
   articleRequest,
   categorySprRequest,
   imgRequest,
-} from "../../lib/API/petBookAPI";
-import styles from "../../styles/Write.module.scss";
+} from "../../../lib/API/petBookAPI";
+import styles from "../../../styles/Write.module.scss";
 
 // 1. 서버 사이드에서 가져올 리소스 정의하기
 // 정의된 순서에서 이미 데이터를 가지고 내려온 상태임.
