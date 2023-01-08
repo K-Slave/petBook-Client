@@ -47,7 +47,7 @@ export const REGISTER_CHECK_EMAIL = createRequest({
 // 내부에서 쓰일거임 : 닉네임 확인
 export const REGISTER_CHECK_NICKNAME = {
   key: "REGISTER_CHECK_NICKNAME",
-  fetcher: registerRequest.registerCheckNickname,
+  requester: registerRequest.registerCheckNickname,
 };
 
 const TermsWrap = () => {
@@ -142,7 +142,7 @@ const RegisterButton = () => {
 
   return (
     <button type="button" onClick={Sign} className="Primary">
-      회원가입 완료
+      회원가입
     </button>
   );
 };
