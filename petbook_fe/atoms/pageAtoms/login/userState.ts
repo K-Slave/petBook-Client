@@ -3,6 +3,7 @@ import { atom } from "recoil";
 export const registerFormState = atom<{
   email: string;
   password: string;
+  password_check?: string;
   nickname: string;
 }>({
   key: "registerFormState",
@@ -13,12 +14,21 @@ export const registerFormState = atom<{
   },
 });
 
-export const registerFormCheckEmail = atom<{
+export const registerFormCheckEmailState = atom<{
   userId: string;
 }>({
-  key: "registerFormCheckEmail",
+  key: "registerFormCheckEmailState",
   default: {
     userId: "",
+  },
+});
+
+export const CheckNicknameState = atom<{
+  nickname: string;
+}>({
+  key: "CheckNicknameState",
+  default: {
+    nickname: "",
   },
 });
 
