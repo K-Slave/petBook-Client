@@ -38,7 +38,16 @@ const CommentList = ({ Item }: Props) => {
         articleId: Number(articleId),
         page: pageParam,
         size: 20,
-      })
+      }),
+    {
+      getNextPageParam: (lastPage) => {
+        return lastPage.data.page + 1;
+      },
+      onError: (e) => {
+        setHasNextPage(false);
+      },
+      retry: 0,
+    }
   );
 
   const { mutate: deleteComment } = useSetResource(COMMENT_DELETE);
@@ -65,6 +74,25 @@ const CommentList = ({ Item }: Props) => {
       );
     }
   };
+
+  useEffect(() => {
+    if (!hasNextPage) return () => {};
+    const observer = new IntersectionObserver(([{ isIntersecting }]) => {
+      if (isIntersecting) {
+        fetchNextPage().catch((e) => {
+          console.log(e);
+        });
+      }
+    });
+    if (targetRef && targetRef.current) {
+      observer.observe(targetRef.current);
+    }
+    return () => {
+      if (targetRef && targetRef.current) {
+        observer.unobserve(targetRef.current);
+      }
+    };
+  }, [hasNextPage]);
 
   return (
     <CommentListDiv>
