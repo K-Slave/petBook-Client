@@ -1,4 +1,4 @@
-import { useMutation, UseMutationOptions, useQuery } from "react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 /**
  * @function useResource : GET 요청 결과를 받아오는 useQuery 를 내포한 Hook
@@ -9,7 +9,7 @@ import { useMutation, UseMutationOptions, useQuery } from "react-query";
  * @returns useQuery 의 state 를 그대로 반환합니다.
  */
 export default function useResource<T, P>(resource: {
-  key: string;
+  key: any[];
   fetcher: (params?: P) => Promise<T>;
   params?: P;
 }) {
@@ -28,23 +28,23 @@ export default function useResource<T, P>(resource: {
  * @returns resource 를 담은 객체
  */
 export function createResource<T, P>(resource: {
-  key: string;
+  key: any[];
   fetcher: (params?: P) => Promise<T>;
 }) {
   return resource;
 }
 
 export function useSetResource<T, P>(request: {
-  key: string;
+  key: any[];
   requester: (reqBody: P) => Promise<T>;
 }) {
-  const queryState = useMutation(request.key, request.requester);
+  const queryState = useMutation(request.requester);
 
   return queryState;
 }
 
 export function createRequest<T, P>(request: {
-  key: string;
+  key: any[];
   requester: (reqBody: P) => Promise<T>;
 }) {
   return {

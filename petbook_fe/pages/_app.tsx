@@ -6,7 +6,7 @@ import {
   Hydrate,
   QueryClient,
   QueryClientProvider,
-} from "react-query";
+} from "@tanstack/react-query";
 import cookies from "next-cookies";
 import urlTokenRedirect from "@lib/API/parser/urlTokenRedirect";
 import { RecoilRoot } from "recoil";
@@ -18,9 +18,9 @@ import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import CommonHeader from "../components/common/CommonHeader";
 import { itrMap } from "../lib/utils/iterableFunctions";
 
-import 'swiper/scss';
-import 'swiper/scss/navigation';
-import 'swiper/scss/pagination';
+import "swiper/scss";
+import "swiper/scss/navigation";
+import "swiper/scss/pagination";
 import "../styles/Globals.scss";
 import "../styles/Icon.scss";
 import "../styles/Swiper.scss";
@@ -33,7 +33,12 @@ type DehydratedAppProps = AppProps & {
   };
 };
 
-const NextApp = ({ Component, initProps, router, pageProps }: DehydratedAppProps) => {
+const NextApp = ({
+  Component,
+  initProps,
+  router,
+  pageProps,
+}: DehydratedAppProps) => {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -51,8 +56,7 @@ const NextApp = ({ Component, initProps, router, pageProps }: DehydratedAppProps
   }
 
   if (process.env.NEXT_PUBLIC_TESTER) {
-    sprPetBookClient.defaults.headers.common.Authorization =
-      `Bearer ${process.env.NEXT_PUBLIC_TESTER}`;
+    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${process.env.NEXT_PUBLIC_TESTER}`;
   }
 
   // 웹 후크 연동 테스트
@@ -103,8 +107,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
         `petBookUser=${allCookies.petBookUser}; Path=/ SameSite=Strict; Max-Age=2592000; secure; httpOnly`
       );
 
-      sprPetBookClient.defaults.headers.common.Authorization =
-        `Bearer ${allCookies.petBookUser}`;
+      sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${allCookies.petBookUser}`;
     }
 
     const PageComponent: typeof Component & {
@@ -128,7 +131,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
         itrMap(
           (resource: { key: string; fetcher: () => void }) =>
             queryParser(resource, query, queryClient),
-            requiredResources
+          requiredResources
         )
       );
     }
@@ -143,7 +146,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
       dehydratedState: dehydrate(queryClient),
       token: allCookies?.petBookUser,
     },
-    pageProps
+    pageProps,
   };
 };
 

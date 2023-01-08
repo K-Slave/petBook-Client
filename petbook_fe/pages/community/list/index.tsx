@@ -5,15 +5,18 @@ import {
   CategoryNavButton,
 } from "@components/community/CategoryNav/styled";
 import WriteButton from "@components/community/WriteButton";
+import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { articleRequest, categorySprRequest } from "@lib/API/petBookAPI";
 import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 import useActiveCategory from "@lib/hooks/article/useActiveCategory";
 import { createResource } from "@lib/hooks/common/useResource";
+import { getHttpOnlyCookie } from "@lib/utils/httpOnlyCookie";
 import { NextPage, NextPageContext } from "next";
+import { useEffect } from "react";
 import styled from "styled-components";
 
 const ARTICLE_LIST = createResource({
-  key: "ARTICLE_LIST",
+  key: ["ARTICLE_LIST"],
   fetcher: articleRequest.article_list,
 });
 
@@ -25,7 +28,7 @@ export const createArticleListResource = ({
   page: number;
 }) => {
   return {
-    key: `${ARTICLE_LIST.key}_${category.name}_${page}`,
+    key: [...ARTICLE_LIST.key, category.name, page],
     fetcher: () =>
       ARTICLE_LIST.fetcher({
         categoryId: category.id === 0 ? "" : category.id,
@@ -36,18 +39,25 @@ export const createArticleListResource = ({
 };
 
 export const CATEGORY_LIST = createResource({
-  key: "CATEGORY_LIST",
+  key: ["CATEGORY_LIST"],
   fetcher: categorySprRequest.category_list,
 });
 
-type PetBookPage = NextPage & {
+type PetBookPage = NextPage<{
+  token: string | null;
+}> & {
   requiredResources?: [
     ReturnType<typeof createArticleListResource>,
     typeof CATEGORY_LIST
   ];
 };
 
-const ArticleListPage: PetBookPage = () => {
+const ArticleListPage: PetBookPage = ({ token }) => {
+  useEffect(() => {
+    if (token) {
+      sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
+    }
+  }, [token]);
   const { categoryName } = useActiveCategory();
   return (
     <Main>
@@ -59,7 +69,13 @@ const ArticleListPage: PetBookPage = () => {
   );
 };
 
-ArticleListPage.getInitialProps = async (ctx: NextPageContext) => {
+ArticleListPage.getInitialProps = async (
+  ctx: NextPageContext
+): Promise<{ token: string | null }> => {
+  const token = await getHttpOnlyCookie({ ctx, key: "petBookUser" });
+  if (token) {
+    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
+  }
   const { query } = ctx;
   const page = Number(query.page);
   const [name, id] = (query.category as string).split("_");
@@ -70,6 +86,9 @@ ArticleListPage.getInitialProps = async (ctx: NextPageContext) => {
     }),
     CATEGORY_LIST,
   ];
+  return {
+    token: token === undefined || token === "" ? null : token,
+  };
 };
 
 const Main = styled.main`
