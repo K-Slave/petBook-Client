@@ -32,7 +32,7 @@ const useSetHashTag = (
     setTags = (textValue: string) => {
       setWrite((write) => {
         const addTag = textValue.includes("#")
-          ? (replaceAll(textValue, "#", true) as string)
+          ? replaceAll(textValue, "#", "")
           : textValue;
 
         // 중복 필터링
