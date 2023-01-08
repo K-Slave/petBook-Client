@@ -28,19 +28,23 @@ const ArticleBox = ({ category }: { category: CategoryItem }) => {
           <button type="button">더보기</button>
         </Link>
       </div>
-      <List>
-        {data?.data.articles.map((article) => (
-          <li key={article.id}>
-            <Link href={`/community/list/${article.id}`} passHref>
-              <span className="Article_title">{article.title}</span>
-            </Link>
-            <span className="Article_scrap">
-              <BookmarkBlankIcon />
-              <span>0</span>
-            </span>
-          </li>
-        ))}
-      </List>
+      {data?.data.articles.length === 0 ? (
+        <p className="text">아직 게시물이 없어요!</p>
+      ) : (
+        <List>
+          {data?.data.articles.map((article) => (
+            <li key={article.id}>
+              <Link href={`/community/list/${article.id}`} passHref>
+                <span className="Article_title">{article.title}</span>
+              </Link>
+              <span className="Article_scrap">
+                <BookmarkBlankIcon />
+                <span>0</span>
+              </span>
+            </li>
+          ))}
+        </List>
+      )}
     </Article>
   );
 };
