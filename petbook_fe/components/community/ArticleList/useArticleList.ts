@@ -2,9 +2,9 @@ import { createArticleListResource } from "@pages/community/list/index";
 import { useRef } from "react";
 import { ArticleListResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import { UseQueryResult } from "react-query";
+import useResource from "@lib/hooks/common/useResource";
+import useCategory from "@lib/hooks/article/useActiveCategory";
 import { usePage } from "./usePagination";
-import useResource from "../common/useResource";
-import useCategory from "./useActiveCategory";
 
 export default function useArticleList(): {
   status: UseQueryResult["status"];
@@ -17,10 +17,12 @@ export default function useArticleList(): {
   const { categoryName: name, categoryId: id } = useCategory();
 
   // fetch data
-  const { data, status } = useResource(createArticleListResource({
-    category: { id, name },
-    page
-  }));
+  const { data, status } = useResource(
+    createArticleListResource({
+      category: { id, name },
+      page,
+    })
+  );
 
   // return data
   const articleList = {
