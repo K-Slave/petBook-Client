@@ -39,8 +39,8 @@ export const ItemArticle = styled.article`
       align-items: center;
       color: var(--black_02);
     }
-    path {
-      stroke: var(--black_02) !important;
+    .like {
+      color: var(--primary);
     }
   }
   .Item_Row {

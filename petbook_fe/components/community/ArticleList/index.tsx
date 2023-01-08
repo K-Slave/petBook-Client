@@ -3,7 +3,10 @@ import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import getRandomKey from "@lib/utils/getRandomKey";
 import DOMPurify from "isomorphic-dompurify";
 import React from "react";
-import { HeartBlankIcon } from "@components/common/icon/HeartIcon";
+import {
+  HeartBlankIcon,
+  HeartFilledIcon,
+} from "@components/common/icon/HeartIcon";
 import { BookmarkBlankIcon } from "@components/common/icon/BookmarkIcon";
 import CommonInfo from "@components/community/CommonInfo";
 import usePagination from "./usePagination";
@@ -31,7 +34,7 @@ const ArticleList = () => {
 // ----------------------------------------------------------------------
 
 const Item = ({ article }: { article: ArticleResponse }) => {
-  const { id, title, content, user, tags, stat, createdAt } = article;
+  const { id, title, content, user, tags, stat, createdAt, isLike } = article;
   return (
     <Link href={`/community/list/${id}`} passHref>
       <ItemArticle>
@@ -43,8 +46,8 @@ const Item = ({ article }: { article: ArticleResponse }) => {
         <div className="Item_Row">
           <div className="Item_Stats">
             <div>
-              <HeartBlankIcon />
-              <span>{stat.likeCount}</span>
+              {isLike ? <HeartFilledIcon /> : <HeartBlankIcon />}
+              <span className={isLike ? "like" : ""}>{stat.likeCount}</span>
             </div>
             <div>
               <BookmarkBlankIcon />
