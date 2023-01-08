@@ -31,10 +31,12 @@ const embedContents = (content: string) => {
 
 const date = dayjs().tz();
 
-const time = `빌드 종료 : ${(date.month() + 1).toString()}/${date.date()} - ${
+const time = `🛬 빌드 종료 : ${(
+  date.month() + 1
+).toString()}/${date.date()} - ${
   date.hour() < 10 ? "0" + date.hour() : date.hour()
 }:${date.minute()}:${date.second()}
-빌드 하는데 걸린 시간 : ??
+⏱ 빌드 하는데 걸린 시간 : ??
 `;
 
 if (buildLog.includes("success")) {
@@ -48,7 +50,6 @@ if (buildLog.includes("success")) {
       username: "petBot",
       avatarURL:
         "https://cdn.discordapp.com/app-icons/1044621624864940163/87fe18353f90a7a4c275be945afc14e5.png?size=512",
-      // embeds: [embedContents(`${time} 빌드 성공! \n빌드타임 : ??`)],
       embeds: [
         embedContents(`petBook Web Client 빌드 성공 !`).setColor(0x008d62),
       ],
