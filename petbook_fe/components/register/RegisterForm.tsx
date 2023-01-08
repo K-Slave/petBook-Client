@@ -35,18 +35,18 @@ const Terms = styled.ul`
 `;
 
 const REGISTER_CREATE = createRequest({
-  key: "REGISTER_CREATE",
+  key: ["REGISTER_CREATE"],
   requester: registerRequest.register,
 });
 
 // 내부에서 쓰일거임 : 이메일 확인
 export const REGISTER_CHECK_EMAIL = createRequest({
-  key: "REGISTER_CHECK_EMAIL",
+  key: ["REGISTER_CHECK_EMAIL"],
   requester: registerRequest.registerCheckEmail,
 });
 // 내부에서 쓰일거임 : 닉네임 확인
 export const REGISTER_CHECK_NICKNAME = {
-  key: "REGISTER_CHECK_NICKNAME",
+  key: ["REGISTER_CHECK_NICKNAME"],
   requester: registerRequest.registerCheckNickname,
 };
 

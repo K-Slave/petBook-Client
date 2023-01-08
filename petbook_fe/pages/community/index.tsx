@@ -16,12 +16,12 @@ import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 
 export const CATEGORY_LIST = createResource({
-  key: "CATEGORY_LIST",
+  key: ["CATEGORY_LIST"],
   fetcher: categorySprRequest.category_list,
 });
 
 export const createResourceByCategory = (category: CategoryItem) => ({
-  key: `ARTICLE_LIST_${category.name}`,
+  key: ["ARTICLE_LIST", category.name],
   fetcher: () =>
     articleRequest.article_list({
       categoryId: category.id === 0 ? "" : category.id,

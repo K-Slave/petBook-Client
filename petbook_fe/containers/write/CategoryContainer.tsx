@@ -6,7 +6,7 @@ import React from "react";
 const CategoryContainer = () => {
   const category = useResource({
     ...CATEGORY_LIST,
-    key: `CATEGORY_LIST`,
+    key: [`CATEGORY_LIST`],
   });
 
   if (category.status === "success") {

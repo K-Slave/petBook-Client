@@ -2,7 +2,7 @@ import { CategoryListResponse } from "@lib/API/petBookAPI/types/categoryRequestS
 import useSelectorState from "@lib/hooks/common/useSelectorState";
 import { AxiosResponse } from "axios";
 import React, { MouseEventHandler, useEffect } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import writeState from "../../atoms/pageAtoms/community/writeState";
 import {
   ListDiv,
@@ -20,8 +20,9 @@ const WriteCategory = () => {
 };
 
 const List = () => {
-  const { data } =
-    useQuery<AxiosResponse<CategoryListResponse>>("CATEGORY_LIST");
+  const { data } = useQuery<AxiosResponse<CategoryListResponse>>([
+    "CATEGORY_LIST",
+  ]);
 
   const [{ selectedCategory }, setWrite] = useSelectorState(writeState, {
     selectedCategory: {

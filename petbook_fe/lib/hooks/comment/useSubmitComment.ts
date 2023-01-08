@@ -8,7 +8,7 @@ import {
 } from "@pages/community/list/[articleId]";
 import { useRouter } from "next/router";
 import { MutableRefObject, useContext } from "react";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useSetRecoilState } from "recoil";
 import { useSetResource } from "../common/useResource";
 
@@ -25,9 +25,7 @@ export default function useSubmitComment(
 
   const onSuccess = async () => {
     if (textareaRef.current != null) textareaRef.current.value = "";
-    await queryClient.invalidateQueries(
-      `${COMMENT_LIST.key}_${articleId as string}`
-    );
+    await queryClient.invalidateQueries([...COMMENT_LIST.key, articleId]);
   };
 
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
