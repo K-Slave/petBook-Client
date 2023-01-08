@@ -25,8 +25,6 @@ const Submit = () => {
   const articleMutation = useSetResource(ARTICLE_CREATE);
   const imgMutation = useSetResource(IMG_CREATE);
 
-  localConsole?.log(articleMutation.status, "articleMutation.status");
-
   const setWrite = useSetRecoilState(writeState);
 
   const onClick: MouseEventHandler<HTMLButtonElement> = () => {
@@ -69,7 +67,6 @@ const Submit = () => {
       const withImgSubmitRun = () => {
         imgPromise()
           .then((imgRes) => {
-            localConsole?.log(imgRes, "imgRes");
             defaultSubmit(imgRes.id);
           })
           .catch((err) => localConsole?.error(err));

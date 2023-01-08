@@ -1,9 +1,9 @@
 import writeState from "@atoms/pageAtoms/community/writeState";
 import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
 import useSelectorState from "@lib/hooks/common/useSelectorState";
+import replaceAll from "@lib/utils/replaceAll";
 import Image from "next/image";
 import React, { PropsWithChildren, useRef } from "react";
-import { BsPlus } from "react-icons/bs";
 import { IoIosClose } from "react-icons/io";
 import { useSetRecoilState } from "recoil";
 import {
@@ -32,7 +32,12 @@ const WriteImgAttach = () => {
 };
 
 const Illust = () => {
-  return <IllustImg src="" alt="" />;
+  return (
+    <IllustImg
+      src="https://cdn.discordapp.com/app-icons/1044621624864940163/87fe18353f90a7a4c275be945afc14e5.png?size=512"
+      alt=""
+    />
+  );
 };
 
 const InfoBox = ({ children }: PropsWithChildren<any>) => {
@@ -119,18 +124,34 @@ const AddButton = () => {
         imgInput.click();
 
         imgInput.onchange = (changeEvent) => {
-          const fileList = imgInput && imgInput.files && imgInput.files[0];
+          const imgFile = imgInput && imgInput.files && imgInput.files[0];
 
-          if (!fileList) return undefined;
+          if (!imgInput.files || !imgFile) {
+            console.error("이미지 파일이 감지되지 않음");
+            return undefined;
+          }
+
+          const originName = imgFile.name;
+          const originType = imgFile.type;
+
+          const replacedName = replaceAll(
+            replaceAll(originName, "-", ""),
+            "_",
+            ""
+          ).toLowerCase();
+
+          const filteredFile = new File(imgInput.files as any, replacedName, {
+            type: originType,
+          });
 
           const reader = new FileReader();
-          reader.readAsDataURL(fileList);
+          reader.readAsDataURL(filteredFile);
 
           reader.onload = () => {
             setWrite((write) => ({
               ...write,
               inputImg: [...write.inputImg, reader.result as string],
-              inputFile: fileList,
+              inputFile: filteredFile,
             }));
           };
 

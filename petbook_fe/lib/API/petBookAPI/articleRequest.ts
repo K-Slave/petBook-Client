@@ -27,9 +27,6 @@ export default class ArticleAPI extends RequestCore {
       headerObj: payload.header,
     });
 
-    localConsole?.log(this.client.defaults.headers);
-    localConsole?.log(requestHeaders, "requestHeaders");
-
     const result = await this.getResult({
       requestMethod: "POST",
       requestURL,
