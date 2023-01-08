@@ -16,16 +16,20 @@ export interface CommentItem {
   articleId: number;
   likeCount: number;
   isLiked: boolean;
+  isDeleted: boolean;
   createdAt: string;
 }
 
 export type CommentListResponse = {
-  parent: CommentItem;
-  children: CommentItem[];
-}[];
+  page: number;
+  commentList: {
+    parent: CommentItem;
+    children: CommentItem[];
+  }[];
+};
 
 export interface CommentListRequest {
-  params: { articleId: number };
+  params: { articleId: number; page: number; size: number };
   headerObj?: object;
 }
 
