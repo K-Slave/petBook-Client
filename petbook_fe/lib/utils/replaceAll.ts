@@ -5,8 +5,7 @@
 const replaceAll = (
   target: string,
   replaceTarget: string,
-  replaceText: string,
-  originStrList?: string[]
+  replaceText: string
 ) => {
   const splitedInput = target.split(replaceTarget);
 
