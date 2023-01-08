@@ -1,6 +1,6 @@
 import { useEffect, useState, PropsWithChildren } from "react";
 import { useRecoilState } from "recoil";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import styled from "styled-components";
 import navigator from "@lib/modules/navigator";
 // data
@@ -154,7 +154,7 @@ const MapContainer = () => {
   }, [sortFilter.sortKey]); // <- sortFilter 의 key 값이 변하면 실행됨.
 
   const changeCategory = (el: number) => {
-    let newArr = buttonState.map((element) => {
+    const newArr = buttonState.map((element) => {
       element.active = false;
       return element;
     });
@@ -189,7 +189,7 @@ const MapContainer = () => {
   }, [router]);
 
   useEffect(() => {
-    let call = buttonState.filter((item) => {
+    const call = buttonState.filter((item) => {
       return item.active === true;
     });
     switch (call[0]?.value) {
