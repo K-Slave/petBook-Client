@@ -92,7 +92,7 @@ export default class CommentAPI extends RequestCore {
    * @returns 게시물의 댓글 리스트를 반환합니다.
    */
   public comment_list = async (
-    params: { articleId: string },
+    params: { articleId: number; page: number; size: number },
     config?: { headerObj: object }
   ) => {
     const { requestURL, requestHeaders } = this.getParameters({
