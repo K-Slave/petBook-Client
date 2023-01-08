@@ -21,7 +21,7 @@ import {
 } from "./styled/styledLoginSubmit";
 
 const LOGIN = createRequest({
-  key: "LOGIN",
+  key: ["LOGIN"],
   requester: authRequest.login,
 });
 

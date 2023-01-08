@@ -11,24 +11,24 @@ const ArticleContainer = () => {
   const router = useRouter();
   const articleId = router.query.articleId as string;
   const { data } = useResource({
-    key: `${ARTICLE_ITEM.key}_${articleId}`,
+    key: [...ARTICLE_ITEM.key, articleId],
     fetcher: () => ARTICLE_ITEM.fetcher(`/${articleId}`),
   });
   return (
     <>
       <ArticleSection data={data?.data} />
       <CommentSection>
-          {data?.data.category.name === "질문과 답변" ? (
-            <>
-              <CommentList Item={QnaItem} />
-              <CommentForm />
-            </>
-          ) : (
-            <>
-              <CommentForm />
-              <CommentList Item={NormalItem} />
-            </>
-          )}
+        {data?.data.category.name === "질문과 답변" ? (
+          <>
+            <CommentList Item={QnaItem} />
+            <CommentForm />
+          </>
+        ) : (
+          <>
+            <CommentForm />
+            <CommentList Item={NormalItem} />
+          </>
+        )}
       </CommentSection>
     </>
   );

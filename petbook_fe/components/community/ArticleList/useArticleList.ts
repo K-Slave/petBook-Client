@@ -1,7 +1,7 @@
 import { createArticleListResource } from "@pages/community/list/index";
 import { useRef } from "react";
 import { ArticleListResponse } from "@lib/API/petBookAPI/types/articleRequest";
-import { UseQueryResult } from "react-query";
+import { UseQueryResult } from "@tanstack/react-query";
 import useResource from "@lib/hooks/common/useResource";
 import useCategory from "@lib/hooks/article/useActiveCategory";
 import { usePage } from "./usePagination";
