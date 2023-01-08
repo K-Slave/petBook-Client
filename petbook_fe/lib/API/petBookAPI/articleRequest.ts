@@ -158,4 +158,28 @@ export default class ArticleAPI extends RequestCore {
     });
     return result;
   };
+
+  public article_search = async (
+    params?: {
+      categoryId: number | null;
+      page: number;
+      size: number;
+      searchText: string;
+    },
+    config?: { headerObj: object }
+  ) => {
+    const { requestURL, requestHeaders } = this.getParameters({
+      uri: "/search",
+      params,
+      headerObj: config && config.headerObj,
+    });
+
+    const result = await this.getResult<ArticleListResponse>({
+      requestMethod: "GET",
+      requestURL,
+      requestHeaders,
+    });
+
+    return result;
+  };
 }
