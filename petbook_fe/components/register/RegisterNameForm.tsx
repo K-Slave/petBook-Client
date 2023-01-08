@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import RegisterInputBox from "@components/register/RegisterInputBox";
 import { useRecoilValue } from "recoil";
-import useResource from "@lib/hooks/common/useResource";
+import { useSetResource } from "@lib/hooks/common/useResource";
 import { REGISTER_CHECK_NICKNAME } from "@components/register/RegisterForm";
-
+import { UserCheckNickname } from "@lib/API/petBookAPI/types/userRequest";
 import { CheckNicknameState } from "@atoms/pageAtoms/login/userState";
 import { RegisterInfoText } from "./styled/styledRegisterForm";
 
@@ -11,19 +11,23 @@ const PasswordInput = () => {
   const [success, setSuccess] = useState(false);
   const checkNickname = useRecoilValue(CheckNicknameState);
 
-  // const cc = () => {
-  //   const { dd }: any = useResource({
-  //     key: `REGISTER_CHECK_EMAIL`,
-  //     fetcher: () =>
-  //       REGISTER_CHECK_NICKNAME.fetcher({
-  //         nickname: modalValue.nickname,
-  //       }),
-  //   });
-  //   return dd;
-  // };
+  const { data, mutate } = useSetResource(REGISTER_CHECK_NICKNAME);
+
   useEffect(() => {
-    console.log(checkNickname);
+    mutate(checkNickname);
   }, [checkNickname]);
+
+  useEffect(() => {
+    const nicknameData = data?.data as UserCheckNickname;
+
+    if (nicknameData) {
+      if (nicknameData?.nicknameExist) {
+        setSuccess(false);
+      } else {
+        setSuccess(true);
+      }
+    }
+  }, [data]);
 
   return (
     <>
