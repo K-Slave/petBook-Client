@@ -95,7 +95,7 @@ const Main = styled.main`
   max-width: 1330px;
   width: 100%;
   margin: 0 auto;
-  padding: 52px 35px 0;
+  padding: 52px 35px;
 `;
 
 ArticleDetail.getInitialProps = async (
