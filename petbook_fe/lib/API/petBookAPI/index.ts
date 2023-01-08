@@ -20,6 +20,7 @@ export const authRequest = new AuthAPI(
 /**
  * @uri '/api/v1/user'
  * @method register(body,config) : POST 회원가입 요청
+ * @method registerCheckNickname : GET 닉네임 중복확인
  */
 export const registerRequest = new UserAPI(
   process.env.NEXT_PUBLIC_SPR_URL as string,
