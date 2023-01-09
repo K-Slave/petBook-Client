@@ -1,3 +1,4 @@
+import loadingState from "@atoms/common/loadingState";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import navigator from "@lib/modules/navigator";
 import localConsole from "@lib/utils/localConsole";
@@ -25,9 +26,11 @@ const Submit = () => {
   const articleMutation = useSetResource(ARTICLE_CREATE);
   const imgMutation = useSetResource(IMG_CREATE);
 
+  const setLoading = useSetRecoilState(loadingState);
   const setWrite = useSetRecoilState(writeState);
 
   const onClick: MouseEventHandler<HTMLButtonElement> = () => {
+    setLoading(true);
     setWrite((write) => {
       const asyncWrite = {
         ...write,
@@ -59,6 +62,7 @@ const Submit = () => {
       const defaultSubmit = (imgId?: number | number[]) => {
         articlePromise(imgId)
           .then((articleRes) => {
+            setLoading(false);
             navigator(`/community/list/${articleRes.id}`);
           })
           .catch((err) => localConsole?.error(err));
