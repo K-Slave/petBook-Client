@@ -4,7 +4,6 @@ import { AxiosResponse } from "axios";
 import React, { MouseEventHandler, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Skeleton from "@components/common/Skeleton/Skeleton";
-import Loader from "@components/common/loader/loader";
 import writeState from "../../atoms/pageAtoms/community/writeState";
 import {
   ListDiv,
