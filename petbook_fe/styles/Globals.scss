@@ -183,44 +183,85 @@ body {
 }
 
 .Skeleton__Box {
+  // background-image: linear-gradient(90deg, #ddd 0px, #e8e8e8 40px, #ddd 80px);
+  // background-size: 600px;
+
+  // @keyframes shine-lines {
+  //   0% {
+  //     background-position: 0;
+  //   }
+
+  //   40%,
+  //   100% {
+  //     background-position: 100%;
+  //   }
+  // }
+
+  // @keyframes shine-avatar {
+  //   0% {
+  //     background-position: 0;
+  //   }
+  //   40%,
+  //   100% {
+  //     background-position: 1000%;
+  //   }
+  // }
+
+  background: linear-gradient(
+    120deg,
+    #e5e5e5 42%,
+    #f0f0f0 45%,
+    #f0f0f0 46%,
+    #e5e5e5 49%
+  );
   background-color: var(--template);
 
-  @-webkit-keyframes Skeletone-gradient {
-    0% {
-      filter: brightness(85%);
-    }
+  border-radius: 1rem;
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  // animation-delay: 2s;
 
-    50% {
-      filter: brightness(100%);
-    }
-
+  @keyframes load {
     100% {
-      filter: brightness(85%);
+      background-position: -70% 0;
     }
   }
 
-  @keyframes Skeletone-gradient {
-    0% {
-      filter: brightness(85%);
-    }
+  // @-webkit-keyframes Skeletone-gradient {
+  //   0% {
+  //     filter: brightness(85%);
+  //   }
 
-    50% {
-      filter: brightness(100%);
-    }
+  //   50% {
+  //     filter: brightness(100%);
+  //   }
 
-    100% {
-      filter: brightness(85%);
-    }
-  }
+  //   100% {
+  //     filter: brightness(85%);
+  //   }
+  // }
+
+  // @keyframes Skeletone-gradient {
+  //   0% {
+  //     filter: brightness(85%);
+  //   }
+
+  //   50% {
+  //     filter: brightness(100%);
+  //   }
+
+  //   100% {
+  //     filter: brightness(85%);
+  //   }
+  // }
 
   /* 해당되는 컴포넌트에 적용 */
   & {
-    -webkit-animation: Skeletone-gradient 1.3s infinite ease-in-out;
-    animation: Skeletone-gradient 1.3s infinite ease-in-out;
-  }
-  &.white {
-    -webkit-animation: none;
-    animation: none;
+    animation: load 1.5s infinite;
+    // animation: shine-avatar 1.6s infinite linear;
+
+    // -webkit-animation: Skeletone-gradient 1.3s infinite ease-in-out;
+    // animation: Skeletone-gradient 1.3s infinite ease-in-out;
   }
 }
 

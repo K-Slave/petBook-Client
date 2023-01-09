@@ -34,8 +34,10 @@ const Skeleton = ({
 
   if (template) {
     skeletonStyle["--template"] = templateBgColor(template);
-    skeletonStyle.animation = "none";
-    skeletonStyle.WebkitAnimation = "none";
+    if (template === "white") {
+      // skeletonStyle.animation = "none";
+      // skeletonStyle.WebkitAnimation = "none";
+    }
   }
 
   if (copy) {
