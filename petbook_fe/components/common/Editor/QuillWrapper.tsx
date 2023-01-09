@@ -33,17 +33,16 @@ const QuillWrapper = ({
   readOnly,
 }: Props) => {
   return (
-    <Skeleton template="white" borderRadius="8px" />
-    // <QuillLoader
-    //   theme={theme}
-    //   onChange={onChange}
-    //   placeholder={placeholder}
-    //   onKeyPress={onKeyPress}
-    //   onKeyDown={onKeyPress}
-    //   onKeyUp={onKeyPress}
-    //   value={value}
-    //   readOnly={readOnly}
-    // />
+    <QuillLoader
+      theme={theme}
+      onChange={onChange}
+      placeholder={placeholder}
+      onKeyPress={onKeyPress}
+      onKeyDown={onKeyPress}
+      onKeyUp={onKeyPress}
+      value={value}
+      readOnly={readOnly}
+    />
   );
 };
 
