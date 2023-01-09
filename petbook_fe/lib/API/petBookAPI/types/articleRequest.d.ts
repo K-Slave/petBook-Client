@@ -34,3 +34,10 @@ export interface ArticleListRequest {
   page: number;
   size: number;
 }
+
+export interface ArticleSearchRequest {
+  categoryId: number | null;
+  page: number;
+  size: number;
+  searchText: string;
+}
