@@ -42,7 +42,7 @@
   --font_black_02: #565653;
 }
 
-@-webkit-keyframes line-spin-fade-loader {
+@-webkit-keyframes Loader {
   50% {
     opacity: 0.3;
   }
@@ -51,7 +51,7 @@
   }
 }
 
-@keyframes line-spin-fade-loader {
+@keyframes Loader {
   50% {
     opacity: 0.3;
   }
@@ -102,72 +102,72 @@ body {
   pointer-events: none;
 }
 
-.line-spin-fade-loader {
+.Loader {
   position: relative;
   top: -10px;
   left: -4px;
 }
-.line-spin-fade-loader > div:nth-child(1) {
+.Loader > div:nth-child(1) {
   top: 20px;
   left: 0;
-  -webkit-animation: line-spin-fade-loader 1.2s -0.84s infinite ease-in-out;
-  animation: line-spin-fade-loader 1.2s -0.84s infinite ease-in-out;
+  -webkit-animation: Loader 1.2s -0.84s infinite ease-in-out;
+  animation: Loader 1.2s -0.84s infinite ease-in-out;
 }
-.line-spin-fade-loader > div:nth-child(2) {
+.Loader > div:nth-child(2) {
   top: 13.63636px;
   left: 13.63636px;
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
-  -webkit-animation: line-spin-fade-loader 1.2s -0.72s infinite ease-in-out;
-  animation: line-spin-fade-loader 1.2s -0.72s infinite ease-in-out;
+  -webkit-animation: Loader 1.2s -0.72s infinite ease-in-out;
+  animation: Loader 1.2s -0.72s infinite ease-in-out;
 }
-.line-spin-fade-loader > div:nth-child(3) {
+.Loader > div:nth-child(3) {
   top: 0;
   left: 20px;
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
-  -webkit-animation: line-spin-fade-loader 1.2s -0.6s infinite ease-in-out;
-  animation: line-spin-fade-loader 1.2s -0.6s infinite ease-in-out;
+  -webkit-animation: Loader 1.2s -0.6s infinite ease-in-out;
+  animation: Loader 1.2s -0.6s infinite ease-in-out;
 }
-.line-spin-fade-loader > div:nth-child(4) {
+.Loader > div:nth-child(4) {
   top: -13.63636px;
   left: 13.63636px;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
-  -webkit-animation: line-spin-fade-loader 1.2s -0.48s infinite ease-in-out;
-  animation: line-spin-fade-loader 1.2s -0.48s infinite ease-in-out;
+  -webkit-animation: Loader 1.2s -0.48s infinite ease-in-out;
+  animation: Loader 1.2s -0.48s infinite ease-in-out;
 }
-.line-spin-fade-loader > div:nth-child(5) {
+.Loader > div:nth-child(5) {
   top: -20px;
   left: 0;
-  -webkit-animation: line-spin-fade-loader 1.2s -0.36s infinite ease-in-out;
-  animation: line-spin-fade-loader 1.2s -0.36s infinite ease-in-out;
+  -webkit-animation: Loader 1.2s -0.36s infinite ease-in-out;
+  animation: Loader 1.2s -0.36s infinite ease-in-out;
 }
-.line-spin-fade-loader > div:nth-child(6) {
+.Loader > div:nth-child(6) {
   top: -13.63636px;
   left: -13.63636px;
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
-  -webkit-animation: line-spin-fade-loader 1.2s -0.24s infinite ease-in-out;
-  animation: line-spin-fade-loader 1.2s -0.24s infinite ease-in-out;
+  -webkit-animation: Loader 1.2s -0.24s infinite ease-in-out;
+  animation: Loader 1.2s -0.24s infinite ease-in-out;
 }
-.line-spin-fade-loader > div:nth-child(7) {
+.Loader > div:nth-child(7) {
   top: 0;
   left: -20px;
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
-  -webkit-animation: line-spin-fade-loader 1.2s -0.12s infinite ease-in-out;
-  animation: line-spin-fade-loader 1.2s -0.12s infinite ease-in-out;
+  -webkit-animation: Loader 1.2s -0.12s infinite ease-in-out;
+  animation: Loader 1.2s -0.12s infinite ease-in-out;
 }
-.line-spin-fade-loader > div:nth-child(8) {
+.Loader > div:nth-child(8) {
   top: 13.63636px;
   left: -13.63636px;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
-  -webkit-animation: line-spin-fade-loader 1.2s 0s infinite ease-in-out;
-  animation: line-spin-fade-loader 1.2s 0s infinite ease-in-out;
+  -webkit-animation: Loader 1.2s 0s infinite ease-in-out;
+  animation: Loader 1.2s 0s infinite ease-in-out;
 }
-.line-spin-fade-loader > div {
+.Loader > div {
   background-color: #fff;
   width: 4px;
   height: 35px;
@@ -178,8 +178,6 @@ body {
   position: absolute;
   width: 5px;
   height: 15px;
-}
-.Loader__Box {
 }
 
 .Skeleton__Box {
@@ -209,8 +207,8 @@ body {
 
   background: linear-gradient(
     120deg,
-    #e5e5e5 42%,
-    #f0f0f0 45%,
+    #e5e5e5 41%,
+    #f0f0f0 44%,
     #f0f0f0 46%,
     #e5e5e5 49%
   );
@@ -218,12 +216,14 @@ body {
 
   border-radius: 1rem;
   background-size: 200% 100%;
-  background-position: 100% 0;
-  // animation-delay: 2s;
 
   @keyframes load {
+    0%,
+    60% {
+      background-position: 120% 0;
+    }
     100% {
-      background-position: -70% 0;
+      background-position: -50% 0;
     }
   }
 
@@ -257,7 +257,7 @@ body {
 
   /* 해당되는 컴포넌트에 적용 */
   & {
-    animation: load 1.5s infinite;
+    animation: load 2.25s infinite;
     // animation: shine-avatar 1.6s infinite linear;
 
     // -webkit-animation: Skeletone-gradient 1.3s infinite ease-in-out;

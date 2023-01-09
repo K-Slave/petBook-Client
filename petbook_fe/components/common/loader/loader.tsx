@@ -10,7 +10,7 @@ const Loader = () => {
     <>
       {loading && (
         <div className="Loader__Layer">
-          <div className="loader-inner line-spin-fade-loader">
+          <div className="loader-inner Loader">
             {loaderDummy.map(() => {
               return <div />;
             })}

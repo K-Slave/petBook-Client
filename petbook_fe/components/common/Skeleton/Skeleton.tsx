@@ -35,8 +35,9 @@ const Skeleton = ({
   if (template) {
     skeletonStyle["--template"] = templateBgColor(template);
     if (template === "white") {
-      // skeletonStyle.animation = "none";
-      // skeletonStyle.WebkitAnimation = "none";
+      skeletonStyle.animation = "none";
+      skeletonStyle.WebkitAnimation = "none";
+      skeletonStyle.background = templateBgColor(template);
     }
   }
 
