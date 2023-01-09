@@ -218,6 +218,10 @@ body {
     -webkit-animation: Skeletone-gradient 1.3s infinite ease-in-out;
     animation: Skeletone-gradient 1.3s infinite ease-in-out;
   }
+  &.white {
+    -webkit-animation: none;
+    animation: none;
+  }
 }
 
 .Header__Wrap {
