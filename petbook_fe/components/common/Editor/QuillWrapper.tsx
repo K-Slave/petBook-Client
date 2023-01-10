@@ -6,7 +6,9 @@ import Skeleton from "../Skeleton/Skeleton";
 
 const QuillLoader = dynamic(() => import("react-quill"), {
   ssr: false,
-  loading: () => <Skeleton template="white" borderRadius="8px" />,
+  loading: () => (
+    <Skeleton template="white" borderRadius="8px" animation={false} />
+  ),
 });
 
 /** */

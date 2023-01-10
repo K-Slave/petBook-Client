@@ -6,9 +6,8 @@ const WriteHashTagsSection = styled.section`
   gap: 20px;
 
   width: 100%;
-  height: 103px;
 
-  margin-top: 71px;
+  margin: 32px 0;
 `;
 
 const HashTagTitleP = styled.p`
@@ -21,7 +20,7 @@ const HashTagTitleP = styled.p`
 const WriteHashDiv = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
 
   width: 100%;
   max-width: 1000px;
@@ -43,14 +42,12 @@ const HashInput = styled.input`
 
   display: inline-block;
 
-  min-width: 88px;
-
-  padding: 4px 16px;
+  width: 103px;
 
   border: none;
-  border-radius: 40px;
+  /* border-radius: 40px; */
 
-  background-color: #f8f7f2;
+  /* background-color: #f8f7f2; */
 
   font-weight: 400;
   font-size: 0.875rem;
@@ -63,7 +60,8 @@ const HashInput = styled.input`
     font-weight: 400;
     font-size: 0.875rem;
     line-height: 1.5rem;
-    color: #c5c4bd;
+    letter-spacing: -0.02em;
+    color: #aaaaa7;
   }
 
   &:focus {
@@ -81,7 +79,8 @@ const RoundHashTagButton = styled.button`
   font-style: normal;
   font-weight: 400;
   font-size: 0.875rem;
-  line-height: 24px;
+  line-height: 1.5rem;
+  letter-spacing: -0.02em;
   color: #777774;
 `;
 
