@@ -94,7 +94,7 @@ const Item = React.memo(({ hashTag }: { hashTag: string }) => {
     removeTag(hashTag);
   };
 
-  return <RoundHashTagButton onClick={onClick}># {hashTag}</RoundHashTagButton>;
+  return <RoundHashTagButton onClick={onClick}>#{hashTag}</RoundHashTagButton>;
 });
 
 interface InputProps {
@@ -123,7 +123,7 @@ const Input = ({ setIsError }: InputProps) => {
   return (
     <HashInput
       className="default"
-      placeholder="#추가입력"
+      placeholder="#해시태그 입력"
       onKeyDown={onKeyDown}
       onBlur={onBlur}
     />

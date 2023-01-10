@@ -14,6 +14,7 @@ export interface SkeletonProps {
   borderRadius?: string;
   style?: React.CSSProperties;
   template?: "normal" | "white";
+  animation?: boolean;
   copy?: number;
 }
 
@@ -23,6 +24,7 @@ const Skeleton = ({
   borderRadius,
   style,
   template,
+  animation,
   copy,
 }: SkeletonProps) => {
   const skeletonStyle: SkeletonCSS = {
@@ -35,10 +37,13 @@ const Skeleton = ({
   if (template) {
     skeletonStyle["--template"] = templateBgColor(template);
     if (template === "white") {
-      skeletonStyle.animation = "none";
-      skeletonStyle.WebkitAnimation = "none";
       skeletonStyle.background = templateBgColor(template);
     }
+  }
+
+  if (animation === false) {
+    skeletonStyle.animation = "none";
+    skeletonStyle.WebkitAnimation = "none";
   }
 
   if (copy) {
@@ -62,6 +67,7 @@ Skeleton.defaultProps = {
   borderRadius: "",
   style: {},
   template: "normal",
+  animation: true,
   copy: 0,
 };
 
