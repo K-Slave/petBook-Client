@@ -9,8 +9,9 @@ import React, {
   useState,
 } from "react";
 import ReactQuill from "react-quill";
-import Image from "next/image";
-import writeState from "../../atoms/pageAtoms/community/writeState";
+import useResource from "@lib/hooks/common/useResource";
+import { CATEGORY_LIST } from "@pages/community/write";
+
 import {
   WriteEditorDiv,
   WriteTitleInput,
@@ -18,6 +19,7 @@ import {
   WriteGuideDiv,
   GuideTopSpringDiv,
 } from "./styled/styledWriteForm";
+import writeState from "../../atoms/pageAtoms/community/writeState";
 
 const WriteForm = () => {
   return (
@@ -72,6 +74,10 @@ const Guide = React.memo(({ children }: PropsWithChildren<any>) => {
 });
 
 const GuideTitle = React.memo(() => {
+  const { data, status } = useResource(CATEGORY_LIST);
+
+  const categoryList = data?.data ? data?.data : [];
+
   const { selectedCategory } = useRecoilSelector(writeState, {
     selectedCategory: {
       idx: 0,
@@ -79,8 +85,18 @@ const GuideTitle = React.memo(() => {
     },
   });
 
+  // 초기값에 recoil 안엔 name 이 비어있는 문제가 있음
+  const currentCategory = selectedCategory.name
+    ? selectedCategory.name
+    : categoryList[0].name
+    ? categoryList[0].name
+    : "";
+
   return (
-    <h5 className="Write__Guide__Title">{selectedCategory.name} 잘쓰는 법!</h5>
+    <h5 className="Write__Guide__Title">
+      {currentCategory}
+      &nbsp;잘쓰는 법!
+    </h5>
   );
 });
 

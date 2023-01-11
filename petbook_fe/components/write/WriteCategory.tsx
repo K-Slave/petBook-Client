@@ -4,6 +4,8 @@ import { AxiosResponse } from "axios";
 import React, { MouseEventHandler, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Skeleton from "@components/common/Skeleton/Skeleton";
+import useResource from "@lib/hooks/common/useResource";
+import { CATEGORY_LIST } from "@pages/community/write";
 import writeState from "../../atoms/pageAtoms/community/writeState";
 import {
   ListDiv,
@@ -21,9 +23,9 @@ const WriteCategory = () => {
 };
 
 const List = () => {
-  const { data, status } = useQuery<AxiosResponse<CategoryListResponse>>([
-    "CATEGORY_LIST",
-  ]);
+  const { data, status } = useResource(CATEGORY_LIST);
+
+  const categoryList = data?.data ? data?.data : [];
 
   const [{ selectedCategory }, setWrite] = useSelectorState(writeState, {
     selectedCategory: {
@@ -31,8 +33,6 @@ const List = () => {
       name: "",
     },
   });
-
-  const categoryList = data?.data as CategoryListResponse;
 
   const onClick: MouseEventHandler = (e) => {
     const value = e.currentTarget.childNodes[0].textContent;
