@@ -129,4 +129,12 @@ https://github.com/K-Slave/petBook-Client/commit/9b7bae2d91b14047844ce27dc8c6257
 > 3. api 서버 ssh 관련 환경 작업
 > 4. vercel webhook 이용한 디스코드 배포알림
 
-//
+- 22.01.12 TODO 리스트
+
+> [ ] write 페이지 이미지 다중첨부, 정적에셋 가져오기 처리필요
+> [ ] 헤더 다시 짜기
+> [ ] Next.js 버전업 일정잡기 (SWC 도 같이 적용)
+> [ ] 로더, 스켈레톤 작업 공유하기
+> [ ] 로드맵 작성하기
+> [ ] 토스트메시지 작업하기
+> [ ]
