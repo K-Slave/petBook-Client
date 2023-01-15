@@ -14,6 +14,7 @@ import QnaArticleList, {
 } from "@components/community/QnaArticleList";
 import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
+import Link from "next/link";
 
 export const CATEGORY_LIST = createResource({
   key: ["CATEGORY_LIST"],
@@ -51,7 +52,11 @@ const Community: PetbookPage = () => {
       <CommunityBanner />
       <CommunitySection
         title="지금 당신의 답변을 기다리고 있어요"
-        moreHref={getHrefWithCategory(QNA_CATEGORY)}
+        sideElement={
+          <Link href={getHrefWithCategory(QNA_CATEGORY)} passHref>
+            <button type="button">더보기</button>
+          </Link>
+        }
       >
         <QnaArticleList />
       </CommunitySection>
