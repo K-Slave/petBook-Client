@@ -1,11 +1,16 @@
 import styled, { css } from "styled-components";
-import { Div, Wrapper } from "../CommonInfo/styled";
+import { Div } from "../CommonInfo/styled";
 
 export const ListDiv = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
   margin-top: 60px;
+`;
+
+export const Text = styled.p`
+  text-align: center;
+  color: gray;
 `;
 
 export const Article = styled.article`

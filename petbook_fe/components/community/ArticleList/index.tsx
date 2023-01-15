@@ -12,7 +12,7 @@ import CommonInfo from "@components/community/CommonInfo";
 import Skeleton from "@components/common/Skeleton/Skeleton";
 import usePagination from "./usePagination";
 import useArticleList from "./useArticleList";
-import { ListDiv, Article, PageButton, BoxDiv } from "./styled";
+import { ListDiv, Article, PageButton, BoxDiv, Text } from "./styled";
 
 const ArticleList = ({
   status,
@@ -26,6 +26,13 @@ const ArticleList = ({
     return (
       <ListDiv>
         <Skeleton height="164px" borderRadius="16px" copy={20} />
+      </ListDiv>
+    );
+  }
+  if (articles.length === 0) {
+    return (
+      <ListDiv>
+        <Text>아직 게시물이 없어요!</Text>
       </ListDiv>
     );
   }
