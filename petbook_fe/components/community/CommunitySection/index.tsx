@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import styled from "styled-components";
 
 const CommunitySectionBox = styled.section`
@@ -23,23 +22,19 @@ const CommunitySectionBox = styled.section`
 `;
 interface Props {
   title: string;
-  moreHref?: string;
+  sideElement?: React.ReactNode;
 }
 
 const CommunitySection = ({
   title,
-  moreHref,
   children,
+  sideElement,
 }: React.PropsWithChildren<Props>) => {
   return (
     <CommunitySectionBox>
       <div className="heading">
         <h3>{title}</h3>
-        {moreHref && (
-          <Link href={moreHref} passHref>
-            <button type="button">더보기</button>
-          </Link>
-        )}
+        {sideElement}
       </div>
       {children}
     </CommunitySectionBox>
@@ -47,7 +42,7 @@ const CommunitySection = ({
 };
 
 CommunitySection.defaultProps = {
-  moreHref: "",
+  sideElement: null,
 };
 
 export default CommunitySection;
