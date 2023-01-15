@@ -14,8 +14,14 @@ import usePagination from "./usePagination";
 import useArticleList from "./useArticleList";
 import { ListDiv, Article, PageButton, BoxDiv } from "./styled";
 
-const ArticleList = () => {
-  const { status, articles, totalPages } = useArticleList();
+const ArticleList = ({
+  status,
+  articles,
+  totalPages,
+}: Pick<
+  ReturnType<typeof useArticleList>,
+  "articles" | "status" | "totalPages"
+>) => {
   if (status === "loading") {
     return (
       <ListDiv>
