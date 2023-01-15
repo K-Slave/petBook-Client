@@ -194,15 +194,15 @@ const MapContainer = () => {
     });
     switch (call[0]?.value) {
       case "ham": {
-        navigator("/findHospital?find=ham");
+        navigator({ url: "/findHospital?find=ham" });
         break;
       }
       case "rabbit": {
-        navigator("/findHospital?find=rabbit");
+        navigator({ url: "/findHospital?find=rabbit" });
         break;
       }
       default: {
-        navigator("/findHospital?find=all");
+        navigator({ url: "/findHospital?find=all" });
       }
     }
   }, [buttonState]);

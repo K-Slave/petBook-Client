@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import navigator from "@lib/modules/navigator";
 import localConsole from "@lib/utils/localConsole";
+import useLoaderNavigate from "@lib/hooks/common/useLoaderNavigate";
 
 export const usePage = () => {
   const router = useRouter();
@@ -13,7 +13,7 @@ export const usePage = () => {
 export default function usePagination({
   totalPages,
   btnNum,
-  basePath
+  basePath,
 }: {
   totalPages: number;
   btnNum: number;
@@ -22,13 +22,20 @@ export default function usePagination({
   const [offset, setOffset] = useState(1);
   const currentPage = usePage();
   const router = useRouter();
+  const { navigator } = useLoaderNavigate();
   const changeCurrentPage = (page: number) => {
     const params = new URLSearchParams(router.asPath.split("?")[1]);
     params.delete("page");
-    const path = params.toString().length !== 0 ? `${basePath}?${params.toString()}&page=${page}` : `${basePath}?page=${page}`;
-    navigator(path, undefined, {
-      shallow: true,
-      scroll: true
+    const path =
+      params.toString().length !== 0
+        ? `${basePath}?${params.toString()}&page=${page}`
+        : `${basePath}?page=${page}`;
+    navigator({
+      url: path,
+      options: {
+        shallow: true,
+        scroll: true,
+      },
     });
   };
 

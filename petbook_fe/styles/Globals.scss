@@ -41,7 +41,7 @@
   --font_black_02: #565653;
 }
 
-@-webkit-keyframes line-spin-fade-loader {
+@-webkit-keyframes Loader {
   50% {
     opacity: 0.3;
   }
@@ -50,7 +50,7 @@
   }
 }
 
-@keyframes line-spin-fade-loader {
+@keyframes Loader {
   50% {
     opacity: 0.3;
   }
@@ -104,72 +104,72 @@ body {
   pointer-events: none;
 }
 
-.line-spin-fade-loader {
+.Loader {
   position: relative;
   top: -10px;
   left: -4px;
 }
-.line-spin-fade-loader > div:nth-child(1) {
+.Loader > div:nth-child(1) {
   top: 20px;
   left: 0;
-  -webkit-animation: line-spin-fade-loader 1.2s -0.84s infinite ease-in-out;
-  animation: line-spin-fade-loader 1.2s -0.84s infinite ease-in-out;
+  -webkit-animation: Loader 1.2s -0.84s infinite ease-in-out;
+  animation: Loader 1.2s -0.84s infinite ease-in-out;
 }
-.line-spin-fade-loader > div:nth-child(2) {
+.Loader > div:nth-child(2) {
   top: 13.63636px;
   left: 13.63636px;
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
-  -webkit-animation: line-spin-fade-loader 1.2s -0.72s infinite ease-in-out;
-  animation: line-spin-fade-loader 1.2s -0.72s infinite ease-in-out;
+  -webkit-animation: Loader 1.2s -0.72s infinite ease-in-out;
+  animation: Loader 1.2s -0.72s infinite ease-in-out;
 }
-.line-spin-fade-loader > div:nth-child(3) {
+.Loader > div:nth-child(3) {
   top: 0;
   left: 20px;
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
-  -webkit-animation: line-spin-fade-loader 1.2s -0.6s infinite ease-in-out;
-  animation: line-spin-fade-loader 1.2s -0.6s infinite ease-in-out;
+  -webkit-animation: Loader 1.2s -0.6s infinite ease-in-out;
+  animation: Loader 1.2s -0.6s infinite ease-in-out;
 }
-.line-spin-fade-loader > div:nth-child(4) {
+.Loader > div:nth-child(4) {
   top: -13.63636px;
   left: 13.63636px;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
-  -webkit-animation: line-spin-fade-loader 1.2s -0.48s infinite ease-in-out;
-  animation: line-spin-fade-loader 1.2s -0.48s infinite ease-in-out;
+  -webkit-animation: Loader 1.2s -0.48s infinite ease-in-out;
+  animation: Loader 1.2s -0.48s infinite ease-in-out;
 }
-.line-spin-fade-loader > div:nth-child(5) {
+.Loader > div:nth-child(5) {
   top: -20px;
   left: 0;
-  -webkit-animation: line-spin-fade-loader 1.2s -0.36s infinite ease-in-out;
-  animation: line-spin-fade-loader 1.2s -0.36s infinite ease-in-out;
+  -webkit-animation: Loader 1.2s -0.36s infinite ease-in-out;
+  animation: Loader 1.2s -0.36s infinite ease-in-out;
 }
-.line-spin-fade-loader > div:nth-child(6) {
+.Loader > div:nth-child(6) {
   top: -13.63636px;
   left: -13.63636px;
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
-  -webkit-animation: line-spin-fade-loader 1.2s -0.24s infinite ease-in-out;
-  animation: line-spin-fade-loader 1.2s -0.24s infinite ease-in-out;
+  -webkit-animation: Loader 1.2s -0.24s infinite ease-in-out;
+  animation: Loader 1.2s -0.24s infinite ease-in-out;
 }
-.line-spin-fade-loader > div:nth-child(7) {
+.Loader > div:nth-child(7) {
   top: 0;
   left: -20px;
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
-  -webkit-animation: line-spin-fade-loader 1.2s -0.12s infinite ease-in-out;
-  animation: line-spin-fade-loader 1.2s -0.12s infinite ease-in-out;
+  -webkit-animation: Loader 1.2s -0.12s infinite ease-in-out;
+  animation: Loader 1.2s -0.12s infinite ease-in-out;
 }
-.line-spin-fade-loader > div:nth-child(8) {
+.Loader > div:nth-child(8) {
   top: 13.63636px;
   left: -13.63636px;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
-  -webkit-animation: line-spin-fade-loader 1.2s 0s infinite ease-in-out;
-  animation: line-spin-fade-loader 1.2s 0s infinite ease-in-out;
+  -webkit-animation: Loader 1.2s 0s infinite ease-in-out;
+  animation: Loader 1.2s 0s infinite ease-in-out;
 }
-.line-spin-fade-loader > div {
+.Loader > div {
   background-color: #fff;
   width: 4px;
   height: 35px;
@@ -181,44 +181,89 @@ body {
   width: 5px;
   height: 15px;
 }
-.Loader__Box {
-}
 
 .Skeleton__Box {
+  // background-image: linear-gradient(90deg, #ddd 0px, #e8e8e8 40px, #ddd 80px);
+  // background-size: 600px;
+
+  // @keyframes shine-lines {
+  //   0% {
+  //     background-position: 0;
+  //   }
+
+  //   40%,
+  //   100% {
+  //     background-position: 100%;
+  //   }
+  // }
+
+  // @keyframes shine-avatar {
+  //   0% {
+  //     background-position: 0;
+  //   }
+  //   40%,
+  //   100% {
+  //     background-position: 1000%;
+  //   }
+  // }
+
+  background: linear-gradient(
+    120deg,
+    #e5e5e5 41%,
+    #f0f0f0 44%,
+    #f0f0f0 46%,
+    #e5e5e5 49%
+  );
   background-color: var(--template);
 
-  @-webkit-keyframes Skeletone-gradient {
-    0% {
-      filter: brightness(85%);
-    }
+  border-radius: 1rem;
+  background-size: 200% 100%;
 
-    50% {
-      filter: brightness(100%);
+  @keyframes load {
+    0%,
+    60% {
+      background-position: 120% 0;
     }
-
     100% {
-      filter: brightness(85%);
+      background-position: -50% 0;
     }
   }
 
-  @keyframes Skeletone-gradient {
-    0% {
-      filter: brightness(85%);
-    }
+  // @-webkit-keyframes Skeletone-gradient {
+  //   0% {
+  //     filter: brightness(85%);
+  //   }
 
-    50% {
-      filter: brightness(100%);
-    }
+  //   50% {
+  //     filter: brightness(100%);
+  //   }
 
-    100% {
-      filter: brightness(85%);
-    }
-  }
+  //   100% {
+  //     filter: brightness(85%);
+  //   }
+  // }
+
+  // @keyframes Skeletone-gradient {
+  //   0% {
+  //     filter: brightness(85%);
+  //   }
+
+  //   50% {
+  //     filter: brightness(100%);
+  //   }
+
+  //   100% {
+  //     filter: brightness(85%);
+  //   }
+  // }
 
   /* 해당되는 컴포넌트에 적용 */
   & {
-    -webkit-animation: Skeletone-gradient 1.3s infinite ease-in-out;
-    animation: Skeletone-gradient 1.3s infinite ease-in-out;
+    animation: load 2.25s infinite;
+    // animation: shine-avatar 1.6s infinite linear;
+
+    // -webkit-animation: Skeletone-gradient 1.3s infinite ease-in-out;
+    // animation: Skeletone-gradient 1.3s infinite ease-in-out;
   }
 }
 
@@ -447,5 +492,23 @@ button.Disabled {
     -webkit-transform: rotate(360deg);
     -o-transform: rotate(360deg);
     transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }

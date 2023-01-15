@@ -1,6 +1,10 @@
 import writeState from "@atoms/pageAtoms/community/writeState";
+import ToastMessage from "@components/common/ToastMessage/ToastMessage";
 import hashTagKeydown from "@lib/handler/hashTagKeydown";
 import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
+import useToastMessage, {
+  ToastHandlerType,
+} from "@lib/hooks/common/useToastMessage";
 import useSetHashTag from "@lib/hooks/write/useSetHashTag";
 import React, {
   FocusEventHandler,
@@ -15,30 +19,41 @@ import {
   RoundHashTagButton,
   WriteHashDiv,
   WriteHashTagsSection,
-} from "./styled/styledWriteHashTags";
+} from "./styled/WriteHashTags.style";
 
 // TODO : 최대 5개 구현, 요소가 HashTagBox 넘어가지 않도록 구현
 const WriteHashTags = () => {
   const [isError, setIsError] = useState(false);
+  const [isToastView, toastHandler] = useToastMessage({
+    timeout: 3000,
+  });
 
   return (
     <WriteHashTagsSection>
-      <WriteHashTags.Title />
+      <WriteHashTags.Title isToastView={isToastView} />
       <WriteHashTags.TagBox isError={isError} setIsError={setIsError}>
         <WriteHashTags.List />
-        <WriteHashTags.Input setIsError={setIsError} />
+        <WriteHashTags.Input
+          setIsError={setIsError}
+          toastHandler={toastHandler}
+        />
       </WriteHashTags.TagBox>
     </WriteHashTagsSection>
   );
 };
 
-const Title = () => {
+const Title = React.memo(({ isToastView }: { isToastView: boolean }) => {
   return (
     <HashTagTitleP className="Hash__Tag__Title">
       # 해시태그를 달아주세요
+      <ToastMessage
+        push={isToastView}
+        content="해시태그가 많을수록 다른 유저한테 더 잘 보여요!"
+        marginLeft={12}
+      />
     </HashTagTitleP>
   );
-};
+});
 
 interface TagBoxProps {
   isError: boolean;
@@ -94,14 +109,15 @@ const Item = React.memo(({ hashTag }: { hashTag: string }) => {
     removeTag(hashTag);
   };
 
-  return <RoundHashTagButton onClick={onClick}># {hashTag}</RoundHashTagButton>;
+  return <RoundHashTagButton onClick={onClick}>#{hashTag}</RoundHashTagButton>;
 });
 
 interface InputProps {
   setIsError: React.Dispatch<React.SetStateAction<boolean>>;
+  toastHandler: (callback: ToastHandlerType) => void;
 }
 
-const Input = ({ setIsError }: InputProps) => {
+const Input = React.memo(({ setIsError, toastHandler }: InputProps) => {
   const { setTags } = useSetHashTag(setIsError);
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
     const { done } = hashTagKeydown(e, setTags, setIsError);
@@ -120,15 +136,20 @@ const Input = ({ setIsError }: InputProps) => {
     // }
   };
 
+  const onClick = () => {
+    toastHandler((push) => !push);
+  };
+
   return (
     <HashInput
       className="default"
-      placeholder="#추가입력"
+      placeholder="#해시태그 입력"
       onKeyDown={onKeyDown}
       onBlur={onBlur}
+      onClick={onClick}
     />
   );
-};
+});
 
 WriteHashTags.Title = Title;
 WriteHashTags.TagBox = TagBox;
