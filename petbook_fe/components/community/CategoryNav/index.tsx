@@ -9,8 +9,11 @@ const CategoryNav = () => {
   const { categories, status } = useCategories({ all: true });
   const { categoryName } = useActiveCategory();
   const onClick = (category: CategoryItem) => () => {
-    navigator(getHrefWithCategory(category), undefined, {
-      shallow: true,
+    navigator({
+      url: getHrefWithCategory(category),
+      options: {
+        shallow: true,
+      },
     });
   };
   return (
