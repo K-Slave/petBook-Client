@@ -1,6 +1,3 @@
-import SearchBar from "@components/community/SearchBar";
-import ArticleList from "@components/community/ArticleList";
-import CategoryNav from "@components/community/CategoryNav";
 import {
   CategoryNavDiv,
   CategoryNavButton,
@@ -9,13 +6,12 @@ import WriteButton from "@components/community/WriteButton";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { articleRequest, categorySprRequest } from "@lib/API/petBookAPI";
 import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
-import useActiveCategory from "@lib/hooks/article/useActiveCategory";
-import useSearchText from "@lib/hooks/article/useSearchText";
 import { createResource } from "@lib/hooks/common/useResource";
 import { getHttpOnlyCookie } from "@lib/utils/httpOnlyCookie";
 import { NextPage, NextPageContext } from "next";
 import { useEffect } from "react";
 import styled from "styled-components";
+import ArticleListContainer from "@containers/ArticleListContainer";
 
 export const createArticleListResource = ({
   category,
@@ -74,16 +70,9 @@ const ArticleListPage: PetBookPage = ({ token }) => {
       sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
     }
   }, [token]);
-  const { categoryName } = useActiveCategory();
-  const searchText = useSearchText();
   return (
     <Main>
-      <div className="heading">
-        <h1>{searchText ? `"${searchText}"에 대한 검색결과` : categoryName}</h1>
-        <SearchBar />
-      </div>
-      {!searchText && <CategoryNav />}
-      <ArticleList />
+      <ArticleListContainer />
       <WriteButton />
     </Main>
   );
@@ -136,10 +125,16 @@ const Main = styled.main`
     align-items: center;
   }
   h1 {
+    display: flex;
+    align-items: center;
+    gap: 20px;
     color: var(--black_01);
     font-weight: 700;
     line-height: 50px;
     font-size: 34px;
+    & > span:last-child {
+      color: var(--black_05);
+    }
   }
 
   ${CategoryNavDiv} {
