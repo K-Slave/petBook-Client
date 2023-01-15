@@ -137,4 +137,9 @@ https://github.com/K-Slave/petBook-Client/commit/9b7bae2d91b14047844ce27dc8c6257
 > [ ] 로더, 스켈레톤 작업 공유하기
 > [ ] 로드맵 작성하기
 > [ ] 토스트메시지 작업하기
-> [ ]
+
+// 23.01.15 TODO LIST
+
+- [ ] 토스트 메시지 마무리 작업
+- [x] navigator 함수 마이그레이션 작업
+- [ ] 발표전 테스트 준비

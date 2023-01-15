@@ -125,7 +125,7 @@ export const LoginSubmitButton = () => {
 
       localConsole?.log(token, "token");
       Cookies.set("petBookUser", token, { expires: 30 });
-      navigator("/info");
+      navigator({ url: "/info" });
     }
     if (isError) {
       // error type 린트에러

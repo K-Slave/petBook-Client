@@ -60,13 +60,12 @@ const Submit = () => {
       };
 
       const defaultSubmit = (imgId?: number | number[]) => {
+        setLoading(false);
+
         articlePromise(imgId)
           .then((articleRes) => {
             navigator({
               url: `/community/list/${articleRes.id}`,
-              thenCallback: () => {
-                setLoading(false);
-              },
             });
           })
           .catch((err) => localConsole?.error(err));
