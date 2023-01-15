@@ -143,3 +143,5 @@ https://github.com/K-Slave/petBook-Client/commit/9b7bae2d91b14047844ce27dc8c6257
 - [ ] 토스트 메시지 마무리 작업
 - [x] navigator 함수 마이그레이션 작업
 - [ ] 발표전 테스트 준비
+- [ ] useLoaderNavigator 에서 location 의 path 변경이 일어나지 않았다면 로딩하지 않게 처리
+- [ ] 상태값 없이 판별이 가능하다면 navigator 함수는 사용할 이유 없어짐

@@ -1,6 +1,6 @@
 import loadingState from "@atoms/common/loadingState";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
-import navigator from "@lib/modules/navigator";
+import useLoaderNavigate from "@lib/hooks/common/useLoaderNavigate";
 import localConsole from "@lib/utils/localConsole";
 import { ARTICLE_CREATE, IMG_CREATE } from "@pages/community/write";
 import { MouseEventHandler } from "react";
@@ -27,6 +27,8 @@ const Submit = () => {
   const imgMutation = useSetResource(IMG_CREATE);
 
   const setLoading = useSetRecoilState(loadingState);
+
+  const { navigator } = useLoaderNavigate();
   const setWrite = useSetRecoilState(writeState);
 
   const onClick: MouseEventHandler<HTMLButtonElement> = () => {

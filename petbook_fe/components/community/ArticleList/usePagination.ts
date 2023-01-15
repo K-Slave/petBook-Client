@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import navigator from "@lib/modules/navigator";
 import localConsole from "@lib/utils/localConsole";
+import useLoaderNavigate from "@lib/hooks/common/useLoaderNavigate";
 
 export const usePage = () => {
   const router = useRouter();
@@ -22,6 +22,7 @@ export default function usePagination({
   const [offset, setOffset] = useState(1);
   const currentPage = usePage();
   const router = useRouter();
+  const { navigator } = useLoaderNavigate();
   const changeCurrentPage = (page: number) => {
     const params = new URLSearchParams(router.asPath.split("?")[1]);
     params.delete("page");
