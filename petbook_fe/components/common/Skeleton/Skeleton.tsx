@@ -2,6 +2,7 @@ import {
   templateBgColor,
   getSkeletonCopy,
 } from "@lib/modules/skeletonFunctions";
+import getRandomKey from "@lib/utils/getRandomKey";
 import React from "react";
 
 type SkeletonCSS = React.CSSProperties & {
@@ -42,7 +43,13 @@ const Skeleton = ({
     return (
       <>
         {copyArray.map((elem) => {
-          return <div className="Skeleton__Box" style={skeletonStyle} />;
+          return (
+            <div
+              className="Skeleton__Box"
+              style={skeletonStyle}
+              key={getRandomKey()}
+            />
+          );
         })}
       </>
     );
