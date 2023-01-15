@@ -56,12 +56,7 @@ const Item = ({ article }: { article: ArticleResponse }) => {
               <span>0</span>
             </div>
           </div>
-          <CommonInfo
-            username={user.nickname}
-            date={createdAt}
-            year={1}
-            className="reverse-row"
-          />
+          <CommonInfo username={user.nickname} date={createdAt} year={1} />
         </div>
       </Article>
     </Link>
@@ -71,7 +66,7 @@ const Item = ({ article }: { article: ArticleResponse }) => {
 // -----------------------------------------------------------------
 
 const PageButtonBox = ({ totalPages }: { totalPages: number }) => {
-  const btnNum = 2;
+  const btnNum = 10;
   const { currentPage, changeCurrentPage, offset } = usePagination({
     totalPages,
     btnNum,

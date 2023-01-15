@@ -1,9 +1,11 @@
 import styled, { css } from "styled-components";
+import { Div, Wrapper } from "../CommonInfo/styled";
 
 export const ListDiv = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  margin-top: 60px;
 `;
 
 export const Article = styled.article`
@@ -48,7 +50,7 @@ export const Article = styled.article`
     justify-content: space-between;
     align-items: center;
   }
-  .reverse-row {
+  ${Div} {
     display: flex;
     flex-direction: row-reverse;
     gap: 12px;
