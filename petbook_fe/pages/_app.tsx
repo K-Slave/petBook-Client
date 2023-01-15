@@ -7,9 +7,9 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import Loader from "@components/common/loader/loader";
 import cookies from "next-cookies";
 import urlTokenRedirect from "@lib/API/parser/urlTokenRedirect";
+import Loader from "@components/common/loader/loader";
 import { RecoilRoot } from "recoil";
 import queryParser from "@lib/API/parser/queryParser";
 import HtmlHeader from "@components/common/HtmlHeader";

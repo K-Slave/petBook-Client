@@ -7,7 +7,7 @@ const WriteImgAttachSection = styled.section`
 
   width: 100%;
 
-  margin-top: 32px;
+  margin: 32px 0;
   padding: 26px 24px 25px;
 
   border-radius: 8px;
@@ -45,13 +45,15 @@ const TitleP = styled.span`
   font-weight: 700;
   font-size: 1rem;
   line-height: 1.5rem;
-  color: #9292be;
+  letter-spacing: -0.02em;
+  color: #92928e;
 `;
 
 const CountP = styled.p`
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.625rem;
+  letter-spacing: -0.02em;
   color: #c5c4bd;
 `;
 
@@ -106,13 +108,13 @@ const AddButtonBox = styled.button`
   padding: 4px 16px;
 
   border-radius: 40px;
-  background-color: #ffcfc5;
+  background-color: var(--secondary);
 
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.5rem;
   letter-spacing: -0.02em;
-  color: #ff6847;
+  color: var(--primary);
 
   transition: all 0.3s ease-in-out;
 
