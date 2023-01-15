@@ -9,28 +9,43 @@ import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { articleRequest, categorySprRequest } from "@lib/API/petBookAPI";
 import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 import useActiveCategory from "@lib/hooks/article/useActiveCategory";
+import useSearchText from "@lib/hooks/article/useSearchText";
 import { createResource } from "@lib/hooks/common/useResource";
 import { getHttpOnlyCookie } from "@lib/utils/httpOnlyCookie";
 import { NextPage, NextPageContext } from "next";
 import { useEffect } from "react";
 import styled from "styled-components";
 
-const ARTICLE_LIST = createResource({
-  key: ["ARTICLE_LIST"],
-  fetcher: articleRequest.article_list,
-});
-
 export const createArticleListResource = ({
   category,
   page,
+  searchText,
 }: {
   category: CategoryItem;
   page: number;
-}) => {
+  searchText?: string;
+}): {
+  key: [string, ...any[]];
+  fetcher: () =>
+    | ReturnType<typeof articleRequest.article_list>
+    | ReturnType<typeof articleRequest.article_search>;
+} => {
+  if (searchText) {
+    return {
+      key: ["ARTICLE_SEARCH", searchText, page],
+      fetcher: () =>
+        articleRequest.article_search({
+          categoryId: null,
+          page: page - 1,
+          size: 20,
+          searchText,
+        }),
+    };
+  }
   return {
-    key: [...ARTICLE_LIST.key, category.name, page],
+    key: ["ARTICLE_LIST", category.name, page],
     fetcher: () =>
-      ARTICLE_LIST.fetcher({
+      articleRequest.article_list({
         categoryId: category.id === 0 ? "" : category.id,
         page: page - 1,
         size: 20,
@@ -59,10 +74,14 @@ const ArticleListPage: PetBookPage = ({ token }) => {
     }
   }, [token]);
   const { categoryName } = useActiveCategory();
+  const searchText = useSearchText();
   return (
     <Main>
-      <h1>{categoryName}</h1>
-      <CategoryNav />
+      <div className="heading">
+        <h1>{searchText ? `"${searchText}"에 대한 검색결과` : categoryName}</h1>
+        {/* Search Bar */}
+      </div>
+      {!searchText && <CategoryNav />}
       <ArticleList />
       <WriteButton />
     </Main>
@@ -78,14 +97,28 @@ ArticleListPage.getInitialProps = async (
   }
   const { query } = ctx;
   const page = Number(query.page);
-  const [name, id] = (query.category as string).split("_");
-  ArticleListPage.requiredResources = [
-    createArticleListResource({
-      category: { id: Number(id), name },
-      page: Number.isNaN(page) ? 1 : page,
-    }),
-    CATEGORY_LIST,
-  ];
+  const searchText = query.query as string | undefined;
+  if (query.category) {
+    const [name, id] = (query.category as string).split("_");
+    ArticleListPage.requiredResources = [
+      createArticleListResource({
+        category: { id: Number(id), name },
+        searchText,
+        page: Number.isNaN(page) ? 1 : page,
+      }),
+      CATEGORY_LIST,
+    ];
+  } else {
+    ArticleListPage.requiredResources = [
+      createArticleListResource({
+        category: { id: 0, name: "전체" },
+        searchText,
+        page: Number.isNaN(page) ? 1 : page,
+      }),
+      CATEGORY_LIST,
+    ];
+  }
+
   return {
     token: token === undefined || token === "" ? null : token,
   };
@@ -96,6 +129,11 @@ const Main = styled.main`
   width: 100%;
   margin: 0 auto;
   padding: 52px 35px;
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   h1 {
     color: var(--black_01);
     font-weight: 700;
@@ -103,6 +141,7 @@ const Main = styled.main`
     font-size: 34px;
     margin-bottom: 20px;
   }
+
   ${CategoryNavDiv} {
     gap: 8px;
   }
