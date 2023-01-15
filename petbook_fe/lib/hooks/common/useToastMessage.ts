@@ -9,6 +9,10 @@ import useDidMountEffect from "./useDidMountEffect";
 
 const defaultTimeout = 5000;
 
+export type ToastHandlerType =
+  | boolean
+  | ((value: React.SetStateAction<boolean>) => boolean);
+
 interface ToastMessageOptionsProps {
   timeout?: number;
   animation?: ToastAnimate;
@@ -37,10 +41,10 @@ const useToastMessage = (options?: ToastMessageOptionsProps) => {
     if (push === true && isWorkDone.current === true) {
       setIsToastView(true);
       mountAnimateSelector({
-        setIsToastView,
-        isWorkDone,
+        // setIsToastView,
+        // isWorkDone,
         animateValue,
-        timeoutResult,
+        // timeoutResult,
       });
 
       timer.current = setTimeout(() => {
@@ -54,7 +58,20 @@ const useToastMessage = (options?: ToastMessageOptionsProps) => {
 
   useDidMountEffect(toastLifeCycle, [push]);
 
-  return { isToastView, setPush };
+  const toastHandler = (callback: ToastHandlerType) => {
+    localConsole?.log(push, "push");
+    localConsole?.log(isToastView, "isToastView");
+    localConsole?.log(isWorkDone.current, "isWorkDone.current");
+
+    if (isWorkDone.current === true) {
+      setPush(callback);
+    }
+  };
+
+  return [isToastView, toastHandler] as [
+    typeof isToastView,
+    typeof toastHandler
+  ];
 };
 
 export default useToastMessage;
