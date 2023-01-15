@@ -11,7 +11,7 @@ import {
   ListDiv,
   WriteCategoryButtonBox,
   WriteCategorySection,
-} from "./styled/styledWriteCategory";
+} from "./styled/WriteCategory.style";
 
 const WriteCategory = () => {
   return (

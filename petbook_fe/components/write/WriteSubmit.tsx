@@ -10,7 +10,7 @@ import { useSetResource } from "../../lib/hooks/common/useResource";
 import {
   WriteSubmitButton,
   WriteSubmitSection,
-} from "./styled/styledWriteSubmit";
+} from "./styled/WriteSubmit.style";
 
 const WriteSubmit = () => {
   return (
@@ -62,8 +62,12 @@ const Submit = () => {
       const defaultSubmit = (imgId?: number | number[]) => {
         articlePromise(imgId)
           .then((articleRes) => {
-            setLoading(false);
-            navigator(`/community/list/${articleRes.id}`);
+            navigator({
+              url: `/community/list/${articleRes.id}`,
+              thenCallback: () => {
+                setLoading(false);
+              },
+            });
           })
           .catch((err) => localConsole?.error(err));
       };
