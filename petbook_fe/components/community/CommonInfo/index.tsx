@@ -1,16 +1,16 @@
 import getTimeForToday from "@lib/utils/getTimeForToday";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { Div } from "./styled";
 
 interface Props {
   avatar?: string;
   username: string;
   year: number;
   date: string;
-  className?: string;
 }
 
-const CommonInfo = ({ avatar, username, year, date, className }: Props) => {
+const CommonInfo = ({ avatar, username, year, date }: Props) => {
   const [time, setTime] = useState("");
   useEffect(() => {
     setTime(getTimeForToday(date));
@@ -18,20 +18,19 @@ const CommonInfo = ({ avatar, username, year, date, className }: Props) => {
   return (
     <Wrapper>
       {avatar && <Avatar src={avatar} alt="user avatar" />}
-      <div className={className}>
+      <Div>
         <div className="row">
           <span className="username">{username}</span>
           <span className="year">{year}년차</span>
         </div>
         <span className="date">{time}</span>
-      </div>
+      </Div>
     </Wrapper>
   );
 };
 
 CommonInfo.defaultProps = {
   avatar: "",
-  className: "",
 };
 
 const Avatar = styled.img`
