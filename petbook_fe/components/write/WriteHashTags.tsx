@@ -2,7 +2,9 @@ import writeState from "@atoms/pageAtoms/community/writeState";
 import ToastMessage from "@components/common/ToastMessage/ToastMessage";
 import hashTagKeydown from "@lib/handler/hashTagKeydown";
 import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
-import useToastMessage from "@lib/hooks/common/useToastMessage";
+import useToastMessage, {
+  ToastHandlerType,
+} from "@lib/hooks/common/useToastMessage";
 import useSetHashTag from "@lib/hooks/write/useSetHashTag";
 import React, {
   FocusEventHandler,
@@ -22,7 +24,7 @@ import {
 // TODO : 최대 5개 구현, 요소가 HashTagBox 넘어가지 않도록 구현
 const WriteHashTags = () => {
   const [isError, setIsError] = useState(false);
-  const { isToastView, setPush } = useToastMessage({
+  const [isToastView, toastHandler] = useToastMessage({
     timeout: 3000,
   });
 
@@ -31,7 +33,10 @@ const WriteHashTags = () => {
       <WriteHashTags.Title isToastView={isToastView} />
       <WriteHashTags.TagBox isError={isError} setIsError={setIsError}>
         <WriteHashTags.List />
-        <WriteHashTags.Input setIsError={setIsError} setPush={setPush} />
+        <WriteHashTags.Input
+          setIsError={setIsError}
+          toastHandler={toastHandler}
+        />
       </WriteHashTags.TagBox>
     </WriteHashTagsSection>
   );
@@ -109,10 +114,10 @@ const Item = React.memo(({ hashTag }: { hashTag: string }) => {
 
 interface InputProps {
   setIsError: React.Dispatch<React.SetStateAction<boolean>>;
-  setPush: React.Dispatch<React.SetStateAction<boolean>>;
+  toastHandler: (callback: ToastHandlerType) => void;
 }
 
-const Input = React.memo(({ setIsError, setPush }: InputProps) => {
+const Input = React.memo(({ setIsError, toastHandler }: InputProps) => {
   const { setTags } = useSetHashTag(setIsError);
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
     const { done } = hashTagKeydown(e, setTags, setIsError);
@@ -132,7 +137,7 @@ const Input = React.memo(({ setIsError, setPush }: InputProps) => {
   };
 
   const onClick = () => {
-    setPush((push) => !push);
+    toastHandler((push) => !push);
   };
 
   return (
