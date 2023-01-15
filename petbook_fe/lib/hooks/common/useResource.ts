@@ -1,5 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 
+export type Key = [string] | [string, ...any[]] | string[];
+
 /**
  * @function useResource : GET 요청 결과를 받아오는 useQuery 를 내포한 Hook
  * @param resource Page Component 에서 명시한 createResource 의 형식과 같습니다.
@@ -9,7 +11,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
  * @returns useQuery 의 state 를 그대로 반환합니다.
  */
 export default function useResource<T, P>(resource: {
-  key: [string] | [string, ...any[]] | string[];
+  key: Key;
   fetcher: (params?: P) => Promise<T>;
   params?: P;
 }) {
@@ -26,21 +28,21 @@ export default function useResource<T, P>(resource: {
  * @returns resource 를 담은 객체
  */
 export function createResource<T, P>(resource: {
-  key: [string] | [string, ...any[]] | string[];
+  key: Key;
   fetcher: (params?: P) => Promise<T>;
 }) {
   return resource;
 }
 
 export function useSetResource<T, P>(request: {
-  key: [string] | [string, ...any[]] | string[];
+  key: Key;
   requester: (reqBody: P) => Promise<T>;
 }) {
   return useMutation(request.requester);
 }
 
 export function createRequest<T, P>(request: {
-  key: [string] | [string, ...any[]] | string[];
+  key: Key;
   requester: (reqBody: P) => Promise<T>;
 }) {
   return {

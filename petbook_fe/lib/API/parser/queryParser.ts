@@ -1,9 +1,10 @@
 import { ParsedUrlQuery } from "querystring";
 import { QueryClient } from "@tanstack/react-query";
+import type { Key } from "@lib/hooks/common/useResource";
 
 export default async function queryParser(
   resource: {
-    key: any[];
+    key: Key;
     fetcher: (params?: any, config?: any) => void;
   },
   queryParams: ParsedUrlQuery, // [articleId]와 같은 쿼리 값을 얻기 위해 파라미터 추가
