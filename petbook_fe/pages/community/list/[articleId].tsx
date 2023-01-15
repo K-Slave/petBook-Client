@@ -82,7 +82,6 @@ const ArticleDetail: PetbookPage = ({ token }) => {
       <tokenContext.Provider value={token}>
         <ArticleContainer />
       </tokenContext.Provider>
-
       <BackButton position="end" />
     </Main>
   );
