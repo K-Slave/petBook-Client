@@ -2,10 +2,11 @@ import React from "react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
+import Skeleton from "../Skeleton/Skeleton";
 
 const QuillLoader = dynamic(() => import("react-quill"), {
   ssr: false,
-  loading: () => <p>Loading ...</p>,
+  loading: () => <Skeleton template="white" borderRadius="8px" />,
 });
 
 /** */
