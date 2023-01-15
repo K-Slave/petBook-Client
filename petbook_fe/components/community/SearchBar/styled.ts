@@ -10,6 +10,10 @@ export const Bar = styled.div`
   border: 1px solid var(--black_04);
   box-shadow: 0px 20px 16px -20px #d6d3c5;
   border-radius: 8px;
+  svg {
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
 `;
 
 export const Input = styled.input`

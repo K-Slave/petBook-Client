@@ -1,7 +1,7 @@
 import SearchIcon from "@components/common/icon/SearchIcon";
 import useSearchText from "@lib/hooks/article/useSearchText";
-import React, { KeyboardEventHandler, useState } from "react";
-import { RiCloseCircleFill } from "react-icons/ri";
+import React, { KeyboardEventHandler, useEffect, useState } from "react";
+import { IoCloseCircle } from "react-icons/io5";
 import navigator from "@lib/modules/navigator";
 import { Bar, Input } from "./styled";
 
@@ -19,6 +19,15 @@ const SearchBar = () => {
       });
     }
   };
+  const clear = () => {
+    setText("");
+    navigator(`/community/list?category=전체_0`, undefined, {
+      shallow: true,
+    });
+  };
+  useEffect(() => {
+    setText(searchText);
+  }, [searchText]);
   return (
     <Bar onKeyUp={searchArticleList}>
       <Input
@@ -27,7 +36,7 @@ const SearchBar = () => {
         value={text}
         onChange={onChange}
       />
-      {searchText ? <RiCloseCircleFill /> : <SearchIcon />}
+      {searchText ? <IoCloseCircle onClick={clear} /> : <SearchIcon />}
     </Bar>
   );
 };
