@@ -1,3 +1,4 @@
+import SearchBar from "@components/community/SearchBar";
 import ArticleList from "@components/community/ArticleList";
 import CategoryNav from "@components/community/CategoryNav";
 import {
@@ -79,7 +80,7 @@ const ArticleListPage: PetBookPage = ({ token }) => {
     <Main>
       <div className="heading">
         <h1>{searchText ? `"${searchText}"에 대한 검색결과` : categoryName}</h1>
-        {/* Search Bar */}
+        <SearchBar />
       </div>
       {!searchText && <CategoryNav />}
       <ArticleList />
@@ -129,7 +130,7 @@ const Main = styled.main`
   width: 100%;
   margin: 0 auto;
   padding: 52px 35px;
-  .heading {
+  & > .heading {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -139,11 +140,11 @@ const Main = styled.main`
     font-weight: 700;
     line-height: 50px;
     font-size: 34px;
-    margin-bottom: 20px;
   }
 
   ${CategoryNavDiv} {
     gap: 8px;
+    margin: 20px 0 0 0;
   }
   ${CategoryNavButton} {
     width: 110px;
