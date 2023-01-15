@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { articleRequest, commentRequest } from "@lib/API/petBookAPI";
 import { createRequest } from "@lib/hooks/common/useResource";
 import BackButton from "@components/community/BackButton";
-import ArticleContainer from "@containers/ArticleContainer";
+import ArticleContainer from "@containers/article/ArticleContainer";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { getHttpOnlyCookie } from "@lib/utils/httpOnlyCookie";
 import { createContext, useEffect } from "react";
