@@ -11,6 +11,10 @@ export default function useArticleList(): {
   status: UseQueryResult["status"];
   articles: ArticleListResponse["articles"];
   totalPages: number;
+  params: {
+    searchText: string;
+    categoryName: string;
+  };
 } {
   // params
   const size = useRef(20);
@@ -34,7 +38,13 @@ export default function useArticleList(): {
     totalPages:
       data === undefined
         ? 0
+        : searchText
+        ? Math.ceil(data.data.articles.length / size.current)
         : Math.ceil(data.data.totalElements / size.current),
+    params: {
+      searchText,
+      categoryName: name,
+    },
   };
   return articleList;
 }
