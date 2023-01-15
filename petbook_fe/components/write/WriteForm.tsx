@@ -18,7 +18,7 @@ import {
   WriteFormSection,
   WriteGuideDiv,
   GuideTopSpringDiv,
-} from "./styled/styledWriteForm";
+} from "./styled/WriteForm.style";
 import writeState from "../../atoms/pageAtoms/community/writeState";
 
 const WriteForm = () => {
