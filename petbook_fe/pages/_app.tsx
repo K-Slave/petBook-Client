@@ -7,6 +7,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import Loader from "@components/common/loader/loader";
 import cookies from "next-cookies";
 import urlTokenRedirect from "@lib/API/parser/urlTokenRedirect";
 import { RecoilRoot } from "recoil";
@@ -65,6 +66,7 @@ const NextApp = ({
     <QueryClientProvider client={queryClient}>
       <Hydrate state={initProps.dehydratedState}>
         <RecoilRoot>
+          <Loader />
           <HtmlHeader />
           <CommonHeader pathname={router.pathname} />
           <Component {...pageProps} />

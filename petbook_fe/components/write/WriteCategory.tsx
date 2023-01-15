@@ -3,6 +3,8 @@ import useSelectorState from "@lib/hooks/common/useSelectorState";
 import { AxiosResponse } from "axios";
 import React, { MouseEventHandler, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import Skeleton from "@components/common/Skeleton/Skeleton";
+import Loader from "@components/common/loader/loader";
 import writeState from "../../atoms/pageAtoms/community/writeState";
 import {
   ListDiv,
@@ -20,7 +22,7 @@ const WriteCategory = () => {
 };
 
 const List = () => {
-  const { data } = useQuery<AxiosResponse<CategoryListResponse>>([
+  const { data, status } = useQuery<AxiosResponse<CategoryListResponse>>([
     "CATEGORY_LIST",
   ]);
 
@@ -63,6 +65,9 @@ const List = () => {
 
   return (
     <ListDiv className="Category__Keyword__List">
+      {status === "loading" && (
+        <Skeleton width="80px" height="32px" borderRadius="40px" copy={5} />
+      )}
       {categoryList.map((keyword) => (
         <WriteCategory.Item
           key={keyword.name}
