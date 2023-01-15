@@ -9,25 +9,27 @@ import {
 } from "@components/common/icon/HeartIcon";
 import { BookmarkBlankIcon } from "@components/common/icon/BookmarkIcon";
 import CommonInfo from "@components/community/CommonInfo";
+import Skeleton from "@components/common/Skeleton/Skeleton";
 import usePagination from "./usePagination";
 import useArticleList from "./useArticleList";
-import {
-  ArticleListDiv,
-  ItemArticle,
-  PageButton,
-  PageButtonBoxDiv,
-} from "./styled";
+import { ListDiv, Article, PageButton, BoxDiv } from "./styled";
 
 const ArticleList = () => {
   const { status, articles, totalPages } = useArticleList();
-  // loading 상태일 때의 UI 추가 예정
+  if (status === "loading") {
+    return (
+      <ListDiv>
+        <Skeleton height="164px" borderRadius="16px" copy={20} />
+      </ListDiv>
+    );
+  }
   return (
-    <ArticleListDiv>
+    <ListDiv>
       {articles.map((article) => (
         <ArticleList.Item article={article} key={article.id} />
       ))}
       <ArticleList.PageButtonBox totalPages={totalPages} />
-    </ArticleListDiv>
+    </ListDiv>
   );
 };
 
@@ -37,7 +39,7 @@ const Item = ({ article }: { article: ArticleResponse }) => {
   const { id, title, content, user, tags, stat, createdAt, isLike } = article;
   return (
     <Link href={`/community/list/${id}`} passHref>
-      <ItemArticle>
+      <Article>
         <h3>{title}</h3>
         <div
           className="Item_Content"
@@ -61,7 +63,7 @@ const Item = ({ article }: { article: ArticleResponse }) => {
             className="reverse-row"
           />
         </div>
-      </ItemArticle>
+      </Article>
     </Link>
   );
 };
@@ -88,7 +90,7 @@ const PageButtonBox = ({ totalPages }: { totalPages: number }) => {
     changeCurrentPage(Number(textContent));
   };
   return (
-    <PageButtonBoxDiv>
+    <BoxDiv>
       {offset !== 1 && (
         <button onClick={onClickPrevButton} type="button">
           <svg
@@ -140,7 +142,7 @@ const PageButtonBox = ({ totalPages }: { totalPages: number }) => {
           </svg>
         </button>
       )}
-    </PageButtonBoxDiv>
+    </BoxDiv>
   );
 };
 

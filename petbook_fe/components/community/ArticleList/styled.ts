@@ -1,12 +1,12 @@
 import styled, { css } from "styled-components";
 
-export const ArticleListDiv = styled.div`
+export const ListDiv = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
 `;
 
-export const ItemArticle = styled.article`
+export const Article = styled.article`
   display: flex;
   flex-direction: column;
   border-radius: 16px;
@@ -55,7 +55,7 @@ export const ItemArticle = styled.article`
   }
 `;
 
-export const PageButtonBoxDiv = styled.div`
+export const BoxDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
