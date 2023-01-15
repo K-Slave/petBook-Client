@@ -9,13 +9,11 @@ import { useMutation, useQuery } from "@tanstack/react-query";
  * @returns useQuery 의 state 를 그대로 반환합니다.
  */
 export default function useResource<T, P>(resource: {
-  key: any[];
+  key: [string] | [string, ...any[]] | string[];
   fetcher: (params?: P) => Promise<T>;
   params?: P;
 }) {
-  const paramFetcher = () => resource.fetcher(resource?.params);
-
-  return useQuery(resource.key, paramFetcher);
+  return useQuery(resource.key, () => resource.fetcher(resource?.params));
 }
 
 /**
@@ -28,23 +26,21 @@ export default function useResource<T, P>(resource: {
  * @returns resource 를 담은 객체
  */
 export function createResource<T, P>(resource: {
-  key: any[];
+  key: [string] | [string, ...any[]] | string[];
   fetcher: (params?: P) => Promise<T>;
 }) {
   return resource;
 }
 
 export function useSetResource<T, P>(request: {
-  key: any[];
+  key: [string] | [string, ...any[]] | string[];
   requester: (reqBody: P) => Promise<T>;
 }) {
-  const queryState = useMutation(request.requester);
-
-  return queryState;
+  return useMutation(request.requester);
 }
 
 export function createRequest<T, P>(request: {
-  key: any[];
+  key: [string] | [string, ...any[]] | string[];
   requester: (reqBody: P) => Promise<T>;
 }) {
   return {
