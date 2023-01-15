@@ -1,7 +1,6 @@
 import { loginFormState } from "@atoms/pageAtoms/login/userState";
 import LoginInput from "@components/login/LoginInputBox";
 import { authRequest } from "@lib/API/petBookAPI";
-import navigator from "@lib/modules/navigator";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import Image from "next/image";
@@ -13,6 +12,7 @@ import { useRecoilValue } from "recoil";
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 import { UserLoginRequest } from "@lib/API/petBookAPI/types/userRequest";
 import localConsole from "@lib/utils/localConsole";
+import useLoaderNavigate from "@lib/hooks/common/useLoaderNavigate";
 import {
   ButtonBox,
   PassGuide,
@@ -108,6 +108,7 @@ export const LoginSubmitButton = () => {
   const [errorState, setErrorState] = useState(false);
   const [errorText, setErrorText] = useState();
   const [autoLogin, setAutoLogin] = useState(false);
+  const { navigator } = useLoaderNavigate();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
@@ -125,7 +126,7 @@ export const LoginSubmitButton = () => {
 
       localConsole?.log(token, "token");
       Cookies.set("petBookUser", token, { expires: 30 });
-      navigator("/info");
+      navigator({ url: "/info" });
     }
     if (isError) {
       // error type 린트에러

@@ -31,9 +31,11 @@ const useSetHashTag = (
   if (setIsError) {
     setTags = (textValue: string) => {
       setWrite((write) => {
-        const addTag = textValue.includes("#")
+        const hashFilter = textValue.includes("#")
           ? replaceAll(textValue, "#", "")
           : textValue;
+
+        const addTag = hashFilter.trim().split(" ").join("");
 
         // 중복 필터링
         // 5개 제한
@@ -43,8 +45,7 @@ const useSetHashTag = (
         if (
           write.inputHash.find((hashTag) => hashTag === addTag) ||
           write.inputHash.length >= 5 ||
-          textValue.length > 15 ||
-          textValue.includes(" ")
+          textValue.length > 15
         ) {
           setterError(write, setIsError);
 

@@ -4,23 +4,30 @@ import useSelectorState from "@lib/hooks/common/useSelectorState";
 import React, {
   ChangeEventHandler,
   KeyboardEventHandler,
+  PropsWithChildren,
   useRef,
   useState,
 } from "react";
 import ReactQuill from "react-quill";
-import writeState from "../../atoms/pageAtoms/community/writeState";
+import useResource from "@lib/hooks/common/useResource";
+import { CATEGORY_LIST } from "@pages/community/write";
+
 import {
   WriteEditorDiv,
   WriteTitleInput,
   WriteFormSection,
   WriteGuideDiv,
-} from "./styled/styledWriteForm";
+  GuideTopSpringDiv,
+} from "./styled/WriteForm.style";
+import writeState from "../../atoms/pageAtoms/community/writeState";
 
 const WriteForm = () => {
   return (
     <WriteFormSection>
       <WriteForm.Input />
-      <WriteForm.Guide />
+      <WriteForm.Guide>
+        <WriteForm.GuideTitle />
+      </WriteForm.Guide>
       <WriteForm.Editor />
     </WriteFormSection>
   );
@@ -36,16 +43,41 @@ const Input = () => {
   };
 
   return (
-    <WriteTitleInput
-      className="Write__Input default"
-      placeholder="제목을 입력하세요"
-      onChange={onChange}
-      value={inputTitle}
-    />
+    <>
+      <WriteTitleInput
+        className="Write__Input default"
+        placeholder="제목을 입력하세요"
+        onChange={onChange}
+        value={inputTitle}
+      />
+      {/* <Image src="/Icon.png" width={10} height={10} /> */}
+    </>
   );
 };
 
-const Guide = () => {
+const Guide = React.memo(({ children }: PropsWithChildren<any>) => {
+  const divDummy = ["", "", "", ""];
+
+  return (
+    <WriteGuideDiv className="Write__Guide">
+      {divDummy.map((elem, idx) => {
+        return <GuideTopSpringDiv className={`Write__Guide__Spring__${idx}`} />;
+      })}
+      {children}
+      <p className="Write__Guide__Content">
+        {`
+          내 소중한 동물의 자랑, 펫북에서 마음껏 해주세요! 무엇을 좋아하는지 어떤 특징이 있는지 등등 자세하게 들려주면 더 좋아요 :)
+        `}
+      </p>
+    </WriteGuideDiv>
+  );
+});
+
+const GuideTitle = React.memo(() => {
+  const { data, status } = useResource(CATEGORY_LIST);
+
+  const categoryList = data?.data ? data?.data : [];
+
   const { selectedCategory } = useRecoilSelector(writeState, {
     selectedCategory: {
       idx: 0,
@@ -53,20 +85,20 @@ const Guide = () => {
     },
   });
 
+  // 초기값에 recoil 안엔 name 이 비어있는 문제가 있음
+  const currentCategory = selectedCategory.name
+    ? selectedCategory.name
+    : categoryList[0].name
+    ? categoryList[0].name
+    : "";
+
   return (
-    <WriteGuideDiv className="Write__Guide">
-      <h5 className="Write__Guide__Title">{selectedCategory.name} ?</h5>
-      <p className="Write__Guide__Content">
-        {/* {selectedCategory.name}을 쓰는 방법에 대한 가이드가 올라갑니다. */}
-        {`
-          궁금한
-          것을 자유롭게 질문해보세요! -(내 아이 품종) -(내 아이 나이) -(내 아이
-          특징) 등을 작성하면 답변에 큰 도움이 될 수 있어요!
-        `}
-      </p>
-    </WriteGuideDiv>
+    <h5 className="Write__Guide__Title">
+      {currentCategory}
+      &nbsp;잘쓰는 법!
+    </h5>
   );
-};
+});
 
 const Editor = () => {
   const [{ inputContent }, setWrite] = useSelectorState(writeState, {
@@ -190,6 +222,7 @@ const Editor = () => {
 
 WriteForm.Input = Input;
 WriteForm.Guide = Guide;
+WriteForm.GuideTitle = GuideTitle;
 WriteForm.Editor = Editor;
 // WriteForm.Length = Length;
 

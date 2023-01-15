@@ -14,15 +14,21 @@ const SearchBar = () => {
   const searchArticleList: KeyboardEventHandler = (e) => {
     const key = e.key || e.keyCode;
     if (key === "Enter" || key === 13) {
-      navigator(`/community/list?query=${text}`, undefined, {
-        shallow: true,
+      navigator({
+        url: `/community/list?query=${text}`,
+        options: {
+          shallow: true,
+        },
       });
     }
   };
   const clear = () => {
     setText("");
-    navigator(`/community/list?category=전체_0`, undefined, {
-      shallow: true,
+    navigator({
+      url: `/community/list?category=전체_0`,
+      options: {
+        shallow: true,
+      },
     });
   };
   useEffect(() => {

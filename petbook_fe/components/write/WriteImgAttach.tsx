@@ -15,7 +15,7 @@ import {
   InfoBoxDiv,
   TitleP,
   WriteImgAttachSection,
-} from "./styled/styledWriteImgAttach";
+} from "./styled/WriteImgAttach.style";
 
 const WriteImgAttach = () => {
   return (
