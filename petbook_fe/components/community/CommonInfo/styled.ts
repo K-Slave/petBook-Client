@@ -12,6 +12,11 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+`;
+
+export const Div = styled.div`
+  display: flex;
+  flex-direction: column;
   .row {
     display: flex;
     align-items: center;
