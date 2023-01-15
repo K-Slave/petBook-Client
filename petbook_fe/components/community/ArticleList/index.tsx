@@ -14,14 +14,15 @@ import usePagination from "./usePagination";
 import useArticleList from "./useArticleList";
 import { ListDiv, Article, PageButton, BoxDiv, Text } from "./styled";
 
-const ArticleList = ({
-  status,
-  articles,
-  totalPages,
-}: Pick<
-  ReturnType<typeof useArticleList>,
-  "articles" | "status" | "totalPages"
->) => {
+interface Props
+  extends Pick<
+    ReturnType<typeof useArticleList>,
+    "articles" | "status" | "totalPages"
+  > {
+  emptyText: string;
+}
+
+const ArticleList = ({ status, articles, totalPages, emptyText }: Props) => {
   if (status === "loading") {
     return (
       <ListDiv>
@@ -32,7 +33,7 @@ const ArticleList = ({
   if (articles.length === 0) {
     return (
       <ListDiv>
-        <Text>아직 게시물이 없어요!</Text>
+        <Text>{emptyText}</Text>
       </ListDiv>
     );
   }
