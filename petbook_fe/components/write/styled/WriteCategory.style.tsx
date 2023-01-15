@@ -42,12 +42,15 @@ const WriteCategoryButtonBox = styled.button`
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.5rem;
-  vertical-align: middle;
   letter-spacing: -0.02em;
 
   ${(props: ButtonProps) => {
     if (props.selected === props.keyword) {
-      return { backgroundColor: "#FF6847", fontWeight: "700", color: "#fff" };
+      return {
+        backgroundColor: "#000000",
+        fontWeight: "700",
+        color: "#F8F7F2",
+      };
     }
     if (props.selected !== props.keyword) {
       return { backgroundColor: "#ffffff", color: "#777774" };

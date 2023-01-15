@@ -7,8 +7,8 @@ const WriteSubmitSection = styled.section`
 
   width: 100%;
 
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: calc(80px - 32px);
+  margin-bottom: 60px;
 `;
 
 const WriteSubmitButton = styled(Button)`
