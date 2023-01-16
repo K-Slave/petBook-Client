@@ -3,6 +3,7 @@ import useSearchText from "@lib/hooks/article/useSearchText";
 import React, { KeyboardEventHandler, useEffect, useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 import navigator from "@lib/modules/navigator";
+import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 import { Bar, Input } from "./styled";
 
 const SearchBar = () => {
@@ -25,7 +26,7 @@ const SearchBar = () => {
   const clear = () => {
     setText("");
     navigator({
-      url: `/community/list?category=전체_0`,
+      url: getHrefWithCategory({ id: 0, name: "전체" }),
       options: {
         shallow: true,
       },
