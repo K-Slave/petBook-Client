@@ -9,7 +9,6 @@ import { Bar, Input } from "./styled";
 const SearchBar = () => {
   const searchText = useSearchText();
   const [text, setText] = useState(searchText);
-  const { navigator } = useLoaderNavigate();
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
