@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import jwt_decode from "jwt-decode";
 import type { AppContext, AppProps } from "next/app";
 import {
   dehydrate,
@@ -16,6 +17,7 @@ import HtmlHeader from "@components/common/HtmlHeader";
 import Modal from "@components/common/Modal";
 import { Router } from "next/router";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
+import localConsole from "@lib/utils/localConsole";
 import CommonHeader from "../components/common/CommonHeader";
 import { itrMap } from "../lib/utils/iterableFunctions";
 
@@ -25,6 +27,8 @@ import "swiper/scss/pagination";
 import "../styles/Globals.scss";
 import "../styles/Icon.scss";
 import "../styles/Swiper.scss";
+
+let serverData = "";
 
 type DehydratedAppProps = AppProps & {
   initProps: {
@@ -79,6 +83,7 @@ const NextApp = ({
 
 NextApp.getInitialProps = async (context: AppContext) => {
   const { Component, router, ctx } = context;
+  const allCookies = cookies(ctx);
   let pageProps = {};
 
   const queryClient = new QueryClient({
@@ -89,7 +94,6 @@ NextApp.getInitialProps = async (context: AppContext) => {
       },
     },
   });
-  const allCookies = cookies(ctx);
 
   try {
     // 소셜 로그인시, url 에 토큰이 붙어있는경우 쿠키로 변환하여 리다이렉트 시켜쥼
@@ -109,8 +113,12 @@ NextApp.getInitialProps = async (context: AppContext) => {
         `petBookUser=${allCookies.petBookUser}; Path=/ SameSite=Strict; Max-Age=2592000; secure; httpOnly`
       );
 
+      serverData = jwt_decode(allCookies.petBookUser);
+
       sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${allCookies.petBookUser}`;
     }
+
+    localConsole?.log(serverData, "serverData");
 
     const PageComponent: typeof Component & {
       requiredResources?: Array<{

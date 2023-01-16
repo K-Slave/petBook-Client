@@ -102,6 +102,7 @@
       "BinaryExpression[operator='of']"
     ],
 
+    "import/no-mutable-exports": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
