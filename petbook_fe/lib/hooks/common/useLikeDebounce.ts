@@ -5,10 +5,11 @@ import {
   MouseEventHandler,
   MutableRefObject,
   useContext,
+  useEffect,
   useRef,
   useState,
 } from "react";
-import { useSetResource } from "../common/useResource";
+import { useSetResource } from "./useResource";
 
 export interface updateIsLikedParams {
   commentId: number;
@@ -56,9 +57,16 @@ function useUpdateLikeDebounce({
         );
       }
     },
-    3000,
+    1300,
     timeoutId
   );
+  useEffect(() => {
+    return () => {
+      if (timeoutId.current) {
+        clearTimeout(timeoutId.current);
+      }
+    };
+  }, []);
   return updateIsLiked;
 }
 
