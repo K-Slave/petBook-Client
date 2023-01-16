@@ -25,7 +25,9 @@ export default function useSubmitComment(
 
   const onSuccess = async () => {
     if (textareaRef.current != null) textareaRef.current.value = "";
-    await queryClient.invalidateQueries([...COMMENT_LIST.key, articleId]);
+    await queryClient.invalidateQueries({
+      queryKey: [...COMMENT_LIST.key, articleId],
+    });
   };
 
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
