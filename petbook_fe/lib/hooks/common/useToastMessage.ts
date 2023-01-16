@@ -41,10 +41,7 @@ const useToastMessage = (options?: ToastMessageOptionsProps) => {
     if (push === true && isWorkDone.current === true) {
       setIsToastView(true);
       mountAnimateSelector({
-        // setIsToastView,
-        // isWorkDone,
         animateValue,
-        // timeoutResult,
       });
 
       timer.current = setTimeout(() => {
@@ -58,7 +55,7 @@ const useToastMessage = (options?: ToastMessageOptionsProps) => {
 
   useDidMountEffect(toastLifeCycle, [push]);
 
-  const toastHandler = (callback: ToastHandlerType) => {
+  const msgPush = (callback: ToastHandlerType) => {
     localConsole?.log(push, "push");
     localConsole?.log(isToastView, "isToastView");
     localConsole?.log(isWorkDone.current, "isWorkDone.current");
@@ -68,10 +65,7 @@ const useToastMessage = (options?: ToastMessageOptionsProps) => {
     }
   };
 
-  return [isToastView, toastHandler] as [
-    typeof isToastView,
-    typeof toastHandler
-  ];
+  return [isToastView, msgPush] as [typeof isToastView, typeof msgPush];
 };
 
 export default useToastMessage;
