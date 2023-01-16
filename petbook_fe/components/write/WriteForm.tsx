@@ -12,6 +12,9 @@ import ReactQuill from "react-quill";
 import useResource from "@lib/hooks/common/useResource";
 import { CATEGORY_LIST } from "@pages/community/write";
 
+import { useRecoilValue } from "recoil";
+import userState from "@atoms/common/userState";
+import localConsole from "@lib/utils/localConsole";
 import {
   WriteEditorDiv,
   WriteTitleInput,
@@ -56,7 +59,10 @@ const Input = () => {
 };
 
 const Guide = React.memo(({ children }: PropsWithChildren<any>) => {
+  const user = useRecoilValue(userState);
   const divDummy = ["", "", "", ""];
+
+  localConsole?.log(user, "user");
 
   return (
     <WriteGuideDiv className="Write__Guide">
