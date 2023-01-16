@@ -5,18 +5,10 @@ import { Dispatch, MutableRefObject, SetStateAction } from "react";
 const fadeTime = 400;
 
 interface MountProps {
-  // setIsToastView: Dispatch<SetStateAction<boolean>>;
-  // isWorkDone: MutableRefObject<boolean>;
   animateValue: ToastAnimate;
-  // timeoutResult: number;
 }
 
-export const mountAnimateSelector = ({
-  // setIsToastView,
-  // isWorkDone,
-  animateValue,
-}: // timeoutResult,
-MountProps) => {
+export const mountAnimateSelector = ({ animateValue }: MountProps) => {
   const $Toast = document.querySelector<HTMLDivElement>(".ToastMessage");
 
   if ($Toast) {
@@ -26,17 +18,6 @@ MountProps) => {
         $Toast.style.animation = `${fadeTime}ms ease-in 0s fadeIn`;
         $Toast.style.opacity = "1";
 
-        // setTimeout(() => {
-        //   $Toast.style.animation = `${fadeTime}ms ease-in 0s fadeOut`;
-        //   isWorkDone.current = false;
-        // }, timeoutResult - fadeTime);
-        // setTimeout(() => {
-        //   setIsToastView(false);
-        //   $Toast.style.removeProperty("animation");
-        //   $Toast.style.removeProperty("opacity");
-        //   isWorkDone.current = true;
-        // }, timeoutResult);
-
         break;
       }
 
@@ -45,16 +26,6 @@ MountProps) => {
         $Toast.style.animation = `${fadeTime}ms ease-in 0s fadeIn`;
         $Toast.style.opacity = "1";
 
-        // setTimeout(() => {
-        //   $Toast.style.animation = `${fadeTime}ms ease-in 0s fadeOut`;
-        //   isWorkDone.current = false;
-        // }, timeoutResult - fadeTime);
-        // setTimeout(() => {
-        //   setIsToastView(false);
-        //   $Toast.style.removeProperty("animation");
-        //   $Toast.style.removeProperty("opacity");
-        //   isWorkDone.current = true;
-        // }, timeoutResult);
         break;
       }
     }

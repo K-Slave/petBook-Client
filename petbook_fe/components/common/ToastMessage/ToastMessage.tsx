@@ -9,25 +9,21 @@ export type ToastAnimate = "none" | "fade_in_out" | "slide_right";
 
 interface ToastMessageProps {
   push: boolean;
-  content: string;
-  // animation?: ToastAnimate;
   marginLeft?: number;
 }
 
 const ToastMessage = ({
+  children,
   push,
-  content,
-  // animation,
   marginLeft,
-}: ToastMessageProps) => {
+}: PropsWithChildren<ToastMessageProps>) => {
   const { ready } = useClientReady();
 
   return (
-    // animation={animation}
     <>
       {ready && (
         <ToastMessage.StartPoint marginLeft={marginLeft}>
-          {push && <ToastMessage.MsgBox content={content} />}
+          {push && <ToastMessage.MsgBox>{children}</ToastMessage.MsgBox>}
         </ToastMessage.StartPoint>
       )}
     </>
@@ -36,26 +32,18 @@ const ToastMessage = ({
 
 ToastMessage.defaultProps = {
   marginLeft: 0,
-  // animation: "fade_in_out",
 };
 
 interface StartPointProps {
   marginLeft?: number;
-  // animation?: ToastAnimate;
 }
 
 const StartPoint = ({
   children,
-  // animation,
   marginLeft,
 }: PropsWithChildren<StartPointProps>) => {
   return (
-    <ToastMessageStartPointDiv
-      className="ToastMessage"
-      marginLeft={marginLeft}
-      // style={{ width: 0, height: 0 }}
-      // animation={animation}
-    >
+    <ToastMessageStartPointDiv className="ToastMessage" marginLeft={marginLeft}>
       {children}
     </ToastMessageStartPointDiv>
   );
@@ -63,14 +51,13 @@ const StartPoint = ({
 
 StartPoint.defaultProps = {
   marginLeft: 0,
-  // animation: "fade_in_out",
 };
 
-const MsgBox = ({ content }: PropsWithChildren<{ content: string }>) => {
+const MsgBox = ({ children }: PropsWithChildren<any>) => {
   return (
     <ToastMessageBoxDiv className="Toast__Message__Box">
       <div className="Toast__EndPoint__Arrow" />
-      <div className="Toast__Content__Box">{content}</div>
+      <div className="Toast__Content__Box">{children}</div>
     </ToastMessageBoxDiv>
   );
 };
