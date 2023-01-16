@@ -38,7 +38,10 @@ export function useSetResource<T, P>(request: {
   key: Key;
   requester: (reqBody: P) => Promise<T>;
 }) {
-  return useMutation(request.requester);
+  return useMutation({
+    mutationKey: request.key,
+    mutationFn: request.requester,
+  });
 }
 
 export function createRequest<T, P>(request: {
