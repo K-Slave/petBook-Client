@@ -1,5 +1,5 @@
 import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
-import useLikeDebounce from "@lib/hooks/comment/useLikeDebounce";
+import useLikeDebounce from "@lib/hooks/common/useLikeDebounce";
 import {
   CreateLikeResource,
   DeleteLikeResource,
