@@ -18,7 +18,7 @@ import Modal from "@components/common/Modal";
 import { Router } from "next/router";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import type { Key } from "@lib/hooks/common/useResource";
-import localConsoles from "@lib/utils/localConsole";
+import localConsole from "@lib/utils/localConsole";
 import CommonHeader from "@components/common/CommonHeader";
 import { itrMap } from "@lib/utils/iterableFunctions";
 import "swiper/scss";
