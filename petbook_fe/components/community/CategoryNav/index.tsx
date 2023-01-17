@@ -2,13 +2,12 @@ import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 import useCategories from "@lib/hooks/article/useCategories";
 import useActiveCategory from "@lib/hooks/article/useActiveCategory";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
-import useLoaderNavigate from "@lib/hooks/common/useLoaderNavigate";
+import navigator from "@lib/modules/navigator";
 import { CategoryNavDiv, CategoryNavButton } from "./styled";
 
 const CategoryNav = () => {
   const { categories, status } = useCategories({ all: true });
   const { categoryName } = useActiveCategory();
-  const { navigator } = useLoaderNavigate();
   const onClick = (category: CategoryItem) => () => {
     navigator({
       url: getHrefWithCategory(category),

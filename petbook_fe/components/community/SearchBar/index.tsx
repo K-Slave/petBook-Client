@@ -2,13 +2,12 @@ import SearchIcon from "@components/common/icon/SearchIcon";
 import useSearchText from "@lib/hooks/article/useSearchText";
 import React, { KeyboardEventHandler, useEffect, useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
-import useLoaderNavigate from "@lib/hooks/common/useLoaderNavigate";
+import navigator from "@lib/modules/navigator";
 import { Bar, Input } from "./styled";
 
 const SearchBar = () => {
   const searchText = useSearchText();
   const [text, setText] = useState(searchText);
-  const { navigator } = useLoaderNavigate();
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
