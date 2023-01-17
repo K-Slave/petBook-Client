@@ -1,6 +1,5 @@
-import DropdownMenu, { menuListStyle } from "@components/common/DropdownMenu";
+import DropdownMenu from "@components/common/DropdownMenu";
 import { BsArrowReturnRight } from "react-icons/bs";
-import styled from "styled-components";
 import CommonInfo from "@components/community/CommonInfo";
 import { BookmarkBlankIcon } from "@components/common/icon/BookmarkIcon";
 import useUserId from "@lib/hooks/article/useUserId";
@@ -8,15 +7,19 @@ import { commentRequest } from "@lib/API/petBookAPI";
 import { useRef, useState } from "react";
 import useChangeComment from "@lib/hooks/comment/useChangeComment";
 import useSubmitComment from "@lib/hooks/comment/useSubmitComment";
+import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
+import { useQueryClient } from "@tanstack/react-query";
+import { getCommentListKey } from "@pages/community/list/[articleId]";
 import { ItemProps } from "../CommentList";
 import {
+  Form,
   NormalItemDiv,
   QnaItemBubble,
   QnaItemDiv,
   ScrapButtonBox,
 } from "./styled";
 import LikeButton from "../../LikeButton";
-import { CommentFormButton, CommentFormTextarea } from "../CommentForm/styled";
+import { CommentFormTextarea } from "../CommentForm/styled";
 
 const avatar =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
@@ -30,8 +33,18 @@ export const NormalItem = ({
   const userId = useUserId();
   const { user, createdAt, content, likeCount, id, articleId, isLiked } =
     comment;
+  const menuList = [
+    {
+      name: "수정",
+      onClick: () => setIsEditing(true),
+    },
+    {
+      name: "삭제",
+      onClick: clickDeleteMenu,
+    },
+  ];
   return (
-    <NormalItemDiv isChild={isChild}>
+    <NormalItemDiv isEditing={isEditing ? "true" : ""}>
       {isChild && <BsArrowReturnRight />}
       <div>
         <div className="Item_Row">
@@ -41,18 +54,18 @@ export const NormalItem = ({
             avatar={avatar}
             year={1}
           />
-          {userId === user.id && (
-            <DropdownMenu
-              MenuList={
-                <MenuList
-                  clickDeleteMenu={clickDeleteMenu}
-                  clickEditMenu={() => setIsEditing(true)}
-                />
-              }
-            />
-          )}
+          {userId === user.id && <DropdownMenu menuList={menuList} />}
         </div>
-        <p className="Item_Content">{content}</p>
+        {isEditing ? (
+          <EditForm
+            articleId={articleId}
+            content={content}
+            id={id}
+            clickCancelButton={() => setIsEditing(false)}
+          />
+        ) : (
+          <p className="Item_Content">{content}</p>
+        )}
         <div className="Item_Button_Box">
           <LikeButton
             id={id}
@@ -73,15 +86,16 @@ export const QnaItem = ({ comment, isChild, clickDeleteMenu }: ItemProps) => {
     comment;
   const userId = useUserId();
   const [isEditing, setIsEditing] = useState(false);
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-  const { onChange } = useChangeComment({
-    content,
-    parentId: null,
-    commentId: id,
-  });
-
-  const { onSubmit } = useSubmitComment(textareaRef);
-
+  const menuList = [
+    {
+      name: "수정",
+      onClick: () => setIsEditing(true),
+    },
+    {
+      name: "삭제",
+      onClick: clickDeleteMenu,
+    },
+  ];
   return (
     <QnaItemDiv>
       <CommonInfo
@@ -93,41 +107,18 @@ export const QnaItem = ({ comment, isChild, clickDeleteMenu }: ItemProps) => {
       <QnaItemBubble isEditing={isEditing ? "true" : ""}>
         <div className="Item_Row">
           {isEditing ? (
-            <form>
-              <CommentFormTextarea
-                ref={textareaRef}
-                defaultValue={content}
-                onChange={onChange}
-                autoFocus
-              />
-              <button
-                className="Secondary"
-                type="button"
-                onClick={() => setIsEditing(false)}
-              >
-                취소
-              </button>
-              <CommentFormButton
-                className="Primary"
-                type="submit"
-                onClick={onSubmit}
-              >
-                수정 완료
-              </CommentFormButton>
-            </form>
+            <EditForm
+              articleId={articleId}
+              content={content}
+              id={id}
+              clickCancelButton={() => setIsEditing(false)}
+            />
           ) : (
             <p className="Item_Content">{content}</p>
           )}
 
           {userId === user.id && !isEditing && (
-            <DropdownMenu
-              MenuList={
-                <MenuList
-                  clickDeleteMenu={clickDeleteMenu}
-                  clickEditMenu={() => setIsEditing(true)}
-                />
-              }
-            />
+            <DropdownMenu menuList={menuList} />
           )}
         </div>
         <div className="Item_Button_Box">
@@ -145,32 +136,54 @@ export const QnaItem = ({ comment, isChild, clickDeleteMenu }: ItemProps) => {
   );
 };
 
-// -------------------------------------------------------
+// -------------------------------------
 
-interface MenuListProps extends Pick<ItemProps, "clickDeleteMenu"> {
-  clickEditMenu: () => void;
+interface Props extends Pick<CommentItem, "content" | "id" | "articleId"> {
+  clickCancelButton: () => void;
 }
 
-const MenuList = ({ clickDeleteMenu, clickEditMenu }: MenuListProps) => {
+const EditForm = ({ content, id, articleId, clickCancelButton }: Props) => {
+  const queryClient = useQueryClient();
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const { onChange } = useChangeComment({
+    content,
+    parentId: null,
+    commentId: id,
+  });
+
+  const { onSubmit, isLoading } = useSubmitComment(async () => {
+    if (textareaRef && textareaRef.current) {
+      textareaRef.current.value = "";
+    }
+    await queryClient.invalidateQueries({
+      queryKey: getCommentListKey(String(articleId)),
+    });
+    clickCancelButton();
+  });
   return (
-    <MenuListBox>
-      <button type="button" onClick={clickEditMenu}>
-        수정
-      </button>
-      <button type="button" onClick={clickDeleteMenu}>
-        삭제
-      </button>
-    </MenuListBox>
+    <Form>
+      <CommentFormTextarea
+        ref={textareaRef}
+        defaultValue={content}
+        onChange={onChange}
+        autoFocus
+      />
+      <div>
+        <button className="Secondary" type="button" onClick={clickCancelButton}>
+          취소
+        </button>
+        <button
+          className="Primary"
+          type="submit"
+          onClick={onSubmit}
+          disabled={isLoading}
+        >
+          수정 완료
+        </button>
+      </div>
+    </Form>
   );
 };
-
-const MenuListBox = styled.div`
-  ${menuListStyle};
-  button {
-    width: 100%;
-    text-align: left;
-  }
-`;
 
 // --------------------------------------------------------------------
 
