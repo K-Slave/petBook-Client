@@ -7,24 +7,36 @@ import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { getHttpOnlyCookie } from "@lib/utils/httpOnlyCookie";
 import { createContext, useEffect } from "react";
 import jwtDecode from "jwt-decode";
+import { CommentListRequest } from "@lib/API/petBookAPI/types/commentRequest";
 
-export const ARTICLE_ITEM = {
-  key: ["ARTICLE_ITEM"],
-  fetcher: articleRequest.article_item,
-};
-
-export const COMMENT_LIST = {
-  key: ["COMMENT_LIST"],
-  fetcher: commentRequest.comment_list,
-};
+export const getCommentListKey = (articleId: string): [string, string] => [
+  "COMMENT_LIST",
+  articleId,
+];
+export const createCommentListResouce = (
+  articleId: CommentListRequest["params"]["articleId"]
+) => ({
+  key: getCommentListKey(String(articleId)),
+  fetcher: (page = 0) =>
+    commentRequest.comment_list({
+      articleId,
+      page: page === undefined ? 0 : page,
+      size: 20,
+    }),
+});
+export const createArticleResource = (articleId: string) => ({
+  key: ["ARTICLE_ITEM", articleId] as [string, string],
+  fetcher: () => articleRequest.article_item(`/${articleId}`),
+});
 
 type PetbookPage = NextPage<{
   token: string | null;
   userId: number | null;
 }> & {
-  requiredResources?:
-    | [typeof ARTICLE_ITEM]
-    | [typeof ARTICLE_ITEM, typeof COMMENT_LIST];
+  requiredResources?: [
+    ReturnType<typeof createArticleResource>,
+    ReturnType<typeof createCommentListResouce>
+  ];
 };
 export const userIdContext = createContext<number | null>(null);
 
@@ -61,20 +73,24 @@ ArticleDetail.getInitialProps = async (
   token: string | null;
   userId: number | null;
 }> => {
+  const { query } = ctx;
+  const articleId = query.articleId as string;
+  const ARTICLE_ITEM = createArticleResource(articleId);
+  const COMMENT_LIST = createCommentListResouce(Number(articleId));
+  ArticleDetail.requiredResources = [ARTICLE_ITEM, COMMENT_LIST];
   const token = await getHttpOnlyCookie({ ctx, key: "petBookUser" });
   if (token) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
     const user = jwtDecode<{ id: string }>(token);
     return {
       token,
-      userId: Number(user.id)
+      userId: Number(user.id),
     };
   }
   return {
     token: null,
-    userId: null
+    userId: null,
   };
 };
-ArticleDetail.requiredResources = [ARTICLE_ITEM, COMMENT_LIST];
 
 export default ArticleDetail;
