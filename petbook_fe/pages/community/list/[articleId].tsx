@@ -64,10 +64,10 @@ ArticleDetail.getInitialProps = async (
   const token = await getHttpOnlyCookie({ ctx, key: "petBookUser" });
   if (token) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
-    const { id: userId } = jwtDecode<{ id: number }>(token);
+    const user = jwtDecode<{ id: string }>(token);
     return {
       token,
-      userId
+      userId: Number(user.id)
     };
   }
   return {
