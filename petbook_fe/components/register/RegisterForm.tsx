@@ -96,11 +96,11 @@ const Register = () => {
             axiosValue="email"
             current="이메일"
           />
-          <RegisterInputBox
+          {/* <RegisterInputBox
             IconType="Login_Passcode_Disabled"
             axiosValue="email_num"
             current="인증번호 4자리"
-          />
+          /> */}
           <RegisterInfoText state={false}>
             <p>인증이 완료되었습니다</p>
           </RegisterInfoText>
