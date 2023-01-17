@@ -2,13 +2,10 @@ import DOMPurify from "isomorphic-dompurify";
 import CommonInfo from "@components/community/CommonInfo";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import DropdownMenu from "@components/common/DropdownMenu";
-import {
-  ARTICLE_CREATE_LIKE,
-  ARTICLE_DELETE_LIKE,
-} from "@pages/community/list/[articleId]";
 import { BookmarkBlankIcon } from "@components/common/icon/BookmarkIcon";
 import useModal from "@lib/hooks/common/useModal";
 import useUserId from "@lib/hooks/article/useUserId";
+import { articleRequest } from "@lib/API/petBookAPI";
 import TagList from "../TagList";
 import {
   ArticleSectionBox,
@@ -69,8 +66,8 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
           id={id}
           liked={isLike}
           likeCount={stat.likeCount}
-          CREATE_LIKE_RESOURCE={ARTICLE_CREATE_LIKE}
-          DELETE_LIKE_RESOURCE={ARTICLE_DELETE_LIKE}
+          createLike={articleRequest.article_create_like}
+          deleteLike={articleRequest.article_delete_like}
         />
         <div>
           <button type="button">

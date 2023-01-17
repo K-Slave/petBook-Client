@@ -7,8 +7,9 @@ import {
   useRef,
   useState,
 } from "react";
-import useUserId from "../article/useUserId";
-import { useSetResource } from "./useResource";
+import useUserId from "@lib/hooks/article/useUserId";
+import { useSetResource } from "@lib/hooks/common/useResource";
+import { useMutation } from "@tanstack/react-query";
 
 export interface updateIsLikedParams {
   commentId: number;
@@ -17,11 +18,11 @@ export interface updateIsLikedParams {
 }
 
 function useUpdateLikeDebounce({
-  CREATE_LIKE_RESOURCE,
-  DELETE_LIKE_RESOURCE,
-}: Pick<LikeButtonProps, "CREATE_LIKE_RESOURCE" | "DELETE_LIKE_RESOURCE">) {
-  const { mutate: createLikeComment } = useSetResource(CREATE_LIKE_RESOURCE);
-  const { mutate: deleteLikeComment } = useSetResource(DELETE_LIKE_RESOURCE);
+ createLike,
+deleteLike
+}: Pick<LikeButtonProps, "createLike" | "deleteLike">) {
+  const { mutate: createLikeComment } = useMutation(createLike);
+  const { mutate: deleteLikeComment } = useMutation(deleteLike);
   const timeoutId = useRef<ReturnType<typeof setTimeout> | null>(null);
   const updateIsLiked = debounce(
     ({ commentId, isLiked, initialLiked }: updateIsLikedParams) => {
@@ -73,15 +74,15 @@ export default function useLikeDebounce({
   id,
   liked,
   likeCount,
-  CREATE_LIKE_RESOURCE,
-  DELETE_LIKE_RESOURCE,
+  createLike,
+  deleteLike
 }: LikeButtonProps) {
   const userId = useUserId();
   const initialLiked = useRef(liked);
   const [isLiked, setIsLiked] = useState(liked);
   const updateIsLiked = useUpdateLikeDebounce({
-    CREATE_LIKE_RESOURCE,
-    DELETE_LIKE_RESOURCE,
+    createLike,
+    deleteLike
   });
   const clickLikeButton: MouseEventHandler<HTMLButtonElement> = () => {
     if (userId === null) {
