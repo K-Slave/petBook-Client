@@ -28,7 +28,7 @@ const QnaItemDiv = styled.div`
   ${commonStyle};
 `;
 
-const QnaItemBubble = styled.div`
+const QnaItemBubble = styled.div<{ isEditing: "true" | "" }>`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -37,6 +37,7 @@ const QnaItemBubble = styled.div`
   padding: 28px 32px;
   background-color: #fff;
   border-radius: 16px;
+
   &:after {
     content: "";
     position: absolute;
@@ -44,12 +45,31 @@ const QnaItemBubble = styled.div`
     width: 0;
     z-index: 1;
     border-style: solid;
-    border-color: transparent #fff;
+    border-color: transparent white;
     border-width: 20px 20px 20px 0;
     top: 50%;
     left: -20px;
     margin-top: -20px;
   }
+  ${({ isEditing }) =>
+    isEditing &&
+    css`
+      border: 1px solid var(--black_04);
+      &:before {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 0;
+        z-index: 1;
+        border-style: solid;
+        border-color: transparent var(--black_04);
+        border-width: 20px 20px 20px 0;
+        top: 50%;
+        left: -20.5px;
+        margin-top: -20px;
+      }
+    `}
+
   div {
     margin: 0 !important;
   }

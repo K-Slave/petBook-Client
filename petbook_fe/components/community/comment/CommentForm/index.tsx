@@ -6,14 +6,10 @@ import {
   CommentFormButton,
   CommentFormTextarea,
   RectangleBoxDiv,
-  Rectangle
-} from "./styled/styledCommentForm";
+  Rectangle,
+} from "./styled";
 
-const CommentForm = ({
-  initialContent,
-}: {
-  initialContent?: string;
-}) => {
+const CommentForm = ({ initialContent }: { initialContent?: string }) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const { onChange } = useChangeComment();
   const { onSubmit } = useSubmitComment(textareaRef);
