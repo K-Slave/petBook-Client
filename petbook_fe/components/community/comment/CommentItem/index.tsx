@@ -54,7 +54,9 @@ export const NormalItem = ({
             avatar={avatar}
             year={1}
           />
-          {userId === user.id && <DropdownMenu menuList={menuList} />}
+          {userId === user.id && !isEditing && (
+            <DropdownMenu menuList={menuList} />
+          )}
         </div>
         {isEditing ? (
           <EditForm
