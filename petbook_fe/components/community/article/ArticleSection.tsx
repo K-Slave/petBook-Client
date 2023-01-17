@@ -7,11 +7,7 @@ import useModal from "@lib/hooks/common/useModal";
 import useUserId from "@lib/hooks/article/useUserId";
 import { articleRequest } from "@lib/API/petBookAPI";
 import TagList from "../TagList";
-import {
-  ArticleSectionBox,
-  Spacer,
-  MenuListBox,
-} from "./styled/styledArticleSection";
+import { ArticleSectionBox, Spacer } from "./styled/styledArticleSection";
 import ImageSlider from "./ImageSlider";
 import LikeButton from "../LikeButton";
 import CommunityModal from "../CommunityModal";
@@ -21,6 +17,7 @@ const dummyImage =
 
 const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
   const userId = useUserId();
+  const { openModal, closeModal } = useModal();
   if (data === undefined) {
     return <ArticleSectionBox />;
   }
@@ -36,12 +33,32 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
     images,
     isLike,
   } = data;
+  const clickDeleteMenu = () => {
+    openModal(CommunityModal, {
+      subTitle: title,
+      modalTitle: "정말 이 글을 삭제하시겠습니까?",
+      closeModal,
+      clickCancelButton: closeModal,
+      clickConfirmButton: closeModal,
+    });
+  };
+  const clickEditMenu = () => {};
+  const menuList = [
+    {
+      name: "수정",
+      onClick: clickEditMenu,
+    },
+    {
+      name: "삭제",
+      onClick: clickDeleteMenu,
+    },
+  ];
 
   return (
     <ArticleSectionBox>
       <div className="ArticleSection_Top_Row">
         <h2>{title}</h2>
-        {user.id === userId && <DropdownMenu MenuList={<MenuList id={id} title={title} />} />}
+        {user.id === userId && <DropdownMenu menuList={menuList} />}
       </div>
       <CommonInfo
         avatar={dummyImage}
@@ -79,30 +96,5 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
     </ArticleSectionBox>
   );
 };
-
-// ---------------------------------------
-
-const MenuList = ({ id, title }: Pick<ArticleResponse, "id" | "title">) => {
-  const { openModal, closeModal } = useModal();
-  const clickDeletionButton = () => {
-    openModal(CommunityModal, {
-      subTitle: title,
-      modalTitle: "정말 이 글을 삭제하시겠습니까?",
-      closeModal,
-      clickCancelButton: closeModal,
-      clickConfirmButton: closeModal,
-    });
-  };
-  return (
-    <MenuListBox>
-      <button type="button">수정</button>
-      <button type="button" onClick={clickDeletionButton}>
-        삭제
-      </button>
-    </MenuListBox>
-  );
-};
-
-// ----------------------------------------
 
 export default ArticleSection;
