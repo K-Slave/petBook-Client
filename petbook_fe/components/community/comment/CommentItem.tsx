@@ -10,6 +10,7 @@ import {
   BookmarkBlankIcon,
   BookmarkFilledIcon,
 } from "@components/common/icon/BookmarkIcon";
+import useUserId from "@lib/hooks/article/useUserId";
 import { ItemProps } from "./CommentList";
 import {
   NormalItemDiv,
@@ -23,6 +24,7 @@ const avatar =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
 
 export const NormalItem = ({ comment, isChild, onDelete }: ItemProps) => {
+  const userId = useUserId();
   const { user, createdAt, content, likeCount, id, articleId, isLiked } =
     comment;
   return (
@@ -36,9 +38,9 @@ export const NormalItem = ({ comment, isChild, onDelete }: ItemProps) => {
             avatar={avatar}
             year={1}
           />
-          <DropdownMenu
+          {userId === user.id && <DropdownMenu
             MenuList={<MenuList onDelete={onDelete} commentId={id} />}
-          />
+          />}
         </div>
         <p className="Item_Content">{content}</p>
         <div className="Item_Button_Box">
@@ -57,6 +59,7 @@ export const NormalItem = ({ comment, isChild, onDelete }: ItemProps) => {
 };
 
 export const QnaItem = ({ comment, isChild, onDelete }: ItemProps) => {
+  const userId = useUserId();
   const { user, createdAt, content, likeCount, id, articleId, isLiked } =
     comment;
   return (
@@ -70,9 +73,9 @@ export const QnaItem = ({ comment, isChild, onDelete }: ItemProps) => {
       <QnaItemBubble>
         <div className="Item_Row">
           <p className="Item_Content">{content}</p>
-          <DropdownMenu
+          {userId === user.id && <DropdownMenu
             MenuList={<MenuList onDelete={onDelete} commentId={comment.id} />}
-          />
+          />}
         </div>
         <div className="Item_Button_Box">
           <LikeButton

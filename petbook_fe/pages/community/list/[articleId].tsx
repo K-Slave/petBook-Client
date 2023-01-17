@@ -7,6 +7,7 @@ import ArticleContainer from "@containers/article/ArticleContainer";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { getHttpOnlyCookie } from "@lib/utils/httpOnlyCookie";
 import { createContext, useEffect } from "react";
+import jwtDecode from "jwt-decode";
 
 export const ARTICLE_ITEM = {
   key: ["ARTICLE_ITEM"],
@@ -62,15 +63,15 @@ export type DeleteLikeResource =
 
 type PetbookPage = NextPage<{
   token: string | null;
+  userId: number | null;
 }> & {
   requiredResources?:
     | [typeof ARTICLE_ITEM]
     | [typeof ARTICLE_ITEM, typeof COMMENT_LIST];
 };
+export const userIdContext = createContext<number | null>(null);
 
-export const tokenContext = createContext<string | null>(null);
-
-const ArticleDetail: PetbookPage = ({ token }) => {
+const ArticleDetail: PetbookPage = ({ token, userId }) => {
   useEffect(() => {
     if (token) {
       sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -79,9 +80,9 @@ const ArticleDetail: PetbookPage = ({ token }) => {
   return (
     <Main>
       <BackButton position="start" />
-      <tokenContext.Provider value={token}>
+      <userIdContext.Provider value={userId}>
         <ArticleContainer />
-      </tokenContext.Provider>
+      </userIdContext.Provider>
       <BackButton position="end" />
     </Main>
   );
@@ -101,13 +102,20 @@ ArticleDetail.getInitialProps = async (
   ctx: NextPageContext
 ): Promise<{
   token: string | null;
+  userId: number | null;
 }> => {
   const token = await getHttpOnlyCookie({ ctx, key: "petBookUser" });
   if (token) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
+    const { id: userId } = jwtDecode<{ id: number }>(token);
+    return {
+      token,
+      userId
+    };
   }
   return {
-    token: token === undefined || token === "" ? null : token,
+    token: null,
+    userId: null
   };
 };
 ArticleDetail.requiredResources = [ARTICLE_ITEM, COMMENT_LIST];

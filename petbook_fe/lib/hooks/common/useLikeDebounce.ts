@@ -1,14 +1,13 @@
 import { LikeButtonProps } from "@components/community/LikeButton";
 import debounce from "@lib/modules/debounce";
-import { tokenContext } from "@pages/community/list/[articleId]";
 import {
   MouseEventHandler,
   MutableRefObject,
-  useContext,
   useEffect,
   useRef,
   useState,
 } from "react";
+import useUserId from "../article/useUserId";
 import { useSetResource } from "./useResource";
 
 export interface updateIsLikedParams {
@@ -77,7 +76,7 @@ export default function useLikeDebounce({
   CREATE_LIKE_RESOURCE,
   DELETE_LIKE_RESOURCE,
 }: LikeButtonProps) {
-  const token = useContext(tokenContext);
+  const userId = useUserId();
   const initialLiked = useRef(liked);
   const [isLiked, setIsLiked] = useState(liked);
   const updateIsLiked = useUpdateLikeDebounce({
@@ -85,7 +84,7 @@ export default function useLikeDebounce({
     DELETE_LIKE_RESOURCE,
   });
   const clickLikeButton: MouseEventHandler<HTMLButtonElement> = () => {
-    if (token === null) {
+    if (userId === null) {
       alert("🔒 로그인해주세요!");
       return;
     }
