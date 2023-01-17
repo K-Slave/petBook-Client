@@ -2,12 +2,10 @@ import DOMPurify from "isomorphic-dompurify";
 import CommonInfo from "@components/community/CommonInfo";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import DropdownMenu from "@components/common/DropdownMenu";
-import {
-  ARTICLE_CREATE_LIKE,
-  ARTICLE_DELETE_LIKE,
-} from "@pages/community/list/[articleId]";
 import { BookmarkBlankIcon } from "@components/common/icon/BookmarkIcon";
 import useModal from "@lib/hooks/common/useModal";
+import useUserId from "@lib/hooks/article/useUserId";
+import { articleRequest } from "@lib/API/petBookAPI";
 import TagList from "../TagList";
 import {
   ArticleSectionBox,
@@ -22,6 +20,7 @@ const dummyImage =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
 
 const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
+  const userId = useUserId();
   if (data === undefined) {
     return <ArticleSectionBox />;
   }
@@ -42,7 +41,7 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
     <ArticleSectionBox>
       <div className="ArticleSection_Top_Row">
         <h2>{title}</h2>
-        <DropdownMenu MenuList={<MenuList id={id} title={title} />} />
+        {user.id === userId && <DropdownMenu MenuList={<MenuList id={id} title={title} />} />}
       </div>
       <CommonInfo
         avatar={dummyImage}
@@ -67,8 +66,8 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
           id={id}
           liked={isLike}
           likeCount={stat.likeCount}
-          CREATE_LIKE_RESOURCE={ARTICLE_CREATE_LIKE}
-          DELETE_LIKE_RESOURCE={ARTICLE_DELETE_LIKE}
+          createLike={articleRequest.article_create_like}
+          deleteLike={articleRequest.article_delete_like}
         />
         <div>
           <button type="button">

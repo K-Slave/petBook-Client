@@ -12,20 +12,28 @@ import CommonInfo from "@components/community/CommonInfo";
 import Skeleton from "@components/common/Skeleton/Skeleton";
 import usePagination from "./usePagination";
 import useArticleList from "./useArticleList";
-import { ListDiv, Article, PageButton, BoxDiv } from "./styled";
+import { ListDiv, Article, PageButton, BoxDiv, Text } from "./styled";
 
-const ArticleList = ({
-  status,
-  articles,
-  totalPages,
-}: Pick<
-  ReturnType<typeof useArticleList>,
-  "articles" | "status" | "totalPages"
->) => {
+interface Props
+  extends Pick<
+    ReturnType<typeof useArticleList>,
+    "articles" | "status" | "totalPages"
+  > {
+  emptyText: string;
+}
+
+const ArticleList = ({ status, articles, totalPages, emptyText }: Props) => {
   if (status === "loading") {
     return (
       <ListDiv>
         <Skeleton height="164px" borderRadius="16px" copy={20} />
+      </ListDiv>
+    );
+  }
+  if (articles.length === 0) {
+    return (
+      <ListDiv>
+        <Text>{emptyText}</Text>
       </ListDiv>
     );
   }

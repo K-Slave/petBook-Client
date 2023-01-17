@@ -1,8 +1,4 @@
-import { useSetResource } from "@lib/hooks/common/useResource";
-import {
-  COMMENT_DELETE,
-  COMMENT_LIST,
-} from "@pages/community/list/[articleId]";
+import { COMMENT_LIST } from "@pages/community/list/[articleId]";
 import { useRouter } from "next/router";
 import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
 import React, {
@@ -12,7 +8,8 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { commentRequest } from "@lib/API/petBookAPI";
 import { CommentListDiv } from "./styled/styledCommentList";
 
 export interface ItemProps {
@@ -50,7 +47,7 @@ const CommentList = ({ Item }: Props) => {
     }
   );
 
-  const { mutate: deleteComment } = useSetResource(COMMENT_DELETE);
+  const { mutate: deleteComment } = useMutation(commentRequest.comment_delete);
   const onDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const commentId = e.currentTarget.dataset.commentid;
     if (commentId === undefined) {

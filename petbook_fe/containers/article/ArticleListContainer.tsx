@@ -26,6 +26,7 @@ const ArticleListContainer = () => {
         status={status}
         articles={articles}
         totalPages={totalPages}
+        emptyText={searchText ? "검색결과가 없어요!" : "아직 게시물이 없어요!"}
       />
     </>
   );

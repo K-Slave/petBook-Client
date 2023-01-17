@@ -17,10 +17,10 @@ import HtmlHeader from "@components/common/HtmlHeader";
 import Modal from "@components/common/Modal";
 import { Router } from "next/router";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
+import type { Key } from "@lib/hooks/common/useResource";
 import localConsole from "@lib/utils/localConsole";
-import CommonHeader from "../components/common/CommonHeader";
-import { itrMap } from "../lib/utils/iterableFunctions";
-
+import CommonHeader from "@components/common/CommonHeader";
+import { itrMap } from "@lib/utils/iterableFunctions";
 import "swiper/scss";
 import "swiper/scss/navigation";
 import "swiper/scss/pagination";
@@ -122,7 +122,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
 
     const PageComponent: typeof Component & {
       requiredResources?: Array<{
-        key: any[];
+        key: Key;
         fetcher: () => void;
         params?: object;
         config?: object;

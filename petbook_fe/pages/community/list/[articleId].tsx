@@ -1,76 +1,34 @@
 import { NextPage, NextPageContext } from "next";
 import styled from "styled-components";
 import { articleRequest, commentRequest } from "@lib/API/petBookAPI";
-import { createRequest } from "@lib/hooks/common/useResource";
 import BackButton from "@components/community/BackButton";
-import ArticleContainer from "@containers/ArticleContainer";
+import ArticleContainer from "@containers/article/ArticleContainer";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { getHttpOnlyCookie } from "@lib/utils/httpOnlyCookie";
 import { createContext, useEffect } from "react";
+import jwtDecode from "jwt-decode";
 
 export const ARTICLE_ITEM = {
   key: ["ARTICLE_ITEM"],
   fetcher: articleRequest.article_item,
 };
 
-export const ARTICLE_CREATE_LIKE = createRequest({
-  key: ["ARTICLE_CREATE_LIKE"],
-  requester: articleRequest.article_create_like,
-});
-
-export const ARTICLE_DELETE_LIKE = createRequest({
-  key: ["ARTICLE_DELETE_LIKE"],
-  requester: articleRequest.article_delete_like,
-});
-
 export const COMMENT_LIST = {
   key: ["COMMENT_LIST"],
   fetcher: commentRequest.comment_list,
 };
 
-export const COMMENT_CREATE = createRequest({
-  key: ["COMMENT_CREATE"],
-  requester: commentRequest.comment_create,
-});
-
-export const COMMENT_UPDATE = createRequest({
-  key: ["COMMENT_UPDATE"],
-  requester: commentRequest.comment_update,
-});
-
-export const COMMENT_DELETE = createRequest({
-  key: ["COMMENT_DELETE"],
-  requester: commentRequest.comment_delete,
-});
-
-export const COMMENT_CREATE_LIKE = createRequest({
-  key: ["COMMENT_CREATE_LIKE"],
-  requester: commentRequest.comment_create_like,
-});
-
-export const COMMENT_DELETE_LIKE = createRequest({
-  key: ["COMMENT_DELETE_LIKE"],
-  requester: commentRequest.comment_delete_like,
-});
-
-export type CreateLikeResource =
-  | typeof ARTICLE_CREATE_LIKE
-  | typeof COMMENT_CREATE_LIKE;
-export type DeleteLikeResource =
-  | typeof ARTICLE_DELETE_LIKE
-  | typeof COMMENT_DELETE_LIKE;
-
 type PetbookPage = NextPage<{
   token: string | null;
+  userId: number | null;
 }> & {
   requiredResources?:
     | [typeof ARTICLE_ITEM]
     | [typeof ARTICLE_ITEM, typeof COMMENT_LIST];
 };
+export const userIdContext = createContext<number | null>(null);
 
-export const tokenContext = createContext<string | null>(null);
-
-const ArticleDetail: PetbookPage = ({ token }) => {
+const ArticleDetail: PetbookPage = ({ token, userId }) => {
   useEffect(() => {
     if (token) {
       sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -79,9 +37,9 @@ const ArticleDetail: PetbookPage = ({ token }) => {
   return (
     <Main>
       <BackButton position="start" />
-      <tokenContext.Provider value={token}>
+      <userIdContext.Provider value={userId}>
         <ArticleContainer />
-      </tokenContext.Provider>
+      </userIdContext.Provider>
       <BackButton position="end" />
     </Main>
   );
@@ -101,13 +59,20 @@ ArticleDetail.getInitialProps = async (
   ctx: NextPageContext
 ): Promise<{
   token: string | null;
+  userId: number | null;
 }> => {
   const token = await getHttpOnlyCookie({ ctx, key: "petBookUser" });
   if (token) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
+    const { id: userId } = jwtDecode<{ id: number }>(token);
+    return {
+      token,
+      userId
+    };
   }
   return {
-    token: token === undefined || token === "" ? null : token,
+    token: null,
+    userId: null
   };
 };
 ArticleDetail.requiredResources = [ARTICLE_ITEM, COMMENT_LIST];
