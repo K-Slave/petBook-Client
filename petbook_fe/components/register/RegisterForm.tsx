@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
@@ -12,6 +12,7 @@ import navigator from "@lib/modules/navigator";
 import RegisterInputBox from "@components/register/RegisterInputBox";
 import PasswordInput from "@components/register/RegisterPasswordFrom";
 import RegisterNameForm from "@components/register/RegisterNameForm";
+import { Modal } from "@components/common/modal/Modal";
 
 // styled
 import {
@@ -51,23 +52,33 @@ export const REGISTER_CHECK_NICKNAME = {
 };
 
 const TermsWrap = () => {
+  const [modal, setModal] = useState(true);
+
+  const handleCloseModal = () => {
+    setModal(false);
+  };
+  const HandlerOpen = () => {
+    setModal(true);
+  };
+
   return (
     <Terms>
+      <Modal state={modal} handleCloseModal={handleCloseModal} />
       <li>
-        <div>
+        <button type="button" onClick={HandlerOpen}>
           <label htmlFor="terms">
             <input type="checkbox" id="terms" />
             <p>펫북 이용 약관에 동의합니다 [필수]</p>
           </label>
-        </div>
+        </button>
       </li>
       <li>
-        <div>
+        <button type="button" onClick={HandlerOpen}>
           <label htmlFor="privacy">
             <input type="checkbox" id="privacy" />
             <p>개인정보 수집 및 이용에 동의합니다 [필수]</p>
           </label>
-        </div>
+        </button>
       </li>
     </Terms>
   );
