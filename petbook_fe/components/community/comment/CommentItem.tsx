@@ -1,16 +1,13 @@
 import DropdownMenu, { menuListStyle } from "@components/common/DropdownMenu";
 import { BsArrowReturnRight } from "react-icons/bs";
 import styled from "styled-components";
-import {
-  COMMENT_CREATE_LIKE,
-  COMMENT_DELETE_LIKE,
-} from "@pages/community/list/[articleId]";
 import CommonInfo from "@components/community/CommonInfo";
 import {
   BookmarkBlankIcon,
   BookmarkFilledIcon,
 } from "@components/common/icon/BookmarkIcon";
 import useUserId from "@lib/hooks/article/useUserId";
+import { commentRequest } from "@lib/API/petBookAPI";
 import { ItemProps } from "./CommentList";
 import {
   NormalItemDiv,
@@ -48,8 +45,8 @@ export const NormalItem = ({ comment, isChild, onDelete }: ItemProps) => {
             id={id}
             liked={isLiked}
             likeCount={likeCount}
-            CREATE_LIKE_RESOURCE={COMMENT_CREATE_LIKE}
-            DELETE_LIKE_RESOURCE={COMMENT_DELETE_LIKE}
+            createLike={commentRequest.comment_create_like}
+            deleteLike={commentRequest.comment_delete_like}
           />
           <ScrapButton />
         </div>
@@ -82,8 +79,8 @@ export const QnaItem = ({ comment, isChild, onDelete }: ItemProps) => {
             id={id}
             liked={isLiked}
             likeCount={likeCount}
-            CREATE_LIKE_RESOURCE={COMMENT_CREATE_LIKE}
-            DELETE_LIKE_RESOURCE={COMMENT_DELETE_LIKE}
+            createLike={commentRequest.comment_create_like}
+            deleteLike={commentRequest.comment_delete_like}
           />
           <ScrapButton />
         </div>
