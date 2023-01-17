@@ -132,7 +132,7 @@ const RegisterButton = () => {
   };
   useEffect(() => {
     if (isSuccess) {
-      navigator({ url: "/info" });
+      navigator({ url: "/login" });
     }
     if (isError) {
       // 린트에러 unknown 타입
