@@ -1,9 +1,16 @@
-import commentState from "@atoms/pageAtoms/community/commentState";
+import commentState, {
+  CommentState,
+} from "@atoms/pageAtoms/community/commentState";
+import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 
-export default function useChangeComment() {
+export default function useChangeComment(initialState?: CommentState) {
   const setComment = useSetRecoilState(commentState);
-
+  useEffect(() => {
+    if (initialState) {
+      setComment(initialState);
+    }
+  }, [initialState]);
   const onChange = (
     e:
       | React.ChangeEvent<HTMLInputElement>
