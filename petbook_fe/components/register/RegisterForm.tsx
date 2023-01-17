@@ -52,7 +52,7 @@ export const REGISTER_CHECK_NICKNAME = {
 };
 
 const TermsWrap = () => {
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
 
   const handleCloseModal = () => {
     setModal(false);
