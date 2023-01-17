@@ -1,15 +1,11 @@
 import commentState from "@atoms/pageAtoms/community/commentState";
 import { CommentErrorResponse } from "@lib/API/petBookAPI/types/commentRequest";
-import {
-  COMMENT_CREATE,
-  COMMENT_LIST,
-  COMMENT_UPDATE
-} from "@pages/community/list/[articleId]";
+import { COMMENT_LIST } from "@pages/community/list/[articleId]";
 import { useRouter } from "next/router";
 import { MutableRefObject } from "react";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSetRecoilState } from "recoil";
-import { useSetResource } from "../common/useResource";
+import { commentRequest } from "@lib/API/petBookAPI";
 import useUserId from "../article/useUserId";
 
 export default function useSubmitComment(
@@ -19,8 +15,8 @@ export default function useSubmitComment(
   const queryClient = useQueryClient();
   const userId = useUserId();
   const setComment = useSetRecoilState(commentState);
-  const { mutate: createComment } = useSetResource(COMMENT_CREATE);
-  const { mutate: updateComment } = useSetResource(COMMENT_UPDATE);
+  const { mutate: createComment } = useMutation(commentRequest.comment_create);
+  const { mutate: updateComment } = useMutation(commentRequest.comment_update);
   const { articleId } = router.query;
 
   const onSuccess = async () => {
