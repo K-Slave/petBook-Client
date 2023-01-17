@@ -1,14 +1,15 @@
 import { LikeButtonProps } from "@components/community/LikeButton";
 import debounce from "@lib/modules/debounce";
-import { tokenContext } from "@pages/community/list/[articleId]";
 import {
   MouseEventHandler,
   MutableRefObject,
-  useContext,
+  useEffect,
   useRef,
   useState,
 } from "react";
-import { useSetResource } from "../common/useResource";
+import useUserId from "@lib/hooks/article/useUserId";
+import { useSetResource } from "@lib/hooks/common/useResource";
+import { useMutation } from "@tanstack/react-query";
 
 export interface updateIsLikedParams {
   commentId: number;
@@ -17,11 +18,11 @@ export interface updateIsLikedParams {
 }
 
 function useUpdateLikeDebounce({
-  CREATE_LIKE_RESOURCE,
-  DELETE_LIKE_RESOURCE,
-}: Pick<LikeButtonProps, "CREATE_LIKE_RESOURCE" | "DELETE_LIKE_RESOURCE">) {
-  const { mutate: createLikeComment } = useSetResource(CREATE_LIKE_RESOURCE);
-  const { mutate: deleteLikeComment } = useSetResource(DELETE_LIKE_RESOURCE);
+ createLike,
+deleteLike
+}: Pick<LikeButtonProps, "createLike" | "deleteLike">) {
+  const { mutate: createLikeComment } = useMutation(createLike);
+  const { mutate: deleteLikeComment } = useMutation(deleteLike);
   const timeoutId = useRef<ReturnType<typeof setTimeout> | null>(null);
   const updateIsLiked = debounce(
     ({ commentId, isLiked, initialLiked }: updateIsLikedParams) => {
@@ -56,9 +57,16 @@ function useUpdateLikeDebounce({
         );
       }
     },
-    3000,
+    1300,
     timeoutId
   );
+  useEffect(() => {
+    return () => {
+      if (timeoutId.current) {
+        clearTimeout(timeoutId.current);
+      }
+    };
+  }, []);
   return updateIsLiked;
 }
 
@@ -66,18 +74,18 @@ export default function useLikeDebounce({
   id,
   liked,
   likeCount,
-  CREATE_LIKE_RESOURCE,
-  DELETE_LIKE_RESOURCE,
+  createLike,
+  deleteLike
 }: LikeButtonProps) {
-  const token = useContext(tokenContext);
+  const userId = useUserId();
   const initialLiked = useRef(liked);
   const [isLiked, setIsLiked] = useState(liked);
   const updateIsLiked = useUpdateLikeDebounce({
-    CREATE_LIKE_RESOURCE,
-    DELETE_LIKE_RESOURCE,
+    createLike,
+    deleteLike
   });
   const clickLikeButton: MouseEventHandler<HTMLButtonElement> = () => {
-    if (token === null) {
+    if (userId === null) {
       alert("🔒 로그인해주세요!");
       return;
     }

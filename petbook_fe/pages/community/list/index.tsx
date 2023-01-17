@@ -11,7 +11,7 @@ import { getHttpOnlyCookie } from "@lib/utils/httpOnlyCookie";
 import { NextPage, NextPageContext } from "next";
 import { useEffect } from "react";
 import styled from "styled-components";
-import ArticleListContainer from "@containers/ArticleListContainer";
+import ArticleListContainer from "@containers/article/ArticleListContainer";
 
 export const createArticleListResource = ({
   category,
@@ -123,11 +123,13 @@ const Main = styled.main`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
   }
   h1 {
     display: flex;
     align-items: center;
     gap: 20px;
+    flex-wrap: wrap;
     color: var(--black_01);
     font-weight: 700;
     line-height: 50px;
