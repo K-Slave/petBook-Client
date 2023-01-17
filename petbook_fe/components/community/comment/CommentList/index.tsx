@@ -8,14 +8,16 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { commentRequest } from "@lib/API/petBookAPI";
-import { CommentListDiv } from "./styled/styledCommentList";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import useModal from "@lib/hooks/common/useModal";
+import useDeleteComment from "@lib/hooks/comment/useDeleteComment";
+import { CommentListDiv } from "./styled";
+import CommunityModal from "../../CommunityModal";
 
 export interface ItemProps {
   comment: CommentItem;
   isChild: string;
-  onDelete: MouseEventHandler<HTMLButtonElement>;
+  clickDeleteMenu: MouseEventHandler<HTMLButtonElement>;
 }
 
 interface Props {
@@ -23,13 +25,14 @@ interface Props {
 }
 
 const CommentList = ({ Item }: Props) => {
-  const queryClient = useQueryClient();
   const router = useRouter();
   const articleId = router.query.articleId as string;
   const targetRef = useRef<HTMLDivElement | null>(null);
   const [hasNextPage, setHasNextPage] = useState(true);
+  const queryClient = useQueryClient();
+  const KEY = [...COMMENT_LIST.key, articleId];
   const { data, fetchNextPage } = useInfiniteQuery(
-    [...COMMENT_LIST.key, articleId],
+    KEY,
     ({ pageParam = 0 }) =>
       COMMENT_LIST.fetcher({
         articleId: Number(articleId),
@@ -46,30 +49,19 @@ const CommentList = ({ Item }: Props) => {
       retry: 0,
     }
   );
+  const { openModal, closeModal } = useModal();
 
-  const { mutate: deleteComment } = useMutation(commentRequest.comment_delete);
-  const onDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const commentId = e.currentTarget.dataset.commentid;
-    if (commentId === undefined) {
-      alert("댓글 삭제에 실패했습니다. 다시 시도해주세요 😢");
-    } else {
-      deleteComment(
-        {
-          pathParam: `/${commentId}`,
-        },
-        {
-          onSuccess: async () => {
-            await queryClient.invalidateQueries([
-              ...COMMENT_LIST.key,
-              articleId,
-            ]);
-          },
-          onError: () => {
-            alert("댓글 삭제에 실패했습니다. 다시 시도해주세요 😢");
-          },
-        }
-      );
-    }
+  const { deleteComment } = useDeleteComment(async () => {
+    closeModal();
+    await queryClient.invalidateQueries({ queryKey: KEY });
+  });
+  const clickDeleteMenu = (commentId: number) => () => {
+    openModal(CommunityModal, {
+      modalTitle: "정말 이 댓글을 삭제하시겠습니까?",
+      closeModal,
+      clickCancelButton: closeModal,
+      clickConfirmButton: deleteComment(commentId),
+    });
   };
 
   useEffect(() => {
@@ -96,20 +88,27 @@ const CommentList = ({ Item }: Props) => {
       {data?.pages.map(({ data: result }) =>
         result.commentList.map((comment) => (
           <Fragment key={comment.parent.id}>
-            <Item
-              comment={comment.parent}
-              isChild=""
-              onDelete={onDelete}
-              key={comment.parent.id}
-            />
-            {comment.children.map((child) => (
+            {!comment.parent.isDeleted && (
               <Item
-                comment={child}
-                isChild="true"
-                onDelete={onDelete}
-                key={child.id}
+                comment={comment.parent}
+                isChild=""
+                clickDeleteMenu={clickDeleteMenu(comment.parent.id)}
+                key={comment.parent.id}
               />
-            ))}
+            )}
+            {comment.children.map((child) => {
+              if (!child.isDeleted) {
+                return (
+                  <Item
+                    comment={child}
+                    isChild="true"
+                    clickDeleteMenu={clickDeleteMenu(child.id)}
+                    key={child.id}
+                  />
+                );
+              }
+              return null;
+            })}
           </Fragment>
         ))
       )}
