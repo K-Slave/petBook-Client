@@ -1,5 +1,19 @@
 import styled from "styled-components";
 
+const Main = styled.main`
+  overflow: auto;
+  height: calc(100vh - 61px);
+  background-color: var(--bg);
+`;
+
+const Terms = styled.ul`
+  margin-top: 22px;
+  margin-bottom: 47px;
+  li {
+    margin-bottom: 15px;
+  }
+`;
+
 const RegisterFormWrap = styled.div`
   width: calc(100% - 32px);
   max-width: 400px;
@@ -122,6 +136,8 @@ const SpaceTopWrap = styled.div`
 `;
 
 export {
+  Main,
+  Terms,
   RegisterFormWrap,
   PassCheckWrap,
   IconBox,
