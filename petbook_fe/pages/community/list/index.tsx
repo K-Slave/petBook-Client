@@ -46,6 +46,7 @@ export const createArticleListResource = ({
         categoryId: category.id === 0 ? "" : category.id,
         page: page - 1,
         size: 20,
+        popular: false,
       }),
   };
 };
