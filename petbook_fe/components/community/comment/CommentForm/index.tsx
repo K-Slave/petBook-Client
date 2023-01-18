@@ -1,22 +1,30 @@
 import useChangeComment from "@lib/hooks/comment/useChangeComment";
 import useSubmitComment from "@lib/hooks/comment/useSubmitComment";
+import { getCommentListKey } from "@pages/community/list/[articleId]";
+import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import { useRef } from "react";
 import {
   CommentFormBox,
   CommentFormButton,
   CommentFormTextarea,
   RectangleBoxDiv,
-  Rectangle
-} from "./styled/styledCommentForm";
+  Rectangle,
+} from "./styled";
 
-const CommentForm = ({
-  initialContent,
-}: {
-  initialContent?: string;
-}) => {
+const CommentForm = ({ initialContent }: { initialContent?: string }) => {
+  const queryClient = useQueryClient();
+  const { query } = useRouter();
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const { onChange } = useChangeComment();
-  const { onSubmit } = useSubmitComment(textareaRef);
+  const { onSubmit } = useSubmitComment(async () => {
+    if (textareaRef && textareaRef.current) {
+      textareaRef.current.value = "";
+      await queryClient.invalidateQueries({
+        queryKey: getCommentListKey(query.articleId as string),
+      });
+    }
+  });
   return (
     <CommentFormBox>
       <RectangleBox />

@@ -3,17 +3,15 @@ import CommentForm from "@components/community/comment/CommentForm";
 import { NormalItem, QnaItem } from "@components/community/comment/CommentItem";
 import CommentList from "@components/community/comment/CommentList";
 import useResource from "@lib/hooks/common/useResource";
-import { ARTICLE_ITEM } from "@pages/community/list/[articleId]";
+import { createArticleResource } from "@pages/community/list/[articleId]";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
 const ArticleContainer = () => {
   const router = useRouter();
   const articleId = router.query.articleId as string;
-  const { data } = useResource({
-    key: [ARTICLE_ITEM.key[0], articleId],
-    fetcher: () => ARTICLE_ITEM.fetcher(`/${articleId}`),
-  });
+  const ARTICLE_ITEM = createArticleResource(articleId);
+  const { data } = useResource(ARTICLE_ITEM);
   return (
     <>
       <ArticleSection data={data?.data} />

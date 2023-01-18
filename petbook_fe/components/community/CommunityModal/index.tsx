@@ -24,7 +24,7 @@ const CommunityModal = ({
   return (
     <Container>
       <ModalBox ref={ref}>
-        <p>{subTitle}</p>
+        {subTitle && <p>{subTitle}</p>}
         <h1>{modalTitle}</h1>
         {modalContent}
         <ButtonBox>
