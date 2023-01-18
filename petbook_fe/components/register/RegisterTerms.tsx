@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "@components/common/Modal/Modal";
+
+import { useSetRecoilState } from "recoil";
+import { validationRegisterState } from "@atoms/pageAtoms/login/userState";
 
 // styled
 import { Terms } from "./styled/styledRegisterForm";
 
+// Q any 대신 뭘 사용해야할까
 const TermsWrap = () => {
   const [agree, setAgree] = useState([false, false]);
+  const validationRegister = useSetRecoilState(validationRegisterState);
   const [modal, setModal] = useState({
     state: false,
     data: {
@@ -46,6 +51,7 @@ const TermsWrap = () => {
         break;
       }
     }
+
     setModal((modalState) => ({
       ...modalState,
       state: active,
@@ -55,6 +61,11 @@ const TermsWrap = () => {
       },
     }));
   };
+
+  useEffect(() => {
+    let everyTrue = agree.every((el) => el === true);
+    validationRegister((el) => ({ ...el, agree: everyTrue }));
+  }, [agree]);
 
   const agreeContent = [
     {
