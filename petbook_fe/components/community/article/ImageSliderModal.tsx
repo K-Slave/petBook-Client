@@ -3,7 +3,7 @@ import { useRef } from "react";
 import CustomSwiper, {
   SlideNextButton,
   SlidePrevButton,
-} from "@components/common/CustomSwiper";
+} from "@components/common/Slider";
 import { SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import useClickOutside from "@lib/hooks/common/useClickOutside";
