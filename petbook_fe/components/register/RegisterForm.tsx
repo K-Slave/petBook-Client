@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 // custom
@@ -25,6 +25,7 @@ import {
   RegisterFormWrap,
   SpaceTopWrap,
   RegisterInfoText,
+  SignButton,
 } from "./styled/styledRegisterForm";
 
 // reponse 정의
@@ -42,11 +43,6 @@ export const REGISTER_CHECK_NICKNAME = {
 };
 
 const RegisterContainer = () => {
-  const validationRegister = useRecoilValue(validationRegisterState);
-  const updateTermsState = (everyTrue: boolean) => {
-    console.log(validationRegister);
-    console.log(everyTrue);
-  };
   return (
     <Main>
       <RegisterFormWrap>
@@ -96,11 +92,22 @@ const Register = () => {
 };
 const RegisterButton = () => {
   const registerForm = useRecoilValue(registerFormState);
+  const validationRegister = useRecoilValue(validationRegisterState);
+  const [validation, setValidation] = useState(false);
+
   const { data, isSuccess, isError, error, mutate } =
     useSetResource(REGISTER_CREATE);
+
   const Sign = () => {
-    mutate(registerForm);
+    const { password_check, name, ...newObj }: any = registerForm;
+
+    mutate(newObj);
   };
+  useEffect(() => {
+    let newArr = Object.values(validationRegister);
+    let active = newArr.every((el) => el === true);
+    setValidation(active);
+  }, [validationRegister]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -113,9 +120,14 @@ const RegisterButton = () => {
   }, [isError, data]);
 
   return (
-    <button type="button" onClick={Sign} className="Primary">
+    <SignButton
+      active={validation}
+      type="button"
+      onClick={Sign}
+      className="Primary"
+    >
       회원가입
-    </button>
+    </SignButton>
   );
 };
 
