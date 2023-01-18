@@ -7,7 +7,6 @@ import { validationRegisterState } from "@atoms/pageAtoms/login/userState";
 // styled
 import { Terms } from "./styled/styledRegisterForm";
 
-// Q any 대신 뭘 사용해야할까
 const TermsWrap = () => {
   const [agree, setAgree] = useState([false, false]);
   const validationRegister = useSetRecoilState(validationRegisterState);
