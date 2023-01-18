@@ -334,8 +334,11 @@ input:not(input.default) {
   height: 48px;
   border-radius: 8px;
   border: none;
-  outline: solid 1px #f5edde;
+  outline: none;
   box-sizing: border-box;
+}
+input:not(input.default):focus {
+  border: solid 1px var(--black_04);
 }
 input:focus {
   outline: solid 1px var(--primary);

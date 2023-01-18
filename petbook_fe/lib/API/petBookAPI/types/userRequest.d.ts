@@ -15,3 +15,15 @@ export interface UserCheckNickname {
 export interface UserCheckEmail {
   nicknameExist: boolean;
 }
+
+export interface ErrorResponse {
+  response: {
+    data: {
+      error: string;
+      message: string;
+      path: string;
+      status: number;
+      timestamp: string;
+    };
+  };
+}
