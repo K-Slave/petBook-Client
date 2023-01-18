@@ -20,15 +20,15 @@ const Main = styled.main`
 
 const Login = () => {
   // 공통으로 만들어야함
-  const [modal, setModal] = useState(false);
+  // const [modal, setModal] = useState(false);
 
-  const handleCloseModal = () => {
-    setModal(false);
-  };
+  // const handleCloseModal = () => {
+  //   setModal(false);
+  // };
 
   return (
     <Main>
-      <Modal state={modal} handleCloseModal={handleCloseModal} />
+      {/* <Modal state={modal} handleCloseModal={handleCloseModal} /> */}
       <LoginIndex />
     </Main>
   );
