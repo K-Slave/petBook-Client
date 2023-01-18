@@ -1,8 +1,7 @@
+import React from "react";
 import styled from "styled-components";
 
 import { LoginIndex } from "@components/login/LoginIndex";
-import { Modal } from "@components/common/Modal/Modal";
-import { useState } from "react";
 
 const Main = styled.main`
   display: flex;
@@ -19,16 +18,8 @@ const Main = styled.main`
 `;
 
 const Login = () => {
-  // 공통으로 만들어야함
-  // const [modal, setModal] = useState(false);
-
-  // const handleCloseModal = () => {
-  //   setModal(false);
-  // };
-
   return (
     <Main>
-      {/* <Modal state={modal} handleCloseModal={handleCloseModal} /> */}
       <LoginIndex />
     </Main>
   );

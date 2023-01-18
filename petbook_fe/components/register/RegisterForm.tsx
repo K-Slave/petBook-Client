@@ -99,7 +99,7 @@ const RegisterButton = () => {
     useSetResource(REGISTER_CREATE);
 
   const Sign = () => {
-    const { password_check, name, ...newObj }: any = registerForm;
+    const { password_check, name, ...newObj } = registerForm;
 
     mutate(newObj);
   };
