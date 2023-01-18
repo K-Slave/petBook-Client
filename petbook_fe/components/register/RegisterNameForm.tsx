@@ -9,7 +9,7 @@ import { RegisterInfoText } from "./styled/styledRegisterForm";
 
 const PasswordInput = () => {
   const [success, setSuccess] = useState(false);
-  const [nicknameInfo, setNicknameInfo] = useState("사용 가능한 닉네임 입니다");
+  const [nicknameInfo, setNicknameInfo] = useState("");
   const checkNickname = useRecoilValue(CheckNicknameState);
 
   const { data, mutate } = useSetResource(REGISTER_CHECK_NICKNAME);
@@ -26,8 +26,10 @@ const PasswordInput = () => {
     if (nicknameData) {
       if (nicknameData?.nicknameExist) {
         setSuccess(false);
+        setNicknameInfo("");
       } else {
         setSuccess(true);
+        setNicknameInfo("사용 가능한 닉네임 입니다");
       }
     }
   }, [data]);
