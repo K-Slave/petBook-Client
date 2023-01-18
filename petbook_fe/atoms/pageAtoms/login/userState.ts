@@ -42,3 +42,18 @@ export const loginFormState = atom<{
     password: "",
   },
 });
+
+export const validationRegisterState = atom<{
+  password: boolean;
+  name: boolean;
+  nickname: boolean;
+  agree: boolean;
+}>({
+  key: "validationCheckRegister",
+  default: {
+    password: false,
+    name: false,
+    nickname: false,
+    agree: false,
+  },
+});

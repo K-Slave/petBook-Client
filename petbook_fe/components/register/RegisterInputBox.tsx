@@ -1,6 +1,7 @@
 import {
   registerFormState,
   CheckNicknameState,
+  validationRegisterState,
 } from "@atoms/pageAtoms/login/userState";
 import React, { ChangeEventHandler } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -150,12 +151,28 @@ const RegisterNicnameCheckButton = ({ axiosValue }: buttonValue) => {
   );
 };
 const RegisterInput = ({ current, axiosValue, IconType }: LoginProps) => {
-  const setLoginForm = useSetRecoilState(registerFormState);
+  const registerForm = useSetRecoilState(registerFormState);
+  const validationRegister = useSetRecoilState(validationRegisterState);
+
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setLoginForm((user) => ({
+    registerForm((user) => ({
       ...user,
       [`${axiosValue}`]: e.target.value,
     }));
+
+    let checkVal = e.target.value;
+
+    if (checkVal === "") {
+      validationRegister((val) => ({
+        ...val,
+        [`${axiosValue}`]: false,
+      }));
+    } else {
+      validationRegister((val) => ({
+        ...val,
+        [`${axiosValue}`]: true,
+      }));
+    }
   };
 
   return (

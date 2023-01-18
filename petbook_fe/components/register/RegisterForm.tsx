@@ -5,7 +5,10 @@ import Image from "next/image";
 // custom
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 import { registerRequest } from "@lib/API/petBookAPI";
-import { registerFormState } from "@atoms/pageAtoms/login/userState";
+import {
+  registerFormState,
+  validationRegisterState,
+} from "@atoms/pageAtoms/login/userState";
 import navigator from "@lib/modules/navigator";
 
 import RegisterInputBox from "@components/register/RegisterInputBox";
@@ -39,6 +42,11 @@ export const REGISTER_CHECK_NICKNAME = {
 };
 
 const RegisterContainer = () => {
+  const validationRegister = useRecoilValue(validationRegisterState);
+  const updateTermsState = (everyTrue: boolean) => {
+    console.log(validationRegister);
+    console.log(everyTrue);
+  };
   return (
     <Main>
       <RegisterFormWrap>
