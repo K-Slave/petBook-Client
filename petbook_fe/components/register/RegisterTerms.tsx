@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Modal } from "@components/common/Modal/Modal";
+import { Modal } from "@components/common/modal/Modal";
 
 import { useSetRecoilState } from "recoil";
 import { validationRegisterState } from "@atoms/pageAtoms/login/userState";
