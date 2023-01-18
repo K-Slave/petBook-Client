@@ -1,24 +1,34 @@
 import { useEffect, useState } from "react";
 import RegisterInputBox from "@components/register/RegisterInputBox";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useSetResource } from "@lib/hooks/common/useResource";
 import { REGISTER_CHECK_NICKNAME } from "@components/register/RegisterForm";
 import { UserCheckNickname } from "@lib/API/petBookAPI/types/userRequest";
-import { CheckNicknameState } from "@atoms/pageAtoms/login/userState";
+import {
+  CheckNicknameState,
+  validationRegisterState,
+} from "@atoms/pageAtoms/login/userState";
 import { RegisterInfoText } from "./styled/styledRegisterForm";
 
 const PasswordInput = () => {
   const [success, setSuccess] = useState(false);
   const [nicknameInfo, setNicknameInfo] = useState("");
   const checkNickname = useRecoilValue(CheckNicknameState);
+  const validationRegister = useSetRecoilState(validationRegisterState);
 
   const { data, mutate } = useSetResource(REGISTER_CHECK_NICKNAME);
-
   useEffect(() => {
     if (checkNickname.nickname !== "") {
       mutate(checkNickname);
     }
   }, [checkNickname]);
+
+  useEffect(() => {
+    validationRegister((val) => ({
+      ...val,
+      nickname: success,
+    }));
+  }, [success]);
 
   useEffect(() => {
     const nicknameData = data?.data as UserCheckNickname;
