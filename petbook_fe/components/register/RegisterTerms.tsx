@@ -5,6 +5,7 @@ import { Modal } from "@components/common/Modal/Modal";
 import { Terms } from "./styled/styledRegisterForm";
 
 const TermsWrap = () => {
+  const [agree, setAgree] = useState([false, false]);
   const [modal, setModal] = useState({
     state: false,
     data: {
@@ -20,15 +21,25 @@ const TermsWrap = () => {
   const HandlerOpen = (title: string) => {
     let titleName = "";
     let contentText = "";
+    let active = false;
+
     switch (title) {
       case "terms": {
-        titleName = "이용약관";
-        contentText = "약관 내용 // 지금은 임시";
+        if (agree[0] === false) {
+          titleName = "이용약관";
+          contentText = "약관 내용";
+          active = true;
+        }
+        setAgree((el) => [active, el[1]]);
         break;
       }
       case "privacy": {
-        titleName = "개인정보 수집 및 이용약관";
-        contentText = "개인정보 수집 및 이용약관 내용 // 지금은 임시";
+        if (agree[1] === false) {
+          titleName = "개인정보 수집 및 이용약관";
+          contentText = "개인정보 수집 및 이용약관 내용";
+          active = true;
+        }
+        setAgree((el) => [el[0], active]);
         break;
       }
       default: {
@@ -37,13 +48,26 @@ const TermsWrap = () => {
     }
     setModal((modalState) => ({
       ...modalState,
-      state: true,
+      state: active,
       data: {
         title: titleName,
         content: contentText,
       },
     }));
   };
+
+  const agreeContent = [
+    {
+      id: "terms",
+      index: 0,
+      text: "펫북 이용 약관에 동의합니다 [필수]",
+    },
+    {
+      id: "privacy",
+      index: 1,
+      text: "개인정보 수집 및 이용에 동의합니다 [필수]",
+    },
+  ];
 
   return (
     <Terms>
@@ -55,22 +79,24 @@ const TermsWrap = () => {
           <p>{modal.data.content}</p>
         </section>
       </Modal>
-      <li>
-        <button type="button" onClick={() => HandlerOpen("terms")}>
-          <label htmlFor="terms">
-            <input type="checkbox" id="terms" />
-            <p>펫북 이용 약관에 동의합니다 [필수]</p>
-          </label>
-        </button>
-      </li>
-      <li>
-        <button type="button" onClick={() => HandlerOpen("privacy")}>
-          <label htmlFor="privacy">
-            <input type="checkbox" id="privacy" />
-            <p>개인정보 수집 및 이용에 동의합니다 [필수]</p>
-          </label>
-        </button>
-      </li>
+      {agreeContent.map((agreeEl) => {
+        return (
+          <li>
+            <button type="button">
+              <label htmlFor={agreeEl.id}>
+                <input
+                  key={agreeEl.id}
+                  onChange={() => HandlerOpen(agreeEl.id)}
+                  checked={agree[agreeEl.index]}
+                  type="checkbox"
+                  id={agreeEl.id}
+                />
+                <p>{agreeEl.text}</p>
+              </label>
+            </button>
+          </li>
+        );
+      })}
     </Terms>
   );
 };
