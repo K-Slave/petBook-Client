@@ -6,7 +6,7 @@ import {
   ModalBg,
   ModalItemWrap,
   ModalButton,
-} from "./style/ModalStyle";
+} from "./style/modalStyle";
 
 export type ModalProps = {
   modalState: {

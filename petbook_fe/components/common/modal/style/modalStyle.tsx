@@ -57,4 +57,5 @@ export default {
   ModalContainer,
   ModalContentsContainer,
   ModalItemWrap,
+  ModalButton,
 };
