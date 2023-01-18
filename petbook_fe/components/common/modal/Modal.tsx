@@ -8,7 +8,7 @@ import {
   ModalButton,
 } from "./style/ModalStyle";
 
-interface ModalProps {
+export type ModalProps = {
   modalState: {
     state: boolean;
     data: {
@@ -17,7 +17,7 @@ interface ModalProps {
     };
   };
   handleCloseModal: () => void;
-}
+};
 
 export const Modal = ({
   modalState,
