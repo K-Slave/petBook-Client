@@ -33,6 +33,7 @@ export interface ArticleListRequest {
   categoryId: number | string | number[];
   page: number;
   size: number;
+  popular?: boolean;
 }
 
 export interface ArticleSearchRequest {

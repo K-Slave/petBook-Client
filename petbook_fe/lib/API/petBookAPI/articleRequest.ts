@@ -1,6 +1,10 @@
-import localConsole from "@lib/utils/localConsole";
 import RequestCore from "./RequestCore";
-import { ArticleResponse, ArticleListResponse } from "./types/articleRequest";
+import {
+  ArticleResponse,
+  ArticleListResponse,
+  ArticleListRequest,
+  ArticleSearchRequest,
+} from "./types/articleRequest";
 
 export default class ArticleAPI extends RequestCore {
   /**
@@ -86,11 +90,7 @@ export default class ArticleAPI extends RequestCore {
    * @returns categoryId 에 해당하는 게시물 리스트를 반환합니다.
    */
   public article_list = async (
-    params?: {
-      categoryId: number[] | number | string;
-      page: number;
-      size: number;
-    },
+    params?: ArticleListRequest,
     config?: { headerObj: object }
   ) => {
     const { requestURL, requestHeaders } = this.getParameters({
@@ -157,12 +157,7 @@ export default class ArticleAPI extends RequestCore {
   };
 
   public article_search = async (
-    params?: {
-      categoryId: number | null;
-      page: number;
-      size: number;
-      searchText: string;
-    },
+    params?: ArticleSearchRequest,
     config?: { headerObj: object }
   ) => {
     const { requestURL, requestHeaders } = this.getParameters({
