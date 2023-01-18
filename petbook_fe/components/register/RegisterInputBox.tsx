@@ -167,7 +167,7 @@ const RegisterInput = ({ current, axiosValue, IconType }: LoginProps) => {
               axiosValue === "password_check" ? "password" : axiosValue
             }`}
             id={`${axiosValue} `}
-            placeholder={`${current} `}
+            placeholder={`${current}`}
             onChange={onChange}
           />
         </label>
