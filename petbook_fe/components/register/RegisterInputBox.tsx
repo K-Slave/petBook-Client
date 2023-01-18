@@ -128,14 +128,7 @@ const RegisterNicnameCheckButton = ({ axiosValue }: buttonValue) => {
   }
   const checkNicknameFrom = useSetRecoilState(CheckNicknameState);
   const registerForm = useRecoilValue(registerFormState);
-  // const modalValue = useRecoilValue(CheckNicknameState);
-  // const { data } = useResource({
-  //   key: `REGISTER_CHECK_EMAIL`,
-  //   fetcher: () =>
-  //     REGISTER_CHECK_NICKNAME.fetcher({
-  //       nickname: modalValue.nickname,
-  //     }),
-  // });
+
   const onClick = () => {
     checkNicknameFrom(() => ({
       nickname: registerForm.nickname,
@@ -170,16 +163,19 @@ const RegisterInput = ({ current, axiosValue, IconType }: LoginProps) => {
         </IconBox>
         <label htmlFor={`${current}`}>
           <input
-            type={`${axiosValue}`}
-            id={`${axiosValue}`}
-            placeholder={`${current} `}
+            type={`${
+              axiosValue === "password_check" ? "password" : axiosValue
+            }`}
+            id={`${axiosValue} `}
+            placeholder={`${current}`}
             onChange={onChange}
           />
         </label>
         {axiosValue === "nickname" ? (
           <RegisterNicnameCheckButton axiosValue={axiosValue} />
         ) : (
-          <RegisterModalButton axiosValue={axiosValue} />
+          // <RegisterModalButton axiosValue={axiosValue} />
+          ""
         )}
       </InputBox>
     </article>
