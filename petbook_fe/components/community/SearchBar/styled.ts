@@ -25,5 +25,6 @@ export const Bar = styled.div`
     right: 12px;
     font-size: 1.5rem;
     transform: translateY(-50%);
+    cursor: pointer;
   }
 `;
