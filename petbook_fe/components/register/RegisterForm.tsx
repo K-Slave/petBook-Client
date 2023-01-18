@@ -5,13 +5,16 @@ import Image from "next/image";
 // custom
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 import { registerRequest } from "@lib/API/petBookAPI";
-import { registerFormState } from "@atoms/pageAtoms/login/userState";
+import {
+  registerFormState,
+  validationRegisterState,
+} from "@atoms/pageAtoms/login/userState";
 import navigator from "@lib/modules/navigator";
 
 import RegisterInputBox from "@components/register/RegisterInputBox";
 import PasswordInput from "@components/register/RegisterPasswordFrom";
 import RegisterNameForm from "@components/register/RegisterNameForm";
-import { Modal } from "@components/common/modal/Modal";
+import RegisterTerms from "@components/register/RegisterTerms";
 
 // type
 import { ErrorResponse } from "@lib/API/petBookAPI/types/userRequest";
@@ -19,10 +22,10 @@ import { ErrorResponse } from "@lib/API/petBookAPI/types/userRequest";
 // styled
 import {
   Main,
-  Terms,
   RegisterFormWrap,
   SpaceTopWrap,
   RegisterInfoText,
+  SignButton,
 } from "./styled/styledRegisterForm";
 
 // reponse 정의
@@ -87,46 +90,24 @@ const Register = () => {
     </div>
   );
 };
-
-const TermsWrap = () => {
-  const [modal, setModal] = useState(false);
-  const handleCloseModal = () => {
-    setModal(false);
-  };
-  const HandlerOpen = () => {
-    setModal(true);
-  };
-
-  return (
-    <Terms>
-      <Modal state={modal} handleCloseModal={handleCloseModal} />
-      <li>
-        <button type="button" onClick={HandlerOpen}>
-          <label htmlFor="terms">
-            <input type="checkbox" id="terms" />
-            <p>펫북 이용 약관에 동의합니다 [필수]</p>
-          </label>
-        </button>
-      </li>
-      <li>
-        <button type="button" onClick={HandlerOpen}>
-          <label htmlFor="privacy">
-            <input type="checkbox" id="privacy" />
-            <p>개인정보 수집 및 이용에 동의합니다 [필수]</p>
-          </label>
-        </button>
-      </li>
-    </Terms>
-  );
-};
-
 const RegisterButton = () => {
   const registerForm = useRecoilValue(registerFormState);
+  const validationRegister = useRecoilValue(validationRegisterState);
+  const [validation, setValidation] = useState(false);
+
   const { data, isSuccess, isError, error, mutate } =
     useSetResource(REGISTER_CREATE);
+
   const Sign = () => {
-    mutate(registerForm);
+    const { password_check, name, ...newObj }: any = registerForm;
+
+    mutate(newObj);
   };
+  useEffect(() => {
+    let newArr = Object.values(validationRegister);
+    let active = newArr.every((el) => el === true);
+    setValidation(active);
+  }, [validationRegister]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -139,14 +120,19 @@ const RegisterButton = () => {
   }, [isError, data]);
 
   return (
-    <button type="button" onClick={Sign} className="Primary">
+    <SignButton
+      active={validation}
+      type="button"
+      onClick={Sign}
+      className="Primary"
+    >
       회원가입
-    </button>
+    </SignButton>
   );
 };
 
 RegisterContainer.Register = Register;
-RegisterContainer.TermsWrap = TermsWrap;
+RegisterContainer.TermsWrap = RegisterTerms;
 RegisterContainer.RegisterButton = RegisterButton;
 
 export default RegisterContainer;
