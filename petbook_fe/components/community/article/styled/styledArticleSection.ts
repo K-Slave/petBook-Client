@@ -1,7 +1,6 @@
-import { menuListStyle } from "@components/common/DropdownMenu";
 import styled from "styled-components";
 
-const ArticleSectionBox = styled.section`
+export const ArticleSectionBox = styled.section`
   display: flex;
   flex-direction: column;
   padding: 48px 40px 32px;
@@ -44,17 +43,6 @@ const ArticleSectionBox = styled.section`
   }
 `;
 
-const Spacer = styled.div`
+export const Spacer = styled.div`
   height: 32px;
 `;
-
-const MenuListBox = styled.div`
-  ${menuListStyle};
-  button {
-    display: flex;
-    align-items: flex-start;
-    width: 100%;
-  }
-`;
-
-export { ArticleSectionBox, Spacer, MenuListBox };
