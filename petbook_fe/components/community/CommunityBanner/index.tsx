@@ -3,7 +3,7 @@ import { SwiperSlide } from "swiper/react";
 import CustomSwiper, {
   SlidePrevButton,
   SlideNextButton,
-} from "@components/common/CustomSwiper";
+} from "@components/common/Slider";
 import { CommunityBannerBox, AboutSlideBox } from "./styled";
 
 const CommunityBanner = () => {

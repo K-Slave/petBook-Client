@@ -1,10 +1,9 @@
 import CustomSwiper, {
   SlidePrevButton,
   SlideNextButton,
-} from "@components/common/CustomSwiper";
+} from "@components/common/Slider";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import useModal from "@lib/hooks/common/useModal";
-import { useSetRecoilState } from "recoil";
 import { SwiperSlide } from "swiper/react";
 import ImageSliderModal from "./ImageSliderModal";
 import { ImageSliderDiv, ImageSliderImg } from "./styled/styledImageSlider";
