@@ -141,11 +141,6 @@ const RegisterNicnameCheckButton = ({ axiosValue }: buttonValue) => {
     </button>
   );
 };
-/**
- *
- * @param param0 input box 설정 영역입니다
- * @returns
- */
 const RegisterInput = ({ current, axiosValue, IconType }: LoginProps) => {
   const setLoginForm = useSetRecoilState(registerFormState);
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
