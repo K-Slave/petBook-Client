@@ -42,7 +42,8 @@ export const ModalContentsContainer = styled.div`
     width: 100%;
     max-height: 100px;
     overflow: auto;
-    pre {
+    p {
+      text-align: left;
       font-size: 0.875rem;
     }
   }

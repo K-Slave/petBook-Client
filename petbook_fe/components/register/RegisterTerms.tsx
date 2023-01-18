@@ -27,7 +27,7 @@ const TermsWrap = () => {
       case "terms": {
         if (agree[0] === false) {
           titleName = "이용약관";
-          contentText = "약관 내용";
+          contentText = "약관 내용"; // 나중에 불러오기
           active = true;
         }
         setAgree((el) => [active, el[1]]);
@@ -36,7 +36,7 @@ const TermsWrap = () => {
       case "privacy": {
         if (agree[1] === false) {
           titleName = "개인정보 수집 및 이용약관";
-          contentText = "개인정보 수집 및 이용약관 내용";
+          contentText = "개인정보 수집 및 이용약관 내용"; // 나중에 불러오기
           active = true;
         }
         setAgree((el) => [el[0], active]);
