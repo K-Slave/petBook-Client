@@ -34,8 +34,17 @@ export const ModalItemWrap = styled.section`
 export const ModalContentsContainer = styled.div`
   margin-top: 16px;
   hgroup {
-    font-size: 1.375rem;
+    font-size: 0.875rem;
     margin-bottom: 32px;
+  }
+  section {
+    height: auto;
+    width: 100%;
+    max-height: 100px;
+    overflow: auto;
+    pre {
+      font-size: 0.875rem;
+    }
   }
 `;
 export const ModalButton = styled.button`

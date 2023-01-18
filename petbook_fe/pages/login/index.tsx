@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { LoginIndex } from "@components/login/LoginIndex";
-import { Modal } from "@components/common/modal/Modal";
+import { Modal } from "@components/common/Modal/Modal";
 import { useState } from "react";
 
 const Main = styled.main`
