@@ -39,43 +39,51 @@ export const REGISTER_CHECK_NICKNAME = {
   requester: registerRequest.registerCheckNickname,
 };
 
+const RegisterContainer = () => {
+  return (
+    <Main>
+      <RegisterFormWrap>
+        <RegisterContainer.Register />
+        <RegisterContainer.TermsWrap />
+        <RegisterContainer.RegisterButton />
+      </RegisterFormWrap>
+    </Main>
+  );
+};
+
 const Register = () => {
   // const setRegisterForm = useSetRecoilState(registerFormState);
   return (
     <div>
-      <RegisterFormWrap>
-        <div className="Login_Title">
-          <Image
-            src="/img/common/logo/logo.svg"
-            alt="Picture of the author"
-            width={160}
-            height={27}
-          />
-        </div>
-        <div>
-          <RegisterInputBox
-            IconType="Login"
-            axiosValue="email"
-            current="이메일을 입력해주세요"
-          />
-          {/* <RegisterInputBox
+      <div className="Login_Title">
+        <Image
+          src="/img/common/logo/logo.svg"
+          alt="Picture of the author"
+          width={160}
+          height={27}
+        />
+      </div>
+      <div>
+        <RegisterInputBox
+          IconType="Login"
+          axiosValue="email"
+          current="이메일을 입력해주세요"
+        />
+        {/* <RegisterInputBox
             IconType="Login_Passcode_Disabled"
             axiosValue="email_num"
             current="인증번호 4자리"
           /> */}
-          <RegisterInfoText state={false}>
-            <p>인증이 완료되었습니다</p>
-          </RegisterInfoText>
-        </div>
-        <SpaceTopWrap>
-          <PasswordInput />
-        </SpaceTopWrap>
-        <SpaceTopWrap>
-          <RegisterNameForm />
-        </SpaceTopWrap>
-        <RegisterContainer.TermsWrap />
-        <RegisterContainer.RegisterButton />
-      </RegisterFormWrap>
+        <RegisterInfoText state={false}>
+          <p>인증이 완료되었습니다</p>
+        </RegisterInfoText>
+      </div>
+      <SpaceTopWrap>
+        <PasswordInput />
+      </SpaceTopWrap>
+      <SpaceTopWrap>
+        <RegisterNameForm />
+      </SpaceTopWrap>
     </div>
   );
 };
@@ -134,14 +142,6 @@ const RegisterButton = () => {
     <button type="button" onClick={Sign} className="Primary">
       회원가입
     </button>
-  );
-};
-
-const RegisterContainer = () => {
-  return (
-    <Main>
-      <RegisterContainer.Register />
-    </Main>
   );
 };
 
