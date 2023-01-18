@@ -130,6 +130,14 @@ const RegisterNicnameCheckButton = ({ axiosValue }: buttonValue) => {
   const registerForm = useRecoilValue(registerFormState);
 
   const onClick = () => {
+    if (registerForm.nickname === "") {
+      alert("닉네임을 입력해주세요");
+      return;
+    }
+    if (registerForm.nickname.length < 3) {
+      alert("닉네임은 세글자 이상 입력해주세요");
+      return;
+    }
     checkNicknameFrom(() => ({
       nickname: registerForm.nickname,
     }));
