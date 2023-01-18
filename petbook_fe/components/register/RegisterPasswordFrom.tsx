@@ -20,8 +20,11 @@ const PasswordInput = () => {
       successState = false;
     }
     setSuccess(successState);
-    validationRegister((el) => ({ ...el, password: successState }));
   }, [registerForm]);
+
+  useEffect(() => {
+    validationRegister((el) => ({ ...el, password: success }));
+  }, [success]);
 
   return (
     <>
