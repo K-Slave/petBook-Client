@@ -66,18 +66,20 @@ export const NormalItem = ({
             clickCancelButton={() => setIsEditing(false)}
           />
         ) : (
-          <p className="Item_Content">{content}</p>
+          <>
+            <p className="Item_Content">{content}</p>
+            <div className="Item_Button_Box">
+              <LikeButton
+                id={id}
+                liked={isLiked}
+                likeCount={likeCount}
+                createLike={commentRequest.comment_create_like}
+                deleteLike={commentRequest.comment_delete_like}
+              />
+              <ScrapButton />
+            </div>
+          </>
         )}
-        <div className="Item_Button_Box">
-          <LikeButton
-            id={id}
-            liked={isLiked}
-            likeCount={likeCount}
-            createLike={commentRequest.comment_create_like}
-            deleteLike={commentRequest.comment_delete_like}
-          />
-          <ScrapButton />
-        </div>
       </div>
     </NormalItemDiv>
   );
@@ -118,21 +120,22 @@ export const QnaItem = ({ comment, isChild, clickDeleteMenu }: ItemProps) => {
           ) : (
             <p className="Item_Content">{content}</p>
           )}
-
           {userId === user.id && !isEditing && (
             <DropdownMenu menuList={menuList} />
           )}
         </div>
-        <div className="Item_Button_Box">
-          <LikeButton
-            id={id}
-            liked={isLiked}
-            likeCount={likeCount}
-            createLike={commentRequest.comment_create_like}
-            deleteLike={commentRequest.comment_delete_like}
-          />
-          <ScrapButton />
-        </div>
+        {!isEditing && (
+          <div className="Item_Button_Box">
+            <LikeButton
+              id={id}
+              liked={isLiked}
+              likeCount={likeCount}
+              createLike={commentRequest.comment_create_like}
+              deleteLike={commentRequest.comment_delete_like}
+            />
+            <ScrapButton />
+          </div>
+        )}
       </QnaItemBubble>
     </QnaItemDiv>
   );
