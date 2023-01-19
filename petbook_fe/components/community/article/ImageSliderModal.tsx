@@ -34,7 +34,7 @@ const ImageSliderModal = ({ images, initialImageIndex, closeModal }: Props) => {
         >
           {images.map((image) => (
             <SwiperSlide key={image.id}>
-              <Image src={image.imageUrl} layout="fill" objectFit="cover" />
+              <Image src={image.imageUrl} alt="이미지" fill />
             </SwiperSlide>
           ))}
         </CustomSwiper>
