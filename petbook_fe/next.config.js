@@ -5,6 +5,9 @@
 const path = require("path");
 
 module.exports = {
+  compiler: {
+    styledComponents: true,
+  },
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
@@ -23,6 +26,6 @@ module.exports = {
     ];
   },
   images: {
-    domains: ["objectstorage.ap-seoul-1.oraclecloud.com"]
-  }
+    domains: ["objectstorage.ap-seoul-1.oraclecloud.com"],
+  },
 };

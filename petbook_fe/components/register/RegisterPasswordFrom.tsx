@@ -1,20 +1,30 @@
 import { useEffect, useState } from "react";
 import RegisterInputBox from "@components/register/RegisterInputBox";
-import { useRecoilValue } from "recoil";
-import { registerFormState } from "@atoms/pageAtoms/login/userState";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  registerFormState,
+  validationRegisterState,
+} from "@atoms/pageAtoms/login/userState";
 import { RegisterInfoText } from "./styled/styledRegisterForm";
 
 const PasswordInput = () => {
   const [success, setSuccess] = useState(false);
   const registerForm = useRecoilValue(registerFormState);
+  const validationRegister = useSetRecoilState(validationRegisterState);
 
   useEffect(() => {
+    let successState = false;
     if (registerForm.password === registerForm.password_check) {
-      setSuccess(true);
+      successState = true;
     } else {
-      setSuccess(false);
+      successState = false;
     }
+    setSuccess(successState);
   }, [registerForm]);
+
+  useEffect(() => {
+    validationRegister((el) => ({ ...el, password: success }));
+  }, [success]);
 
   return (
     <>
