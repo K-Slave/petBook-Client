@@ -1,10 +1,7 @@
 import styled from "styled-components";
+import { MsgBoxProps, StartPointProps } from "./ToastMessage";
 
-interface StartPointDivProps {
-  marginLeft?: number;
-}
-
-export const ToastMessageStartPointDiv = styled.div<StartPointDivProps>`
+export const ToastMessageStartPointDiv = styled.div<StartPointProps>`
   position: relative;
   z-index: 9999;
 
@@ -17,7 +14,7 @@ export const ToastMessageStartPointDiv = styled.div<StartPointDivProps>`
   margin-left: ${(props) => props.marginLeft}px;
 `;
 
-export const ToastMessageBoxDiv = styled.div`
+export const ToastMessageBoxDiv = styled.div<MsgBoxProps>`
   position: absolute;
   left: 0;
   overflow: hidden;
@@ -25,8 +22,7 @@ export const ToastMessageBoxDiv = styled.div`
   display: flex;
   align-items: center;
 
-  // TODO: 레이아웃 커질때 max-height 를 props 전달 해야함
-  max-height: 32px;
+  max-height: ${(props) => props.height}px;
 
   .Toast__EndPoint__Arrow {
     // TODO: 레이아웃 변경에 따른 left 등을 계산할수 있게 해야함
@@ -37,12 +33,11 @@ export const ToastMessageBoxDiv = styled.div`
     width: 0;
     height: 0;
 
-    // TODO: 레이아웃 커질때 화살표의 max-height 를 props 전달 해야함
-    max-height: 32px;
+    max-height: ${(props) => props.height}px;
 
-    // TODO: bgColor props 받아야함
+    // TODO: 화살표의 방향을 바꿀수 있게 해야함
     border-top: 26px solid transparent;
-    border-right: 26px solid #383835;
+    border-right: 26px solid ${(props) => props.bgColor};
     border-bottom: 26px solid transparent;
     border-left: 26px solid transparent;
   }
@@ -55,14 +50,13 @@ export const ToastMessageBoxDiv = styled.div`
     padding: 4px 10px;
 
     width: 280px;
-    height: 32px;
+    height: ${(props) => props.height}px;
 
     // TODO : 최소크기값 수정되야할수도 있음
     min-width: 100px;
     min-height: 20px;
 
-    // TODO: bgColor props 받아야함
-    background-color: #383835;
+    background-color: ${(props) => props.bgColor};
     border-radius: 6px;
 
     font-weight: 400;
@@ -70,6 +64,6 @@ export const ToastMessageBoxDiv = styled.div`
     line-height: 1.5rem;
     letter-spacing: -0.02em;
 
-    color: #ffffff;
+    color: ${(props) => props.color};
   }
 `;
