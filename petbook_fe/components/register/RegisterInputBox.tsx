@@ -1,8 +1,9 @@
 import {
   registerFormState,
   CheckNicknameState,
+  validationRegisterState,
 } from "@atoms/pageAtoms/login/userState";
-import React, { ChangeEventHandler } from "react";
+import React, { ChangeEventHandler, useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import useResource, { useSetResource } from "@lib/hooks/common/useResource";
 
@@ -130,6 +131,14 @@ const RegisterNicnameCheckButton = ({ axiosValue }: buttonValue) => {
   const registerForm = useRecoilValue(registerFormState);
 
   const onClick = () => {
+    if (registerForm.nickname === "") {
+      alert("닉네임을 입력해주세요");
+      return;
+    }
+    if (registerForm.nickname.length < 3) {
+      alert("닉네임은 세글자 이상 입력해주세요");
+      return;
+    }
     checkNicknameFrom(() => ({
       nickname: registerForm.nickname,
     }));
@@ -141,19 +150,31 @@ const RegisterNicnameCheckButton = ({ axiosValue }: buttonValue) => {
     </button>
   );
 };
-/**
- *
- * @param param0 input box 설정 영역입니다
- * @returns
- */
 const RegisterInput = ({ current, axiosValue, IconType }: LoginProps) => {
-  const setLoginForm = useSetRecoilState(registerFormState);
+  const registerForm = useSetRecoilState(registerFormState);
+  const validationRegister = useSetRecoilState(validationRegisterState);
+  const [valueCheck, setValueCheck] = useState(false);
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setLoginForm((user) => ({
+    registerForm((user) => ({
       ...user,
       [`${axiosValue}`]: e.target.value,
     }));
+
+    let checkVal = e.target.value;
+
+    if (checkVal === "") {
+      setValueCheck(false);
+    } else if (axiosValue !== "nickname") {
+      setValueCheck(true);
+    }
   };
+
+  useEffect(() => {
+    validationRegister((val) => ({
+      ...val,
+      [`${axiosValue}`]: valueCheck,
+    }));
+  }, [valueCheck]);
 
   return (
     <article>

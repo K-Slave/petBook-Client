@@ -14,6 +14,17 @@ const Terms = styled.ul`
   }
 `;
 
+export type activeProps = {
+  active?: boolean;
+};
+
+const SignButton = styled.button`
+  background-color: ${(props: activeProps) =>
+    props.active === true ? "var(--primary)" : "var(--disabled)"} !important;
+  color: ${(props: activeProps) =>
+    props.active === true ? "#fff" : "var(--black_05)"} !important; ;
+`;
+
 const RegisterFormWrap = styled.div`
   width: calc(100% - 32px);
   max-width: 400px;
@@ -144,4 +155,5 @@ export {
   InputBox,
   RegisterInfoText,
   SpaceTopWrap,
+  SignButton,
 };

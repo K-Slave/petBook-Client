@@ -27,12 +27,7 @@ const ImageSlider = ({ images }: Props) => {
       <CustomSwiper slidesPerView="auto" spaceBetween={17}>
         {images.map((image, index) => (
           <SwiperSlide key={image.id} onClick={onClickSlide(index)}>
-            <ImageSliderImg
-              src={image.imageUrl}
-              layout="fill"
-              objectFit="cover"
-              priority
-            />
+            <ImageSliderImg src={image.imageUrl} alt="이미지" fill priority />
           </SwiperSlide>
         ))}
       </CustomSwiper>
