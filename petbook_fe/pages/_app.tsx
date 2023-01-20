@@ -26,6 +26,7 @@ import "swiper/scss/pagination";
 import "../styles/Globals.scss";
 import "../styles/Icon.scss";
 import "../styles/Swiper.scss";
+import createQueryClient from "@lib/utils/createQueryClient";
 
 let serverData = "";
 
@@ -35,17 +36,7 @@ type DehydratedAppProps = AppProps<{
 }>;
 
 const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            refetchOnWindowFocus: false,
-            staleTime: 300000,
-          },
-        },
-      })
-  );
+  const [queryClient] = useState(() => createQueryClient());
 
   if (pageProps.token && typeof window === "undefined") {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${pageProps.token}`;
@@ -77,14 +68,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
   const allCookies = cookies(ctx);
   let pageProps = {};
 
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-        staleTime: 300000,
-      },
-    },
-  });
+  const queryClient = createQueryClient();
 
   try {
     // 소셜 로그인시, url 에 토큰이 붙어있는경우 쿠키로 변환하여 리다이렉트 시켜쥼

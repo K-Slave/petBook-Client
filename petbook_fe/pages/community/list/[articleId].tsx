@@ -8,7 +8,8 @@ import { createContext, useEffect } from "react";
 import jwtDecode from "jwt-decode";
 import { CommentListRequest } from "@lib/API/petBookAPI/types/commentRequest";
 import cookies from "next-cookies";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { dehydrate } from "@tanstack/react-query";
+import createQueryClient from "@lib/utils/createQueryClient";
 
 export const getCommentListKey = (articleId: string): [string, string] => [
   "COMMENT_LIST",
@@ -75,14 +76,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const articleId = query.articleId as string;
   const ARTICLE_ITEM = createArticleResource(articleId);
   const COMMENT_LIST = createCommentListResouce(Number(articleId));
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-        staleTime: 300000,
-      },
-    },
-  });
+  const queryClient = createQueryClient();
   await queryClient.fetchQuery(ARTICLE_ITEM.key, ARTICLE_ITEM.fetcher);
   await queryClient.fetchInfiniteQuery(COMMENT_LIST.key, () =>
     COMMENT_LIST.fetcher()
