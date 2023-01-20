@@ -1,13 +1,14 @@
-import { NextPage, NextPageContext } from "next";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import styled from "styled-components";
 import { articleRequest, commentRequest } from "@lib/API/petBookAPI";
 import BackButton from "@components/community/BackButton";
 import ArticleContainer from "@containers/article/ArticleContainer";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
-import { getHttpOnlyCookie } from "@lib/utils/httpOnlyCookie";
 import { createContext, useEffect } from "react";
 import jwtDecode from "jwt-decode";
 import { CommentListRequest } from "@lib/API/petBookAPI/types/commentRequest";
+import cookies from "next-cookies";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 
 export const getCommentListKey = (articleId: string): [string, string] => [
   "COMMENT_LIST",
@@ -29,18 +30,12 @@ export const createArticleResource = (articleId: string) => ({
   fetcher: () => articleRequest.article_item(`/${articleId}`),
 });
 
-type PetbookPage = NextPage<{
-  token: string | null;
-  userId: number | null;
-}> & {
-  requiredResources?: [
-    ReturnType<typeof createArticleResource>,
-    ReturnType<typeof createCommentListResouce>
-  ];
-};
 export const userIdContext = createContext<number | null>(null);
 
-const ArticleDetail: PetbookPage = ({ token, userId }) => {
+const ArticleDetail = ({
+  token,
+  userId,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   useEffect(() => {
     if (token) {
       sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -67,29 +62,37 @@ const Main = styled.main`
   padding: 52px 35px;
 `;
 
-ArticleDetail.getInitialProps = async (
-  ctx: NextPageContext
-): Promise<{
-  token: string | null;
-  userId: number | null;
-}> => {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const allCookies = cookies(ctx);
+  const token = allCookies?.petBookUser;
+  let user: { id: string } | null = null;
+  if (token) {
+    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
+    user = jwtDecode<{ id: string }>(token);
+  }
+
   const { query } = ctx;
   const articleId = query.articleId as string;
   const ARTICLE_ITEM = createArticleResource(articleId);
   const COMMENT_LIST = createCommentListResouce(Number(articleId));
-  ArticleDetail.requiredResources = [ARTICLE_ITEM, COMMENT_LIST];
-  const token = await getHttpOnlyCookie({ ctx, key: "petBookUser" });
-  if (token) {
-    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
-    const user = jwtDecode<{ id: string }>(token);
-    return {
-      token,
-      userId: Number(user.id),
-    };
-  }
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        staleTime: 300000,
+      },
+    },
+  });
+  await queryClient.fetchQuery(ARTICLE_ITEM.key, ARTICLE_ITEM.fetcher);
+  await queryClient.fetchInfiniteQuery(COMMENT_LIST.key, () =>
+    COMMENT_LIST.fetcher()
+  );
   return {
-    token: null,
-    userId: null,
+    props: {
+      token: token || null,
+      userId: user ? Number(user.id) : null,
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+    },
   };
 };
 
