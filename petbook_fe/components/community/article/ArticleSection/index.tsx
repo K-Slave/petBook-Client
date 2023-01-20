@@ -76,7 +76,7 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
       ) : (
         <Spacer />
       )}
-      {images.length !== 0 && <ImageSlider images={images} />}
+      {images.length !== 0 && <ImageSlider images={images} alt={title} />}
       <TagList tags={tags} />
       <div className="ArticleSection_Button_Box">
         <LikeButton

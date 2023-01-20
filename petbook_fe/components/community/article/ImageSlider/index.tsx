@@ -10,13 +10,15 @@ import { ImageSliderDiv, ImageSliderImg } from "./styled";
 
 interface Props {
   images: ArticleResponse["images"];
+  alt: string;
 }
 
-const ImageSlider = ({ images }: Props) => {
+const ImageSlider = ({ images, alt }: Props) => {
   const { closeModal, openModal } = useModal();
   const onClickSlide = (index: number) => () => {
     openModal(ImageSliderModal, {
       images,
+      alt,
       closeModal,
       initialImageIndex: index,
     });
@@ -35,10 +37,12 @@ const ImageSlider = ({ images }: Props) => {
               <SwiperSlide key={image.id} onClick={onClickSlide(index)}>
                 <ImageSliderImg
                   src={image.imageUrl}
-                  alt="이미지"
+                  alt={alt}
                   fill
                   priority
                   sizes="354px"
+                  placeholder="blur"
+                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAKCAYAAACjd+4vAAAAHElEQVR42mNsa26oZxgAwDhq8ajFoxaPWkwuAAC9bRRbgijH+QAAAABJRU5ErkJggg=="
                 />
               </SwiperSlide>
             ))}
