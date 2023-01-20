@@ -7,11 +7,12 @@ import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { articleRequest, categorySprRequest } from "@lib/API/petBookAPI";
 import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 import { createResource } from "@lib/hooks/common/useResource";
-import { getHttpOnlyCookie } from "@lib/utils/httpOnlyCookie";
-import { NextPage, NextPageContext } from "next";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { useEffect } from "react";
 import styled from "styled-components";
 import ArticleListContainer from "@containers/article/ArticleListContainer";
+import cookies from "next-cookies";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 
 export const createArticleListResource = ({
   category,
@@ -53,19 +54,12 @@ export const createArticleListResource = ({
 
 export const CATEGORY_LIST = createResource({
   key: ["CATEGORY_LIST"],
-  fetcher: categorySprRequest.category_list,
+  fetcher: () => categorySprRequest.category_list(),
 });
 
-type PetBookPage = NextPage<{
-  token: string | null;
-}> & {
-  requiredResources?: [
-    ReturnType<typeof createArticleListResource>,
-    typeof CATEGORY_LIST
-  ];
-};
-
-const ArticleListPage: PetBookPage = ({ token }) => {
+const ArticleListPage = ({
+  token,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   useEffect(() => {
     if (token) {
       sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -79,39 +73,45 @@ const ArticleListPage: PetBookPage = ({ token }) => {
   );
 };
 
-ArticleListPage.getInitialProps = async (
-  ctx: NextPageContext
-): Promise<{ token: string | null }> => {
-  const token = await getHttpOnlyCookie({ ctx, key: "petBookUser" });
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const allCookies = cookies(ctx);
+  const token = allCookies?.petBookUser;
   if (token) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
   }
   const { query } = ctx;
   const page = Number(query.page);
   const searchText = query.query as string | undefined;
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        staleTime: 300000,
+      },
+    },
+  });
+  await queryClient.fetchQuery(CATEGORY_LIST.key, CATEGORY_LIST.fetcher);
   if (query.category) {
     const [name, id] = (query.category as string).split("_");
-    ArticleListPage.requiredResources = [
-      createArticleListResource({
-        category: { id: Number(id), name },
-        searchText,
-        page: Number.isNaN(page) ? 1 : page,
-      }),
-      CATEGORY_LIST,
-    ];
+    const ARTICLE_LIST = createArticleListResource({
+      category: { id: Number(id), name },
+      searchText,
+      page: Number.isNaN(page) ? 1 : page,
+    });
+    await queryClient.fetchQuery(ARTICLE_LIST.key, ARTICLE_LIST.fetcher);
   } else {
-    ArticleListPage.requiredResources = [
-      createArticleListResource({
-        category: { id: 0, name: "전체" },
-        searchText,
-        page: Number.isNaN(page) ? 1 : page,
-      }),
-      CATEGORY_LIST,
-    ];
+    const ARTICLE_LIST = createArticleListResource({
+      category: { id: 0, name: "전체" },
+      searchText,
+      page: Number.isNaN(page) ? 1 : page,
+    });
+    await queryClient.fetchQuery(ARTICLE_LIST.key, ARTICLE_LIST.fetcher);
   }
-
   return {
-    token: token === undefined || token === "" ? null : token,
+    props: {
+      token: token || null,
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+    },
   };
 };
 
