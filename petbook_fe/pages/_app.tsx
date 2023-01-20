@@ -10,7 +10,7 @@ import urlTokenRedirect from "@lib/API/parser/urlTokenRedirect";
 import Loader from "@components/common/loader/loader";
 import { RecoilRoot } from "recoil";
 import queryParser from "@lib/API/parser/queryParser";
-import HtmlHeader from "@components/common/HtmlHeader";
+import HtmlHead from "@components/common/HtmlHead";
 import Modal from "@components/common/Modal";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import type { Key } from "@lib/hooks/common/useResource";
@@ -51,7 +51,7 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
       <Hydrate state={pageProps.dehydratedState}>
         <RecoilRoot>
           <Loader />
-          <HtmlHeader />
+          <HtmlHead />
           <CommonHeader pathname={router.pathname} />
           <Component {...pageProps} />
           <Modal />
