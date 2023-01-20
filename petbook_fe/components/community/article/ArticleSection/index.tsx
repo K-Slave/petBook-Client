@@ -2,7 +2,7 @@ import DOMPurify from "isomorphic-dompurify";
 import CommonInfo from "@components/community/CommonInfo";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import DropdownMenu from "@components/common/DropdownMenu";
-import { BookmarkBlankIcon } from "@components/common/icon/BookmarkIcon";
+import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
 import useModal from "@lib/hooks/common/useModal";
 import useUserId from "@lib/hooks/article/useUserId";
 import { articleRequest } from "@lib/API/petBookAPI";

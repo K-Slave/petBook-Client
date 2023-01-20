@@ -49,6 +49,9 @@ export const Article = styled.article`
     .like {
       color: var(--primary);
     }
+    .scrap {
+      color: var(--black_01);
+    }
   }
   .Item_Row {
     display: flex;

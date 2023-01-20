@@ -1,11 +1,12 @@
+import PencilEditIcon from "@components/common/icon/PencilEdit";
 import Link from "next/link";
-import { StyledWriteButton, PencilIcon } from "./styled";
+import { StyledWriteButton } from "./styled";
 
 const WriteButton = () => {
   return (
     <Link href="/community/write" passHref>
       <StyledWriteButton>
-        <PencilIcon />
+        <PencilEditIcon />
         글쓰기
       </StyledWriteButton>
     </Link>
