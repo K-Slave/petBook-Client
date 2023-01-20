@@ -8,7 +8,7 @@ import { SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import useClickOutside from "@lib/hooks/common/useClickOutside";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
-import { Container } from "../CommunityModal/styled";
+import { Container } from "../../CommunityModal/styled";
 
 const prevElId = "swiper_back";
 const nextElId = "swiper_forward";
@@ -25,7 +25,7 @@ const ImageSliderModal = ({ images, initialImageIndex, closeModal }: Props) => {
   return (
     <Container>
       <SliderDiv ref={ref}>
-        <SlidePrevButton prevElId={prevElId} />
+        {images.length !== 1 && <SlidePrevButton prevElId={prevElId} />}
         <CustomSwiper
           loop
           initialSlide={initialImageIndex}
@@ -34,11 +34,11 @@ const ImageSliderModal = ({ images, initialImageIndex, closeModal }: Props) => {
         >
           {images.map((image) => (
             <SwiperSlide key={image.id}>
-              <Image src={image.imageUrl} alt="이미지" fill />
+              <Image src={image.imageUrl} alt="이미지" fill sizes="500px" />
             </SwiperSlide>
           ))}
         </CustomSwiper>
-        <SlideNextButton nextElId={nextElId} />
+        {images.length !== 1 && <SlideNextButton nextElId={nextElId} />}
       </SliderDiv>
     </Container>
   );
