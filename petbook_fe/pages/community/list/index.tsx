@@ -11,9 +11,9 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { useEffect } from "react";
 import styled from "styled-components";
 import ArticleListContainer from "@containers/article/ArticleListContainer";
-import cookies from "next-cookies";
 import { dehydrate } from "@tanstack/react-query";
 import createQueryClient from "@lib/utils/createQueryClient";
+import getToken from "@lib/utils/getToken";
 
 export const createArticleListResource = ({
   category,
@@ -75,35 +75,31 @@ const ArticleListPage = ({
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const allCookies = cookies(ctx);
-  const token = allCookies?.petBookUser;
-  if (token) {
-    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
-  }
+  const { token } = getToken(ctx, { decode: false });
+  const queryClient = createQueryClient();
   const { query } = ctx;
   const page = Number(query.page);
   const searchText = query.query as string | undefined;
-  const queryClient = createQueryClient();
   await queryClient.fetchQuery(CATEGORY_LIST.key, CATEGORY_LIST.fetcher);
+  let ARTICLE_LIST;
   if (query.category) {
     const [name, id] = (query.category as string).split("_");
-    const ARTICLE_LIST = createArticleListResource({
+    ARTICLE_LIST = createArticleListResource({
       category: { id: Number(id), name },
       searchText,
       page: Number.isNaN(page) ? 1 : page,
     });
-    await queryClient.fetchQuery(ARTICLE_LIST.key, ARTICLE_LIST.fetcher);
   } else {
-    const ARTICLE_LIST = createArticleListResource({
+    ARTICLE_LIST = createArticleListResource({
       category: { id: 0, name: "전체" },
       searchText,
       page: Number.isNaN(page) ? 1 : page,
     });
-    await queryClient.fetchQuery(ARTICLE_LIST.key, ARTICLE_LIST.fetcher);
   }
+  await queryClient.fetchQuery(ARTICLE_LIST.key, ARTICLE_LIST.fetcher);
   return {
     props: {
-      token: token || null,
+      token,
       dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
     },
   };

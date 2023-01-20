@@ -5,11 +5,10 @@ import BackButton from "@components/community/BackButton";
 import ArticleContainer from "@containers/article/ArticleContainer";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { createContext, useEffect } from "react";
-import jwtDecode from "jwt-decode";
 import { CommentListRequest } from "@lib/API/petBookAPI/types/commentRequest";
-import cookies from "next-cookies";
 import { dehydrate } from "@tanstack/react-query";
 import createQueryClient from "@lib/utils/createQueryClient";
+import getToken from "@lib/utils/getToken";
 
 export const getCommentListKey = (articleId: string): [string, string] => [
   "COMMENT_LIST",
@@ -64,14 +63,7 @@ const Main = styled.main`
 `;
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const allCookies = cookies(ctx);
-  const token = allCookies?.petBookUser;
-  let user: { id: string } | null = null;
-  if (token) {
-    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
-    user = jwtDecode<{ id: string }>(token);
-  }
-
+  const { token, user } = getToken(ctx, { decode: true });
   const { query } = ctx;
   const articleId = query.articleId as string;
   const ARTICLE_ITEM = createArticleResource(articleId);
@@ -83,7 +75,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   );
   return {
     props: {
-      token: token || null,
+      token,
       userId: user ? Number(user.id) : null,
       dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
     },
