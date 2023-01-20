@@ -6,11 +6,11 @@ import { BookmarkBlankIcon } from "@components/common/icon/BookmarkIcon";
 import useModal from "@lib/hooks/common/useModal";
 import useUserId from "@lib/hooks/article/useUserId";
 import { articleRequest } from "@lib/API/petBookAPI";
-import TagList from "../TagList";
-import { ArticleSectionBox, Spacer } from "./styled/styledArticleSection";
-import ImageSlider from "./ImageSlider";
-import LikeButton from "../LikeButton";
-import CommunityModal from "../CommunityModal";
+import TagList from "@components/community/TagList";
+import { ArticleSectionBox, Spacer } from "./styled";
+import ImageSlider from "../ImageSlider";
+import LikeButton from "../../LikeButton";
+import CommunityModal from "../../CommunityModal";
 
 const dummyImage =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
