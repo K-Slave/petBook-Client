@@ -12,7 +12,8 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import ArticleListContainer from "@containers/article/ArticleListContainer";
 import cookies from "next-cookies";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { dehydrate } from "@tanstack/react-query";
+import createQueryClient from "@lib/utils/createQueryClient";
 
 export const createArticleListResource = ({
   category,
@@ -82,14 +83,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { query } = ctx;
   const page = Number(query.page);
   const searchText = query.query as string | undefined;
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-        staleTime: 300000,
-      },
-    },
-  });
+  const queryClient = createQueryClient();
   await queryClient.fetchQuery(CATEGORY_LIST.key, CATEGORY_LIST.fetcher);
   if (query.category) {
     const [name, id] = (query.category as string).split("_");
