@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import jwt_decode from "jwt-decode";
+import jwtDecode from "jwt-decode";
 import type { AppContext, AppProps } from "next/app";
 import {
   dehydrate,
@@ -15,7 +15,6 @@ import { RecoilRoot } from "recoil";
 import queryParser from "@lib/API/parser/queryParser";
 import HtmlHeader from "@components/common/HtmlHeader";
 import Modal from "@components/common/Modal";
-import { Router } from "next/router";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import type { Key } from "@lib/hooks/common/useResource";
 import localConsole from "@lib/utils/localConsole";
@@ -30,20 +29,12 @@ import "../styles/Swiper.scss";
 
 let serverData = "";
 
-type DehydratedAppProps = AppProps & {
-  initProps: {
-    router: Router;
-    dehydratedState: DehydratedState;
-    token: string;
-  };
-};
+type DehydratedAppProps = AppProps<{
+  dehydratedState: DehydratedState;
+  token: string;
+}>;
 
-const NextApp = ({
-  Component,
-  initProps,
-  router,
-  pageProps,
-}: DehydratedAppProps) => {
+const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -56,8 +47,8 @@ const NextApp = ({
       })
   );
 
-  if (initProps.token && typeof window === "undefined") {
-    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${initProps.token}`;
+  if (pageProps.token && typeof window === "undefined") {
+    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${pageProps.token}`;
   }
 
   if (process.env.NEXT_PUBLIC_TESTER) {
@@ -68,7 +59,7 @@ const NextApp = ({
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Hydrate state={initProps.dehydratedState}>
+      <Hydrate state={pageProps.dehydratedState}>
         <RecoilRoot>
           <Loader />
           <HtmlHeader />
@@ -113,7 +104,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
         `petBookUser=${allCookies.petBookUser}; Path=/ SameSite=Strict; Max-Age=2592000; secure; httpOnly`
       );
 
-      serverData = jwt_decode(allCookies.petBookUser);
+      serverData = jwtDecode(allCookies.petBookUser);
 
       sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${allCookies.petBookUser}`;
     }
@@ -151,12 +142,11 @@ NextApp.getInitialProps = async (context: AppContext) => {
   }
 
   return {
-    initProps: {
-      router,
+    pageProps: {
       dehydratedState: dehydrate(queryClient),
       token: allCookies?.petBookUser,
+      ...pageProps,
     },
-    pageProps,
   };
 };
 
