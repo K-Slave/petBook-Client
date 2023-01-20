@@ -40,14 +40,7 @@ const ImageSliderModal = ({
         >
           {images.map((image) => (
             <SwiperSlide key={image.id}>
-              <Image
-                src={image.imageUrl}
-                alt={alt}
-                fill
-                sizes="500px"
-                placeholder="blur"
-                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAKCAYAAACjd+4vAAAAHElEQVR42mNsa26oZxgAwDhq8ajFoxaPWkwuAAC9bRRbgijH+QAAAABJRU5ErkJggg=="
-              />
+              <Image src={image.imageUrl} alt={alt} fill sizes="500px" />
             </SwiperSlide>
           ))}
         </CustomSwiper>

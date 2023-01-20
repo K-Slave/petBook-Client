@@ -41,8 +41,6 @@ const ImageSlider = ({ images, alt }: Props) => {
                   fill
                   priority
                   sizes="354px"
-                  placeholder="blur"
-                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAKCAYAAACjd+4vAAAAHElEQVR42mNsa26oZxgAwDhq8ajFoxaPWkwuAAC9bRRbgijH+QAAAABJRU5ErkJggg=="
                 />
               </SwiperSlide>
             ))}
