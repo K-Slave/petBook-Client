@@ -1,4 +1,4 @@
-import SearchIcon from "@components/common/icon/SearchIcon";
+import SearchIcon from "@components/common/icon/Search";
 import useSearchText from "@lib/hooks/article/useSearchText";
 import React, { KeyboardEventHandler, useEffect, useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";

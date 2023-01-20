@@ -3,13 +3,12 @@ import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import getRandomKey from "@lib/utils/getRandomKey";
 import DOMPurify from "isomorphic-dompurify";
 import React from "react";
-import {
-  HeartBlankIcon,
-  HeartFilledIcon,
-} from "@components/common/icon/HeartIcon";
-import { BookmarkBlankIcon } from "@components/common/icon/BookmarkIcon";
+import { HeartBlankIcon, HeartFilledIcon } from "@components/common/icon/Heart";
+import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
 import CommonInfo from "@components/community/CommonInfo";
 import Skeleton from "@components/common/Skeleton/Skeleton";
+import ChevronRight from "@components/common/icon/ChevronRight";
+import ChevronLeft from "@components/common/icon/ChevronLeft";
 import usePagination from "./usePagination";
 import useArticleList from "./useArticleList";
 import { ListDiv, Article, PageButton, BoxDiv, Text } from "./styled";
@@ -61,9 +60,9 @@ const Item = ({ article }: { article: ArticleResponse }) => {
         />
         <div className="Item_Row">
           <div className="Item_Stats">
-            <div>
+            <div className={isLike ? "like" : ""}>
               {isLike ? <HeartFilledIcon /> : <HeartBlankIcon />}
-              <span className={isLike ? "like" : ""}>{stat.likeCount}</span>
+              <span>{stat.likeCount}</span>
             </div>
             <div>
               <BookmarkBlankIcon />
@@ -80,7 +79,7 @@ const Item = ({ article }: { article: ArticleResponse }) => {
 // -----------------------------------------------------------------
 
 const PageButtonBox = ({ totalPages }: { totalPages: number }) => {
-  const btnNum = 10;
+  const btnNum = 2;
   const { currentPage, changeCurrentPage, offset } = usePagination({
     totalPages,
     btnNum,
@@ -102,21 +101,7 @@ const PageButtonBox = ({ totalPages }: { totalPages: number }) => {
     <BoxDiv>
       {offset !== 1 && (
         <button onClick={onClickPrevButton} type="button">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M15 18L9 12L15 6"
-              stroke="black"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <ChevronLeft />
         </button>
       )}
       {Array(totalPages + 1)
@@ -134,21 +119,7 @@ const PageButtonBox = ({ totalPages }: { totalPages: number }) => {
         ))}
       {btnNum + offset <= totalPages && (
         <button onClick={onClickNextButton} type="button">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M9 18L15 12L9 6"
-              stroke="black"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <ChevronRight />
         </button>
       )}
     </BoxDiv>

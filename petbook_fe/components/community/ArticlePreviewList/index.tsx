@@ -4,7 +4,7 @@ import { createResourceByCategory } from "@pages/community";
 import Link from "next/link";
 import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
-import { BookmarkBlankIcon } from "@components/common/icon/BookmarkIcon";
+import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
 import { Article, BoxGrid, List } from "./styled";
 
 const ArticlePreviewList = () => {
