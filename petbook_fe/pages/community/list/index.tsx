@@ -80,22 +80,15 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { query } = ctx;
   const page = Number(query.page);
   const searchText = query.query as string | undefined;
+  const [name, id] = query.category
+    ? (query.category as string).split("_")
+    : ["전체", 0];
+  const ARTICLE_LIST = createArticleListResource({
+    category: { id: Number(id), name },
+    searchText,
+    page: Number.isNaN(page) ? 1 : page,
+  });
   await queryClient.fetchQuery(CATEGORY_LIST.key, CATEGORY_LIST.fetcher);
-  let ARTICLE_LIST;
-  if (query.category) {
-    const [name, id] = (query.category as string).split("_");
-    ARTICLE_LIST = createArticleListResource({
-      category: { id: Number(id), name },
-      searchText,
-      page: Number.isNaN(page) ? 1 : page,
-    });
-  } else {
-    ARTICLE_LIST = createArticleListResource({
-      category: { id: 0, name: "전체" },
-      searchText,
-      page: Number.isNaN(page) ? 1 : page,
-    });
-  }
   await queryClient.fetchQuery(ARTICLE_LIST.key, ARTICLE_LIST.fetcher);
   return {
     props: {
