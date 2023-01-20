@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import jwtDecode from "jwt-decode";
 import type { AppContext, AppProps } from "next/app";
 import {
   dehydrate,
   DehydratedState,
   Hydrate,
-  QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import cookies from "next-cookies";
 import urlTokenRedirect from "@lib/API/parser/urlTokenRedirect";
 import Loader from "@components/common/loader/loader";
 import { RecoilRoot } from "recoil";
@@ -20,13 +17,14 @@ import type { Key } from "@lib/hooks/common/useResource";
 import localConsole from "@lib/utils/localConsole";
 import CommonHeader from "@components/common/CommonHeader";
 import { itrMap } from "@lib/utils/iterableFunctions";
+import createQueryClient from "@lib/utils/createQueryClient";
+import getToken from "@lib/utils/getToken";
 import "swiper/scss";
 import "swiper/scss/navigation";
 import "swiper/scss/pagination";
 import "../styles/Globals.scss";
 import "../styles/Icon.scss";
 import "../styles/Swiper.scss";
-import createQueryClient from "@lib/utils/createQueryClient";
 
 let serverData = "";
 
@@ -65,10 +63,9 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
 
 NextApp.getInitialProps = async (context: AppContext) => {
   const { Component, router, ctx } = context;
-  const allCookies = cookies(ctx);
-  let pageProps = {};
-
+  const { token, user } = getToken(ctx, { decode: true });
   const queryClient = createQueryClient();
+  let pageProps = {};
 
   try {
     // 소셜 로그인시, url 에 토큰이 붙어있는경우 쿠키로 변환하여 리다이렉트 시켜쥼
@@ -81,16 +78,15 @@ NextApp.getInitialProps = async (context: AppContext) => {
 
     // 쿠키 획득
 
-    if (allCookies && allCookies.petBookUser) {
+    if (token) {
       // 보안 옵션을 추가한 쿠키를 현재 접속 시각으로부터 30일 갱신
       ctx.res?.setHeader(
         "Set-Cookie",
-        `petBookUser=${allCookies.petBookUser}; Path=/ SameSite=Strict; Max-Age=2592000; secure; httpOnly`
+        `petBookUser=${token}; Path=/ SameSite=Strict; Max-Age=2592000; secure; httpOnly`
       );
-
-      serverData = jwtDecode(allCookies.petBookUser);
-
-      sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${allCookies.petBookUser}`;
+    }
+    if (user) {
+      serverData = user.id;
     }
 
     localConsole?.log(serverData, "serverData");
@@ -114,7 +110,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
     if (requiredResources) {
       await Promise.all(
         itrMap(
-          (resource: { key: any[]; fetcher: () => void }) =>
+          (resource: { key: Key; fetcher: () => void }) =>
             queryParser(resource, query, queryClient),
           requiredResources
         )
@@ -128,7 +124,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
   return {
     pageProps: {
       dehydratedState: dehydrate(queryClient),
-      token: allCookies?.petBookUser,
+      token,
       ...pageProps,
     },
   };
