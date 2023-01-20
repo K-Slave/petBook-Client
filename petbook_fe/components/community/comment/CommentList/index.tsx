@@ -30,7 +30,7 @@ const CommentList = ({ Item }: Props) => {
   const targetRef = useRef<HTMLDivElement | null>(null);
   const [hasNextPage, setHasNextPage] = useState(true);
   const queryClient = useQueryClient();
-  const COMMENT_LIST = createCommentListResouce(Number(articleId));
+  const COMMENT_LIST = createCommentListResouce(articleId);
   const { data, fetchNextPage } = useInfiniteQuery(
     COMMENT_LIST.key,
     ({ pageParam = 0 }) => COMMENT_LIST.fetcher(pageParam),

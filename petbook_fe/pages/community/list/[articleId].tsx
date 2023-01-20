@@ -5,22 +5,24 @@ import BackButton from "@components/community/BackButton";
 import ArticleContainer from "@containers/article/ArticleContainer";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { createContext, useEffect } from "react";
-import { CommentListRequest } from "@lib/API/petBookAPI/types/commentRequest";
-import { dehydrate } from "@tanstack/react-query";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import createQueryClient from "@lib/utils/createQueryClient";
 import getToken from "@lib/utils/getToken";
 
-export const getCommentListKey = (articleId: string): [string, string] => [
-  "COMMENT_LIST",
-  articleId,
-];
-export const createCommentListResouce = (
-  articleId: CommentListRequest["params"]["articleId"]
-) => ({
-  key: getCommentListKey(String(articleId)),
+export const invalidateCommentList = async (
+  queryClient: QueryClient,
+  articleId: string
+) => {
+  await queryClient.invalidateQueries({
+    queryKey: ["COMMENT_LIST", articleId],
+  });
+};
+
+export const createCommentListResouce = (articleId: string) => ({
+  key: ["COMMENT_LIST", articleId] as [string, string],
   fetcher: (page = 0) =>
     commentRequest.comment_list({
-      articleId,
+      articleId: Number(articleId),
       page: page === undefined ? 0 : page,
       size: 20,
     }),
@@ -67,7 +69,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { query } = ctx;
   const articleId = query.articleId as string;
   const ARTICLE_ITEM = createArticleResource(articleId);
-  const COMMENT_LIST = createCommentListResouce(Number(articleId));
+  const COMMENT_LIST = createCommentListResouce(articleId);
   const queryClient = createQueryClient();
   await queryClient.fetchQuery(ARTICLE_ITEM.key, ARTICLE_ITEM.fetcher);
   await queryClient.fetchInfiniteQuery(COMMENT_LIST.key, () =>

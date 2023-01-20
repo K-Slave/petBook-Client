@@ -9,7 +9,7 @@ import useChangeComment from "@lib/hooks/comment/useChangeComment";
 import useSubmitComment from "@lib/hooks/comment/useSubmitComment";
 import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
 import { useQueryClient } from "@tanstack/react-query";
-import { getCommentListKey } from "@pages/community/list/[articleId]";
+import { invalidateCommentList } from "@pages/community/list/[articleId]";
 import { ItemProps } from "../CommentList";
 import {
   Form,
@@ -160,9 +160,7 @@ const EditForm = ({ content, id, articleId, clickCancelButton }: Props) => {
     if (textareaRef && textareaRef.current) {
       textareaRef.current.value = "";
     }
-    await queryClient.invalidateQueries({
-      queryKey: getCommentListKey(String(articleId)),
-    });
+    await invalidateCommentList(queryClient, String(articleId));
     clickCancelButton();
   });
   return (

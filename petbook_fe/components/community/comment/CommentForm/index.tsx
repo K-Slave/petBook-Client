@@ -1,6 +1,6 @@
 import useChangeComment from "@lib/hooks/comment/useChangeComment";
 import useSubmitComment from "@lib/hooks/comment/useSubmitComment";
-import { getCommentListKey } from "@pages/community/list/[articleId]";
+import { invalidateCommentList } from "@pages/community/list/[articleId]";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useRef } from "react";
@@ -20,9 +20,7 @@ const CommentForm = ({ initialContent }: { initialContent?: string }) => {
   const { onSubmit } = useSubmitComment(async () => {
     if (textareaRef && textareaRef.current) {
       textareaRef.current.value = "";
-      await queryClient.invalidateQueries({
-        queryKey: getCommentListKey(query.articleId as string),
-      });
+      await invalidateCommentList(queryClient, query.articleId as string);
     }
   });
   return (
