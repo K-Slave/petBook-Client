@@ -28,5 +28,8 @@ export const Item = styled.li`
       display: flex;
       align-items: center;
     }
+    svg {
+      color: var(--black_03);
+    }
   }
 `;
