@@ -1,9 +1,6 @@
 import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
 import useLikeDebounce from "@components/community/LikeButton/useLikeDebounce";
-import {
-  HeartFilledIcon,
-  HeartBlankIcon,
-} from "@components/common/icon/HeartIcon";
+import { HeartFilledIcon, HeartBlankIcon } from "@components/common/icon/Heart";
 import { LikeRequest } from "@lib/API/petBookAPI/types/likeRequest";
 import LikeButtonBox from "./styled";
 
@@ -18,14 +15,14 @@ const LikeButton = ({
   liked,
   likeCount,
   createLike,
-  deleteLike
+  deleteLike,
 }: LikeButtonProps) => {
   const { isLiked, clickLikeButton, computedLikeCount } = useLikeDebounce({
     id,
     liked,
     likeCount,
     createLike,
-    deleteLike
+    deleteLike,
   });
   return (
     <LikeButtonBox

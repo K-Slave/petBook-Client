@@ -1,6 +1,7 @@
 import useClickOutside from "@lib/hooks/common/useClickOutside";
 import React, { MouseEventHandler, useRef, useState } from "react";
 import styled from "styled-components";
+import ThreeDotsVerticalIcon from "./icon/ThreeDotsVertical";
 
 interface Props {
   menuList: {
@@ -17,7 +18,9 @@ const DropdownMenu = ({ menuList }: Props) => {
   useClickOutside(ref, onClose);
   return (
     <MenuBox ref={ref}>
-      <MenuIcon type="button" onClick={onToggle} />
+      <MenuButton type="button" onClick={onToggle}>
+        <ThreeDotsVerticalIcon />
+      </MenuButton>
       {show && (
         <MenuList>
           {menuList.map(({ name, onClick }) => (
@@ -37,10 +40,10 @@ const MenuBox = styled.div`
   height: 24px;
 `;
 
-const MenuIcon = styled.button`
+const MenuButton = styled.button`
   width: 100%;
   height: 100%;
-  background: url("/img/common/menu_dot.svg") no-repeat center center;
+  color: #92928e;
 `;
 
 const MenuList = styled.div`

@@ -1,7 +1,7 @@
 import DropdownMenu from "@components/common/DropdownMenu";
 import { BsArrowReturnRight } from "react-icons/bs";
 import CommonInfo from "@components/community/CommonInfo";
-import { BookmarkBlankIcon } from "@components/common/icon/BookmarkIcon";
+import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
 import useUserId from "@lib/hooks/article/useUserId";
 import { commentRequest } from "@lib/API/petBookAPI";
 import { useRef, useState } from "react";

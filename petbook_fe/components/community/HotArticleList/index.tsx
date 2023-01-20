@@ -1,5 +1,5 @@
-import { BookmarkBlankIcon } from "@components/common/icon/BookmarkIcon";
-import { HeartBlankIcon } from "@components/common/icon/HeartIcon";
+import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
+import { HeartBlankIcon } from "@components/common/icon/Heart";
 import useResource from "@lib/hooks/common/useResource";
 import { HOT_ARTICLE_LIST } from "@pages/community";
 import { List, Item } from "./styled";
