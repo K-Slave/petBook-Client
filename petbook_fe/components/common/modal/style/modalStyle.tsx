@@ -30,6 +30,12 @@ export const ModalItemWrap = styled.section`
   padding: 48px 32px 30px;
   max-width: 464px;
   width: calc(100% - 16px);
+
+  img {
+    margin: 0 auto;
+    width: 147px;
+    height: 26px;
+  }
 `;
 export const ModalContentsContainer = styled.div`
   margin-top: 16px;
