@@ -1,29 +1,57 @@
 import {
   registerFormState,
   CheckNicknameState,
-  validationRegisterState,
 } from "@atoms/pageAtoms/login/userState";
-import React, { ChangeEventHandler, useEffect, useState } from "react";
+import { useSetResource } from "@lib/hooks/common/useResource";
+import React, { FunctionComponent } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
-// style
 import { IconBox, InputBox } from "./styled/styledRegisterForm";
 
-interface LoginProps {
+interface RegisterProps {
   current: string;
   axiosValue: string;
   IconType: string;
+  onKeyPress: (e: any) => void;
 }
+
+const RegisterInput: FunctionComponent<RegisterProps> = ({
+  current,
+  axiosValue,
+  IconType,
+  onKeyPress,
+}) => {
+  // const onChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  //   handleInputChange(event.target.value);
+  // };
+
+  return (
+    <article>
+      <InputBox>
+        <IconBox>
+          <div className={`${IconType}`} />
+        </IconBox>
+        <label htmlFor={`${current}`}>
+          <input
+            type={`${
+              axiosValue === "password_check" ? "password" : axiosValue
+            }`}
+            id={`${axiosValue} `}
+            placeholder={`${current}`}
+            onKeyUp={onKeyPress}
+          />
+        </label>
+        {axiosValue === "nickname" && (
+          <RegisterNicnameCheckButton axiosValue={axiosValue} />
+        )}
+      </InputBox>
+    </article>
+  );
+};
 
 interface buttonValue {
   axiosValue: string;
 }
-
-/**
- *
- * @param param0 인증 / 중복확인 버튼
- * @returns
- */
 const RegisterNicnameCheckButton = ({ axiosValue }: buttonValue) => {
   const checkNicknameFrom = useSetRecoilState(CheckNicknameState);
   const registerForm = useRecoilValue(registerFormState);
@@ -65,58 +93,4 @@ const RegisterNicnameCheckButton = ({ axiosValue }: buttonValue) => {
     </button>
   );
 };
-const RegisterInput = ({ current, axiosValue, IconType }: LoginProps) => {
-  const registerForm = useSetRecoilState(registerFormState); // form 저장
-  // form 버튼상태 저장 (이메일) => 유효성 들어가면서 삭제해야함
-  const validationRegister = useSetRecoilState(validationRegisterState);
-
-  const [valueCheck, setValueCheck] = useState(false);
-
-  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    e.preventDefault();
-    registerForm((user) => ({
-      ...user,
-      [`${axiosValue}`]: e.target.value,
-    }));
-
-    let checkVal = e.target.value;
-
-    if (checkVal === "") {
-      setValueCheck(false);
-    } else if (axiosValue !== "nickname") {
-      setValueCheck(true);
-    }
-  };
-
-  useEffect(() => {
-    validationRegister((val) => ({
-      ...val,
-      [`${axiosValue}`]: valueCheck,
-    }));
-  }, [valueCheck]);
-
-  return (
-    <article>
-      <InputBox>
-        <IconBox>
-          <div className={`${IconType}`} />
-        </IconBox>
-        <label htmlFor={`${current}`}>
-          <input
-            type={`${
-              axiosValue === "password_check" ? "password" : axiosValue
-            }`}
-            id={`${axiosValue} `}
-            placeholder={`${current}`}
-            onChange={onChange}
-          />
-        </label>
-        {axiosValue === "nickname" && (
-          <RegisterNicnameCheckButton axiosValue={axiosValue} />
-        )}
-      </InputBox>
-    </article>
-  );
-};
-
 export default RegisterInput;
