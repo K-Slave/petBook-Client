@@ -1,53 +1,97 @@
-import { useEffect, useState } from "react";
-import RegisterInputBox from "@components/register/RegisterInputBox";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import React, { ChangeEventHandler, useEffect, useRef, useState } from "react";
+import { registerFormState } from "@atoms/pageAtoms/login/userState";
+
+import useSelectorState from "@lib/hooks/common/useSelectorState";
+import { passwordCheck } from "@lib/utils/checkValidationRegister";
 import {
-  registerFormState,
-  validationRegisterState,
-} from "@atoms/pageAtoms/login/userState";
-import { RegisterInfoText, SpaceTopWrap } from "./styled/styledRegisterForm";
+  IconBox,
+  InputBox,
+  RegisterInfoText,
+  SpaceTopWrap,
+} from "./styled/styledRegisterForm";
 
 const RegisterPasswordForm = () => {
   const [success, setSuccess] = useState(false);
-  const registerForm = useRecoilValue(registerFormState);
-  const validationRegister = useSetRecoilState(validationRegisterState);
+  const [passInfoMsg, setPassInfoMsg] = useState("");
+  const pass2Ref = useRef<HTMLInputElement | null>(null);
+  const [checkPass, setCheckPass] = useState(false);
+  const [passval, setPass] = useState({
+    pass1: "",
+    pass2: "",
+  });
+  const [registerForm, setRegisterForm] = useSelectorState(registerFormState, {
+    password: "",
+  });
 
-  // pass1 * pass2 동일시 체크
+  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    e.preventDefault();
+    setPass((pass) => ({
+      ...pass,
+      [`${e.target.id}`]: e.target.value,
+    }));
+  };
+  const onBlur: ChangeEventHandler<HTMLInputElement> = () => {
+    let checkValidationText = passwordCheck(passval.pass1);
+    if (checkValidationText === "") {
+      setSuccess(false);
+      setCheckPass(true);
+    } else {
+      setPassInfoMsg(checkValidationText);
+      setSuccess(true);
+      setCheckPass(false);
+      setTimeout(() => {
+        if (pass2Ref && pass2Ref.current) {
+          pass2Ref.current.blur();
+        }
+      }, 0);
+
+      setPass((el) => ({ ...el, pass2: "" }));
+    }
+  };
+
   useEffect(() => {
     let successState = false;
-    if (registerForm.password === registerForm.password_check) {
+    if (passval.pass1 === passval.pass2 && passval.pass1 !== "") {
       successState = true;
     } else {
       successState = false;
     }
+    setPassInfoMsg("비밀번호가 일치합니다");
     setSuccess(successState);
-  }, [registerForm]);
-
-  // 성공시 회원가입 버튼 활성
-  useEffect(() => {
-    validationRegister((el) => ({ ...el, password: success }));
-  }, [success]);
-
-  const handleInputChange = (e: string) => {
-    console.log(e);
-  };
+  }, [passval.pass2]);
 
   return (
     <SpaceTopWrap>
-      <RegisterInputBox
-        handleInputChange={handleInputChange}
-        IconType="Password"
-        axiosValue="password"
-        current="비밀번호를 입력해주세요.(대소문자/숫자/특수문자 8~20자)"
-      />
-      <RegisterInputBox
-        handleInputChange={handleInputChange}
-        IconType="Password_Check_Disabled"
-        axiosValue="password_check"
-        current="비밀번호를 입력해주세요.(대소문자/숫자/특수문자 8~20자)"
-      />
+      <InputBox>
+        <IconBox>
+          <div className="Password" />
+        </IconBox>
+        <input
+          id="pass1"
+          type="Password"
+          value={passval.pass1}
+          placeholder="비밀번호를 입력해주세요.(대소문자/숫자/특수문자 8~20자)"
+          onChange={onChange}
+          onBlur={onBlur}
+          maxLength={20}
+        />
+      </InputBox>
+      <InputBox checkPass={checkPass}>
+        <IconBox>
+          <div className="Password_Check_Disabled" />
+        </IconBox>
+        <input
+          id="pass2"
+          type="Password"
+          value={passval.pass2}
+          placeholder="비밀번호를 확인해주세요.(대소문자/숫자/특수문자 8~20자)"
+          onChange={onChange}
+          maxLength={20}
+          ref={pass2Ref}
+        />
+      </InputBox>
       <RegisterInfoText state={success}>
-        <p>비밀번호가 일치합니다</p>
+        <p>{passInfoMsg}</p>
       </RegisterInfoText>
     </SpaceTopWrap>
   );
