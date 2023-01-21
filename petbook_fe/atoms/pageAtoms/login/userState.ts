@@ -6,6 +6,7 @@ export const registerFormState = atom<{
   password_check?: string;
   name?: string;
   nickname: string;
+  agree?: string;
 }>({
   key: "registerFormState",
   default: {
