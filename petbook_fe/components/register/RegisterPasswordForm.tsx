@@ -34,11 +34,11 @@ const RegisterPasswordForm = () => {
     let checkValidationText = passwordCheck(passval.pass1);
     if (checkValidationText === "") {
       setSuccess(false);
-      setCheckPass(true);
+      setCheckPass(true); // 두번째 필드
     } else {
       setPassInfoMsg(checkValidationText);
       setSuccess(true);
-      setCheckPass(false);
+      setCheckPass(false); // 두번째 필드
       setTimeout(() => {
         if (pass2Ref && pass2Ref.current) {
           pass2Ref.current.blur();
