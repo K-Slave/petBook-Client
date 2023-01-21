@@ -21,10 +21,6 @@ const RegisterInput: FunctionComponent<RegisterProps> = ({
   IconType,
   onKeyPress,
 }) => {
-  // const onChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
-  //   handleInputChange(event.target.value);
-  // };
-
   return (
     <article>
       <InputBox>

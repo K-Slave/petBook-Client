@@ -34,27 +34,21 @@ export function passwordCheck(value: string) {
   // # 해당 출력문은 비밀번호 input box 입력 완료(enter 키) 혹은 다른 컴포넌트 클릭 시 출력
   let msg = "";
 
-  const eng = /(?=.?[A-Z])(?=.?[a-z])/;
-  const number = /[0-9]/;
-  const star = /(?=.?[#?!@$ %^&*-])/;
-  const lenght = /^.{8,20}$/;
-  const empty = /\s/g;
+  let engCk = value.match(/(?=.?[A-Z])(?=.?[a-z])/);
+  let numberCk = value.match(/[0-9]/);
+  let starCk = value.match(/(?=.?[#?!@$ %^&*-])/);
+  let lengthCk = value.match(/^.{8,20}$/);
+  let emptyCk = value.match(/\s/g);
 
-  let engCk = value.match(eng) === null ? false : (true as boolean);
-  let numberCk = value.match(number) === null ? false : (true as boolean);
-  let starCk = value.match(star) === null ? false : (true as boolean);
-  let lengthCk = value.match(lenght) === null ? false : (true as boolean);
-  let emptyCk = value.match(lenght) === null ? false : (true as boolean);
-
-  if (engCk === false) {
+  if (engCk === null) {
     msg = "대소문자를 모두 포함하여야해요!";
-  } else if (numberCk === false) {
+  } else if (numberCk === null) {
     msg = "숫자를 포함하여야해요!";
-  } else if (starCk === false) {
+  } else if (starCk === null) {
     msg = "특수문자를 포함하여야해요!";
-  } else if (lengthCk === false) {
+  } else if (lengthCk === null) {
     msg = "비밀번호는 자리 8~20자 사이여야해요!";
-  } else if (emptyCk === false) {
+  } else if (emptyCk !== null) {
     msg = "공백이 없어야해요!";
   } else {
     msg = "";

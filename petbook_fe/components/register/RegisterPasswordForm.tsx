@@ -2,7 +2,7 @@ import React, { ChangeEventHandler, useEffect, useRef, useState } from "react";
 import { registerFormState } from "@atoms/pageAtoms/login/userState";
 
 import useSelectorState from "@lib/hooks/common/useSelectorState";
-import { passwordCheck } from "@lib/utils/checkValidationRegister";
+import { passwordCheck } from "@lib/utils/validation/checkValidationRegister";
 import {
   IconBox,
   InputBox,
@@ -27,17 +27,13 @@ const RegisterPasswordForm = () => {
     e.preventDefault();
     setPass((pass) => ({
       ...pass,
-      [`${e.target.id}`]: e.target.value,
+      pass2: e.target.value,
     }));
   };
   const onChangePass1: ChangeEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
-    setPass((el) => ({ ...el, pass2: "" }));
+    setPass({ pass1: e.target.value, pass2: "" });
     setCheckPass(false);
-    setPass((pass) => ({
-      ...pass,
-      [`${e.target.id}`]: e.target.value,
-    }));
   };
   const onBlur: ChangeEventHandler<HTMLInputElement> = () => {
     let checkValidationText = passwordCheck(passval.pass1);
@@ -62,13 +58,13 @@ const RegisterPasswordForm = () => {
     let successState = false;
     if (passval.pass1 === passval.pass2 && passval.pass1 !== "") {
       successState = true;
-      setRegisterForm((el) => ({
-        ...el,
-        password: successState === true ? passval.pass2 : "",
-      }));
     } else {
       successState = false;
     }
+    setRegisterForm((el) => ({
+      ...el,
+      password: successState === true ? passval.pass2 : "",
+    }));
     setSuccess(successState);
     setPassInfoMsg("비밀번호가 일치합니다");
   }, [passval.pass2]);
