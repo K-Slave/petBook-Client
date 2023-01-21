@@ -5,9 +5,9 @@ import {
   registerFormState,
   validationRegisterState,
 } from "@atoms/pageAtoms/login/userState";
-import { RegisterInfoText } from "./styled/styledRegisterForm";
+import { RegisterInfoText, SpaceTopWrap } from "./styled/styledRegisterForm";
 
-const PasswordInput = () => {
+const RegisterPasswordForm = () => {
   const [success, setSuccess] = useState(false);
   const registerForm = useRecoilValue(registerFormState);
   const validationRegister = useSetRecoilState(validationRegisterState);
@@ -28,14 +28,20 @@ const PasswordInput = () => {
     validationRegister((el) => ({ ...el, password: success }));
   }, [success]);
 
+  const handleInputChange = (e: string) => {
+    console.log(e);
+  };
+
   return (
-    <>
+    <SpaceTopWrap>
       <RegisterInputBox
+        handleInputChange={handleInputChange}
         IconType="Password"
         axiosValue="password"
         current="비밀번호를 입력해주세요.(대소문자/숫자/특수문자 8~20자)"
       />
       <RegisterInputBox
+        handleInputChange={handleInputChange}
         IconType="Password_Check_Disabled"
         axiosValue="password_check"
         current="비밀번호를 입력해주세요.(대소문자/숫자/특수문자 8~20자)"
@@ -43,8 +49,8 @@ const PasswordInput = () => {
       <RegisterInfoText state={success}>
         <p>비밀번호가 일치합니다</p>
       </RegisterInfoText>
-    </>
+    </SpaceTopWrap>
   );
 };
 
-export default PasswordInput;
+export default RegisterPasswordForm;

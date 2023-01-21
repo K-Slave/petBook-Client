@@ -1,85 +1,123 @@
-import { useEffect, useState } from "react";
-import RegisterInputBox from "@components/register/RegisterInputBox";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { ChangeEventHandler, useEffect, useState } from "react";
 import { useSetResource } from "@lib/hooks/common/useResource";
 import { REGISTER_CHECK_NICKNAME } from "@components/register/RegisterForm";
 import { UserCheckNickname } from "@lib/API/petBookAPI/types/userRequest";
+import { registerFormState } from "@atoms/pageAtoms/login/userState";
+import useSelectorState from "@lib/hooks/common/useSelectorState";
+
 import {
-  CheckNicknameState,
-  registerFormState,
-  validationRegisterState,
-} from "@atoms/pageAtoms/login/userState";
-import { RegisterInfoText } from "./styled/styledRegisterForm";
+  IconBox,
+  InputBox,
+  RegisterInfoText,
+  SpaceTopWrap,
+} from "./styled/styledRegisterForm";
 
 const RegisterNameForm = () => {
-  const [nickNameState, setNicknameState] = useState<{
-    active: boolean;
-    infoText: string;
-  }>({
+  return (
+    <SpaceTopWrap>
+      <RegisterNameForm.RegisterSetName />
+      <RegisterNameForm.RegisterSetNickname />
+    </SpaceTopWrap>
+  );
+};
+
+interface nicknameState {
+  active: boolean;
+  infoText: string;
+}
+
+const RegisterSetName = () => {
+  const [registerForm, setRegisterForm] = useSelectorState(registerFormState, {
+    name: "",
+  });
+  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setRegisterForm((el) => ({ ...el, name: e.target.value }));
+  };
+  return (
+    <InputBox>
+      <IconBox>
+        <div className="Name" />
+      </IconBox>
+      <input
+        type="name"
+        value={registerForm.name}
+        placeholder="가입자 이름을 입력해주세요."
+        onChange={onChange}
+      />
+    </InputBox>
+  );
+};
+
+const RegisterSetNickname = () => {
+  const [nickNameState, setNicknameState] = useState<nicknameState>({
     active: false,
     infoText: "",
   });
-
-  const checkNickname = useRecoilValue(CheckNicknameState);
-  const registerForm = useRecoilValue(registerFormState);
-  const validationRegister = useSetRecoilState(validationRegisterState);
-
+  const [registerForm, setRegisterForm] = useSelectorState(registerFormState, {
+    nickname: "",
+  });
   const { data, mutate } = useSetResource(REGISTER_CHECK_NICKNAME);
 
-  // FIX 전체코드 검사.. 수정 필요 test 중
-  useEffect(() => {
-    SetButton(false);
-  }, [registerForm]);
-
-  // 닉네임 체크 버튼 누른경우 감지 api 호출 > 검사
-  useEffect(() => {
-    console.log("검사 test");
-    if (checkNickname.nickname !== "") {
-      mutate(checkNickname);
-    }
-  }, [checkNickname]);
-
-  // 상태로 받은 data 성공여부 전달 > 유효성 텍스트 출력
-  useEffect(() => {
-    const nicknameData = data?.data as UserCheckNickname;
-
-    if (nicknameData?.nicknameExist) {
-      SetButton(false);
-    } else {
-      SetButton(true);
-    }
-  }, [data]);
-
-  // UI 핸들링..
   const SetButton = (value: boolean) => {
-    console.log(value);
-    validationRegister((val) => ({
-      ...val,
-      nickname: value,
-    }));
     setNicknameState({
       active: value,
       infoText: value === true ? "사용 가능한 닉네임 입니다." : "",
     });
   };
 
+  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    SetButton(false);
+    setRegisterForm((el) => ({
+      ...el,
+      nickname: e.target.value,
+    }));
+  };
+
+  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (registerForm.nickname === "") {
+      alert("닉네임을 입력해주세요");
+      return;
+    }
+    if (registerForm.nickname.length < 3) {
+      alert("닉네임은 세글자 이상 입력해주세요");
+      return;
+    }
+    mutate({ nickname: registerForm.nickname });
+  };
+
+  useEffect(() => {
+    const nicknameData = data?.data as UserCheckNickname; // 호출
+    if (nicknameData?.nicknameExist || nicknameData === undefined) {
+      SetButton(false);
+    } else {
+      SetButton(true);
+    }
+  }, [data]);
+
   return (
     <>
-      <RegisterInputBox
-        IconType="Name"
-        axiosValue="name"
-        current="가입자 이름을 입력해주세요."
-      />
-      <RegisterInputBox
-        IconType="Nicname"
-        axiosValue="nickname"
-        current="닉네임을 입력해주세요."
-      />
+      <InputBox>
+        <IconBox>
+          <div className="Nicname" />
+        </IconBox>
+        <input
+          type="nickname"
+          value={registerForm.nickname}
+          placeholder="닉네임을 입력해주세요."
+          onChange={onChange}
+        />
+        <button type="button" onClick={onClick} className="emphasis">
+          중복확인
+        </button>
+      </InputBox>
       <RegisterInfoText state={nickNameState.active}>
         <p>{nickNameState.infoText}</p>
       </RegisterInfoText>
     </>
   );
 };
+RegisterNameForm.RegisterSetName = RegisterSetName;
+RegisterNameForm.RegisterSetNickname = RegisterSetNickname;
 
 export default RegisterNameForm;
