@@ -55,6 +55,7 @@ export const QnaItemBubble = styled.div<{ isEditing: "true" | "" }>`
     isEditing &&
     css`
       border: 1px solid var(--black_04);
+      box-shadow: 0px 20px 16px -20px #d6d3c5;
       &:before {
         content: "";
         position: absolute;
@@ -90,7 +91,12 @@ export const NormalItemDiv = styled.div<{ isEditing: "true" | "" }>`
   gap: 14px;
   background-color: white;
   border-radius: 16px;
-  border: ${({ isEditing }) => isEditing && "1px solid var(--black_04)"};
+  ${({ isEditing }) =>
+    isEditing &&
+    css`
+      border: 1px solid var(--black_04);
+      box-shadow: 0px 20px 16px -20px #d6d3c5;
+    `}
   & > div {
     width: 100%;
   }
