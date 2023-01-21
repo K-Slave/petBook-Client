@@ -2,7 +2,6 @@ import { useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-// custom
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 import { registerRequest } from "@lib/API/petBookAPI";
 import {
@@ -72,11 +71,6 @@ const Register = () => {
           axiosValue="email"
           current="이메일을 입력해주세요"
         />
-        {/* <RegisterInputBox
-            IconType="Login_Passcode_Disabled"
-            axiosValue="email_num"
-            current="인증번호 4자리"
-          /> */}
         <RegisterInfoText state={false}>
           <p>인증이 완료되었습니다</p>
         </RegisterInfoText>
@@ -93,6 +87,7 @@ const Register = () => {
 const RegisterButton = () => {
   const registerForm = useRecoilValue(registerFormState);
   const validationRegister = useRecoilValue(validationRegisterState);
+
   const [validation, setValidation] = useState(false);
 
   const { data, isSuccess, isError, error, mutate } =
@@ -100,15 +95,17 @@ const RegisterButton = () => {
 
   const Sign = () => {
     const { password_check, name, ...newObj } = registerForm;
-
     mutate(newObj);
   };
+
+  // 버튼 활성 구독상태 UI 적용
   useEffect(() => {
     let newArr = Object.values(validationRegister);
     let active = newArr.every((el) => el === true);
     setValidation(active);
   }, [validationRegister]);
 
+  // data 구독상태
   useEffect(() => {
     if (isSuccess) {
       navigator({ url: "/login" });
@@ -122,8 +119,8 @@ const RegisterButton = () => {
   return (
     <SignButton
       active={validation}
-      type="button"
       onClick={Sign}
+      type="button"
       className="Primary"
     >
       회원가입
