@@ -23,8 +23,17 @@ const RegisterPasswordForm = () => {
     password: "",
   });
 
-  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const onChangePass2: ChangeEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
+    setPass((pass) => ({
+      ...pass,
+      [`${e.target.id}`]: e.target.value,
+    }));
+  };
+  const onChangePass1: ChangeEventHandler<HTMLInputElement> = (e) => {
+    e.preventDefault();
+    setPass((el) => ({ ...el, pass2: "" }));
+    setCheckPass(false);
     setPass((pass) => ({
       ...pass,
       [`${e.target.id}`]: e.target.value,
@@ -53,11 +62,15 @@ const RegisterPasswordForm = () => {
     let successState = false;
     if (passval.pass1 === passval.pass2 && passval.pass1 !== "") {
       successState = true;
+      setRegisterForm((el) => ({
+        ...el,
+        password: successState === true ? passval.pass2 : "",
+      }));
     } else {
       successState = false;
     }
-    setPassInfoMsg("비밀번호가 일치합니다");
     setSuccess(successState);
+    setPassInfoMsg("비밀번호가 일치합니다");
   }, [passval.pass2]);
 
   return (
@@ -71,7 +84,7 @@ const RegisterPasswordForm = () => {
           type="Password"
           value={passval.pass1}
           placeholder="비밀번호를 입력해주세요.(대소문자/숫자/특수문자 8~20자)"
-          onChange={onChange}
+          onChange={onChangePass1}
           onBlur={onBlur}
           maxLength={20}
         />
@@ -85,7 +98,7 @@ const RegisterPasswordForm = () => {
           type="Password"
           value={passval.pass2}
           placeholder="비밀번호를 확인해주세요.(대소문자/숫자/특수문자 8~20자)"
-          onChange={onChange}
+          onChange={onChangePass2}
           maxLength={20}
           ref={pass2Ref}
         />

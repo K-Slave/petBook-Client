@@ -29,10 +29,11 @@ const RegisterButton = () => {
 
   // 버튼 활성 구독상태 UI 적용
   useEffect(() => {
+    console.log(registerForm);
     let newArr = Object.values(validationRegister);
     let active = newArr.every((el) => el === true);
     setValidation(active);
-  }, [validationRegister]);
+  }, [registerForm]);
 
   // data 구독상태
   useEffect(() => {
