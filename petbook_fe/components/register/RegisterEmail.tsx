@@ -1,20 +1,27 @@
-import React, { useState } from "react";
-import RegisterInputBox from "@components/register/RegisterInputBox";
-import { SpaceTopWrap } from "./styled/styledRegisterForm";
+import React, { ChangeEventHandler } from "react";
+import useSelectorState from "@lib/hooks/common/useSelectorState";
+import { registerFormState } from "@atoms/pageAtoms/login/userState";
+
+import { IconBox, InputBox } from "./styled/styledRegisterForm";
 
 const RegisterEmail = () => {
-  const handleInputChange = (e: string) => {
-    console.log(e);
+  const [registerForm, setRegisterForm] = useSelectorState(registerFormState, {
+    email: "",
+  });
+  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setRegisterForm((el) => ({ ...el, email: e.target.value }));
   };
   return (
-    <SpaceTopWrap>
-      <RegisterInputBox
-        handleInputChange={handleInputChange}
-        IconType="Login"
-        axiosValue="email"
-        current="이메일을 입력해주세요"
+    <InputBox>
+      <IconBox>
+        <div className="Login" />
+      </IconBox>
+      <input
+        type="email"
+        placeholder="이메일을 입력해주세요"
+        onChange={onChange}
       />
-    </SpaceTopWrap>
+    </InputBox>
   );
 };
 export default RegisterEmail;
