@@ -69,6 +69,7 @@ const RegisterSetNickname = () => {
   };
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setRegisterForm((el) => ({ ...el, nickname: "" })); // 공백으로 존재해야함
     setNickname(e.target.value);
     SetButton(false);
   };

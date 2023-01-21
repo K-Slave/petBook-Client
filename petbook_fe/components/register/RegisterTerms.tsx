@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { Modal } from "@components/common/modal/Modal";
 
 import { useSetRecoilState } from "recoil";
-import { validationRegisterState } from "@atoms/pageAtoms/login/userState";
+import { registerFormState } from "@atoms/pageAtoms/login/userState";
 
 import { Terms } from "./styled/styledRegisterForm";
 
 const TermsWrap = () => {
-  const validationRegister = useSetRecoilState(validationRegisterState);
+  const registerForm = useSetRecoilState(registerFormState);
   const [agree, setAgree] = useState([false, false]);
   const [modal, setModal] = useState({
     state: false,
@@ -75,7 +75,7 @@ const TermsWrap = () => {
 
   useEffect(() => {
     let everyTrue = agree.every((el) => el === true);
-    validationRegister((el) => ({ ...el, agree: everyTrue }));
+    registerForm((el) => ({ ...el, agree: everyTrue === true ? "true" : "" }));
   }, [agree]);
 
   return (
