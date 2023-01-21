@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { useSetResource } from "@lib/hooks/common/useResource";
 
 import { registerFormState } from "@atoms/pageAtoms/login/userState";
@@ -16,7 +16,7 @@ const RegisterButton = () => {
   const [validation, setValidation] = useState(false);
 
   const Sign = () => {
-    const { password_check, name, ...newObj } = registerForm;
+    const { password_check, name, agree, ...newObj } = registerForm;
     mutate(newObj);
   };
 
