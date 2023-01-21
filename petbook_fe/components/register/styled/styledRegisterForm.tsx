@@ -15,12 +15,14 @@ const Terms = styled.ul`
 `;
 
 export type activeProps = {
-  active?: boolean;
+  active: boolean;
 };
 
 const SignButton = styled.button`
   background-color: ${(props: activeProps) =>
     props.active === true ? "var(--primary)" : "var(--disabled)"} !important;
+  pointer-events: ${(props: activeProps) =>
+    props.active === true ? "unset" : "none"};
   color: ${(props: activeProps) =>
     props.active === true ? "#fff" : "var(--black_05)"} !important; ;
 `;
