@@ -27,10 +27,12 @@ interface nicknameState {
 }
 
 const RegisterSetName = () => {
+  const [name, setName] = useState("");
   const [registerForm, setRegisterForm] = useSelectorState(registerFormState, {
     name: "",
   });
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setName(e.target.value);
     setRegisterForm((el) => ({ ...el, name: e.target.value }));
   };
   return (
@@ -40,7 +42,7 @@ const RegisterSetName = () => {
       </IconBox>
       <input
         type="name"
-        value={registerForm.name}
+        value={name}
         placeholder="가입자 이름을 입력해주세요."
         onChange={onChange}
       />
@@ -49,6 +51,7 @@ const RegisterSetName = () => {
 };
 
 const RegisterSetNickname = () => {
+  const [nickname, setNickname] = useState("");
   const [nickNameState, setNicknameState] = useState<nicknameState>({
     active: false,
     infoText: "",
@@ -66,32 +69,37 @@ const RegisterSetNickname = () => {
   };
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setNickname(e.target.value);
     SetButton(false);
-    setRegisterForm((el) => ({
-      ...el,
-      nickname: e.target.value,
-    }));
   };
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (registerForm.nickname === "") {
-      alert("닉네임을 입력해주세요");
+    if (nickname === "") {
+      setNicknameState({
+        active: true,
+        infoText: "닉네임을 입력해주세요",
+      });
       return;
     }
-    if (registerForm.nickname.length < 3) {
-      alert("닉네임은 세글자 이상 입력해주세요");
+    if (nickname.length < 3) {
+      setNicknameState({
+        active: true,
+        infoText: "닉네임은 세글자 이상 입력해주세요",
+      });
       return;
     }
-    mutate({ nickname: registerForm.nickname });
+    mutate({ nickname });
   };
 
   useEffect(() => {
     const nicknameData = data?.data as UserCheckNickname; // 호출
     if (nicknameData?.nicknameExist || nicknameData === undefined) {
       SetButton(false);
+      setRegisterForm((el) => ({ ...el, nickname: "" }));
     } else {
       SetButton(true);
+      setRegisterForm((el) => ({ ...el, nickname }));
     }
   }, [data]);
 
@@ -103,7 +111,7 @@ const RegisterSetNickname = () => {
         </IconBox>
         <input
           type="nickname"
-          value={registerForm.nickname}
+          value={nickname}
           placeholder="닉네임을 입력해주세요."
           onChange={onChange}
         />
