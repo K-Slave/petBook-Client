@@ -7,15 +7,15 @@ import React, { ChangeEventHandler, useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import useResource, { useSetResource } from "@lib/hooks/common/useResource";
 
-import {
-  REGISTER_CHECK_EMAIL,
-  REGISTER_CHECK_NICKNAME,
-} from "@components/register/RegisterForm";
+// import {
+//   REGISTER_CHECK_EMAIL,
+//   REGISTER_CHECK_NICKNAME,
+// } from "@components/register/RegisterForm";
 
 import {
   IconBox,
   InputBox,
-  RegisterInfoText,
+  // RegisterInfoText,
 } from "./styled/styledRegisterForm";
 
 interface LoginProps {
@@ -24,9 +24,9 @@ interface LoginProps {
   IconType: string;
 }
 
-interface InfoProps {
-  type: string;
-}
+// interface InfoProps {
+//   type: string;
+// }
 
 interface buttonValue {
   axiosValue: string;
@@ -34,88 +34,17 @@ interface buttonValue {
 
 /**
  *
- * @param param0 props 인증 메세지
- * @returns
- */
-const RegisterInputInfo = ({ type }: InfoProps) => {
-  let infoText = "";
-  switch (type) {
-    case "email": {
-      infoText = "인증이 완료되었습니다.";
-      break;
-    }
-    case "nickname": {
-      infoText = "사용 가능한 닉네임 입니다";
-      break;
-    }
-    case "password": {
-      infoText = "비밀번호가 일치합니다";
-      break;
-    }
-    default: {
-      infoText = "안내문구가 출력됩니다";
-    }
-  }
-  return <RegisterInfoText>{infoText}</RegisterInfoText>;
-};
-
-/**
- *
- * @param param0 인증 / 중복확인 버튼
- * @returns
- */
-const RegisterModalButton = ({ axiosValue }: buttonValue) => {
-  let buttonName = "";
-  switch (axiosValue) {
-    case "email": {
-      buttonName = "인증하기";
-      break;
-    }
-    case "password": {
-      buttonName = "";
-      break;
-    }
-    case "nickname": {
-      buttonName = "중복확인";
-      break;
-    }
-    default: {
-      buttonName = "";
-      break;
-    }
-  }
-
-  const registerForm = useRecoilValue(registerFormState);
-
-  const { data, isSuccess, isError, error, mutate } =
-    useSetResource(REGISTER_CHECK_EMAIL);
-
-  const onClick = () => {
-    if (axiosValue === "email") {
-      mutate({ userId: registerForm.email });
-    }
-  };
-
-  return (
-    <button type="button" onClick={onClick} className="emphasis">
-      {buttonName}
-    </button>
-  );
-};
-/**
- *
  * @param param0 인증 / 중복확인 버튼
  * @returns
  */
 const RegisterNicnameCheckButton = ({ axiosValue }: buttonValue) => {
+  const checkNicknameFrom = useSetRecoilState(CheckNicknameState);
+  const registerForm = useRecoilValue(registerFormState);
+
   let buttonName = "";
   switch (axiosValue) {
     case "email": {
       buttonName = "인증하기";
-      break;
-    }
-    case "password": {
-      buttonName = "";
       break;
     }
     case "nickname": {
@@ -127,8 +56,6 @@ const RegisterNicnameCheckButton = ({ axiosValue }: buttonValue) => {
       break;
     }
   }
-  const checkNicknameFrom = useSetRecoilState(CheckNicknameState);
-  const registerForm = useRecoilValue(registerFormState);
 
   const onClick = () => {
     if (registerForm.nickname === "") {
@@ -192,14 +119,78 @@ const RegisterInput = ({ current, axiosValue, IconType }: LoginProps) => {
             onChange={onChange}
           />
         </label>
-        {axiosValue === "nickname" ? (
+        {axiosValue === "nickname" && (
           <RegisterNicnameCheckButton axiosValue={axiosValue} />
-        ) : (
-          // <RegisterModalButton axiosValue={axiosValue} />
-          ""
         )}
       </InputBox>
     </article>
   );
 };
+
+/**
+ * ** 임시 ** 인증 메세지  (잠시 닫는중)
+ * @param param0 props 인증 메세지
+ * @returns
+ */
+//  const RegisterInputInfo = ({ type }: InfoProps) => {
+//   let infoText = "";
+//   switch (type) {
+//     case "email": {
+//       infoText = "인증이 완료되었습니다.";
+//       break;
+//     }
+//     case "nickname": {
+//       infoText = "사용 가능한 닉네임 입니다";
+//       break;
+//     }
+//     case "password": {
+//       infoText = "비밀번호가 일치합니다";
+//       break;
+//     }
+//     default: {
+//       infoText = "안내문구가 출력됩니다";
+//     }
+//   }
+//   return <RegisterInfoText>{infoText}</RegisterInfoText>;
+// };
+
+/**
+ * ** 임시 ** 이메일 인증  (잠시 닫는중)
+ * @param param0 인증 / 중복확인 버튼
+ * @returns
+ */
+// const RegisterModalButton = ({ axiosValue }: buttonValue) => {
+//   let buttonName = "";
+//   switch (axiosValue) {
+//     case "email": {
+//       buttonName = "인증하기";
+//       break;
+//     }
+//     case "nickname": {
+//       buttonName = "중복확인";
+//       break;
+//     }
+//     default: {
+//       buttonName = "";
+//       break;
+//     }
+//   }
+
+//   const registerForm = useRecoilValue(registerFormState);
+
+//   const { data, isSuccess, isError, error, mutate } =
+//     useSetResource(REGISTER_CHECK_EMAIL);
+
+//   const onClick = () => {
+//     if (axiosValue === "email") {
+//       mutate({ userId: registerForm.email });
+//     }
+//   };
+
+//   return (
+//     <button type="button" onClick={onClick} className="emphasis">
+//       {buttonName}
+//     </button>
+//   );
+// };
 export default RegisterInput;
