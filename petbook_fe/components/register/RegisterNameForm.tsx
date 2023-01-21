@@ -10,7 +10,7 @@ import {
 } from "@atoms/pageAtoms/login/userState";
 import { RegisterInfoText } from "./styled/styledRegisterForm";
 
-const PasswordInput = () => {
+const RegisterNameForm = () => {
   const [success, setSuccess] = useState(false);
   const [nicknameInfo, setNicknameInfo] = useState("");
   const checkNickname = useRecoilValue(CheckNicknameState);
@@ -59,4 +59,4 @@ const PasswordInput = () => {
   );
 };
 
-export default PasswordInput;
+export default RegisterNameForm;
