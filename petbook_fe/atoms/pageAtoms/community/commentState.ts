@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-interface CommentState {
+export interface CommentState {
   content: string;
   commentId: number | null;
   parentId: number | null;

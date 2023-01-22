@@ -1,5 +1,32 @@
 import styled from "styled-components";
 
+const Main = styled.main`
+  overflow: auto;
+  height: calc(100vh - 61px);
+  background-color: var(--bg);
+`;
+
+const Terms = styled.ul`
+  margin-top: 22px;
+  margin-bottom: 47px;
+  li {
+    margin-bottom: 15px;
+  }
+`;
+
+export type activeProps = {
+  active: boolean;
+};
+
+const SignButton = styled.button`
+  background-color: ${(props: activeProps) =>
+    props.active === true ? "var(--primary)" : "var(--disabled)"} !important;
+  pointer-events: ${(props: activeProps) =>
+    props.active === true ? "unset" : "none"};
+  color: ${(props: activeProps) =>
+    props.active === true ? "#fff" : "var(--black_05)"} !important; ;
+`;
+
 const RegisterFormWrap = styled.div`
   width: calc(100% - 32px);
   max-width: 400px;
@@ -76,10 +103,21 @@ const IconBox = styled.div`
   width: 24px;
   height: 24px;
 `;
-
+export type checkPassProps = {
+  checkPass?: boolean;
+};
 const InputBox = styled.div`
   position: relative;
   margin-bottom: 8px;
+  transition: all 0.3s ease;
+  input {
+    pointer-events: ${(props: checkPassProps) =>
+      props.checkPass === false ? "none" : "unset"};
+    opacity: ${(props: checkPassProps) =>
+      props.checkPass === false ? "0.5" : "1"};
+
+    /* background-color: #111; */
+  }
 `;
 
 export type textProps = {
@@ -122,10 +160,13 @@ const SpaceTopWrap = styled.div`
 `;
 
 export {
+  Main,
+  Terms,
   RegisterFormWrap,
   PassCheckWrap,
   IconBox,
   InputBox,
   RegisterInfoText,
   SpaceTopWrap,
+  SignButton,
 };

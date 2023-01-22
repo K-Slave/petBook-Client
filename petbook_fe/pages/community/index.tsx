@@ -22,6 +22,17 @@ export const CATEGORY_LIST = createResource({
   fetcher: categorySprRequest.category_list,
 });
 
+export const HOT_ARTICLE_LIST = createResource({
+  key: ["HOT_ARTICLE_LIST"],
+  fetcher: () =>
+    articleRequest.article_list({
+      categoryId: "",
+      page: 0,
+      size: 5,
+      popular: true,
+    }),
+});
+
 export const createResourceByCategory = (category: CategoryItem) => ({
   key: ["ARTICLE_LIST", category.name],
   fetcher: () =>
@@ -29,6 +40,7 @@ export const createResourceByCategory = (category: CategoryItem) => ({
       categoryId: category.id === 0 ? "" : category.id,
       page: 0,
       size: 5,
+      popular: false,
     }),
 });
 
@@ -43,6 +55,7 @@ const Main = styled.main`
 type PetbookPage = NextPage & {
   requiredResources?: (
     | typeof CATEGORY_LIST
+    | typeof HOT_ARTICLE_LIST
     | ReturnType<typeof createResourceByCategory>
   )[];
 };
@@ -78,7 +91,7 @@ Community.getInitialProps = async () => {
   const resources = data
     .concat([{ id: 0, name: "전체" }])
     .map((category) => createResourceByCategory(category));
-  Community.requiredResources = [...resources, CATEGORY_LIST];
+  Community.requiredResources = [...resources, CATEGORY_LIST, HOT_ARTICLE_LIST];
 };
 
 export default Community;

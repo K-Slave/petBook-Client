@@ -1,27 +1,24 @@
-import { BookmarkBlankIcon } from "@components/common/icon/BookmarkIcon";
-import { HeartBlankIcon } from "@components/common/icon/HeartIcon";
+import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
+import { HeartBlankIcon } from "@components/common/icon/Heart";
+import useResource from "@lib/hooks/common/useResource";
+import { HOT_ARTICLE_LIST } from "@pages/community";
 import { List, Item } from "./styled";
 
-const dummy = new Array(5).fill(1).map((_, index) => ({
-  id: index + 1,
-  title:
-    "제목이 들어갑니다 제목이 들어갑니다제목이 들어갑니다제목이 들어갑니다 제목이 들어갑니다 제목이 들어갑니다제목이 들어갑니다제목이 들어갑니다",
-}));
-
 const HotArticleList = () => {
+  const { data } = useResource(HOT_ARTICLE_LIST);
   return (
     <List>
-      {dummy.map((data) => (
-        <Item key={data.id}>
-          <span className="HotArticle_title">{data.title}</span>
+      {data?.data.articles.map(({ id, title, stat }) => (
+        <Item key={id}>
+          <span className="HotArticle_title">{title}</span>
           <span className="HotArticle_stats">
             <span>
               <HeartBlankIcon />
-              <span>000</span>
+              <span>{stat.likeCount}</span>
             </span>
             <span>
               <BookmarkBlankIcon />
-              <span>000</span>
+              <span>0</span>
             </span>
           </span>
         </Item>

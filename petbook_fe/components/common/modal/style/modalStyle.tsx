@@ -30,12 +30,28 @@ export const ModalItemWrap = styled.section`
   padding: 48px 32px 30px;
   max-width: 464px;
   width: calc(100% - 16px);
+
+  img {
+    margin: 0 auto;
+    width: 147px;
+    height: 26px;
+  }
 `;
 export const ModalContentsContainer = styled.div`
   margin-top: 16px;
   hgroup {
-    font-size: 1.375rem;
+    font-size: 0.875rem;
     margin-bottom: 32px;
+  }
+  section {
+    height: auto;
+    width: 100%;
+    max-height: 100px;
+    overflow: auto;
+    p {
+      text-align: left;
+      font-size: 0.875rem;
+    }
   }
 `;
 export const ModalButton = styled.button`
@@ -47,4 +63,5 @@ export default {
   ModalContainer,
   ModalContentsContainer,
   ModalItemWrap,
+  ModalButton,
 };

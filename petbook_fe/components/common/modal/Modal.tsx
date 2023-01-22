@@ -1,4 +1,5 @@
 import Image from "next/image";
+import React, { PropsWithChildren } from "react";
 import {
   ModalContentsContainer,
   ModalContainer,
@@ -7,38 +8,27 @@ import {
   ModalButton,
 } from "./style/modalStyle";
 
-export const ModalContents = () => {
-  return (
-    <ModalContentsContainer>
-      <hgroup>
-        <h4>로그인 후 다양한 콘텐츠를 즐겨보세요</h4>
-      </hgroup>
-      <section>
-        <article>모달 요소</article>
-      </section>
-    </ModalContentsContainer>
-  );
-};
-
-export const ModalActionButton = () => {
-  return (
-    <ModalButton type="button" className="Primary">
-      모달 버튼
-    </ModalButton>
-  );
-};
-
-type ModalProps = {
-  state: boolean;
+export type ModalProps = {
+  modalState: {
+    state: boolean;
+    data: {
+      content: string;
+      title: string;
+    };
+  };
   handleCloseModal: () => void;
 };
 
-export const Modal = ({ state, handleCloseModal }: ModalProps) => {
+export const Modal = ({
+  modalState,
+  children,
+  handleCloseModal,
+}: PropsWithChildren<ModalProps>) => {
   const closeModal = () => {
     handleCloseModal();
   };
   return (
-    <ModalContainer props={state}>
+    <ModalContainer props={modalState?.state}>
       <ModalItemWrap>
         <Image
           src="/img/common/logo/logo.svg"
@@ -46,15 +36,30 @@ export const Modal = ({ state, handleCloseModal }: ModalProps) => {
           width={147}
           height={26}
         />
-        <Modal.ModalContents />
-        <Modal.ModalActionButton />
+        <ModalContentsContainer>{children}</ModalContentsContainer>
+        <Modal.ModalActionButton handleCloseModal={handleCloseModal} />
       </ModalItemWrap>
       <ModalBg onClick={closeModal} />
     </ModalContainer>
   );
 };
 
-Modal.ModalContents = ModalContents;
+export const ModalActionButton = ({
+  handleCloseModal,
+}: {
+  handleCloseModal: () => void;
+}) => {
+  const closeModal = () => {
+    handleCloseModal();
+  };
+
+  return (
+    <ModalButton type="button" className="Primary" onClick={closeModal}>
+      확인
+    </ModalButton>
+  );
+};
+
 Modal.ModalActionButton = ModalActionButton;
 
 export default Modal;

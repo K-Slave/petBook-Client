@@ -1,7 +1,4 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
-
 //컬러설정
-
 :root {
   //primary
   --primary: #ff6847;
@@ -65,12 +62,11 @@
 
   box-sizing: border-box; /* 엘리먼트의 box-sizing 값을 border-box 로 설정 */
 
-  font-family: "Pretendard Variable", Pretendard, -apple-system,
-    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
-    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+    "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
+    "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    sans-serif;
   font-style: normal;
-  // outline: none;
 }
 
 html,
@@ -308,6 +304,7 @@ hr {
 img {
   display: block;
   width: 100%;
+  object-fit: cover;
 }
 
 .flex {
@@ -334,8 +331,11 @@ input:not(input.default) {
   height: 48px;
   border-radius: 8px;
   border: none;
-  outline: solid 1px #f5edde;
+  outline: none;
   box-sizing: border-box;
+}
+input:not(input.default):focus {
+  border: solid 1px var(--black_04);
 }
 input:focus {
   outline: solid 1px var(--primary);
@@ -398,6 +398,11 @@ button.emphasis {
 //login
 .Login_Title {
   text-align: center;
+  img {
+    width: 160px;
+    height: 26px;
+    margin: 0 auto;
+  }
   p {
     font-size: 1.25rem;
     margin-bottom: 14px;
