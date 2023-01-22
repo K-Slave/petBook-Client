@@ -18,7 +18,7 @@ import Modal from "@components/common/Modal";
 import { Router } from "next/router";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import localConsole from "@lib/utils/localConsole";
-import CommonHeader from "../components/common/CommonHeader";
+import Header from "@components/common/Header/Header";
 import { itrMap } from "../lib/utils/iterableFunctions";
 
 import "swiper/scss";
@@ -72,7 +72,7 @@ const NextApp = ({
         <RecoilRoot>
           <Loader />
           <HtmlHeader />
-          <CommonHeader pathname={router.pathname} />
+          <Header pathname={router.pathname} />
           <Component {...pageProps} />
           <Modal />
         </RecoilRoot>

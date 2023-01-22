@@ -1,8 +1,5 @@
-import { CategoryListResponse } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 import useSelectorState from "@lib/hooks/common/useSelectorState";
-import { AxiosResponse } from "axios";
 import React, { MouseEventHandler, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
 import Skeleton from "@components/common/Skeleton/Skeleton";
 import useResource from "@lib/hooks/common/useResource";
 import { CATEGORY_LIST } from "@pages/community/write";
