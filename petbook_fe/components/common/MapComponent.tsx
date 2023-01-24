@@ -28,7 +28,7 @@ const MapComponent = ({ mapData }: Props) => {
       const container = document.getElementById("map");
       const options = {
         center: new kakao.maps.LatLng(37.514454, 127.0528269),
-        level: 3,
+        level: 5,
       };
       if (!container) return;
       const map = new kakao.maps.Map(container, options);

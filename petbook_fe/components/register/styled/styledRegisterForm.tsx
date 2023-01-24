@@ -15,12 +15,14 @@ const Terms = styled.ul`
 `;
 
 export type activeProps = {
-  active?: boolean;
+  active: boolean;
 };
 
 const SignButton = styled.button`
   background-color: ${(props: activeProps) =>
     props.active === true ? "var(--primary)" : "var(--disabled)"} !important;
+  pointer-events: ${(props: activeProps) =>
+    props.active === true ? "unset" : "none"};
   color: ${(props: activeProps) =>
     props.active === true ? "#fff" : "var(--black_05)"} !important; ;
 `;
@@ -101,10 +103,21 @@ const IconBox = styled.div`
   width: 24px;
   height: 24px;
 `;
-
+export type checkPassProps = {
+  checkPass?: boolean;
+};
 const InputBox = styled.div`
   position: relative;
   margin-bottom: 8px;
+  transition: all 0.3s ease;
+  input {
+    pointer-events: ${(props: checkPassProps) =>
+      props.checkPass === false ? "none" : "unset"};
+    opacity: ${(props: checkPassProps) =>
+      props.checkPass === false ? "0.5" : "1"};
+
+    /* background-color: #111; */
+  }
 `;
 
 export type textProps = {

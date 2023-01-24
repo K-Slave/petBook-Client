@@ -1,8 +1,8 @@
 import SearchIcon from "@components/common/icon/Search";
 import useSearchText from "@lib/hooks/article/useSearchText";
+import navigator from "@lib/modules/navigator";
 import React, { KeyboardEventHandler, useEffect, useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
-import navigator from "@lib/modules/navigator";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 import { Bar, Input } from "./styled";
 

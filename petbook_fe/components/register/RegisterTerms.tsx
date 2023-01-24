@@ -2,14 +2,13 @@ import { useEffect, useState } from "react";
 import { Modal } from "@components/common/modal/Modal";
 
 import { useSetRecoilState } from "recoil";
-import { validationRegisterState } from "@atoms/pageAtoms/login/userState";
+import { registerFormState } from "@atoms/pageAtoms/login/userState";
 
-// styled
 import { Terms } from "./styled/styledRegisterForm";
 
 const TermsWrap = () => {
+  const registerForm = useSetRecoilState(registerFormState);
   const [agree, setAgree] = useState([false, false]);
-  const validationRegister = useSetRecoilState(validationRegisterState);
   const [modal, setModal] = useState({
     state: false,
     data: {
@@ -17,6 +16,19 @@ const TermsWrap = () => {
       title: "",
     },
   });
+
+  const agreeContent = [
+    {
+      id: "terms",
+      index: 0,
+      text: "펫북 이용 약관에 동의합니다 [필수]",
+    },
+    {
+      id: "privacy",
+      index: 1,
+      text: "개인정보 수집 및 이용에 동의합니다 [필수]",
+    },
+  ];
 
   const handleCloseModal = () => {
     setModal((modalState) => ({ ...modalState, state: false }));
@@ -63,21 +75,8 @@ const TermsWrap = () => {
 
   useEffect(() => {
     let everyTrue = agree.every((el) => el === true);
-    validationRegister((el) => ({ ...el, agree: everyTrue }));
+    registerForm((el) => ({ ...el, agree: everyTrue === true ? "true" : "" }));
   }, [agree]);
-
-  const agreeContent = [
-    {
-      id: "terms",
-      index: 0,
-      text: "펫북 이용 약관에 동의합니다 [필수]",
-    },
-    {
-      id: "privacy",
-      index: 1,
-      text: "개인정보 수집 및 이용에 동의합니다 [필수]",
-    },
-  ];
 
   return (
     <Terms>
@@ -91,7 +90,7 @@ const TermsWrap = () => {
       </Modal>
       {agreeContent.map((agreeEl) => {
         return (
-          <li>
+          <li key={agreeEl.id}>
             <button type="button">
               <label htmlFor={agreeEl.id}>
                 <input

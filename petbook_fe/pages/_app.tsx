@@ -15,7 +15,7 @@ import Modal from "@components/common/Modal";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import type { Key } from "@lib/hooks/common/useResource";
 import localConsole from "@lib/utils/localConsole";
-import CommonHeader from "@components/common/CommonHeader";
+
 import { itrMap } from "@lib/utils/iterableFunctions";
 import createQueryClient from "@lib/utils/createQueryClient";
 import getToken from "@lib/utils/getToken";
@@ -25,6 +25,7 @@ import "swiper/scss/pagination";
 import "../styles/Globals.scss";
 import "../styles/Icon.scss";
 import "../styles/Swiper.scss";
+import Header from "@components/common/Header/Header";
 
 let serverData = "";
 
@@ -52,7 +53,7 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
         <RecoilRoot>
           <Loader />
           <HtmlHead />
-          <CommonHeader pathname={router.pathname} />
+          <Header pathname={router.pathname} />
           <Component {...pageProps} />
           <Modal />
         </RecoilRoot>
