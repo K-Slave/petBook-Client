@@ -4,7 +4,6 @@ import styles from "../styles/Home.module.scss";
 
 // components
 import Keyvisual from "../components/Keyvisual";
-import KnowhowPaperBox from "../components/common/PaperBox/Interface/KnowhowPaperBox";
 
 const Home: NextPage = () => (
   <>

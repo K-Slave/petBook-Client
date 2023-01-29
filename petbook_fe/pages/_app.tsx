@@ -26,6 +26,7 @@ import "../styles/Globals.scss";
 import "../styles/Icon.scss";
 import "../styles/Swiper.scss";
 import Header from "@components/common/Header/Header";
+import TopMenuNav from "@components/common/Nav/TopNav";
 
 let serverData = "";
 
@@ -53,7 +54,8 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
         <RecoilRoot>
           <Loader />
           <HtmlHead />
-          <Header pathname={router.pathname} />
+          <Header currentPath={router.pathname} />
+          <TopMenuNav currentPath={router.pathname} />
           <Component {...pageProps} />
           <Modal />
         </RecoilRoot>

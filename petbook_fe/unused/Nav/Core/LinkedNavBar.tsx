@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { PropsWithChildren } from "react";
 import setNextjsElement, {
   setNextjsForwardRef,
-} from "../../../../lib/utils/setNextjsElement";
+} from "../../../lib/utils/setNextjsElement";
 
 const LinkedNavBar = ({ children }: PropsWithChildren<any>) => {
   return children;

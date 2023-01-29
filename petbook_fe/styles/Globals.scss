@@ -305,6 +305,11 @@ img {
   display: block;
   width: 100%;
   object-fit: cover;
+  @supports (font: -apple-system-body) and (-webkit-appearance: none) {
+    img[loading="lazy"] {
+      clip-path: inset(0.6px);
+    }
+  }
 }
 
 .flex {
