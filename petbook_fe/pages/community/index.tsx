@@ -34,7 +34,7 @@ export const HOT_ARTICLE_LIST = createResource({
 });
 
 export const createResourceByCategory = (category: CategoryItem) => ({
-  key: ["ARTICLE_LIST", category.name],
+  key: ["ARTICLE_LIST", category.name || ""],
   fetcher: () =>
     articleRequest.article_list({
       categoryId:
