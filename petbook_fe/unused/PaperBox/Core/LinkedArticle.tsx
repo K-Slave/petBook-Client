@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { PropsWithChildren } from "react";
-import setNextjsElement from "../../../../lib/utils/setNextjsElement";
+import setNextjsElement from "../../../lib/utils/setNextjsElement";
 
 const LinkedArticle = ({ children }: PropsWithChildren<any>) => {
   return children;

@@ -5,7 +5,7 @@ import {
   KnowhowPaperMain,
   UserProfileTag,
 } from "../Design/Desktop/KnowhowPaperBoxStyle";
-import palette from "../../../../lib/modules/palette";
+import palette from "../../../lib/modules/palette";
 
 type KnowhowPaperBoxType = {
   timeline: string;

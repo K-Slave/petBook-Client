@@ -1,22 +1,25 @@
-import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 
 export const HeaderBox = styled.header`
+  position: fixed;
+  z-index: 10;
+
   display: flex;
   justify-content: center;
   align-items: flex-end;
 
   width: 100%;
 
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #e0dfd9;
+  background-color: var(--bg_white_02);
 `;
 
 export const HeaderDiv = styled.div`
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: auto 1fr auto;
-  grid-column-gap: 34.65px;
+  grid-column-gap: 1.8047vw;
   align-items: flex-end;
 
   width: 100%;
@@ -29,46 +32,15 @@ export const HeaderLogoLink = styled(Link)`
   display: grid;
   grid-auto-flow: column;
   align-items: center;
-  column-gap: 20px;
+  column-gap: 1.0417vw;
 
-  width: fit-content;
-
-  padding: 15px 20px;
-`;
-
-export const HeaderLogoIllustImg = styled(Image)`
-  width: 40px;
-  height: 40px;
-`;
-
-export const HeaderLogoTitleImg = styled(Image)`
-  width: 147.35px;
-  height: 26.65px;
-`;
-
-export const HeaderMenuNav = styled.nav`
-  display: flex;
-
-  width: 100%;
-
-  font-weight: 400;
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  letter-spacing: -0.02em;
-  color: #92928e;
-`;
-
-export const HeaderMenuItemLink = styled(Link)`
-  box-sizing: content-box;
-
-  padding: 15px 20px;
-
-  /* border-bottom: 4px solid #000; */
+  padding: 15px 1.0417vw;
 `;
 
 export const HeaderPersonalDiv = styled.div`
-  padding: 15px 20px;
+  padding: 15px 1.0417vw;
 
+  white-space: nowrap;
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.5rem;

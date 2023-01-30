@@ -58,6 +58,10 @@ const Write: NextPage = (pageProps: any) => {
     "sprPetBookClient"
   );
 
+  const user = useRecoilValue(userState);
+
+  localConsole?.log(user);
+
   return (
     <WriteMain className={`Content ${styles.Write__Page}`}>
       <CategoryContainer />
