@@ -6,13 +6,13 @@ const useNavController = () => {
 
   const scrollHandler = useCallback(
     throttle(() => {
-      if (window.scrollY > 58) {
+      if (window.scrollY > 58 && isNeedNav === false) {
         setIsNeedNav(true);
 
         return;
       }
 
-      if (window.scrollY < 58) {
+      if (window.scrollY < 58 && isNeedNav === true) {
         setIsNeedNav(false);
 
         return;
