@@ -1,4 +1,5 @@
 import useNavController from "@lib/hooks/header/useNavController";
+import localConsole from "@lib/utils/localConsole";
 import Link from "next/link";
 import React, { PropsWithChildren } from "react";
 
@@ -56,7 +57,7 @@ const Logo = () => {
 };
 
 const MenuNav = ({ currentPath }: { currentPath: string }) => {
-  const { isNeedNav } = useNavController();
+  const [isNeedNav] = useNavController();
 
   return (
     <>{isNeedNav ? <Menu currentPath={currentPath} isHeaderMenu /> : <div />}</>

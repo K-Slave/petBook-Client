@@ -23,9 +23,12 @@ const useNavController = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", scrollHandler);
-  }, []);
+    return () => {
+      window.removeEventListener("scroll", scrollHandler);
+    };
+  }, [isNeedNav]);
 
-  return { isNeedNav };
+  return [isNeedNav] as [typeof isNeedNav];
 };
 
 export default useNavController;
