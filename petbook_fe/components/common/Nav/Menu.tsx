@@ -7,7 +7,7 @@ const menuList = [
     name: "홈",
   },
   {
-    path: "/findHospital",
+    path: "/hospitalmap",
     name: "병원정보",
   },
   {
@@ -52,7 +52,17 @@ const List = ({ currentPath }: { currentPath: string }) => {
   return (
     <>
       {menuList.map((menu) => {
-        return <Item menu={menu} isCurrentPath={currentPath === menu.path} />;
+        return (
+          <Item
+            key={menu.name}
+            menu={menu}
+            isCurrentPath={
+              menu.path.replace("/", "") !== ""
+                ? currentPath.includes(menu.path.replace("/", ""))
+                : currentPath === menu.path
+            }
+          />
+        );
       })}
     </>
   );

@@ -1,6 +1,7 @@
-import localConsole from "@lib/utils/localConsole";
+import useNavController from "@lib/hooks/header/useNavController";
 import Link from "next/link";
 import React, { PropsWithChildren } from "react";
+
 import headerImg from "resource/headerImg";
 import Menu from "../Nav/Menu";
 import ResponsiveImage from "../ResponsiveImage";
@@ -16,7 +17,6 @@ interface Props {
 }
 
 const Header = ({ currentPath }: Props) => {
-  localConsole?.log(currentPath, "currentPath");
   return (
     <Header.Wrap>
       <Header.Logo />
@@ -28,13 +28,11 @@ const Header = ({ currentPath }: Props) => {
 
 const Wrap = ({ children }: PropsWithChildren<any>) => {
   return (
-    <HeaderBox>
+    <HeaderBox className="Header__Wrap">
       <HeaderDiv>{children}</HeaderDiv>
     </HeaderBox>
   );
 };
-
-// TODO : 헤더 반응형으로 짜봐야함
 
 const Logo = () => {
   return (
@@ -58,7 +56,11 @@ const Logo = () => {
 };
 
 const MenuNav = ({ currentPath }: { currentPath: string }) => {
-  return <Menu currentPath={currentPath} isHeaderMenu />;
+  const { isNeedNav } = useNavController();
+
+  return (
+    <>{isNeedNav ? <Menu currentPath={currentPath} isHeaderMenu /> : <div />}</>
+  );
 };
 
 const Personal = () => {

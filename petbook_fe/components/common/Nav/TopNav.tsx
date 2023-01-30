@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import Header from "../Header/Header";
+import Menu from "./Menu";
 import { TopNavBox, TopNavDiv } from "./TopNav.style";
 
 interface Props {
@@ -23,6 +23,6 @@ const Wrap = ({ children }: PropsWithChildren<any>) => {
 };
 
 TopNav.Wrap = Wrap;
-TopNav.Menu = Header.MenuNav;
+TopNav.Menu = React.memo(Menu);
 
 export default TopNav;

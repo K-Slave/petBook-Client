@@ -90,6 +90,7 @@
     "no-dupe-keys": "error",
     "no-confusing-arrow": "warn",
     "no-param-reassign": "warn",
+    "no-useless-return": "off",
     "no-use-before-define": [
       "off",
       {

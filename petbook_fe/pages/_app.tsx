@@ -7,14 +7,10 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import urlTokenRedirect from "@lib/API/parser/urlTokenRedirect";
-import Loader from "@components/common/loader/loader";
 import { RecoilRoot } from "recoil";
 import queryParser from "@lib/API/parser/queryParser";
-import HtmlHead from "@components/common/HtmlHead";
-import Modal from "@components/common/Modal";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import type { Key } from "@lib/hooks/common/useResource";
-import localConsole from "@lib/utils/localConsole";
 
 import { itrMap } from "@lib/utils/iterableFunctions";
 import createQueryClient from "@lib/utils/createQueryClient";
@@ -25,8 +21,7 @@ import "swiper/scss/pagination";
 import "../styles/Globals.scss";
 import "../styles/Icon.scss";
 import "../styles/Swiper.scss";
-import Header from "@components/common/Header/Header";
-import TopMenuNav from "@components/common/Nav/TopNav";
+import ComponentsRoot from "@containers/ComponentsRoot";
 
 let serverData = "";
 
@@ -52,12 +47,10 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <RecoilRoot>
-          <Loader />
-          <HtmlHead />
-          <Header currentPath={router.pathname} />
-          <TopMenuNav currentPath={router.pathname} />
-          <Component {...pageProps} />
-          <Modal />
+          <ComponentsRoot
+            component={<Component {...pageProps} />}
+            router={router}
+          />
         </RecoilRoot>
       </Hydrate>
     </QueryClientProvider>
@@ -91,8 +84,6 @@ NextApp.getInitialProps = async (context: AppContext) => {
     if (user) {
       serverData = user.id;
     }
-
-    localConsole?.log(serverData, "serverData");
 
     const PageComponent: typeof Component & {
       requiredResources?: Array<{
