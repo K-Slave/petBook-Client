@@ -9,8 +9,8 @@ import hamsterData from "@data/test_hamster.json";
 import rabbitData from "@data/test_rabbit.json";
 import { useRouter } from "next/router";
 
-import sortFilterState from "../../atoms/pageAtoms/filter/sortFilter";
-import MapComponent, { MapData } from "../common/MapComponent";
+import sortFilterState from "../atoms/pageAtoms/filter/sortFilter";
+import MapComponent, { MapData } from "../components/common/MapComponent";
 import MapFilterSlider from "./slider";
 
 // import useResource from "../../hooks/useResource";

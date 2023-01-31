@@ -1,4 +1,3 @@
-import localConsole from "@lib/utils/localConsole";
 import throttle from "lodash.throttle";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -11,8 +10,6 @@ const useNavController = () => {
       if (load.current === true) return;
       if (window.scrollY > 58 && isNeedNav === true) return;
       if (window.scrollY < 58 && isNeedNav === false) return;
-
-      localConsole?.log("asdasdas");
 
       if (window.scrollY > 58 && isNeedNav === false) {
         load.current = true;

@@ -16,7 +16,7 @@ const TopNav = ({ currentPath }: Props) => {
 
 const Wrap = ({ children }: PropsWithChildren<any>) => {
   return (
-    <TopNavBox>
+    <TopNavBox className="Top__Nav__Wrap">
       <TopNavDiv>{children}</TopNavDiv>
     </TopNavBox>
   );

@@ -17,7 +17,7 @@ const ComponentsRoot = ({
   return (
     <>
       <Loader />
-      <HtmlHead />
+      <HtmlHead currentPath={router.pathname} />
       <Header currentPath={router.pathname} />
       <TopNav currentPath={router.pathname} />
       <Component />

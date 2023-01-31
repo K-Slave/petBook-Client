@@ -1,24 +1,24 @@
 import { NextPage } from "next";
 import styled from "styled-components";
 import CategoryContainer from "@containers/write/CategoryContainer";
-import FormContainer from "@containers/write/FormContainer";
-import ImgAttachContainer from "@containers/write/ImgAttachContainer";
-import HashTagsContainer from "@containers/write/HashTagsContainer";
-import SubmitContainer from "@containers/write/SubmitContainer";
 import localConsole from "@lib/utils/localConsole";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { useRecoilValue } from "recoil";
 import userState from "@atoms/common/userState";
-import {
-  createRequest,
-  createResource,
-} from "../../../lib/hooks/common/useResource";
+import WriteForm from "@components/write/WriteForm";
+import WriteImgAttach from "@components/write/WriteImgAttach";
+import WriteHashTags from "@components/write/WriteHashTags";
+import WriteSubmit from "@components/write/WriteSubmit";
+import styles from "../../../styles/Write.module.scss";
 import {
   articleRequest,
   categorySprRequest,
   imgRequest,
 } from "../../../lib/API/petBookAPI";
-import styles from "../../../styles/Write.module.scss";
+import {
+  createRequest,
+  createResource,
+} from "../../../lib/hooks/common/useResource";
 
 // 1. 서버 사이드에서 가져올 리소스 정의하기
 // 정의된 순서에서 이미 데이터를 가지고 내려온 상태임.
@@ -65,10 +65,10 @@ const Write: NextPage = (pageProps: any) => {
   return (
     <WriteMain className={`Content ${styles.Write__Page}`}>
       <CategoryContainer />
-      <FormContainer />
-      <ImgAttachContainer />
-      <HashTagsContainer />
-      <SubmitContainer />
+      <WriteForm />
+      <WriteImgAttach />
+      <WriteHashTags />
+      <WriteSubmit />
     </WriteMain>
   );
 };

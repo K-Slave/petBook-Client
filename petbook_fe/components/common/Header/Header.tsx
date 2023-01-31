@@ -41,15 +41,15 @@ const Logo = () => {
       <ResponsiveImage
         src={headerImg.illust_img_placeholder}
         alt="일러스트 플레이스 홀더"
-        boxWidth="40px"
-        boxHeight="40px"
+        boxwidth="40px"
+        boxheight="40px"
         fill
       />
       <ResponsiveImage
         src={headerImg.petbook_logo}
         alt="펫북 로고 타이틀"
-        boxWidth="147.35px"
-        boxHeight="26.65px"
+        boxwidth="147.35px"
+        boxheight="26.65px"
         fill
       />
     </HeaderLogoLink>
