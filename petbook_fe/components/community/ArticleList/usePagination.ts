@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import navigator from "@lib/modules/navigator";
+import { replaceQuery } from "@lib/modules/queryString";
 
 export const usePage = () => {
   const router = useRouter();
@@ -12,24 +13,21 @@ export const usePage = () => {
 export default function usePagination({
   totalPages,
   btnNum,
-  basePath,
 }: {
   totalPages: number;
   btnNum: number;
-  basePath: string;
 }) {
   const [offset, setOffset] = useState(1);
   const currentPage = usePage();
   const router = useRouter();
   const changeCurrentPage = (page: number) => {
-    const params = new URLSearchParams(router.asPath.split("?")[1]);
-    params.delete("page");
-    const path =
-      params.toString().length !== 0
-        ? `${basePath}?${params.toString()}&page=${page}`
-        : `${basePath}?page=${page}`;
+    const url = replaceQuery({
+      router,
+      key: "page",
+      query: String(page),
+    });
     navigator({
-      url: path,
+      url,
       options: {
         shallow: true,
         scroll: true,

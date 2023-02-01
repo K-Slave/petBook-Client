@@ -1,5 +1,6 @@
 import SearchBar from "@components/common/SearchBar";
 import navigator from "@lib/modules/navigator";
+import { replaceQuery } from "@lib/modules/queryString";
 import getRandomKey from "@lib/utils/getRandomKey";
 import { useRouter } from "next/router";
 import HospitalItem from "../HospitalItem";
@@ -8,10 +9,7 @@ import { FilterButton, FilterDiv, Section } from "./styled";
 const HospitalList = () => {
   return (
     <Section>
-      <SearchBar
-        placeholder="원하는 위치를 검색해보세요!"
-        baseUrl="/hospitalmap"
-      />
+      <SearchBar placeholder="원하는 위치를 검색해보세요!" />
       <header>
         <h1>강남구 역삼1동</h1>
         <button type="button">위치수정</button>
@@ -34,14 +32,13 @@ const Filter = () => {
   const router = useRouter();
   const { filter } = router.query;
   const selectFilter = (name: string) => () => {
-    const params = new URLSearchParams(router.asPath.split("?")[1]);
-    params.delete("filter");
-    const path =
-      params.toString().length !== 0
-        ? `/hospitalmap?${params.toString()}&filter=${name}`
-        : `/hospitalmap?filter=${name}`;
+    const url = replaceQuery({
+      router,
+      key: "filter",
+      query: name,
+    });
     navigator({
-      url: path,
+      url,
       options: {
         shallow: true,
       },

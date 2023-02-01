@@ -9,15 +9,17 @@ import React, {
 import { useRouter } from "next/router";
 import { IoCloseCircle } from "react-icons/io5";
 import useClickOutside from "@lib/hooks/common/useClickOutside";
+import { removeQuery, replaceQuery } from "@lib/modules/queryString";
 import { SearchBarDiv, SearchBarInput, KeywordUl } from "./styled";
 
 interface Props {
   placeholder?: string;
-  baseUrl: string;
   keywordBox?: boolean;
 }
 
-const SearchBar = ({ placeholder, baseUrl, keywordBox }: Props) => {
+const QUERY_KEY = "query";
+
+const SearchBar = ({ placeholder, keywordBox }: Props) => {
   const router = useRouter();
   const { query } = router.query;
   const searchText = query === undefined ? "" : (query as string);
@@ -30,16 +32,16 @@ const SearchBar = ({ placeholder, baseUrl, keywordBox }: Props) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
-  const searchArticleList: KeyboardEventHandler = (e) => {
+  const search: KeyboardEventHandler = (e) => {
     const key = e.key || e.keyCode;
     if (key === "Enter" || key === 13) {
-      const params = new URLSearchParams(router.asPath.split("?")[1]);
-      params.delete("query");
-      const queryString = params.toString().length
-        ? `${params.toString()}&query=${text}`
-        : `query=${text}`;
+      const url = replaceQuery({
+        router,
+        key: QUERY_KEY,
+        query: text,
+      });
       navigator({
-        url: `${baseUrl[0] !== "/" ? `/${baseUrl}` : baseUrl}?${queryString}`,
+        url,
         options: {
           shallow: true,
         },
@@ -48,13 +50,9 @@ const SearchBar = ({ placeholder, baseUrl, keywordBox }: Props) => {
   };
   const clear = () => {
     setText("");
-    const params = new URLSearchParams(router.asPath.split("?")[1]);
-    params.delete("query");
-    const path = `${baseUrl[0] !== "/" ? `/${baseUrl}` : baseUrl}${
-      params.toString().length ? `?${params.toString()}` : ""
-    }`;
+    const url = removeQuery({ router, key: QUERY_KEY });
     navigator({
-      url: path,
+      url,
       options: {
         shallow: true,
       },
@@ -67,7 +65,7 @@ const SearchBar = ({ placeholder, baseUrl, keywordBox }: Props) => {
     setShowBox(false);
   });
   return (
-    <SearchBarDiv onKeyUp={searchArticleList} ref={ref}>
+    <SearchBarDiv onKeyUp={search} ref={ref}>
       <SearchBarInput
         type="text"
         placeholder={placeholder}
@@ -84,10 +82,24 @@ const SearchBar = ({ placeholder, baseUrl, keywordBox }: Props) => {
 const LIST = ["늘푸른병원", "햄스터 병원", "토끼 병원"];
 
 const KeywordBox = () => {
+  const router = useRouter();
+  const search = (keyword: string) => () => {
+    const url = replaceQuery({
+      router,
+      key: QUERY_KEY,
+      query: keyword,
+    });
+    navigator({
+      url,
+      options: {
+        shallow: true,
+      },
+    });
+  };
   return (
     <KeywordUl>
       {LIST.map((keyword) => (
-        <li>{keyword}</li>
+        <li onClick={search(keyword)}>{keyword}</li>
       ))}
     </KeywordUl>
   );

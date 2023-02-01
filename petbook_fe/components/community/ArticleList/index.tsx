@@ -83,7 +83,6 @@ const PageButtonBox = ({ totalPages }: { totalPages: number }) => {
   const { currentPage, changeCurrentPage, offset } = usePagination({
     totalPages,
     btnNum,
-    basePath: "/community/list",
   });
   const onClickPrevButton = () => {
     changeCurrentPage(offset - btnNum);

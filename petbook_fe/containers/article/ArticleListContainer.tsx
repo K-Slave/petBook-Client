@@ -21,7 +21,6 @@ const ArticleListContainer = () => {
         </h1>
         <SearchBar
           placeholder="관심있는 내용을 검색해보세요!"
-          baseUrl="/community/list"
           keywordBox={false}
         />
       </div>
