@@ -12,7 +12,7 @@ export const Section = styled.section`
   ${SearchBarDiv} {
     width: 100%;
   }
-  header {
+  & > header {
     display: flex;
     gap: 0.5rem;
     align-items: baseline;
@@ -47,7 +47,7 @@ export const FilterButton = styled.button<{ selected: string; name: string }>`
   padding: 0.5rem 1rem;
   border-radius: 40px;
   ${({ selected, name }) =>
-    (selected === name
+    selected === name
       ? css`
           color: white !important;
           background-color: var(--black_01);
@@ -55,5 +55,5 @@ export const FilterButton = styled.button<{ selected: string; name: string }>`
       : css`
           color: var(--black_03) !important;
           background-color: var(--bg_white_02);
-        `)}
+        `}
 `;
