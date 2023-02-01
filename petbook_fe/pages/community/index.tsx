@@ -15,7 +15,7 @@ import QnaArticleList, {
 import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 import Link from "next/link";
-import SearchBar from "@components/community/SearchBar";
+import SearchBar from "@components/common/SearchBar";
 
 export const CATEGORY_LIST = createResource({
   key: ["CATEGORY_LIST"],
@@ -77,7 +77,15 @@ const Community: PetbookPage = () => {
       <CommunitySection title="이번주 hot 인기글">
         <HotArticleList />
       </CommunitySection>
-      <CommunitySection title="실시간 live talk" sideElement={<SearchBar />}>
+      <CommunitySection
+        title="실시간 live talk"
+        sideElement={
+          <SearchBar
+            placeholder="관심있는 내용을 검색해보세요!"
+            baseUrl="/community/list"
+          />
+        }
+      >
         <CategoryNav />
         <ArticlePreviewList />
       </CommunitySection>

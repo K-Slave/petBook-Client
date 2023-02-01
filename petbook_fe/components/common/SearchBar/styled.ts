@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Input = styled.input`
+export const SearchBarInput = styled.input`
   width: 278px !important;
   height: 40px !important;
   padding: 0 40px 0 8px !important;
@@ -15,7 +15,7 @@ export const Input = styled.input`
   }
 `;
 
-export const Bar = styled.div`
+export const SearchBarDiv = styled.div`
   position: relative;
   box-shadow: 0px 20px 16px -20px #d6d3c5;
   border-radius: 8px;

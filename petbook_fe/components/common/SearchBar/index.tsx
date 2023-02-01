@@ -1,13 +1,20 @@
 import SearchIcon from "@components/common/icon/Search";
-import useSearchText from "@lib/hooks/article/useSearchText";
 import navigator from "@lib/modules/navigator";
 import React, { KeyboardEventHandler, useEffect, useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
-import { Bar, Input } from "./styled";
+import { useRouter } from "next/router";
+import { SearchBarDiv, SearchBarInput } from "./styled";
 
-const SearchBar = () => {
-  const searchText = useSearchText();
+interface Props {
+  placeholder?: string;
+  baseUrl: string;
+}
+
+const SearchBar = ({ placeholder, baseUrl }: Props) => {
+  const router = useRouter();
+  const { query } = router.query;
+  const searchText = query === undefined ? "" : (query as string);
   const [text, setText] = useState(searchText);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
@@ -16,7 +23,7 @@ const SearchBar = () => {
     const key = e.key || e.keyCode;
     if (key === "Enter" || key === 13) {
       navigator({
-        url: `/community/list?query=${text}`,
+        url: `${baseUrl[0] !== "/" ? `/${baseUrl}` : baseUrl}?query=${text}`,
         options: {
           shallow: true,
         },
@@ -36,16 +43,20 @@ const SearchBar = () => {
     setText(searchText);
   }, [searchText]);
   return (
-    <Bar onKeyUp={searchArticleList}>
-      <Input
+    <SearchBarDiv onKeyUp={searchArticleList}>
+      <SearchBarInput
         type="text"
-        placeholder="관심있는 내용을 검색해보세요!"
+        placeholder={placeholder}
         value={text}
         onChange={onChange}
       />
       {searchText ? <IoCloseCircle onClick={clear} /> : <SearchIcon />}
-    </Bar>
+    </SearchBarDiv>
   );
+};
+
+SearchBar.defaultProps = {
+  placeholder: "",
 };
 
 export default SearchBar;
