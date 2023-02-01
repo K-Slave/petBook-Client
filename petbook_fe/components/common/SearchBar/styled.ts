@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const SearchBarInput = styled.input`
-  width: 278px !important;
-  height: 40px !important;
+  width: 100% !important;
+  height: 100% !important;
   padding: 0 40px 0 8px !important;
   border: 2px solid var(--black_04) !important;
   background-color: white !important;
@@ -16,6 +16,8 @@ export const SearchBarInput = styled.input`
 `;
 
 export const SearchBarDiv = styled.div`
+  width: 278px;
+  height: 40px;
   position: relative;
   box-shadow: 0px 20px 16px -20px #d6d3c5;
   border-radius: 8px;
