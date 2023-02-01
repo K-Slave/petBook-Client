@@ -45,8 +45,7 @@ export const createArticleListResource = ({
     key: ["ARTICLE_LIST", category.name, page],
     fetcher: () =>
       articleRequest.article_list({
-        categoryId:
-          category.id && category.id === 0 ? "" : (category.id as number),
+        categoryId: category.id === 0 ? "" : category.id,
         page: page - 1,
         size: 20,
         popular: false,
