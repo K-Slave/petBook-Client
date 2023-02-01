@@ -1,6 +1,8 @@
+import HospitalDetail from "@components/hospital/HospitalDetail";
 import HospitalList from "@components/hospital/HospitalList";
 import KakaoMap from "@components/map/KakaoMap";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 import Script from "next/script";
 import { createGlobalStyle } from "styled-components";
 
@@ -22,6 +24,7 @@ const HospitalMapGlobalStyle = createGlobalStyle`
 `;
 
 const HospitalMapPage: NextPage = (pageProps: any) => {
+  const router = useRouter();
   return (
     <>
       <HospitalMapGlobalStyle />
@@ -31,8 +34,7 @@ const HospitalMapPage: NextPage = (pageProps: any) => {
         strategy="beforeInteractive"
       /> */}
       <KakaoMap />
-      <HospitalList />
-      <div />
+      {router.query.name ? <HospitalDetail /> : <HospitalList />}
     </>
   );
 };

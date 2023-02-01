@@ -38,3 +38,23 @@ export const BookmarkBlankIcon = () => {
     </svg>
   );
 };
+
+export const BookmarkBlankSharpIcon = () => {
+  return (
+    <svg
+      width="16"
+      height="22"
+      viewBox="0 0 16 22"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M1.33594 6.64575C1.33594 4.90336 1.33594 4.03217 1.64735 3.36666C1.92127 2.78127 2.35836 2.30533 2.89596 2.00706C3.50714 1.66797 4.30722 1.66797 5.90737 1.66797H10.0978C11.698 1.66797 12.4981 1.66797 13.1092 2.00706C13.6469 2.30533 14.0839 2.78127 14.3579 3.36666C14.6693 4.03217 14.6693 4.90336 14.6693 6.64575V20.3346L8.0026 16.1865L1.33594 20.3346V6.64575Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
