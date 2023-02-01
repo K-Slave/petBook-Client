@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Image from "next/image";
-import { Button } from "@components/common/Slider/styled";
+import { SliderButton } from "@components/common/Slider/styled";
 
 export const ImageSliderDiv = styled.div<{ cnt: number }>`
   position: relative;
@@ -20,7 +20,7 @@ export const ImageSliderDiv = styled.div<{ cnt: number }>`
   .swiper-pagination {
     display: none;
   }
-  ${Button} {
+  ${SliderButton} {
     position: absolute;
     z-index: 2;
     top: 50%;

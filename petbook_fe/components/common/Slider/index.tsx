@@ -2,7 +2,7 @@ import React from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperProps, useSwiper } from "swiper/react";
-import { Button } from "./styled";
+import { SliderButton } from "./styled";
 
 const defaultPrevElId = "swiper_prev";
 const defaultNextElId = "swiper_next";
@@ -54,9 +54,9 @@ export const SlideNextButton = ({ nextElId }: Pick<Props, "nextElId">) => {
     }
   };
   return (
-    <Button onClick={onClick} type="button" id={nextElId}>
+    <SliderButton onClick={onClick} type="button" id={nextElId}>
       <FiChevronRight />
-    </Button>
+    </SliderButton>
   );
 };
 
@@ -72,9 +72,9 @@ export const SlidePrevButton = ({ prevElId }: Pick<Props, "prevElId">) => {
     }
   };
   return (
-    <Button onClick={onClick} type="button" id={prevElId}>
+    <SliderButton onClick={onClick} type="button" id={prevElId}>
       <FiChevronLeft />
-    </Button>
+    </SliderButton>
   );
 };
 

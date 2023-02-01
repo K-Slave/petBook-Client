@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 // eslint-disable-next-line import/prefer-default-export
-export const Button = styled.button`
+export const SliderButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
