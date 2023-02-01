@@ -4,7 +4,7 @@ import { ArticleListResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import { UseQueryResult } from "@tanstack/react-query";
 import useResource from "@lib/hooks/common/useResource";
 import useCategory from "@lib/hooks/article/useActiveCategory";
-import useSearchText from "@lib/hooks/article/useSearchText";
+import useSearchText from "@lib/hooks/common/useSearchText";
 import { usePage } from "./usePagination";
 
 export default function useArticleList(): {

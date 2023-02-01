@@ -3,7 +3,7 @@ import navigator from "@lib/modules/navigator";
 import React, { KeyboardEventHandler, useEffect, useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
-import { useRouter } from "next/router";
+import useSearchText from "@lib/hooks/common/useSearchText";
 import { SearchBarDiv, SearchBarInput } from "./styled";
 
 interface Props {
@@ -12,9 +12,7 @@ interface Props {
 }
 
 const SearchBar = ({ placeholder, baseUrl }: Props) => {
-  const router = useRouter();
-  const { query } = router.query;
-  const searchText = query === undefined ? "" : (query as string);
+  const searchText = useSearchText();
   const [text, setText] = useState(searchText);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
