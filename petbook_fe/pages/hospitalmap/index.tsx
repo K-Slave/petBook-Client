@@ -1,3 +1,4 @@
+import HospitalList from "@components/hospital/HospitalList";
 import KakaoMap from "@components/map/KakaoMap";
 import type { NextPage } from "next";
 import Script from "next/script";
@@ -10,7 +11,8 @@ const HospitalMapGlobalStyle = createGlobalStyle`
     grid-template-columns: auto 370px;
 
     min-width: 100%;
-    min-height: 100vh;
+    height: 100vh;
+    overflow-y: hidden;
   }
 
   .Top__Nav__Wrap {
@@ -29,6 +31,7 @@ const HospitalMapPage: NextPage = (pageProps: any) => {
         strategy="beforeInteractive"
       /> */}
       <KakaoMap />
+      <HospitalList />
       <div />
     </>
   );
