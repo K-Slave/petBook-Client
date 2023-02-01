@@ -3,7 +3,7 @@ import FaceHappy from "@components/common/icon/FaceHappy";
 import Badge from "../Badge";
 import { AnimalListBox, UL, Div } from "./styled";
 
-const AnimalList = () => {
+const PossibleAnimalList = () => {
   const ANIMALS = ["토끼", "고슴도치", "햄스터", "조류"];
   const getAnimalIconImage = (animal: string) => {
     switch (animal) {
@@ -59,4 +59,4 @@ const AnimalList = () => {
   );
 };
 
-export default AnimalList;
+export default PossibleAnimalList;

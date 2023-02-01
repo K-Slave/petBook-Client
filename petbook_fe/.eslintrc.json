@@ -18,7 +18,7 @@
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "tsconfig.json",
+    "project": "**/petbook_fe/tsconfig.json",
     "ecmaFeatures": {
       "jsx": true
     },
@@ -113,6 +113,8 @@
         "ts": "never",
         "tsx": "never"
       }
-    ]
+    ],
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off"
   }
 }

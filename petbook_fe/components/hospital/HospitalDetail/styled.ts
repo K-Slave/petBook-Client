@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { HospitalInfoUL } from "../HospitalInfo/styled";
+import { HospitalInfoUL } from "@components/common/hospital/HospitalBasicInfo/styled";
 
 export const Section = styled.section`
   background-color: white;

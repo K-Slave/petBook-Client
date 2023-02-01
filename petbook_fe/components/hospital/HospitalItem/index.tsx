@@ -7,9 +7,9 @@ import navigator from "@lib/modules/navigator";
 import { replaceQuery } from "@lib/modules/queryString";
 import { useRouter } from "next/router";
 import { SwiperSlide } from "swiper/react";
-import AnimalList from "../AnimalList";
-import HospitalInfo from "../HospitalInfo";
-import Stats from "../Stats";
+import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
+import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
+import Stats from "@components/common/hospital/Stats";
 import { ImageSliderDiv, ItemHeader } from "./styled";
 
 interface Props {
@@ -36,8 +36,8 @@ const HospitalItem = ({ id }: Props) => {
           <BookmarkBlankIcon />
         </button>
       </ItemHeader>
-      <AnimalList />
-      <HospitalInfo />
+      <PossibleAnimalList />
+      <HospitalBasicInfo />
       <Stats />
       {/* 리뷰 좋았어요 나빴어요 */}
     </article>

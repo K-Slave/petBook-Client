@@ -6,7 +6,7 @@ import { useState } from "react";
 import Badge from "../Badge";
 import { HospitalInfoUL, LI } from "./styled";
 
-const HospitalInfo = ({ phoneNumber }: { phoneNumber?: string }) => {
+const HospitalBasicInfo = ({ phoneNumber }: { phoneNumber?: string }) => {
   return (
     <HospitalInfoUL>
       <LI>
@@ -22,7 +22,7 @@ const HospitalInfo = ({ phoneNumber }: { phoneNumber?: string }) => {
           시간
         </span>
         <span>화요일 9:00~12:00</span>
-        <HospitalInfo.TimeBox />
+        <HospitalBasicInfo.TimeBox />
         <Badge textColor="#00DD6D" bgColor="rgba(0, 221, 109, 0.12)">
           현재 진료 가능
         </Badge>
@@ -52,9 +52,9 @@ const TimeBox = () => {
   );
 };
 
-HospitalInfo.TimeBox = TimeBox;
-HospitalInfo.defaultProps = {
+HospitalBasicInfo.TimeBox = TimeBox;
+HospitalBasicInfo.defaultProps = {
   phoneNumber: "",
 };
 
-export default HospitalInfo;
+export default HospitalBasicInfo;

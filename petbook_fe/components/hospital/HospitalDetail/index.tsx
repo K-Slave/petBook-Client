@@ -3,9 +3,9 @@ import ChevronLeft from "@components/common/icon/ChevronLeft";
 import navigator from "@lib/modules/navigator";
 import { removeQuery } from "@lib/modules/queryString";
 import { useRouter } from "next/router";
-import AnimalList from "../AnimalList";
-import HospitalInfo from "../HospitalInfo";
-import Stats from "../Stats";
+import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
+import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
+import Stats from "@components/common/hospital/Stats";
 import { Section, LineDiv, Box } from "./styled";
 
 const HospitalDetail = () => {
@@ -41,8 +41,8 @@ const HospitalDetail = () => {
       </div>
       <HospitalDetail.Divider />
       <div className="wrapper">
-        <HospitalInfo phoneNumber="02-333-4921" />
-        <AnimalList />
+        <HospitalBasicInfo phoneNumber="02-333-4921" />
+        <PossibleAnimalList />
       </div>
       <HospitalDetail.Divider />
       {/* 리뷰 */}
