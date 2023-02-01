@@ -12,8 +12,6 @@ import ReactQuill from "react-quill";
 import useResource from "@lib/hooks/common/useResource";
 import { CATEGORY_LIST } from "@pages/community/write";
 
-import { useRecoilValue } from "recoil";
-import userState from "@atoms/common/userState";
 import localConsole from "@lib/utils/localConsole";
 import {
   WriteEditorDiv,
@@ -59,10 +57,10 @@ const Input = () => {
 };
 
 const Guide = React.memo(({ children }: PropsWithChildren<any>) => {
-  const user = useRecoilValue(userState);
+  // const user = useRecoilValue(userState);
   const divDummy = ["", "", "", ""];
 
-  localConsole?.log(user, "user");
+  // localConsole?.log(user, "user");
 
   return (
     <WriteGuideDiv className="Write__Guide">
@@ -82,7 +80,7 @@ const Guide = React.memo(({ children }: PropsWithChildren<any>) => {
 const GuideTitle = React.memo(() => {
   const { data, status } = useResource(CATEGORY_LIST);
 
-  const categoryList = data?.data ? data?.data : [];
+  const categoryList = data?.data && status === "success" ? data?.data : [];
 
   const { selectedCategory } = useRecoilSelector(writeState, {
     selectedCategory: {
@@ -94,8 +92,8 @@ const GuideTitle = React.memo(() => {
   // 초기값에 recoil 안엔 name 이 비어있는 문제가 있음
   const currentCategory = selectedCategory.name
     ? selectedCategory.name
-    : categoryList[0].name
-    ? categoryList[0].name
+    : categoryList[0]?.name
+    ? categoryList[0]?.name
     : "";
 
   return (

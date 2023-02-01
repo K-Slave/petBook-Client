@@ -23,14 +23,14 @@ const ResponsiveNextImage = styled(Image)`
 `;
 
 interface Props extends ImageProps {
-  boxWidth: string;
-  boxHeight: string;
+  boxwidth: string;
+  boxheight: string;
 }
 
 const ResponsiveImage = (props: Props) => {
-  const { boxWidth, boxHeight } = props;
+  const { boxwidth, boxheight } = props;
   return (
-    <ResponsiveImageSpan width={boxWidth} height={boxHeight}>
+    <ResponsiveImageSpan width={boxwidth} height={boxheight}>
       <ResponsiveNextImage {...props} />
     </ResponsiveImageSpan>
   );

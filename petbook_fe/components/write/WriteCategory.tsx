@@ -39,12 +39,15 @@ const List = () => {
       ...write,
       selectedCategory: {
         idx: categoryList.findIndex(
-          (category) => category.name === resultValue
+          (category) => category.name && category.name === resultValue
         ),
 
-        name: categoryList[
-          categoryList.findIndex((category) => category.name === resultValue)
-        ].name,
+        name:
+          categoryList[
+            categoryList.findIndex(
+              (category) => category.name && category.name === resultValue
+            )
+          ].name || "",
       },
     }));
   };
@@ -54,7 +57,7 @@ const List = () => {
       ...write,
       selectedCategory: {
         idx: write.selectedCategory.idx,
-        name: categoryList[selectedCategory.idx].name,
+        name: categoryList[selectedCategory.idx].name || "",
       },
     }));
   }, []);
@@ -67,8 +70,8 @@ const List = () => {
       {categoryList.map((keyword) => (
         <WriteCategory.Item
           key={keyword.name}
-          selected={categoryList[selectedCategory.idx].name}
-          keyword={keyword.name}
+          selected={categoryList[selectedCategory.idx].name || ""}
+          keyword={keyword.name || ""}
           onClick={onClick}
         />
       ))}

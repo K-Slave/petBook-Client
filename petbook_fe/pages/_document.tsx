@@ -1,4 +1,12 @@
-import Document, { DocumentContext, DocumentInitialProps } from "next/document";
+import HtmlHead from "@components/common/HtmlHead";
+import Document, {
+  DocumentContext,
+  DocumentInitialProps,
+  Html,
+  Main,
+  NextScript,
+} from "next/document";
+import Script from "next/script";
 import { ServerStyleSheet } from "styled-components";
 
 // styled-component 를 적용시키기 위한 코드
@@ -31,3 +39,16 @@ export default class MyDocument extends Document {
     }
   }
 }
+
+// export const Temp = () => {
+//   return (
+//     <Html>
+//       <HtmlHead />
+//       <body>
+//         <Main />
+//         <NextScript />
+
+//       </body>
+//     </Html>
+//   );
+// };

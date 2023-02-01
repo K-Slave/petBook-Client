@@ -25,6 +25,9 @@ export default function useIntersectionObserver({
       if (entry.isIntersecting && onAppearCallback) {
         onAppearCallback();
       }
+
+      localConsole?.log("onAppear");
+      localConsole?.log(entries[0].intersectionRatio, "ap");
     });
   };
 
@@ -33,6 +36,10 @@ export default function useIntersectionObserver({
       if (!entry.isVisible && onDisappearCallback) {
         onDisappearCallback();
       }
+
+      localConsole?.log("onDisappear");
+      localConsole?.log(entries[0].intersectionRatio, "di");
+
       // if (entry.isIntersecting) {
       //   onAppearCallback();
       // }
@@ -62,17 +69,20 @@ export default function useIntersectionObserver({
     }
   }, 300);
 
-  const setObserver = () => {
+  const setObserver = ($RootDomCurrent?: HTMLDivElement | null) => {
+    localConsole?.log($RootDomCurrent);
+    localConsole?.log(targetElement.current);
+
     if (!window.IntersectionObserver) {
       if (isSet.current === false && isScrollObserver === true) {
         isSet.current = true;
 
-        if (!$RootDom) {
+        if (!$RootDomCurrent) {
           document.body.addEventListener("scroll", infiniteScroll);
 
           return;
         }
-        $RootDom.addEventListener("scroll", infiniteScroll);
+        $RootDomCurrent.addEventListener("scroll", infiniteScroll);
       }
 
       // TODO: 스크롤 이벤트 핸들링시 disappear 동작 구현해야함
@@ -83,7 +93,7 @@ export default function useIntersectionObserver({
       try {
         if (onAppearCallback && !appearObserver.current) {
           appearObserver.current = new IntersectionObserver(onAppear, {
-            root: $RootDom || document.body,
+            root: $RootDomCurrent || document.body,
             rootMargin:
               typeof rootMargin === "number"
                 ? rootMargin.toString() + "px"
@@ -93,7 +103,7 @@ export default function useIntersectionObserver({
 
         if (onDisappearCallback && !disAppearObserver.current) {
           disAppearObserver.current = new IntersectionObserver(onDisappear, {
-            root: $RootDom || document.body,
+            root: $RootDomCurrent || document.body,
             rootMargin:
               typeof rootMargin === "number"
                 ? rootMargin.toString() + "px"

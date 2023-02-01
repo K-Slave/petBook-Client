@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Script from "next/script";
 
-const HtmlHead = () => {
+const HtmlHead = ({ currentPath }: { currentPath: string }) => {
   return (
     <>
       <Head>
@@ -13,12 +13,22 @@ const HtmlHead = () => {
           as="style"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css"
         />
+        <link
+          className="Kakao__Pre"
+          rel={`${
+            currentPath.includes("hospitalmap") ? "preload" : "prefetch"
+          }`}
+          as="text/javascript"
+          href="https://dapi.kakao.com/v2/maps/sdk.js?appkey=d5c682ad42a1b2dc53379222a3b46761&libraries=services,clusterer&autoload=false"
+        />
       </Head>
-      <Script
-        async
-        type="text/javascript"
-        src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=d5c682ad42a1b2dc53379222a3b46761&autoload=false"
-      />
+      {currentPath.includes("hospitalmap") && (
+        <Script
+          type="text/javascript"
+          src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=d5c682ad42a1b2dc53379222a3b46761&libraries=services,clusterer&autoload=false"
+          strategy="beforeInteractive"
+        />
+      )}
     </>
   );
 };

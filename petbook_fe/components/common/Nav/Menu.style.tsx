@@ -24,13 +24,13 @@ export const MenuListNav = styled.nav`
   ${MenuListStyle}
 `;
 
-export const MenuItemLink = styled(Link)<{ isCurrentPath?: boolean }>`
+export const MenuItemLink = styled(Link)<{ iscurrentpath: boolean }>`
   box-sizing: content-box;
 
   padding: 15px 1.0417vw;
 
-  font-weight: ${({ isCurrentPath }) => (isCurrentPath ? "700" : "inherit")};
-  color: ${({ isCurrentPath }) => (isCurrentPath ? "#FF6847" : "inherit")};
-  border-bottom: ${({ isCurrentPath }) =>
-    isCurrentPath ? "4px solid #FF6847" : ""};
+  font-weight: ${({ iscurrentpath }) => (iscurrentpath ? "700" : "inherit")};
+  color: ${({ iscurrentpath }) => (iscurrentpath ? "#FF6847" : "inherit")};
+  border-bottom: ${({ iscurrentpath }) =>
+    iscurrentpath ? "4px solid #FF6847" : ""};
 `;

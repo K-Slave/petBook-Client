@@ -1,6 +1,8 @@
+import useNavController from "@lib/hooks/header/useNavController";
 import localConsole from "@lib/utils/localConsole";
 import Link from "next/link";
 import React, { PropsWithChildren } from "react";
+
 import headerImg from "resource/headerImg";
 import Menu from "../Nav/Menu";
 import ResponsiveImage from "../ResponsiveImage";
@@ -16,7 +18,6 @@ interface Props {
 }
 
 const Header = ({ currentPath }: Props) => {
-  localConsole?.log(currentPath, "currentPath");
   return (
     <Header.Wrap>
       <Header.Logo />
@@ -28,13 +29,11 @@ const Header = ({ currentPath }: Props) => {
 
 const Wrap = ({ children }: PropsWithChildren<any>) => {
   return (
-    <HeaderBox>
+    <HeaderBox className="Header__Wrap">
       <HeaderDiv>{children}</HeaderDiv>
     </HeaderBox>
   );
 };
-
-// TODO : 헤더 반응형으로 짜봐야함
 
 const Logo = () => {
   return (
@@ -42,15 +41,15 @@ const Logo = () => {
       <ResponsiveImage
         src={headerImg.illust_img_placeholder}
         alt="일러스트 플레이스 홀더"
-        boxWidth="40px"
-        boxHeight="40px"
+        boxwidth="40px"
+        boxheight="40px"
         fill
       />
       <ResponsiveImage
         src={headerImg.petbook_logo}
         alt="펫북 로고 타이틀"
-        boxWidth="147.35px"
-        boxHeight="26.65px"
+        boxwidth="147.35px"
+        boxheight="26.65px"
         fill
       />
     </HeaderLogoLink>
@@ -58,7 +57,11 @@ const Logo = () => {
 };
 
 const MenuNav = ({ currentPath }: { currentPath: string }) => {
-  return <Menu currentPath={currentPath} isHeaderMenu />;
+  const [isNeedNav] = useNavController();
+
+  return (
+    <>{isNeedNav ? <Menu currentPath={currentPath} isHeaderMenu /> : <div />}</>
+  );
 };
 
 const Personal = () => {

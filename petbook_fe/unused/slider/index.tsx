@@ -3,7 +3,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { useState } from "react";
 
 import SearchBar from "@components/common/Searchbar";
-import MapSlideItems from "@components/map/slider/MapSlideItems";
+import MapSlideItems from "unused/slider/MapSlideItems";
 import PositionInfo from "./positionInfo";
 
 const SlideBox = styled.div`

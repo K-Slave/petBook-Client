@@ -34,10 +34,13 @@ export const HOT_ARTICLE_LIST = createResource({
 });
 
 export const createResourceByCategory = (category: CategoryItem) => ({
-  key: ["ARTICLE_LIST", category.name],
+  key: ["ARTICLE_LIST", category.name || ""],
   fetcher: () =>
     articleRequest.article_list({
-      categoryId: category.id === 0 ? "" : category.id,
+      categoryId:
+        typeof category.id !== "undefined" && category.id === 0
+          ? ""
+          : (category.id as number),
       page: 0,
       size: 5,
       popular: false,

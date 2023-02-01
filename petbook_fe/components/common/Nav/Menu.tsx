@@ -7,7 +7,7 @@ const menuList = [
     name: "홈",
   },
   {
-    path: "/findHospital",
+    path: "/hospitalmap",
     name: "병원정보",
   },
   {
@@ -52,7 +52,17 @@ const List = ({ currentPath }: { currentPath: string }) => {
   return (
     <>
       {menuList.map((menu) => {
-        return <Item menu={menu} isCurrentPath={currentPath === menu.path} />;
+        return (
+          <Item
+            key={menu.name}
+            menu={menu}
+            iscurrentpath={
+              menu.path.replace("/", "") !== ""
+                ? currentPath.includes(menu.path.replace("/", ""))
+                : currentPath === menu.path
+            }
+          />
+        );
       })}
     </>
   );
@@ -63,19 +73,15 @@ interface MenuItemProps {
     path: string;
     name: string;
   };
-  isCurrentPath?: boolean;
+  iscurrentpath: boolean;
 }
 
-const Item = ({ menu, isCurrentPath }: MenuItemProps) => {
+const Item = ({ menu, iscurrentpath }: MenuItemProps) => {
   return (
-    <MenuItemLink href={menu.path} isCurrentPath={isCurrentPath}>
+    <MenuItemLink href={menu.path} iscurrentpath={iscurrentpath}>
       {menu.name}
     </MenuItemLink>
   );
-};
-
-Item.defaultProps = {
-  isCurrentPath: false,
 };
 
 Menu.Wrap = React.memo(Wrap);
