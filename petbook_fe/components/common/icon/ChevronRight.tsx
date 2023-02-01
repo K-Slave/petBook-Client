@@ -1,14 +1,14 @@
 const ChevronRight = () => {
   return (
     <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
+      width="8"
+      height="14"
+      viewBox="0 0 8 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M9 18L15 12L9 6"
+        d="M1 13L7 7L1 1"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"

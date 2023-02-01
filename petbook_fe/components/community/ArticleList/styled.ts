@@ -44,6 +44,7 @@ export const Article = styled.article`
     & > div {
       display: flex;
       align-items: center;
+      gap: 0.4rem;
       color: var(--black_02);
     }
     .like {
@@ -93,4 +94,10 @@ export const PageButton = styled.button<{ selected: boolean }>`
   font-weight: normal;
   color: var(--black_05);
   ${({ selected }) => selected && selectedStyle};
+  &:first-child {
+    margin-left: 1.3rem;
+  }
+  &:last-child {
+    margin-right: 1.3rem;
+  }
 `;

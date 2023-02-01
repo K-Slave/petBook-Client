@@ -21,11 +21,13 @@ export const ArticleSectionBox = styled.section`
     & > div {
       display: flex;
       align-items: center;
+      gap: 0.4rem;
       color: var(--black_03);
-    }
-    button {
-      display: flex;
-      align-items: center;
+      & > button {
+        display: flex;
+        align-items: center;
+        color: inherit;
+      }
     }
   }
   .ArticleSection_Content {

@@ -51,6 +51,7 @@ export const List = styled.ul`
   .Article_scrap {
     display: flex;
     align-items: center;
+    gap: 0.4rem;
     color: var(--black_03);
     flex-shrink: 0;
   }

@@ -27,6 +27,7 @@ export const Item = styled.li`
     & > span {
       display: flex;
       align-items: center;
+      gap: 0.4rem;
     }
     svg {
       color: var(--black_03);

@@ -106,6 +106,7 @@ export const NormalItemDiv = styled.div<{ isEditing: "true" | "" }>`
 export const commonButtonStyle = css`
   display: flex;
   align-items: center;
+  gap: 0.4rem;
   font-size: 16px;
 `;
 
