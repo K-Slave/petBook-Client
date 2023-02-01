@@ -3,8 +3,6 @@ import styled from "styled-components";
 import CategoryContainer from "@containers/write/CategoryContainer";
 import localConsole from "@lib/utils/localConsole";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
-import { useRecoilValue } from "recoil";
-import userState from "@atoms/common/userState";
 import WriteForm from "@components/write/WriteForm";
 import WriteImgAttach from "@components/write/WriteImgAttach";
 import WriteHashTags from "@components/write/WriteHashTags";
@@ -53,15 +51,6 @@ const WriteMain = styled.main`
 `;
 
 const Write: NextPage = (pageProps: any) => {
-  localConsole?.log(
-    sprPetBookClient?.defaults.headers.common,
-    "sprPetBookClient"
-  );
-
-  const user = useRecoilValue(userState);
-
-  localConsole?.log(user);
-
   return (
     <WriteMain className={`Content ${styles.Write__Page}`}>
       <CategoryContainer />

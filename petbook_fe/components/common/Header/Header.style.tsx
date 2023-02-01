@@ -37,7 +37,20 @@ export const HeaderLogoLink = styled(Link)`
   padding: 15px 1.0417vw;
 `;
 
-export const HeaderPersonalDiv = styled.div`
+export const HeaderPersonalDiv = styled.div<{ isLoggedUser: boolean }>`
+  ${(props) => {
+    if (props.isLoggedUser) {
+      return `
+        align-self: center;
+        display: grid;
+        grid-auto-flow: column;
+        column-gap: 10px;
+    `;
+    }
+
+    return "";
+  }}
+
   padding: 15px 1.0417vw;
 
   white-space: nowrap;
@@ -47,3 +60,7 @@ export const HeaderPersonalDiv = styled.div`
   letter-spacing: -0.02em;
   color: #383835;
 `;
+
+export const HeaderUserInfoSpan = styled.span``;
+
+export const HeaderLogoutButton = styled.button``;

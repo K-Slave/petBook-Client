@@ -1,12 +1,8 @@
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
+import DecodedUserInfo from "@lib/types/DecodedUserInfo";
 import jwtDecode from "jwt-decode";
 import { GetServerSidePropsContext, NextPageContext } from "next";
 import cookies from "next-cookies";
-
-interface Decode {
-  id: string;
-  email: string;
-}
 
 export default function getToken(
   ctx: NextPageContext | GetServerSidePropsContext,
@@ -19,7 +15,7 @@ export default function getToken(
   if (token) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
     if (options.decode) {
-      const user = jwtDecode<Decode>(token);
+      const user = jwtDecode<DecodedUserInfo>(token);
       return {
         token,
         user,
