@@ -99,7 +99,9 @@ const KeywordBox = () => {
   return (
     <KeywordUl>
       {LIST.map((keyword) => (
-        <li onClick={search(keyword)}>{keyword}</li>
+        <li onClick={search(keyword)} key={keyword}>
+          {keyword}
+        </li>
       ))}
     </KeywordUl>
   );
