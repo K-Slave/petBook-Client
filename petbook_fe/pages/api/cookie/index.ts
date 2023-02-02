@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+const cookieController = (req: NextApiRequest, res: NextApiResponse) => {
   try {
     switch (req.method) {
       case "POST": {
@@ -24,4 +24,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       .status(500)
       .json({ ...error, message: error.message, success: false });
   }
-}
+};
+
+export default cookieController;

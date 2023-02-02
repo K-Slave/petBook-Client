@@ -5,6 +5,7 @@ import UserAPI from "./userRequest";
 import CategorySprAPI from "./categoryRequestSpr";
 import ImgAPI from "./imgRequest";
 import CommentAPI from "./commentRequest";
+import HospitalAPI from "./hospitalRequest";
 
 /**
  * @uri '/api/v1'
@@ -70,5 +71,11 @@ export const imgRequest = new ImgAPI(
 export const commentRequest = new CommentAPI(
   process.env.NEXT_PUBLIC_SPR_URL as string,
   "/api/v1/board/comment",
+  sprPetBookClient
+);
+
+export const hospitalRequest = new HospitalAPI(
+  process.env.NEXT_PUBLIC_SPR_URL as string,
+  "/api/v1/hospital",
   sprPetBookClient
 );

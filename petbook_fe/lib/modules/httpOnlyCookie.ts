@@ -1,28 +1,30 @@
-export async function setHttpOnlyCookie(cookie: {
+import axios from "axios";
+
+export const setHttpOnlyCookie = async (cookie: {
   key: string;
   value: string;
-}): Promise<{ success: boolean }> {
-  const res = await fetch("/api/cookie", {
+}): Promise<{ success: boolean }> => {
+  const res = await axios("/api/cookie", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(cookie),
+    data: JSON.stringify(cookie),
   });
-  const data = await res.json();
-  return data;
-}
 
-export async function removeHttpOnlyCookie(
+  return { success: res.status === 200 };
+};
+
+export const removeHttpOnlyCookie = async (
   key: string
-): Promise<{ success: boolean }> {
-  const res = await fetch("/api/cookie", {
+): Promise<{ success: boolean }> => {
+  const res = await axios("/api/cookie", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ key }),
+    data: JSON.stringify({ key }),
   });
-  const data = await res.json();
-  return data;
-}
+
+  return { success: res.status === 200 };
+};
