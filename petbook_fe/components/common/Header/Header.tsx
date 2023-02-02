@@ -1,4 +1,6 @@
+import useUserInfo from "@lib/hooks/common/useUserInfo";
 import useNavController from "@lib/hooks/header/useNavController";
+import DecodedUserInfo from "@lib/types/DecodedUserInfo";
 import localConsole from "@lib/utils/localConsole";
 import Link from "next/link";
 import React, { PropsWithChildren } from "react";
@@ -10,7 +12,9 @@ import {
   HeaderBox,
   HeaderDiv,
   HeaderLogoLink,
+  HeaderLogoutButton,
   HeaderPersonalDiv,
+  HeaderUserInfoSpan,
 } from "./Header.style";
 
 interface Props {
@@ -18,11 +22,15 @@ interface Props {
 }
 
 const Header = ({ currentPath }: Props) => {
+  const { userData } = useUserInfo();
+
   return (
     <Header.Wrap>
       <Header.Logo />
       <Header.MenuNav currentPath={currentPath} />
-      <Header.Personal />
+      <Header.Personal isLoggedUser={!!userData}>
+        {userData ? <Header.UserInfo userData={userData} /> : <Header.Auth />}
+      </Header.Personal>
     </Header.Wrap>
   );
 };
@@ -64,19 +72,55 @@ const MenuNav = ({ currentPath }: { currentPath: string }) => {
   );
 };
 
-const Personal = () => {
+interface PersonalProps {
+  isLoggedUser: boolean;
+}
+
+const Personal = ({
+  children,
+  isLoggedUser,
+}: PropsWithChildren<PersonalProps>) => {
+  localConsole?.log(isLoggedUser, "isLoggedUser");
+
   return (
-    <HeaderPersonalDiv>
-      <Link href="/login">로그인</Link>
-      &nbsp;&middot;&nbsp;
-      <Link href="/register">회원가입</Link>
+    <HeaderPersonalDiv isLoggedUser={isLoggedUser}>
+      {children}
     </HeaderPersonalDiv>
+  );
+};
+
+const UserInfo = ({ userData }: { userData: DecodedUserInfo }) => {
+  return (
+    <>
+      <HeaderUserInfoSpan className="Header__Username">
+        {userData.iss} 님
+      </HeaderUserInfoSpan>
+      <HeaderLogoutButton className="Header__Logout">
+        로그아웃
+      </HeaderLogoutButton>
+    </>
+  );
+};
+
+const Auth = () => {
+  return (
+    <>
+      <Link className="Header__Login" href="/login">
+        로그인
+      </Link>
+      &nbsp;&middot;&nbsp;
+      <Link className="Header__Register" href="/register">
+        회원가입
+      </Link>
+    </>
   );
 };
 
 Header.Wrap = React.memo(Wrap);
 Header.Logo = Logo;
-Header.MenuNav = MenuNav;
+Header.MenuNav = React.memo(MenuNav);
 Header.Personal = Personal;
+Header.UserInfo = UserInfo;
+Header.Auth = Auth;
 
 export default Header;

@@ -14,6 +14,7 @@ const ComponentsRoot = ({
   router: Router;
 }) => {
   const Component = () => component;
+
   return (
     <>
       <Loader />

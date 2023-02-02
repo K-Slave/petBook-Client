@@ -11,7 +11,6 @@ import { RecoilRoot } from "recoil";
 import queryParser from "@lib/API/parser/queryParser";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import type { Key } from "@lib/hooks/common/useResource";
-
 import { itrMap } from "@lib/utils/iterableFunctions";
 import createQueryClient from "@lib/utils/createQueryClient";
 import getToken from "@lib/utils/getToken";
@@ -22,12 +21,12 @@ import "../styles/Globals.scss";
 import "../styles/Icon.scss";
 import "../styles/Swiper.scss";
 import ComponentsRoot from "@containers/ComponentsRoot";
-
-let serverData = "";
+import DecodedUserInfo from "@lib/types/DecodedUserInfo";
 
 type DehydratedAppProps = AppProps<{
   dehydratedState: DehydratedState;
   token: string;
+  user: DecodedUserInfo;
 }>;
 
 const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
@@ -37,8 +36,15 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${pageProps.token}`;
   }
 
-  if (process.env.NEXT_PUBLIC_TESTER) {
+  if (
+    process.env.NODE_ENV === "development" &&
+    process.env.NEXT_PUBLIC_TESTER
+  ) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${process.env.NEXT_PUBLIC_TESTER}`;
+  }
+
+  if (pageProps.user) {
+    queryClient.setQueryData(["user"], pageProps.user);
   }
 
   // 웹 후크 연동 테스트
@@ -78,11 +84,8 @@ NextApp.getInitialProps = async (context: AppContext) => {
       // 보안 옵션을 추가한 쿠키를 현재 접속 시각으로부터 30일 갱신
       ctx.res?.setHeader(
         "Set-Cookie",
-        `petBookUser=${token}; Path=/ SameSite=Strict; Max-Age=2592000; secure; httpOnly`
+        `petBookUser=${token}; Path=/; SameSite=Strict; Max-Age=2592000; secure; httpOnly;`
       );
-    }
-    if (user) {
-      serverData = user.id;
     }
 
     const PageComponent: typeof Component & {
@@ -119,6 +122,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
     pageProps: {
       dehydratedState: dehydrate(queryClient),
       token,
+      user,
       ...pageProps,
     },
   };
