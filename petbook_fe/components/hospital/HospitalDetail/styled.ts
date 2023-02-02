@@ -51,8 +51,13 @@ export const LineDiv = styled.div`
 export const Box = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  margin: 1.5rem 0;
-  & > button {
+  margin: 1.5rem 0.5rem;
+  & > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  button {
     display: flex;
     flex-direction: column;
     align-items: center;

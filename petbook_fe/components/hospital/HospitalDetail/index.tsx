@@ -53,18 +53,24 @@ const HospitalDetail = () => {
 const ButtonBox = () => {
   return (
     <Box>
-      <button type="button">
-        <BookmarkBlankSharpIcon />
-        <span>책갈피</span>
-      </button>
-      <button type="button">
-        <BookmarkBlankSharpIcon />
-        <span>공유</span>
-      </button>
-      <button type="button">
-        <BookmarkBlankSharpIcon />
-        <span>리뷰작성</span>
-      </button>
+      <div>
+        <button type="button">
+          <BookmarkBlankSharpIcon />
+          <span>책갈피</span>
+        </button>
+      </div>
+      <div>
+        <button type="button">
+          <BookmarkBlankSharpIcon />
+          <span>공유</span>
+        </button>
+      </div>
+      <div>
+        <button type="button">
+          <BookmarkBlankSharpIcon />
+          <span>리뷰작성</span>
+        </button>
+      </div>
     </Box>
   );
 };
