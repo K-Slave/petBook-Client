@@ -1,19 +1,46 @@
 import { AxiosRequestHeaders } from "axios";
 import RequestCore from "./RequestCore";
-import { HospitalListResponse } from "./types/hospitalRequest";
 
 export default class HospitalAPI extends RequestCore {
   public hospital_list = async (payload?: {
     header?: AxiosRequestHeaders;
-    params?: any;
+    params?: {
+      id?: number;
+      name?: string;
+      address?: string;
+      page: number | 0;
+      size: number | 50;
+    };
   }) => {
     const { requestURL, requestHeaders } = this.getParameters({
+      uri: "s",
       headerObj: payload?.header,
+      params: {
+        ...payload?.params,
+        page:
+          payload && payload.params && typeof payload.params.page === "number"
+            ? payload.params.page
+            : 0,
+        size:
+          payload && payload.params && typeof payload.params.size === "number"
+            ? payload.params.size
+            : 50,
+      },
     });
 
-    const result = await this.getResult<HospitalListResponse>({
+    const result = await this.getResult<{
+      totalCount: number;
+      hospitals: {
+        id: number;
+        name: string;
+        address: string;
+        latitude: number;
+        longitude: number;
+        n_id: number;
+      }[];
+    }>({
       requestMethod: "GET",
-      requestURL: requestURL + "s",
+      requestURL,
       requestHeaders,
     });
 

@@ -6,6 +6,7 @@ import React from "react";
 
 const KakaoMap = dynamic(() => import("@components/map/KakaoMap"), {
   loading: () => <Skeleton borderRadius="0px" />,
+  ssr: false,
 });
 
 const MapContainer = () => {
