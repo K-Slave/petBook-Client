@@ -4,9 +4,9 @@ import { useQueryClient } from "@tanstack/react-query";
 import styled from "styled-components";
 import navigator from "@lib/modules/navigator";
 // data
-import hospitalData from "@data/all_hospital.json";
-import hamsterData from "@data/test_hamster.json";
-import rabbitData from "@data/test_rabbit.json";
+// import hospitalData from "@data/all_hospital.json";
+// import hamsterData from "@data/test_hamster.json";
+// import rabbitData from "@data/test_rabbit.json";
 import { useRouter } from "next/router";
 
 import sortFilterState from "../atoms/pageAtoms/filter/sortFilter";
@@ -170,19 +170,19 @@ const MapContainer = () => {
   useEffect(() => {
     switch (router.query.find) {
       case "all": {
-        setMapdata(hospitalData);
+        // setMapdata(hospitalData);
         break;
       }
       case "ham": {
-        setMapdata(hamsterData);
+        // setMapdata(hamsterData);
         break;
       }
       case "rabbit": {
-        setMapdata(rabbitData);
+        // setMapdata(rabbitData);
         break;
       }
       default: {
-        setMapdata(hospitalData);
+        // setMapdata(hospitalData);
         break;
       }
     }
