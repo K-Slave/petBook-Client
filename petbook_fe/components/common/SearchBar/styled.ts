@@ -31,7 +31,7 @@ export const SearchBarDiv = styled.div`
   }
 `;
 
-export const KeywordUl = styled.ul`
+export const SearchListUl = styled.ul`
   position: absolute;
   top: 33px;
   left: 0;
