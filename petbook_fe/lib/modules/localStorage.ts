@@ -32,18 +32,18 @@ const RECENT_SEARCH_KEY = "RECENT_SEARCH";
 export const addSearchValue = (
   params: Pick<Item, "target" | "type" | "value">
 ) => {
-  const timezone = "Asia/Seoul";
-  const time = dayjs().tz(timezone).format("YYYY-MM-DD HH:mm:ss.SSS");
-  const item = {
+  const tz = "Asia/Seoul";
+  const time = dayjs().tz(tz).format("YYYY-MM-DD HH:mm:ss.SSS");
+  const data = {
     ...params,
-    timezone,
+    timezone: tz,
     time,
   };
   const list = getLocalStorage<Item[]>(RECENT_SEARCH_KEY);
   if (list === null) {
     setLocalStorage<Item[]>({
       key: RECENT_SEARCH_KEY,
-      value: [item],
+      value: [data],
     });
   } else {
     const idx = list.findIndex(
@@ -53,9 +53,9 @@ export const addSearchValue = (
         item.type === params.type
     );
     if (idx !== -1) {
-      list[idx] = item;
+      list[idx] = data;
     } else {
-      list.push(item);
+      list.push(data);
     }
     setLocalStorage<Item[]>({
       key: RECENT_SEARCH_KEY,

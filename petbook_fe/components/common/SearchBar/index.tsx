@@ -10,11 +10,11 @@ import { useRouter } from "next/router";
 import { IoCloseCircle } from "react-icons/io5";
 import useClickOutside from "@lib/hooks/common/useClickOutside";
 import { removeQuery, replaceQuery } from "@lib/modules/queryString";
-import { SearchBarDiv, SearchBarInput, SearchListUl } from "./styled";
 import { addSearchValue, getRecentSearchList } from "@lib/modules/localStorage";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import { SearchBarDiv, SearchBarInput, SearchListUl } from "./styled";
 
 interface Props {
   placeholder?: string;
