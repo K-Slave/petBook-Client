@@ -10,7 +10,11 @@ import { useRouter } from "next/router";
 import { IoCloseCircle } from "react-icons/io5";
 import useClickOutside from "@lib/hooks/common/useClickOutside";
 import { removeQuery, replaceQuery } from "@lib/modules/queryString";
-import { SearchBarDiv, SearchBarInput, KeywordUl } from "./styled";
+import { addSearchValue, getRecentSearchList } from "@lib/modules/localStorage";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import { SearchBarDiv, SearchBarInput, SearchListUl } from "./styled";
 
 interface Props {
   placeholder?: string;
@@ -18,9 +22,12 @@ interface Props {
 }
 
 const QUERY_KEY = "query";
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const SearchBar = ({ placeholder, keywordBox }: Props) => {
   const router = useRouter();
+  const target = router.asPath.includes("community") ? "community" : "hospital";
   const { query } = router.query;
   const searchText = query === undefined ? "" : (query as string);
   const [text, setText] = useState(searchText);
@@ -39,7 +46,9 @@ const SearchBar = ({ placeholder, keywordBox }: Props) => {
         router,
         key: QUERY_KEY,
         query: text,
+        basePath: target === "community" ? "/community/list" : undefined,
       });
+      addSearchValue({ target, type: "query", value: text });
       navigator({
         url,
         options: {
@@ -74,14 +83,13 @@ const SearchBar = ({ placeholder, keywordBox }: Props) => {
         onFocus={onFocus}
       />
       {searchText ? <IoCloseCircle onClick={clear} /> : <SearchIcon />}
-      {keywordBox && showBox && <SearchBar.KeywordBox />}
+      {keywordBox && showBox && <SearchBar.RecentSearchList target={target} />}
     </SearchBarDiv>
   );
 };
 
-const LIST = ["늘푸른병원", "햄스터 병원", "토끼 병원"];
-
-const KeywordBox = () => {
+const RecentSearchList = ({ target }: { target: "hospital" | "community" }) => {
+  const list = getRecentSearchList(target);
   const router = useRouter();
   const search = (keyword: string) => () => {
     const url = replaceQuery({
@@ -89,6 +97,7 @@ const KeywordBox = () => {
       key: QUERY_KEY,
       query: keyword,
     });
+    addSearchValue({ target, type: "query", value: keyword });
     navigator({
       url,
       options: {
@@ -96,18 +105,26 @@ const KeywordBox = () => {
       },
     });
   };
-  return (
-    <KeywordUl>
-      {LIST.map((keyword) => (
-        <li onClick={search(keyword)} key={keyword}>
-          {keyword}
-        </li>
-      ))}
-    </KeywordUl>
-  );
+  return list ? (
+    <SearchListUl>
+      {list
+        .sort(
+          ({ time: timeA, timezone: tzA }, { time: timeB, timezone: tzB }) => {
+            const dateA = dayjs(timeA).tz(tzA);
+            const dateB = dayjs(timeB).tz(tzB);
+            return dateB.diff(dateA);
+          }
+        )
+        .map((keyword) => (
+          <li onClick={search(keyword.value)} key={keyword.value}>
+            {keyword.value}
+          </li>
+        ))}
+    </SearchListUl>
+  ) : null;
 };
 
-SearchBar.KeywordBox = KeywordBox;
+SearchBar.RecentSearchList = RecentSearchList;
 SearchBar.defaultProps = {
   placeholder: "",
   keywordBox: true,

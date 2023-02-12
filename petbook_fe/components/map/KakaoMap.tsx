@@ -4,13 +4,8 @@ import useResource from "@lib/hooks/common/useResource";
 import localConsole from "@lib/utils/localConsole";
 import { HOSPITAL_LIST } from "@pages/hospitalmap";
 import React, { PropsWithChildren, useEffect } from "react";
-import { MapInfoWindow, MapMarker, useMap } from "react-kakao-maps-sdk";
-import {
-  KakaoMapDiv,
-  KakaoMapMarker,
-  MarkerInfoWindowDiv,
-  MarkerInfoWindowStyle,
-} from "./KakaoMap.style";
+import { MapInfoWindow, useMap } from "react-kakao-maps-sdk";
+import { KakaoMapDiv } from "./KakaoMap.style";
 
 const KakaoMap = () => {
   const hospital = useResource({ ...HOSPITAL_LIST, key: ["HOSPITAL_LIST"] });
@@ -97,7 +92,6 @@ const List = ({ poiDataList }: MarkerListProps) => {
           <MapInfoWindow
             className="Marker__Info__Window"
             position={{ lat: poiData.longitude, lng: poiData.latitude }}
-            style={{ top: "5px !important" }}
           >
             <span className="text">{poiData.name}</span>
           </MapInfoWindow>
