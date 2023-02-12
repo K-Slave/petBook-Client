@@ -90,7 +90,6 @@ const SearchBar = ({ placeholder, keywordBox }: Props) => {
 
 const RecentSearchList = ({ target }: { target: "hospital" | "community" }) => {
   const list = getRecentSearchList(target);
-  console.log(list);
   const router = useRouter();
   const search = (keyword: string) => () => {
     const url = replaceQuery({
@@ -98,6 +97,7 @@ const RecentSearchList = ({ target }: { target: "hospital" | "community" }) => {
       key: QUERY_KEY,
       query: keyword,
     });
+    addSearchValue({ target, type: "query", value: keyword });
     navigator({
       url,
       options: {
