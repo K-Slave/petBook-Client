@@ -12,19 +12,23 @@ export default class HospitalAPI extends RequestCore {
       size: number | 50;
     };
   }) => {
+    const pageParam =
+      payload && payload.params && typeof payload.params.page === "number"
+        ? payload.params.page
+        : 0;
+
+    const sizeParams =
+      payload && payload.params && typeof payload.params.size === "number"
+        ? payload.params.size
+        : 50;
+
     const { requestURL, requestHeaders } = this.getParameters({
       uri: "s",
       headerObj: payload?.header,
       params: {
         ...payload?.params,
-        page:
-          payload && payload.params && typeof payload.params.page === "number"
-            ? payload.params.page
-            : 0,
-        size:
-          payload && payload.params && typeof payload.params.size === "number"
-            ? payload.params.size
-            : 50,
+        page: pageParam,
+        size: sizeParams,
       },
     });
 
