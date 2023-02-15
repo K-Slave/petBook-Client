@@ -10,11 +10,14 @@ export const HospitalInfoUL = styled.ul`
 
 export const LI = styled.li`
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.5rem;
   color: var(--black_03);
   font-weight: 500;
   font-size: 16px;
+  &:first-child {
+    align-items: flex-start;
+  }
   & > span:first-child {
     display: flex;
     align-items: center;
