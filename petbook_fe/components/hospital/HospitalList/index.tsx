@@ -1,4 +1,4 @@
-import Pagination from "@components/common/Pagination/Pagination";
+import Pagination from "@components/common/Pagination";
 import { usePage } from "@components/common/Pagination/usePagination";
 import SearchBar from "@components/common/SearchBar";
 import Skeleton from "@components/common/Skeleton/Skeleton";

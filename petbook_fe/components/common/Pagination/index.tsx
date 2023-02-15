@@ -1,6 +1,6 @@
+import getRandomKey from "@lib/utils/getRandomKey";
 import usePagination from "./usePagination";
 import { PaginationButton, PaginationDiv } from "./styled";
-import getRandomKey from "@lib/utils/getRandomKey";
 import ChevronLeft from "../icon/ChevronLeft";
 import ChevronRight from "../icon/ChevronRight";
 
