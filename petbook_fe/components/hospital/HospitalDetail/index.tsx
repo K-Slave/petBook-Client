@@ -11,7 +11,7 @@ import { Section, LineDiv, Box } from "./styled";
 const HospitalDetail = () => {
   const router = useRouter();
   const goBack = () => {
-    const url = removeQuery({ router, key: "name" });
+    const url = removeQuery({ router, key: "id" });
     navigator({
       url,
       options: {

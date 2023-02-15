@@ -16,7 +16,7 @@ import { ImageSliderDiv, ItemHeader } from "./styled";
 const HospitalItem = ({ id, name, address }: HospitalInfo) => {
   const router = useRouter();
   const navigateToDetail = () => {
-    const url = replaceQuery({ router, key: "name", query: "병원이름" });
+    const url = replaceQuery({ router, key: "id", query: String(id) });
     navigator({
       url,
       options: {
