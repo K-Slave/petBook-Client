@@ -1,5 +1,5 @@
 /* global kakao */
-import { HospitalList } from "@lib/API/petBookAPI/types/hospitalRequest";
+import type { HospitalInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
 import useResource from "@lib/hooks/common/useResource";
 import localConsole from "@lib/utils/localConsole";
 import { HOSPITAL_LIST } from "@pages/hospitalmap";
@@ -24,7 +24,7 @@ const KakaoMap = () => {
 };
 
 interface WrapProps {
-  poiData?: HospitalList;
+  poiData?: HospitalInfo;
 }
 
 const Wrap = ({ children, poiData }: PropsWithChildren<WrapProps>) => {
@@ -52,7 +52,7 @@ Wrap.defaultProps = {
 };
 
 interface MarkerListProps {
-  poiDataList: HospitalList[];
+  poiDataList: HospitalInfo[];
 }
 
 const List = ({ poiDataList }: MarkerListProps) => {
