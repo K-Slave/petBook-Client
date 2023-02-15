@@ -90,7 +90,6 @@ const SearchBar = ({ placeholder, keywordBox }: Props) => {
 
 const RecentSearchList = ({ target }: { target: "hospital" | "community" }) => {
   const list = getRecentSearchList(target);
-  console.log(list);
   const router = useRouter();
   const search = (keyword: string) => () => {
     const url = replaceQuery({
