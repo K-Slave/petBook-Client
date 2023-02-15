@@ -1,20 +1,20 @@
-import MapDom from "@components/map/MapDom";
+import Skeleton from "@components/common/Skeleton/Skeleton";
+import KakaoMap from "@components/map/KakaoMap";
 import MapScript from "@components/map/MapScript";
 import useMapLoad from "@lib/hooks/map/useMapLoad";
-import dynamic from "next/dynamic";
 import React from "react";
 
-const MapHandler = dynamic(() => import("@components/map/MapHandler"), {
-  ssr: false,
-});
+// const MapHandler = dynamic(() => import("@components/map/MapHandler"), {
+//   ssr: false,
+// });
 
 const MapContainer = () => {
-  const { mapRef, isMapLoad, onLoad } = useMapLoad();
+  const { isMapLoad, onLoad } = useMapLoad();
   return (
     <>
       <MapScript onLoad={onLoad} />
-      <MapDom mapRef={mapRef} />
-      {isMapLoad && <MapHandler mapRef={mapRef} />}
+      {/* <MapDom mapRef={mapRef} /> */}
+      {isMapLoad ? <KakaoMap /> : <Skeleton />}
     </>
   );
 };

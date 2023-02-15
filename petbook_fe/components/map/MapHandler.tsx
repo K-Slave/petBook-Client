@@ -1,7 +1,11 @@
 /* global kakao */
 
 import useResource from "@lib/hooks/common/useResource";
-import { setMarker, setInfoWindow } from "@lib/utils/kakaoMaps/kakaoMarkers";
+import {
+  setMarker,
+  setInfoWindow,
+  setCustomOverlay,
+} from "@lib/utils/kakaoMaps/kakaoMarkers";
 import localConsole from "@lib/utils/localConsole";
 import { HOSPITAL_LIST } from "@pages/hospitalmap";
 import React, { useEffect, useRef } from "react";
@@ -83,7 +87,11 @@ const Init = ({
       const infoWindowTemplateDom = infoWindowRef.current;
 
       latLngList.forEach((latLng) => {
-        const infoWindow = setInfoWindow({
+        // TODO: template DOM 을 훨씬 더 일찍 생성하기
+
+        localConsole?.log(infoWindowTemplateDom, "infoWindowTemplateDom");
+
+        const infoWindow = setCustomOverlay({
           map,
           kakaoLatLng: latLng,
           template: infoWindowTemplateDom,
@@ -105,7 +113,9 @@ const InfoWindow = ({
       className="TESTSETSET"
       ref={infoWindowRef}
       style={{ opacity: 0 }}
-    />
+    >
+      <div />
+    </MapInfoWindowDiv>
   );
 };
 
