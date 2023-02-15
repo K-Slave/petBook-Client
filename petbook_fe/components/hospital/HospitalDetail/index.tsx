@@ -41,7 +41,7 @@ const HospitalDetail = () => {
       </div>
       <HospitalDetail.Divider />
       <div className="wrapper">
-        <HospitalBasicInfo phoneNumber="02-333-4921" />
+        <HospitalBasicInfo phoneNumber="02-333-4921" address="주소" />
         <PossibleAnimalList />
       </div>
       <HospitalDetail.Divider />
