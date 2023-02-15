@@ -17,6 +17,7 @@ export const LI = styled.li`
   font-size: 16px;
   &:first-child {
     align-items: flex-start;
+    word-break: keep-all;
   }
   & > span:first-child {
     display: flex;
