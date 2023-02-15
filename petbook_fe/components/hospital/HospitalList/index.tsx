@@ -35,8 +35,8 @@ const HospitalList = () => {
         {status === "loading"
           ? Array(50)
               .fill("")
-              .map(() => (
-                <Skeleton width="100%" height="200px" key={getRandomKey()} />
+              .map((_, index) => (
+                <Skeleton width="100%" height="200px" key={index} />
               ))
           : data?.data.hospitals.map((hospital) => (
               <HospitalItem key={hospital.id} {...hospital} />
