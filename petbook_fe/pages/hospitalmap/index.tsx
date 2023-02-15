@@ -1,5 +1,6 @@
 import HospitalDetail from "@components/hospital/HospitalDetail";
 import HospitalList from "@components/hospital/HospitalList";
+import HospitalReview from "@components/hospital/HospitalReview";
 import MapContainer from "@containers/map/MapContainer";
 import { hospitalRequest } from "@lib/API/petBookAPI";
 import { createResource } from "@lib/hooks/common/useResource";
@@ -33,6 +34,7 @@ const HospitalMap: NextPage = (pageProps: any) => {
   const router = useRouter();
   return (
     <>
+      <HospitalReview />
       <HospitalMapGlobalStyle />
       <MapContainer />
       {router.query.name ? <HospitalDetail /> : <HospitalList />}
