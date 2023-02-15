@@ -1,17 +1,14 @@
 import Link from "next/link";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
-import getRandomKey from "@lib/utils/getRandomKey";
 import DOMPurify from "isomorphic-dompurify";
 import React from "react";
 import { HeartBlankIcon, HeartFilledIcon } from "@components/common/icon/Heart";
 import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
 import CommonInfo from "@components/community/CommonInfo";
 import Skeleton from "@components/common/Skeleton/Skeleton";
-import ChevronRight from "@components/common/icon/ChevronRight";
-import ChevronLeft from "@components/common/icon/ChevronLeft";
-import usePagination from "./usePagination";
 import useArticleList from "./useArticleList";
-import { ListDiv, Article, PageButton, BoxDiv, Text } from "./styled";
+import { ListDiv, Article, Text } from "./styled";
+import Pagination from "@components/common/Pagination/Pagination";
 
 interface Props
   extends Pick<
@@ -41,7 +38,7 @@ const ArticleList = ({ status, articles, totalPages, emptyText }: Props) => {
       {articles.map((article) => (
         <ArticleList.Item article={article} key={article.id} />
       ))}
-      <ArticleList.PageButtonBox totalPages={totalPages} />
+      <Pagination totalPages={totalPages} buttonNum={10} />
     </ListDiv>
   );
 };
@@ -76,56 +73,6 @@ const Item = ({ article }: { article: ArticleResponse }) => {
   );
 };
 
-// -----------------------------------------------------------------
-
-const PageButtonBox = ({ totalPages }: { totalPages: number }) => {
-  const btnNum = 2;
-  const { currentPage, changeCurrentPage, offset } = usePagination({
-    totalPages,
-    btnNum,
-  });
-  const onClickPrevButton = () => {
-    changeCurrentPage(offset - btnNum);
-  };
-  const onClickNextButton = () => {
-    changeCurrentPage(offset + btnNum);
-  };
-  const onClickPageButton = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    const { textContent } = e.currentTarget;
-    changeCurrentPage(Number(textContent));
-  };
-  return (
-    <BoxDiv>
-      {offset !== 1 && (
-        <button onClick={onClickPrevButton} type="button">
-          <ChevronLeft />
-        </button>
-      )}
-      {Array(totalPages + 1)
-        .fill(1)
-        .slice(offset, btnNum + offset)
-        .map((_, i) => (
-          <PageButton
-            type="button"
-            key={getRandomKey()}
-            onClick={onClickPageButton}
-            selected={currentPage === offset + i}
-          >
-            {i + offset}
-          </PageButton>
-        ))}
-      {btnNum + offset <= totalPages && (
-        <button onClick={onClickNextButton} type="button">
-          <ChevronRight />
-        </button>
-      )}
-    </BoxDiv>
-  );
-};
-
 ArticleList.Item = Item;
-ArticleList.PageButtonBox = PageButtonBox;
 
 export default ArticleList;

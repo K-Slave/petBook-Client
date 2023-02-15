@@ -12,10 +12,10 @@ export const usePage = () => {
 
 export default function usePagination({
   totalPages,
-  btnNum,
+  buttonNum,
 }: {
   totalPages: number;
-  btnNum: number;
+  buttonNum: number;
 }) {
   const [offset, setOffset] = useState(1);
   const currentPage = usePage();
@@ -30,7 +30,6 @@ export default function usePagination({
       url,
       options: {
         shallow: true,
-        scroll: true,
       },
     });
   };
@@ -47,10 +46,10 @@ export default function usePagination({
 
   // currentPage 변화에 따른 button offset 판단
   useEffect(() => {
-    if (currentPage >= offset + btnNum) {
-      setOffset((oldOffset) => oldOffset + btnNum);
+    if (currentPage >= offset + buttonNum) {
+      setOffset((oldOffset) => oldOffset + buttonNum);
     } else if (currentPage < offset) {
-      setOffset((oldOffset) => oldOffset - btnNum);
+      setOffset((oldOffset) => oldOffset - buttonNum);
     }
   }, [currentPage]);
 
