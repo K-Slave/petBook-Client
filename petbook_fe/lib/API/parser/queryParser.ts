@@ -25,6 +25,18 @@ export default async function queryParser(
       break;
     }
 
+    case "HOSPITAL_LIST": {
+      const page = queryParams.page ? Number(queryParams.page) - 1 : 0;
+      await client.fetchQuery([...resource.key, { page }], () =>
+        resource.fetcher({
+          params: {
+            page,
+            size: 50,
+          },
+        })
+      );
+    }
+
     default: {
       await client.fetchQuery(resource.key, resource.fetcher);
     }

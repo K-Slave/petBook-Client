@@ -8,8 +8,8 @@ export default class HospitalAPI extends RequestCore {
       id?: number;
       name?: string;
       address?: string;
-      page: number | 0;
-      size: number | 50;
+      page: number;
+      size: number;
     };
   }) => {
     const { requestURL, requestHeaders } = this.getParameters({

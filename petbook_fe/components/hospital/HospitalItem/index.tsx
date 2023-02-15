@@ -11,12 +11,9 @@ import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
 import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
 import Stats from "@components/common/hospital/Stats";
 import { ImageSliderDiv, ItemHeader } from "./styled";
+import type { HospitalItem } from "@lib/API/petBookAPI/types/hospitalRequest";
 
-interface Props {
-  id: number;
-}
-
-const HospitalItem = ({ id }: Props) => {
+const HospitalItem = ({ id, name, address }: HospitalItem) => {
   const router = useRouter();
   const navigateToDetail = () => {
     const url = replaceQuery({ router, key: "name", query: "병원이름" });
@@ -31,20 +28,20 @@ const HospitalItem = ({ id }: Props) => {
     <article>
       <HospitalItem.ImageSlider id={id} />
       <ItemHeader>
-        <h1 onClick={navigateToDetail}>병원 이름이 들어갑니다</h1>
+        <h1 onClick={navigateToDetail}>{name}</h1>
         <button type="button">
           <BookmarkBlankIcon />
         </button>
       </ItemHeader>
       <PossibleAnimalList />
-      <HospitalBasicInfo />
+      <HospitalBasicInfo address={address} />
       <Stats />
       {/* 리뷰 좋았어요 나빴어요 */}
     </article>
   );
 };
 
-const ImageSlider = ({ id }: Props) => {
+const ImageSlider = ({ id }: { id: number }) => {
   const prevElId = `slider_prev_${id}`;
   const nextElId = `slider_next_${id}`;
   return (

@@ -2,11 +2,17 @@ import ChevronDown from "@components/common/icon/ChevronDown";
 import ChevronUp from "@components/common/icon/ChevronUp";
 import ClockBlankIcon from "@components/common/icon/Clock";
 import MarkerPin from "@components/common/icon/MarkerPin";
+import { HospitalItem } from "@lib/API/petBookAPI/types/hospitalRequest";
 import { useState } from "react";
 import Badge from "../Badge";
 import { HospitalInfoUL, LI } from "./styled";
 
-const HospitalBasicInfo = ({ phoneNumber }: { phoneNumber?: string }) => {
+const HospitalBasicInfo = ({
+  phoneNumber,
+  address,
+}: Pick<HospitalItem, "address"> & {
+  phoneNumber?: string;
+}) => {
   return (
     <HospitalInfoUL>
       <LI>
@@ -14,7 +20,7 @@ const HospitalBasicInfo = ({ phoneNumber }: { phoneNumber?: string }) => {
           <MarkerPin />
           위치
         </span>
-        <span>위치가 들어갑니다</span>
+        <span>{address}</span>
       </LI>
       <LI>
         <span>
