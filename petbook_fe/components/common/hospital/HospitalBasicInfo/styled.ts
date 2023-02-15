@@ -10,7 +10,7 @@ export const HospitalInfoUL = styled.ul`
 
 export const LI = styled.li`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.5rem;
   color: var(--black_03);
   font-weight: 500;
@@ -20,6 +20,7 @@ export const LI = styled.li`
     align-items: center;
     gap: 0.375rem;
     color: var(--black_06);
+    flex-shrink: 0;
   }
   & > button {
     display: flex;

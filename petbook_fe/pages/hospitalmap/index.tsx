@@ -16,7 +16,7 @@ const HospitalMapGlobalStyle = createGlobalStyle`
   #__next {
     display: grid;
     grid-template-rows: 164px auto;
-    grid-template-columns: auto 370px;
+    grid-template-columns: auto 400px;
 
     min-width: 100%;
     height: 100vh;

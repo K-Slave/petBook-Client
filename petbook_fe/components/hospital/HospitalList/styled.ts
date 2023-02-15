@@ -6,9 +6,6 @@ export const Section = styled.section`
   background-color: white;
   box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.1);
   overflow-y: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
   ${SearchBarDiv} {
     width: 100%;
   }
