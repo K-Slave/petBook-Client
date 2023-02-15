@@ -2,7 +2,7 @@ import ChevronDown from "@components/common/icon/ChevronDown";
 import ChevronUp from "@components/common/icon/ChevronUp";
 import ClockBlankIcon from "@components/common/icon/Clock";
 import MarkerPin from "@components/common/icon/MarkerPin";
-import { HospitalItem } from "@lib/API/petBookAPI/types/hospitalRequest";
+import type { HospitalInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
 import { useState } from "react";
 import Badge from "../Badge";
 import { HospitalInfoUL, LI } from "./styled";
@@ -10,7 +10,7 @@ import { HospitalInfoUL, LI } from "./styled";
 const HospitalBasicInfo = ({
   phoneNumber,
   address,
-}: Pick<HospitalItem, "address"> & {
+}: Pick<HospitalInfo, "address"> & {
   phoneNumber?: string;
 }) => {
   return (
