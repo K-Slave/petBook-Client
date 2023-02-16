@@ -35,7 +35,11 @@ const HospitalMap: NextPage = (pageProps: any) => {
     <>
       <HospitalMapGlobalStyle />
       <MapContainer />
-      {router.query.id ? <HospitalDetail /> : <HospitalList />}
+      {router.query.id ? (
+        <HospitalDetail id={Number(router.query.id)} />
+      ) : (
+        <HospitalList />
+      )}
     </>
   );
 };
