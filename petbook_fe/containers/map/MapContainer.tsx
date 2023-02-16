@@ -2,6 +2,7 @@ import Skeleton from "@components/common/Skeleton/Skeleton";
 import KakaoMap from "@components/map/KakaoMap";
 import MapScript from "@components/map/MapScript";
 import useMapLoad from "@lib/hooks/map/useMapLoad";
+import localConsole from "@lib/utils/localConsole";
 import React from "react";
 
 // const MapHandler = dynamic(() => import("@components/map/MapHandler"), {
@@ -10,6 +11,7 @@ import React from "react";
 
 const MapContainer = () => {
   const { isMapLoad, onLoad } = useMapLoad();
+
   return (
     <>
       <MapScript onLoad={onLoad} />
@@ -19,4 +21,4 @@ const MapContainer = () => {
   );
 };
 
-export default MapContainer;
+export default React.memo(MapContainer);

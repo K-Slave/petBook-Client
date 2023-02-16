@@ -14,7 +14,7 @@ import { ImageSliderDiv, ItemHeader } from "./styled";
 const HospitalItem = ({ id, name, address }: HospitalInfo) => {
   const navigateToDetail = () => {
     navigator({
-      url: `/hospitalmap?id=${id}`,
+      url: `/hospitalmap?id=${id.toString()}`,
       options: {
         shallow: true,
       },
