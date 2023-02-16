@@ -4,9 +4,7 @@ import CustomSwiper, {
   SlidePrevButton,
 } from "@components/common/Slider";
 import navigator from "@lib/modules/navigator";
-import { replaceQuery } from "@lib/modules/queryString";
 import type { HospitalInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
-import { useRouter } from "next/router";
 import { SwiperSlide } from "swiper/react";
 import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
 import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
@@ -14,11 +12,9 @@ import Stats from "@components/common/hospital/Stats";
 import { ImageSliderDiv, ItemHeader } from "./styled";
 
 const HospitalItem = ({ id, name, address }: HospitalInfo) => {
-  const router = useRouter();
   const navigateToDetail = () => {
-    const url = replaceQuery({ router, key: "id", query: String(id) });
     navigator({
-      url,
+      url: `/hospitalmap?id=${id}`,
       options: {
         shallow: true,
       },

@@ -28,26 +28,16 @@ export default async function queryParser(
     case "HOSPITAL_LIST": {
       const id = queryParams.id ? Number(queryParams.id) : null;
       const page = queryParams.page ? Number(queryParams.page) - 1 : 0;
-      if (id) {
-        await client.fetchQuery([...resource.key, { id }], () =>
-          resource.fetcher({
-            params: {
-              id,
-              page: 0,
-              size: 1,
-            },
-          })
-        );
-      } else {
-        await client.fetchQuery([...resource.key, { page }], () =>
-          resource.fetcher({
-            params: {
-              page,
-              size: 50,
-            },
-          })
-        );
-      }
+      const key = id ? [...resource.key, { id }] : [...resource.key, { page }];
+      await client.fetchQuery(key, () =>
+        resource.fetcher({
+          params: {
+            id,
+            page,
+            size: id ? 1 : 50,
+          },
+        })
+      );
       break;
     }
 

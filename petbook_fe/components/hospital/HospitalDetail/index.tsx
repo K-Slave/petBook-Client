@@ -1,7 +1,5 @@
 import { BookmarkBlankSharpIcon } from "@components/common/icon/Bookmark";
 import ChevronLeft from "@components/common/icon/ChevronLeft";
-import navigator from "@lib/modules/navigator";
-import { removeQuery } from "@lib/modules/queryString";
 import { useRouter } from "next/router";
 import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
 import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
@@ -24,18 +22,9 @@ const HospitalDetail = ({ id }: { id: number }) => {
       }),
   });
   const router = useRouter();
-
   const goBack = () => {
-    const url = removeQuery({ router, key: "id" });
-    navigator({
-      url,
-      options: {
-        shallow: true,
-      },
-    });
+    router.back();
   };
-
-  console.log(data);
 
   if (!data) {
     return (
