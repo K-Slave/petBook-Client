@@ -14,6 +14,10 @@ const MenuListStyle = css`
   line-height: 1.5rem;
   letter-spacing: -0.02em;
   color: #92928e;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const MenuListDiv = styled.div`
