@@ -3,53 +3,38 @@ import mapState, {
   currentPoiState,
 } from "@atoms/pageAtoms/hospitalmap/mapState";
 import Skeleton from "@components/common/Skeleton/Skeleton";
-import type { HospitalInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
-import useClientReady from "@lib/hooks/common/useClientReady";
+import type {
+  HospitalInfo,
+  HospitalListResponse,
+} from "@lib/API/petBookAPI/types/hospitalRequest";
 import useDidMountEffect from "@lib/hooks/common/useDidMountEffect";
-import useResource from "@lib/hooks/common/useResource";
-import navigator from "@lib/modules/navigator";
+import usePoiData from "@lib/hooks/map/usePoiData";
 import geoLocationValidate from "@lib/utils/validation/geoLocationValidate";
-import { HOSPITAL_LIST } from "@pages/hospitalmap";
 import { useRouter } from "next/router";
-import React, {
-  MouseEventHandler,
-  PropsWithChildren,
-  useEffect,
-  useMemo,
-} from "react";
+import React, { PropsWithChildren, useEffect, useMemo } from "react";
 import { useMap } from "react-kakao-maps-sdk";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { KakaoMapDiv, KakaoMapMarker } from "./KakaoMap.style";
 import KaKaoOverlay from "./KakaoOverlay";
 
 const KakaoMap = () => {
-  const router = useRouter();
-  const pageParam = Number(router.query?.page);
-  const currentPage = Number.isNaN(pageParam) ? 1 : pageParam;
-  const page = currentPage - 1;
-
-  const { data, status } = useResource({
-    key: [HOSPITAL_LIST.key[0], { page }],
-    fetcher: () =>
-      HOSPITAL_LIST.fetcher({
-        params: {
-          page,
-          size: 50,
-        },
-      }),
-  });
+  const { router, data, status } = usePoiData();
 
   if (status === "success") {
-    const idMatchedData = data.data.hospitals.find(
+    const hopitalData = data?.data as HospitalListResponse;
+
+    const idMatchedData = hopitalData.hospitals.find(
       (poiData) => poiData.id.toString() === router.query.id
     );
 
     return (
-      <KakaoMap.Wrap poiData={idMatchedData || data.data.hospitals[0]}>
-        {data.data.hospitals.length > 1 && !router.query.id && (
-          <KakaoMap.Bound poiDataList={data.data.hospitals} />
+      <KakaoMap.Wrap poiData={idMatchedData || hopitalData.hospitals[0]}>
+        <KakaoMap.Observer />
+
+        {hopitalData.hospitals.length > 1 && !router.query.id && (
+          <KakaoMap.Bound poiDataList={hopitalData.hospitals} />
         )}
-        <KakaoMap.List poiDataList={data.data.hospitals} />
+        <KakaoMap.List poiDataList={hopitalData.hospitals} />
       </KakaoMap.Wrap>
     );
   }
@@ -62,12 +47,20 @@ interface WrapProps {
 }
 
 const Wrap = ({ children, poiData }: PropsWithChildren<WrapProps>) => {
+  const initLat = useMemo(() => {
+    return poiData ? poiData.latitude : 37.5;
+  }, []);
+
+  const initLng = useMemo(() => {
+    return poiData ? poiData.longitude : 127.5;
+  }, []);
+
   return (
     <>
       <KakaoMapDiv
         center={{
-          lat: poiData ? poiData.latitude : 37.5,
-          lng: poiData ? poiData.longitude : 127.5,
+          lat: initLat,
+          lng: initLng,
         }}
       >
         {children}
@@ -85,6 +78,43 @@ Wrap.defaultProps = {
     longitude: 127.5,
     n_id: 0,
   },
+};
+
+const Observer = () => {
+  const map = useMap();
+  // const { router, data, status } = usePoiData();
+
+  // useEffect(() => {
+  //   localConsole?.log("asd");
+
+  //   if (data) {
+  //     const { hospitals } = data?.data as HospitalListResponse;
+  //     const idMatchedData = hospitals.find(
+  //       (poiData) => poiData.id.toString() === router.query.id
+  //     );
+
+  //     if (idMatchedData) {
+  //       const { latitude, longitude } = idMatchedData;
+  //       const geoValidation = geoLocationValidate(latitude, longitude);
+
+  //       if (geoValidation) {
+  // map.panTo(new kakao.maps.LatLng(latitude, longitude));
+  //       }
+  //     }
+  //   }
+  // }, [data]);
+
+  const currentPoi = useRecoilValue(currentPoiState);
+  const { latitude, longitude } = currentPoi;
+
+  useDidMountEffect(() => {
+    const geoValidation = geoLocationValidate(latitude, longitude);
+
+    if (geoValidation) {
+      map.panTo(new kakao.maps.LatLng(latitude, longitude));
+    }
+  }, [currentPoi]);
+  return <></>;
 };
 
 interface MarkerListProps {
@@ -111,20 +141,6 @@ const Bound = ({ poiDataList }: MarkerListProps) => {
   return <></>;
 };
 
-const Observer = () => {
-  // const map = useMap();
-  // const currentPoi = useRecoilValue(currentPoiState);
-  // const { latitude, longitude } = currentPoi;
-  // const geoValidation = geoLocationValidate(latitude, longitude);
-
-  // useEffect(() => {
-  //   if (geoValidation) {
-  //     map.panTo(new kakao.maps.LatLng(latitude, longitude));
-  //   }
-  // }, [currentPoi]);
-  return <></>;
-};
-
 const List = ({ poiDataList }: MarkerListProps) => {
   const router = useRouter();
 
@@ -134,7 +150,7 @@ const List = ({ poiDataList }: MarkerListProps) => {
         const isMatched = poiData.id.toString() === router.query.id;
         return (
           <KakaoMap.Item
-            key={poiData.name}
+            key={poiData.id}
             poiData={poiData}
             isMatched={isMatched}
           />
@@ -185,8 +201,8 @@ const Marker = ({ poiData }: MarkerProps) => {
 };
 
 KakaoMap.Wrap = React.memo(Wrap);
-KakaoMap.Bound = Bound;
 KakaoMap.Observer = Observer;
+KakaoMap.Bound = Bound;
 KakaoMap.List = React.memo(List);
 KakaoMap.Item = React.memo(Item);
 KakaoMap.Marker = React.memo(Marker);

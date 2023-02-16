@@ -1,7 +1,17 @@
-const geoLocationValidate = (lat: number, lng: number) => {
-  const geoExp = /^-?([1-8]?[1-9]|[1-9]0)\\.{1}\\d{1,6}/;
+import localConsole from "../localConsole";
 
-  return geoExp.test(lat.toString()) && geoExp.test(lng.toString());
+const geoLocationValidate = (lat: number, lng: number) => {
+  const latExp =
+    /^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))$/;
+  const lngExp =
+    /^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,6})?))$/;
+
+  return (
+    lat > 0 &&
+    lng > 0 &&
+    latExp.test(lat.toString()) &&
+    lngExp.test(lng.toString())
+  );
 };
 
 export default geoLocationValidate;

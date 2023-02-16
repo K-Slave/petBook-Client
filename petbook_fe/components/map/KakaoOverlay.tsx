@@ -94,7 +94,6 @@ const KaKaoOverlay = ({ poiData, isMatched }: KaKaoOverlayProps) => {
           type="button"
           className="OverLay__Button"
           onClick={() => {
-            // onClick(poiData);
             navigator({
               url: `?id=${poiData.id}`,
               options: {
