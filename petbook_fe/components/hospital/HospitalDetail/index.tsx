@@ -6,10 +6,10 @@ import { useRouter } from "next/router";
 import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
 import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
 import Stats from "@components/common/hospital/Stats";
-import { Section, LineDiv, Box } from "./styled";
 import useResource from "@lib/hooks/common/useResource";
 import { HOSPITAL_LIST } from "@pages/hospitalmap";
 import Skeleton from "@components/common/Skeleton/Skeleton";
+import { Section, LineDiv, Box } from "./styled";
 
 const HospitalDetail = ({ id }: { id: number }) => {
   const { data } = useResource({
