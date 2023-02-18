@@ -14,6 +14,33 @@ const Terms = styled.ul`
   }
 `;
 
+const TermsInfoContainer = styled.section`
+  min-height: 30vh;
+  text-align: left;
+  line-height: 1.5;
+  font-size: 0.875rem;
+  h2 {
+    margin-top: 2.5rem;
+    font-size: 1.25rem;
+  }
+  h3 {
+    margin-top: 1.2rem;
+  }
+  ol {
+    padding-left: 0.6rem;
+    > li {
+      padding-left: 0.4rem;
+      margin-bottom: 0.4rem;
+      ul {
+        li {
+          padding-left: 0.8rem;
+          margin-bottom: 0.4rem;
+        }
+      }
+    }
+  }
+`;
+
 export type activeProps = {
   active: boolean;
 };
@@ -169,4 +196,5 @@ export {
   RegisterInfoText,
   SpaceTopWrap,
   SignButton,
+  TermsInfoContainer,
 };

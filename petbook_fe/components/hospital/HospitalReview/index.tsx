@@ -1,4 +1,12 @@
-import React, { useEffect } from "react";
+import { IconBox, InputBox } from "@components/find/style/styledFindSubmit";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { hospitalRequest, imgRequest } from "@lib/API/petBookAPI";
+
+import { reviewFormState } from "@atoms/pageAtoms/hospitalmap/review";
+import { useRecoilValue } from "recoil";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 import {
   ReviewWarp,
   ReviewHeader,
@@ -7,7 +15,18 @@ import {
   ReviewFormReactionBtn,
   ReviewButtonWrap,
   ImgContainer,
+  ImgBoxGroup,
+  ImgBox,
 } from "./styled";
+
+const IMG_CREATE = createRequest({
+  key: ["IMG_CREATE"],
+  requester: imgRequest.img_create,
+});
+const HOSPITAL_REVIEW_CREATE = createRequest({
+  key: ["HOSPITAL_REVIEW_CREATE"],
+  requester: hospitalRequest.hospital_review_create,
+});
 
 // 가라데이터
 const PETDATA = [
@@ -17,14 +36,6 @@ const PETDATA = [
   },
   {
     title: "햄찌",
-    img: "",
-  },
-  {
-    title: "거북이",
-    img: "",
-  },
-  {
-    title: "거북이",
     img: "",
   },
   {
@@ -44,24 +55,96 @@ const REACTION = [
   },
 ];
 
+interface Props {
+  idx: number;
+  src: string | ArrayBuffer | null | undefined | any;
+}
+
 const ImgWrap = () => {
+  const [imgArr, setImgArr] = useState<Props[]>([]);
+  // const imgMutation = useSetResource(IMG_CREATE); 업로드시 사용
+  const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      if (imgArr.length > 10) {
+        return alert("최대 10개 사진만 첨부할 수 있습니다.");
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        const data: Props[] = [
+          ...imgArr,
+          { idx: imgArr.length, src: reader.result },
+        ];
+        setImgArr([...data]);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+
+  const removeImg = (idx: number) => {
+    let newImgWrap = [...imgArr];
+    newImgWrap.splice(idx, 1);
+    setImgArr([...newImgWrap]);
+  };
+
   return (
-    <ImgContainer>
+    <ImgContainer count={imgArr.length}>
       <hgroup>
-        <div>
-          <p>이미지첨부 (최대 10장, 선택사항)</p>
-        </div>
+        <div className="Camera" />
+        <p>이미지첨부 (최대 10장, 선택사항)</p>
+
         <div>
           <label htmlFor="file">
-            파일 선택
-            <input type="file" className="default" id="file" />
+            추가하기
+            <input
+              type="file"
+              accept="image/png, image/gif, image/jpeg"
+              id="file"
+              className="default"
+              onChange={onChange}
+            />
           </label>
         </div>
       </hgroup>
+      <ImgBoxGroup id="group">
+        {imgArr.map((item, index) => {
+          return (
+            <ImgBox key={index}>
+              <article onClick={() => removeImg(index)} />
+              <div>
+                <Image width={48} height={48} src={item.src} alt="이미지" />
+              </div>
+            </ImgBox>
+          );
+        })}
+      </ImgBoxGroup>
     </ImgContainer>
   );
 };
+interface ReviewProps {
+  hospitalId: number;
+  content: string;
+  disease: string;
+  imageIds?: number[];
+  experience: string;
+}
 const HospitalReview = ({ modalState }: { modalState: boolean }) => {
+  const router = useRouter();
+  const reviewForm = useRecoilValue(reviewFormState);
+  const { data, mutate } = useSetResource(HOSPITAL_REVIEW_CREATE);
+
+  const onSubmit = async () => {
+    const cc = {
+      hospitalId: Number(router.query.id),
+      content: "string",
+      disease: "string",
+      imageIds: [0],
+      experience: "GOOD",
+    };
+    mutate(cc);
+  };
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
   useEffect(() => {
     if (modalState === true) {
       document.body.classList.add("dim");
@@ -122,15 +205,25 @@ const HospitalReview = ({ modalState }: { modalState: boolean }) => {
             </ReviewButtonWrap>
 
             <form action="">
-              <input
-                type="text"
-                placeholder="어떤 증상으로 병원에 방문하셨나요?"
-              />
-              <textarea
-                cols={30}
-                rows={10}
-                placeholder="병원에서 느낀 점을 자유롭게 작성해주세요."
-              />
+              <InputBox>
+                <IconBox>
+                  <div className="Pencil" />
+                </IconBox>
+                <input
+                  type="text"
+                  placeholder="어떤 증상으로 병원에 방문하셨나요?"
+                />
+              </InputBox>
+              <InputBox>
+                <IconBox>
+                  <div className="Medical" />
+                </IconBox>
+                <textarea
+                  cols={30}
+                  rows={10}
+                  placeholder="병원에서 느낀 점을 자유롭게 작성해주세요."
+                />
+              </InputBox>
               <HospitalReview.ImgWrap />
             </form>
           </ReviewForm>
@@ -139,7 +232,7 @@ const HospitalReview = ({ modalState }: { modalState: boolean }) => {
             <button type="button" value="cancel">
               취소
             </button>
-            <button type="button" value="submit">
+            <button type="button" value="submit" onClick={onSubmit}>
               작성완료
             </button>
           </ReviewButtonWrap>

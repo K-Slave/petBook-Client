@@ -75,45 +75,120 @@ export const ReviewForm = styled.article`
   gap: 8px;
   display: grid;
   margin-bottom: 40px;
+
+  transition: all 0.1s ease-in-out;
   form {
     display: grid;
     gap: 8px;
+    > div {
+      margin-bottom: 0;
+      width: 100%;
+      > div {
+        top: 14px;
+        transform: unset;
+      }
+    }
+  }
+  div:has(input:focus) > div .Pencil,
+  div:has(input:not(:placeholder-shown)) > div .Pencil {
+    background-image: url(/img/common/review/pencil_active.svg);
+  }
+  div:has(textarea:focus) > div .Medical,
+  div:has(textarea:not(:placeholder-shown)) > div .Medical {
+    background-image: url(/img/common/review/medical_active.svg);
   }
   p {
     font-weight: 700;
     font-size: 14px;
   }
 `;
+
+interface imgBoxProps {
+  count: number;
+}
+
 export const ImgContainer = styled.article`
+  padding: 10px 12px 16px 12px;
+
   background-color: #fff;
   border-radius: 8px;
-  padding: 10px 12px;
   hgroup {
+    position: relative;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 15px;
     line-height: 32px;
     color: var(--black_06);
-    margin-bottom: 15px;
     p {
+      display: inline-block;
       padding-left: 36px;
-      color: #c5c4bd;
+      color: var(--disabled-font);
       font-weight: 400;
       font-size: 14px;
+      color: ${(props: imgBoxProps) =>
+        props.count > 0 ? "var(--black_02)" : "var(--disabled-font)"};
+    }
+    .Camera{
+      background-image: ${(props: imgBoxProps) =>
+        props.count > 0
+          ? " url(/img/common/review/camera_active.svg)"
+          : " url(/img/common/review/camera.svg)"};
+    };
     }
     label {
-      background-color: var(--secondary);
-      border-radius: 40px;
+      padding: 4px 16px;
       width: 80px;
       font-size: 14px;
       color: var(--primary);
-      padding: 4px 16px;
+
+      background-color: var(--secondary);
+      border-radius: 40px;
+
+      cursor: pointer;
       input {
         display: none;
       }
     }
   }
 `;
-
+export const ImgBox = styled.article`
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background-color: var(--disabled);
+  margin-right: 18px;
+  &:nth-child(n + 6) {
+    margin-top: 24px;
+  }
+  article {
+    position: absolute;
+    z-index: 2;
+    right: -11px;
+    top: -11px;
+    width: 24px;
+    height: 24px;
+    background-image: url(/img/common/review/img_remove_btn.svg);
+    cursor: pointer;
+  }
+  > div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    img {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: auto;
+      height: 100%;
+    }
+  }
+`;
+export const ImgBoxGroup = styled.article`
+  display: flex;
+  flex-wrap: wrap;
+`;
 export const ReviewButtonWrap = styled.div`
   display: flex;
   justify-content: space-between;
