@@ -5,13 +5,14 @@ import Skeleton from "@components/common/Skeleton/Skeleton";
 import useResource from "@lib/hooks/common/useResource";
 import navigator from "@lib/modules/navigator";
 import { replaceQuery } from "@lib/modules/queryString";
-import getRandomKey from "@lib/utils/getRandomKey";
 import { HOSPITAL_LIST } from "@pages/hospitalmap";
 import { useRouter } from "next/router";
+import { useEffect, useRef } from "react";
 import HospitalItem from "../HospitalItem";
 import { FilterButton, FilterDiv, Section } from "./styled";
 
 const HospitalList = () => {
+  const ref = useRef<HTMLElement | null>(null);
   const page = usePage() - 1;
   const { data, status } = useResource({
     key: [HOSPITAL_LIST.key[0], { page }],
@@ -23,8 +24,15 @@ const HospitalList = () => {
         },
       }),
   });
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.scrollTo({
+        top: 0,
+      });
+    }
+  }, [page]);
   return (
-    <Section>
+    <Section ref={ref}>
       <SearchBar placeholder="원하는 위치를 검색해보세요!" />
       <header>
         <h1>강남구 역삼1동</h1>
