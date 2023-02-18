@@ -1,26 +1,24 @@
-// import KakaoMap from "@components/map/KakaoMap";
 import Skeleton from "@components/common/Skeleton/Skeleton";
-import dynamic from "next/dynamic";
-import Script from "next/script";
+import KakaoMap from "@components/map/KakaoMap";
+import MapScript from "@components/map/MapScript";
+import useMapLoad from "@lib/hooks/map/useMapLoad";
+import localConsole from "@lib/utils/localConsole";
 import React from "react";
 
-const KakaoMap = dynamic(() => import("@components/map/KakaoMap"), {
-  loading: () => <Skeleton borderRadius="0px" />,
-  ssr: false,
-});
+// const MapHandler = dynamic(() => import("@components/map/MapHandler"), {
+//   ssr: false,
+// });
 
 const MapContainer = () => {
+  const { isMapLoad, onLoad } = useMapLoad();
+
   return (
     <>
-      <Script
-        async
-        type="text/javascript"
-        src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=d5c682ad42a1b2dc53379222a3b46761&libraries=services,clusterer&autoload=false"
-        strategy="beforeInteractive"
-      />
-      <KakaoMap />
+      <MapScript onLoad={onLoad} />
+      {/* <MapDom mapRef={mapRef} /> */}
+      {isMapLoad ? <KakaoMap /> : <Skeleton />}
     </>
   );
 };
 
-export default MapContainer;
+export default React.memo(MapContainer);

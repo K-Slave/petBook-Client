@@ -23,7 +23,7 @@ export default class ArticleAPI extends RequestCore {
       title: string;
       content: string;
       categoryId: number;
-      imageIds: number[];
+      imgIds?: number[];
       tags: string[];
     };
   }) => {

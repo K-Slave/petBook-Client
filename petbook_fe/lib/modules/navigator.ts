@@ -23,4 +23,26 @@ const navigator = ({
     .catch(catchCallback || ((e) => console.error(e)));
 };
 
+export const historyReplacer = ({
+  url,
+  as,
+  options,
+  thenCallback,
+  catchCallback,
+}: {
+  url: UrlObject | string;
+  as?: UrlObject | string;
+  options?: {
+    shallow?: boolean;
+    locale?: string | false;
+    scroll?: boolean;
+  };
+  thenCallback?: (value?: boolean) => void;
+  catchCallback?: (reason?: any) => void;
+}) => {
+  Router.replace(url, as, options)
+    .then(thenCallback)
+    .catch(catchCallback || ((e) => console.error(e)));
+};
+
 export default navigator;

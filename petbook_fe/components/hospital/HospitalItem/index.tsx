@@ -4,24 +4,17 @@ import CustomSwiper, {
   SlidePrevButton,
 } from "@components/common/Slider";
 import navigator from "@lib/modules/navigator";
-import { replaceQuery } from "@lib/modules/queryString";
-import { useRouter } from "next/router";
+import type { HospitalInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
 import { SwiperSlide } from "swiper/react";
 import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
 import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
 import Stats from "@components/common/hospital/Stats";
 import { ImageSliderDiv, ItemHeader } from "./styled";
 
-interface Props {
-  id: number;
-}
-
-const HospitalItem = ({ id }: Props) => {
-  const router = useRouter();
+const HospitalItem = ({ id, name, address }: HospitalInfo) => {
   const navigateToDetail = () => {
-    const url = replaceQuery({ router, key: "name", query: "병원이름" });
     navigator({
-      url,
+      url: `/hospitalmap?id=${id.toString()}`,
       options: {
         shallow: true,
       },
@@ -31,20 +24,20 @@ const HospitalItem = ({ id }: Props) => {
     <article>
       <HospitalItem.ImageSlider id={id} />
       <ItemHeader>
-        <h1 onClick={navigateToDetail}>병원 이름이 들어갑니다</h1>
+        <h1 onClick={navigateToDetail}>{name}</h1>
         <button type="button">
           <BookmarkBlankIcon />
         </button>
       </ItemHeader>
       <PossibleAnimalList />
-      <HospitalBasicInfo />
+      <HospitalBasicInfo address={address} />
       <Stats />
       {/* 리뷰 좋았어요 나빴어요 */}
     </article>
   );
 };
 
-const ImageSlider = ({ id }: Props) => {
+const ImageSlider = ({ id }: { id: number }) => {
   const prevElId = `slider_prev_${id}`;
   const nextElId = `slider_next_${id}`;
   return (

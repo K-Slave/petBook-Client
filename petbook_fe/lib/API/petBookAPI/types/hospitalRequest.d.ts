@@ -1,4 +1,4 @@
-export interface HospitalList {
+export interface HospitalInfo {
   id: number;
   name: string;
   address: string;
@@ -9,7 +9,7 @@ export interface HospitalList {
 
 export type HospitalListResponse = {
   totalCount: number;
-  hospitals: HospitalList[];
+  hospitals: HospitalInfo[];
 };
 
 export interface HospitalListRequest {

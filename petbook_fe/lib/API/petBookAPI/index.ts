@@ -57,7 +57,7 @@ export const categorySprRequest = new CategorySprAPI(
  */
 export const imgRequest = new ImgAPI(
   process.env.NEXT_PUBLIC_SPR_URL as string,
-  "/api/v1/board/image",
+  "/api/v1/image",
   sprPetBookClient
 );
 

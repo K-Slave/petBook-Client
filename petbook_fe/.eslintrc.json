@@ -64,6 +64,7 @@
     "@typescript-eslint/no-misused-promises": "off",
     "@typescript-eslint/no-floating-promises": "off",
 
+    "react/no-array-index-key": "warn",
     "react/jsx-no-useless-fragment": "off",
     "react/destructuring-assignment": "off",
     "react/jsx-wrap-multilines": "off",

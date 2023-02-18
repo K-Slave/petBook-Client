@@ -1,12 +1,28 @@
+import Pagination from "@components/common/Pagination";
+import { usePage } from "@components/common/Pagination/usePagination";
 import SearchBar from "@components/common/SearchBar";
+import Skeleton from "@components/common/Skeleton/Skeleton";
+import useResource from "@lib/hooks/common/useResource";
 import navigator from "@lib/modules/navigator";
 import { replaceQuery } from "@lib/modules/queryString";
 import getRandomKey from "@lib/utils/getRandomKey";
+import { HOSPITAL_LIST } from "@pages/hospitalmap";
 import { useRouter } from "next/router";
 import HospitalItem from "../HospitalItem";
 import { FilterButton, FilterDiv, Section } from "./styled";
 
 const HospitalList = () => {
+  const page = usePage() - 1;
+  const { data, status } = useResource({
+    key: [HOSPITAL_LIST.key[0], { page }],
+    fetcher: () =>
+      HOSPITAL_LIST.fetcher({
+        params: {
+          page,
+          size: 50,
+        },
+      }),
+  });
   return (
     <Section>
       <SearchBar placeholder="원하는 위치를 검색해보세요!" />
@@ -16,12 +32,17 @@ const HospitalList = () => {
       </header>
       <HospitalList.Filter />
       <div className="Item_Wrapper">
-        {Array(4)
-          .fill("")
-          .map((_, index) => (
-            <HospitalItem key={getRandomKey()} id={index} />
-          ))}
+        {status === "loading"
+          ? Array(50)
+              .fill("")
+              .map((_, index) => (
+                <Skeleton width="100%" height="200px" key={index} />
+              ))
+          : data?.data.hospitals.map((hospital) => (
+              <HospitalItem key={hospital.id} {...hospital} />
+            ))}
       </div>
+      <Pagination buttonNum={5} totalPages={10} />
     </Section>
   );
 };

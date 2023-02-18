@@ -11,7 +11,7 @@ export const templateBgColor = (template: SkeletonProps["template"]) => {
     }
 
     default:
-      break;
+      return "rgba(200, 200, 200, 0.3)";
   }
 };
 

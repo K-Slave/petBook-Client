@@ -15,11 +15,16 @@ export const LI = styled.li`
   color: var(--black_03);
   font-weight: 500;
   font-size: 16px;
+  &:first-child {
+    align-items: flex-start;
+    word-break: keep-all;
+  }
   & > span:first-child {
     display: flex;
     align-items: center;
     gap: 0.375rem;
     color: var(--black_06);
+    flex-shrink: 0;
   }
   & > button {
     display: flex;

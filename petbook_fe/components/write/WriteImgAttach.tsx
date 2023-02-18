@@ -151,7 +151,9 @@ const AddButton = () => {
             setWrite((write) => ({
               ...write,
               inputImg: [...write.inputImg, reader.result as string],
-              inputFile: filteredFile,
+              inputFile: write.inputFile
+                ? [...write.inputFile, filteredFile]
+                : [filteredFile],
             }));
           };
 

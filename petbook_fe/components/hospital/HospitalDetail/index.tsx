@@ -1,24 +1,41 @@
 import { BookmarkBlankSharpIcon } from "@components/common/icon/Bookmark";
 import ChevronLeft from "@components/common/icon/ChevronLeft";
-import navigator from "@lib/modules/navigator";
-import { removeQuery } from "@lib/modules/queryString";
 import { useRouter } from "next/router";
 import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
 import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
 import Stats from "@components/common/hospital/Stats";
+import useResource from "@lib/hooks/common/useResource";
+import { HOSPITAL_LIST } from "@pages/hospitalmap";
+import Skeleton from "@components/common/Skeleton/Skeleton";
 import { Section, LineDiv, Box } from "./styled";
 
-const HospitalDetail = () => {
+const HospitalDetail = ({ id }: { id: number }) => {
+  const { data } = useResource({
+    key: [HOSPITAL_LIST.key[0], { id }],
+    fetcher: () =>
+      HOSPITAL_LIST.fetcher({
+        params: {
+          id,
+          page: 0,
+          size: 1,
+        },
+      }),
+  });
   const router = useRouter();
   const goBack = () => {
-    const url = removeQuery({ router, key: "name" });
-    navigator({
-      url,
-      options: {
-        shallow: true,
-      },
-    });
+    router.back();
   };
+
+  if (!data) {
+    return (
+      <Section>
+        <div className="wrapper">
+          <Skeleton width="100%" height="100%" />
+        </div>
+      </Section>
+    );
+  }
+
   return (
     <Section>
       <div className="wrapper">
@@ -27,7 +44,7 @@ const HospitalDetail = () => {
             <ChevronLeft />
           </button>
           <div>
-            <h1>병원 이름이 들어갑니다.</h1>
+            <h1>{data?.data.hospitals[0].name}</h1>
             <Stats />
           </div>
         </header>
@@ -41,7 +58,10 @@ const HospitalDetail = () => {
       </div>
       <HospitalDetail.Divider />
       <div className="wrapper">
-        <HospitalBasicInfo phoneNumber="02-333-4921" />
+        <HospitalBasicInfo
+          phoneNumber="02-333-4921"
+          address={data?.data.hospitals[0].address}
+        />
         <PossibleAnimalList />
       </div>
       <HospitalDetail.Divider />

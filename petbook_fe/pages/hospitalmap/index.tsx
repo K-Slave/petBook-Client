@@ -1,6 +1,6 @@
 import HospitalDetail from "@components/hospital/HospitalDetail";
 import HospitalList from "@components/hospital/HospitalList";
-import HospitalReview from "@components/hospital/HospitalReview";
+import HospitalContainer from "@containers/map/HospitalContainer";
 import MapContainer from "@containers/map/MapContainer";
 import { hospitalRequest } from "@lib/API/petBookAPI";
 import { createResource } from "@lib/hooks/common/useResource";
@@ -17,7 +17,7 @@ const HospitalMapGlobalStyle = createGlobalStyle`
   #__next {
     display: grid;
     grid-template-rows: 164px auto;
-    grid-template-columns: auto 370px;
+    grid-template-columns: auto 400px;
 
     min-width: 100%;
     height: 100vh;
@@ -30,14 +30,13 @@ const HospitalMapGlobalStyle = createGlobalStyle`
   }
 `;
 
-const HospitalMap: NextPage = (pageProps: any) => {
-  const router = useRouter();
+const HospitalMap: NextPage = () => {
   return (
     <>
       <HospitalReview />
       <HospitalMapGlobalStyle />
       <MapContainer />
-      {router.query.name ? <HospitalDetail /> : <HospitalList />}
+      <HospitalContainer />
     </>
   );
 };

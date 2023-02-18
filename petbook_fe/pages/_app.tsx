@@ -21,6 +21,11 @@ import "../styles/Globals.scss";
 import "../styles/Icon.scss";
 import "../styles/Swiper.scss";
 import ComponentsRoot from "@containers/ComponentsRoot";
+import Header from "@components/common/Header/Header";
+import HtmlHead from "@components/common/HtmlHead";
+import Loader from "@components/common/loader/loader";
+import Modal from "@components/common/Modal";
+import TopNav from "@components/common/Nav/TopNav";
 import DecodedUserInfo from "@lib/types/DecodedUserInfo";
 
 type DehydratedAppProps = AppProps<{
@@ -53,10 +58,12 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <RecoilRoot>
-          <ComponentsRoot
-            component={<Component {...pageProps} />}
-            router={router}
-          />
+          <Loader />
+          <HtmlHead currentPath={router.pathname} />
+          <Header currentPath={router.pathname} />
+          <TopNav currentPath={router.pathname} />
+          <Component />
+          <Modal />
         </RecoilRoot>
       </Hydrate>
     </QueryClientProvider>
