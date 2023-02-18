@@ -1,6 +1,7 @@
 import { BookmarkBlankSharpIcon } from "@components/common/icon/Bookmark";
 import ChevronLeft from "@components/common/icon/ChevronLeft";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
 import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
 import Stats from "@components/common/hospital/Stats";
@@ -8,8 +9,11 @@ import useResource from "@lib/hooks/common/useResource";
 import { HOSPITAL_LIST } from "@pages/hospitalmap";
 import Skeleton from "@components/common/Skeleton/Skeleton";
 import { Section, LineDiv, Box } from "./styled";
+import HospitalReview from "../HospitalReview";
 
 const HospitalDetail = ({ id }: { id: number }) => {
+  // 리뷰 모달 상태 전달
+  const [reviewState, setReviewState] = useState(false);
   const { data } = useResource({
     key: [HOSPITAL_LIST.key[0], { id }],
     fetcher: () =>
@@ -38,6 +42,7 @@ const HospitalDetail = ({ id }: { id: number }) => {
 
   return (
     <Section>
+      <HospitalReview modalState={reviewState} />
       <div className="wrapper">
         <header>
           <button type="button" onClick={goBack}>

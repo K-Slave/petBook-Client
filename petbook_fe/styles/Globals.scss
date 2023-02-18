@@ -354,6 +354,7 @@ input:not(input.default) {
 input:not(input.default):focus,
 .Review textarea:focus {
   border: solid 1px var(--black_04);
+  box-shadow: 0px 20px 16px -20px #d6d3c5;
 }
 .Review textarea {
   padding: 20px 22px 20px 48px;
@@ -362,12 +363,14 @@ input:not(input.default):focus,
   border: none;
   outline: none;
   box-sizing: border-box;
+  resize: none;
 }
 input:focus {
   outline: solid 1px var(--primary);
 }
-input::placeholder {
-  color: #797979;
+input::placeholder,
+textarea::placeholder {
+  color: #c5c4bd;
   line-height: 19.2px;
   font-size: 0.875rem;
 }
