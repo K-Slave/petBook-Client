@@ -1,7 +1,11 @@
 import { IconBox, InputBox } from "@components/find/style/styledFindSubmit";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { imgRequest } from "@lib/API/petBookAPI";
+import { hospitalRequest, imgRequest } from "@lib/API/petBookAPI";
+
+import { reviewFormState } from "@atoms/pageAtoms/hospitalmap/review";
+import { useRecoilValue } from "recoil";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 import {
   ReviewWarp,
@@ -18,6 +22,10 @@ import {
 const IMG_CREATE = createRequest({
   key: ["IMG_CREATE"],
   requester: imgRequest.img_create,
+});
+const HOSPITAL_REVIEW_CREATE = createRequest({
+  key: ["HOSPITAL_REVIEW_CREATE"],
+  requester: hospitalRequest.hospital_review_create,
 });
 
 // 가라데이터
@@ -112,8 +120,31 @@ const ImgWrap = () => {
     </ImgContainer>
   );
 };
-
+interface ReviewProps {
+  hospitalId: number;
+  content: string;
+  disease: string;
+  imageIds?: number[];
+  experience: string;
+}
 const HospitalReview = ({ modalState }: { modalState: boolean }) => {
+  const router = useRouter();
+  const reviewForm = useRecoilValue(reviewFormState);
+  const { data, mutate } = useSetResource(HOSPITAL_REVIEW_CREATE);
+
+  const onSubmit = async () => {
+    const cc = {
+      hospitalId: Number(router.query.id),
+      content: "string",
+      disease: "string",
+      imageIds: [0],
+      experience: "GOOD",
+    };
+    mutate(cc);
+  };
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
   useEffect(() => {
     if (modalState === true) {
       document.body.classList.add("dim");
@@ -201,7 +232,7 @@ const HospitalReview = ({ modalState }: { modalState: boolean }) => {
             <button type="button" value="cancel">
               취소
             </button>
-            <button type="button" value="submit">
+            <button type="button" value="submit" onClick={onSubmit}>
               작성완료
             </button>
           </ReviewButtonWrap>
