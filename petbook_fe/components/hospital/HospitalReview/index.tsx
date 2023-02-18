@@ -8,6 +8,8 @@ import {
   ReviewFormReactionBtn,
   ReviewButtonWrap,
   ImgContainer,
+  ImgBoxGroup,
+  ImgBox,
 } from "./styled";
 
 // 가라데이터
@@ -45,6 +47,21 @@ const REACTION = [
   },
 ];
 
+const IMG = [
+  {
+    text: "",
+    value: 0,
+  },
+  {
+    text: "",
+    value: 1,
+  },
+  {
+    text: "",
+    value: 2,
+  },
+];
+
 const ImgWrap = () => {
   return (
     <ImgContainer>
@@ -54,14 +71,25 @@ const ImgWrap = () => {
 
         <div>
           <label htmlFor="file">
-            파일 선택
+            추가하기
             <input type="file" className="default" id="file" />
           </label>
         </div>
       </hgroup>
+      <ImgBoxGroup>
+        {IMG.map((item) => {
+          return (
+            <ImgBox>
+              <span />
+              <div>{item.value}</div>
+            </ImgBox>
+          );
+        })}
+      </ImgBoxGroup>
     </ImgContainer>
   );
 };
+
 const HospitalReview = ({ modalState }: { modalState: boolean }) => {
   useEffect(() => {
     if (modalState === true) {

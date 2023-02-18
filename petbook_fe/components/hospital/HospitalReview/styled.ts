@@ -103,7 +103,7 @@ export const ReviewForm = styled.article`
   }
 `;
 export const ImgContainer = styled.article`
-  padding: 10px 12px;
+  padding: 10px 12px 16px 12px;
 
   background-color: #fff;
   border-radius: 8px;
@@ -117,7 +117,7 @@ export const ImgContainer = styled.article`
     p {
       display: inline-block;
       padding-left: 36px;
-      color: #c5c4bd;
+      color: var(--disabled-font);
       font-weight: 400;
       font-size: 14px;
     }
@@ -129,13 +129,35 @@ export const ImgContainer = styled.article`
 
       background-color: var(--secondary);
       border-radius: 40px;
+
+      cursor: pointer;
       input {
         display: none;
       }
     }
   }
 `;
-
+export const ImgBox = styled.article`
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background-color: var(--disabled);
+  margin-right: 18px;
+  span {
+    position: absolute;
+    right: -11px;
+    top: -11px;
+    width: 24px;
+    height: 24px;
+    background-image: url(/img/common/review/img_remove_btn.svg);
+    cursor: pointer;
+  }
+`;
+export const ImgBoxGroup = styled.article`
+  display: flex;
+  flex-wrap: nowrap;
+`;
 export const ReviewButtonWrap = styled.div`
   display: flex;
   justify-content: space-between;
