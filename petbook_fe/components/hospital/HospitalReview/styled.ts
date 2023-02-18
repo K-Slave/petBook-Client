@@ -75,9 +75,27 @@ export const ReviewForm = styled.article`
   gap: 8px;
   display: grid;
   margin-bottom: 40px;
+
+  transition: all 0.1s ease-in-out;
   form {
     display: grid;
     gap: 8px;
+    > div {
+      margin-bottom: 0;
+      width: 100%;
+      > div {
+        top: 14px;
+        transform: unset;
+      }
+    }
+  }
+  div:has(input:focus) > div .Pencil,
+  div:has(input:not(:placeholder-shown)) > div .Pencil {
+    background-image: url(/img/common/review/pencil_active.svg);
+  }
+  div:has(textarea:focus) > div .Medical,
+  div:has(textarea:not(:placeholder-shown)) > div .Medical {
+    background-image: url(/img/common/review/medical_active.svg);
   }
   p {
     font-weight: 700;
@@ -85,28 +103,32 @@ export const ReviewForm = styled.article`
   }
 `;
 export const ImgContainer = styled.article`
+  padding: 10px 12px;
+
   background-color: #fff;
   border-radius: 8px;
-  padding: 10px 12px;
   hgroup {
+    position: relative;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 15px;
     line-height: 32px;
     color: var(--black_06);
-    margin-bottom: 15px;
     p {
+      display: inline-block;
       padding-left: 36px;
       color: #c5c4bd;
       font-weight: 400;
       font-size: 14px;
     }
     label {
-      background-color: var(--secondary);
-      border-radius: 40px;
+      padding: 4px 16px;
       width: 80px;
       font-size: 14px;
       color: var(--primary);
-      padding: 4px 16px;
+
+      background-color: var(--secondary);
+      border-radius: 40px;
       input {
         display: none;
       }

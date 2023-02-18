@@ -65,3 +65,29 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
+.Pencil {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(/img/common/review/pencil.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.Medical {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(/img/common/review/medical.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.Camera {
+  position: absolute;
+  top: 3px;
+  left: 7px;
+  width: 24px;
+  height: 24px;
+  background-image: url(/img/common/review/camera.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+}

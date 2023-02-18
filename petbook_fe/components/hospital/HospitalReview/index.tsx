@@ -1,3 +1,4 @@
+import { IconBox, InputBox } from "@components/find/style/styledFindSubmit";
 import React, { useEffect } from "react";
 import {
   ReviewWarp,
@@ -48,9 +49,9 @@ const ImgWrap = () => {
   return (
     <ImgContainer>
       <hgroup>
-        <div>
-          <p>이미지첨부 (최대 10장, 선택사항)</p>
-        </div>
+        <div className="Camera" />
+        <p>이미지첨부 (최대 10장, 선택사항)</p>
+
         <div>
           <label htmlFor="file">
             파일 선택
@@ -122,15 +123,25 @@ const HospitalReview = ({ modalState }: { modalState: boolean }) => {
             </ReviewButtonWrap>
 
             <form action="">
-              <input
-                type="text"
-                placeholder="어떤 증상으로 병원에 방문하셨나요?"
-              />
-              <textarea
-                cols={30}
-                rows={10}
-                placeholder="병원에서 느낀 점을 자유롭게 작성해주세요."
-              />
+              <InputBox>
+                <IconBox>
+                  <div className="Pencil" />
+                </IconBox>
+                <input
+                  type="text"
+                  placeholder="어떤 증상으로 병원에 방문하셨나요?"
+                />
+              </InputBox>
+              <InputBox>
+                <IconBox>
+                  <div className="Medical" />
+                </IconBox>
+                <textarea
+                  cols={30}
+                  rows={10}
+                  placeholder="병원에서 느낀 점을 자유롭게 작성해주세요."
+                />
+              </InputBox>
               <HospitalReview.ImgWrap />
             </form>
           </ReviewForm>
