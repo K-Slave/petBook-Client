@@ -6,27 +6,27 @@ import {
   Hydrate,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import urlTokenRedirect from "@lib/API/parser/urlTokenRedirect";
 import { RecoilRoot } from "recoil";
+import Header from "@components/common/Header/Header";
+import HtmlHead from "@components/common/HtmlHead";
+import Loader from "@components/common/loader/loader";
+import Modal from "@components/common/Modal";
+import TopNav from "@components/common/Nav/TopNav";
+import urlTokenRedirect from "@lib/API/parser/urlTokenRedirect";
 import queryParser from "@lib/API/parser/queryParser";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import type { Key } from "@lib/hooks/common/useResource";
 import { itrMap } from "@lib/utils/iterableFunctions";
 import createQueryClient from "@lib/utils/createQueryClient";
 import getToken from "@lib/utils/getToken";
+import DecodedUserInfo from "@lib/types/DecodedUserInfo";
+
 import "swiper/scss";
 import "swiper/scss/navigation";
 import "swiper/scss/pagination";
 import "../styles/Globals.scss";
 import "../styles/Icon.scss";
 import "../styles/Swiper.scss";
-import ComponentsRoot from "@containers/ComponentsRoot";
-import Header from "@components/common/Header/Header";
-import HtmlHead from "@components/common/HtmlHead";
-import Loader from "@components/common/loader/loader";
-import Modal from "@components/common/Modal";
-import TopNav from "@components/common/Nav/TopNav";
-import DecodedUserInfo from "@lib/types/DecodedUserInfo";
 
 type DehydratedAppProps = AppProps<{
   dehydratedState: DehydratedState;
@@ -62,7 +62,7 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
           <HtmlHead currentPath={router.pathname} />
           <Header currentPath={router.pathname} />
           <TopNav currentPath={router.pathname} />
-          <Component />
+          <Component {...pageProps} />
           <Modal />
         </RecoilRoot>
       </Hydrate>
