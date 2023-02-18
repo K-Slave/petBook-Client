@@ -88,10 +88,7 @@ export const ReviewButtonWrap = styled.div`
   gap: 6px;
 `;
 
-export const ReviewFormReactionBtn = styled.label.attrs((props) => ({
-  value: props.key,
-  type: "radio",
-}))`
+export const ReviewFormReactionBtn = styled.label`
   padding: 16px;
   border: solid 1px var(--black_06);
   border-radius: 8px;
@@ -100,13 +97,15 @@ export const ReviewFormReactionBtn = styled.label.attrs((props) => ({
   letter-spacing: -2%;
   appearance: none;
   cursor: pointer;
-  &.on {
+  color: var(--disabled-font);
+  font-size: 14px;
+  input {
+    display: none;
+  }
+  &:has(input:checked) {
     border: none;
     background-color: ${(props) =>
-      props.value === "Y" ? "#00DD6D" : "#FF3F02"};
+      props.htmlFor === "Y" ? "#00DD6D" : "#FF3F02"};
     color: white;
-  }
-  input {
-    appearance: none;
   }
 `;

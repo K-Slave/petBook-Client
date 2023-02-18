@@ -48,6 +48,7 @@ const HospitalReview = ({ modalState }: { modalState: boolean }) => {
             <p>$ 병원명 $</p>
             <h3>리뷰 작성</h3>
           </ReviewHeader>
+
           <ReviewSelectChip>
             <li className="My">
               <div className="Img">img</div>
@@ -62,27 +63,29 @@ const HospitalReview = ({ modalState }: { modalState: boolean }) => {
               );
             })}
           </ReviewSelectChip>
+
           <ReviewForm>
             <p>병원진료는 전반적으로</p>
+
             <ReviewButtonWrap>
+              {/* 좋았어요 || 나빳어요! */}
               {REACTION.map((reaction) => {
                 return (
                   <ReviewFormReactionBtn
-                    key={reaction.value}
-                    htmlFor={reaction.value}
-                    className="on"
+                    htmlFor={reaction.value} // Y | N
                   >
                     <input
                       type="radio"
                       name="reaction"
                       id={reaction.value}
-                      className="on default" // 상태값으로 조절
+                      className="default" // 상태값으로 조절
                     />
                     {reaction.title}
                   </ReviewFormReactionBtn>
                 );
               })}
             </ReviewButtonWrap>
+
             <form action="">
               <input
                 type="text"
@@ -93,7 +96,7 @@ const HospitalReview = ({ modalState }: { modalState: boolean }) => {
                 rows={10}
                 placeholder="병원에서 느낀 점을 자유롭게 작성해주세요."
               />
-              <input type="file" />
+              <input type="file" className="default" />
             </form>
           </ReviewForm>
           <ReviewButtonWrap>
