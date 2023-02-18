@@ -33,7 +33,6 @@ const HospitalMapGlobalStyle = createGlobalStyle`
 const HospitalMap: NextPage = () => {
   return (
     <>
-      <HospitalReview />
       <HospitalMapGlobalStyle />
       <MapContainer />
       <HospitalContainer />
