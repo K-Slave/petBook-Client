@@ -363,12 +363,14 @@ input:not(input.default):focus,
   border: none;
   outline: none;
   box-sizing: border-box;
+  resize: none;
 }
 input:focus {
   outline: solid 1px var(--primary);
 }
-input::placeholder {
-  color: #797979;
+input::placeholder,
+textarea::placeholder {
+  color: #c5c4bd;
   line-height: 19.2px;
   font-size: 0.875rem;
 }

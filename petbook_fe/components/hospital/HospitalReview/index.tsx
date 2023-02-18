@@ -6,8 +6,10 @@ import {
   ReviewForm,
   ReviewFormReactionBtn,
   ReviewButtonWrap,
+  ImgContainer,
 } from "./styled";
 
+// 가라데이터
 const PETDATA = [
   {
     title: "토끼",
@@ -21,8 +23,16 @@ const PETDATA = [
     title: "거북이",
     img: "",
   },
+  {
+    title: "거북이",
+    img: "",
+  },
+  {
+    title: "거북이",
+    img: "",
+  },
 ];
-
+// 버튼!
 const REACTION = [
   {
     title: "좋았어요!",
@@ -33,6 +43,24 @@ const REACTION = [
     value: "N",
   },
 ];
+
+const ImgWrap = () => {
+  return (
+    <ImgContainer>
+      <hgroup>
+        <div>
+          <p>이미지첨부 (최대 10장, 선택사항)</p>
+        </div>
+        <div>
+          <label htmlFor="file">
+            파일 선택
+            <input type="file" className="default" id="file" />
+          </label>
+        </div>
+      </hgroup>
+    </ImgContainer>
+  );
+};
 const HospitalReview = ({ modalState }: { modalState: boolean }) => {
   useEffect(() => {
     if (modalState === true) {
@@ -80,7 +108,14 @@ const HospitalReview = ({ modalState }: { modalState: boolean }) => {
                       id={reaction.value}
                       className="default" // 상태값으로 조절
                     />
-                    {reaction.title}
+                    <p>
+                      {reaction.value === "Y" ? (
+                        <div className="Happy" />
+                      ) : (
+                        <div className="Frown" />
+                      )}
+                      <span>{reaction.title}</span>
+                    </p>
                   </ReviewFormReactionBtn>
                 );
               })}
@@ -96,17 +131,23 @@ const HospitalReview = ({ modalState }: { modalState: boolean }) => {
                 rows={10}
                 placeholder="병원에서 느낀 점을 자유롭게 작성해주세요."
               />
-              <input type="file" className="default" />
+              <HospitalReview.ImgWrap />
             </form>
           </ReviewForm>
+
           <ReviewButtonWrap>
-            <button type="button">취소</button>
-            <button type="button">작성완료</button>
+            <button type="button" value="cancel">
+              취소
+            </button>
+            <button type="button" value="submit">
+              작성완료
+            </button>
           </ReviewButtonWrap>
         </ReviewWarp>
       )}
     </>
   );
 };
+HospitalReview.ImgWrap = ImgWrap;
 
 export default HospitalReview;

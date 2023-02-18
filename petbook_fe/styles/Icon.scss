@@ -46,3 +46,22 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+//
+.Happy {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  line-height: 48px;
+  background-image: url(/img/common/review/happy.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.Frown {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(/img/common/review/frown.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
