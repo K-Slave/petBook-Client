@@ -1,6 +1,7 @@
 import mapState from "@atoms/pageAtoms/hospitalmap/mapState";
 import { HospitalInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
 import navigator from "@lib/modules/navigator";
+import getRandomIdx from "@lib/utils/getRandomIdx";
 import React from "react";
 import { CustomOverlayMap } from "react-kakao-maps-sdk";
 import { useSetRecoilState } from "recoil";
@@ -34,6 +35,14 @@ const OverLayDiv = styled.div`
       ${(props: OverLayButtonProps) =>
         props.isMatched === true ? "#FF6847" : "#383835"};
     border-radius: 31px;
+
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.1875rem;
+    /* identical to box height */
+
+    text-align: center;
+    letter-spacing: -0.02em;
   }
 
   .OverLay__Button {
@@ -74,6 +83,30 @@ const OverLayDiv = styled.div`
   }
 `;
 
+const randomBox = [
+  "🐹",
+  "🐰",
+  "🐹🐹",
+  "🐰🐰",
+  "🐹🐰",
+  "🐹🐹🐹",
+  "🐰🐰🐰",
+  "🐰🐹🐰",
+  "🐹🐰🐹",
+  "🐹🐹🐹🐹",
+  "🐰🐰🐰🐰",
+  "🐹🐰🐹🐰",
+  "🐰🐹🐰🐹",
+  "🐰🐹🐹🐰",
+  "🐹🐰🐰🐹",
+  "🐹🐹🐹🐹 +",
+  "🐰🐰🐰🐰 +",
+  "🐹🐰🐹🐰 +",
+  "🐰🐹🐰🐹 +",
+  "🐰🐹🐹🐰 +",
+  "🐹🐰🐰🐹 +",
+];
+
 interface KaKaoOverlayProps {
   poiData: HospitalInfo;
   isMatched: boolean;
@@ -89,7 +122,9 @@ const KaKaoOverlay = ({ poiData, isMatched }: KaKaoOverlayProps) => {
       zIndex={isMatched ? 200 : 1}
     >
       <OverLayDiv isMatched={isMatched}>
-        <div className="OverLay__Mark" />
+        <div className="OverLay__Mark">
+          {randomBox[getRandomIdx(randomBox)]}
+        </div>
         <button
           type="button"
           className="OverLay__Button"
