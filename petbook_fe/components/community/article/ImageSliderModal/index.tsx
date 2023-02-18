@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import { useRef } from "react";
 import CustomSwiper, {
   SlideNextButton,
   SlidePrevButton,
 } from "@components/common/Slider";
 import { SwiperSlide } from "swiper/react";
 import Image from "next/image";
-import useClickOutside from "@lib/hooks/common/useClickOutside";
+import OnClickOutside from "@components/common/OnClickOutside";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import { Container } from "../../CommunityModal/styled";
 
@@ -26,26 +25,26 @@ const ImageSliderModal = ({
   initialImageIndex,
   closeModal,
 }: Props) => {
-  const ref = useRef<HTMLDivElement | null>(null);
-  useClickOutside(ref, closeModal);
   return (
     <Container>
-      <SliderDiv ref={ref}>
-        {images.length !== 1 && <SlidePrevButton prevElId={prevElId} />}
-        <CustomSwiper
-          loop
-          initialSlide={initialImageIndex}
-          prevElId={prevElId}
-          nextElId={nextElId}
-        >
-          {images.map((image) => (
-            <SwiperSlide key={image.id}>
-              <Image src={image.imageUrl} alt={alt} fill sizes="500px" />
-            </SwiperSlide>
-          ))}
-        </CustomSwiper>
-        {images.length !== 1 && <SlideNextButton nextElId={nextElId} />}
-      </SliderDiv>
+      <OnClickOutside trigger={closeModal}>
+        <SliderDiv>
+          {images.length !== 1 && <SlidePrevButton prevElId={prevElId} />}
+          <CustomSwiper
+            loop
+            initialSlide={initialImageIndex}
+            prevElId={prevElId}
+            nextElId={nextElId}
+          >
+            {images.map((image) => (
+              <SwiperSlide key={image.id}>
+                <Image src={image.imageUrl} alt={alt} fill sizes="500px" />
+              </SwiperSlide>
+            ))}
+          </CustomSwiper>
+          {images.length !== 1 && <SlideNextButton nextElId={nextElId} />}
+        </SliderDiv>
+      </OnClickOutside>
     </Container>
   );
 };

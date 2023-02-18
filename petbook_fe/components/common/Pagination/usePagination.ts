@@ -30,6 +30,7 @@ export default function usePagination({
       url,
       options: {
         shallow: true,
+        scroll: true,
       },
     });
   };
