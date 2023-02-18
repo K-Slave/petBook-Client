@@ -5,6 +5,7 @@ import { useSetRecoilState } from "recoil";
 import { registerFormState } from "@atoms/pageAtoms/login/userState";
 
 import { Terms } from "./styled/styledRegisterForm";
+import TermsInfo from "./info/Terms";
 
 const TermsWrap = () => {
   const registerForm = useSetRecoilState(registerFormState);
@@ -84,9 +85,7 @@ const TermsWrap = () => {
         <hgroup>
           <h2>{modal.data.title}</h2>
         </hgroup>
-        <section>
-          <p>{modal.data.content}</p>
-        </section>
+        <TermsInfo />
       </Modal>
       {agreeContent.map((agreeEl) => {
         return (
