@@ -1,14 +1,9 @@
 import SearchIcon from "@components/common/icon/Search";
 import navigator from "@lib/modules/navigator";
-import React, {
-  KeyboardEventHandler,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { KeyboardEventHandler, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { IoCloseCircle } from "react-icons/io5";
-import useClickOutside from "@lib/hooks/common/useClickOutside";
+import OnClickOutside from "../OnClickOutside";
 import { removeQuery, replaceQuery } from "@lib/modules/queryString";
 import { addSearchValue, getRecentSearchList } from "@lib/modules/localStorage";
 import dayjs from "dayjs";
@@ -32,7 +27,6 @@ const SearchBar = ({ placeholder, keywordBox }: Props) => {
   const searchText = query === undefined ? "" : (query as string);
   const [text, setText] = useState(searchText);
   const [showBox, setShowBox] = useState(false);
-  const ref = useRef<HTMLDivElement | null>(null);
   const onFocus = () => {
     setShowBox(true);
   };
@@ -70,21 +64,26 @@ const SearchBar = ({ placeholder, keywordBox }: Props) => {
   useEffect(() => {
     setText(searchText);
   }, [searchText]);
-  useClickOutside(ref, () => {
-    setShowBox(false);
-  });
   return (
-    <SearchBarDiv onKeyUp={search} ref={ref}>
-      <SearchBarInput
-        type="text"
-        placeholder={placeholder}
-        value={text}
-        onChange={onChange}
-        onFocus={onFocus}
-      />
-      {searchText ? <IoCloseCircle onClick={clear} /> : <SearchIcon />}
-      {keywordBox && showBox && <SearchBar.RecentSearchList target={target} />}
-    </SearchBarDiv>
+    <OnClickOutside
+      trigger={() => {
+        setShowBox(false);
+      }}
+    >
+      <SearchBarDiv onKeyUp={search}>
+        <SearchBarInput
+          type="text"
+          placeholder={placeholder}
+          value={text}
+          onChange={onChange}
+          onFocus={onFocus}
+        />
+        {searchText ? <IoCloseCircle onClick={clear} /> : <SearchIcon />}
+        {keywordBox && showBox && (
+          <SearchBar.RecentSearchList target={target} />
+        )}
+      </SearchBarDiv>
+    </OnClickOutside>
   );
 };
 

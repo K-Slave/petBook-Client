@@ -1,5 +1,4 @@
-import useClickOutside from "@lib/hooks/common/useClickOutside";
-import { useRef } from "react";
+import OnClickOutside from "@components/common/OnClickOutside";
 import { Container, ModalBox, ButtonBox } from "./styled";
 
 interface Props {
@@ -19,23 +18,23 @@ const CommunityModal = ({
   clickCancelButton,
   clickConfirmButton,
 }: Props) => {
-  const ref = useRef<HTMLDivElement | null>(null);
-  useClickOutside(ref, closeModal);
   return (
     <Container>
-      <ModalBox ref={ref}>
-        {subTitle && <p>{subTitle}</p>}
-        <h1>{modalTitle}</h1>
-        {modalContent}
-        <ButtonBox>
-          <button type="button" onClick={clickCancelButton}>
-            취소
-          </button>
-          <button type="button" onClick={clickConfirmButton}>
-            삭제하기
-          </button>
-        </ButtonBox>
-      </ModalBox>
+      <OnClickOutside trigger={closeModal}>
+        <ModalBox>
+          {subTitle && <p>{subTitle}</p>}
+          <h1>{modalTitle}</h1>
+          {modalContent}
+          <ButtonBox>
+            <button type="button" onClick={clickCancelButton}>
+              취소
+            </button>
+            <button type="button" onClick={clickConfirmButton}>
+              삭제하기
+            </button>
+          </ButtonBox>
+        </ModalBox>
+      </OnClickOutside>
     </Container>
   );
 };

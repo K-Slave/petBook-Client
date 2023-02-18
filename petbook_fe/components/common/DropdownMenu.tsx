@@ -1,7 +1,7 @@
-import useClickOutside from "@lib/hooks/common/useClickOutside";
-import React, { MouseEventHandler, useRef, useState } from "react";
+import React, { MouseEventHandler, useState } from "react";
 import styled from "styled-components";
 import ThreeDotsVerticalIcon from "./icon/ThreeDotsVertical";
+import OnClickOutside from "./OnClickOutside";
 
 interface Props {
   menuList: {
@@ -14,23 +14,23 @@ const DropdownMenu = ({ menuList }: Props) => {
   const [show, setShow] = useState(false);
   const onToggle = () => setShow((state) => !state);
   const onClose = () => setShow(false);
-  const ref = useRef<HTMLDivElement | null>(null);
-  useClickOutside(ref, onClose);
   return (
-    <MenuBox ref={ref}>
-      <MenuButton type="button" onClick={onToggle}>
-        <ThreeDotsVerticalIcon />
-      </MenuButton>
-      {show && (
-        <MenuList>
-          {menuList.map(({ name, onClick }) => (
-            <button type="button" onClick={onClick} key={name}>
-              {name}
-            </button>
-          ))}
-        </MenuList>
-      )}
-    </MenuBox>
+    <OnClickOutside trigger={onClose}>
+      <MenuBox>
+        <MenuButton type="button" onClick={onToggle}>
+          <ThreeDotsVerticalIcon />
+        </MenuButton>
+        {show && (
+          <MenuList>
+            {menuList.map(({ name, onClick }) => (
+              <button type="button" onClick={onClick} key={name}>
+                {name}
+              </button>
+            ))}
+          </MenuList>
+        )}
+      </MenuBox>
+    </OnClickOutside>
   );
 };
 
