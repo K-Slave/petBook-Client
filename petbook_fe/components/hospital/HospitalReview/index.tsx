@@ -89,6 +89,7 @@ const ImgWrap = () => {
             추가하기
             <input
               type="file"
+              accept="image/png, image/gif, image/jpeg"
               id="file"
               className="default"
               onChange={onChange}
