@@ -102,6 +102,11 @@ export const ReviewForm = styled.article`
     font-size: 14px;
   }
 `;
+
+interface imgBoxProps {
+  count: number;
+}
+
 export const ImgContainer = styled.article`
   padding: 10px 12px 16px 12px;
 
@@ -120,6 +125,15 @@ export const ImgContainer = styled.article`
       color: var(--disabled-font);
       font-weight: 400;
       font-size: 14px;
+      color: ${(props: imgBoxProps) =>
+        props.count > 0 ? "var(--black_02)" : "var(--disabled-font)"};
+    }
+    .Camera{
+      background-image: ${(props: imgBoxProps) =>
+        props.count > 0
+          ? " url(/img/common/review/camera_active.svg)"
+          : " url(/img/common/review/camera.svg)"};
+    };
     }
     label {
       padding: 4px 16px;
@@ -144,8 +158,12 @@ export const ImgBox = styled.article`
   border-radius: 8px;
   background-color: var(--disabled);
   margin-right: 18px;
-  span {
+  &:nth-child(n + 6) {
+    margin-top: 24px;
+  }
+  article {
     position: absolute;
+    z-index: 2;
     right: -11px;
     top: -11px;
     width: 24px;
@@ -153,10 +171,23 @@ export const ImgBox = styled.article`
     background-image: url(/img/common/review/img_remove_btn.svg);
     cursor: pointer;
   }
+  > div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    img {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: auto;
+      height: 100%;
+    }
+  }
 `;
 export const ImgBoxGroup = styled.article`
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 `;
 export const ReviewButtonWrap = styled.div`
   display: flex;
