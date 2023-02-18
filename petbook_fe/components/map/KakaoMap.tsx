@@ -1,6 +1,8 @@
 /* global kakao */
 import mapState, {
   currentPoiState,
+  currentRectBoundsState,
+  currentZoomLevelState,
 } from "@atoms/pageAtoms/hospitalmap/mapState";
 import Skeleton from "@components/common/Skeleton/Skeleton";
 import type {
@@ -9,12 +11,13 @@ import type {
 } from "@lib/API/petBookAPI/types/hospitalRequest";
 import useDidMountEffect from "@lib/hooks/common/useDidMountEffect";
 import usePoiData from "@lib/hooks/map/usePoiData";
+import getRectBounds, { Coordinates } from "@lib/utils/kakaoMaps/getRectBounds";
+import localConsole from "@lib/utils/localConsole";
 import geoLocationValidate from "@lib/utils/validation/geoLocationValidate";
 import { useRouter } from "next/router";
 import React, { PropsWithChildren, useEffect, useMemo } from "react";
-import { useMap } from "react-kakao-maps-sdk";
+import { Map, MapMarker, useMap } from "react-kakao-maps-sdk";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { KakaoMapDiv, KakaoMapMarker } from "./KakaoMap.style";
 import KaKaoOverlay from "./KakaoOverlay";
 
 const KakaoMap = () => {
@@ -47,6 +50,8 @@ interface WrapProps {
 }
 
 const Wrap = ({ children, poiData }: PropsWithChildren<WrapProps>) => {
+  const setMapState = useSetRecoilState(mapState);
+
   const initLat = useMemo(() => {
     return poiData ? poiData.latitude : 37.5;
   }, []);
@@ -57,14 +62,25 @@ const Wrap = ({ children, poiData }: PropsWithChildren<WrapProps>) => {
 
   return (
     <>
-      <KakaoMapDiv
+      <Map
         center={{
           lat: initLat,
           lng: initLng,
         }}
+        style={{
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(200, 200, 200, 0.3)",
+        }}
+        onZoomChanged={(map) => {
+          setMapState((state) => ({
+            ...state,
+            currentZoomLevel: map.getLevel(),
+          }));
+        }}
       >
         {children}
-      </KakaoMapDiv>
+      </Map>
     </>
   );
 };
@@ -82,6 +98,8 @@ Wrap.defaultProps = {
 
 const Observer = () => {
   const map = useMap();
+  const setMapState = useSetRecoilState(mapState);
+
   // const { router, data, status } = usePoiData();
 
   // useEffect(() => {
@@ -105,15 +123,51 @@ const Observer = () => {
   // }, [data]);
 
   const currentPoi = useRecoilValue(currentPoiState);
+  const currentZoomLevel = useRecoilValue(currentZoomLevelState);
+  const currentRectBounds = useRecoilValue(currentRectBoundsState);
   const { latitude, longitude } = currentPoi;
+
+  useEffect(() => {
+    setMapState((state) => ({
+      ...state,
+      currentZoomLevel: map.getLevel(),
+    }));
+  }, []);
+
+  useEffect(() => {
+    localConsole?.log(currentZoomLevel, "currentZoomLevel");
+
+    const NE_Coordinates: Coordinates = {
+      lat: map.getBounds().getNorthEast().getLat(),
+      lng: map.getBounds().getNorthEast().getLng(),
+    };
+
+    const SW_Coordinates: Coordinates = {
+      lat: map.getBounds().getSouthWest().getLat(),
+      lng: map.getBounds().getSouthWest().getLng(),
+    };
+
+    const rectBounds = getRectBounds(SW_Coordinates, NE_Coordinates);
+    // localConsole?.log(convStringCoordinates(rectBounds));
+
+    setMapState((state) => ({ ...state, currentRectBounds: rectBounds }));
+  }, [currentPoi, currentZoomLevel]);
 
   useDidMountEffect(() => {
     const geoValidation = geoLocationValidate(latitude, longitude);
 
+    localConsole?.log(currentZoomLevel, "currentZoomLevel");
+    localConsole?.log(currentRectBounds, "currentRectBounds");
+
     if (geoValidation) {
+      if (currentZoomLevel >= 9) {
+        map.setLevel(6);
+      }
+
       map.panTo(new kakao.maps.LatLng(latitude, longitude));
     }
   }, [currentPoi]);
+
   return <></>;
 };
 
@@ -191,8 +245,8 @@ const Marker = ({ poiData }: MarkerProps) => {
   }, []);
 
   return (
-    <KakaoMapMarker
-      key={poiData.name}
+    <MapMarker
+      key={poiData.id}
       position={{ lat: poiData.latitude, lng: poiData.longitude }}
       image={image}
       // zIndex={isMatched ? 200 : 0}
