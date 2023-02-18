@@ -83,6 +83,18 @@ body {
   background-color: var(--bg_white_02);
 }
 
+body.dim::before {
+  content: "";
+  position: fixed;
+  z-index: 11;
+
+  width: 100vw;
+  height: 100vh;
+
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(15px);
+}
+
 .Loader__Layer {
   position: fixed;
   z-index: 9999;
@@ -339,8 +351,17 @@ input:not(input.default) {
   outline: none;
   box-sizing: border-box;
 }
-input:not(input.default):focus {
+input:not(input.default):focus,
+.Review textarea:focus {
   border: solid 1px var(--black_04);
+}
+.Review textarea {
+  padding: 20px 22px 20px 48px;
+  height: 186px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
 }
 input:focus {
   outline: solid 1px var(--primary);
