@@ -3,12 +3,12 @@ import navigator from "@lib/modules/navigator";
 import React, { KeyboardEventHandler, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { IoCloseCircle } from "react-icons/io5";
-import OnClickOutside from "../OnClickOutside";
 import { removeQuery, replaceQuery } from "@lib/modules/queryString";
 import { addSearchValue, getRecentSearchList } from "@lib/modules/localStorage";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import OnClickOutside from "../OnClickOutside";
 import { SearchBarDiv, SearchBarInput, SearchListUl } from "./styled";
 
 interface Props {

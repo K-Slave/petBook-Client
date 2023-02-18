@@ -20,8 +20,7 @@ const OnClickOutside = ({
     };
   }, []);
   return isValidElement(children)
-    ? cloneElement(children, {
-        //@ts-ignore
+    ? cloneElement(children as any, {
         ref,
       })
     : null;
