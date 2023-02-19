@@ -84,7 +84,7 @@ export default class HospitalAPI extends RequestCore {
   };
 
   public hospital_review_create = async (
-    params: {
+    body: {
       hospitalId: number;
       content: string;
       disease: string;
@@ -96,12 +96,12 @@ export default class HospitalAPI extends RequestCore {
     const { requestURL, requestHeaders } = this.getParameters({
       uri: `/review`,
       headerObj: config && config.headerObj,
-      params,
     });
     const result = await this.getResult({
       requestMethod: "POST",
       requestURL,
       requestHeaders,
+      body,
     });
 
     return result;

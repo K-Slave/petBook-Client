@@ -11,7 +11,7 @@ export const ReviewWarp = styled.section`
   border-radius: 16px;
 
   width: calc(100vw - 16px);
-  height: calc(100vh - 16px);
+  height: auto;
   max-height: calc(100vh - 12.5rem);
   max-width: 29rem;
 
@@ -51,6 +51,7 @@ export const ReviewSelectChip = styled.ul`
     font-size: 14px;
     box-sizing: border-box;
     transition: all 0.1s ease-in-out;
+    cursor: pointer;
     h4 {
       font-weight: 500;
     }
@@ -63,6 +64,9 @@ export const ReviewSelectChip = styled.ul`
       h4 {
         color: white;
       }
+    }
+    &:has(input[type="checkbox"])::before {
+      display: none;
     }
     &:not(.My) {
       border-radius: 40px;

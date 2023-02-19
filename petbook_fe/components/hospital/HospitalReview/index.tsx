@@ -130,18 +130,18 @@ const HospitalReview = ({ modalState }: { modalState: boolean }) => {
   const { data, mutate } = useSetResource(HOSPITAL_REVIEW_CREATE);
 
   const onSubmit = async () => {
-    // const cc = {
-    //   hospitalId: Number(router.query.id),
-    //   content: "string",
-    //   disease: "string",
-    //   imageIds: [0],
-    //   experience: "GOOD",
-    // };
-    const pet = document.querySelector<HTMLDivElement>(
-      "input[type=radio][name=pet]:checked"
-    );
-    console.log(pet);
-    // mutate(cc);
+    const cc = {
+      hospitalId: Number(router.query.id),
+      content: "string",
+      disease: "string",
+      imageIds: [0],
+      experience: "GOOD",
+    };
+    // const pet = document.querySelector<HTMLDivElement>(
+    //   "input[type=radio][name=pet]:checked"
+    // );
+    // console.log(pet);
+    mutate(cc);
   };
   useEffect(() => {
     console.log(data);
@@ -170,7 +170,7 @@ const HospitalReview = ({ modalState }: { modalState: boolean }) => {
               return (
                 <li key={item.title}>
                   <label htmlFor={item.title}>
-                    <input type="radio" name="pet" id={item.title} />
+                    <input type="checkbox" name="pet" id={item.title} />
                     <div className="Img">{item.img}</div>
                     <h4>{item.title}</h4>
                   </label>
