@@ -2,11 +2,12 @@ import { IconBox, InputBox } from "@components/find/style/styledFindSubmit";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { hospitalRequest, imgRequest } from "@lib/API/petBookAPI";
 
-import { reviewFormState } from "@atoms/pageAtoms/hospitalmap/review";
+import { reviewFormState } from "@atoms/pageAtoms/hospitalmap/reviewState";
 import { useRecoilValue } from "recoil";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
+
+import Image from "next/image";
 import {
   ReviewWarp,
   ReviewHeader,
@@ -33,14 +34,17 @@ const PETDATA = [
   {
     title: "토끼",
     img: "",
+    select: true,
   },
   {
     title: "햄찌",
     img: "",
+    select: false,
   },
   {
     title: "거북이",
     img: "",
+    select: false,
   },
 ];
 // 버튼!
@@ -120,27 +124,24 @@ const ImgWrap = () => {
     </ImgContainer>
   );
 };
-interface ReviewProps {
-  hospitalId: number;
-  content: string;
-  disease: string;
-  imageIds?: number[];
-  experience: string;
-}
 const HospitalReview = ({ modalState }: { modalState: boolean }) => {
   const router = useRouter();
   const reviewForm = useRecoilValue(reviewFormState);
   const { data, mutate } = useSetResource(HOSPITAL_REVIEW_CREATE);
 
   const onSubmit = async () => {
-    const cc = {
-      hospitalId: Number(router.query.id),
-      content: "string",
-      disease: "string",
-      imageIds: [0],
-      experience: "GOOD",
-    };
-    mutate(cc);
+    // const cc = {
+    //   hospitalId: Number(router.query.id),
+    //   content: "string",
+    //   disease: "string",
+    //   imageIds: [0],
+    //   experience: "GOOD",
+    // };
+    const pet = document.querySelector<HTMLDivElement>(
+      "input[type=radio][name=pet]:checked"
+    );
+    console.log(pet);
+    // mutate(cc);
   };
   useEffect(() => {
     console.log(data);
@@ -168,8 +169,11 @@ const HospitalReview = ({ modalState }: { modalState: boolean }) => {
             {PETDATA.map((item: { title: string; img: string }) => {
               return (
                 <li key={item.title}>
-                  <div className="Img">{item.img}</div>
-                  <h4>{item.title}</h4>
+                  <label htmlFor={item.title}>
+                    <input type="radio" name="pet" id={item.title} />
+                    <div className="Img">{item.img}</div>
+                    <h4>{item.title}</h4>
+                  </label>
                 </li>
               );
             })}
@@ -177,9 +181,7 @@ const HospitalReview = ({ modalState }: { modalState: boolean }) => {
 
           <ReviewForm>
             <p>병원진료는 전반적으로</p>
-
             <ReviewButtonWrap>
-              {/* 좋았어요 || 나빳어요! */}
               {REACTION.map((reaction) => {
                 return (
                   <ReviewFormReactionBtn
