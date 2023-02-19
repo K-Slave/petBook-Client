@@ -98,6 +98,7 @@ const TermsWrap = () => {
                   onChange={() => HandlerOpen(agreeEl.id)}
                   checked={agree[agreeEl.index]}
                   type="checkbox"
+                  className="default"
                   id={agreeEl.id}
                 />
                 <p>{agreeEl.text}</p>
