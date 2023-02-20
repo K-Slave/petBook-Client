@@ -347,7 +347,7 @@ input:not(input.default) {
   width: 100%;
   height: 48px;
   border-radius: 8px;
-  border: none;
+  border: solid 1px #fff;
   outline: none;
   box-sizing: border-box;
 }
@@ -358,9 +358,9 @@ input:not(input.default):focus,
 }
 .Review textarea {
   padding: 16px 22px 20px 48px;
-  height: 186px;
+  height: 100%;
   border-radius: 8px;
-  border: none;
+  border: solid 1px #fff;
   outline: none;
   box-sizing: border-box;
   resize: none;

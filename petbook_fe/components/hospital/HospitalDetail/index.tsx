@@ -10,6 +10,7 @@ import { HOSPITAL_LIST } from "@pages/hospitalmap";
 import Skeleton from "@components/common/Skeleton/Skeleton";
 import { Section, LineDiv, Box } from "./styled";
 import HospitalReview from "../HospitalReview";
+import HospitalDetailReview from "../HospitalDetailReview";
 
 const HospitalDetail = ({ id }: { id: number }) => {
   // 리뷰 모달 상태 전달
@@ -71,6 +72,7 @@ const HospitalDetail = ({ id }: { id: number }) => {
       </div>
       <HospitalDetail.Divider />
       {/* 리뷰 */}
+      <HospitalDetailReview />
     </Section>
   );
 };

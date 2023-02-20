@@ -11,7 +11,7 @@ export const ReviewWarp = styled.section`
   border-radius: 16px;
 
   width: calc(100vw - 16px);
-  height: calc(100vh - 16px);
+  height: auto;
   max-height: calc(100vh - 12.5rem);
   max-width: 29rem;
 
@@ -42,14 +42,32 @@ export const ReviewSelectChip = styled.ul`
   flex-wrap: wrap;
   margin-bottom: 8px;
   /* Chip 공통 */
-  li {
+  li label {
     display: flex;
+    align-items: center;
     margin: 0 8px 8px 0;
     padding: 12px 16px;
     height: 48px;
-    align-items: center;
     font-size: 14px;
     box-sizing: border-box;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+    h4 {
+      font-weight: 500;
+    }
+    input {
+      display: none;
+    }
+    &:has(input:checked) {
+      cursor: pointer;
+      background-color: var(--black_01);
+      h4 {
+        color: white;
+      }
+    }
+    &:has(input[type="checkbox"])::before {
+      display: none;
+    }
     &:not(.My) {
       border-radius: 40px;
       border: solid 1px var(--bg_white_01);
@@ -60,6 +78,7 @@ export const ReviewSelectChip = styled.ul`
         width: 23.33px;
         height: 23.33px;
         background-color: #222;
+        border-radius: 50%;
       }
     }
     /* 진료받은 내동물 */

@@ -20,4 +20,12 @@ export interface HospitalListRequest {
   size: number | 50;
 }
 
+export interface HospitalReveiwRequest {
+  hospitalId: number;
+  content: string;
+  disease: string;
+  imageIds?: number[];
+  experience: string;
+}
+
 // export interface HospitalCreateRequest {}
