@@ -1,44 +1,44 @@
 import styled from "styled-components";
 
 export const ReviewContainer = styled.section`
-  padding: 32px 20px;
+  padding: 2rem 1.25rem;
 `;
 
 export const ReviewContainerHeader = styled.div`
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 `;
 
 export const ReviewBox = styled.article`
-  padding: 20px 16px;
+  padding: 1.25rem 1rem;
   border-radius: 12px;
   background-color: var(--bg);
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 `;
 
 export const ReviewBoxHeader = styled.article`
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
   position: relative;
   display: flex;
   align-items: center;
   .profile {
-    width: 48px;
-    height: 48px;
+    width: 3rem;
+    height: 3rem;
     background-color: #fff;
     border-radius: 50%;
-    line-height: 48px;
+    line-height: 3rem;
     text-align: center;
-    margin-right: 8px;
+    margin-right: 0.5rem;
   }
   .info {
     p {
-      line-height: 16.71px;
+      line-height: 1.0444rem;
       font-weight: 400;
-      font-size: 14px;
+      font-size: 0.875rem;
       span {
-        margin-left: 8px;
+        margin-left: 0.5rem;
       }
       .state {
-        line-height: 24px;
+        line-height: 1.5rem;
         font-weight: 700;
       }
     }
@@ -47,27 +47,27 @@ export const ReviewBoxHeader = styled.article`
     position: absolute;
     right: 0;
     top: 2px;
-    width: 24px;
-    height: 24px;
+    width: 1.5rem;
+    height: 1.5rem;
     cursor: pointer;
   }
 `;
 
 export const ReviewBoxImgSlide = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   div {
-    width: 71px;
-    height: 71px;
+    width: 4.4375rem;
+    height: 4.4375rem;
     border-radius: 8px;
     background-color: #fff;
   }
 `;
 export const ReviewBoxContent = styled.p`
   font-weight: 400;
-  font-size: 14px;
-  height: 38px;
+  font-size: 0.875rem;
+  height: 2.375rem;
   color: var(--black_04);
 `;
