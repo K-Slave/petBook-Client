@@ -83,6 +83,8 @@ export default class HospitalAPI extends RequestCore {
     return result;
   };
 
+  // review
+
   public hospital_review_create = async (
     body: {
       hospitalId: number;
@@ -102,6 +104,58 @@ export default class HospitalAPI extends RequestCore {
       requestURL,
       requestHeaders,
       body,
+    });
+
+    return result;
+  };
+
+  public hospital_review_list = async (payload?: {
+    header?: AxiosRequestHeaders;
+    params: {
+      hospitalId: number;
+      page: number;
+      size: number;
+    };
+  }) => {
+    const { requestURL, requestHeaders } = this.getParameters({
+      uri: `/review/list`,
+      headerObj: payload?.header,
+      params: {
+        ...payload?.params,
+        page: Number(payload?.params.page),
+        size: Number(payload?.params.size),
+      },
+    });
+    const result = await this.getResult<{
+      reviews: [
+        {
+          id: number;
+          hospital: {
+            id: number;
+            name: string;
+          };
+          user: {
+            id: number;
+            nickname: string;
+          };
+          disease: string;
+          content: string;
+          images: [
+            {
+              id: number;
+              imageUrl: string;
+            }
+          ];
+          isLike: boolean;
+          likeCount: number;
+          experience: string;
+        }
+      ];
+      totalElements: number;
+    }>({
+      requestMethod: "GET",
+      requestURL,
+      requestHeaders,
     });
 
     return result;
