@@ -20,7 +20,7 @@ export const ReviewBoxHeader = styled.article`
   position: relative;
   display: flex;
   align-items: center;
-  .profile {
+  .Profile {
     width: 3rem;
     height: 3rem;
     background-color: #d9d9d9;
@@ -29,7 +29,7 @@ export const ReviewBoxHeader = styled.article`
     text-align: center;
     margin-right: 0.5rem;
   }
-  .info {
+  .Info {
     p {
       line-height: 1.0444rem;
       font-weight: 400;
@@ -37,7 +37,7 @@ export const ReviewBoxHeader = styled.article`
       span {
         margin-left: 0.5rem;
       }
-      &.state {
+      &.State {
         line-height: 1.5rem;
         font-weight: 700;
         &.BAD {

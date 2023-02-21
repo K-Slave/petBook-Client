@@ -120,13 +120,13 @@ const HospitalDetailReview = () => {
           리뷰 <span>{data?.data.totalElements}</span>
         </h3>
       </ReviewContainerHeader>
-      {DetailList.review.map((item) => {
+      {data?.data.reviews.map((item) => {
         return (
           <ReviewBox key={item.id}>
             <ReviewBoxHeader>
-              <div className="profile">프로필</div>
-              <div className="info">
-                <p className={`state ${item.experience}`}>
+              <div className="Profile">프로필</div>
+              <div className="Info">
+                <p className={`State ${item.experience}`}>
                   {item.experience === "BAD" ? "나빳어요" : "좋았어요"}
                 </p>
                 <p>
@@ -161,15 +161,15 @@ const SettingBtn = () => {
       <ReviewBtn onClick={onClick}>
         <div className="More" />
       </ReviewBtn>
-      {btnState && (
-        <article>
-          <ul>
-            <li>수정</li>
-            <li>삭제</li>
-            <li>신고</li>
-          </ul>
-        </article>
-      )}
+      {/* {btnState && ( */}
+      <article>
+        <ul>
+          <li>수정</li>
+          <li>삭제</li>
+          <li>신고</li>
+        </ul>
+      </article>
+      {/* )} */}
     </ReviewBoxMoreWrap>
   );
 };
