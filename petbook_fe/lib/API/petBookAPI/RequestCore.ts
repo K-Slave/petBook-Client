@@ -44,7 +44,11 @@ export default class RequestCore {
   } => {
     return {
       requestURL: `${getUrl(
-        `${typeof window === "undefined" ? this.initBaseUrl : ""}` +
+        `${
+          typeof window === "undefined" || process.env.NODE_ENV === "production"
+            ? this.initBaseUrl
+            : ""
+        }` +
           `${this.commonUri}` +
           `${uri || ""}` +
           `${pathParam || ""}`
@@ -78,7 +82,7 @@ export default class RequestCore {
         method: requestMethod,
         url: requestURL,
         data: body,
-        timeout: 10000,
+        timeout: 1000,
         headers: requestHeaders,
       }));
     if (response && response.request) {
@@ -91,7 +95,7 @@ export default class RequestCore {
         requestMethod,
         requestURL,
         body,
-        timeout: 10000,
+        timeout: 1000,
         requestHeaders,
       },
     };

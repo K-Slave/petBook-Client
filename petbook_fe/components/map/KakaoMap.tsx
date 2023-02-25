@@ -1,5 +1,6 @@
 /* global kakao */
 import mapState, {
+  currentGeoLocationState,
   currentPoiState,
   currentRectBoundsState,
   currentZoomLevelState,
@@ -13,7 +14,9 @@ import useDidMountEffect from "@lib/hooks/common/useDidMountEffect";
 import usePoiData from "@lib/hooks/map/usePoiData";
 import getRectBounds, { Coordinates } from "@lib/utils/kakaoMaps/getRectBounds";
 import localConsole from "@lib/utils/localConsole";
-import geoLocationValidate from "@lib/utils/validation/geoLocationValidate";
+import geoLocationValidate, {
+  koreaGeoLocationValidate,
+} from "@lib/utils/validation/geoLocationValidate";
 import { useRouter } from "next/router";
 import React, { PropsWithChildren, useEffect, useMemo } from "react";
 import { Map, MapMarker, useMap } from "react-kakao-maps-sdk";
@@ -23,26 +26,39 @@ import KaKaoOverlay from "./KakaoOverlay";
 const KakaoMap = () => {
   const { router, data, status } = usePoiData();
 
-  if (status === "success") {
-    const hopitalData = data?.data as HospitalListResponse;
+  let idMatchedData: HospitalInfo | undefined;
 
-    const idMatchedData = hopitalData.hospitals.find(
+  if (status === "loading") {
+    return <Skeleton />;
+  }
+
+  if (status === "success" && data) {
+    idMatchedData = data.data.hospitals.find(
       (poiData) => poiData.id.toString() === router.query.id
-    );
-
-    return (
-      <KakaoMap.Wrap poiData={idMatchedData || hopitalData.hospitals[0]}>
-        <KakaoMap.Observer />
-
-        {hopitalData.hospitals.length > 1 && !router.query.id && (
-          <KakaoMap.Bound poiDataList={hopitalData.hospitals} />
-        )}
-        <KakaoMap.List poiDataList={hopitalData.hospitals} />
-      </KakaoMap.Wrap>
     );
   }
 
-  return <Skeleton />;
+  return (
+    <KakaoMap.Wrap
+      poiData={
+        status === "success" && data
+          ? idMatchedData || data.data.hospitals[0]
+          : undefined
+      }
+    >
+      <KakaoMap.Observer />
+
+      {status === "success" &&
+        data &&
+        data.data.hospitals.length > 1 &&
+        !router.query.id && (
+          <KakaoMap.Bound poiDataList={data.data.hospitals} />
+        )}
+      {status === "success" && data && (
+        <KakaoMap.List poiDataList={data?.data.hospitals} />
+      )}
+    </KakaoMap.Wrap>
+  );
 };
 
 interface WrapProps {
@@ -50,14 +66,15 @@ interface WrapProps {
 }
 
 const Wrap = ({ children, poiData }: PropsWithChildren<WrapProps>) => {
+  const currentGeoLocation = useRecoilValue(currentGeoLocationState);
   const setMapState = useSetRecoilState(mapState);
 
   const initLat = useMemo(() => {
-    return poiData ? poiData.latitude : 37.5;
+    return poiData ? poiData.latitude : currentGeoLocation.latitude;
   }, []);
 
   const initLng = useMemo(() => {
-    return poiData ? poiData.longitude : 127.5;
+    return poiData ? poiData.longitude : currentGeoLocation.longitude;
   }, []);
 
   return (
@@ -90,8 +107,8 @@ Wrap.defaultProps = {
     id: 0,
     name: "",
     address: "",
-    latitude: 37.5,
-    longitude: 127.5,
+    latitude: 37.495417,
+    longitude: 127.033201,
     n_id: 0,
   },
 };
@@ -127,6 +144,7 @@ const Observer = () => {
   const currentRectBounds = useRecoilValue(currentRectBoundsState);
   const { latitude, longitude } = currentPoi;
 
+  // TODO : id 값으로 접속했다면 currentPoi 를 기준으로 소수점 자리만큼 레벨 조정 구현 해야함. 초기 레벨과 동적 레벨 지정 포함
   useEffect(() => {
     setMapState((state) => ({
       ...state,
@@ -154,13 +172,15 @@ const Observer = () => {
   }, [currentPoi, currentZoomLevel]);
 
   useDidMountEffect(() => {
-    const geoValidation = geoLocationValidate(latitude, longitude);
+    const geoValidation = koreaGeoLocationValidate(latitude, longitude);
 
     localConsole?.log(currentZoomLevel, "currentZoomLevel");
     localConsole?.log(currentRectBounds, "currentRectBounds");
 
     if (geoValidation) {
       if (currentZoomLevel >= 9) {
+        // TODO
+        // currentPoi.latitude.toString().split(".")[1].length
         map.setLevel(6);
       }
 
@@ -171,11 +191,11 @@ const Observer = () => {
   return <></>;
 };
 
-interface MarkerListProps {
+interface BoundProps {
   poiDataList: HospitalInfo[];
 }
 
-const Bound = ({ poiDataList }: MarkerListProps) => {
+const Bound = ({ poiDataList }: BoundProps) => {
   const setMapState = useSetRecoilState(mapState);
   const map = useMap();
   const bounds = new kakao.maps.LatLngBounds();
@@ -195,7 +215,11 @@ const Bound = ({ poiDataList }: MarkerListProps) => {
   return <></>;
 };
 
-const List = ({ poiDataList }: MarkerListProps) => {
+interface ListProps {
+  poiDataList: HospitalInfo[];
+}
+
+const List = ({ poiDataList }: ListProps) => {
   const router = useRouter();
 
   return (

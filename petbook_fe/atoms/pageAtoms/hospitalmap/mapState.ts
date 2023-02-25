@@ -1,3 +1,4 @@
+/* global kakao */
 import { Coordinates } from "@lib/utils/kakaoMaps/getRectBounds";
 import { atom, selector } from "recoil";
 
@@ -19,6 +20,21 @@ export interface MapStateType {
     SE_5: Coordinates;
     NE_1: Coordinates;
   };
+  currentGeoLocation: {
+    latitude: number;
+    longitude: number;
+  };
+  currentRegionData: {
+    region_type: string;
+    address_name: string;
+    region_1depth_name: string;
+    region_2depth_name: string;
+    region_3depth_name: string;
+    region_4depth_name: string;
+    code: string;
+    x: number;
+    y: number;
+  };
 }
 
 const mapState = atom<{
@@ -39,6 +55,21 @@ const mapState = atom<{
     SE_5: Coordinates;
     NE_1: Coordinates;
   };
+  currentGeoLocation: {
+    latitude: number;
+    longitude: number;
+  };
+  currentRegionData: {
+    region_type: string;
+    address_name: string;
+    region_1depth_name: string;
+    region_2depth_name: string;
+    region_3depth_name: string;
+    region_4depth_name: string;
+    code: string;
+    x: number;
+    y: number;
+  };
 }>({
   key: "mapState",
   default: {
@@ -51,6 +82,25 @@ const mapState = atom<{
       latitude: 0,
       longitude: 0,
       n_id: 0,
+    },
+
+    // TODO : 캐시된 위치정보가 없을때만 강남역 잡히게 처리해야함
+    currentGeoLocation: {
+      latitude: 37.495417,
+      longitude: 127.033201,
+      // latitude: 37.4954171091244,
+      // longitude: 127.033201083326,
+    },
+    currentRegionData: {
+      address_name: "서울특별시 강남구 역삼1동",
+      code: "1168064000",
+      region_1depth_name: "서울특별시",
+      region_2depth_name: "강남구",
+      region_3depth_name: "역삼1동",
+      region_4depth_name: "",
+      region_type: "H",
+      x: 127.03320108651666,
+      y: 37.49542431718493,
     },
     currentZoomLevel: 0,
     currentRectBounds: {
@@ -95,6 +145,24 @@ export const currentRectBoundsState = selector({
     const originState = get(mapState);
 
     return originState.currentRectBounds;
+  },
+});
+
+export const currentGeoLocationState = selector({
+  key: "currentGeoLocationState",
+  get: ({ get }) => {
+    const originState = get(mapState);
+
+    return originState.currentGeoLocation;
+  },
+});
+
+export const currentRegionDataState = selector({
+  key: "currentRegionDataState",
+  get: ({ get }) => {
+    const originState = get(mapState);
+
+    return originState.currentRegionData;
   },
 });
 
