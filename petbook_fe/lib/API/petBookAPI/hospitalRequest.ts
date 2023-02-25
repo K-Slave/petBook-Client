@@ -23,7 +23,7 @@ export default class HospitalAPI extends RequestCore {
         : 50;
 
     const { requestURL, requestHeaders } = this.getParameters({
-      uri: "s",
+      uri: "/list",
       headerObj: payload?.header,
       params: {
         ...payload?.params,
