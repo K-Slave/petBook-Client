@@ -7,4 +7,9 @@ sprInstance.defaults.headers.common.Accept = "*/*";
 
 export const sprPetBookClient = sprInstance;
 
-export const dnter = "";
+const nextInstance = axios.create();
+
+nextInstance.defaults.headers.common["Content-Type"] = "application/json";
+nextInstance.defaults.headers.common.Accept = "*/*";
+
+export const nextPetBookClient = nextInstance;
