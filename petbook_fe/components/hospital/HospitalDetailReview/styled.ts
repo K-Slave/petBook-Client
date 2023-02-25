@@ -20,16 +20,16 @@ export const ReviewBoxHeader = styled.article`
   position: relative;
   display: flex;
   align-items: center;
-  .profile {
+  .Profile {
     width: 3rem;
     height: 3rem;
-    background-color: #fff;
+    background-color: #d9d9d9;
     border-radius: 50%;
     line-height: 3rem;
     text-align: center;
     margin-right: 0.5rem;
   }
-  .info {
+  .Info {
     p {
       line-height: 1.0444rem;
       font-weight: 400;
@@ -37,27 +37,32 @@ export const ReviewBoxHeader = styled.article`
       span {
         margin-left: 0.5rem;
       }
-      .state {
+      &.State {
         line-height: 1.5rem;
         font-weight: 700;
+        &.BAD {
+          color: var(--primary);
+        }
+        &.GOOD {
+          color: #1ed900 !important;
+        }
       }
     }
   }
-  .icon {
-    position: absolute;
-    right: 0;
-    top: 2px;
-    width: 1.5rem;
-    height: 1.5rem;
-    cursor: pointer;
-  }
 `;
 
+interface slideImgProps {
+  state: { id: number; imageUrl: string }[];
+}
+
 export const ReviewBoxImgSlide = styled.div`
+  display: ${(props: slideImgProps) =>
+    props.state.length > 0 ? "flex" : "none"} !important;
   margin-bottom: 1.25rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 5px;
   div {
     width: 4.4375rem;
     height: 4.4375rem;
@@ -70,4 +75,50 @@ export const ReviewBoxContent = styled.p`
   font-size: 0.875rem;
   height: 2.375rem;
   color: var(--black_04);
+`;
+
+interface BtnProps {
+  btnState: boolean;
+}
+
+export const ReviewBoxMoreWrap = styled.section`
+  article {
+    background-color: #fff;
+    position: absolute;
+    right: 0;
+    top: 32px;
+    border-radius: 12px;
+    border: 1px solid #eeede7;
+    overflow: hidden;
+    box-shadow: 0px 8px 12px rgba(50, 26, 9, 0.1);
+
+    transition: all 0.1s;
+    -webkit-transition: all 0.1s;
+
+    transform: ${(props: BtnProps) =>
+      props.btnState === true ? "translateY(0px)" : " translateY(10px)"};
+    opacity: ${(props: BtnProps) => (props.btnState === true ? 1 : 0)};
+    li {
+      padding: 0 20px;
+      width: 117px;
+      line-height: 48px;
+      font-weight: 400;
+      font-size: 14px;
+      box-sizing: border-box;
+      cursor: pointer;
+      transition: all 0.1s ease-in-out;
+      &:hover {
+        background-color: rgba(50, 26, 9, 0.05);
+      }
+    }
+  }
+`;
+
+export const ReviewBtn = styled.div`
+  position: absolute;
+  right: 0;
+  top: 2px;
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
 `;

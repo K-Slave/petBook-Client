@@ -1,4 +1,9 @@
-import React from "react";
+import { usePage } from "@components/common/Pagination/usePagination";
+import { hospitalRequest } from "@lib/API/petBookAPI";
+import useUserId from "@lib/hooks/article/useUserId";
+import useResource, { createResource } from "@lib/hooks/common/useResource";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 import {
   ReviewBox,
   ReviewBoxContent,
@@ -6,68 +11,135 @@ import {
   ReviewBoxImgSlide,
   ReviewContainer,
   ReviewContainerHeader,
+  ReviewBoxMoreWrap,
+  ReviewBtn,
 } from "./styled";
 
-const DetailList = [
-  {
-    id: 0,
-    content:
-      "리뷰가 들어갑니다.리뷰가 들어갑니다.리뷰가 들어갑니다.리뷰가 들어갑니다.",
-    imgArr: [0, 1, 2, 3],
-  },
-  {
-    id: 1,
-    content:
-      "리뷰가 들어갑니다.리뷰가 들어갑니다.리뷰가 들어갑니다.리뷰가 들어갑니다.",
-    imgArr: [0, 1, 2, 3],
-  },
-  {
-    id: 2,
-    content:
-      "리뷰가 들어갑니다.리뷰가 들어갑니다.리뷰가 들어갑니다.리뷰가 들어갑니다.",
-    imgArr: [0, 1, 2, 3],
-  },
-  {
-    id: 3,
-    content:
-      "리뷰가 들어갑니다.리뷰가 들어갑니다.리뷰가 들어갑니다.리뷰가 들어갑니다.",
-    imgArr: [0, 1, 2, 3],
-  },
-  {
-    id: 4,
-    content:
-      "리뷰가 들어갑니다.리뷰가 들어갑니다.리뷰가 들어갑니다.리뷰가 들어갑니다.",
-    imgArr: [0, 1, 2, 3],
-  },
-];
+// 임시용
+const DetailList = {
+  review: [
+    {
+      id: 2,
+      hospital: {
+        id: 3397,
+        name: "제니스동물병원",
+      },
+      user: {
+        id: 1,
+        nickname: "테스트1",
+      },
+      disease: "string",
+      content:
+        "“리뷰가 들어갑니다. 리뷰가 들어갑니다. 리뷰가 들어갑니다.리뷰가 들어갑니다.리뷰가 들어갑니다.”",
+      images: [
+        {
+          id: 2,
+          imageUrl: "",
+        },
+      ],
+      isLike: false,
+      likeCount: 0,
+      experience: "BAD",
+    },
+    {
+      id: 3,
+      hospital: {
+        id: 3397,
+        name: "제니스동물병원",
+      },
+      user: {
+        id: 1,
+        nickname: "테스트",
+      },
+      disease: "string",
+      content:
+        "“리뷰가 들어갑니다. 리뷰가 들어갑니다. 리뷰가 들어갑니다.리뷰가 들어갑니다.리뷰가 들어갑니다.”",
+      images: [
+        {
+          id: 2,
+          imageUrl: "",
+        },
+        {
+          id: 2,
+          imageUrl: "",
+        },
+      ],
+      isLike: false,
+      likeCount: 0,
+      experience: "GOOD",
+    },
+    {
+      id: 4,
+      hospital: {
+        id: 3397,
+        name: "제니스동물병원",
+      },
+      user: {
+        id: 1,
+        nickname: "테스트",
+      },
+      disease: "string",
+      content:
+        "“리뷰가 들어갑니다. 리뷰가 들어갑니다. 리뷰가 들어갑니다.리뷰가 들어갑니다.리뷰가 들어갑니다.”",
+      images: [],
+      isLike: false,
+      likeCount: 0,
+      experience: "GOOD",
+    },
+  ],
+  totalElements: 99,
+};
+
+const HOSPITAL_REVIEW_LIST = createResource({
+  key: ["HOSPITAL_REVIEW_LIST"],
+  fetcher: hospitalRequest.hospital_review_list,
+});
 
 const HospitalDetailReview = () => {
+  const router = useRouter();
+  const userId = useUserId();
+
+  const id = Number(router.query.id);
+  const page = usePage() - 1;
+  const { data } = useResource({
+    key: [HOSPITAL_REVIEW_LIST.key[0], { id }],
+    fetcher: () =>
+      HOSPITAL_REVIEW_LIST.fetcher({
+        params: {
+          hospitalId: Number(id),
+          page,
+          size: 20,
+        },
+      }),
+  });
+
   return (
     <ReviewContainer>
       <ReviewContainerHeader>
         <h3>
-          리뷰 <span>999+</span>
+          리뷰 <span>{data?.data.totalElements}</span>
         </h3>
       </ReviewContainerHeader>
-      {DetailList.map((item) => {
+      {data?.data.reviews.map((item) => {
         return (
-          <ReviewBox>
+          <ReviewBox key={item.id}>
             <ReviewBoxHeader>
-              <div className="profile">로고</div>
-              <div className="info">
-                <p className="state">나빳어요</p>
+              <div className="Profile">프로필</div>
+              <div className="Info">
+                <p className={`State ${item.experience}`}>
+                  {item.experience === "BAD" ? "나빳어요" : "좋았어요"}
+                </p>
                 <p>
-                  닉네임 <span>2022.01.01</span>
+                  {item.user.nickname} <span>2022.01.01</span>
                 </p>
               </div>
-              {/* 여기 분리 예정 */}
-              <div className="icon">
-                <div className="More" />
-              </div>
+              {/* btn */}
+              <HospitalDetailReview.SettingBtn />
+              {/* btn */}
             </ReviewBoxHeader>
-            <ReviewBoxImgSlide>
-              {item.imgArr.map((img) => {
-                return <div>{img}</div>;
+            <ReviewBoxImgSlide state={item.images}>
+              {item.images?.map((img) => {
+                return <div>{(img.imageUrl, img.id)}</div>;
               })}
             </ReviewBoxImgSlide>
             <ReviewBoxContent>{item.content}</ReviewBoxContent>
@@ -77,5 +149,30 @@ const HospitalDetailReview = () => {
     </ReviewContainer>
   );
 };
+
+const SettingBtn = () => {
+  const [btnState, setBtnState] = useState(false);
+  const onClick = () => {
+    setBtnState(!btnState);
+  };
+
+  return (
+    <ReviewBoxMoreWrap btnState={btnState}>
+      <ReviewBtn onClick={onClick}>
+        <div className="More" />
+      </ReviewBtn>
+      {/* {btnState && ( */}
+      <article>
+        <ul>
+          <li>수정</li>
+          <li>삭제</li>
+          <li>신고</li>
+        </ul>
+      </article>
+      {/* )} */}
+    </ReviewBoxMoreWrap>
+  );
+};
+HospitalDetailReview.SettingBtn = SettingBtn;
 
 export default HospitalDetailReview;
