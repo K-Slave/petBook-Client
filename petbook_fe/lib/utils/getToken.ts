@@ -11,7 +11,7 @@ export default function getToken(
   }
 ) {
   const allCookies = cookies(ctx);
-  const token = allCookies?.petBookUser;
+  const token = allCookies?.PETBOOK_USER;
   if (token) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
     if (options.decode) {

@@ -39,7 +39,7 @@ export default class CookieController {
         "Set-Cookie",
         `${cookieKey}=${encodeURIComponent(
           cookieValue
-        )};Path=/;SameSite=Strict;Max-Age=2592000;secure;httpOnly`
+        )}; Path=/; SameSite=Strict; Max-Age=2592000; secure; httpOnly`
       );
 
       const result = { key: cookieKey, value: req.body.value };

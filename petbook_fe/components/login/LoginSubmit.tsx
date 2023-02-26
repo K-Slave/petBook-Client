@@ -1,6 +1,6 @@
 import { loginFormState } from "@atoms/pageAtoms/login/userState";
 import LoginInput from "@components/login/LoginInputBox";
-import { authRequest } from "@lib/API/petBookAPI";
+import { authRequest, cookieRequest } from "@lib/API/petBookAPI";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import Image from "next/image";
@@ -124,9 +124,19 @@ export const LoginSubmitButton = () => {
     if (isSuccess) {
       const { token } = data?.data as UserLoginRequest;
 
-      localConsole?.log(token, "token");
-      Cookies.set("petBookUser", token, { expires: 30 });
-      navigator({ url: "/info" });
+      cookieRequest
+        .setCookie({
+          body: {
+            key: "PETBOOK_USER",
+            value: token,
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            navigator({ url: "/info" });
+          }
+        });
+      // Cookies.set("PETBOOK_USER", token, { expires: 30 });
     }
     if (isError) {
       // error type 린트에러

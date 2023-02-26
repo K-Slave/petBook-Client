@@ -25,7 +25,6 @@ const CurrentGps = () => {
       const { coords } = await getGeoLocation();
       const { latitude, longitude } = coords;
 
-      // !
       if (!koreaGeoLocationValidate(latitude, longitude)) {
         throw new Error(
           `사용자의 위치(${
