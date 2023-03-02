@@ -145,6 +145,24 @@ const InputBox = styled.div`
 
     /* background-color: #111; */
   }
+  button {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    height: 17px;
+
+    color: var(--primary);
+    letter-spacing: -0.02em;
+    line-height: 17px;
+    font-weight: 500;
+    font-family: "Pretendard";
+    font-size: 14px;
+
+    text-decoration-line: underline;
+    text-underline-offset: 3px;
+  }
 `;
 
 export type textProps = {
