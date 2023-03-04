@@ -1,17 +1,15 @@
-import { NextRouter } from "next/router";
-
 export function replaceQuery({
-  router,
+  asPath,
   key,
   query,
-  basePath: path,
+  basePath : path,
 }: {
-  router: NextRouter;
+  asPath: string;
   key: string;
   query: string;
   basePath?: string;
 }) {
-  const splitedPath = router.asPath.split("?");
+  const splitedPath = asPath.split("?");
   const basePath = path || splitedPath[0];
   const params = new URLSearchParams(splitedPath[1]);
   params.delete(key);
@@ -23,13 +21,13 @@ export function replaceQuery({
 }
 
 export function removeQuery({
-  router,
+  asPath,
   key,
 }: {
-  router: NextRouter;
+  asPath: string;
   key: string;
 }) {
-  const splitedPath = router.asPath.split("?");
+  const splitedPath = asPath.split("?");
   const basePath = splitedPath[0];
   const params = new URLSearchParams(splitedPath[1]);
   params.delete(key);

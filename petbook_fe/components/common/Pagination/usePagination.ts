@@ -22,7 +22,7 @@ export default function usePagination({
   const router = useRouter();
   const changeCurrentPage = (page: number) => {
     const url = replaceQuery({
-      router,
+      asPath: router.asPath,
       key: "page",
       query: String(page),
     });

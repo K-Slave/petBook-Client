@@ -62,7 +62,7 @@ const Filter = () => {
   const { filter } = router.query;
   const selectFilter = (name: string) => () => {
     const url = replaceQuery({
-      router,
+      asPath: router.asPath,
       key: "filter",
       query: name,
     });

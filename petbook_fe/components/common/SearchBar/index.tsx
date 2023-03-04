@@ -37,7 +37,7 @@ const SearchBar = ({ placeholder, keywordBox }: Props) => {
     const key = e.key || e.keyCode;
     if (key === "Enter" || key === 13) {
       const url = replaceQuery({
-        router,
+        asPath: router.asPath,
         key: QUERY_KEY,
         query: text,
         basePath: target === "community" ? "/community/list" : undefined,
@@ -53,7 +53,7 @@ const SearchBar = ({ placeholder, keywordBox }: Props) => {
   };
   const clear = () => {
     setText("");
-    const url = removeQuery({ router, key: QUERY_KEY });
+    const url = removeQuery({ asPath: router.asPath, key: QUERY_KEY });
     navigator({
       url,
       options: {
@@ -63,6 +63,7 @@ const SearchBar = ({ placeholder, keywordBox }: Props) => {
   };
   useEffect(() => {
     setText(searchText);
+    setShowBox(false);
   }, [searchText]);
   return (
     <OnClickOutside
@@ -92,7 +93,7 @@ const RecentSearchList = ({ target }: { target: "hospital" | "community" }) => {
   const router = useRouter();
   const search = (keyword: string) => () => {
     const url = replaceQuery({
-      router,
+      asPath: router.asPath,
       key: QUERY_KEY,
       query: keyword,
     });
