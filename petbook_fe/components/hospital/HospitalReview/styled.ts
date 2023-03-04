@@ -37,23 +37,36 @@ export const ReviewHeader = styled.hgroup`
   }
 `;
 
-export const ReviewSelectChip = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 8px;
+export const ReviewSelectChip = styled.section`
+  margin-bottom: 16px;
+  /* 진료받은 내동물 */
+  h4 {
+    font-weight: 700;
+    display: block;
+    margin-bottom: 8px;
+  }
+  section {
+    height: 100px;
+    overflow: auto;
+  }
+  article {
+    width: auto;
+    display: inline-block;
+  }
   /* Chip 공통 */
-  li label {
+  label {
     display: flex;
     align-items: center;
     margin: 0 8px 8px 0;
     padding: 12px 16px;
-    height: 48px;
+    height: 40px;
     font-size: 14px;
     box-sizing: border-box;
     transition: all 0.1s ease-in-out;
     cursor: pointer;
-    h4 {
+    h5 {
       font-weight: 500;
+      font-size: 14px;
     }
     input {
       display: none;
@@ -61,14 +74,14 @@ export const ReviewSelectChip = styled.ul`
     &:has(input:checked) {
       cursor: pointer;
       background-color: var(--black_01);
-      h4 {
+      h5 {
         color: white;
       }
     }
     &:has(input[type="checkbox"])::before {
       display: none;
     }
-    &:not(.My) {
+    &:not(h4) {
       border-radius: 40px;
       border: solid 1px var(--bg_white_01);
       background-color: #fff;
@@ -77,14 +90,10 @@ export const ReviewSelectChip = styled.ul`
         margin-right: 6.33px;
         width: 23.33px;
         height: 23.33px;
-        background-color: #222;
+        background-image: url("/img/test_ham.png");
+        background-position: center;
+        background-size: contain;
         border-radius: 50%;
-      }
-    }
-    /* 진료받은 내동물 */
-    &.My {
-      h4 {
-        font-weight: 700;
       }
     }
   }

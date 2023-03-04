@@ -33,17 +33,47 @@ const HOSPITAL_REVIEW_CREATE = createRequest({
 // 가라데이터
 const PETDATA = [
   {
-    title: "토끼",
+    title: "토토",
     img: "",
     select: true,
   },
   {
-    title: "햄찌",
+    title: "햄순이",
     img: "",
     select: false,
   },
   {
-    title: "거북이",
+    title: "마리",
+    img: "",
+    select: false,
+  },
+  {
+    title: "쫑",
+    img: "",
+    select: false,
+  },
+  {
+    title: "마리",
+    img: "",
+    select: false,
+  },
+  {
+    title: "마리",
+    img: "",
+    select: false,
+  },
+  {
+    title: "마리",
+    img: "",
+    select: false,
+  },
+  {
+    title: "마리",
+    img: "",
+    select: false,
+  },
+  {
+    title: "마리",
     img: "",
     select: false,
   },
@@ -163,21 +193,21 @@ const HospitalReview = ({ closeModal }: { closeModal: () => void }) => {
         </ReviewHeader>
 
         <ReviewSelectChip>
-          <li className="My">
-            <div className="Img">img</div>
-            <h4>진료받은 내 동물</h4>
-          </li>
-          {PETDATA.map((item: { title: string; img: string }) => {
-            return (
-              <li key={item.title}>
-                <label htmlFor={item.title}>
-                  <input type="checkbox" name="pet" id={item.title} />
-                  <div className="Img">{item.img}</div>
-                  <h4>{item.title}</h4>
-                </label>
-              </li>
-            );
-          })}
+          <h4>진료받은 내 동물</h4>
+          <section>
+            {PETDATA.map((item: { title: string; img: string }, index) => {
+              let id = String(index);
+              return (
+                <article key={id}>
+                  <label htmlFor={id}>
+                    <input type="checkbox" name="pet" id={id} />
+                    <div className="Img">{item.img}</div>
+                    <h5>{item.title}</h5>
+                  </label>
+                </article>
+              );
+            })}
+          </section>
         </ReviewSelectChip>
 
         <ReviewForm>
@@ -232,7 +262,7 @@ const HospitalReview = ({ closeModal }: { closeModal: () => void }) => {
         </ReviewForm>
 
         <ReviewButtonWrap>
-          <button type="button" value="cancel">
+          <button type="button" value="cancel" onClick={closeModal}>
             취소
           </button>
           <button type="button" value="submit" onClick={onSubmit}>
