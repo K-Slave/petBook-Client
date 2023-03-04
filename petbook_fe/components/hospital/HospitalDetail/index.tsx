@@ -1,7 +1,6 @@
 import { BookmarkBlankSharpIcon } from "@components/common/icon/Bookmark";
 import ChevronLeft from "@components/common/icon/ChevronLeft";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
 import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
 import Stats from "@components/common/hospital/Stats";
@@ -11,10 +10,13 @@ import Skeleton from "@components/common/Skeleton/Skeleton";
 import { Section, LineDiv, Box } from "./styled";
 import HospitalReview from "../HospitalReview";
 import HospitalDetailReview from "../HospitalDetailReview";
+import { removeQuery } from "@lib/modules/queryString";
+import navigator from "@lib/modules/navigator";
+import PencilEditIcon from "@components/common/icon/PencilEdit";
+import ShareForwardIcon from "@components/common/icon/ShareFoward";
+import useModal from "@lib/hooks/common/useModal";
 
 const HospitalDetail = ({ id }: { id: number }) => {
-  // 리뷰 모달 상태 전달
-  const [reviewState, setReviewState] = useState(false);
   const { data } = useResource({
     key: [HOSPITAL_LIST.key[0], { id }],
     fetcher: () =>
@@ -28,7 +30,16 @@ const HospitalDetail = ({ id }: { id: number }) => {
   });
   const router = useRouter();
   const goBack = () => {
-    router.back();
+    const url = removeQuery({
+      asPath: router.asPath,
+      key: "id",
+    });
+    navigator({
+      url,
+      options: {
+        shallow: true,
+      },
+    });
   };
 
   if (!data) {
@@ -43,7 +54,6 @@ const HospitalDetail = ({ id }: { id: number }) => {
 
   return (
     <Section>
-      <HospitalReview modalState={reviewState} />
       <div className="wrapper">
         <header>
           <button type="button" onClick={goBack}>
@@ -64,10 +74,7 @@ const HospitalDetail = ({ id }: { id: number }) => {
       </div>
       <HospitalDetail.Divider />
       <div className="wrapper">
-        <HospitalBasicInfo
-          phoneNumber="02-333-4921"
-          address={data?.data.hospitals[0].address}
-        />
+        <HospitalBasicInfo address={data?.data.hospitals[0].address} />
         <PossibleAnimalList />
       </div>
       <HospitalDetail.Divider />
@@ -78,6 +85,12 @@ const HospitalDetail = ({ id }: { id: number }) => {
 };
 
 const ButtonBox = () => {
+  const { openModal, closeModal } = useModal();
+  const openReviewModal = () => {
+    openModal(HospitalReview, {
+      closeModal,
+    });
+  };
   return (
     <Box>
       <div>
@@ -88,13 +101,13 @@ const ButtonBox = () => {
       </div>
       <div>
         <button type="button">
-          <BookmarkBlankSharpIcon />
+          <ShareForwardIcon />
           <span>공유</span>
         </button>
       </div>
       <div>
-        <button type="button">
-          <BookmarkBlankSharpIcon />
+        <button type="button" onClick={openReviewModal}>
+          <PencilEditIcon />
           <span>리뷰작성</span>
         </button>
       </div>

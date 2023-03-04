@@ -65,7 +65,7 @@ export const Box = styled.div`
     font-weight: 400;
     font-size: 14px;
     color: var(--black_01);
-    & > svg {
+    path {
       width: 16px;
       height: 22px;
     }
