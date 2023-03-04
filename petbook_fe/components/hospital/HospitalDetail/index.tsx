@@ -7,14 +7,14 @@ import Stats from "@components/common/hospital/Stats";
 import useResource from "@lib/hooks/common/useResource";
 import { HOSPITAL_LIST } from "@pages/hospitalmap";
 import Skeleton from "@components/common/Skeleton/Skeleton";
-import { Section, LineDiv, Box } from "./styled";
-import HospitalReview from "../HospitalReview";
-import HospitalDetailReview from "../HospitalDetailReview";
+import HospitalReview from "@components/hospital/HospitalReview";
+import HospitalDetailReview from "@components/hospital/HospitalDetailReview";
 import { removeQuery } from "@lib/modules/queryString";
 import navigator from "@lib/modules/navigator";
 import PencilEditIcon from "@components/common/icon/PencilEdit";
 import ShareForwardIcon from "@components/common/icon/ShareFoward";
 import useModal from "@lib/hooks/common/useModal";
+import { Section, LineDiv, Box } from "./styled";
 
 const HospitalDetail = ({ id }: { id: number }) => {
   const { data } = useResource({

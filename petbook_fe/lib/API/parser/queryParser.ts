@@ -33,7 +33,7 @@ export default async function queryParser(
         resource.fetcher({
           params: {
             id,
-            page : id ? 0 : page,
+            page: id ? 0 : page,
             size: id ? 1 : 50,
           },
         })

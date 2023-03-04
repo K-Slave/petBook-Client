@@ -1,4 +1,5 @@
 import { IconBox, InputBox } from "@components/find/style/styledFindSubmit";
+import OnClickOutside from "@components/common/OnClickOutside";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { hospitalRequest, imgRequest } from "@lib/API/petBookAPI";
 
@@ -19,7 +20,6 @@ import {
   ImgBoxGroup,
   ImgBox,
 } from "./styled";
-import OnClickOutside from "@components/common/OnClickOutside";
 
 const IMG_CREATE = createRequest({
   key: ["IMG_CREATE"],

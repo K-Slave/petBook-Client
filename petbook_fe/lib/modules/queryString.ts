@@ -2,7 +2,7 @@ export function replaceQuery({
   asPath,
   key,
   query,
-  basePath : path,
+  basePath: path,
 }: {
   asPath: string;
   key: string;
@@ -20,13 +20,7 @@ export function replaceQuery({
   }`;
 }
 
-export function removeQuery({
-  asPath,
-  key,
-}: {
-  asPath: string;
-  key: string;
-}) {
+export function removeQuery({ asPath, key }: { asPath: string; key: string }) {
   const splitedPath = asPath.split("?");
   const basePath = splitedPath[0];
   const params = new URLSearchParams(splitedPath[1]);
