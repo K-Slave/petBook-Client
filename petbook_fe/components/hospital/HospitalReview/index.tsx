@@ -165,7 +165,8 @@ const HospitalReview = ({ closeModal }: { closeModal: () => void }) => {
       hospitalId: Number(router.query.id),
       content: "string",
       disease: "string",
-      imageIds: [0],
+      petName: "string",
+      // imageIds: [0],
       experience: "GOOD",
     };
     // const pet = document.querySelector<HTMLDivElement>(
