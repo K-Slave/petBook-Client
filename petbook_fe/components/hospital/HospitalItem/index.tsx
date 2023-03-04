@@ -7,6 +7,7 @@ import navigator from "@lib/modules/navigator";
 import type { HospitalInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
 import { SwiperSlide } from "swiper/react";
 import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
+import { PointReviewList } from "@components/common/hospital/HospitalReviewList";
 import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
 import Stats from "@components/common/hospital/Stats";
 import { ImageSliderDiv, ItemHeader } from "./styled";
@@ -32,7 +33,7 @@ const HospitalItem = ({ id, name, address }: HospitalInfo) => {
       <PossibleAnimalList />
       <HospitalBasicInfo address={address} />
       <Stats />
-      {/* 리뷰 좋았어요 나빴어요 */}
+      <PointReviewList />
     </article>
   );
 };
