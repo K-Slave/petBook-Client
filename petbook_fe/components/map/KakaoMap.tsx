@@ -12,8 +12,9 @@ import type {
 } from "@lib/API/petBookAPI/types/hospitalRequest";
 import useDidMountEffect from "@lib/hooks/common/useDidMountEffect";
 import usePoiData from "@lib/hooks/map/usePoiData";
+import mapsLevelSelector from "@lib/modules/mapsLevelSelector";
 import getRectBounds, { Coordinates } from "@lib/utils/kakaoMaps/getRectBounds";
-import localConsole from "@lib/utils/localConsole";
+
 import geoLocationValidate, {
   koreaGeoLocationValidate,
 } from "@lib/utils/validation/geoLocationValidate";
@@ -22,6 +23,8 @@ import React, { PropsWithChildren, useEffect, useMemo } from "react";
 import { Map, MapMarker, useMap } from "react-kakao-maps-sdk";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import KaKaoOverlay from "./KakaoOverlay";
+
+export let kakaoUseMap: kakao.maps.Map;
 
 const KakaoMap = () => {
   const { router, data, status } = usePoiData();
@@ -43,8 +46,16 @@ const KakaoMap = () => {
       poiData={
         status === "success" && data
           ? idMatchedData || data.data.hospitals[0]
-          : undefined
+          : {
+              id: 0,
+              name: "",
+              address: "",
+              latitude: 37.495417,
+              longitude: 127.033201,
+              n_id: 0,
+            }
       }
+      isIdData={!!router.query.id}
     >
       <KakaoMap.Observer />
 
@@ -62,20 +73,29 @@ const KakaoMap = () => {
 };
 
 interface WrapProps {
-  poiData?: HospitalInfo;
+  poiData: HospitalInfo;
+  isIdData: boolean;
 }
 
-const Wrap = ({ children, poiData }: PropsWithChildren<WrapProps>) => {
+const Wrap = ({
+  children,
+  poiData,
+  isIdData,
+}: PropsWithChildren<WrapProps>) => {
   const currentGeoLocation = useRecoilValue(currentGeoLocationState);
   const setMapState = useSetRecoilState(mapState);
 
   const initLat = useMemo(() => {
-    return poiData ? poiData.latitude : currentGeoLocation.latitude;
+    return isIdData ? poiData.latitude : currentGeoLocation.latitude;
   }, []);
 
   const initLng = useMemo(() => {
-    return poiData ? poiData.longitude : currentGeoLocation.longitude;
+    return isIdData ? poiData.longitude : currentGeoLocation.longitude;
   }, []);
+
+  // useEffect(() => {
+  //   map.setLevel(mapsLevelSelector(initLat));
+  // }, []);
 
   return (
     <>
@@ -89,12 +109,13 @@ const Wrap = ({ children, poiData }: PropsWithChildren<WrapProps>) => {
           height: "100%",
           backgroundColor: "rgba(200, 200, 200, 0.3)",
         }}
-        onZoomChanged={(map) => {
+        onZoomChanged={(mapObj) => {
           setMapState((state) => ({
             ...state,
-            currentZoomLevel: map.getLevel(),
+            currentZoomLevel: mapObj.getLevel(),
           }));
         }}
+        onBoundsChanged={(mapObj) => {}}
       >
         {children}
       </Map>
@@ -102,19 +123,21 @@ const Wrap = ({ children, poiData }: PropsWithChildren<WrapProps>) => {
   );
 };
 
-Wrap.defaultProps = {
-  poiData: {
-    id: 0,
-    name: "",
-    address: "",
-    latitude: 37.495417,
-    longitude: 127.033201,
-    n_id: 0,
-  },
-};
+// Wrap.defaultProps = {
+//   poiData: {
+//     id: 0,
+//     name: "",
+//     address: "",
+//     latitude: 37.495417,
+//     longitude: 127.033201,
+//     n_id: 0,
+//   },
+// };
 
 const Observer = () => {
   const map = useMap();
+  kakaoUseMap = map;
+
   const setMapState = useSetRecoilState(mapState);
 
   // const { router, data, status } = usePoiData();
@@ -142,6 +165,7 @@ const Observer = () => {
   const currentPoi = useRecoilValue(currentPoiState);
   const currentZoomLevel = useRecoilValue(currentZoomLevelState);
   const currentRectBounds = useRecoilValue(currentRectBoundsState);
+  const currentGeoLocation = useRecoilValue(currentGeoLocationState);
   const { latitude, longitude } = currentPoi;
 
   // TODO : id 값으로 접속했다면 currentPoi 를 기준으로 소수점 자리만큼 레벨 조정 구현 해야함. 초기 레벨과 동적 레벨 지정 포함
@@ -152,9 +176,9 @@ const Observer = () => {
     }));
   }, []);
 
+  // 현재 화면의 지도 좌표 경계 추출
+  // poi 데이터가 바뀌거나 줌레벨이 바뀌면 동작
   useEffect(() => {
-    localConsole?.log(currentZoomLevel, "currentZoomLevel");
-
     const NE_Coordinates: Coordinates = {
       lat: map.getBounds().getNorthEast().getLat(),
       lng: map.getBounds().getNorthEast().getLng(),
@@ -166,27 +190,45 @@ const Observer = () => {
     };
 
     const rectBounds = getRectBounds(SW_Coordinates, NE_Coordinates);
-    // localConsole?.log(convStringCoordinates(rectBounds));
 
     setMapState((state) => ({ ...state, currentRectBounds: rectBounds }));
-  }, [currentPoi, currentZoomLevel]);
+  }, [currentGeoLocation]);
 
   useDidMountEffect(() => {
     const geoValidation = koreaGeoLocationValidate(latitude, longitude);
 
-    localConsole?.log(currentZoomLevel, "currentZoomLevel");
-    localConsole?.log(currentRectBounds, "currentRectBounds");
-
     if (geoValidation) {
-      if (currentZoomLevel >= 9) {
-        // TODO
-        // currentPoi.latitude.toString().split(".")[1].length
-        map.setLevel(6);
-      }
+      // if (currentZoomLevel >= 9) {
+      //   // TODO
+      //   // currentPoi.latitude.toString().split(".")[1].length
+      //   map.setLevel(6);
+      // }
 
       map.panTo(new kakao.maps.LatLng(latitude, longitude));
     }
   }, [currentPoi]);
+
+  useEffect(() => {
+    if (
+      koreaGeoLocationValidate(
+        currentGeoLocation.latitude,
+        currentGeoLocation.longitude
+      )
+    ) {
+      // const boundary = Object.values(rectBounds);
+      // localConsole?.log(boundary, "boundary");
+      // client.refetchQueries([HOSPITAL_LIST.key[0], { page: 1,   }]);
+      // {
+      //   animate: {
+      //     duration: 500,
+      //   },
+      // }
+      // level
+      setTimeout(() => {
+        kakaoUseMap.setLevel(mapsLevelSelector(currentGeoLocation.latitude));
+      }, 200);
+    }
+  }, [currentGeoLocation]);
 
   return <></>;
 };
@@ -207,10 +249,11 @@ const Bound = ({ poiDataList }: BoundProps) => {
     bounds.extend(latLng);
   });
 
-  useEffect(() => {
-    map.setBounds(bounds);
-    setMapState((state) => ({ ...state, isBounded: true }));
-  }, []);
+  // TODO : 바운즈 처리 해줘야함
+  // useEffect(() => {
+  //   map.setBounds(bounds);
+  //   setMapState((state) => ({ ...state, isBounded: true }));
+  // }, []);
 
   return <></>;
 };

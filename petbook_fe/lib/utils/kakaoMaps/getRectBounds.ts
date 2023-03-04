@@ -32,6 +32,8 @@ const getRectBounds = (southWest: Coordinates, northEast: Coordinates) => {
   };
 };
 
+export default getRectBounds;
+
 export const convStringCoordinates = (rectBounds: {
   NW_11: Coordinates;
   SW_7: Coordinates;
@@ -49,5 +51,3 @@ export const convStringCoordinates = (rectBounds: {
 
   return result;
 };
-
-export default getRectBounds;

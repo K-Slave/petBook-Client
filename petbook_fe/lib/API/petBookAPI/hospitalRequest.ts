@@ -1,3 +1,4 @@
+import localConsole from "@lib/utils/localConsole";
 import { AxiosRequestHeaders } from "axios";
 import RequestCore from "./RequestCore";
 
@@ -8,6 +9,7 @@ export default class HospitalAPI extends RequestCore {
       id?: number;
       name?: string;
       address?: string;
+      boundary?: string;
       page: number;
       size: number;
     };
@@ -31,6 +33,8 @@ export default class HospitalAPI extends RequestCore {
         size: sizeParams,
       },
     });
+
+    localConsole?.log(requestURL, "requestURL");
 
     const result = await this.getResult<{
       totalCount: number;

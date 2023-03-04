@@ -82,7 +82,7 @@ export default class RequestCore {
         method: requestMethod,
         url: requestURL,
         data: body,
-        timeout: 100,
+        timeout: 10000,
         headers: requestHeaders,
       }));
     if (response && response.request) {
@@ -95,7 +95,7 @@ export default class RequestCore {
         requestMethod,
         requestURL,
         body,
-        timeout: 100,
+        timeout: 10000,
         requestHeaders,
       },
     };
