@@ -5,11 +5,27 @@ export interface HospitalInfo {
   latitude: number;
   longitude: number;
   n_id: number;
+  modifiedAt: string;
+  createdAt: string;
+}
+
+export interface HospitalFullInfo {
+  hospitals: HospitalInfo;
+  bestReview: {
+    bestContent: string;
+    bestId: number;
+    bestListCount: number;
+  };
+  worstReview: {
+    worstContent: string;
+    worstId: number;
+    worstLikeCount: number;
+  };
 }
 
 export type HospitalListResponse = {
   totalCount: number;
-  hospitals: HospitalInfo[];
+  hospitals: HospitalFullInfo[];
 };
 
 export interface HospitalListRequest {
@@ -18,6 +34,7 @@ export interface HospitalListRequest {
   address?: string;
   page: number | 0;
   size: number | 50;
+  boundary?: string;
 }
 
 export interface HospitalReveiwRequest {

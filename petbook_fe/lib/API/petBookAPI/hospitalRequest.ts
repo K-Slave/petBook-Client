@@ -1,4 +1,3 @@
-import localConsole from "@lib/utils/localConsole";
 import { AxiosRequestHeaders } from "axios";
 import RequestCore from "./RequestCore";
 
@@ -9,9 +8,9 @@ export default class HospitalAPI extends RequestCore {
       id?: number;
       name?: string;
       address?: string;
+      page: number | 0;
+      size: number | 50;
       boundary?: string;
-      page: number;
-      size: number;
     };
   }) => {
     const pageParam =
@@ -24,6 +23,11 @@ export default class HospitalAPI extends RequestCore {
         ? payload.params.size
         : 50;
 
+    const boundaryParams =
+      payload && payload.params && typeof payload.params.boundary === "string"
+        ? payload.params.boundary
+        : "";
+
     const { requestURL, requestHeaders } = this.getParameters({
       uri: "/list",
       headerObj: payload?.header,
@@ -31,21 +35,34 @@ export default class HospitalAPI extends RequestCore {
         ...payload?.params,
         page: pageParam,
         size: sizeParams,
+        boundary: boundaryParams,
       },
     });
 
-    localConsole?.log(requestURL, "requestURL");
-
     const result = await this.getResult<{
       totalCount: number;
-      hospitals: {
-        id: number;
-        name: string;
-        address: string;
-        latitude: number;
-        longitude: number;
-        n_id: number;
-      }[];
+      hospitals: Array<{
+        hospitals: {
+          id: number;
+          name: string;
+          address: string;
+          latitude: number;
+          longitude: number;
+          n_id: number;
+          modifiedAt: string;
+          createdAt: string;
+        };
+        bestReview: {
+          bestContent: string;
+          bestId: number;
+          bestListCount: number;
+        };
+        worstReview: {
+          worstContent: string;
+          worstId: number;
+          worstLikeCount: number;
+        };
+      }>;
     }>({
       requestMethod: "GET",
       requestURL,

@@ -164,3 +164,10 @@ https://github.com/K-Slave/petBook-Client/commit/9b7bae2d91b14047844ce27dc8c6257
 - [x] 현위치 쿠키 등록 API 만들어야함
 - [x] 현위치 쿠키 갱신 로직 짜야함
 - [ ] 지역 검색시 depth 에 따라 지도 줌 레벨 조정 로직 필요함
+
+# 03.05
+
+- [ ] queryParser 에서, location 쿠키를 꺼내와서 bounds 값을 넣어야 하는데, 좌표검색이 제대로 지원된 이후
+      아이디 검색과 구분해서 구현필요
+- [ ] 쿠키에서 값 꺼내서 초기 값으로 쓰기
+- [ ] 쿠키에 rect 를 저장시킬지, 아니면 geo 만 꺼내서 rect 로 잘 변환시킬것인지

@@ -1,5 +1,3 @@
-import localConsole from "../localConsole";
-
 export interface Coordinates {
   lat: number;
   lng: number;
@@ -43,7 +41,7 @@ export const convStringCoordinates = (rectBounds: {
   const boundsValues = Object.values(rectBounds);
   const valuesDoubleArrayJoin = boundsValues
     .map((value) => {
-      return Object.values(value);
+      return Object.values(value).reverse();
     })
     .join();
 

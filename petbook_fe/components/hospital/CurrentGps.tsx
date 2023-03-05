@@ -1,9 +1,6 @@
 /* global kakao */
 
 import loadingState from "@atoms/common/loadingState";
-import mapState, {
-  currentRegionDataState,
-} from "@atoms/pageAtoms/hospitalmap/mapState";
 import { kakaoUseMap } from "@components/map/KakaoMap";
 import { cookieRequest } from "@lib/API/petBookAPI";
 import { LocationCacheData } from "@lib/API/petBookAPI/types/cookieRequest";
@@ -13,14 +10,17 @@ import localConsole from "@lib/utils/localConsole";
 import { koreaGeoLocationValidate } from "@lib/utils/validation/geoLocationValidate";
 import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { HOSPITAL_LIST } from "@pages/hospitalmap";
 import getRectBounds, { Coordinates } from "@lib/utils/kakaoMaps/getRectBounds";
 import mapsLevelSelector from "@lib/modules/mapsLevelSelector";
+import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
+import regionDataState from "@atoms/pageAtoms/hospitalmap/regionData";
 
 const CurrentGps = () => {
-  const currentRegionData = useRecoilValue(currentRegionDataState);
-  const setMapState = useSetRecoilState(mapState);
+  const [currentRegionData, setCurrentRegionData] =
+    useRecoilState(regionDataState);
+  const setCurrentGeoLocation = useSetRecoilState(geoLocationState);
   const setLoading = useSetRecoilState(loadingState);
 
   const onClick = async () => {
@@ -56,36 +56,23 @@ const CurrentGps = () => {
         },
       });
 
-      localConsole?.log(cookieRes, "cookieRes");
-
       // const geocoder = new kakao.maps.services.Geocoder();
 
       // geocoder.addressSearch("서울시 강남구 역삼1동", (result, status) => {
       //   localConsole?.log(status, "status");
       //   localConsole?.log(result);
       // });
+      kakaoUseMap.setLevel(mapsLevelSelector(latitude));
 
-      // TODO : 레벨 조정도 해야함
       kakaoUseMap.panTo(new kakao.maps.LatLng(latitude, longitude));
 
-      const NE_Coordinates: Coordinates = {
-        lat: kakaoUseMap.getBounds().getNorthEast().getLat(),
-        lng: kakaoUseMap.getBounds().getNorthEast().getLng(),
-      };
+      setCurrentGeoLocation((state) => {
+        return { latitude, longitude };
+      });
 
-      const SW_Coordinates: Coordinates = {
-        lat: kakaoUseMap.getBounds().getSouthWest().getLat(),
-        lng: kakaoUseMap.getBounds().getSouthWest().getLng(),
-      };
-
-      const rectBounds = getRectBounds(SW_Coordinates, NE_Coordinates);
-
-      setMapState((state) => {
+      setCurrentRegionData((state) => {
         return {
-          ...state,
-          currentRegionData: regionData,
-          currentGeoLocation: { latitude, longitude },
-          currentRectBounds: rectBounds,
+          ...regionData,
         };
       });
 

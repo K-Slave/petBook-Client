@@ -25,6 +25,7 @@ export default async function queryParser(
       break;
     }
 
+    // TODO: 로케이션 쿠키에 있는 값을 꺼내서 boundary 에 붙여야함
     case "HOSPITAL_LIST": {
       const id = queryParams.id ? Number(queryParams.id) : null;
       const page = queryParams.page ? Number(queryParams.page) - 1 : 0;

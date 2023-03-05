@@ -1,17 +1,15 @@
 /* global kakao */
-import mapState from "@atoms/pageAtoms/hospitalmap/mapState";
+import isMapLoadState from "@atoms/pageAtoms/hospitalmap/isMapLoad";
 import { useCallback, useRef } from "react";
-import useSelectorState from "../common/useSelectorState";
+import { useRecoilState } from "recoil";
 
 const useMapLoad = () => {
-  const [{ isMapLoad }, setIsMapLoad] = useSelectorState(mapState, {
-    isMapLoad: false,
-  });
+  const [isMapLoad, setIsMapLoad] = useRecoilState(isMapLoadState);
   const mapRef = useRef<HTMLDivElement>(null);
 
   const onLoad = useCallback(() => {
     kakao.maps.load(() => {
-      setIsMapLoad((state) => ({ ...state, isMapLoad: true }));
+      setIsMapLoad(true);
     });
   }, []);
 
