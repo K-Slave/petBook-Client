@@ -1,4 +1,4 @@
-import { sprPetBookClient } from "../axios/axiosClient";
+import { nextPetBookClient, sprPetBookClient } from "../axios/axiosClient";
 import ArticleAPI from "./articleRequest";
 import AuthAPI from "./authRequest";
 import UserAPI from "./userRequest";
@@ -6,6 +6,7 @@ import CategorySprAPI from "./categoryRequestSpr";
 import ImgAPI from "./imgRequest";
 import CommentAPI from "./commentRequest";
 import HospitalAPI from "./hospitalRequest";
+import CookieAPI from "./cookieRequest";
 
 /**
  * @uri '/api/v1'
@@ -78,4 +79,10 @@ export const hospitalRequest = new HospitalAPI(
   process.env.NEXT_PUBLIC_SPR_URL as string,
   "/api/v1/hospital",
   sprPetBookClient
+);
+
+export const cookieRequest = new CookieAPI(
+  "",
+  "/api/cookie",
+  nextPetBookClient
 );

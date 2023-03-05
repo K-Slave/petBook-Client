@@ -27,6 +27,7 @@ import "swiper/scss/pagination";
 import "../styles/Globals.scss";
 import "../styles/Icon.scss";
 import "../styles/Swiper.scss";
+import getCookieList from "@lib/utils/getCookieList";
 
 type DehydratedAppProps = AppProps<{
   dehydratedState: DehydratedState;
@@ -73,6 +74,9 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
 NextApp.getInitialProps = async (context: AppContext) => {
   const { Component, router, ctx } = context;
   const { token, user } = getToken(ctx, { decode: true });
+  const cookieList = getCookieList(ctx, {
+    decode: true,
+  });
   const queryClient = createQueryClient();
   let pageProps = {};
 
@@ -91,7 +95,20 @@ NextApp.getInitialProps = async (context: AppContext) => {
       // 보안 옵션을 추가한 쿠키를 현재 접속 시각으로부터 30일 갱신
       ctx.res?.setHeader(
         "Set-Cookie",
-        `petBookUser=${token}; Path=/; SameSite=Strict; Max-Age=2592000; secure; httpOnly;`
+        `PETBOOK_USER=${token}; Path=/; SameSite=Strict; Max-Age=2592000; secure; httpOnly;`
+      );
+    }
+
+    const locationCookie = cookieList.find(
+      (cookie) => cookie.key === "USER_LOCATION_DATA"
+    );
+
+    if (locationCookie) {
+      ctx.res?.setHeader(
+        "Set-Cookie",
+        `${locationCookie.key}=${encodeURIComponent(
+          locationCookie.value
+        )}; Path=/; SameSite=Strict; Max-Age=2592000; secure; httpOnly;`
       );
     }
 

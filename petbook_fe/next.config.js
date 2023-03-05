@@ -20,8 +20,8 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: "/api/:path*",
-        destination: "https://api.petbook.site/api/:path*",
+        source: "/api/v1/:path*",
+        destination: "https://api.petbook.site/api/v1/:path*",
       },
     ];
   },

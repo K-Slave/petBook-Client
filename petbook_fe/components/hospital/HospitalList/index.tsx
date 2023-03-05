@@ -8,6 +8,7 @@ import { replaceQuery } from "@lib/modules/queryString";
 import { HOSPITAL_LIST } from "@pages/hospitalmap";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
+import CurrentGps from "../CurrentGps";
 import HospitalItem from "../HospitalItem";
 import { FilterButton, FilterDiv, Section } from "./styled";
 
@@ -34,10 +35,7 @@ const HospitalList = () => {
   return (
     <Section ref={ref}>
       <SearchBar placeholder="원하는 위치를 검색해보세요!" />
-      <header>
-        <h1>강남구 역삼1동</h1>
-        <button type="button">위치수정</button>
-      </header>
+      <CurrentGps />
       <HospitalList.Filter />
       <div className="Item_Wrapper">
         {status === "loading"
@@ -47,7 +45,10 @@ const HospitalList = () => {
                 <Skeleton width="100%" height="200px" key={index} />
               ))
           : data?.data.hospitals.map((hospital) => (
-              <HospitalItem key={hospital.id} {...hospital} />
+              <HospitalItem
+                key={hospital.hospitals.id}
+                {...hospital.hospitals}
+              />
             ))}
       </div>
       <Pagination buttonNum={5} totalPages={10} />

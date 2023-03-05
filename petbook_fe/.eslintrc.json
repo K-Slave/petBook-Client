@@ -51,6 +51,7 @@
     "consistent-return": "warn",
     "import/no-extraneous-dependencies": "off",
     "no-return-await": "warn",
+    "class-methods-use-this": "off",
 
     "@typescript-eslint/restrict-plus-operands": "off",
     "@typescript-eslint/no-var-requires": "off",
