@@ -60,7 +60,7 @@ const HospitalDetail = ({ id }: { id: number }) => {
             <ChevronLeft />
           </button>
           <div>
-            <h1>{data?.data.hospitals[0].name}</h1>
+            <h1>{data?.data.hospitals[0].hospitals.name}</h1>
             <Stats />
           </div>
         </header>
@@ -74,7 +74,9 @@ const HospitalDetail = ({ id }: { id: number }) => {
       </div>
       <HospitalDetail.Divider />
       <div className="wrapper">
-        <HospitalBasicInfo address={data?.data.hospitals[0].address} />
+        <HospitalBasicInfo
+          address={data?.data.hospitals[0].hospitals.address}
+        />
         <PossibleAnimalList />
       </div>
       <HospitalDetail.Divider />

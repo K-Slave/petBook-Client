@@ -53,7 +53,10 @@ const Init = ({
 
     if (poiDataList.length > 1) {
       latLngList = poiDataList.map((poiData) => {
-        return new kakao.maps.LatLng(poiData.latitude, poiData.longitude);
+        return new kakao.maps.LatLng(
+          poiData.hospitals.latitude,
+          poiData.hospitals.longitude
+        );
       });
       const markerList: kakao.maps.Marker[] = [];
 
@@ -72,8 +75,8 @@ const Init = ({
 
     if (poiDataList.length <= 1) {
       options.center = new kakao.maps.LatLng(
-        hospital.data.data.hospitals[0].latitude,
-        hospital.data.data.hospitals[0].longitude
+        hospital.data.data.hospitals[0].hospitals.latitude,
+        hospital.data.data.hospitals[0].hospitals.longitude
       );
 
       setMarker({ map, kakaoLatLng: options.center });

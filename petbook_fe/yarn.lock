@@ -853,6 +853,13 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
+"@types/request-ip@^0.0.37":
+  version "0.0.37"
+  resolved "https://registry.yarnpkg.com/@types/request-ip/-/request-ip-0.0.37.tgz#06decdcdeeaa834edf2b0a7dea0c1aefd5a04375"
+  integrity sha512-uw6/i3rQnpznxD7LtLaeuZytLhKZK6bRoTS6XVJlwxIOoOpEBU7bgKoVXDNtOg4Xl6riUKHa9bjMVrL6ESqYlQ==
+  dependencies:
+    "@types/node" "*"
+
 "@types/responselike@*", "@types/responselike@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/responselike/-/responselike-1.0.0.tgz#251f4fe7d154d2bad125abe1b429b23afd262e29"
@@ -4229,6 +4236,11 @@ regexpp@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/regexpp/-/regexpp-3.2.0.tgz#0425a2768d8f23bad70ca4b90461fa2f1213e1b2"
   integrity sha512-pq2bWo9mVD43nbts2wGv17XLiNLya+GklZ8kaDLV2Z08gDCsGpnKn9BFMepvWuHCbyVvY7J5o5+BVvoQbmlJLg==
+
+request-ip@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/request-ip/-/request-ip-3.3.0.tgz#863451e8fec03847d44f223e30a5d63e369fa611"
+  integrity sha512-cA6Xh6e0fDBBBwH77SLJaJPBmD3nWVAcF9/XAcsrIHdjhFzFiB5aNQFytdjCGPezU3ROwrR11IddKAM08vohxA==
 
 requires-port@^1.0.0:
   version "1.0.0"

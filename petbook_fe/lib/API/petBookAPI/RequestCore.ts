@@ -44,7 +44,11 @@ export default class RequestCore {
   } => {
     return {
       requestURL: `${getUrl(
-        `${typeof window === "undefined" ? this.initBaseUrl : ""}` +
+        `${
+          typeof window === "undefined" || process.env.NODE_ENV === "production"
+            ? this.initBaseUrl
+            : ""
+        }` +
           `${this.commonUri}` +
           `${uri || ""}` +
           `${pathParam || ""}`

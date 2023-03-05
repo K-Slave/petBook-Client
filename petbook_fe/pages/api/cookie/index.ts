@@ -1,29 +1,31 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import CookieController from "./CookieController";
 
-const cookieController = (req: NextApiRequest, res: NextApiResponse) => {
+const cookieService = (req: NextApiRequest, res: NextApiResponse) => {
+  const controller = new CookieController();
+  const { method } = req;
+
   try {
-    switch (req.method) {
+    switch (method) {
+      case "GET": {
+        return controller.getCookie(req, res);
+      }
+
       case "POST": {
-        res.setHeader(
-          "Set-Cookie",
-          `${String(req.body.key)}=${String(
-            req.body.value
-          )}; Path=/; SameSite=Strict; Max-Age=2592000; secure; httpOnly`
-        );
-        return res.status(200).json({ success: true });
+        return controller.setCookie(req, res);
       }
+
       case "DELETE": {
-        res.setHeader("Set-Cookie", `${String(req.body.key)}=;`);
-        return res.status(200).json({ success: true });
+        return controller.removeCookie(req, res);
       }
-      default:
-        break;
+
+      default: {
+        throw new Error("지원하지 않는 메서드 입니다.");
+      }
     }
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ ...error, message: error.message, success: false });
+  } catch (err) {
+    return res.status(400).json(err);
   }
 };
 
-export default cookieController;
+export default cookieService;

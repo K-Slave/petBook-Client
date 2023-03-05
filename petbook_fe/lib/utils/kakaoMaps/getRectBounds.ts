@@ -1,5 +1,3 @@
-import localConsole from "../localConsole";
-
 export interface Coordinates {
   lat: number;
   lng: number;
@@ -32,6 +30,8 @@ const getRectBounds = (southWest: Coordinates, northEast: Coordinates) => {
   };
 };
 
+export default getRectBounds;
+
 export const convStringCoordinates = (rectBounds: {
   NW_11: Coordinates;
   SW_7: Coordinates;
@@ -41,7 +41,7 @@ export const convStringCoordinates = (rectBounds: {
   const boundsValues = Object.values(rectBounds);
   const valuesDoubleArrayJoin = boundsValues
     .map((value) => {
-      return Object.values(value);
+      return Object.values(value).reverse();
     })
     .join();
 
@@ -49,5 +49,3 @@ export const convStringCoordinates = (rectBounds: {
 
   return result;
 };
-
-export default getRectBounds;

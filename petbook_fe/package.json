@@ -47,6 +47,7 @@
     "react-kakao-maps-sdk": "^1.1.5",
     "react-quill": "^2.0.0",
     "recoil": "^0.7.5",
+    "request-ip": "^3.3.0",
     "sass": "^1.51.0",
     "styled-components": "^5.3.5",
     "swiper": "^8.4.5"
@@ -63,6 +64,7 @@
     "@types/qs": "^6.9.7",
     "@types/react": "18.0.8",
     "@types/react-dom": "18.0.3",
+    "@types/request-ip": "^0.0.37",
     "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",
