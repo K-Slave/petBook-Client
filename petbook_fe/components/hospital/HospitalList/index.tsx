@@ -2,7 +2,9 @@ import Pagination from "@components/common/Pagination";
 import { usePage } from "@components/common/Pagination/usePagination";
 import SearchBar from "@components/common/SearchBar";
 import Skeleton from "@components/common/Skeleton/Skeleton";
+import useDidMountEffect from "@lib/hooks/common/useDidMountEffect";
 import useResource from "@lib/hooks/common/useResource";
+import { getScrollPosition } from "@lib/modules/localStorage";
 import navigator from "@lib/modules/navigator";
 import { removeQuery, replaceQuery } from "@lib/modules/queryString";
 import { HOSPITAL_LIST } from "@pages/hospitalmap";
@@ -25,7 +27,24 @@ const HospitalList = () => {
         },
       }),
   });
+
+  // mounted
   useEffect(() => {
+    const yPos = getScrollPosition();
+    if (!ref.current) return;
+    if (yPos === null) {
+      ref.current.scrollTo({
+        top: 0,
+      });
+    } else {
+      ref.current.scrollTo({
+        top: yPos,
+      });
+    }
+  }, []);
+
+  // page updated
+  useDidMountEffect(() => {
     if (ref.current) {
       ref.current.scrollTo({
         top: 0,
@@ -39,7 +58,7 @@ const HospitalList = () => {
       <HospitalList.Filter />
       <div className="Item_Wrapper">
         {status === "loading"
-          ? Array(50)
+          ? Array(20)
               .fill("")
               .map((_, index) => (
                 <Skeleton width="100%" height="200px" key={index} />
@@ -48,6 +67,7 @@ const HospitalList = () => {
               <HospitalItem
                 key={hospital.hospitals.id}
                 {...hospital.hospitals}
+                parent={ref}
               />
             ))}
       </div>
