@@ -3,7 +3,7 @@ import { HospitalInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
 import navigator, { historyReplacer } from "@lib/modules/navigator";
 import getRandomIdx from "@lib/utils/getRandomIdx";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useMemo } from "react";
 import { CustomOverlayMap } from "react-kakao-maps-sdk";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -130,6 +130,7 @@ interface KaKaoOverlayProps {
 const KaKaoOverlay = ({ poiData, isMatched }: KaKaoOverlayProps) => {
   const setMapState = useSetRecoilState(mapState);
   const router = useRouter();
+  const initMark = useMemo(() => randomBox[getRandomIdx(randomBox)], []);
   return (
     <CustomOverlayMap
       position={{ lat: poiData.latitude, lng: poiData.longitude }}
@@ -137,9 +138,7 @@ const KaKaoOverlay = ({ poiData, isMatched }: KaKaoOverlayProps) => {
       zIndex={isMatched ? 200 : 1}
     >
       <OverLayDiv isMatched={isMatched}>
-        <div className="OverLay__Mark">
-          {randomBox[getRandomIdx(randomBox)]}
-        </div>
+        <div className="OverLay__Mark">{initMark}</div>
         <button
           type="button"
           className="OverLay__Button"
