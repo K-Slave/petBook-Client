@@ -11,11 +11,12 @@ export interface LocationCacheData {
   latitude: number;
   longitude: number;
   petBookRegionName: string;
+  boundary?: string;
 }
 
 interface PetBookCookies {
   key: string;
-  value: object | string;
+  value: any;
 }
 
 export interface GetCookieRequest {

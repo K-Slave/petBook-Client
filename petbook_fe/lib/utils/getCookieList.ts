@@ -13,7 +13,7 @@ const getCookieList = (
   const valueList = Object.values(allCookies);
   let cookieList: {
     key: string;
-    value: string;
+    value: any;
   }[] = [];
 
   if (
@@ -24,10 +24,7 @@ const getCookieList = (
     cookieList = keyList.map((key, idx) => {
       return {
         key,
-        value:
-          typeof valueList[idx] !== "undefined"
-            ? (valueList[idx] as string)
-            : "",
+        value: typeof valueList[idx] !== "undefined" ? valueList[idx] : "",
       };
     });
   }
