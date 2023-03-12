@@ -4,7 +4,7 @@ import SearchBar from "@components/common/SearchBar";
 import Skeleton from "@components/common/Skeleton/Skeleton";
 import useResource from "@lib/hooks/common/useResource";
 import navigator from "@lib/modules/navigator";
-import { replaceQuery } from "@lib/modules/queryString";
+import { removeQuery, replaceQuery } from "@lib/modules/queryString";
 import { HOSPITAL_LIST } from "@pages/hospitalmap";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
@@ -62,11 +62,17 @@ const Filter = () => {
   const router = useRouter();
   const { filter } = router.query;
   const selectFilter = (name: string) => () => {
-    const url = replaceQuery({
-      asPath: router.asPath,
-      key: "filter",
-      query: name,
-    });
+    const url =
+      name === FILTERS[0]
+        ? removeQuery({
+            asPath: router.asPath,
+            key: "filter",
+          })
+        : replaceQuery({
+            asPath: router.asPath,
+            key: "filter",
+            query: name,
+          });
     navigator({
       url,
       options: {

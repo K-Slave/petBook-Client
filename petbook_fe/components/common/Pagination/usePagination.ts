@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import navigator from "@lib/modules/navigator";
-import { replaceQuery } from "@lib/modules/queryString";
+import { removeQuery, replaceQuery } from "@lib/modules/queryString";
 
 export const usePage = () => {
   const router = useRouter();
@@ -21,11 +21,17 @@ export default function usePagination({
   const currentPage = usePage();
   const router = useRouter();
   const changeCurrentPage = (page: number) => {
-    const url = replaceQuery({
-      asPath: router.asPath,
-      key: "page",
-      query: String(page),
-    });
+    const url =
+      page === 1
+        ? removeQuery({
+            asPath: router.asPath,
+            key: "page",
+          })
+        : replaceQuery({
+            asPath: router.asPath,
+            key: "page",
+            query: String(page),
+          });
     navigator({
       url,
       options: {
