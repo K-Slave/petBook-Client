@@ -1,3 +1,6 @@
+import localConsole from "../localConsole";
+import replaceAll from "../replaceAll";
+
 export interface Coordinates {
   lat: number;
   lng: number;
@@ -32,7 +35,7 @@ const getRectBounds = (southWest: Coordinates, northEast: Coordinates) => {
 
 export default getRectBounds;
 
-export const convStringCoordinates = (rectBounds: {
+export const convRectBoundsToBoundary = (rectBounds: {
   NW_11: Coordinates;
   SW_7: Coordinates;
   SE_5: Coordinates;
@@ -48,4 +51,29 @@ export const convStringCoordinates = (rectBounds: {
   const result = "(" + valuesDoubleArrayJoin + ")";
 
   return result;
+};
+
+export const convBoundaryToRectBounds = (boundary: string) => {
+  const replaceValue = boundary.replace("(", "").replace(")", "");
+  const splitValue = replaceValue.split(",");
+  const coordValue = {
+    NW_11: {
+      lat: Number(splitValue[1]),
+      lng: Number(splitValue[0]),
+    },
+    SW_7: {
+      lat: Number(splitValue[3]),
+      lng: Number(splitValue[2]),
+    },
+    SE_5: {
+      lat: Number(splitValue[5]),
+      lng: Number(splitValue[4]),
+    },
+    NE_1: {
+      lat: Number(splitValue[7]),
+      lng: Number(splitValue[6]),
+    },
+  };
+
+  return coordValue;
 };

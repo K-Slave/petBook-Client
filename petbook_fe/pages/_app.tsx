@@ -28,11 +28,19 @@ import "../styles/Globals.scss";
 import "../styles/Icon.scss";
 import "../styles/Swiper.scss";
 import getCookieList from "@lib/utils/getCookieList";
+import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
+import { UserLocationData } from "@lib/types/CacheData";
+import localConsole from "@lib/utils/localConsole";
+import recoilHydration from "@lib/modules/recoilHydration";
 
 type DehydratedAppProps = AppProps<{
   dehydratedState: DehydratedState;
   token: string;
   user: DecodedUserInfo;
+  cookieList: {
+    key: string;
+    value: any;
+  }[];
 }>;
 
 const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
@@ -58,7 +66,18 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <RecoilRoot>
+        <RecoilRoot
+          initializeState={({ set, reset }) => {
+            recoilHydration(
+              {
+                set,
+                reset,
+              },
+              router.pathname,
+              pageProps.cookieList
+            );
+          }}
+        >
           <Loader />
           <HtmlHead currentPath={router.pathname} />
           <Header currentPath={router.pathname} />
@@ -107,8 +126,8 @@ NextApp.getInitialProps = async (context: AppContext) => {
       ctx.res?.setHeader(
         "Set-Cookie",
         `${locationCookie.key}=${encodeURIComponent(
-          locationCookie.value
-        )}; Path=/; SameSite=Strict; Max-Age=2592000; secure; httpOnly;`
+          JSON.stringify(locationCookie.value)
+        )}; Path=/; SameSite=Strict; Max-Age=2592000; secure;`
       );
     }
 
@@ -132,7 +151,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
       await Promise.all(
         itrMap(
           (resource: { key: Key; fetcher: () => void }) =>
-            queryParser(resource, query, queryClient),
+            queryParser(ctx, resource, query, queryClient),
           requiredResources
         )
       );
@@ -147,6 +166,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
       dehydratedState: dehydrate(queryClient),
       token,
       user,
+      cookieList,
       ...pageProps,
     },
   };

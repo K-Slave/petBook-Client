@@ -1,16 +1,27 @@
+import Cookies from "js-cookie";
 import { atom } from "recoil";
+
+const locationCookie = Cookies.get("USER_LOCATION_DATA");
+
+const initData = {
+  latitude: 37.49542431,
+  longitude: 127.03320108,
+};
+
+const defaultData = {
+  latitude: locationCookie
+    ? JSON.parse(locationCookie).latitude
+    : initData.latitude,
+  longitude: locationCookie
+    ? JSON.parse(locationCookie).longitude
+    : initData.longitude,
+};
 
 // TODO : 캐시된 위치정보가 없을때만 강남역 잡히게 처리해야함
 
 const geoLocationState = atom({
   key: "geoLocationState",
-  default: {
-    latitude: 37.495417191,
-    longitude: 127.0332010833,
-
-    // latitude: 37.4954171091244,
-    // longitude: 127.033201083326,
-  },
+  default: defaultData,
 });
 
 export default geoLocationState;
