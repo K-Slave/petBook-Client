@@ -1,7 +1,8 @@
 import mapState from "@atoms/pageAtoms/hospitalmap/mapState";
 import { HospitalInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
-import navigator from "@lib/modules/navigator";
+import navigator, { historyReplacer } from "@lib/modules/navigator";
 import getRandomIdx from "@lib/utils/getRandomIdx";
+import { useRouter } from "next/router";
 import React from "react";
 import { CustomOverlayMap } from "react-kakao-maps-sdk";
 import { useSetRecoilState } from "recoil";
@@ -128,7 +129,7 @@ interface KaKaoOverlayProps {
 
 const KaKaoOverlay = ({ poiData, isMatched }: KaKaoOverlayProps) => {
   const setMapState = useSetRecoilState(mapState);
-
+  const router = useRouter();
   return (
     <CustomOverlayMap
       position={{ lat: poiData.latitude, lng: poiData.longitude }}
@@ -143,12 +144,21 @@ const KaKaoOverlay = ({ poiData, isMatched }: KaKaoOverlayProps) => {
           type="button"
           className="OverLay__Button"
           onClick={() => {
-            navigator({
-              url: `?id=${poiData.id}`,
-              options: {
-                shallow: true,
-              },
-            });
+            if (router.query.id) {
+              historyReplacer({
+                url: `?id=${poiData.id}`,
+                options: {
+                  shallow: true,
+                },
+              });
+            } else {
+              navigator({
+                url: `?id=${poiData.id}`,
+                options: {
+                  shallow: true,
+                },
+              });
+            }
             setMapState((state) => ({
               ...state,
               currentPoidata: {

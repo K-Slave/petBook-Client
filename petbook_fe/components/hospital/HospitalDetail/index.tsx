@@ -9,8 +9,6 @@ import { HOSPITAL_LIST } from "@pages/hospitalmap";
 import Skeleton from "@components/common/Skeleton/Skeleton";
 import HospitalReview from "@components/hospital/HospitalReview";
 import HospitalDetailReview from "@components/hospital/HospitalDetailReview";
-import { removeQuery } from "@lib/modules/queryString";
-import navigator from "@lib/modules/navigator";
 import PencilEditIcon from "@components/common/icon/PencilEdit";
 import ShareForwardIcon from "@components/common/icon/ShareFoward";
 import useModal from "@lib/hooks/common/useModal";
@@ -30,18 +28,8 @@ const HospitalDetail = ({ id }: { id: number }) => {
   });
   const router = useRouter();
   const goBack = () => {
-    const url = removeQuery({
-      asPath: router.asPath,
-      key: "id",
-    });
-    navigator({
-      url,
-      options: {
-        shallow: true,
-      },
-    });
+    router.back();
   };
-
   if (!data) {
     return (
       <Section>
@@ -72,14 +60,14 @@ const HospitalDetail = ({ id }: { id: number }) => {
         />
         <HospitalDetail.ButtonBox />
       </div>
-      <HospitalDetail.Divider />
+      <LineDiv />
       <div className="wrapper">
         <HospitalBasicInfo
           address={data?.data.hospitals[0].hospitals.address}
         />
         <PossibleAnimalList />
       </div>
-      <HospitalDetail.Divider />
+      <LineDiv />
       {/* 리뷰 */}
       <HospitalDetailReview />
     </Section>
@@ -117,11 +105,6 @@ const ButtonBox = () => {
   );
 };
 
-const Divider = () => {
-  return <LineDiv />;
-};
-
-HospitalDetail.Divider = Divider;
 HospitalDetail.ButtonBox = ButtonBox;
 
 export default HospitalDetail;
