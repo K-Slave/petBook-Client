@@ -16,19 +16,17 @@ const defaultSize = 50;
 const usePoiData = () => {
   // const cachedRectBounds = useRecoilValue(cachedRectBoundsState);
   const rectBounds = useRecoilValue(rectBoundsState);
-  localConsole?.log(rectBounds, "rectBounds");
   const router = useRouter();
   const pageParam = router.query?.page ? Number(router.query.page) : 1;
-  const id = router.query?.id ? Number(router.query.id) : undefined;
+  // const id = router.query?.id ? Number(router.query.id) : undefined;
   const currentPage = Number.isNaN(pageParam) ? 1 : pageParam;
   const page = currentPage - 1;
   const boundary = convRectBoundsToBoundary(rectBounds);
 
   const fetchParams = {
-    id,
     page,
     size: defaultSize,
-    boundary: id ? undefined : boundary,
+    boundary,
   };
 
   const { data, status } = useResource({
