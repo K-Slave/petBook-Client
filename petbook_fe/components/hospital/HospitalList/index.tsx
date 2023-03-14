@@ -1,3 +1,4 @@
+import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
 import Pagination from "@components/common/Pagination";
 import { usePage } from "@components/common/Pagination/usePagination";
 import SearchBar from "@components/common/SearchBar";
@@ -5,9 +6,11 @@ import Skeleton from "@components/common/Skeleton/Skeleton";
 import useResource from "@lib/hooks/common/useResource";
 import navigator from "@lib/modules/navigator";
 import { removeQuery, replaceQuery } from "@lib/modules/queryString";
+import { convRectBoundsToBoundary } from "@lib/utils/kakaoMaps/getRectBounds";
 import { HOSPITAL_LIST } from "@pages/hospitalmap";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
+import { useRecoilValue } from "recoil";
 import CurrentGps from "../CurrentGps";
 import HospitalItem from "../HospitalItem";
 import { FilterButton, FilterDiv, Section } from "./styled";
@@ -15,14 +18,19 @@ import { FilterButton, FilterDiv, Section } from "./styled";
 const HospitalList = () => {
   const ref = useRef<HTMLElement | null>(null);
   const page = usePage() - 1;
+  const rectBounds = useRecoilValue(rectBoundsState);
+  const boundary = convRectBoundsToBoundary(rectBounds);
+
+  const fetchParams = {
+    page,
+    size: 50,
+    boundary,
+  };
   const { data, status } = useResource({
-    key: [HOSPITAL_LIST.key[0], { page }],
+    key: [HOSPITAL_LIST.key[0], { fetchParams }],
     fetcher: () =>
       HOSPITAL_LIST.fetcher({
-        params: {
-          page,
-          size: 50,
-        },
+        params: fetchParams,
       }),
   });
   useEffect(() => {
