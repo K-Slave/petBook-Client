@@ -1,9 +1,11 @@
 import { usePage } from "@components/common/Pagination/usePagination";
 import { hospitalRequest } from "@lib/API/petBookAPI";
 import useUserId from "@lib/hooks/article/useUserId";
+import useModal from "@lib/hooks/common/useModal";
 import useResource, { createResource } from "@lib/hooks/common/useResource";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import HospitalReview from "../HospitalReview";
 import {
   ReviewBox,
   ReviewBoxContent,
@@ -155,6 +157,18 @@ const SettingBtn = () => {
   const onClick = () => {
     setBtnState(!btnState);
   };
+  const { openModal, closeModal } = useModal();
+  const openReviewModal = () => {
+    openModal(HospitalReview, {
+      closeModal,
+    });
+  };
+  const removeReview = () => {
+    alert("삭제 하는중");
+  };
+  const reportReview = () => {
+    alert("신고 하는중");
+  };
 
   return (
     <ReviewBoxMoreWrap btnState={btnState}>
@@ -164,9 +178,9 @@ const SettingBtn = () => {
       {/* {btnState && ( */}
       <article>
         <ul>
-          <li>수정</li>
-          <li>삭제</li>
-          <li>신고</li>
+          <li onClick={openReviewModal}>수정</li>
+          <li onClick={removeReview}>삭제</li>
+          <li onClick={reportReview}>신고</li>
         </ul>
       </article>
       {/* )} */}
