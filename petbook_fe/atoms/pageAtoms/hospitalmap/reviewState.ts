@@ -12,7 +12,7 @@ export const reviewFormState = atom<{
     hospitalId: 0,
     content: "",
     disease: "",
-    imageIds: [],
+    imageIds: undefined,
     experience: "",
   },
 });

@@ -4,7 +4,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { hospitalRequest, imgRequest } from "@lib/API/petBookAPI";
 
 import { reviewFormState } from "@atoms/pageAtoms/hospitalmap/reviewState";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useRouter } from "next/router";
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 
@@ -155,29 +155,34 @@ const ImgWrap = () => {
     </ImgContainer>
   );
 };
+
 const HospitalReview = ({ closeModal }: { closeModal: () => void }) => {
   const router = useRouter();
+  const setReviewForm = useSetRecoilState(reviewFormState);
   const reviewForm = useRecoilValue(reviewFormState);
-  const { data, mutate } = useSetResource(HOSPITAL_REVIEW_CREATE);
+  const { data, mutate, status } = useSetResource(HOSPITAL_REVIEW_CREATE);
 
   const onSubmit = async () => {
-    const cc = {
-      hospitalId: Number(router.query.id),
-      content: "string",
-      disease: "string",
-      petName: "string",
-      // imageIds: [0],
-      experience: "GOOD",
-    };
-    // const pet = document.querySelector<HTMLDivElement>(
-    //   "input[type=radio][name=pet]:checked"
-    // );
-    // console.log(pet);
-    mutate(cc);
+    mutate(reviewForm);
   };
+
+  const onChange = (e: any) => {
+    let name = e.target.attributes["data-type"].nodeValue;
+    setReviewForm((el) => ({
+      ...el,
+      hospitalId: Number(router.query.id),
+      [`${name}`]: e.target.value,
+    }));
+  };
+
   useEffect(() => {
-    console.log(data);
+    if (data === undefined) {
+      return;
+    }
+    alert("리뷰등록완료");
+    closeModal();
   }, [data]);
+
   useEffect(() => {
     document.body.classList.add("dim");
     return () => {
@@ -201,7 +206,14 @@ const HospitalReview = ({ closeModal }: { closeModal: () => void }) => {
               return (
                 <article key={id}>
                   <label htmlFor={id}>
-                    <input type="checkbox" name="pet" id={id} />
+                    <input
+                      type="checkbox"
+                      name="pet"
+                      data-type="petName"
+                      id={id}
+                      value={item.title}
+                      onChange={onChange}
+                    />
                     <div className="Img">{item.img}</div>
                     <h5>{item.title}</h5>
                   </label>
@@ -220,10 +232,13 @@ const HospitalReview = ({ closeModal }: { closeModal: () => void }) => {
                   htmlFor={reaction.value} // Y | N
                 >
                   <input
+                    className="default" // 상태값으로 조절
                     type="radio"
                     name="reaction"
+                    data-type="experience"
                     id={reaction.value}
-                    className="default" // 상태값으로 조절
+                    onChange={onChange}
+                    value={reaction.value === "Y" ? "GOOD" : "BAD"}
                   />
                   <p>
                     {reaction.value === "Y" ? (
@@ -244,6 +259,8 @@ const HospitalReview = ({ closeModal }: { closeModal: () => void }) => {
                 <div className="Pencil" />
               </IconBox>
               <input
+                onChange={onChange}
+                data-type="content"
                 type="text"
                 placeholder="어떤 증상으로 병원에 방문하셨나요?"
               />
@@ -253,6 +270,8 @@ const HospitalReview = ({ closeModal }: { closeModal: () => void }) => {
                 <div className="Medical" />
               </IconBox>
               <textarea
+                onChange={onChange}
+                data-type="disease"
                 cols={30}
                 rows={10}
                 placeholder="병원에서 느낀 점을 자유롭게 작성해주세요."
