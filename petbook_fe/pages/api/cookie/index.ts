@@ -19,6 +19,10 @@ const cookieService = (req: NextApiRequest, res: NextApiResponse) => {
         return controller.removeCookie(req, res);
       }
 
+      case "PATCH": {
+        return controller.patchCookie(req, res);
+      }
+
       default: {
         throw new Error("지원하지 않는 메서드 입니다.");
       }

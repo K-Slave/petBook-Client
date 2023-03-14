@@ -22,7 +22,7 @@ export default class CookieAPI extends RequestCore {
       headerObj: header,
     });
 
-    const result = await this.getResult<GetCookieRequest, GetCookieResponse>({
+    const result = await this.getResult<GetCookieResponse>({
       requestMethod: "GET",
       requestURL,
       requestHeaders,
@@ -46,6 +46,29 @@ export default class CookieAPI extends RequestCore {
       requestURL,
       requestHeaders,
       body,
+    });
+
+    return result;
+  };
+
+  public patchCookie = async (payload: {
+    header?: AxiosRequestHeaders;
+    body: SetCookieRequest;
+  }) => {
+    const { header, body } = payload;
+
+    const { requestHeaders, requestURL } = this.getParameters({
+      headerObj: header,
+    });
+
+    const result = await this.getResult<SetCookieRequest, SetCookieResponse>({
+      requestMethod: "PATCH",
+      requestURL,
+      requestHeaders,
+      body: {
+        key: body.key,
+        value: body.value,
+      },
     });
 
     return result;

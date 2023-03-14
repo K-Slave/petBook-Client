@@ -5,19 +5,15 @@ import mapState, {
   currentZoomLevelState,
 } from "@atoms/pageAtoms/hospitalmap/mapState";
 import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
-import Skeleton from "@components/common/Skeleton/Skeleton";
 import type {
   HospitalFullInfo,
   HospitalInfo,
 } from "@lib/API/petBookAPI/types/hospitalRequest";
 import useDidMountEffect from "@lib/hooks/common/useDidMountEffect";
-import useBounds from "@lib/hooks/map/useBounds";
 import useGetRect from "@lib/hooks/map/useGetRect";
 import usePoiData from "@lib/hooks/map/usePoiData";
 import mapsLevelSelector from "@lib/modules/mapsLevelSelector";
-import getBoundsCenter from "@lib/utils/kakaoMaps/getBoundsCenter";
 import getRectBounds, { Coordinates } from "@lib/utils/kakaoMaps/getRectBounds";
-import localConsole from "@lib/utils/localConsole";
 
 import { koreaGeoLocationValidate } from "@lib/utils/validation/geoLocationValidate";
 import { useRouter } from "next/router";

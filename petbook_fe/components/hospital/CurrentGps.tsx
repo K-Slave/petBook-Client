@@ -8,18 +8,20 @@ import getGeoLocation from "@lib/utils/getGeoLocation";
 import getCoord2RegionH from "@lib/utils/kakaoMaps/getCoord2RegionH";
 import localConsole from "@lib/utils/localConsole";
 import { koreaGeoLocationValidate } from "@lib/utils/validation/geoLocationValidate";
-import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { HOSPITAL_LIST } from "@pages/hospitalmap";
-import getRectBounds, { Coordinates } from "@lib/utils/kakaoMaps/getRectBounds";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import mapsLevelSelector from "@lib/modules/mapsLevelSelector";
 import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
-import regionDataState from "@atoms/pageAtoms/hospitalmap/regionData";
+import regionDataState from "@atoms/pageAtoms/hospitalmap/regionData"; // cachedRegionDataState,
+
+// const defaultPage = 0;
+// const defaultSize = 50;
+// const defaultBoundary =
+//   "(28127.00963325656245,37.48459126977702,127.05668520469185,37.48459126977702,127.00963325656245,37.50620222560144,127.05668520469185,37.50620222560144)";
 
 const CurrentGps = () => {
-  const [currentRegionData, setCurrentRegionData] =
-    useRecoilState(regionDataState);
+  const setRegionData = useSetRecoilState(regionDataState);
+  const regionData = useRecoilValue(regionDataState);
   const setCurrentGeoLocation = useSetRecoilState(geoLocationState);
   const setLoading = useSetRecoilState(loadingState);
 
@@ -37,7 +39,7 @@ const CurrentGps = () => {
         );
       }
 
-      const regionData = await getCoord2RegionH(latitude, longitude);
+      const kakaoRegionData = await getCoord2RegionH(latitude, longitude);
 
       // : kakao.maps.services.RegionCode & {latitude: number, longitude : number }
 
@@ -45,8 +47,10 @@ const CurrentGps = () => {
         latitude,
         longitude,
         petBookRegionName:
-          regionData.region_2depth_name + " " + regionData.region_3depth_name,
-        ...regionData,
+          kakaoRegionData.region_2depth_name +
+          " " +
+          kakaoRegionData.region_3depth_name,
+        ...kakaoRegionData,
       };
 
       const cookieRes = await cookieRequest.setCookie({
@@ -62,17 +66,19 @@ const CurrentGps = () => {
       //   localConsole?.log(status, "status");
       //   localConsole?.log(result);
       // });
-      kakaoUseMap.setLevel(mapsLevelSelector(latitude));
 
+      kakaoUseMap.setLevel(mapsLevelSelector(latitude));
       kakaoUseMap.panTo(new kakao.maps.LatLng(latitude, longitude));
 
       setCurrentGeoLocation((state) => {
         return { latitude, longitude };
       });
 
-      setCurrentRegionData((state) => {
+      setRegionData((state) => {
         return {
-          ...regionData,
+          ...kakaoRegionData,
+          petBookRegionName:
+            regionData.region_2depth_name + " " + regionData.region_3depth_name,
         };
       });
 
@@ -86,9 +92,7 @@ const CurrentGps = () => {
   return (
     <header>
       <h1>
-        {currentRegionData.region_2depth_name +
-          " " +
-          currentRegionData.region_3depth_name}
+        {regionData.region_2depth_name + " " + regionData.region_3depth_name}
       </h1>
       <button type="button" onClick={onClick}>
         위치수정

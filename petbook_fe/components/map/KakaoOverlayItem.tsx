@@ -3,11 +3,25 @@ import { HospitalInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
 import navigator, { historyReplacer } from "@lib/modules/navigator";
 import getRandomIdx from "@lib/utils/getRandomIdx";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useMemo } from "react";
 import { CustomOverlayMap } from "react-kakao-maps-sdk";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
+// const dd = {
+//   latitude: 37.2820626,
+//   longitude: 126.8295785,
+//   petBookRegionName: "안산시 상록구 해양동",
+//   region_type: "H",
+//   code: "4127153700",
+//   address_name: "경기도 안산시 상록구 해양동",
+//   region_1depth_name: "경기도",
+//   region_2depth_name: "안산시 상록구",
+//   region_3depth_name: "해양동",
+//   region_4depth_name: "",
+//   x: 126.82007738608132,
+//   y: 37.294699470442765,
+// };
 interface OverLayButtonProps {
   isMatched: boolean;
 }
@@ -25,7 +39,7 @@ const OverLayDiv = styled.div`
 
   .OverLay__Mark {
     position: absolute;
-    bottom: 3.1875rem;
+    bottom: 2.75rem;
     z-index: 10;
 
     padding: 0.625rem 0.875rem 0.4375rem;
@@ -54,7 +68,7 @@ const OverLayDiv = styled.div`
     justify-content: center;
     align-items: center;
 
-    padding: 0.875rem 1.5625rem 0.625rem;
+    padding: 0.4375rem 1.0625rem 0.5625rem;
 
     background-color: ${(props: OverLayButtonProps) =>
       props.isMatched === true ? "#FF6847" : "#383835"};
@@ -63,7 +77,7 @@ const OverLayDiv = styled.div`
     color: #fff;
 
     font-weight: 700;
-    font-size: 1.125rem;
+    font-size: 1rem;
     line-height: 1.5rem;
     letter-spacing: -0.02em;
   }
@@ -116,6 +130,7 @@ interface KaKaoOverlayProps {
 const KaKaoOverlay = ({ poiData, isMatched }: KaKaoOverlayProps) => {
   const setMapState = useSetRecoilState(mapState);
   const router = useRouter();
+  const initMark = useMemo(() => randomBox[getRandomIdx(randomBox)], []);
   return (
     <CustomOverlayMap
       position={{ lat: poiData.latitude, lng: poiData.longitude }}
@@ -123,9 +138,7 @@ const KaKaoOverlay = ({ poiData, isMatched }: KaKaoOverlayProps) => {
       zIndex={isMatched ? 200 : 1}
     >
       <OverLayDiv isMatched={isMatched}>
-        <div className="OverLay__Mark">
-          {randomBox[getRandomIdx(randomBox)]}
-        </div>
+        <div className="OverLay__Mark">{initMark}</div>
         <button
           type="button"
           className="OverLay__Button"

@@ -1,13 +1,25 @@
 import { ParsedUrlQuery } from "querystring";
 import { QueryClient } from "@tanstack/react-query";
 import type { Key } from "@lib/hooks/common/useResource";
+import { UserLocationData } from "@lib/types/CacheData";
+import cleanObject from "@lib/utils/cleanObject";
+import localConsole from "@lib/utils/localConsole";
+import { NextPageContext } from "next";
+import cookies from "next-cookies";
+import { HospitalListRequest } from "@lib/API/petBookAPI/types/hospitalRequest";
+
+const defaultPage = 0;
+const defaultSize = 50;
+const defaultBoundary =
+  "(28127.00963325656245,37.48459126977702,127.05668520469185,37.48459126977702,127.00963325656245,37.50620222560144,127.05668520469185,37.50620222560144)";
 
 export default async function queryParser(
+  ctx: NextPageContext,
   resource: {
     key: Key;
     fetcher: (params?: any, config?: any) => void;
   },
-  queryParams: ParsedUrlQuery, // [articleId]와 같은 쿼리 값을 얻기 위해 파라미터 추가
+  queryParams: ParsedUrlQuery,
   client: QueryClient
 ) {
   switch (resource.key[0]) {
@@ -25,18 +37,42 @@ export default async function queryParser(
       break;
     }
 
-    // TODO: 로케이션 쿠키에 있는 값을 꺼내서 boundary 에 붙여야함
     case "HOSPITAL_LIST": {
-      const id = queryParams.id ? Number(queryParams.id) : null;
-      const page = queryParams.page ? Number(queryParams.page) - 1 : 0;
-      const key = id ? [...resource.key, { id }] : [...resource.key, { page }];
-      await client.fetchQuery(key, () =>
+      const cachedData = cookies(ctx).USER_LOCATION_DATA as
+        | UserLocationData
+        | undefined;
+
+      const page = queryParams.page
+        ? Number(queryParams.page) - 1
+        : defaultPage;
+
+      let fetchParams: HospitalListRequest = {
+        page,
+        size: defaultSize,
+        boundary: defaultBoundary as string,
+      };
+
+      let fetchKey: string[] = [...resource.key, { page }];
+
+      if (queryParams.id || typeof queryParams.id !== "undefined") {
+        fetchParams.id = Number(queryParams.id);
+        fetchParams.boundary = "";
+      }
+
+      if (!queryParams.id) {
+        fetchParams.id = undefined;
+        fetchParams.boundary =
+          cachedData && cachedData.boundary
+            ? cachedData.boundary
+            : fetchParams.boundary;
+      }
+
+      fetchParams = cleanObject(fetchParams);
+      fetchKey = [...resource.key, fetchParams];
+
+      await client.fetchQuery(fetchKey, () =>
         resource.fetcher({
-          params: {
-            id,
-            page: id ? 0 : page,
-            size: id ? 1 : 50,
-          },
+          params: fetchParams,
         })
       );
       break;
