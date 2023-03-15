@@ -1,20 +1,19 @@
 import ChevronDown from "@components/common/icon/ChevronDown";
 import ChevronUp from "@components/common/icon/ChevronUp";
+import ClockBlankIcon from "@components/common/icon/Clock";
 import MarkerPin from "@components/common/icon/MarkerPin";
 import type { HospitalInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
 import { useState } from "react";
 import Badge from "../Badge";
 import { HospitalInfoUL, LI } from "./styled";
 
-const HospitalBasicInfo = ({
-  address,
-}: Pick<HospitalInfo, "address">) => {
+const HospitalBasicInfo = ({ address }: Pick<HospitalInfo, "address">) => {
   return (
     <HospitalInfoUL>
       <LI>
         <span>
           <MarkerPin />
-          위치
+          주소
         </span>
         <span>{address}</span>
       </LI>
