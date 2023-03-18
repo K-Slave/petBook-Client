@@ -8,7 +8,7 @@ import type { HospitalFullInfo } from "@lib/API/petBookAPI/types/hospitalRequest
 import { saveScrollPosition } from "@lib/modules/localStorage";
 
 import { SwiperSlide } from "swiper/react";
-import { MutableRefObject, RefObject } from "react";
+import { MutableRefObject } from "react";
 import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
 import { PointReviewList } from "@components/common/hospital/HospitalReviewList";
 import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
