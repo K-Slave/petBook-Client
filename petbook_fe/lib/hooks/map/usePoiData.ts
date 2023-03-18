@@ -1,3 +1,4 @@
+import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
 import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
 import { cookieRequest } from "@lib/API/petBookAPI";
 import { convRectBoundsToBoundary } from "@lib/utils/kakaoMaps/getRectBounds";
@@ -15,6 +16,7 @@ const defaultSize = 50;
 
 const usePoiData = () => {
   // const cachedRectBounds = useRecoilValue(cachedRectBoundsState);
+  const geoLocation = useRecoilValue(geoLocationState);
   const rectBounds = useRecoilValue(rectBoundsState);
   const router = useRouter();
   const pageParam = router.query?.page ? Number(router.query.page) : 1;
@@ -50,7 +52,7 @@ const usePoiData = () => {
     };
 
     patchCookie();
-  }, [rectBounds]);
+  }, [geoLocation]);
 
   return { router, data, status };
 };

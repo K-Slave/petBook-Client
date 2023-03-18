@@ -1,12 +1,14 @@
+/* global kakao */
 import mapState from "@atoms/pageAtoms/hospitalmap/mapState";
 import { HospitalInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
 import navigator, { historyReplacer } from "@lib/modules/navigator";
 import getRandomIdx from "@lib/utils/getRandomIdx";
 import { useRouter } from "next/router";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { CustomOverlayMap } from "react-kakao-maps-sdk";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { kakaoUseMap } from "./KakaoMap";
 
 // const dd = {
 //   latitude: 37.2820626,
@@ -131,6 +133,15 @@ const KaKaoOverlay = ({ poiData, isMatched }: KaKaoOverlayProps) => {
   const setMapState = useSetRecoilState(mapState);
   const router = useRouter();
   const initMark = useMemo(() => randomBox[getRandomIdx(randomBox)], []);
+
+  useEffect(() => {
+    if (isMatched === true) {
+      kakaoUseMap.panTo(
+        new kakao.maps.LatLng(poiData.latitude, poiData.longitude)
+      );
+    }
+  }, [isMatched]);
+
   return (
     <CustomOverlayMap
       position={{ lat: poiData.latitude, lng: poiData.longitude }}

@@ -5,15 +5,22 @@ import CustomSwiper, {
 } from "@components/common/Slider";
 import navigator from "@lib/modules/navigator";
 import type { HospitalFullInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
+import { saveScrollPosition } from "@lib/modules/localStorage";
 import { SwiperSlide } from "swiper/react";
+import { MutableRefObject, RefObject } from "react";
 import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
 import { PointReviewList } from "@components/common/hospital/HospitalReviewList";
 import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
 import Stats from "@components/common/hospital/Stats";
 import { ImageSliderDiv, ItemHeader } from "./styled";
 
-const HospitalItem = (hospitals: HospitalFullInfo): JSX.Element => {
+const HospitalItem = (
+  hospitals: HospitalFullInfo,
+  parent: MutableRefObject<HTMLElement | null>
+) => {
   const navigateToDetail = () => {
+    console.log(parent);
+    saveScrollPosition(parent.current?.scrollTop || 0);
     navigator({
       url: `/hospitalmap?id=${hospitals.hospitals.id.toString()}`,
       options: {
