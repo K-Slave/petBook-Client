@@ -12,7 +12,7 @@ import HospitalDetailReview from "@components/hospital/HospitalDetailReview";
 import PencilEditIcon from "@components/common/icon/PencilEdit";
 import ShareForwardIcon from "@components/common/icon/ShareFoward";
 import useModal from "@lib/hooks/common/useModal";
-import { Section, LineDiv, Box } from "./styled";
+import { Section, LineDiv, ButtonBoxDiv, Divider } from "./styled";
 
 const HospitalDetail = ({ id }: { id: number }) => {
   const { data } = useResource({
@@ -74,7 +74,7 @@ const HospitalDetail = ({ id }: { id: number }) => {
   );
 };
 
-const ButtonBox = () => {
+export const ButtonBox = ({ divider }: { divider?: boolean }) => {
   const { openModal, closeModal } = useModal();
   const openReviewModal = () => {
     openModal(HospitalReview, {
@@ -82,29 +82,33 @@ const ButtonBox = () => {
     });
   };
   return (
-    <Box>
+    <ButtonBoxDiv>
       <div>
         <button type="button">
           <BookmarkBlankSharpIcon />
           <span>책갈피</span>
         </button>
       </div>
+      {divider && <Divider />}
       <div>
         <button type="button">
           <ShareForwardIcon />
           <span>공유</span>
         </button>
       </div>
+      {divider && <Divider />}
       <div>
         <button type="button" onClick={openReviewModal}>
           <PencilEditIcon />
           <span>리뷰작성</span>
         </button>
       </div>
-    </Box>
+    </ButtonBoxDiv>
   );
 };
-
+ButtonBox.defaultProps = {
+  divider: false,
+};
 HospitalDetail.ButtonBox = ButtonBox;
 
 export default HospitalDetail;

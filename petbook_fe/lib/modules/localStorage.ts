@@ -20,6 +20,10 @@ export const getLocalStorage = <T>(key: string) => {
   return value ? (JSON.parse(value) as T) : null;
 };
 
+export const removeLocalStorage = (key: string) => {
+  localStorage.removeItem(key);
+};
+
 interface Item {
   target: "hospital" | "community";
   type: "query" | "location";
@@ -63,8 +67,17 @@ export const addSearchValue = (
     });
   }
 };
-
 export const getRecentSearchList = (target: Item["target"]) => {
   const list = getLocalStorage<Item[]>(RECENT_SEARCH_KEY);
   return list ? list.filter((item) => item.target === target) : null;
 };
+
+const SCROLL_POS = "SCROLL_POS";
+export const saveScrollPosition = (yPos: number) => {
+  setLocalStorage({
+    key: SCROLL_POS,
+    value: yPos,
+  });
+};
+export const getScrollPosition = () => getLocalStorage<number>(SCROLL_POS);
+export const removeScrollPosition = () => removeLocalStorage(SCROLL_POS);

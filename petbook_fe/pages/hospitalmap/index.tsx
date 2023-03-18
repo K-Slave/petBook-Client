@@ -2,7 +2,10 @@ import HospitalContainer from "@containers/map/HospitalContainer";
 import MapContainer from "@containers/map/MapContainer";
 import { hospitalRequest, imgRequest } from "@lib/API/petBookAPI";
 import { createRequest, createResource } from "@lib/hooks/common/useResource";
+import { removeScrollPosition } from "@lib/modules/localStorage";
+
 import type { NextPage } from "next";
+import { useEffect } from "react";
 import { createGlobalStyle } from "styled-components";
 
 export const HOSPITAL_LIST = createResource({
@@ -40,6 +43,11 @@ const HospitalMapGlobalStyle = createGlobalStyle`
 `;
 
 const HospitalMap: NextPage = () => {
+  useEffect(() => {
+    return () => {
+      removeScrollPosition();
+    };
+  });
   return (
     <>
       <HospitalMapGlobalStyle />
