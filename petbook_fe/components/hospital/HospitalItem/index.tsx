@@ -4,7 +4,7 @@ import CustomSwiper, {
   SlidePrevButton,
 } from "@components/common/Slider";
 import navigator from "@lib/modules/navigator";
-import type { HospitalInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
+import type { HospitalFullInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
 import { SwiperSlide } from "swiper/react";
 import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
 import { PointReviewList } from "@components/common/hospital/HospitalReviewList";
@@ -12,10 +12,10 @@ import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
 import Stats from "@components/common/hospital/Stats";
 import { ImageSliderDiv, ItemHeader } from "./styled";
 
-const HospitalItem = ({ id, name, address }: HospitalInfo) => {
+const HospitalItem = (hospitals: HospitalFullInfo): JSX.Element => {
   const navigateToDetail = () => {
     navigator({
-      url: `/hospitalmap?id=${id.toString()}`,
+      url: `/hospitalmap?id=${hospitals.hospitals.id.toString()}`,
       options: {
         shallow: true,
       },
@@ -23,17 +23,17 @@ const HospitalItem = ({ id, name, address }: HospitalInfo) => {
   };
   return (
     <article>
-      <HospitalItem.ImageSlider id={id} />
+      <HospitalItem.ImageSlider id={hospitals.hospitals.id} />
       <ItemHeader>
-        <h1 onClick={navigateToDetail}>{name}</h1>
+        <h1 onClick={navigateToDetail}>{hospitals.hospitals.name}</h1>
         <button type="button">
           <BookmarkBlankIcon />
         </button>
       </ItemHeader>
       <PossibleAnimalList />
-      <HospitalBasicInfo address={address} />
+      <HospitalBasicInfo address={hospitals.hospitals.address} />
       <Stats />
-      <PointReviewList />
+      <PointReviewList {...hospitals} />
     </article>
   );
 };

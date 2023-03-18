@@ -53,10 +53,7 @@ const HospitalList = () => {
                 <Skeleton width="100%" height="200px" key={index} />
               ))
           : data?.data.hospitals.map((hospital) => (
-              <HospitalItem
-                key={hospital.hospitals.id}
-                {...hospital.hospitals}
-              />
+              <HospitalItem key={hospital.hospitals.id} {...hospital} />
             ))}
       </div>
       <Pagination buttonNum={5} totalPages={10} />
