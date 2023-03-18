@@ -5,7 +5,6 @@ import { HOSPITAL_REVIEW_CREATE } from "@pages/hospitalmap";
 
 import { reviewFormState } from "@atoms/pageAtoms/hospitalmap/reviewState";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { useRouter } from "next/router";
 import { useSetResource } from "@lib/hooks/common/useResource";
 
 import Image from "next/image";
@@ -116,8 +115,13 @@ const ImgWrap = () => {
   );
 };
 
-const HospitalReview = ({ closeModal }: { closeModal: () => void }) => {
-  const router = useRouter();
+const HospitalReview = ({
+  closeModal,
+  hospitalId,
+}: {
+  closeModal: () => void;
+  hospitalId: number;
+}) => {
   const setReviewForm = useSetRecoilState(reviewFormState);
   const reviewForm = useRecoilValue(reviewFormState);
   const { data, mutate, status } = useSetResource(HOSPITAL_REVIEW_CREATE);
@@ -130,7 +134,7 @@ const HospitalReview = ({ closeModal }: { closeModal: () => void }) => {
     let name = e.target.attributes["data-type"].nodeValue;
     setReviewForm((el) => ({
       ...el,
-      hospitalId: Number(router.query.id),
+      hospitalId: hospitalId,
       [`${name}`]: e.target.value,
     }));
   };

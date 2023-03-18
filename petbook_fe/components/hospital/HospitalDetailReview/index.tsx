@@ -56,7 +56,7 @@ const HospitalDetailReview = () => {
                   {item.user.nickname} <span>2022.01.01</span>
                 </p>
               </div>
-              <HospitalDetailReview.SettingBtn />
+              <HospitalDetailReview.SettingBtn id={Number(router.query.id)} />
             </ReviewBoxHeader>
             <ReviewBoxImgSlide state={item.images}>
               {item.images?.map((img) => {
@@ -71,15 +71,16 @@ const HospitalDetailReview = () => {
   );
 };
 
-const SettingBtn = () => {
+const SettingBtn = ({ id }: { id: number }) => {
   const [btnState, setBtnState] = useState(false);
   const onClick = () => {
     setBtnState(!btnState);
   };
   const { openModal, closeModal } = useModal();
-  const openReviewModal = () => {
+  const openReviewModal = (hospitalId: number) => {
     openModal(HospitalReview, {
       closeModal,
+      hospitalId,
     });
   };
   const removeReview = () => {
@@ -97,7 +98,7 @@ const SettingBtn = () => {
       {/* {btnState && ( */}
       <article>
         <ul>
-          <li onClick={openReviewModal}>수정</li>
+          <li onClick={() => openReviewModal(id)}>수정</li>
           <li onClick={removeReview}>삭제</li>
           <li onClick={reportReview}>신고</li>
         </ul>
