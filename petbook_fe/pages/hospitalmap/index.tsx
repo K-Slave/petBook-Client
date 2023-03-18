@@ -1,13 +1,25 @@
 import HospitalContainer from "@containers/map/HospitalContainer";
 import MapContainer from "@containers/map/MapContainer";
-import { hospitalRequest } from "@lib/API/petBookAPI";
-import { createResource } from "@lib/hooks/common/useResource";
+import { hospitalRequest, imgRequest } from "@lib/API/petBookAPI";
+import { createRequest, createResource } from "@lib/hooks/common/useResource";
 import type { NextPage } from "next";
 import { createGlobalStyle } from "styled-components";
 
 export const HOSPITAL_LIST = createResource({
   key: ["HOSPITAL_LIST"],
   fetcher: hospitalRequest.hospital_list,
+});
+export const HOSPITAL_REVIEW_LIST = createResource({
+  key: ["HOSPITAL_REVIEW_LIST"],
+  fetcher: hospitalRequest.hospital_review_list,
+});
+export const HOSPITAL_REVIEW_CREATE = createRequest({
+  key: ["HOSPITAL_REVIEW_CREATE"],
+  requester: hospitalRequest.hospital_review_create,
+});
+export const IMG_CREATE = createRequest({
+  key: ["IMG_CREATE"],
+  requester: imgRequest.img_create,
 });
 
 const HospitalMapGlobalStyle = createGlobalStyle`

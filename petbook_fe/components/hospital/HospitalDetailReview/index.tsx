@@ -3,6 +3,7 @@ import { hospitalRequest } from "@lib/API/petBookAPI";
 import useUserId from "@lib/hooks/article/useUserId";
 import useModal from "@lib/hooks/common/useModal";
 import useResource, { createResource } from "@lib/hooks/common/useResource";
+import { HOSPITAL_REVIEW_LIST } from "@pages/hospitalmap";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import HospitalReview from "../HospitalReview";
@@ -16,11 +17,6 @@ import {
   ReviewBoxMoreWrap,
   ReviewBtn,
 } from "./styled";
-
-const HOSPITAL_REVIEW_LIST = createResource({
-  key: ["HOSPITAL_REVIEW_LIST"],
-  fetcher: hospitalRequest.hospital_review_list,
-});
 
 const HospitalDetailReview = () => {
   const router = useRouter();

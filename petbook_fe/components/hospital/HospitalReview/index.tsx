@@ -1,12 +1,12 @@
 import { IconBox, InputBox } from "@components/find/style/styledFindSubmit";
 import OnClickOutside from "@components/common/OnClickOutside";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { hospitalRequest, imgRequest } from "@lib/API/petBookAPI";
+import { HOSPITAL_REVIEW_CREATE } from "@pages/hospitalmap";
 
 import { reviewFormState } from "@atoms/pageAtoms/hospitalmap/reviewState";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useRouter } from "next/router";
-import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
+import { useSetResource } from "@lib/hooks/common/useResource";
 
 import Image from "next/image";
 import {
@@ -21,15 +21,6 @@ import {
   ImgBox,
 } from "./styled";
 
-const IMG_CREATE = createRequest({
-  key: ["IMG_CREATE"],
-  requester: imgRequest.img_create,
-});
-const HOSPITAL_REVIEW_CREATE = createRequest({
-  key: ["HOSPITAL_REVIEW_CREATE"],
-  requester: hospitalRequest.hospital_review_create,
-});
-
 // 가라데이터
 const PETDATA = [
   {
@@ -39,36 +30,6 @@ const PETDATA = [
   },
   {
     title: "햄순이",
-    img: "",
-    select: false,
-  },
-  {
-    title: "마리",
-    img: "",
-    select: false,
-  },
-  {
-    title: "쫑",
-    img: "",
-    select: false,
-  },
-  {
-    title: "마리",
-    img: "",
-    select: false,
-  },
-  {
-    title: "마리",
-    img: "",
-    select: false,
-  },
-  {
-    title: "마리",
-    img: "",
-    select: false,
-  },
-  {
-    title: "마리",
     img: "",
     select: false,
   },
@@ -97,7 +58,6 @@ interface Props {
 
 const ImgWrap = () => {
   const [imgArr, setImgArr] = useState<Props[]>([]);
-  // const imgMutation = useSetResource(IMG_CREATE); 업로드시 사용
   const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       if (imgArr.length > 10) {
