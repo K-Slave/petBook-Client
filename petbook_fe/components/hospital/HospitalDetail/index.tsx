@@ -12,6 +12,7 @@ import HospitalDetailReview from "@components/hospital/HospitalDetailReview";
 import PencilEditIcon from "@components/common/icon/PencilEdit";
 import ShareForwardIcon from "@components/common/icon/ShareFoward";
 import useModal from "@lib/hooks/common/useModal";
+import hospitalOptions from "@lib/commonValue/hospitalOptions";
 import { Section, LineDiv, Box } from "./styled";
 
 const HospitalDetail = ({ id }: { id: number }) => {
@@ -21,7 +22,7 @@ const HospitalDetail = ({ id }: { id: number }) => {
       HOSPITAL_LIST.fetcher({
         params: {
           id,
-          page: 0,
+          page: hospitalOptions.page,
           size: 1,
         },
       }),

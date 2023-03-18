@@ -1,3 +1,5 @@
+import hospitalOptions from "@lib/commonValue/hospitalOptions";
+import keyName from "@lib/commonValue/keyName";
 import {
   convBoundaryToRectBounds,
   Coordinates,
@@ -12,20 +14,13 @@ export interface RectBoundary {
   NE_1: Coordinates;
 }
 
-const locationCookie = Cookies.get("USER_LOCATION_DATA");
-
-const initData = {
-  NW_11: { lat: 37.48459126977702, lng: 127.00963325656245 },
-  SW_7: { lat: 37.48459126977702, lng: 127.05668520469185 },
-  SE_5: { lat: 37.50620222560144, lng: 127.00963325656245 },
-  NE_1: { lat: 37.50620222560144, lng: 127.05668520469185 },
-};
+const locationCookie = Cookies.get(keyName.location);
 
 const defaultData = locationCookie
   ? (convBoundaryToRectBounds(
       JSON.parse(locationCookie).boundary
     ) as RectBoundary)
-  : initData;
+  : hospitalOptions.rectBounds;
 
 const rectBoundsState = atom({
   key: "rectBoundsState",

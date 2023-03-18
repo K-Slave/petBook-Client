@@ -2,6 +2,7 @@ import Pagination from "@components/common/Pagination";
 import { usePage } from "@components/common/Pagination/usePagination";
 import SearchBar from "@components/common/SearchBar";
 import Skeleton from "@components/common/Skeleton/Skeleton";
+import hospitalOptions from "@lib/commonValue/hospitalOptions";
 import useResource from "@lib/hooks/common/useResource";
 import navigator from "@lib/modules/navigator";
 import { removeQuery, replaceQuery } from "@lib/modules/queryString";
@@ -21,7 +22,7 @@ const HospitalList = () => {
       HOSPITAL_LIST.fetcher({
         params: {
           page,
-          size: 50,
+          size: hospitalOptions.size,
         },
       }),
   });
