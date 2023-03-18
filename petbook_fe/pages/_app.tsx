@@ -32,6 +32,7 @@ import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
 import { UserLocationData } from "@lib/types/CacheData";
 import localConsole from "@lib/utils/localConsole";
 import recoilHydration from "@lib/modules/recoilHydration";
+import keyName from "@lib/commonValue/keyName";
 
 type DehydratedAppProps = AppProps<{
   dehydratedState: DehydratedState;
@@ -58,7 +59,7 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
   }
 
   if (pageProps.user) {
-    queryClient.setQueryData(["user"], pageProps.user);
+    queryClient.setQueryData([keyName.userInfo], pageProps.user);
   }
 
   // 웹 후크 연동 테스트
@@ -114,12 +115,12 @@ NextApp.getInitialProps = async (context: AppContext) => {
       // 보안 옵션을 추가한 쿠키를 현재 접속 시각으로부터 30일 갱신
       ctx.res?.setHeader(
         "Set-Cookie",
-        `PETBOOK_USER=${token}; Path=/; SameSite=Strict; Max-Age=2592000; secure; httpOnly;`
+        `${keyName.userToken}=${token}; Path=/; SameSite=Strict; Max-Age=2592000; secure; httpOnly;`
       );
     }
 
     const locationCookie = cookieList.find(
-      (cookie) => cookie.key === "USER_LOCATION_DATA"
+      (cookie) => cookie.key === keyName.location
     );
 
     if (locationCookie) {

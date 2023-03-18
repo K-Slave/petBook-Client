@@ -16,6 +16,7 @@ import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 import Link from "next/link";
 import SearchBar from "@components/common/SearchBar";
+import hospitalOptions from "@lib/commonValue/hospitalOptions";
 
 export const CATEGORY_LIST = createResource({
   key: ["CATEGORY_LIST"],
@@ -27,7 +28,7 @@ export const HOT_ARTICLE_LIST = createResource({
   fetcher: () =>
     articleRequest.article_list({
       categoryId: "",
-      page: 0,
+      page: hospitalOptions.page,
       size: 5,
       popular: true,
     }),
@@ -38,7 +39,7 @@ export const createResourceByCategory = (category: CategoryItem) => ({
   fetcher: () =>
     articleRequest.article_list({
       categoryId: category.id === 0 ? "" : category.id,
-      page: 0,
+      page: hospitalOptions.page,
       size: 5,
       popular: false,
     }),

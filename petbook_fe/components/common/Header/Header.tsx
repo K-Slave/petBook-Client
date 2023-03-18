@@ -1,3 +1,4 @@
+import { authRequest } from "@lib/API/petBookAPI";
 import useUserInfo from "@lib/hooks/common/useUserInfo";
 import useNavController from "@lib/hooks/header/useNavController";
 import DecodedUserInfo from "@lib/types/DecodedUserInfo";
@@ -14,7 +15,7 @@ import {
   HeaderLogoLink,
   HeaderLogoutButton,
   HeaderPersonalDiv,
-  HeaderUserInfoSpan,
+  HeaderUserInfoA,
 } from "./Header.style";
 
 interface Props {
@@ -90,12 +91,25 @@ const Personal = ({
 };
 
 const UserInfo = ({ userData }: { userData: DecodedUserInfo }) => {
+  const onClick = async () => {
+    if (window.confirm("로그아웃 하실건가요?")) {
+      const res = await authRequest.logout();
+
+      if (res.data) {
+        window.location.reload();
+      }
+    }
+  };
+
   return (
     <>
-      <HeaderUserInfoSpan className="Header__Username">
+      <HeaderUserInfoA
+        className="Header__Username"
+        href={`/mypage/${userData.id}`}
+      >
         {userData.iss} 님
-      </HeaderUserInfoSpan>
-      <HeaderLogoutButton className="Header__Logout">
+      </HeaderUserInfoA>
+      <HeaderLogoutButton className="Header__Logout" onClick={onClick}>
         로그아웃
       </HeaderLogoutButton>
     </>

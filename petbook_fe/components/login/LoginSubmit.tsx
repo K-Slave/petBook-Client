@@ -1,18 +1,17 @@
 import { loginFormState } from "@atoms/pageAtoms/login/userState";
 import LoginInput from "@components/login/LoginInputBox";
-import { authRequest, cookieRequest } from "@lib/API/petBookAPI";
-import Cookies from "js-cookie";
+import { authRequest } from "@lib/API/petBookAPI";
 import Link from "next/link";
 import Image from "next/image";
 
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
-import { UserLoginRequest } from "@lib/API/petBookAPI/types/userRequest";
-import localConsole from "@lib/utils/localConsole";
 import useLoaderNavigate from "@lib/hooks/common/useLoaderNavigate";
+import { AxiosError } from "axios";
+import { useSetUserInfo } from "@lib/hooks/common/useUserInfo";
 import {
   ButtonBox,
   PassGuide,
@@ -106,8 +105,7 @@ export const LoginSubmitButton = () => {
   //   "password": "p@55w0rd1!"
   // }
   const [errorState, setErrorState] = useState(false);
-  const [errorText, setErrorText] = useState();
-  const [autoLogin, setAutoLogin] = useState(false);
+  const [errorText, setErrorText] = useState("");
   const { navigator } = useLoaderNavigate();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -122,27 +120,29 @@ export const LoginSubmitButton = () => {
   };
   useEffect(() => {
     if (isSuccess) {
-      const { token } = data?.data as UserLoginRequest;
+      navigator({
+        url: "/info",
+        thenCallback: () => {
+          // TODO: API 로 만들어볼것. 낭비를 줄여야 할듯
+          Router.reload();
+        },
+      });
 
-      cookieRequest
-        .setCookie({
-          body: {
-            key: "PETBOOK_USER",
-            value: token,
-          },
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            navigator({ url: "/info" });
-          }
-        });
-      // Cookies.set("PETBOOK_USER", token, { expires: 30 });
+      return;
     }
     if (isError) {
       // error type 린트에러
-      const errorObj = error as any;
+      const errorObj = error as AxiosError;
 
-      setErrorText(errorObj.response.data.message);
+      if (errorObj.response && errorObj.response.data) {
+        const { message } = errorObj.response.data as {
+          message?: string;
+        };
+
+        if (message) {
+          setErrorText(message);
+        }
+      }
       setErrorState(true);
     } else {
       setErrorState(false);
