@@ -59,7 +59,6 @@ export const ReviewBoxImgSlide = styled.div`
   display: ${(props: slideImgProps) =>
     props.state.length > 0 ? "flex" : "none"} !important;
   margin-bottom: 1.25rem;
-  display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 5px;

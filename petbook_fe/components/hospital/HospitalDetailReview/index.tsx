@@ -17,81 +17,6 @@ import {
   ReviewBtn,
 } from "./styled";
 
-// 임시용
-const DetailList = {
-  review: [
-    {
-      id: 2,
-      hospital: {
-        id: 3397,
-        name: "제니스동물병원",
-      },
-      user: {
-        id: 1,
-        nickname: "테스트1",
-      },
-      disease: "string",
-      content:
-        "“리뷰가 들어갑니다. 리뷰가 들어갑니다. 리뷰가 들어갑니다.리뷰가 들어갑니다.리뷰가 들어갑니다.”",
-      images: [
-        {
-          id: 2,
-          imageUrl: "",
-        },
-      ],
-      isLike: false,
-      likeCount: 0,
-      experience: "BAD",
-    },
-    {
-      id: 3,
-      hospital: {
-        id: 3397,
-        name: "제니스동물병원",
-      },
-      user: {
-        id: 1,
-        nickname: "테스트",
-      },
-      disease: "string",
-      content:
-        "“리뷰가 들어갑니다. 리뷰가 들어갑니다. 리뷰가 들어갑니다.리뷰가 들어갑니다.리뷰가 들어갑니다.”",
-      images: [
-        {
-          id: 2,
-          imageUrl: "",
-        },
-        {
-          id: 2,
-          imageUrl: "",
-        },
-      ],
-      isLike: false,
-      likeCount: 0,
-      experience: "GOOD",
-    },
-    {
-      id: 4,
-      hospital: {
-        id: 3397,
-        name: "제니스동물병원",
-      },
-      user: {
-        id: 1,
-        nickname: "테스트",
-      },
-      disease: "string",
-      content:
-        "“리뷰가 들어갑니다. 리뷰가 들어갑니다. 리뷰가 들어갑니다.리뷰가 들어갑니다.리뷰가 들어갑니다.”",
-      images: [],
-      isLike: false,
-      likeCount: 0,
-      experience: "GOOD",
-    },
-  ],
-  totalElements: 99,
-};
-
 const HOSPITAL_REVIEW_LIST = createResource({
   key: ["HOSPITAL_REVIEW_LIST"],
   fetcher: hospitalRequest.hospital_review_list,
@@ -135,9 +60,7 @@ const HospitalDetailReview = () => {
                   {item.user.nickname} <span>2022.01.01</span>
                 </p>
               </div>
-              {/* btn */}
               <HospitalDetailReview.SettingBtn />
-              {/* btn */}
             </ReviewBoxHeader>
             <ReviewBoxImgSlide state={item.images}>
               {item.images?.map((img) => {
