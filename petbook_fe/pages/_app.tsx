@@ -28,9 +28,7 @@ import "../styles/Globals.scss";
 import "../styles/Icon.scss";
 import "../styles/Swiper.scss";
 import getCookieList from "@lib/utils/getCookieList";
-import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
-import { UserLocationData } from "@lib/types/CacheData";
-import localConsole from "@lib/utils/localConsole";
+
 import recoilHydration from "@lib/modules/recoilHydration";
 import keyName from "@lib/commonValue/keyName";
 import urlTokenRedirect from "@lib/server/parse/urlTokenRedirect";

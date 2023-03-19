@@ -1,12 +1,14 @@
+/* global kakao */
 import mapState from "@atoms/pageAtoms/hospitalmap/mapState";
 import { HospitalInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
 import navigator, { historyReplacer } from "@lib/modules/navigator";
 import getRandomIdx from "@lib/utils/getRandomIdx";
 import { useRouter } from "next/router";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { CustomOverlayMap } from "react-kakao-maps-sdk";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { kakaoUseMap } from "./KakaoMap";
 
 // const dd = {
 //   latitude: 37.2820626,
@@ -39,7 +41,7 @@ const OverLayDiv = styled.div`
 
   .OverLay__Mark {
     position: absolute;
-    bottom: 3.1875rem;
+    bottom: 2.75rem;
     z-index: 10;
 
     padding: 0.625rem 0.875rem 0.4375rem;
@@ -68,7 +70,7 @@ const OverLayDiv = styled.div`
     justify-content: center;
     align-items: center;
 
-    padding: 0.875rem 1.5625rem 0.625rem;
+    padding: 0.4375rem 1.0625rem 0.5625rem;
 
     background-color: ${(props: OverLayButtonProps) =>
       props.isMatched === true ? "#FF6847" : "#383835"};
@@ -77,7 +79,7 @@ const OverLayDiv = styled.div`
     color: #fff;
 
     font-weight: 700;
-    font-size: 1.125rem;
+    font-size: 1rem;
     line-height: 1.5rem;
     letter-spacing: -0.02em;
   }
@@ -131,6 +133,15 @@ const KaKaoOverlay = ({ poiData, isMatched }: KaKaoOverlayProps) => {
   const setMapState = useSetRecoilState(mapState);
   const router = useRouter();
   const initMark = useMemo(() => randomBox[getRandomIdx(randomBox)], []);
+
+  useEffect(() => {
+    if (isMatched === true) {
+      kakaoUseMap.panTo(
+        new kakao.maps.LatLng(poiData.latitude, poiData.longitude)
+      );
+    }
+  }, [isMatched]);
+
   return (
     <CustomOverlayMap
       position={{ lat: poiData.latitude, lng: poiData.longitude }}
