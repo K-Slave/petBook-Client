@@ -12,7 +12,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "eslint --fix && prettier --write"
+      "pre-commit": "eslint --fix && prettier --write",
+      "pre-push": "eslint --fix && pretter --write"
     }
   },
   "lint-staged": {
