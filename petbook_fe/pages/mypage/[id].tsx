@@ -8,11 +8,6 @@ type NextPageWithResource = NextPage & {
 
 const MyPage: NextPageWithResource = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const temp = "";
-  const temp1 = "";
-  const temp2 = "";
-  const temp3 = "";
-  const temp4 = "";
 
   return (
     <AuthSelfMask>
