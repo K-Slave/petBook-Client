@@ -128,7 +128,7 @@ const HospitalReview = ({
   const { data, mutate, status } = useSetResource(HOSPITAL_REVIEW_CREATE);
 
   // async
-  const onSubmit = () => {
+  const onSubmit = async () => {
     mutate(reviewForm);
   };
 
@@ -209,9 +209,9 @@ const HospitalReview = ({
                   />
                   <p>
                     {reaction.value === "Y" ? (
-                      <div className="Happy" />
+                      <span className="Happy" />
                     ) : (
-                      <div className="Frown" />
+                      <span className="Frown" />
                     )}
                     <span>{reaction.title}</span>
                   </p>
