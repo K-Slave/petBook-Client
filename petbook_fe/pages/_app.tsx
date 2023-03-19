@@ -12,13 +12,13 @@ import HtmlHead from "@components/common/HtmlHead";
 import Loader from "@components/common/loader/loader";
 import Modal from "@components/common/Modal";
 import TopNav from "@components/common/Nav/TopNav";
-import urlTokenRedirect from "@lib/API/parser/urlTokenRedirect";
-import queryParser from "@lib/API/parser/queryParser";
+
+import queryParser from "@lib/server/parse/queryParser";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import type { Key } from "@lib/hooks/common/useResource";
 import { itrMap } from "@lib/utils/iterableFunctions";
 import createQueryClient from "@lib/utils/createQueryClient";
-import getToken from "@lib/utils/getToken";
+import getToken from "@lib/server/parse/getToken";
 import DecodedUserInfo from "@lib/types/DecodedUserInfo";
 
 import "swiper/scss";
@@ -30,6 +30,9 @@ import "../styles/Swiper.scss";
 import getCookieList from "@lib/utils/getCookieList";
 
 import recoilHydration from "@lib/modules/recoilHydration";
+import keyName from "@lib/commonValue/keyName";
+import urlTokenRedirect from "@lib/server/parse/urlTokenRedirect";
+import tokenParser from "@lib/server/parse/tokenParser";
 
 type DehydratedAppProps = AppProps<{
   dehydratedState: DehydratedState;
@@ -55,8 +58,9 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${process.env.NEXT_PUBLIC_TESTER}`;
   }
 
-  if (pageProps.user) {
-    queryClient.setQueryData(["user"], pageProps.user);
+  if (pageProps.token) {
+    const { userInfo } = tokenParser(pageProps.token);
+    queryClient.setQueryData([keyName.userInfo], userInfo);
   }
 
   // 웹 후크 연동 테스트
@@ -112,12 +116,12 @@ NextApp.getInitialProps = async (context: AppContext) => {
       // 보안 옵션을 추가한 쿠키를 현재 접속 시각으로부터 30일 갱신
       ctx.res?.setHeader(
         "Set-Cookie",
-        `PETBOOK_USER=${token}; Path=/; SameSite=Strict; Max-Age=2592000; secure; httpOnly;`
+        `${keyName.userToken}=${token}; Path=/; SameSite=Strict; Max-Age=2592000; secure; httpOnly;`
       );
     }
 
     const locationCookie = cookieList.find(
-      (cookie) => cookie.key === "USER_LOCATION_DATA"
+      (cookie) => cookie.key === keyName.location
     );
 
     if (locationCookie) {

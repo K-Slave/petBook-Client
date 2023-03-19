@@ -1,3 +1,4 @@
+import cookieOptions from "@lib/commonValue/cookieOptions";
 import { AppContext } from "next/app";
 import url from "url";
 
@@ -37,8 +38,8 @@ export default function urlTokenRedirect({ ctx, router }: AppContext) {
 
   ctx.res?.writeHead(301, {
     "Set-Cookie": [
-      `access_token=${accessToken} SameSite=Strict; Max-Age=2592000; secure; httpOnly`,
-      `refresh_token=${refreshToken} SameSite=Strict; Max-Age=2592000; secure; httpOnly`,
+      `access_token=${accessToken} SameSite=Strict; Max-Age=${cookieOptions.maxAge}; secure; httpOnly`,
+      `refresh_token=${refreshToken} SameSite=Strict; Max-Age=${cookieOptions.maxAge}; secure; httpOnly`,
     ],
     Location: `${redirectURL}`,
   });

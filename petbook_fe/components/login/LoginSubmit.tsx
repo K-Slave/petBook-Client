@@ -1,18 +1,21 @@
 import { loginFormState } from "@atoms/pageAtoms/login/userState";
 import LoginInput from "@components/login/LoginInputBox";
-import { authRequest, cookieRequest } from "@lib/API/petBookAPI";
-import Cookies from "js-cookie";
+import { authRequest } from "@lib/API/petBookAPI";
 import Link from "next/link";
 import Image from "next/image";
 
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
-import { UserLoginRequest } from "@lib/API/petBookAPI/types/userRequest";
-import localConsole from "@lib/utils/localConsole";
 import useLoaderNavigate from "@lib/hooks/common/useLoaderNavigate";
+import { AxiosError } from "axios";
+import { useSetUserInfo } from "@lib/hooks/common/useUserInfo";
+import { useQueryClient } from "@tanstack/react-query";
+import keyName from "@lib/commonValue/keyName";
+import tokenParser from "@lib/server/parse/tokenParser";
+import localConsole from "@lib/utils/localConsole";
 import {
   ButtonBox,
   PassGuide,
@@ -106,8 +109,7 @@ export const LoginSubmitButton = () => {
   //   "password": "p@55w0rd1!"
   // }
   const [errorState, setErrorState] = useState(false);
-  const [errorText, setErrorText] = useState();
-  const [autoLogin, setAutoLogin] = useState(false);
+  const [errorText, setErrorText] = useState("");
   const { navigator } = useLoaderNavigate();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -117,32 +119,40 @@ export const LoginSubmitButton = () => {
 
   const loginForm = useRecoilValue(loginFormState);
   const { data, isSuccess, error, isError, mutate } = useSetResource(LOGIN);
+  const client = useQueryClient();
   const onSubmit = () => {
     mutate(loginForm);
   };
   useEffect(() => {
     if (isSuccess) {
-      const { token } = data?.data as UserLoginRequest;
+      navigator({
+        url: "/info",
+        thenCallback: () => {
+          if (data.data?.token) {
+            const { userInfo } = tokenParser(data.data.token);
 
-      cookieRequest
-        .setCookie({
-          body: {
-            key: "PETBOOK_USER",
-            value: token,
-          },
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            navigator({ url: "/info" });
+            client.setQueryData([keyName.userInfo], userInfo);
           }
-        });
-      // Cookies.set("PETBOOK_USER", token, { expires: 30 });
+
+          // Router.reload();
+        },
+      });
+
+      return;
     }
     if (isError) {
       // error type 린트에러
-      const errorObj = error as any;
+      const errorObj = error as AxiosError;
 
-      setErrorText(errorObj.response.data.message);
+      if (errorObj.response && errorObj.response.data) {
+        const { message } = errorObj.response.data as {
+          message?: string;
+        };
+
+        if (message) {
+          setErrorText(message);
+        }
+      }
       setErrorState(true);
     } else {
       setErrorState(false);
