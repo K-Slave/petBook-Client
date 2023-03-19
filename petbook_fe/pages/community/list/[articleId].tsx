@@ -7,7 +7,7 @@ import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { createContext, useEffect } from "react";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import createQueryClient from "@lib/utils/createQueryClient";
-import getToken from "@lib/utils/getToken";
+import getToken from "@lib/server/parse/getToken";
 
 export const invalidateCommentList = async (
   queryClient: QueryClient,

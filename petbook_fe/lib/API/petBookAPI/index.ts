@@ -1,23 +1,25 @@
 import { nextPetBookClient, sprPetBookClient } from "../axios/axiosClient";
 import ArticleAPI from "./articleRequest";
-import AuthAPI from "./authRequest";
 import UserAPI from "./userRequest";
 import CategorySprAPI from "./categoryRequestSpr";
 import ImgAPI from "./imgRequest";
 import CommentAPI from "./commentRequest";
 import HospitalAPI from "./hospitalRequest";
 import CookieAPI from "./cookieRequest";
+import AuthRequest from "./authRequest";
 
 /**
  * @uri '/api/v1'
  * @method login(body,config) : POST 로그인 요청
  * @method login_check(params,config) : POST 로그인 요청
  */
-export const authRequest = new AuthAPI(
-  process.env.NEXT_PUBLIC_SPR_URL as string,
-  "/api/v1",
-  sprPetBookClient
-);
+// export const authRequest = new AuthRequest(
+//   process.env.NEXT_PUBLIC_SPR_URL as string,
+//   "/api/v1",
+//   sprPetBookClient
+// );
+
+export const authRequest = new AuthRequest("", "/api/auth", nextPetBookClient);
 
 /**
  * @uri '/api/v1/user'

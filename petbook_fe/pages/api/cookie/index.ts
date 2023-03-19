@@ -1,30 +1,31 @@
+import resMsg from "@lib/commonValue/responseMsg";
 import { NextApiRequest, NextApiResponse } from "next";
-import CookieController from "./CookieController";
+import CookieController from "../../../lib/server/controller/CookieController";
 
-const cookieService = (req: NextApiRequest, res: NextApiResponse) => {
-  const controller = new CookieController();
+const cookieAPI = (req: NextApiRequest, res: NextApiResponse) => {
+  const controller = new CookieController(req, res);
   const { method } = req;
 
   try {
     switch (method) {
       case "GET": {
-        return controller.getCookie(req, res);
+        return controller.read();
       }
 
       case "POST": {
-        return controller.setCookie(req, res);
-      }
-
-      case "DELETE": {
-        return controller.removeCookie(req, res);
+        return controller.create();
       }
 
       case "PATCH": {
-        return controller.patchCookie(req, res);
+        return controller.update();
+      }
+
+      case "DELETE": {
+        return controller.delete();
       }
 
       default: {
-        throw new Error("지원하지 않는 메서드 입니다.");
+        throw new Error(resMsg.undefinedMethod);
       }
     }
   } catch (err) {
@@ -32,4 +33,4 @@ const cookieService = (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default cookieService;
+export default cookieAPI;
