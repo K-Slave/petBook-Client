@@ -1,5 +1,4 @@
-cd petbook_fe
 #!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+cd petbook_fe
 
 yarn lint-staged

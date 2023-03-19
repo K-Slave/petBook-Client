@@ -18,6 +18,7 @@ const Main = styled.main`
 `;
 
 const Login = () => {
+  const temp333 = "";
   return (
     <Main>
       <LoginIndex />
