@@ -27,8 +27,6 @@ const MyPageMain = styled.main`
 `;
 
 const MyPage = () => {
-  const temp222 = "";
-
   const [current, setCurrent] = useState(0);
   const [showNav, setShowNav] = useState(false);
   const handleShowNav = () => {
