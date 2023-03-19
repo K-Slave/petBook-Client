@@ -44,6 +44,7 @@ const HospitalDetailReview = () => {
         </h3>
       </ReviewContainerHeader>
       {data?.data.reviews.map((item) => {
+        console.log(item);
         return (
           <ReviewBox key={item.id}>
             <ReviewBoxHeader>
@@ -53,7 +54,8 @@ const HospitalDetailReview = () => {
                   {item.experience === "BAD" ? "나빳어요" : "좋았어요"}
                 </p>
                 <p>
-                  {item.user.nickname} <span>2022.01.01</span>
+                  {item.user.nickname}
+                  <span>{item.createdAt.substring(0, 10)}</span>
                 </p>
               </div>
               <HospitalDetailReview.SettingBtn id={Number(router.query.id)} />

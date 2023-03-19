@@ -163,6 +163,7 @@ export default class HospitalAPI extends RequestCore {
           };
           disease: string;
           content: string;
+          createdAt: string;
           images: [
             {
               id: number;
