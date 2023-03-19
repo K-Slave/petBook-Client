@@ -12,12 +12,8 @@ import React from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import mapsLevelSelector from "@lib/modules/mapsLevelSelector";
 import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
-import regionDataState from "@atoms/pageAtoms/hospitalmap/regionData"; // cachedRegionDataState,
-
-// const defaultPage = 0;
-// const defaultSize = 50;
-// const defaultBoundary =
-//   "(28127.00963325656245,37.48459126977702,127.05668520469185,37.48459126977702,127.00963325656245,37.50620222560144,127.05668520469185,37.50620222560144)";
+import regionDataState from "@atoms/pageAtoms/hospitalmap/regionData";
+import keyName from "@lib/commonValue/keyName";
 
 const CurrentGps = () => {
   const setRegionData = useSetRecoilState(regionDataState);
@@ -55,7 +51,7 @@ const CurrentGps = () => {
 
       const cookieRes = await cookieRequest.setCookie({
         body: {
-          key: "USER_LOCATION_DATA",
+          key: keyName.location,
           value: locationData,
         },
       });

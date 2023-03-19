@@ -3,15 +3,11 @@ import { QueryClient } from "@tanstack/react-query";
 import type { Key } from "@lib/hooks/common/useResource";
 import { UserLocationData } from "@lib/types/CacheData";
 import cleanObject from "@lib/utils/cleanObject";
-import localConsole from "@lib/utils/localConsole";
 import { NextPageContext } from "next";
 import cookies from "next-cookies";
 import { HospitalListRequest } from "@lib/API/petBookAPI/types/hospitalRequest";
-
-const defaultPage = 0;
-const defaultSize = 50;
-const defaultBoundary =
-  "(127.00963325656245,37.48459126977702,127.05668520469185,37.48459126977702,127.00963325656245,37.50620222560144,127.05668520469185,37.50620222560144)";
+import hospitalOptions from "@lib/commonValue/hospitalOptions";
+import keyName from "@lib/commonValue/keyName";
 
 export default async function queryParser(
   ctx: NextPageContext,
@@ -38,18 +34,18 @@ export default async function queryParser(
     }
 
     case "HOSPITAL_LIST": {
-      const cachedData = cookies(ctx).USER_LOCATION_DATA as
+      const cachedData = cookies(ctx)[keyName.location] as
         | UserLocationData
         | undefined;
 
       const page = queryParams.page
         ? Number(queryParams.page) - 1
-        : defaultPage;
+        : hospitalOptions.page;
 
       let fetchParams: HospitalListRequest = {
         page,
-        size: defaultSize,
-        boundary: defaultBoundary as string,
+        size: hospitalOptions.size,
+        boundary: hospitalOptions.boundary,
       };
 
       let fetchKey: string[] = [...resource.key, { page }];
