@@ -34,11 +34,11 @@ export function passwordCheck(value: string) {
   // # 해당 출력문은 비밀번호 input box 입력 완료(enter 키) 혹은 다른 컴포넌트 클릭 시 출력
   let msg = "";
 
-  let engCk = value.match(/(?=.?[A-Z])(?=.?[a-z])/);
-  let numberCk = value.match(/[0-9]/);
-  let starCk = value.match(/(?=.?[#?!@$ %^&*-])/);
-  let lengthCk = value.match(/^.{8,20}$/);
-  let emptyCk = value.match(/\s/g);
+  const engCk = value.match(/(?=.?[A-Z])(?=.?[a-z])/);
+  const numberCk = value.match(/[0-9]/);
+  const starCk = value.match(/(?=.?[#?!@$ %^&*-])/);
+  const lengthCk = value.match(/^.{8,20}$/);
+  const emptyCk = value.match(/\s/g);
 
   if (engCk === null) {
     msg = "대소문자를 모두 포함하여야해요!";

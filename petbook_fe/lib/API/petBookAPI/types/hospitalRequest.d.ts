@@ -15,11 +15,13 @@ export interface HospitalFullInfo {
     bestContent: string;
     bestId: number;
     bestListCount: number;
+    bestExperience: string;
   };
   worstReview: {
     worstContent: string;
     worstId: number;
     worstLikeCount: number;
+    worstExperience: string;
   };
 }
 

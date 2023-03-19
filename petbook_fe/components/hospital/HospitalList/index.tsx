@@ -75,8 +75,8 @@ const HospitalList = () => {
           : data?.data.hospitals.map((hospital) => (
               <HospitalItem
                 key={hospital.hospitals.id}
-                {...hospital.hospitals}
-                parent={ref}
+                {...hospital}
+                {...ref}
               />
             ))}
       </div>

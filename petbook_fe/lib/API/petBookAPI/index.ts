@@ -6,7 +6,7 @@ import ImgAPI from "./imgRequest";
 import CommentAPI from "./commentRequest";
 import HospitalAPI from "./hospitalRequest";
 import CookieAPI from "./cookieRequest";
-import AuthRequest from "./AuthRequest";
+import AuthRequest from "./authRequest";
 
 /**
  * @uri '/api/v1'

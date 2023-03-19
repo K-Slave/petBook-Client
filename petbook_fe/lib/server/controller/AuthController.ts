@@ -1,5 +1,5 @@
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
-import AuthRequest from "@lib/API/petBookAPI/AuthRequest";
+import AuthRequest from "@lib/API/petBookAPI/authRequest";
 import { AuthLoginRequest } from "@lib/API/petBookAPI/types/authRequest";
 import keyName from "@lib/commonValue/keyName";
 import localConsole from "@lib/utils/localConsole";

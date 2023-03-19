@@ -46,7 +46,8 @@ export const ReviewSelectChip = styled.section`
     margin-bottom: 8px;
   }
   section {
-    height: 100px;
+    height: auto;
+    max-height: 100px;
     overflow: auto;
   }
   article {

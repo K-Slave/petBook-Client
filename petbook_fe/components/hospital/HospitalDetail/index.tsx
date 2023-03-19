@@ -59,7 +59,7 @@ const HospitalDetail = ({ id }: { id: number }) => {
           height="180"
           src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdkFgdv%2FbtrA5bltSLO%2FjcrSxiECGbBln8xpuWx3F1%2Fimg.jpg"
         />
-        <HospitalDetail.ButtonBox />
+        <HospitalDetail.ButtonBox id={Number(router.query.id)} />
       </div>
       <LineDiv />
       <div className="wrapper">
@@ -75,11 +75,18 @@ const HospitalDetail = ({ id }: { id: number }) => {
   );
 };
 
-export const ButtonBox = ({ divider }: { divider?: boolean }) => {
+export const ButtonBox = ({
+  id,
+  divider,
+}: {
+  id: number;
+  divider?: boolean;
+}) => {
   const { openModal, closeModal } = useModal();
-  const openReviewModal = () => {
+  const openReviewModal = (hospitalId: number) => {
     openModal(HospitalReview, {
       closeModal,
+      hospitalId,
     });
   };
   return (
@@ -99,7 +106,7 @@ export const ButtonBox = ({ divider }: { divider?: boolean }) => {
       </div>
       {divider && <Divider />}
       <div>
-        <button type="button" onClick={openReviewModal}>
+        <button type="button" onClick={() => openReviewModal(id)}>
           <PencilEditIcon />
           <span>리뷰작성</span>
         </button>

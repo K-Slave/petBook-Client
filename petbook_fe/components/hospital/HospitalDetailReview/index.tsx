@@ -1,9 +1,12 @@
 import { usePage } from "@components/common/Pagination/usePagination";
 import { hospitalRequest } from "@lib/API/petBookAPI";
 import useUserId from "@lib/hooks/article/useUserId";
+import useModal from "@lib/hooks/common/useModal";
 import useResource, { createResource } from "@lib/hooks/common/useResource";
+import { HOSPITAL_REVIEW_LIST } from "@pages/hospitalmap";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import HospitalReview from "../HospitalReview";
 import {
   ReviewBox,
   ReviewBoxContent,
@@ -14,86 +17,6 @@ import {
   ReviewBoxMoreWrap,
   ReviewBtn,
 } from "./styled";
-
-// 임시용
-const DetailList = {
-  review: [
-    {
-      id: 2,
-      hospital: {
-        id: 3397,
-        name: "제니스동물병원",
-      },
-      user: {
-        id: 1,
-        nickname: "테스트1",
-      },
-      disease: "string",
-      content:
-        "“리뷰가 들어갑니다. 리뷰가 들어갑니다. 리뷰가 들어갑니다.리뷰가 들어갑니다.리뷰가 들어갑니다.”",
-      images: [
-        {
-          id: 2,
-          imageUrl: "",
-        },
-      ],
-      isLike: false,
-      likeCount: 0,
-      experience: "BAD",
-    },
-    {
-      id: 3,
-      hospital: {
-        id: 3397,
-        name: "제니스동물병원",
-      },
-      user: {
-        id: 1,
-        nickname: "테스트",
-      },
-      disease: "string",
-      content:
-        "“리뷰가 들어갑니다. 리뷰가 들어갑니다. 리뷰가 들어갑니다.리뷰가 들어갑니다.리뷰가 들어갑니다.”",
-      images: [
-        {
-          id: 2,
-          imageUrl: "",
-        },
-        {
-          id: 2,
-          imageUrl: "",
-        },
-      ],
-      isLike: false,
-      likeCount: 0,
-      experience: "GOOD",
-    },
-    {
-      id: 4,
-      hospital: {
-        id: 3397,
-        name: "제니스동물병원",
-      },
-      user: {
-        id: 1,
-        nickname: "테스트",
-      },
-      disease: "string",
-      content:
-        "“리뷰가 들어갑니다. 리뷰가 들어갑니다. 리뷰가 들어갑니다.리뷰가 들어갑니다.리뷰가 들어갑니다.”",
-      images: [],
-      isLike: false,
-      likeCount: 0,
-      experience: "GOOD",
-    },
-  ],
-  totalElements: 99,
-};
-
-const HOSPITAL_REVIEW_LIST = createResource({
-  key: ["HOSPITAL_REVIEW_LIST"],
-  fetcher: hospitalRequest.hospital_review_list,
-});
 
 const HospitalDetailReview = () => {
   const router = useRouter();
@@ -133,9 +56,7 @@ const HospitalDetailReview = () => {
                   {item.user.nickname} <span>2022.01.01</span>
                 </p>
               </div>
-              {/* btn */}
-              <HospitalDetailReview.SettingBtn />
-              {/* btn */}
+              <HospitalDetailReview.SettingBtn id={Number(router.query.id)} />
             </ReviewBoxHeader>
             <ReviewBoxImgSlide state={item.images}>
               {item.images?.map((img) => {
@@ -150,10 +71,23 @@ const HospitalDetailReview = () => {
   );
 };
 
-const SettingBtn = () => {
+const SettingBtn = ({ id }: { id: number }) => {
   const [btnState, setBtnState] = useState(false);
   const onClick = () => {
     setBtnState(!btnState);
+  };
+  const { openModal, closeModal } = useModal();
+  const openReviewModal = (hospitalId: number) => {
+    openModal(HospitalReview, {
+      closeModal,
+      hospitalId,
+    });
+  };
+  const removeReview = () => {
+    alert("삭제 하는중");
+  };
+  const reportReview = () => {
+    alert("신고 하는중");
   };
 
   return (
@@ -164,9 +98,9 @@ const SettingBtn = () => {
       {/* {btnState && ( */}
       <article>
         <ul>
-          <li>수정</li>
-          <li>삭제</li>
-          <li>신고</li>
+          <li onClick={() => openReviewModal(id)}>수정</li>
+          <li onClick={removeReview}>삭제</li>
+          <li onClick={reportReview}>신고</li>
         </ul>
       </article>
       {/* )} */}
