@@ -97,6 +97,7 @@ const Personal = ({
 const UserInfo = ({ userData }: { userData: DecodedUserInfo }) => {
   const client = useQueryClient();
   const setLoading = useSetRecoilState(loadingState);
+
   const onClick = async () => {
     setLoading(true);
     if (window.confirm("로그아웃 하실건가요?")) {

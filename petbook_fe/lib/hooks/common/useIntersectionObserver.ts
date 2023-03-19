@@ -21,7 +21,7 @@ export default function useIntersectionObserver({
   const isSet = useRef<boolean>(false);
 
   const onAppear = (entries: IntersectionObserverEntry[]) => {
-    entries.forEach(async (entry) => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting && onAppearCallback) {
         onAppearCallback();
       }
@@ -32,7 +32,7 @@ export default function useIntersectionObserver({
   };
 
   const onDisappear = (entries: IntersectionObserverEntry[]) => {
-    entries.forEach(async (entry: any) => {
+    entries.forEach((entry: any) => {
       if (!entry.isVisible && onDisappearCallback) {
         onDisappearCallback();
       }

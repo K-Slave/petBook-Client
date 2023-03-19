@@ -22,8 +22,8 @@ const RegisterButton = () => {
 
   // 버튼 활성 구독상태 UI 적용
   useEffect(() => {
-    let newArr = Object.values(registerForm);
-    let active = newArr.every((x) => x !== null && x !== "");
+    const newArr = Object.values(registerForm);
+    const active = newArr.every((x) => x !== null && x !== "");
     setValidation(active);
   }, [registerForm]);
 

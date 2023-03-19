@@ -50,6 +50,8 @@ const Title = React.memo(({ isToastView }: { isToastView: boolean }) => {
   );
 });
 
+Title.displayName = "Title";
+
 interface TagBoxProps {
   isError: boolean;
   setIsError: React.Dispatch<React.SetStateAction<boolean>>;
@@ -83,6 +85,8 @@ const TagBox = React.memo(
   }
 );
 
+TagBox.displayName = "TagBox";
+
 const List = React.memo(() => {
   const { inputHash } = useRecoilSelector(writeState, {
     inputHash: [] as string[],
@@ -97,6 +101,8 @@ const List = React.memo(() => {
   );
 });
 
+List.displayName = "List";
+
 const Item = React.memo(({ hashTag }: { hashTag: string }) => {
   const { removeTag } = useSetHashTag();
 
@@ -106,6 +112,8 @@ const Item = React.memo(({ hashTag }: { hashTag: string }) => {
 
   return <RoundHashTagButton onClick={onClick}>#{hashTag}</RoundHashTagButton>;
 });
+
+Item.displayName = "Item";
 
 interface InputProps {
   setIsError: React.Dispatch<React.SetStateAction<boolean>>;
@@ -145,6 +153,8 @@ const Input = React.memo(({ setIsError, msgPush }: InputProps) => {
     />
   );
 });
+
+Input.displayName = "Input";
 
 WriteHashTags.Title = Title;
 WriteHashTags.TagBox = TagBox;

@@ -182,6 +182,8 @@ const Rect = React.memo(() => {
   return <></>;
 });
 
+Rect.displayName = "Rect";
+
 interface BoundProps {
   poiDataList: HospitalFullInfo[];
 }

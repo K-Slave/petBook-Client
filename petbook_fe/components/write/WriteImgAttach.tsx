@@ -56,6 +56,8 @@ const Count = React.memo(() => {
   return <CountP>최대 5장</CountP>;
 });
 
+Count.displayName = "Count";
+
 const ImgList = React.memo(() => {
   const { inputImg } = useRecoilSelector(writeState, {
     inputImg: [] as string[],
@@ -72,6 +74,8 @@ const ImgList = React.memo(() => {
   }
   return <></>;
 });
+
+ImgList.displayName = "ImgList";
 
 const ImgItem = React.memo(({ img }: { img: string }) => {
   const setWrite = useSetRecoilState(writeState);
@@ -98,6 +102,8 @@ const ImgItem = React.memo(({ img }: { img: string }) => {
     </ImgItemLi>
   );
 });
+
+ImgItem.displayName = "ImgItem";
 
 // TODO 기능 리팩터링 해야함
 const AddButton = () => {

@@ -75,7 +75,7 @@ const TermsWrap = () => {
   };
 
   useEffect(() => {
-    let everyTrue = agree.every((el) => el === true);
+    const everyTrue = agree.every((el) => el === true);
     registerForm((el) => ({ ...el, agree: everyTrue === true ? "true" : "" }));
   }, [agree]);
 

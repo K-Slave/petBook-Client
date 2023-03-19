@@ -57,7 +57,8 @@ interface Props {
 
 const ImgWrap = () => {
   const [imgArr, setImgArr] = useState<Props[]>([]);
-  const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  // async
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       if (imgArr.length > 10) {
         return alert("최대 10개 사진만 첨부할 수 있습니다.");
@@ -75,7 +76,7 @@ const ImgWrap = () => {
   };
 
   const removeImg = (idx: number) => {
-    let newImgWrap = [...imgArr];
+    const newImgWrap = [...imgArr];
     newImgWrap.splice(idx, 1);
     setImgArr([...newImgWrap]);
   };
@@ -126,12 +127,13 @@ const HospitalReview = ({
   const reviewForm = useRecoilValue(reviewFormState);
   const { data, mutate, status } = useSetResource(HOSPITAL_REVIEW_CREATE);
 
-  const onSubmit = async () => {
+  // async
+  const onSubmit = () => {
     mutate(reviewForm);
   };
 
   const onChange = (e: any) => {
-    let name = e.target.attributes["data-type"].nodeValue;
+    const name: string = e.target.attributes["data-type"].nodeValue;
     setReviewForm((el) => ({
       ...el,
       hospitalId: hospitalId,
@@ -166,7 +168,7 @@ const HospitalReview = ({
           <h4>진료받은 내 동물</h4>
           <section>
             {PETDATA.map((item: { title: string; img: string }, index) => {
-              let id = String(index);
+              const id = String(index);
               return (
                 <article key={id}>
                   <label htmlFor={id}>
@@ -193,6 +195,7 @@ const HospitalReview = ({
             {REACTION.map((reaction) => {
               return (
                 <ReviewFormReactionBtn
+                  key={reaction.value}
                   htmlFor={reaction.value} // Y | N
                 >
                   <input

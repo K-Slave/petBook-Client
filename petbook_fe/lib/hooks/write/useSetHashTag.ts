@@ -16,7 +16,7 @@ const useSetHashTag = (
 
   const setWrite = useSetRecoilState(writeState);
 
-  let removeTag: (textValue: string) => void;
+  let removeTag: (textValue: string) => void = () => undefined;
   let setTags: (textValue: string) => void = () => undefined;
 
   removeTag = (textValue: string) => {
