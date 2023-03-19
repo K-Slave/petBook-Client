@@ -47,7 +47,7 @@ const HospitalMap: NextPage = () => {
     return () => {
       removeScrollPosition();
     };
-  });
+  }, []);
   return (
     <>
       <HospitalMapGlobalStyle />
