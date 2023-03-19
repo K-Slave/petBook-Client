@@ -30,17 +30,17 @@ const AuthSelfMask = ({ children, toLogin }: PropsWithChildren<Props>) => {
           },
         })
         .then((res) => {
-          if (res.data) {
+          if (!res.data) {
             // token 이 있으면 react-query 에 채워주기
             // setUserInfo
-          } else if (toLogin) {
-            // toLogin 이면 로그인 페이지로 이동시키기
-            navigator({ url: "/login" });
-          } else {
-            // 아니라면 페이지 강제 리로드
-            window.location.reload();
+            if (toLogin) {
+              // toLogin 이면 로그인 페이지로 이동시키기
+              navigator({ url: "/login" });
+            } else {
+              // 아니라면 페이지 강제 리로드
+              window.location.reload();
+            }
           }
-
           setLoading(false);
         })
         .catch((res) => {

@@ -1,13 +1,31 @@
 import AuthSelfMask from "@components/common/AuthSelfMask/AuthSelfMask";
 import { NextPage } from "next";
-import React from "react";
+import React, { useState } from "react";
 
 type NextPageWithResource = NextPage & {
   requiredResources?: [];
 };
 
 const MyPage: NextPageWithResource = () => {
-  return <>tada!</>;
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <AuthSelfMask>
+      <div></div>
+      <button
+        onClick={() => {
+          setIsOpen(true);
+        }}
+      ></button>
+      <section></section>
+      <article></article>
+      {isOpen && <Popup></Popup>}
+    </AuthSelfMask>
+  );
+};
+
+const Popup = () => {
+  return <AuthSelfMask></AuthSelfMask>;
 };
 
 export default MyPage;

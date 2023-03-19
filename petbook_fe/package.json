@@ -14,11 +14,20 @@
     "*.js": [
       "eslint --fix",
       "git add"
+    ],
+    "*.ts": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.tsx": [
+      "eslint --fix",
+      "git add"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
     }
   },
   "dependencies": {
@@ -83,7 +92,7 @@
     "eslint-plugin-react": "^7.31.10",
     "husky": "^8.0.1",
     "jsdoc": "^3.6.11",
-    "lint-staged": "^13.0.3",
+    "lint-staged": "^13.2.0",
     "ngrok": "^4.3.1",
     "prettier": "^2.7.1",
     "react-is": "^18.1.0",
