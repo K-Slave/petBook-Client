@@ -36,7 +36,7 @@ const RegisterPasswordForm = () => {
     setCheckPass(false);
   };
   const onBlur: ChangeEventHandler<HTMLInputElement> = () => {
-    let checkValidationText = passwordCheck(passval.pass1);
+    const checkValidationText = passwordCheck(passval.pass1);
     if (checkValidationText === "") {
       setSuccess(false);
       setCheckPass(true); // 두번째 필드

@@ -60,7 +60,7 @@ const HospitalDetailReview = () => {
             </ReviewBoxHeader>
             <ReviewBoxImgSlide state={item.images}>
               {item.images?.map((img) => {
-                return <div>{(img.imageUrl, img.id)}</div>;
+                return <div key={img.id}>{(img.imageUrl, img.id)}</div>;
               })}
             </ReviewBoxImgSlide>
             <ReviewBoxContent>{item.content}</ReviewBoxContent>

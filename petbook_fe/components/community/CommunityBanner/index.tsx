@@ -33,4 +33,6 @@ const AboutSlide = React.memo(() => {
   );
 });
 
+AboutSlide.displayName = "AboutSlide";
+
 export default React.memo(CommunityBanner);

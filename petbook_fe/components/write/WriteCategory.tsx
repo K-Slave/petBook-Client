@@ -95,6 +95,8 @@ const Item = React.memo(({ keyword, selected, onClick }: ItemProps) => (
   </WriteCategoryButtonBox>
 ));
 
+Item.displayName = "Item";
+
 WriteCategory.List = List;
 WriteCategory.Item = Item;
 

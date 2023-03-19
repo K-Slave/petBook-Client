@@ -65,7 +65,12 @@ const Guide = React.memo(({ children }: PropsWithChildren<any>) => {
   return (
     <WriteGuideDiv className="Write__Guide">
       {divDummy.map((elem, idx) => {
-        return <GuideTopSpringDiv className={`Write__Guide__Spring__${idx}`} />;
+        return (
+          <GuideTopSpringDiv
+            key={idx}
+            className={`Write__Guide__Spring__${idx}`}
+          />
+        );
       })}
       {children}
       <p className="Write__Guide__Content">
@@ -77,7 +82,9 @@ const Guide = React.memo(({ children }: PropsWithChildren<any>) => {
   );
 });
 
-const GuideTitle = React.memo(() => {
+Guide.displayName = "Guide";
+
+const GuideTitle = () => {
   const { data, status } = useResource(CATEGORY_LIST);
 
   const categoryList = data?.data && status === "success" ? data?.data : [];
@@ -102,7 +109,7 @@ const GuideTitle = React.memo(() => {
       &nbsp;잘쓰는 법!
     </h5>
   );
-});
+};
 
 const Editor = () => {
   const [{ inputContent }, setWrite] = useSelectorState(writeState, {

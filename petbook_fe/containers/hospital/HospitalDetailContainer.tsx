@@ -11,6 +11,8 @@ import styled from "styled-components";
 
 const HospitalDetailContainer = () => {
   const router = useRouter(); // to get id
+  const id = router.query.id as string;
+
   // TODO: add useResource
   return (
     <>
@@ -23,7 +25,7 @@ const HospitalDetailContainer = () => {
           <h1 className="Title">병원명이 들어가요</h1>
           <HospitalBasicInfo address="위치가 들어가요" />
           <PossibleAnimalList />
-          <ButtonBox divider />
+          <ButtonBox divider id={Number(id)} />
         </section>
         <LineDiv />
       </Container>
