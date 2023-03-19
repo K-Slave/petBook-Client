@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:notify": "ts-node ./scripts/preRunner.ts && next build 1> buildLog.txt 2> errorLog.txt && ts-node ./scripts/postRunner.ts || ts-node ./scripts/postRunner.ts"
+    "build:notify": "ts-node ./scripts/preRunner.ts && next build 1> buildLog.txt 2> errorLog.txt && ts-node ./scripts/postRunner.ts || ts-node ./scripts/postRunner.ts",
+    "prepare": "cd .. && husky install petbook_fe/.husky"
   },
   "husky": {
     "hooks": {
