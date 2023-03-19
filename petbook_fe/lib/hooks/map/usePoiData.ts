@@ -1,3 +1,4 @@
+import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
 import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
 import { cookieRequest } from "@lib/API/petBookAPI";
 import hospitalOptions from "@lib/commonValue/hospitalOptions";
@@ -10,6 +11,8 @@ import useDidMountEffect from "../common/useDidMountEffect";
 import useResource from "../common/useResource";
 
 const usePoiData = () => {
+  // const cachedRectBounds = useRecoilValue(cachedRectBoundsState);
+  const geoLocation = useRecoilValue(geoLocationState);
   const rectBounds = useRecoilValue(rectBoundsState);
   const router = useRouter();
   const pageParam = router.query?.page ? Number(router.query.page) : 1;
@@ -44,7 +47,7 @@ const usePoiData = () => {
     };
 
     patchCookie();
-  }, [rectBounds]);
+  }, [geoLocation]);
 
   return { router, data, status };
 };

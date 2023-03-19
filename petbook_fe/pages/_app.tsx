@@ -13,7 +13,7 @@ import Loader from "@components/common/loader/loader";
 import Modal from "@components/common/Modal";
 import TopNav from "@components/common/Nav/TopNav";
 import urlTokenRedirect from "@lib/API/parser/urlTokenRedirect";
-import queryParser from "@lib/API/parser/queryParser";
+
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import type { Key } from "@lib/hooks/common/useResource";
 import { itrMap } from "@lib/utils/iterableFunctions";
@@ -28,10 +28,9 @@ import "../styles/Globals.scss";
 import "../styles/Icon.scss";
 import "../styles/Swiper.scss";
 import getCookieList from "@lib/utils/getCookieList";
-import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
-import { UserLocationData } from "@lib/types/CacheData";
-import localConsole from "@lib/utils/localConsole";
+
 import recoilHydration from "@lib/modules/recoilHydration";
+import queryParser from "@lib/API/parser/queryParser";
 
 type DehydratedAppProps = AppProps<{
   dehydratedState: DehydratedState;

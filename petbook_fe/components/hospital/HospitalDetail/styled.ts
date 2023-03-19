@@ -48,7 +48,7 @@ export const LineDiv = styled.div`
   background-color: var(--bg_white_02);
 `;
 
-export const Box = styled.div`
+export const ButtonBoxDiv = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   margin: 1.5rem 0.5rem;
@@ -70,4 +70,10 @@ export const Box = styled.div`
       height: 22px;
     }
   }
+`;
+
+export const Divider = styled.div`
+  width: 1px;
+  height: 40px;
+  background-color: var(--black_06);
 `;
