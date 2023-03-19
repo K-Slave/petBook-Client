@@ -10,6 +10,7 @@ const MyPage: NextPageWithResource = () => {
   const [isOpen, setIsOpen] = useState(false);
   const temp = "";
   const temp1 = "";
+  const temp2 = "";
 
   return (
     <AuthSelfMask>

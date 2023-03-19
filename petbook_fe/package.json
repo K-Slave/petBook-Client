@@ -7,9 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:notify": "ts-node ./scripts/preRunner.ts && next build 1> buildLog.txt 2> errorLog.txt && ts-node ./scripts/postRunner.ts || ts-node ./scripts/postRunner.ts",
-    "prepare": "cd .. && husky install",
-    "temp": "cd .. && npx husky add .husky/pre-commit yarn lint-staged"
+    "build:notify": "ts-node ./scripts/preRunner.ts && next build 1> buildLog.txt 2> errorLog.txt && ts-node ./scripts/postRunner.ts || ts-node ./scripts/postRunner.ts"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "eslint --fix && prettier --write"
+    }
   },
   "lint-staged": {
     "./**/*.{js,jsx,ts,tsx}": [
