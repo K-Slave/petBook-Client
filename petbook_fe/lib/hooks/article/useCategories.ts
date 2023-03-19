@@ -1,4 +1,4 @@
-import { CategoryListResponse } from "@lib/API/petBookAPI/types/categoryRequestSpr";
+import { CategoryListResponse } from "@lib/API/petBookAPI/types/categoryRequest";
 import { CATEGORY_LIST } from "@pages/community";
 import useResource from "../common/useResource";
 

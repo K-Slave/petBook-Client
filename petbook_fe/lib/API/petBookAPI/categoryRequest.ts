@@ -1,5 +1,5 @@
 import RequestCore from "./RequestCore";
-import { CategoryListResponse } from "./types/categoryRequestSpr";
+import { CategoryListResponse } from "./types/categoryRequest";
 
 export default class CategorySprAPI extends RequestCore {
   /**

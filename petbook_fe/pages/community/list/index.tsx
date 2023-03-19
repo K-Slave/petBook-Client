@@ -5,7 +5,7 @@ import {
 import WriteButton from "@components/community/WriteButton";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { articleRequest, categorySprRequest } from "@lib/API/petBookAPI";
-import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
+import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequest";
 import { createResource } from "@lib/hooks/common/useResource";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { useEffect } from "react";

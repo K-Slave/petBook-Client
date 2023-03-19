@@ -12,7 +12,7 @@ import ArticlePreviewList from "@components/community/ArticlePreviewList";
 import QnaArticleList, {
   QNA_CATEGORY,
 } from "@components/community/QnaArticleList";
-import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
+import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequest";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 import Link from "next/link";
 import SearchBar from "@components/common/SearchBar";

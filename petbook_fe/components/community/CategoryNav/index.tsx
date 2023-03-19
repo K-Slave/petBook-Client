@@ -1,4 +1,4 @@
-import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
+import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequest";
 import useCategories from "@lib/hooks/article/useCategories";
 import useActiveCategory from "@lib/hooks/article/useActiveCategory";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";

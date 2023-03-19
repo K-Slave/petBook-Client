@@ -1,7 +1,7 @@
 import { nextPetBookClient, sprPetBookClient } from "../axios/axiosClient";
 import ArticleAPI from "./articleRequest";
 import UserAPI from "./userRequest";
-import CategorySprAPI from "./categoryRequestSpr";
+import CategorySprAPI from "./categoryRequest";
 import ImgAPI from "./imgRequest";
 import CommentAPI from "./commentRequest";
 import HospitalAPI from "./hospitalRequest";

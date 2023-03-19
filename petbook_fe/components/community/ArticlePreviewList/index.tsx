@@ -2,7 +2,7 @@ import useCategories from "@lib/hooks/article/useCategories";
 import useResource from "@lib/hooks/common/useResource";
 import { createResourceByCategory } from "@pages/community";
 import Link from "next/link";
-import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
+import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequest";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
 import { Article, BoxGrid, List } from "./styled";
