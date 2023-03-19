@@ -4,8 +4,9 @@ import CustomSwiper, {
   SlidePrevButton,
 } from "@components/common/Slider";
 import navigator from "@lib/modules/navigator";
-import type { HospitalInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
+import type { HospitalFullInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
 import { saveScrollPosition } from "@lib/modules/localStorage";
+
 import { SwiperSlide } from "swiper/react";
 import { MutableRefObject } from "react";
 import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
@@ -14,15 +15,14 @@ import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
 import Stats from "@components/common/hospital/Stats";
 import { ImageSliderDiv, ItemHeader } from "./styled";
 
-interface Props extends HospitalInfo {
-  parent: MutableRefObject<HTMLElement | null>;
-}
-
-const HospitalItem = ({ id, name, address, parent }: Props) => {
+const HospitalItem = (
+  hospitals: HospitalFullInfo,
+  parent: MutableRefObject<HTMLElement | null>
+) => {
   const navigateToDetail = () => {
     saveScrollPosition(parent.current?.scrollTop || 0);
     navigator({
-      url: `/hospitalmap?id=${id.toString()}`,
+      url: `/hospitalmap?id=${hospitals.hospitals.id.toString()}`,
       options: {
         shallow: true,
       },
@@ -30,17 +30,17 @@ const HospitalItem = ({ id, name, address, parent }: Props) => {
   };
   return (
     <article>
-      <HospitalItem.ImageSlider id={id} />
+      <HospitalItem.ImageSlider id={hospitals.hospitals.id} />
       <ItemHeader>
-        <h1 onClick={navigateToDetail}>{name}</h1>
+        <h1 onClick={navigateToDetail}>{hospitals.hospitals.name}</h1>
         <button type="button">
           <BookmarkBlankIcon />
         </button>
       </ItemHeader>
       <PossibleAnimalList />
-      <HospitalBasicInfo address={address} />
+      <HospitalBasicInfo address={hospitals.hospitals.address} />
       <Stats />
-      <PointReviewList />
+      <PointReviewList {...hospitals} />
     </article>
   );
 };

@@ -37,16 +37,16 @@ export default class UserAPI extends RequestCore {
    *
    * 유저 이메일 체크 API
    * @param body 요청 패킷 Body 에 JSON 형태로 담을 내용입니다.
-   * @param body.userId POST 할 이메일 입니다.
+   * @param body.email POST 할 이메일 입니다.
    */
   public registerCheckEmail = async (
     body: {
-      userId: string;
+      email: string;
     },
     config?: { headerObj?: object }
   ) => {
     const { requestURL, requestHeaders } = this.getParameters({
-      uri: `/${body.userId}/vetify-email`,
+      uri: `/resend-verification-email`,
       headerObj: config && config.headerObj,
     });
     const result = await this.getResult({

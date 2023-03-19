@@ -1,7 +1,14 @@
-import React, { ChangeEventHandler, MouseEventHandler, useState } from "react";
+import React, {
+  ChangeEventHandler,
+  MouseEventHandler,
+  useEffect,
+  useState,
+} from "react";
+
+import { REGISTER_CHECK_EMAIL } from "@components/register/RegisterForm";
 import useSelectorState from "@lib/hooks/common/useSelectorState";
 import { registerFormState } from "@atoms/pageAtoms/login/userState";
-
+import { useSetResource } from "@lib/hooks/common/useResource";
 import {
   IconBox,
   InputBox,
@@ -14,12 +21,34 @@ const RegisterEmail = () => {
   const [registerForm, setRegisterForm] = useSelectorState(registerFormState, {
     email: "",
   });
+  const [code, setCode] = useState("");
+  const { data, mutate, status } = useSetResource(REGISTER_CHECK_EMAIL);
+
+  // input change
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setRegisterForm((el) => ({ ...el, email: e.target.value }));
   };
-  const onCertification: MouseEventHandler<HTMLButtonElement> = (e) => {
-    alert("인증절차진행중");
+  const onChangeCode: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setCode(e.target.value);
   };
+
+  // api
+  const onCertification: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    mutate({ email: registerForm.email });
+  };
+  const onCertificationConfirm: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    console.log(code);
+  };
+
+  // data
+  useEffect(() => {
+    if (status === "success") {
+      alert("이메일을 확인해주세요"); // toast
+    }
+  }, [data]);
+
   return (
     <>
       <InputBox>
@@ -41,10 +70,12 @@ const RegisterEmail = () => {
         </IconBox>
         <input
           autoComplete="one-time-code"
-          type="number"
           placeholder="인증번호 4자리"
-          onChange={onChange}
+          onChange={onChangeCode}
         />
+        <button type="submit" onClick={onCertificationConfirm}>
+          코드확인
+        </button>
       </InputBox>
       <RegisterInfoText state={success}>
         <p>{passInfoMsg}</p>

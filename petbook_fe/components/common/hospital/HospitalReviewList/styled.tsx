@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const ReviewBox = styled.article`
+  position: relative;
   border-radius: 12px;
   background-color: var(--bg);
   padding: 0.6875rem 1rem;
@@ -40,4 +41,11 @@ export const ReveiwBoxBody = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+`;
+
+export const ReviewBoxButton = styled.button`
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
 `;
