@@ -12,6 +12,7 @@ const MyPageMain = styled.main`
   max-width: 1000px;
   margin: 2rem auto 0;
   padding-bottom: 2rem;
+  stroke-width: 1px;
   .MyPage__navIcon {
     display: none;
     font-size: 20px;

@@ -11,6 +11,7 @@ const MyPage: NextPageWithResource = () => {
   const temp = "";
   const temp1 = "";
   const temp2 = "";
+  const temp3 = "";
 
   return (
     <AuthSelfMask>
