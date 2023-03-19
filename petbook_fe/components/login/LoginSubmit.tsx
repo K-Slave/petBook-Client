@@ -12,6 +12,10 @@ import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 import useLoaderNavigate from "@lib/hooks/common/useLoaderNavigate";
 import { AxiosError } from "axios";
 import { useSetUserInfo } from "@lib/hooks/common/useUserInfo";
+import { useQueryClient } from "@tanstack/react-query";
+import keyName from "@lib/commonValue/keyName";
+import tokenParser from "@lib/server/parse/tokenParser";
+import localConsole from "@lib/utils/localConsole";
 import {
   ButtonBox,
   PassGuide,
@@ -115,6 +119,7 @@ export const LoginSubmitButton = () => {
 
   const loginForm = useRecoilValue(loginFormState);
   const { data, isSuccess, error, isError, mutate } = useSetResource(LOGIN);
+  const client = useQueryClient();
   const onSubmit = () => {
     mutate(loginForm);
   };
@@ -123,8 +128,13 @@ export const LoginSubmitButton = () => {
       navigator({
         url: "/info",
         thenCallback: () => {
-          // TODO: API 로 만들어볼것. 낭비를 줄여야 할듯
-          Router.reload();
+          if (data.data?.token) {
+            const { userInfo } = tokenParser(data.data.token);
+
+            client.setQueryData([keyName.userInfo], userInfo);
+          }
+
+          // Router.reload();
         },
       });
 

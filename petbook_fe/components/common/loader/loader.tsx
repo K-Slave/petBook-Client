@@ -11,8 +11,8 @@ const Loader = () => {
       {loading && (
         <div className="Loader__Layer">
           <div className="loader-inner Loader">
-            {loaderDummy.map(() => {
-              return <div />;
+            {loaderDummy.map((_, idx) => {
+              return <div key={idx} />;
             })}
           </div>
         </div>
