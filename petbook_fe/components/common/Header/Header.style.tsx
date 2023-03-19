@@ -61,6 +61,6 @@ export const HeaderPersonalDiv = styled.div<{ isLoggedUser: boolean }>`
   color: #383835;
 `;
 
-export const HeaderUserInfoSpan = styled.span``;
+export const HeaderUserInfoA = styled.a``;
 
 export const HeaderLogoutButton = styled.button``;

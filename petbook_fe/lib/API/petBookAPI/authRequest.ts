@@ -1,6 +1,11 @@
 import RequestCore from "./RequestCore";
+import {
+  AuthLoginRequest,
+  AuthLoginResponse,
+  AuthLogoutResponse,
+} from "./types/authRequest";
 
-export default class AuthAPI extends RequestCore {
+export default class AuthRequest extends RequestCore {
   /**
    *
    * 로그인 API
@@ -22,7 +27,7 @@ export default class AuthAPI extends RequestCore {
       headerObj: config && config.headerObj,
     });
 
-    const result = await this.getResult({
+    const result = await this.getResult<AuthLoginResponse, AuthLoginRequest>({
       requestMethod: "POST",
       requestURL,
       requestHeaders,
@@ -60,6 +65,21 @@ export default class AuthAPI extends RequestCore {
       requestURL,
       requestHeaders,
       body,
+    });
+
+    return result;
+  };
+
+  public logout = async (config?: { headerObj?: object }) => {
+    const { requestURL, requestHeaders } = this.getParameters({
+      uri: "/logout",
+      headerObj: config && config.headerObj,
+    });
+
+    const result = await this.getResult<AuthLogoutResponse>({
+      requestMethod: "POST",
+      requestURL,
+      requestHeaders,
     });
 
     return result;
