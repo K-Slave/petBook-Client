@@ -8,27 +8,14 @@
     "start": "next start",
     "lint": "next lint",
     "build:notify": "ts-node ./scripts/preRunner.ts && next build 1> buildLog.txt 2> errorLog.txt && ts-node ./scripts/postRunner.ts || ts-node ./scripts/postRunner.ts",
-    "export": "next export"
+    "prepare": "cd .. && husky install",
+    "temp": "cd .. && npx husky add .husky/pre-commit yarn lint-staged"
   },
   "lint-staged": {
-    "*.js": [
+    "./**/*.{js,jsx,ts,tsx}": [
       "eslint --fix",
-      "git add"
-    ],
-    "*.ts": [
-      "eslint --fix",
-      "git add"
-    ],
-    "*.tsx": [
-      "eslint --fix",
-      "git add"
+      "prettier --write"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm test"
-    }
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -90,7 +77,7 @@
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.10",
-    "husky": "^8.0.1",
+    "husky": "^8.0.3",
     "jsdoc": "^3.6.11",
     "lint-staged": "^13.2.0",
     "ngrok": "^4.3.1",
