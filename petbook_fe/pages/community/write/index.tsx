@@ -10,7 +10,7 @@ import WriteSubmit from "@components/write/WriteSubmit";
 import styles from "../../../styles/Write.module.scss";
 import {
   articleRequest,
-  categorySprRequest,
+  categoryRequest,
   imgRequest,
 } from "../../../lib/API/petBookAPI";
 import {
@@ -28,7 +28,7 @@ export const ARTICLE_CREATE = createRequest({
 
 export const CATEGORY_LIST = createResource({
   key: ["CATEGORY_LIST"],
-  fetcher: categorySprRequest.category_list,
+  fetcher: categoryRequest.category_list,
 });
 
 export const IMG_CREATE = createRequest({
