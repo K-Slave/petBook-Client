@@ -43,7 +43,6 @@ const HospitalMapGlobalStyle = createGlobalStyle`
 `;
 
 const HospitalMap: NextPage = () => {
-  let temp = "";
   useEffect(() => {
     return () => {
       removeScrollPosition();
