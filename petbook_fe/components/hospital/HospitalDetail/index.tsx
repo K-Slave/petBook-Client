@@ -29,7 +29,11 @@ const HospitalDetail = ({ id }: { id: number }) => {
   });
   const router = useRouter();
   const goBack = () => {
-    router.back();
+    if (window.history.length <= 2) {
+      router.push("/hospitalmap");
+    } else {
+      router.back();
+    }
   };
   if (!data) {
     return (
