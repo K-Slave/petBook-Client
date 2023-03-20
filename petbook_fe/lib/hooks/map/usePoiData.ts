@@ -3,9 +3,8 @@ import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
 import { cookieRequest } from "@lib/API/petBookAPI";
 import hospitalOptions from "@lib/commonValue/hospitalOptions";
 import keyName from "@lib/commonValue/keyName";
+import { HOSPITAL_LIST } from "@lib/commonValue/queries";
 import { convRectBoundsToBoundary } from "@lib/utils/kakaoMaps/getRectBounds";
-import localConsole from "@lib/utils/localConsole";
-import { HOSPITAL_LIST } from "@pages/hospitalmap";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import useResource from "../common/useResource";
@@ -20,23 +19,15 @@ const usePoiData = () => {
   const page = currentPage - 1;
   const boundary = convRectBoundsToBoundary(rectBounds);
 
-  localConsole?.log(rectBounds, "rectBounds");
-
-  const fetchParams = {
-    page,
-    size: hospitalOptions.size,
-    boundary,
-  };
-
-  localConsole?.log(fetchParams, "fetchParams");
-
-  const { data, status } = useResource({
-    key: [HOSPITAL_LIST.key[0], fetchParams],
-    fetcher: () =>
-      HOSPITAL_LIST.fetcher({
-        params: fetchParams,
-      }),
-  });
+  const { data, status } = useResource(
+    HOSPITAL_LIST.createQuery({
+      params: {
+        page,
+        size: hospitalOptions.size,
+        boundary,
+      },
+    })
+  );
 
   // const patchCookie = async () => {
   //   await cookieRequest.patchCookie({

@@ -6,14 +6,24 @@ import {
   ButtonBoxDiv,
   LineDiv,
 } from "@components/hospital/HospitalDetail/styled";
+import { HOSPITAL_DETAIL } from "@lib/commonValue/queries";
+import useResource from "@lib/hooks/common/useResource";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
 const HospitalDetailContainer = () => {
-  const router = useRouter(); // to get id
+  const router = useRouter();
   const id = router.query.id as string;
 
-  // TODO: add useResource
+  const { data } = useResource(
+    HOSPITAL_DETAIL.createQuery({
+      pathParam: id,
+    })
+  );
+  if (!data) {
+    // TODO: add skeleton ui
+    return null;
+  }
   return (
     <>
       <Image
@@ -22,8 +32,8 @@ const HospitalDetailContainer = () => {
       />
       <Container>
         <section className="Section">
-          <h1 className="Title">병원명이 들어가요</h1>
-          <HospitalBasicInfo address="위치가 들어가요" />
+          <h1 className="Title">{data.data.name}</h1>
+          <HospitalBasicInfo address={data.data.address} />
           <PossibleAnimalList />
           <ButtonBox divider id={Number(id)} />
         </section>

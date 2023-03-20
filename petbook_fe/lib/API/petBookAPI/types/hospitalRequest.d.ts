@@ -25,10 +25,12 @@ export interface HospitalFullInfo {
   };
 }
 
-export type HospitalListResponse = {
+export interface HospitalListResponse {
   totalCount: number;
   hospitals: HospitalFullInfo[];
-};
+}
+
+export type HospitalDetailResponse = HospitalInfo;
 
 export interface HospitalListRequest {
   id?: number;

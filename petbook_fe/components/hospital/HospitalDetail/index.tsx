@@ -5,28 +5,21 @@ import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
 import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
 import Stats from "@components/common/hospital/Stats";
 import useResource from "@lib/hooks/common/useResource";
-import { HOSPITAL_LIST } from "@pages/hospitalmap";
 import Skeleton from "@components/common/Skeleton/Skeleton";
 import HospitalReview from "@components/hospital/HospitalReview";
 import HospitalDetailReview from "@components/hospital/HospitalDetailReview";
 import PencilEditIcon from "@components/common/icon/PencilEdit";
 import ShareForwardIcon from "@components/common/icon/ShareFoward";
 import useModal from "@lib/hooks/common/useModal";
-import hospitalOptions from "@lib/commonValue/hospitalOptions";
 import { Section, LineDiv, ButtonBoxDiv, Divider } from "./styled";
+import { HOSPITAL_DETAIL } from "@lib/commonValue/queries";
 
 const HospitalDetail = ({ id }: { id: number }) => {
-  const { data } = useResource({
-    key: [HOSPITAL_LIST.key[0], { id }],
-    fetcher: () =>
-      HOSPITAL_LIST.fetcher({
-        params: {
-          id,
-          page: hospitalOptions.page,
-          size: 1,
-        },
-      }),
-  });
+  const { data } = useResource(
+    HOSPITAL_DETAIL.createQuery({
+      pathParam: String(id),
+    })
+  );
   const router = useRouter();
   const goBack = () => {
     if (window.history.length <= 2) {
@@ -53,7 +46,7 @@ const HospitalDetail = ({ id }: { id: number }) => {
             <ChevronLeft />
           </button>
           <div>
-            <h1>{data?.data.hospitals[0].hospitals.name}</h1>
+            <h1>{data?.data.name}</h1>
             <Stats />
           </div>
         </header>
@@ -67,9 +60,7 @@ const HospitalDetail = ({ id }: { id: number }) => {
       </div>
       <LineDiv />
       <div className="wrapper">
-        <HospitalBasicInfo
-          address={data?.data.hospitals[0].hospitals.address}
-        />
+        <HospitalBasicInfo address={data?.data.address} />
         <PossibleAnimalList />
       </div>
       <LineDiv />

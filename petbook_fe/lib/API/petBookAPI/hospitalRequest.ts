@@ -1,41 +1,42 @@
 import { AxiosRequestHeaders } from "axios";
 import RequestCore from "./RequestCore";
+import { HospitalDetailResponse } from "./types/hospitalRequest";
 
 export default class HospitalAPI extends RequestCore {
-  public hospital_list = async (payload?: {
+  public hospital_detail = async (payload: {
     header?: AxiosRequestHeaders;
-    params?: {
+    pathParam: string;
+  }) => {
+    const { requestURL, requestHeaders } = this.getParameters({
+      headerObj: payload.header,
+      pathParam: payload.pathParam,
+    });
+    const result = await this.getResult<HospitalDetailResponse>({
+      requestMethod: "GET",
+      requestURL,
+      requestHeaders,
+    });
+    return result;
+  };
+
+  public hospital_list = async (payload: {
+    header?: AxiosRequestHeaders;
+    params: {
       id?: number;
       name?: string;
       address?: string;
-      page: number | 0;
-      size: number | 50;
+      page: number;
+      size: number;
       boundary?: string;
     };
   }) => {
-    const pageParam =
-      payload && payload.params && typeof payload.params.page === "number"
-        ? payload.params.page
-        : 0;
-
-    const sizeParams =
-      payload && payload.params && typeof payload.params.size === "number"
-        ? payload.params.size
-        : 50;
-
-    const boundaryParams =
-      payload && payload.params && typeof payload.params.boundary === "string"
-        ? payload.params.boundary
-        : "";
-
+    const { header, params } = payload;
     const { requestURL, requestHeaders } = this.getParameters({
       uri: "/list",
-      headerObj: payload?.header,
+      headerObj: header,
       params: {
-        ...payload?.params,
-        page: pageParam,
-        size: sizeParams,
-        boundary: boundaryParams,
+        ...payload.params,
+        boundary: params.boundary || "",
       },
     });
 
