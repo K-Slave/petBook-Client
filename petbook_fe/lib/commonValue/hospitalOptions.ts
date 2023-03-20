@@ -1,6 +1,6 @@
 const hospitalOptions = {
-  latitude: 127.03320108,
-  longitude: 37.49542431,
+  latitude: 37.49542431,
+  longitude: 127.03320108,
   size: 50,
   page: 0,
   boundary:

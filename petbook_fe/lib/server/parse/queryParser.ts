@@ -8,6 +8,7 @@ import cookies from "next-cookies";
 import { HospitalListRequest } from "@lib/API/petBookAPI/types/hospitalRequest";
 import hospitalOptions from "@lib/commonValue/hospitalOptions";
 import keyName from "@lib/commonValue/keyName";
+import localConsole from "@lib/utils/localConsole";
 
 export default async function queryParser(
   ctx: NextPageContext,
@@ -65,6 +66,8 @@ export default async function queryParser(
 
       fetchParams = cleanObject(fetchParams);
       fetchKey = [...resource.key, fetchParams];
+
+      localConsole?.log(fetchParams, "fetchParams");
 
       await client.fetchQuery(fetchKey, () =>
         resource.fetcher({
