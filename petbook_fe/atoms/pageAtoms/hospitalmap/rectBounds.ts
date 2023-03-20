@@ -4,6 +4,7 @@ import {
   convBoundaryToRectBounds,
   Coordinates,
 } from "@lib/utils/kakaoMaps/getRectBounds";
+import localConsole from "@lib/utils/localConsole";
 import Cookies from "js-cookie";
 import { atom } from "recoil";
 
