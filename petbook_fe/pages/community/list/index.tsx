@@ -4,7 +4,7 @@ import {
 } from "@components/community/CategoryNav/styled";
 import WriteButton from "@components/community/WriteButton";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
-import { articleRequest, categorySprRequest } from "@lib/API/petBookAPI";
+import { articleRequest, categoryRequest } from "@lib/API/petBookAPI";
 import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequest";
 import { createResource } from "@lib/hooks/common/useResource";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
@@ -55,7 +55,7 @@ export const createArticleListResource = ({
 
 export const CATEGORY_LIST = createResource({
   key: ["CATEGORY_LIST"],
-  fetcher: () => categorySprRequest.category_list(),
+  fetcher: () => categoryRequest.category_list(),
 });
 
 const ArticleListPage = ({

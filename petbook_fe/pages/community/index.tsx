@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import React from "react";
 import styled from "styled-components";
-import { articleRequest, categorySprRequest } from "@lib/API/petBookAPI";
+import { articleRequest, categoryRequest } from "@lib/API/petBookAPI";
 import CommunityBanner from "@components/community/CommunityBanner";
 import WriteButton from "@components/community/WriteButton";
 import { createResource } from "@lib/hooks/common/useResource";
@@ -20,7 +20,7 @@ import hospitalOptions from "@lib/commonValue/hospitalOptions";
 
 export const CATEGORY_LIST = createResource({
   key: ["CATEGORY_LIST"],
-  fetcher: categorySprRequest.category_list,
+  fetcher: categoryRequest.category_list,
 });
 
 export const HOT_ARTICLE_LIST = createResource({
