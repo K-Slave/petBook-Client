@@ -1,6 +1,11 @@
 import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
 import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
-import getRectBounds, { Coordinates } from "@lib/utils/kakaoMaps/getRectBounds";
+import { cookieRequest } from "@lib/API/petBookAPI";
+import keyName from "@lib/commonValue/keyName";
+import getRectBounds, {
+  convRectBoundsToBoundary,
+  Coordinates,
+} from "@lib/utils/kakaoMaps/getRectBounds";
 import { useMap } from "react-kakao-maps-sdk";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import useDidMountEffect from "../common/useDidMountEffect";
@@ -23,7 +28,20 @@ const useGetRect = () => {
     };
 
     const rectBounds = getRectBounds(SW_Coordinates, NE_Coordinates);
+    const boundary = convRectBoundsToBoundary(rectBounds);
 
+    const patchCookie = async () => {
+      await cookieRequest.patchCookie({
+        body: {
+          key: keyName.location,
+          value: {
+            boundary,
+          },
+        },
+      });
+    };
+
+    patchCookie();
     setCurrentRectBounds(rectBounds);
   }, [currentGeoLocation]);
 };

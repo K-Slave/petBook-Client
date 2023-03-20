@@ -10,6 +10,7 @@ import { getScrollPosition } from "@lib/modules/localStorage";
 import navigator from "@lib/modules/navigator";
 import { removeQuery, replaceQuery } from "@lib/modules/queryString";
 import { convRectBoundsToBoundary } from "@lib/utils/kakaoMaps/getRectBounds";
+import localConsole from "@lib/utils/localConsole";
 import { HOSPITAL_LIST } from "@pages/hospitalmap";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
@@ -29,8 +30,11 @@ const HospitalList = () => {
     size: 50,
     boundary,
   };
+
+  localConsole?.log(fetchParams, "fetchParams");
+
   const { data, status } = useResource({
-    key: [HOSPITAL_LIST.key[0], { fetchParams }],
+    key: [HOSPITAL_LIST.key[0], fetchParams],
     fetcher: () =>
       HOSPITAL_LIST.fetcher({
         params: fetchParams,
