@@ -63,4 +63,9 @@ export interface HospitalReveiwRequest {
   experience: string;
 }
 
+export interface HospitalReveiwImgProps {
+  idx: number;
+  src: string | ArrayBuffer | null | undefined | any;
+}
+
 // export interface HospitalCreateRequest {}

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { usePage } from "@components/common/Pagination/usePagination";
 import { useRouter } from "next/router";
-import { hospitalRequest } from "@lib/API/petBookAPI";
 import { useMutation } from "@tanstack/react-query";
 import {
   HOSPITAL_REVIEW_LIST,

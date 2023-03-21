@@ -1,13 +1,13 @@
-import { IconBox, InputBox } from "@components/find/style/styledFindSubmit";
-import OnClickOutside from "@components/common/OnClickOutside";
 import React, { ChangeEvent, useEffect, useState } from "react";
+import OnClickOutside from "@components/common/OnClickOutside";
+import Image from "next/image";
+import { HospitalReveiwImgProps } from "@lib/API/petBookAPI/types/hospitalRequest";
 import { HOSPITAL_REVIEW_CREATE } from "@pages/hospitalmap";
-
 import { reviewFormState } from "@atoms/pageAtoms/hospitalmap/reviewState";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useSetResource } from "@lib/hooks/common/useResource";
 
-import Image from "next/image";
+import { IconBox, InputBox } from "@components/find/style/styledFindSubmit";
 import {
   ReviewWarp,
   ReviewHeader,
@@ -20,7 +20,6 @@ import {
   ImgBox,
 } from "./styled";
 
-// 가라데이터
 const PETDATA = [
   {
     title: "토토",
@@ -38,7 +37,6 @@ const PETDATA = [
     select: false,
   },
 ];
-// 버튼!
 const REACTION = [
   {
     title: "좋았어요!",
@@ -50,28 +48,22 @@ const REACTION = [
   },
 ];
 
-interface Props {
-  idx: number;
-  src: string | ArrayBuffer | null | undefined | any;
-}
-
 const ImgWrap = () => {
-  const [imgArr, setImgArr] = useState<Props[]>([]);
-  // async
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const [imgArr, setImgArr] = useState<HospitalReveiwImgProps[]>([]);
+  const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       if (imgArr.length > 10) {
         return alert("최대 10개 사진만 첨부할 수 있습니다.");
       }
       const reader = new FileReader();
       reader.onload = () => {
-        const data: Props[] = [
+        const data: HospitalReveiwImgProps[] = [
           ...imgArr,
           { idx: imgArr.length, src: reader.result },
         ];
         setImgArr([...data]);
       };
-      reader.readAsDataURL(e.target.files[0]);
+      await reader.readAsDataURL(e.target.files[0]);
     }
   };
 
