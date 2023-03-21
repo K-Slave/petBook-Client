@@ -54,7 +54,7 @@ const REACTION = [
 
 const ImgWrap = () => {
   const [imgArr, setImgArr] = useState<HospitalReveiwImgProps[]>([]);
-  const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       if (imgArr.length > 10) {
         return alert("최대 10개 사진만 첨부할 수 있습니다.");
@@ -67,7 +67,7 @@ const ImgWrap = () => {
         ];
         setImgArr([...data]);
       };
-      await reader.readAsDataURL(e.target.files[0]);
+      reader.readAsDataURL(e.target.files[0]);
     }
   };
 
@@ -125,8 +125,8 @@ const HospitalReview = ({
   const reviewForm = useRecoilValue(reviewFormState);
   const { data, mutate, status } = useSetResource(HOSPITAL_REVIEW_CREATE);
 
-  const onSubmit = async () => {
-    await mutate(reviewForm);
+  const onSubmit = () => {
+    mutate(reviewForm);
     queryClient.invalidateQueries({ queryKey: HOSPITAL_REVIEW_LIST.key });
   };
 
@@ -145,7 +145,7 @@ const HospitalReview = ({
     };
   }, []);
 
-  const AddIndex = async () => {
+  const AddIndex = () => {
     setNewIndex(newIndex + 1);
     reveiwIndex.push(newIndex);
     setReviewIndex([...reveiwIndex]);
