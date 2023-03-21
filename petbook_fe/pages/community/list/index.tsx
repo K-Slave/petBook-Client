@@ -3,17 +3,15 @@ import {
   CategoryNavButton,
 } from "@components/community/CategoryNav/styled";
 import WriteButton from "@components/community/WriteButton";
-import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { articleRequest, categoryRequest } from "@lib/API/petBookAPI";
 import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequest";
 import { createResource } from "@lib/hooks/common/useResource";
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
-import { useEffect } from "react";
+import { GetServerSidePropsContext } from "next";
 import styled from "styled-components";
 import ArticleListContainer from "@containers/article/ArticleListContainer";
 import { dehydrate } from "@tanstack/react-query";
 import createQueryClient from "@lib/utils/createQueryClient";
-import getToken from "@lib/server/parse/getToken";
+import { withAuthServerSideProps } from "@lib/server/getServerSideWrapper";
 
 export const createArticleListResource = ({
   category,
@@ -58,14 +56,7 @@ export const CATEGORY_LIST = createResource({
   fetcher: () => categoryRequest.category_list(),
 });
 
-const ArticleListPage = ({
-  token,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  useEffect(() => {
-    if (token) {
-      sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
-    }
-  }, [token]);
+const ArticleListPage = () => {
   return (
     <Main>
       <ArticleListContainer />
@@ -74,29 +65,29 @@ const ArticleListPage = ({
   );
 };
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const { token } = getToken(ctx, { decode: false });
-  const queryClient = createQueryClient();
-  const { query } = ctx;
-  const page = Number(query.page);
-  const searchText = query.query as string | undefined;
-  const [name, id] = query.category
-    ? (query.category as string).split("_")
-    : ["전체", 0];
-  const ARTICLE_LIST = createArticleListResource({
-    category: { id: Number(id), name },
-    searchText,
-    page: Number.isNaN(page) ? 1 : page,
-  });
-  await queryClient.fetchQuery(CATEGORY_LIST.key, CATEGORY_LIST.fetcher);
-  await queryClient.fetchQuery(ARTICLE_LIST.key, ARTICLE_LIST.fetcher);
-  return {
-    props: {
-      token,
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-    },
-  };
-};
+export const getServerSideProps = withAuthServerSideProps(
+  async (ctx: GetServerSidePropsContext) => {
+    const queryClient = createQueryClient();
+    const { query } = ctx;
+    const page = Number(query.page);
+    const searchText = query.query as string | undefined;
+    const [name, id] = query.category
+      ? (query.category as string).split("_")
+      : ["전체", 0];
+    const ARTICLE_LIST = createArticleListResource({
+      category: { id: Number(id), name },
+      searchText,
+      page: Number.isNaN(page) ? 1 : page,
+    });
+    await queryClient.fetchQuery(CATEGORY_LIST.key, CATEGORY_LIST.fetcher);
+    await queryClient.fetchQuery(ARTICLE_LIST.key, ARTICLE_LIST.fetcher);
+    return {
+      props: {
+        dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+      },
+    };
+  }
+);
 
 const Main = styled.main`
   max-width: 1330px;
