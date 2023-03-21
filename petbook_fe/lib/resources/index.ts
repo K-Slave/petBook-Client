@@ -3,7 +3,7 @@ import keyName from "@lib/commonValue/keyName";
 import cookies from "next-cookies";
 import type { Key } from "@lib/hooks/common/useResource";
 import type { UserLocationData } from "@lib/types/CacheData";
-import type { QueryClient } from "@tanstack/react-query";
+import { type QueryClient, useQuery } from "@tanstack/react-query";
 import type { NextPage, NextPageContext } from "next";
 import { HOSPITAL_LIST, HOSPITAL_DETAIL } from "./hospital";
 
@@ -24,9 +24,16 @@ export function getCreateQueryFn<T, P extends object>({
   return (payload: P) => {
     return {
       key: createKey(payload),
-      fetcher: () => fetcher(payload),
+      fetcher: async () => await fetcher(payload),
     };
   };
+}
+
+export function useResourceNew<T>(resource: {
+  key: Key;
+  fetcher: () => Promise<T>;
+}) {
+  return useQuery(resource.key, resource.fetcher);
 }
 
 export type Resource = typeof HOSPITAL_LIST | typeof HOSPITAL_DETAIL;

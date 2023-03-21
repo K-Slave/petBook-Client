@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
 import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
 import Stats from "@components/common/hospital/Stats";
-import useResource from "@lib/hooks/common/useResource";
 import Skeleton from "@components/common/Skeleton/Skeleton";
 import HospitalReview from "@components/hospital/HospitalReview";
 import HospitalDetailReview from "@components/hospital/HospitalDetailReview";
@@ -14,9 +13,10 @@ import useModal from "@lib/hooks/common/useModal";
 import { Section, LineDiv, ButtonBoxDiv, Divider } from "./styled";
 import { HOSPITAL_DETAIL } from "@lib/resources/hospital";
 import Link from "next/link";
+import { useResourceNew } from "@lib/resources";
 
 const HospitalDetail = ({ id }: { id: number }) => {
-  const { data } = useResource(
+  const { data } = useResourceNew(
     HOSPITAL_DETAIL.createQuery({
       pathParam: String(id),
     })

@@ -17,6 +17,7 @@ import { useRecoilValue } from "recoil";
 import CurrentGps from "../CurrentGps";
 import HospitalItem from "../HospitalItem";
 import { FilterButton, FilterDiv, Section } from "./styled";
+import { useResourceNew } from "@lib/resources";
 
 const HospitalList = () => {
   const ref = useRef<HTMLElement | null>(null);
@@ -25,7 +26,7 @@ const HospitalList = () => {
   const rectBounds = useRecoilValue(rectBoundsState);
   const boundary = convRectBoundsToBoundary(rectBounds);
 
-  const { data, status } = useResource(
+  const { data, status } = useResourceNew(
     HOSPITAL_LIST.createQuery({
       params: {
         page,

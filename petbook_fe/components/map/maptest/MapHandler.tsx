@@ -11,6 +11,7 @@ import { HOSPITAL_LIST } from "@lib/resources/hospital";
 import React, { useEffect, useRef } from "react";
 import { MapInfoWindowDiv } from "./MapHandler.style";
 import hospitalOptions from "@lib/commonValue/hospitalOptions";
+import { useResourceNew } from "@lib/resources";
 
 const MapHandler = ({
   mapRef,
@@ -36,7 +37,7 @@ const Init = ({
   mapRef: React.RefObject<HTMLDivElement>;
   infoWindowRef: React.RefObject<HTMLDivElement>;
 }) => {
-  const hospital = useResource(
+  const hospital = useResourceNew(
     HOSPITAL_LIST.createQuery({
       params: {
         page: hospitalOptions.page,

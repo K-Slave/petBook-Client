@@ -7,7 +7,7 @@ import {
   LineDiv,
 } from "@components/hospital/HospitalDetail/styled";
 import { HOSPITAL_DETAIL } from "@lib/resources/hospital";
-import useResource from "@lib/hooks/common/useResource";
+import { useResourceNew } from "@lib/resources";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
@@ -15,7 +15,7 @@ const HospitalDetailContainer = () => {
   const router = useRouter();
   const id = router.query.id as string;
 
-  const { data } = useResource(
+  const { data } = useResourceNew(
     HOSPITAL_DETAIL.createQuery({
       pathParam: id,
     })
