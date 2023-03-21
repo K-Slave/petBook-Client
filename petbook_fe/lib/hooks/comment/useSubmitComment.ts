@@ -4,11 +4,11 @@ import { useRouter } from "next/router";
 import { useMutation } from "@tanstack/react-query";
 import { useSetRecoilState } from "recoil";
 import { commentRequest } from "@lib/API/petBookAPI";
-import useUserId from "../article/useUserId";
+import useUserInfo from "../common/useUserInfo";
 
 export default function useSubmitComment(onSuccess: () => Promise<unknown>) {
   const router = useRouter();
-  const userId = useUserId();
+  const { userData } = useUserInfo();
   const setComment = useSetRecoilState(commentState);
   const { mutate: createComment, isLoading: isCreating } = useMutation(
     commentRequest.comment_create
@@ -20,7 +20,7 @@ export default function useSubmitComment(onSuccess: () => Promise<unknown>) {
 
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (userId === null) {
+    if (!userData) {
       alert("🔒 로그인해주세요!");
       return;
     }

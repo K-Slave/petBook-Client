@@ -1,8 +1,8 @@
 import { usePage } from "@components/common/Pagination/usePagination";
 import { hospitalRequest } from "@lib/API/petBookAPI";
-import useUserId from "@lib/hooks/article/useUserId";
 import useModal from "@lib/hooks/common/useModal";
 import useResource, { createResource } from "@lib/hooks/common/useResource";
+import useUserInfo from "@lib/hooks/common/useUserInfo";
 import { HOSPITAL_REVIEW_LIST } from "@pages/hospitalmap";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -20,7 +20,7 @@ import {
 
 const HospitalDetailReview = () => {
   const router = useRouter();
-  const userId = useUserId();
+  const { userData } = useUserInfo();
 
   const id = Number(router.query.id);
   const page = usePage() - 1;

@@ -2,7 +2,6 @@ import DropdownMenu from "@components/common/DropdownMenu";
 import { BsArrowReturnRight } from "react-icons/bs";
 import CommonInfo from "@components/community/CommonInfo";
 import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
-import useUserId from "@lib/hooks/article/useUserId";
 import { commentRequest } from "@lib/API/petBookAPI";
 import { useRef, useState } from "react";
 import useChangeComment from "@lib/hooks/comment/useChangeComment";
@@ -20,6 +19,7 @@ import {
 } from "./styled";
 import LikeButton from "../../LikeButton";
 import { CommentFormTextarea } from "../CommentForm/styled";
+import useUserInfo from "@lib/hooks/common/useUserInfo";
 
 const avatar =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
@@ -30,7 +30,7 @@ export const NormalItem = ({
   clickDeleteMenu,
 }: ItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
-  const userId = useUserId();
+  const { userData } = useUserInfo();
   const { user, createdAt, content, likeCount, id, articleId, isLiked } =
     comment;
   const menuList = [
@@ -54,7 +54,7 @@ export const NormalItem = ({
             avatar={avatar}
             year={1}
           />
-          {userId === user.id && !isEditing && (
+          {userData?.id === user.id && !isEditing && (
             <DropdownMenu menuList={menuList} />
           )}
         </div>
@@ -88,7 +88,7 @@ export const NormalItem = ({
 export const QnaItem = ({ comment, isChild, clickDeleteMenu }: ItemProps) => {
   const { user, createdAt, content, likeCount, id, articleId, isLiked } =
     comment;
-  const userId = useUserId();
+  const { userData } = useUserInfo();
   const [isEditing, setIsEditing] = useState(false);
   const menuList = [
     {
@@ -120,7 +120,7 @@ export const QnaItem = ({ comment, isChild, clickDeleteMenu }: ItemProps) => {
           ) : (
             <p className="Item_Content">{content}</p>
           )}
-          {userId === user.id && !isEditing && (
+          {userData?.id === user.id && !isEditing && (
             <DropdownMenu menuList={menuList} />
           )}
         </div>

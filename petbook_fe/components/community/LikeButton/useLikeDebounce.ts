@@ -7,9 +7,8 @@ import {
   useRef,
   useState,
 } from "react";
-import useUserId from "@lib/hooks/article/useUserId";
-import { useSetResource } from "@lib/hooks/common/useResource";
 import { useMutation } from "@tanstack/react-query";
+import useUserInfo from "@lib/hooks/common/useUserInfo";
 
 export interface updateIsLikedParams {
   commentId: number;
@@ -18,8 +17,8 @@ export interface updateIsLikedParams {
 }
 
 function useUpdateLikeDebounce({
- createLike,
-deleteLike
+  createLike,
+  deleteLike,
 }: Pick<LikeButtonProps, "createLike" | "deleteLike">) {
   const { mutate: createLikeComment } = useMutation(createLike);
   const { mutate: deleteLikeComment } = useMutation(deleteLike);
@@ -75,17 +74,17 @@ export default function useLikeDebounce({
   liked,
   likeCount,
   createLike,
-  deleteLike
+  deleteLike,
 }: LikeButtonProps) {
-  const userId = useUserId();
+  const { userData } = useUserInfo();
   const initialLiked = useRef(liked);
   const [isLiked, setIsLiked] = useState(liked);
   const updateIsLiked = useUpdateLikeDebounce({
     createLike,
-    deleteLike
+    deleteLike,
   });
   const clickLikeButton: MouseEventHandler<HTMLButtonElement> = () => {
-    if (userId === null) {
+    if (!userData) {
       alert("🔒 로그인해주세요!");
       return;
     }
@@ -94,9 +93,10 @@ export default function useLikeDebounce({
   };
 
   return {
-    isLiked,
+    isLiked: userData ? isLiked : false,
     clickLikeButton,
-    computedLikeCount:
-      likeCount + (!liked && isLiked ? 1 : liked && !isLiked ? -1 : 0),
+    computedLikeCount: userData
+      ? likeCount + (!liked && isLiked ? 1 : liked && !isLiked ? -1 : 0)
+      : likeCount,
   };
 }
