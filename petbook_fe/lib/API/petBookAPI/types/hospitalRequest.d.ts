@@ -40,10 +40,26 @@ export interface HospitalListRequest {
 }
 
 export interface HospitalReveiwRequest {
-  hospitalId: number;
-  content: string;
+  id: number;
+  hospital: {
+    id: number;
+    name: string;
+  };
+  user: {
+    id: number;
+    nickname: string;
+  };
   disease: string;
-  imageIds?: number[];
+  content: string;
+  createdAt: string;
+  images: [
+    {
+      id: number;
+      imageUrl: string;
+    }
+  ];
+  isLike: boolean;
+  likeCount: number;
   experience: string;
 }
 

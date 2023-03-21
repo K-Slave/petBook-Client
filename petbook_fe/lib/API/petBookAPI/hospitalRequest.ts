@@ -132,6 +132,24 @@ export default class HospitalAPI extends RequestCore {
     return result;
   };
 
+  public hospital_review_remove = async (payload: {
+    pathParam: string;
+    headerObj?: object;
+  }) => {
+    const { pathParam, headerObj } = payload;
+    const { requestURL, requestHeaders } = this.getParameters({
+      pathParam,
+      headerObj,
+    });
+    const result = await this.getResult({
+      requestMethod: "DELETE",
+      requestURL,
+      requestHeaders,
+    });
+
+    return result;
+  };
+
   public hospital_review_list = async (payload?: {
     header?: AxiosRequestHeaders;
     params: {

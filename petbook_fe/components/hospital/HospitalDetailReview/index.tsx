@@ -1,11 +1,17 @@
+import React, { useState } from "react";
 import { usePage } from "@components/common/Pagination/usePagination";
+import { useRouter } from "next/router";
 import { hospitalRequest } from "@lib/API/petBookAPI";
+import { useMutation } from "@tanstack/react-query";
+import {
+  HOSPITAL_REVIEW_LIST,
+  HOSPITAL_REVIEW_REMOVE,
+} from "@pages/hospitalmap";
+import { HospitalReveiwRequest } from "@lib/API/petBookAPI/types/hospitalRequest";
 import useUserId from "@lib/hooks/article/useUserId";
 import useModal from "@lib/hooks/common/useModal";
-import useResource, { createResource } from "@lib/hooks/common/useResource";
-import { HOSPITAL_REVIEW_LIST } from "@pages/hospitalmap";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
+import useResource from "@lib/hooks/common/useResource";
+
 import HospitalReview from "../HospitalReview";
 import {
   ReviewBox,
@@ -21,9 +27,9 @@ import {
 const HospitalDetailReview = () => {
   const router = useRouter();
   const userId = useUserId();
-
   const id = Number(router.query.id);
   const page = usePage() - 1;
+
   const { data } = useResource({
     key: [HOSPITAL_REVIEW_LIST.key[0], { id }],
     fetcher: () =>
@@ -39,9 +45,11 @@ const HospitalDetailReview = () => {
   return (
     <ReviewContainer>
       <ReviewContainerHeader>
-        <h3>
-          리뷰 <span>{data?.data.totalElements}</span>
-        </h3>
+        {data && (
+          <h3>
+            리뷰 <span>{data?.data.totalElements}</span>
+          </h3>
+        )}
       </ReviewContainerHeader>
       {data?.data.reviews.map((item) => {
         console.log(item);
@@ -58,7 +66,9 @@ const HospitalDetailReview = () => {
                   <span>{item.createdAt.substring(0, 10)}</span>
                 </p>
               </div>
-              <HospitalDetailReview.SettingBtn id={Number(router.query.id)} />
+              {userId === item.user.id && (
+                <HospitalDetailReview.SettingBtn item={item} />
+              )}
             </ReviewBoxHeader>
             <ReviewBoxImgSlide state={item.images}>
               {item.images?.map((img) => {
@@ -73,21 +83,35 @@ const HospitalDetailReview = () => {
   );
 };
 
-const SettingBtn = ({ id }: { id: number }) => {
+const SettingBtn = ({ item }: { item: HospitalReveiwRequest }) => {
   const [btnState, setBtnState] = useState(false);
+  const { openModal, closeModal } = useModal();
+  const { mutate } = useMutation(HOSPITAL_REVIEW_REMOVE.requester);
   const onClick = () => {
     setBtnState(!btnState);
   };
-  const { openModal, closeModal } = useModal();
   const openReviewModal = (hospitalId: number) => {
     openModal(HospitalReview, {
       closeModal,
       hospitalId,
     });
   };
-  const removeReview = () => {
-    alert("삭제 하는중");
+
+  const deleteReview = (id: number) => {
+    mutate(
+      { pathParam: `/review/${id}` },
+      {
+        onError: (e: any) => {
+          alert(e.response.data.message);
+        },
+      }
+    );
   };
+
+  const removeReview = (id: number) => {
+    deleteReview(id);
+  };
+
   const reportReview = () => {
     alert("신고 하는중");
   };
@@ -100,8 +124,8 @@ const SettingBtn = ({ id }: { id: number }) => {
       {/* {btnState && ( */}
       <article>
         <ul>
-          <li onClick={() => openReviewModal(id)}>수정</li>
-          <li onClick={removeReview}>삭제</li>
+          <li onClick={() => openReviewModal(item.hospital.id)}>수정</li>
+          <li onClick={() => removeReview(item.id)}>삭제</li>
           <li onClick={reportReview}>신고</li>
         </ul>
       </article>
