@@ -20,6 +20,10 @@ export const HOSPITAL_REVIEW_CREATE = createRequest({
   key: ["HOSPITAL_REVIEW_CREATE"],
   requester: hospitalRequest.hospital_review_create,
 });
+export const HOSPITAL_REVIEW_REMOVE = createRequest({
+  key: ["HOSPITAL_REVIEW_REMOVE"],
+  requester: hospitalRequest.hospital_review_remove,
+});
 export const IMG_CREATE = createRequest({
   key: ["IMG_CREATE"],
   requester: imgRequest.img_create,

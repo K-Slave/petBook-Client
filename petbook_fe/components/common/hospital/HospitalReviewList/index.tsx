@@ -17,7 +17,6 @@ export const PointReviewList = (hospitals: HospitalFullInfo) => {
       hospitalId,
     });
   };
-
   return (
     <section>
       {hospitals.worstReview.worstId === 0 ? (
@@ -38,10 +37,7 @@ export const PointReviewList = (hospitals: HospitalFullInfo) => {
             <div className="Happy_Color" />
             <p>좋았어요</p>
           </ReveiwBoxHeader>
-          <ReveiwBoxBody>
-            “리뷰가 들어갑니다. 리뷰가 들어갑니다. 리뷰가 들어갑니다.리뷰가
-            들어갑니다.리뷰가 들어갑니다.”
-          </ReveiwBoxBody>
+          <ReveiwBoxBody>{hospitals.bestReview.bestContent}</ReveiwBoxBody>
         </ReviewBox>
       )}
       {hospitals.bestReview.bestId === 0 ? (
@@ -62,10 +58,7 @@ export const PointReviewList = (hospitals: HospitalFullInfo) => {
             <div className="Frown_Color" />
             <p>나빳어요</p>
           </ReveiwBoxHeader>
-          <ReveiwBoxBody>
-            “리뷰가 들어갑니다. 리뷰가 들어갑니다. 리뷰가 들어갑니다.리뷰가
-            들어갑니다.리뷰가 들어갑니다.”
-          </ReveiwBoxBody>
+          <ReveiwBoxBody>{hospitals.worstReview.worstContent}</ReveiwBoxBody>
         </ReviewBox>
       )}
     </section>
