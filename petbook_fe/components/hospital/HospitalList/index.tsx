@@ -26,7 +26,7 @@ const HospitalList = () => {
   const rectBounds = useRecoilValue(rectBoundsState);
   const boundary = convRectBoundsToBoundary(rectBounds);
 
-  const { data, status } = useResourceNew(
+  const { data } = useResourceNew(
     HOSPITAL_LIST.createQuery({
       params: {
         page,
@@ -58,28 +58,33 @@ const HospitalList = () => {
         top: 0,
       });
     }
-  }, [page]);
+  }, [page, data]);
   return (
     <Section ref={ref}>
       <SearchBar placeholder="원하는 위치를 검색해보세요!" />
       <CurrentGps />
       <HospitalList.Filter />
       <div className="Item_Wrapper">
-        {status === "loading"
+        {!data
           ? Array(20)
               .fill("")
               .map((_, index) => (
                 <Skeleton width="100%" height="200px" key={index} />
               ))
-          : data?.data.hospitals.map((hospital) => (
+          : data.data.hospitals.map((hospital) => (
               <HospitalItem
                 key={hospital.hospitals.id}
-                {...hospital}
-                {...ref}
+                parent={ref}
+                hospitals={hospital}
               />
             ))}
       </div>
-      <Pagination buttonNum={5} totalPages={10} />
+      {data && (
+        <Pagination
+          buttonNum={5}
+          totalPages={Math.ceil(data.data.totalCount / hospitalOptions.size)}
+        />
+      )}
     </Section>
   );
 };
