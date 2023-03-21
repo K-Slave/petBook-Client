@@ -1,10 +1,10 @@
 import HospitalContainer from "@containers/map/HospitalContainer";
 import MapContainer from "@containers/map/MapContainer";
 import { hospitalRequest, imgRequest } from "@lib/API/petBookAPI";
-import { HOSPITAL_DETAIL, HOSPITAL_LIST } from "@lib/commonValue/queries";
+import { HOSPITAL_DETAIL, HOSPITAL_LIST } from "@lib/resources/hospital";
+import type { NextPageWithResources } from "@lib/resources";
 import { createRequest, createResource } from "@lib/hooks/common/useResource";
 import { removeScrollPosition } from "@lib/modules/localStorage";
-import type { NextPage } from "next";
 import { useEffect } from "react";
 import { createGlobalStyle } from "styled-components";
 
@@ -38,7 +38,7 @@ const HospitalMapGlobalStyle = createGlobalStyle`
   }
 `;
 
-const HospitalMap: NextPage = () => {
+const HospitalMap: NextPageWithResources = () => {
   useEffect(() => {
     return () => {
       removeScrollPosition();
@@ -53,11 +53,5 @@ const HospitalMap: NextPage = () => {
   );
 };
 
-type HospitalMapPageType = NextPage & {
-  requiredResources?: [typeof HOSPITAL_LIST, typeof HOSPITAL_DETAIL];
-};
-
-const HospitalMapPage: HospitalMapPageType = HospitalMap;
-HospitalMapPage.requiredResources = [HOSPITAL_LIST, HOSPITAL_DETAIL];
-
-export default HospitalMapPage;
+HospitalMap.requiredResources = [HOSPITAL_LIST, HOSPITAL_DETAIL];
+export default HospitalMap;

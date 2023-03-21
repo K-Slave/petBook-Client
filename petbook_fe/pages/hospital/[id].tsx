@@ -1,15 +1,11 @@
 import HospitalDetailContainer from "@containers/hospital/HospitalDetailContainer";
-import { HOSPITAL_DETAIL } from "@lib/commonValue/queries";
-import { NextPage } from "next";
+import { HOSPITAL_DETAIL } from "@lib/resources/hospital";
+import type { NextPageWithResources } from "@lib/resources";
 import styled from "styled-components";
 
-// TODO: add required resource (hospital, review)
+// TODO: add hospital review resource
 
-type Page = NextPage & {
-  requiredResources?: [typeof HOSPITAL_DETAIL];
-};
-
-const HospitalDetail: Page = () => {
+const HospitalDetail: NextPageWithResources = () => {
   return (
     <Main>
       <HospitalDetailContainer />

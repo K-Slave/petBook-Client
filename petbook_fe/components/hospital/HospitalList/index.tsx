@@ -4,7 +4,7 @@ import { usePage } from "@components/common/Pagination/usePagination";
 import SearchBar from "@components/common/SearchBar";
 import Skeleton from "@components/common/Skeleton/Skeleton";
 import hospitalOptions from "@lib/commonValue/hospitalOptions";
-import { HOSPITAL_LIST } from "@lib/commonValue/queries";
+import { HOSPITAL_LIST } from "@lib/resources/hospital";
 import useDidMountEffect from "@lib/hooks/common/useDidMountEffect";
 import useResource from "@lib/hooks/common/useResource";
 import { getScrollPosition } from "@lib/modules/localStorage";

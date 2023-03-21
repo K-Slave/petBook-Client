@@ -1,12 +1,11 @@
-import { ParsedUrlQuery } from "querystring";
-import { QueryClient } from "@tanstack/react-query";
-import { type Key } from "@lib/hooks/common/useResource";
-import { UserLocationData } from "@lib/types/CacheData";
-import { NextPageContext } from "next";
+import type { QueryClient } from "@tanstack/react-query";
+import type { Key } from "@lib/hooks/common/useResource";
+import type { UserLocationData } from "@lib/types/CacheData";
+import type { NextPageContext } from "next";
 import cookies from "next-cookies";
 import hospitalOptions from "@lib/commonValue/hospitalOptions";
 import keyName from "@lib/commonValue/keyName";
-import { type Resource } from "@lib/commonValue/queries";
+import type { Resource } from "@lib/resources";
 
 export default async function queryParser(
   ctx: NextPageContext,
@@ -16,9 +15,9 @@ export default async function queryParser(
         fetcher: (params?: any, config?: any) => void;
       }
     | Resource,
-  queryParams: ParsedUrlQuery,
   client: QueryClient
 ) {
+  const { query: queryParams } = ctx;
   if ("name" in resource) {
     switch (resource.name) {
       case "HOSPITAL_LIST": {
@@ -52,7 +51,6 @@ export default async function queryParser(
   } else {
     switch (resource.key[0]) {
       case "COMMENT_LIST": {
-        if ("createResource" in resource) break;
         await client.prefetchInfiniteQuery(resource.key, () =>
           resource.fetcher()
         );
@@ -60,7 +58,6 @@ export default async function queryParser(
       }
 
       case "CATEGORY_LIST": {
-        if ("createResource" in resource) break;
         if (typeof window === "undefined") {
           await client.fetchQuery([...resource.key], () => resource.fetcher());
         }

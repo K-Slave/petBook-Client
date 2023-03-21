@@ -12,7 +12,8 @@ import PencilEditIcon from "@components/common/icon/PencilEdit";
 import ShareForwardIcon from "@components/common/icon/ShareFoward";
 import useModal from "@lib/hooks/common/useModal";
 import { Section, LineDiv, ButtonBoxDiv, Divider } from "./styled";
-import { HOSPITAL_DETAIL } from "@lib/commonValue/queries";
+import { HOSPITAL_DETAIL } from "@lib/resources/hospital";
+import Link from "next/link";
 
 const HospitalDetail = ({ id }: { id: number }) => {
   const { data } = useResource(
@@ -46,7 +47,9 @@ const HospitalDetail = ({ id }: { id: number }) => {
             <ChevronLeft />
           </button>
           <div>
-            <h1>{data?.data.name}</h1>
+            <Link href={`/hospital/${data.data.id}`} passHref>
+              <h1>{data.data.name}</h1>
+            </Link>
             <Stats />
           </div>
         </header>
@@ -60,7 +63,7 @@ const HospitalDetail = ({ id }: { id: number }) => {
       </div>
       <LineDiv />
       <div className="wrapper">
-        <HospitalBasicInfo address={data?.data.address} />
+        <HospitalBasicInfo address={data.data.address} />
         <PossibleAnimalList />
       </div>
       <LineDiv />

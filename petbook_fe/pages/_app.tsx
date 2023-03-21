@@ -147,13 +147,12 @@ NextApp.getInitialProps = async (context: AppContext) => {
     }
 
     const { requiredResources } = PageComponent;
-    const { query } = ctx;
 
     if (requiredResources) {
       await Promise.all(
         itrMap(
           (resource: { key: Key; fetcher: () => void }) =>
-            queryParser(ctx, resource, query, queryClient),
+            queryParser(ctx, resource, queryClient),
           requiredResources
         )
       );

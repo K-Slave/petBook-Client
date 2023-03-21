@@ -12,7 +12,7 @@ export type Key = [string] | [string, ...any[]] | string[];
  */
 export default function useResource<T, P>(resource: {
   key: Key;
-  fetcher: (params?: P) => Promise<T>;
+  fetcher: (payload?: P) => Promise<T>;
   params?: P;
 }) {
   return useQuery(resource.key, () => resource.fetcher(resource?.params));

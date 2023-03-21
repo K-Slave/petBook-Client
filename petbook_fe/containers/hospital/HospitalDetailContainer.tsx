@@ -6,7 +6,7 @@ import {
   ButtonBoxDiv,
   LineDiv,
 } from "@components/hospital/HospitalDetail/styled";
-import { HOSPITAL_DETAIL } from "@lib/commonValue/queries";
+import { HOSPITAL_DETAIL } from "@lib/resources/hospital";
 import useResource from "@lib/hooks/common/useResource";
 import { useRouter } from "next/router";
 import styled from "styled-components";
