@@ -1,6 +1,9 @@
 import { AxiosRequestHeaders } from "axios";
 import RequestCore from "./RequestCore";
-import { HospitalDetailResponse } from "./types/hospitalRequest";
+import {
+  HospitalDetailResponse,
+  HospitalListRequest,
+} from "./types/hospitalRequest";
 
 export default class HospitalAPI extends RequestCore {
   public hospital_detail = async (payload: {
@@ -21,23 +24,12 @@ export default class HospitalAPI extends RequestCore {
 
   public hospital_list = async (payload: {
     header?: AxiosRequestHeaders;
-    params: {
-      id?: number;
-      name?: string;
-      address?: string;
-      page: number;
-      size: number;
-      boundary?: string;
-    };
+    params: HospitalListRequest;
   }) => {
-    const { header, params } = payload;
     const { requestURL, requestHeaders } = this.getParameters({
       uri: "/list",
-      headerObj: header,
-      params: {
-        ...payload.params,
-        boundary: params.boundary || "",
-      },
+      headerObj: payload.header,
+      params: payload.params,
     });
 
     const result = await this.getResult<{

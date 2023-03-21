@@ -36,8 +36,8 @@ export interface HospitalListRequest {
   id?: number;
   name?: string;
   address?: string;
-  page: number | 0;
-  size: number | 50;
+  page: number;
+  size: number;
   boundary?: string;
 }
 
