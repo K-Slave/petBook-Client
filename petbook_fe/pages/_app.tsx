@@ -47,8 +47,14 @@ type DehydratedAppProps = AppProps<{
 const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
   const [queryClient] = useState(() => createQueryClient());
 
-  if (pageProps.token && typeof window === "undefined") {
+  if (pageProps.token) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${pageProps.token}`;
+    const { userInfo } = tokenParser(pageProps.token);
+    queryClient.setQueryData([keyName.userInfo], userInfo);
+  } else if (typeof window === "undefined") {
+    // 서버 사이드에서만 token을 가져올 수 있음. (http only cookie라서) 즉, token이 없는데 서버 사이드면 로그아웃 상태
+    sprPetBookClient.defaults.headers.common.Authorization = "";
+    queryClient.setQueryData([keyName.userInfo], "");
   }
 
   if (
@@ -56,11 +62,6 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
     process.env.NEXT_PUBLIC_TESTER
   ) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${process.env.NEXT_PUBLIC_TESTER}`;
-  }
-
-  if (pageProps.token) {
-    const { userInfo } = tokenParser(pageProps.token);
-    queryClient.setQueryData([keyName.userInfo], userInfo);
   }
 
   // 웹 후크 연동 테스트
