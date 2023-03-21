@@ -62,13 +62,13 @@ export default class ArticleAPI extends RequestCore {
    * @param config Header 메시지를 추가할때 씁니다.
    * @returns 게시물 ID 에 해당하는 게시물을 반환합니다.
    */
-  public article_item = async (
-    pathParam: string,
-    config?: { headerObj: object }
-  ) => {
+  public article_detail = async (payload: {
+    pathParam: string;
+    headerObj?: object;
+  }) => {
     const { requestURL, requestHeaders } = this.getParameters({
-      pathParam,
-      headerObj: config && config.headerObj,
+      pathParam: payload.pathParam,
+      headerObj: payload?.headerObj,
     });
 
     const result = await this.getResult<ArticleResponse>({
