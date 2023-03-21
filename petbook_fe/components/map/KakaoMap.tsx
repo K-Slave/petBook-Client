@@ -14,6 +14,7 @@ import useGetRect from "@lib/hooks/map/useGetRect";
 import usePoiData from "@lib/hooks/map/usePoiData";
 import mapsLevelSelector from "@lib/modules/mapsLevelSelector";
 import getRectBounds, { Coordinates } from "@lib/utils/kakaoMaps/getRectBounds";
+import localConsole from "@lib/utils/localConsole";
 
 import { koreaGeoLocationValidate } from "@lib/utils/validation/geoLocationValidate";
 import { useRouter } from "next/router";
