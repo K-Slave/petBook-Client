@@ -1,14 +1,14 @@
 import type { QueryClient } from "@tanstack/react-query";
 import type { Key } from "@lib/hooks/common/useResource";
 import type { UserLocationData } from "@lib/types/CacheData";
-import type { NextPageContext } from "next";
+import type { GetServerSidePropsContext, NextPageContext } from "next";
 import cookies from "next-cookies";
 import hospitalOptions from "@lib/commonValue/hospitalOptions";
 import keyName from "@lib/commonValue/keyName";
 import type { Resource } from "@lib/resources";
 
 export default async function queryParser(
-  ctx: NextPageContext,
+  ctx: NextPageContext | GetServerSidePropsContext,
   resource:
     | {
         key: Key;
@@ -26,7 +26,7 @@ export default async function queryParser(
           | UserLocationData
           | undefined;
 
-        const query = resource.createQuery({
+        const payload = {
           params: {
             page: queryParams.page
               ? Number(queryParams.page) - 1
@@ -35,28 +35,50 @@ export default async function queryParser(
             boundary:
               (cachedData && cachedData.boundary) || hospitalOptions.boundary,
           },
-        });
-        await client.fetchQuery(query.key, query.fetcher);
+        };
+        await client.fetchQuery(resource.createKey(payload), () =>
+          resource.fetcher(payload)
+        );
         break;
       }
       case "HOSPITAL_DETAIL": {
         if (!queryParams.id) break;
-        const query = resource.createQuery({
+        const payload = {
           pathParam: String(queryParams.id),
-        });
-        await client.fetchQuery(query.key, query.fetcher);
+        };
+        await client.fetchQuery(resource.createKey(payload), () =>
+          resource.fetcher(payload)
+        );
+        break;
+      }
+      case "ARTICLE_DETAIL": {
+        if (!queryParams.articleId) break;
+        const payload = {
+          pathParam: String(queryParams.articleId),
+        };
+        await client.fetchQuery(resource.createKey(payload), () =>
+          resource.fetcher(payload)
+        );
+        break;
+      }
+      case "COMMENT_LIST": {
+        if (!queryParams.articleId) break;
+        await client.fetchInfiniteQuery(
+          resource.createKey(Number(queryParams.articleId)),
+          () =>
+            resource.fetcher({
+              params: {
+                articleId: Number(queryParams.articleId),
+                page: 0,
+                size: 20,
+              },
+            })
+        );
         break;
       }
     }
   } else {
     switch (resource.key[0]) {
-      case "COMMENT_LIST": {
-        await client.prefetchInfiniteQuery(resource.key, () =>
-          resource.fetcher()
-        );
-        break;
-      }
-
       case "CATEGORY_LIST": {
         if (typeof window === "undefined") {
           await client.fetchQuery([...resource.key], () => resource.fetcher());

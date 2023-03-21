@@ -25,16 +25,15 @@ const HospitalList = () => {
   const size = hospitalOptions.size;
   const rectBounds = useRecoilValue(rectBoundsState);
   const boundary = convRectBoundsToBoundary(rectBounds);
-
-  const { data } = useResourceNew(
-    HOSPITAL_LIST.createQuery({
-      params: {
-        page,
-        size,
-        boundary,
-      },
-    })
-  );
+  const params = {
+    page,
+    size,
+    boundary,
+  };
+  const { data } = useResourceNew({
+    key: HOSPITAL_LIST.createKey({ params }),
+    fetcher: () => HOSPITAL_LIST.fetcher({ params }),
+  });
 
   // mounted
   useEffect(() => {

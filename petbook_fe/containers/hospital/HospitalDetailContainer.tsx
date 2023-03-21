@@ -14,12 +14,13 @@ import styled from "styled-components";
 const HospitalDetailContainer = () => {
   const router = useRouter();
   const id = router.query.id as string;
-
-  const { data } = useResourceNew(
-    HOSPITAL_DETAIL.createQuery({
-      pathParam: id,
-    })
-  );
+  const payload = {
+    pathParam: String(id),
+  };
+  const { data } = useResourceNew({
+    key: HOSPITAL_DETAIL.createKey(payload),
+    fetcher: () => HOSPITAL_DETAIL.fetcher(payload),
+  });
   if (!data) {
     // TODO: add skeleton ui
     return null;

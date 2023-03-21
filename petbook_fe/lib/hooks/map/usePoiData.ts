@@ -20,15 +20,15 @@ const usePoiData = () => {
   const page = currentPage - 1;
   const boundary = convRectBoundsToBoundary(rectBounds);
 
-  const { data, status } = useResourceNew(
-    HOSPITAL_LIST.createQuery({
-      params: {
-        page,
-        size: hospitalOptions.size,
-        boundary,
-      },
-    })
-  );
+  const params = {
+    page,
+    size: hospitalOptions.size,
+    boundary,
+  };
+  const { data } = useResourceNew({
+    key: HOSPITAL_LIST.createKey({ params }),
+    fetcher: () => HOSPITAL_LIST.fetcher({ params }),
+  });
 
   // const patchCookie = async () => {
   //   await cookieRequest.patchCookie({

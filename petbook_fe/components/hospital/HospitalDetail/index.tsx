@@ -16,11 +16,13 @@ import Link from "next/link";
 import { useResourceNew } from "@lib/resources";
 
 const HospitalDetail = ({ id }: { id: number }) => {
-  const { data } = useResourceNew(
-    HOSPITAL_DETAIL.createQuery({
-      pathParam: String(id),
-    })
-  );
+  const payload = {
+    pathParam: String(id),
+  };
+  const { data } = useResourceNew({
+    key: HOSPITAL_DETAIL.createKey(payload),
+    fetcher: () => HOSPITAL_DETAIL.fetcher(payload),
+  });
   const router = useRouter();
   const goBack = () => {
     if (window.history.length <= 2) {

@@ -1,6 +1,6 @@
 import { hospitalRequest } from "@lib/API/petBookAPI";
 import type { Key } from "@lib/hooks/common/useResource";
-import { getCreateQueryFn, type Parameters } from ".";
+import type { Parameters } from ".";
 
 // 각 resource들의 query key 관리
 const hospitalKeys = {
@@ -21,18 +21,12 @@ WHY??
 - queryParser 함수에서 각 resource에 대해 엄격한 타입 사용 가능
 */
 export const HOSPITAL_LIST = {
-  // name: resource 이름 (queryParser 함수에서 분기점으로 사용)
-  name: "HOSPITAL_LIST" as const,
-  // createQuery: resource의 query 키와 fetcher 함수를 지닌 객체를 반환하는 함수, 이 함수의 파라미터로 payload를 전달하면 됨
-  createQuery: getCreateQueryFn({
-    createKey: hospitalKeys.list,
-    fetcher: hospitalRequest.hospital_list,
-  }),
+  name: "HOSPITAL_LIST" as const, // name: resource 이름 (queryParser 함수에서 분기점으로 사용)
+  createKey: hospitalKeys.list, // query key 생성하는 함수
+  fetcher: hospitalRequest.hospital_list, // query fetch 함수
 };
 export const HOSPITAL_DETAIL = {
   name: "HOSPITAL_DETAIL" as const,
-  createQuery: getCreateQueryFn({
-    createKey: hospitalKeys.detail,
-    fetcher: hospitalRequest.hospital_detail,
-  }),
+  createKey: hospitalKeys.detail,
+  fetcher: hospitalRequest.hospital_detail,
 };

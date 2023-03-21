@@ -1,4 +1,3 @@
-import { createCommentListResouce } from "@pages/community/list/[articleId]";
 import { useRouter } from "next/router";
 import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
 import React, {
@@ -13,6 +12,7 @@ import useModal from "@lib/hooks/common/useModal";
 import useDeleteComment from "@lib/hooks/comment/useDeleteComment";
 import { CommentListDiv } from "./styled";
 import CommunityModal from "../../CommunityModal";
+import { COMMENT_LIST } from "@lib/resources/comment";
 
 export interface ItemProps {
   comment: CommentItem;
@@ -30,10 +30,16 @@ const CommentList = ({ Item }: Props) => {
   const targetRef = useRef<HTMLDivElement | null>(null);
   const [hasNextPage, setHasNextPage] = useState(true);
   const queryClient = useQueryClient();
-  const COMMENT_LIST = createCommentListResouce(articleId);
   const { data, fetchNextPage } = useInfiniteQuery(
-    COMMENT_LIST.key,
-    ({ pageParam = 0 }) => COMMENT_LIST.fetcher(pageParam),
+    COMMENT_LIST.createKey(Number(articleId)),
+    ({ pageParam = 0 }) =>
+      COMMENT_LIST.fetcher({
+        params: {
+          articleId: Number(articleId),
+          page: pageParam,
+          size: 20,
+        },
+      }),
     {
       getNextPageParam: (lastPage) => {
         return lastPage.data.page + 1;
@@ -48,7 +54,9 @@ const CommentList = ({ Item }: Props) => {
 
   const { deleteComment } = useDeleteComment(async () => {
     closeModal();
-    await queryClient.invalidateQueries({ queryKey: COMMENT_LIST.key });
+    await queryClient.invalidateQueries({
+      queryKey: COMMENT_LIST.createKey(Number(articleId)),
+    });
   });
   const clickDeleteMenu = (commentId: number) => () => {
     openModal(CommunityModal, {

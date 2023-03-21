@@ -37,15 +37,15 @@ const Init = ({
   mapRef: React.RefObject<HTMLDivElement>;
   infoWindowRef: React.RefObject<HTMLDivElement>;
 }) => {
-  const hospital = useResourceNew(
-    HOSPITAL_LIST.createQuery({
-      params: {
-        page: hospitalOptions.page,
-        size: hospitalOptions.size,
-        boundary: hospitalOptions.boundary,
-      },
-    })
-  );
+  const params = {
+    page: hospitalOptions.page,
+    size: hospitalOptions.size,
+    boundary: hospitalOptions.boundary,
+  };
+  const hospital = useResourceNew({
+    key: HOSPITAL_LIST.createKey({ params }),
+    fetcher: () => HOSPITAL_LIST.fetcher({ params }),
+  });
   const kakaoMapDom = mapRef.current as HTMLDivElement;
 
   const options = {
