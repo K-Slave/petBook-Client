@@ -11,7 +11,7 @@ import styled from "styled-components";
 import ArticleListContainer from "@containers/article/ArticleListContainer";
 import { dehydrate } from "@tanstack/react-query";
 import createQueryClient from "@lib/utils/createQueryClient";
-import { withAuthServerSideProps } from "@lib/server/getServerSideWrapper";
+import { withAuthServerSideProps } from "@lib/server/getServerSidePropsWrapper";
 
 export const createArticleListResource = ({
   category,

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import BackButton from "@components/community/BackButton";
 import ArticleContainer from "@containers/article/ArticleContainer";
 import { QueryClient } from "@tanstack/react-query";
-import { WithResourcesServerSideProps } from "@lib/server/getServerSideWrapper";
+import { WithResourcesServerSideProps } from "@lib/server/getServerSidePropsWrapper";
 import { ARTICLE_DETAIL } from "@lib/resources/article";
 import { COMMENT_LIST } from "@lib/resources/comment";
 import type { NextPageWithResources } from "@lib/resources";
