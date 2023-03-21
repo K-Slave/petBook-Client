@@ -15,10 +15,13 @@ import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
 import Stats from "@components/common/hospital/Stats";
 import { ImageSliderDiv, ItemHeader } from "./styled";
 
-const HospitalItem = (
-  hospitals: HospitalFullInfo,
-  parent: MutableRefObject<HTMLElement | null>
-) => {
+const HospitalItem = ({
+  hospitals,
+  parent,
+}: {
+  hospitals: HospitalFullInfo;
+  parent: MutableRefObject<HTMLElement | null>;
+}) => {
   const navigateToDetail = () => {
     saveScrollPosition(parent.current?.scrollTop || 0);
     navigator({
