@@ -115,7 +115,7 @@ export default class HospitalAPI extends RequestCore {
       disease: string;
       imageIds?: number[];
       experience: string;
-    },
+    }[],
     config?: { headerObj?: object }
   ) => {
     const { requestURL, requestHeaders } = this.getParameters({

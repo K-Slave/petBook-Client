@@ -1,20 +1,17 @@
 import { atom } from "recoil";
 
-export const reviewFormState = atom<{
+interface reviewState {
   hospitalId: number;
   content: string;
   disease: string;
-  imageIds?: number[];
+  imageIds: undefined;
   experience: string;
-}>({
+  petName: string;
+}
+
+export const reviewFormState = atom<reviewState[]>({
   key: "reviewFormState",
-  default: {
-    hospitalId: 0,
-    content: "",
-    disease: "",
-    imageIds: undefined,
-    experience: "",
-  },
+  default: [],
 });
 
 export default { reviewFormState };
