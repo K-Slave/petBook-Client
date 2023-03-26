@@ -84,7 +84,7 @@ export const ButtonBox = ({
   divider,
 }: {
   id: number;
-  name: string;
+  name?: string;
   divider?: boolean;
 }) => {
   const { openModal, closeModal } = useModal();
