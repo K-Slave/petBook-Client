@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import OnClickOutside from "@components/common/OnClickOutside";
 import Image from "next/image";
 import { HospitalReveiwImgProps } from "@lib/API/petBookAPI/types/hospitalRequest";
@@ -8,7 +8,7 @@ import {
 } from "@pages/hospitalmap";
 import { useQueryClient } from "@tanstack/react-query";
 import { reviewFormState } from "@atoms/pageAtoms/hospitalmap/reviewState";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { useSetResource } from "@lib/hooks/common/useResource";
 
 import { IconBox, InputBox } from "@components/find/style/styledFindSubmit";
@@ -84,7 +84,6 @@ const ImgWrap = () => {
       <hgroup>
         <div className="Camera" />
         <p>이미지첨부 (최대 10장, 선택사항)</p>
-
         <div>
           <label htmlFor="file">
             추가하기
@@ -123,10 +122,8 @@ const HospitalReview = ({
   hospitalId: number;
   hospitalName?: string;
 }) => {
-  const [reveiwIndex, setReviewIndex] = useState<number[]>([0]);
-  const [newIndex, setNewIndex] = useState(1);
   const queryClient = useQueryClient();
-  const reviewForm = useRecoilValue(reviewFormState);
+  const [reviewForm, setReviewFrom] = useRecoilState(reviewFormState);
   const { data, mutate, status } = useSetResource(HOSPITAL_REVIEW_CREATE);
 
   const onSubmit = () => {
@@ -135,25 +132,55 @@ const HospitalReview = ({
   };
 
   useEffect(() => {
-    if (data === undefined) {
-      return;
-    }
+    if (data === undefined) return;
     alert("리뷰등록완료");
     closeModal();
   }, [data]);
 
   useEffect(() => {
+    SetReviewDefaultObj();
     document.body.classList.add("dim");
     return () => {
       document.body.classList.remove("dim");
     };
   }, []);
 
-  const AddIndex = () => {
-    setNewIndex(newIndex + 1);
-    reveiwIndex.push(newIndex);
-    setReviewIndex([...reveiwIndex]);
+  // 기본 배열요소 추가
+  const SetReviewDefaultObj = async () => {
+    await setReviewFrom((oldEl) => [
+      ...oldEl,
+      {
+        hospitalId,
+        content: "",
+        disease: "",
+        imageIds: undefined,
+        experience: "",
+        petName: "",
+      },
+    ]);
   };
+
+  // 추가 버튼 클릭
+  const AddReviewBox = async () => {
+    const check = await CheckValidation("length");
+    check
+      ? await SetReviewDefaultObj()
+      : alert("내 동물보다 더 많은 리뷰는 작성이 불가능합니다");
+  };
+
+  // 유효성 체크
+  const CheckValidation = (type: string) => {
+    switch (type) {
+      case "length": {
+        if (PETDATA.length <= reviewForm.length) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+    }
+  };
+
   return (
     <OnClickOutside trigger={closeModal}>
       <ReviewWarp className="Review">
@@ -161,11 +188,17 @@ const HospitalReview = ({
           <p>{hospitalName}</p>
           <h3>리뷰 작성</h3>
         </ReviewHeader>
-        <ReviewAddButton onClick={AddIndex}>추가</ReviewAddButton>
+        <ReviewAddButton onClick={AddReviewBox}>추가</ReviewAddButton>
 
         <ReviewBoxItem>
-          {reveiwIndex.map((item) => {
-            return <HospitalReviewBox hospitalId={hospitalId} key={item} />;
+          {reviewForm?.map((item, index) => {
+            return (
+              <HospitalReviewBox
+                hospitalId={hospitalId}
+                key={index}
+                reviewIndex={index}
+              />
+            );
           })}
         </ReviewBoxItem>
 
@@ -182,15 +215,24 @@ const HospitalReview = ({
   );
 };
 
-const HospitalReviewBox = ({ hospitalId }: { hospitalId: number }) => {
-  const setReviewForm = useSetRecoilState(reviewFormState);
+const HospitalReviewBox = ({
+  hospitalId,
+  reviewIndex,
+}: {
+  hospitalId: number;
+  reviewIndex: number;
+}) => {
+  const [reviewFrom, setReviewForm] = useRecoilState(reviewFormState);
+
   const onChange = (e: any) => {
     const name: string = e.target.attributes["data-type"].nodeValue;
-    setReviewForm((el) => ({
-      ...el,
-      hospitalId: hospitalId,
-      [`${name}`]: e.target.value,
-    }));
+    setReviewForm(
+      reviewFrom.map((item, index) => {
+        return index === reviewIndex
+          ? { ...item, hospitalId: hospitalId, [`${name}`]: e.target.value }
+          : item;
+      })
+    );
   };
 
   return (
