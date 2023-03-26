@@ -1,7 +1,11 @@
 import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import OnClickOutside from "@components/common/OnClickOutside";
 import Image from "next/image";
-import { HospitalReveiwImgProps } from "@lib/API/petBookAPI/types/hospitalRequest";
+import {
+  HospitalReveiwImgProps,
+  ReviewBoxProps,
+  ReviewProps,
+} from "@lib/API/petBookAPI/types/hospitalRequest";
 import {
   HOSPITAL_REVIEW_CREATE,
   HOSPITAL_REVIEW_LIST,
@@ -117,11 +121,7 @@ const HospitalReview = ({
   closeModal,
   hospitalId,
   hospitalName,
-}: {
-  closeModal: () => void;
-  hospitalId: number;
-  hospitalName?: string;
-}) => {
+}: ReviewProps) => {
   const queryClient = useQueryClient();
   const [reviewForm, setreviewForm] = useRecoilState(reviewFormState);
   const { data, mutate, status } = useSetResource(HOSPITAL_REVIEW_CREATE);
@@ -227,14 +227,10 @@ const HospitalReviewBox = ({
   hospitalId,
   reviewIndex,
   removeBox,
-}: {
-  hospitalId: number;
-  reviewIndex: number;
-  removeBox: () => void;
-}) => {
+}: ReviewBoxProps) => {
   const [reviewForm, setReviewForm] = useRecoilState(reviewFormState);
 
-  const onChange = (e: any) => {
+  const onChange = (e: any, reviewIndex?: number) => {
     const name: string = e.target.attributes["data-type"].nodeValue;
     setReviewForm(
       reviewForm.map((item, index) => {
@@ -258,11 +254,11 @@ const HospitalReviewBox = ({
               <article key={id}>
                 <label htmlFor={id}>
                   <input
-                    type="checkbox"
+                    type="radio"
                     name="pet"
                     data-type="petName"
                     id={id}
-                    value={item.title}
+                    value={reviewForm[reviewIndex].petName}
                     onChange={onChange}
                   />
                   <div className="Img">{item.img}</div>
