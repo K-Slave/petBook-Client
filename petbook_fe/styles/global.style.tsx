@@ -1,3 +1,19 @@
+import { createGlobalStyle } from "styled-components";
+
+const NextGlobalStyle = createGlobalStyle`
+html,
+body {
+  min-width: 22.5rem;
+
+  margin: 0 auto;
+}
+
+#__next {
+  position: relative;
+
+  min-width: 22.5rem;
+}
+
 //컬러설정
 :root {
   //primary
@@ -275,22 +291,6 @@ body.dim::before {
   }
 }
 
-.Header__Wrap {
-  position: fixed;
-  z-index: 100;
-
-  width: 100%;
-  height: auto;
-
-  background-color: #fff;
-
-  border-bottom: 1px solid #ff2e00;
-
-  div {
-    position: relative;
-  }
-}
-
 .Header__Spacer {
   width: 100%;
   height: 122px;
@@ -314,9 +314,9 @@ hr {
 }
 
 img {
-  display: block;
-  width: 100%;
-  object-fit: cover;
+  /* display: block; */
+  /* width: 100%; */
+  /* object-fit: cover; */
   @supports (font: -apple-system-body) and (-webkit-appearance: none) {
     img[loading="lazy"] {
       clip-path: inset(0.6px);
@@ -547,3 +547,7 @@ button.Disabled {
     opacity: 0;
   }
 }
+
+`;
+
+export default NextGlobalStyle;
