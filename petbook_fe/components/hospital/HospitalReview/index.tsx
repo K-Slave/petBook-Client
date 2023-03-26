@@ -123,7 +123,7 @@ const HospitalReview = ({
   hospitalName?: string;
 }) => {
   const queryClient = useQueryClient();
-  const [reviewForm, setReviewFrom] = useRecoilState(reviewFormState);
+  const [reviewForm, setreviewForm] = useRecoilState(reviewFormState);
   const { data, mutate, status } = useSetResource(HOSPITAL_REVIEW_CREATE);
 
   const onSubmit = () => {
@@ -147,7 +147,7 @@ const HospitalReview = ({
 
   // 기본 배열요소 추가
   const SetReviewDefaultObj = async () => {
-    await setReviewFrom((oldEl) => [
+    await setreviewForm((oldEl) => [
       ...oldEl,
       {
         hospitalId,
@@ -166,6 +166,13 @@ const HospitalReview = ({
     check
       ? await SetReviewDefaultObj()
       : alert("내 동물보다 더 많은 리뷰는 작성이 불가능합니다");
+  };
+
+  const RemoveReviewBox = async (index: number) => {
+    if (reviewForm.length === 0) return;
+    const newArr = [...reviewForm];
+    newArr.splice(index, 1);
+    await setreviewForm([...newArr]);
   };
 
   // 유효성 체크
@@ -197,6 +204,7 @@ const HospitalReview = ({
                 hospitalId={hospitalId}
                 key={index}
                 reviewIndex={index}
+                removeBox={() => RemoveReviewBox(index)}
               />
             );
           })}
@@ -218,16 +226,18 @@ const HospitalReview = ({
 const HospitalReviewBox = ({
   hospitalId,
   reviewIndex,
+  removeBox,
 }: {
   hospitalId: number;
   reviewIndex: number;
+  removeBox: () => void;
 }) => {
-  const [reviewFrom, setReviewForm] = useRecoilState(reviewFormState);
+  const [reviewForm, setReviewForm] = useRecoilState(reviewFormState);
 
   const onChange = (e: any) => {
     const name: string = e.target.attributes["data-type"].nodeValue;
     setReviewForm(
-      reviewFrom.map((item, index) => {
+      reviewForm.map((item, index) => {
         return index === reviewIndex
           ? { ...item, hospitalId: hospitalId, [`${name}`]: e.target.value }
           : item;
@@ -239,6 +249,8 @@ const HospitalReviewBox = ({
     <section>
       <ReviewSelectChip>
         <h4>진료받은 내 동물</h4>
+        {reviewIndex !== 0 && <button onClick={removeBox}>삭제</button>}
+
         <section>
           {PETDATA.map((item: { title: string; img: string }, index) => {
             const id = String(index);
@@ -299,6 +311,7 @@ const HospitalReviewBox = ({
               <div className="Pencil" />
             </IconBox>
             <input
+              value={reviewForm[reviewIndex].content}
               onChange={onChange}
               data-type="content"
               type="text"
@@ -310,6 +323,7 @@ const HospitalReviewBox = ({
               <div className="Medical" />
             </IconBox>
             <textarea
+              value={reviewForm[reviewIndex].disease}
               onChange={onChange}
               data-type="disease"
               cols={30}
