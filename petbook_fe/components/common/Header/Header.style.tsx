@@ -9,7 +9,10 @@ export const HeaderBox = styled.header`
   justify-content: center;
   align-items: flex-end;
 
-  width: 100%;
+  width: 100vw;
+  max-width: 120rem;
+
+  margin: 0 auto;
 
   border-bottom: 1px solid #e0dfd9;
   background-color: var(--bg_white_02);
@@ -24,6 +27,7 @@ export const HeaderDiv = styled.div`
 
   width: 100%;
   max-width: 67.5vw;
+  min-width: 22.2188rem;
 
   padding-top: 34px;
 `;

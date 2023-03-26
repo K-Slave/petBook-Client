@@ -5,7 +5,10 @@ export const TopNavBox = styled.nav`
   justify-content: center;
   align-items: flex-end;
 
-  width: 100%;
+  width: 100vw;
+  max-width: 120rem;
+
+  margin: 0 auto;
 
   padding-top: 105px;
 
@@ -22,4 +25,5 @@ export const TopNavDiv = styled.div`
 
   width: 100%;
   max-width: 67.5vw;
+  min-width: 22.2188rem;
 `;

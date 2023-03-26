@@ -44,6 +44,7 @@ const HospitalMapGlobalStyle = createGlobalStyle`
     grid-column-start: 1;
     grid-column-end: 3;
   }
+
 `;
 
 const HospitalMap: NextPage = () => {
