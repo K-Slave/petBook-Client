@@ -11,10 +11,11 @@ import HospitalReview from "@components/hospital/HospitalReview";
 
 export const PointReviewList = (hospitals: HospitalFullInfo) => {
   const { openModal, closeModal } = useModal();
-  const openReviewModal = (hospitalId: number) => {
+  const openReviewModal = (hospitalId: number, hospitalName: string) => {
     openModal(HospitalReview, {
       closeModal,
       hospitalId,
+      hospitalName,
     });
   };
   return (
@@ -25,7 +26,12 @@ export const PointReviewList = (hospitals: HospitalFullInfo) => {
             <div className="Happy_Color" />
             <p>베스트 리뷰가 없습니다.</p>
             <ReviewBoxButton
-              onClick={() => openReviewModal(hospitals.hospitals.id)}
+              onClick={() =>
+                openReviewModal(
+                  hospitals.hospitals.id,
+                  hospitals.hospitals.name
+                )
+              }
             >
               리뷰쓰기
             </ReviewBoxButton>
@@ -46,7 +52,12 @@ export const PointReviewList = (hospitals: HospitalFullInfo) => {
             <div className="Frown_Color" />
             <p>워스트 리뷰가 없습니다.</p>
             <ReviewBoxButton
-              onClick={() => openReviewModal(hospitals.hospitals.id)}
+              onClick={() =>
+                openReviewModal(
+                  hospitals.hospitals.id,
+                  hospitals.hospitals.name
+                )
+              }
             >
               리뷰쓰기
             </ReviewBoxButton>

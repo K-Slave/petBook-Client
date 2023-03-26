@@ -68,4 +68,16 @@ export interface HospitalReveiwImgProps {
   src: string | ArrayBuffer | null | undefined | any;
 }
 
+export interface ReviewProps {
+  closeModal: () => void;
+  hospitalId: number;
+  hospitalName?: string;
+}
+
+interface ReviewBoxProps {
+  hospitalId: number;
+  reviewIndex: number;
+  removeBox: () => void;
+}
+
 // export interface HospitalCreateRequest {}

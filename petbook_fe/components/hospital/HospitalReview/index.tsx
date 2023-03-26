@@ -1,14 +1,18 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import OnClickOutside from "@components/common/OnClickOutside";
 import Image from "next/image";
-import { HospitalReveiwImgProps } from "@lib/API/petBookAPI/types/hospitalRequest";
+import {
+  HospitalReveiwImgProps,
+  ReviewBoxProps,
+  ReviewProps,
+} from "@lib/API/petBookAPI/types/hospitalRequest";
 import {
   HOSPITAL_REVIEW_CREATE,
   HOSPITAL_REVIEW_LIST,
 } from "@pages/hospitalmap";
 import { useQueryClient } from "@tanstack/react-query";
 import { reviewFormState } from "@atoms/pageAtoms/hospitalmap/reviewState";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { useSetResource } from "@lib/hooks/common/useResource";
 
 import { IconBox, InputBox } from "@components/find/style/styledFindSubmit";
@@ -19,6 +23,8 @@ import {
   ReviewForm,
   ReviewFormReactionBtn,
   ReviewButtonWrap,
+  ReviewAddButton,
+  ReviewBoxItem,
   ImgContainer,
   ImgBoxGroup,
   ImgBox,
@@ -82,7 +88,6 @@ const ImgWrap = () => {
       <hgroup>
         <div className="Camera" />
         <p>이미지첨부 (최대 10장, 선택사항)</p>
-
         <div>
           <label htmlFor="file">
             추가하기
@@ -115,14 +120,10 @@ const ImgWrap = () => {
 const HospitalReview = ({
   closeModal,
   hospitalId,
-}: {
-  closeModal: () => void;
-  hospitalId: number;
-}) => {
-  const [reveiwIndex, setReviewIndex] = useState<number[]>([0]);
-  const [newIndex, setNewIndex] = useState(1);
+  hospitalName,
+}: ReviewProps) => {
   const queryClient = useQueryClient();
-  const reviewForm = useRecoilValue(reviewFormState);
+  const [reviewForm, setreviewForm] = useRecoilState(reviewFormState);
   const { data, mutate, status } = useSetResource(HOSPITAL_REVIEW_CREATE);
 
   const onSubmit = () => {
@@ -131,53 +132,84 @@ const HospitalReview = ({
   };
 
   useEffect(() => {
-    if (data === undefined) {
-      return;
-    }
+    if (data === undefined) return;
     alert("리뷰등록완료");
     closeModal();
   }, [data]);
 
   useEffect(() => {
+    SetReviewDefaultObj();
     document.body.classList.add("dim");
     return () => {
       document.body.classList.remove("dim");
     };
   }, []);
 
-  const AddIndex = () => {
-    setNewIndex(newIndex + 1);
-    reveiwIndex.push(newIndex);
-    setReviewIndex([...reveiwIndex]);
+  // 기본 배열요소 추가
+  const SetReviewDefaultObj = () => {
+    setreviewForm((oldEl) => [
+      ...oldEl,
+      {
+        hospitalId,
+        content: "",
+        disease: "",
+        imageIds: undefined,
+        experience: "",
+        petName: "",
+      },
+    ]);
   };
+
+  // 추가 버튼 클릭
+  const AddReviewBox = () => {
+    const check = CheckValidation("length");
+    check
+      ? SetReviewDefaultObj()
+      : alert("내 동물보다 더 많은 리뷰는 작성이 불가능합니다");
+  };
+
+  // 삭제 버튼 클릭
+  const RemoveReviewBox = (index: number) => {
+    if (reviewForm.length === 0) return;
+    const newArr = [...reviewForm];
+    newArr.splice(index, 1);
+    setreviewForm([...newArr]);
+  };
+
+  // 유효성 체크
+  const CheckValidation = (type: string) => {
+    switch (type) {
+      case "length": {
+        if (PETDATA.length <= reviewForm.length) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+    }
+  };
+
   return (
     <OnClickOutside trigger={closeModal}>
       <ReviewWarp className="Review">
         <ReviewHeader>
-          <p>$ 병원명 $</p>
+          <p>{hospitalName}</p>
           <h3>리뷰 작성</h3>
         </ReviewHeader>
+        <ReviewAddButton onClick={AddReviewBox}>추가</ReviewAddButton>
 
-        <button
-          onClick={AddIndex}
-          style={{
-            background: "var(--primary)",
-            color: "white",
-            padding: "8px 20px",
-            height: "45px",
-            borderRadius: "8px",
-            position: "absolute",
-            top: "40px",
-            right: "40px",
-          }}
-        >
-          추가
-        </button>
-        <div style={{ overflow: "auto", height: "551px" }}>
-          {reveiwIndex.map((item) => {
-            return <HospitalReviewBox hospitalId={hospitalId} key={item} />;
+        <ReviewBoxItem>
+          {reviewForm?.map((item, index) => {
+            return (
+              <HospitalReviewBox
+                hospitalId={hospitalId}
+                key={index}
+                reviewIndex={index}
+                removeBox={() => RemoveReviewBox(index)}
+              />
+            );
           })}
-        </div>
+        </ReviewBoxItem>
 
         <ReviewButtonWrap>
           <button type="button" value="cancel" onClick={closeModal}>
@@ -192,21 +224,30 @@ const HospitalReview = ({
   );
 };
 
-const HospitalReviewBox = ({ hospitalId }: { hospitalId: number }) => {
-  const setReviewForm = useSetRecoilState(reviewFormState);
-  const onChange = (e: any) => {
+const HospitalReviewBox = ({
+  hospitalId,
+  reviewIndex,
+  removeBox,
+}: ReviewBoxProps) => {
+  const [reviewForm, setReviewForm] = useRecoilState(reviewFormState);
+
+  const onChange = (e: any, reviewIndex?: number) => {
     const name: string = e.target.attributes["data-type"].nodeValue;
-    setReviewForm((el) => ({
-      ...el,
-      hospitalId: hospitalId,
-      [`${name}`]: e.target.value,
-    }));
+    setReviewForm(
+      reviewForm.map((item, index) => {
+        return index === reviewIndex
+          ? { ...item, hospitalId: hospitalId, [`${name}`]: e.target.value }
+          : item;
+      })
+    );
   };
 
   return (
     <section>
       <ReviewSelectChip>
         <h4>진료받은 내 동물</h4>
+        {reviewIndex !== 0 && <button onClick={removeBox}>삭제</button>}
+
         <section>
           {PETDATA.map((item: { title: string; img: string }, index) => {
             const id = String(index);
@@ -214,11 +255,11 @@ const HospitalReviewBox = ({ hospitalId }: { hospitalId: number }) => {
               <article key={id}>
                 <label htmlFor={id}>
                   <input
-                    type="checkbox"
+                    type="radio"
                     name="pet"
                     data-type="petName"
                     id={id}
-                    value={item.title}
+                    value={reviewForm[reviewIndex].petName}
                     onChange={onChange}
                   />
                   <div className="Img">{item.img}</div>
@@ -267,6 +308,7 @@ const HospitalReviewBox = ({ hospitalId }: { hospitalId: number }) => {
               <div className="Pencil" />
             </IconBox>
             <input
+              value={reviewForm[reviewIndex].content}
               onChange={onChange}
               data-type="content"
               type="text"
@@ -278,6 +320,7 @@ const HospitalReviewBox = ({ hospitalId }: { hospitalId: number }) => {
               <div className="Medical" />
             </IconBox>
             <textarea
+              value={reviewForm[reviewIndex].disease}
               onChange={onChange}
               data-type="disease"
               cols={30}
