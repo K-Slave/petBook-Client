@@ -115,9 +115,11 @@ const ImgWrap = () => {
 const HospitalReview = ({
   closeModal,
   hospitalId,
+  hospitalName,
 }: {
   closeModal: () => void;
   hospitalId: number;
+  hospitalName?: string;
 }) => {
   const [reveiwIndex, setReviewIndex] = useState<number[]>([0]);
   const [newIndex, setNewIndex] = useState(1);
@@ -154,7 +156,7 @@ const HospitalReview = ({
     <OnClickOutside trigger={closeModal}>
       <ReviewWarp className="Review">
         <ReviewHeader>
-          <p>$ 병원명 $</p>
+          <p>{hospitalName}</p>
           <h3>리뷰 작성</h3>
         </ReviewHeader>
 
