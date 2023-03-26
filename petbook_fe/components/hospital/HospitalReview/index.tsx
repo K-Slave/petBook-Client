@@ -19,6 +19,8 @@ import {
   ReviewForm,
   ReviewFormReactionBtn,
   ReviewButtonWrap,
+  ReviewAddButton,
+  ReviewBoxItem,
   ImgContainer,
   ImgBoxGroup,
   ImgBox,
@@ -159,27 +161,13 @@ const HospitalReview = ({
           <p>{hospitalName}</p>
           <h3>리뷰 작성</h3>
         </ReviewHeader>
+        <ReviewAddButton onClick={AddIndex}>추가</ReviewAddButton>
 
-        <button
-          onClick={AddIndex}
-          style={{
-            background: "var(--primary)",
-            color: "white",
-            padding: "8px 20px",
-            height: "45px",
-            borderRadius: "8px",
-            position: "absolute",
-            top: "40px",
-            right: "40px",
-          }}
-        >
-          추가
-        </button>
-        <div style={{ overflow: "auto", height: "551px" }}>
+        <ReviewBoxItem>
           {reveiwIndex.map((item) => {
             return <HospitalReviewBox hospitalId={hospitalId} key={item} />;
           })}
-        </div>
+        </ReviewBoxItem>
 
         <ReviewButtonWrap>
           <button type="button" value="cancel" onClick={closeModal}>

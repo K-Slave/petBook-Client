@@ -136,6 +136,22 @@ interface imgBoxProps {
   count: number;
 }
 
+export const ReviewAddButton = styled.button`
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  padding: 8px 20px;
+  height: 45px;
+  color: white;
+  border-radius: 8px;
+  background: var(--primary);
+`;
+
+export const ReviewBoxItem = styled.div`
+  overflow: auto;
+  height: 551px;
+`;
+
 export const ImgContainer = styled.article`
   padding: 10px 12px 16px 12px;
 
