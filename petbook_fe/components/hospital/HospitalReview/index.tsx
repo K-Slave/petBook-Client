@@ -146,8 +146,8 @@ const HospitalReview = ({
   }, []);
 
   // 기본 배열요소 추가
-  const SetReviewDefaultObj = async () => {
-    await setreviewForm((oldEl) => [
+  const SetReviewDefaultObj = () => {
+    setreviewForm((oldEl) => [
       ...oldEl,
       {
         hospitalId,
@@ -161,18 +161,19 @@ const HospitalReview = ({
   };
 
   // 추가 버튼 클릭
-  const AddReviewBox = async () => {
-    const check = await CheckValidation("length");
+  const AddReviewBox = () => {
+    const check = CheckValidation("length");
     check
-      ? await SetReviewDefaultObj()
+      ? SetReviewDefaultObj()
       : alert("내 동물보다 더 많은 리뷰는 작성이 불가능합니다");
   };
 
-  const RemoveReviewBox = async (index: number) => {
+  // 삭제 버튼 클릭
+  const RemoveReviewBox = (index: number) => {
     if (reviewForm.length === 0) return;
     const newArr = [...reviewForm];
     newArr.splice(index, 1);
-    await setreviewForm([...newArr]);
+    setreviewForm([...newArr]);
   };
 
   // 유효성 체크
