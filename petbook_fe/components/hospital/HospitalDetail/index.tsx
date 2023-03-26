@@ -88,7 +88,7 @@ export const ButtonBox = ({
   divider?: boolean;
 }) => {
   const { openModal, closeModal } = useModal();
-  const openReviewModal = (hospitalId: number, hospitalName: string) => {
+  const openReviewModal = (hospitalId: number, hospitalName?: string) => {
     openModal(HospitalReview, {
       closeModal,
       hospitalId,
