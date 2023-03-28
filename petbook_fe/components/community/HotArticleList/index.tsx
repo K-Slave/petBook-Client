@@ -1,11 +1,25 @@
 import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
 import { HeartBlankIcon } from "@components/common/icon/Heart";
-import useResource from "@lib/hooks/common/useResource";
-import { HOT_ARTICLE_LIST } from "@pages/community";
+import { useResource } from "@lib/hooks/common/useResource";
+import { POPULAR_ARTICLE_LIST } from "@lib/queries/article";
 import { List, Item } from "./styled";
 
 const HotArticleList = () => {
-  const { data } = useResource(HOT_ARTICLE_LIST);
+  const params = {
+    categoryId: "",
+    page: 0,
+    size: 5,
+    popular: true,
+  };
+  const { data } = useResource({
+    key: POPULAR_ARTICLE_LIST.createKey({
+      params,
+    }),
+    fetcher: () =>
+      POPULAR_ARTICLE_LIST.fetcher({
+        params,
+      }),
+  });
   return (
     <List>
       {data?.data.articles.map(({ id, title, stat }) => (

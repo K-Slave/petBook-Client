@@ -12,7 +12,7 @@ import useModal from "@lib/hooks/common/useModal";
 import useDeleteComment from "@lib/hooks/comment/useDeleteComment";
 import { CommentListDiv } from "./styled";
 import CommunityModal from "../../CommunityModal";
-import { COMMENT_LIST } from "@lib/resources/comment";
+import { COMMENT_LIST } from "@lib/queries/comment";
 
 export interface ItemProps {
   comment: CommentItem;

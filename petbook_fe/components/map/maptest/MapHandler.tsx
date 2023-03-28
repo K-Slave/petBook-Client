@@ -1,17 +1,16 @@
 /* global kakao */
 
-import useResource from "@lib/hooks/common/useResource";
+import { useResource } from "@lib/hooks/common/useResource";
 import {
   setMarker,
   setInfoWindow,
   setCustomOverlay,
 } from "@lib/utils/kakaoMaps/kakaoMarkers";
 import localConsole from "@lib/utils/localConsole";
-import { HOSPITAL_LIST } from "@lib/resources/hospital";
+import { HOSPITAL_LIST } from "@lib/queries/hospital";
 import React, { useEffect, useRef } from "react";
 import { MapInfoWindowDiv } from "./MapHandler.style";
 import hospitalOptions from "@lib/commonValue/hospitalOptions";
-import { useResourceNew } from "@lib/resources";
 
 const MapHandler = ({
   mapRef,
@@ -42,7 +41,7 @@ const Init = ({
     size: hospitalOptions.size,
     boundary: hospitalOptions.boundary,
   };
-  const hospital = useResourceNew({
+  const hospital = useResource({
     key: HOSPITAL_LIST.createKey({ params }),
     fetcher: () => HOSPITAL_LIST.fetcher({ params }),
   });

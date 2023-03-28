@@ -6,8 +6,8 @@ import {
   ButtonBoxDiv,
   LineDiv,
 } from "@components/hospital/HospitalDetail/styled";
-import { HOSPITAL_DETAIL } from "@lib/resources/hospital";
-import { useResourceNew } from "@lib/resources";
+import { HOSPITAL_DETAIL } from "@lib/queries/hospital";
+import { useResource } from "@lib/hooks/common/useResource";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
@@ -17,7 +17,7 @@ const HospitalDetailContainer = () => {
   const payload = {
     pathParam: String(id),
   };
-  const { data } = useResourceNew({
+  const { data } = useResource({
     key: HOSPITAL_DETAIL.createKey(payload),
     fetcher: () => HOSPITAL_DETAIL.fetcher(payload),
   });
@@ -44,6 +44,7 @@ const HospitalDetailContainer = () => {
   );
 };
 const Image = styled.img`
+  width: 100%;
   height: 233px;
   margin-bottom: 12px;
   border-radius: 12px;

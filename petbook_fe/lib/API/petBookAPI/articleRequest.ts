@@ -89,14 +89,14 @@ export default class ArticleAPI extends RequestCore {
    * @param config
    * @returns categoryId 에 해당하는 게시물 리스트를 반환합니다.
    */
-  public article_list = async (
-    params?: ArticleListRequest,
-    config?: { headerObj: object }
-  ) => {
+  public article_list = async (payload: {
+    params: ArticleListRequest;
+    headerObj?: object;
+  }) => {
     const { requestURL, requestHeaders } = this.getParameters({
       uri: "/list",
-      params,
-      headerObj: config && config.headerObj,
+      params: payload.params,
+      headerObj: payload.headerObj,
     });
 
     const result = await this.getResult<ArticleListResponse>({
@@ -156,14 +156,14 @@ export default class ArticleAPI extends RequestCore {
     return result;
   };
 
-  public article_search = async (
-    params?: ArticleSearchRequest,
-    config?: { headerObj: object }
-  ) => {
+  public article_search = async (payload: {
+    params: ArticleSearchRequest;
+    headerObj?: object;
+  }) => {
     const { requestURL, requestHeaders } = this.getParameters({
       uri: "/search",
-      params,
-      headerObj: config && config.headerObj,
+      params: payload.params,
+      headerObj: payload.headerObj,
     });
 
     const result = await this.getResult<ArticleListResponse>({

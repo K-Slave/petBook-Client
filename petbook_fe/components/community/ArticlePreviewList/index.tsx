@@ -1,11 +1,11 @@
 import useCategories from "@lib/hooks/article/useCategories";
-import useResource from "@lib/hooks/common/useResource";
-import { createResourceByCategory } from "@pages/community";
+import { useResource } from "@lib/hooks/common/useResource";
 import Link from "next/link";
 import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequest";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
 import { Article, BoxGrid, List } from "./styled";
+import { ARTICLE_LIST_PREVIEW } from "@lib/queries/article";
 
 const ArticlePreviewList = () => {
   const { categories } = useCategories({ all: true });
@@ -19,7 +19,16 @@ const ArticlePreviewList = () => {
 };
 
 const ArticleBox = ({ category }: { category: CategoryItem }) => {
-  const { data } = useResource(createResourceByCategory(category));
+  const params = {
+    categoryId: category.id === 0 ? "" : category.id.toString(),
+    page: 0,
+    size: 5,
+    popular: false,
+  };
+  const { data } = useResource({
+    key: ARTICLE_LIST_PREVIEW.createKey({ params }),
+    fetcher: () => ARTICLE_LIST_PREVIEW.fetcher({ params }),
+  });
   return (
     <Article>
       <div>

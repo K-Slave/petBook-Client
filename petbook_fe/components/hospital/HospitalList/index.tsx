@@ -4,9 +4,9 @@ import { usePage } from "@components/common/Pagination/usePagination";
 import SearchBar from "@components/common/SearchBar";
 import Skeleton from "@components/common/Skeleton/Skeleton";
 import hospitalOptions from "@lib/commonValue/hospitalOptions";
-import { HOSPITAL_LIST } from "@lib/resources/hospital";
+import { HOSPITAL_LIST } from "@lib/queries/hospital";
 import useDidMountEffect from "@lib/hooks/common/useDidMountEffect";
-import useResource from "@lib/hooks/common/useResource";
+import { useResource } from "@lib/hooks/common/useResource";
 import { getScrollPosition } from "@lib/modules/localStorage";
 import navigator from "@lib/modules/navigator";
 import { removeQuery, replaceQuery } from "@lib/modules/queryString";
@@ -17,7 +17,6 @@ import { useRecoilValue } from "recoil";
 import CurrentGps from "../CurrentGps";
 import HospitalItem from "../HospitalItem";
 import { FilterButton, FilterDiv, Section } from "./styled";
-import { useResourceNew } from "@lib/resources";
 
 const HospitalList = () => {
   const ref = useRef<HTMLElement | null>(null);
@@ -30,7 +29,7 @@ const HospitalList = () => {
     size,
     boundary,
   };
-  const { data } = useResourceNew({
+  const { data } = useResource({
     key: HOSPITAL_LIST.createKey({ params }),
     fetcher: () => HOSPITAL_LIST.fetcher({ params }),
   });

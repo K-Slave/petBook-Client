@@ -11,15 +11,15 @@ import PencilEditIcon from "@components/common/icon/PencilEdit";
 import ShareForwardIcon from "@components/common/icon/ShareFoward";
 import useModal from "@lib/hooks/common/useModal";
 import { Section, LineDiv, ButtonBoxDiv, Divider } from "./styled";
-import { HOSPITAL_DETAIL } from "@lib/resources/hospital";
+import { HOSPITAL_DETAIL } from "@lib/queries/hospital";
+import { useResource } from "@lib/hooks/common/useResource";
 import Link from "next/link";
-import { useResourceNew } from "@lib/resources";
 
 const HospitalDetail = ({ id }: { id: number }) => {
   const payload = {
     pathParam: String(id),
   };
-  const { data } = useResourceNew({
+  const { data } = useResource({
     key: HOSPITAL_DETAIL.createKey(payload),
     fetcher: () => HOSPITAL_DETAIL.fetcher(payload),
   });
@@ -63,7 +63,7 @@ const HospitalDetail = ({ id }: { id: number }) => {
         />
         <HospitalDetail.ButtonBox
           id={Number(router.query.id)}
-          name={data?.data.hospitals[0].hospitals.name}
+          name={data.data.name}
         />
       </div>
       <LineDiv />

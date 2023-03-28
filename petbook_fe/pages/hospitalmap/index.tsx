@@ -1,17 +1,17 @@
 import HospitalContainer from "@containers/map/HospitalContainer";
 import MapContainer from "@containers/map/MapContainer";
 import { hospitalRequest, imgRequest } from "@lib/API/petBookAPI";
-import { HOSPITAL_DETAIL, HOSPITAL_LIST } from "@lib/resources/hospital";
-import type { NextPageWithResources } from "@lib/resources";
-import { createRequest, createResource } from "@lib/hooks/common/useResource";
+import {
+  HOSPITAL_DETAIL,
+  HOSPITAL_LIST,
+  HOSPITAL_REVIEW_LIST,
+} from "@lib/queries/hospital";
+import type { NextPageWithResources } from "@lib/queries";
+import { createRequest } from "@lib/hooks/common/useResource";
 import { removeScrollPosition } from "@lib/modules/localStorage";
 import { useEffect } from "react";
 import { createGlobalStyle } from "styled-components";
 
-export const HOSPITAL_REVIEW_LIST = createResource({
-  key: ["HOSPITAL_REVIEW_LIST"],
-  fetcher: hospitalRequest.hospital_review_list,
-});
 export const HOSPITAL_REVIEW_CREATE = createRequest({
   key: ["HOSPITAL_REVIEW_CREATE"],
   requester: hospitalRequest.hospital_review_create,
@@ -58,5 +58,9 @@ const HospitalMap: NextPageWithResources = () => {
   );
 };
 
-HospitalMap.requiredResources = [HOSPITAL_LIST, HOSPITAL_DETAIL];
+HospitalMap.requiredResources = [
+  HOSPITAL_LIST,
+  HOSPITAL_DETAIL,
+  HOSPITAL_REVIEW_LIST,
+];
 export default HospitalMap;

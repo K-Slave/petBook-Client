@@ -8,7 +8,6 @@ import useChangeComment from "@lib/hooks/comment/useChangeComment";
 import useSubmitComment from "@lib/hooks/comment/useSubmitComment";
 import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
 import { useQueryClient } from "@tanstack/react-query";
-import { invalidateCommentList } from "@pages/community/list/[articleId]";
 import { ItemProps } from "../CommentList";
 import {
   Form,
@@ -20,6 +19,7 @@ import {
 import LikeButton from "../../LikeButton";
 import { CommentFormTextarea } from "../CommentForm/styled";
 import useUserInfo from "@lib/hooks/common/useUserInfo";
+import { COMMENT_LIST } from "@lib/queries/comment";
 
 const avatar =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
@@ -160,7 +160,9 @@ const EditForm = ({ content, id, articleId, clickCancelButton }: Props) => {
     if (textareaRef && textareaRef.current) {
       textareaRef.current.value = "";
     }
-    await invalidateCommentList(queryClient, String(articleId));
+    await queryClient.invalidateQueries({
+      queryKey: COMMENT_LIST.createKey(Number(articleId)),
+    });
     clickCancelButton();
   });
   return (

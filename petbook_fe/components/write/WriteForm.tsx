@@ -9,8 +9,7 @@ import React, {
   useState,
 } from "react";
 import ReactQuill from "react-quill";
-import useResource from "@lib/hooks/common/useResource";
-import { CATEGORY_LIST } from "@pages/community/write";
+import { useResource } from "@lib/hooks/common/useResource";
 
 import localConsole from "@lib/utils/localConsole";
 import {
@@ -21,6 +20,7 @@ import {
   GuideTopSpringDiv,
 } from "./styled/WriteForm.style";
 import writeState from "../../atoms/pageAtoms/community/writeState";
+import { CATEGORY_LIST } from "@lib/queries/category";
 
 const WriteForm = () => {
   return (
@@ -85,7 +85,10 @@ const Guide = React.memo(({ children }: PropsWithChildren<any>) => {
 Guide.displayName = "Guide";
 
 const GuideTitle = () => {
-  const { data, status } = useResource(CATEGORY_LIST);
+  const { data, status } = useResource({
+    key: CATEGORY_LIST.createKey(),
+    fetcher: () => CATEGORY_LIST.fetcher(),
+  });
 
   const categoryList = data?.data && status === "success" ? data?.data : [];
 

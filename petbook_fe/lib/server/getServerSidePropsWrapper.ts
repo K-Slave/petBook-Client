@@ -1,4 +1,4 @@
-import type { Resource } from "@lib/resources";
+import type { Resource } from "@lib/queries";
 import type { GetServerSidePropsContext } from "next";
 import createQueryClient from "@lib/utils/createQueryClient";
 import { itrMap } from "@lib/utils/iterableFunctions";

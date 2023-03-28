@@ -15,7 +15,6 @@ import TopNav from "@components/common/Nav/TopNav";
 
 import queryParser from "@lib/server/parse/queryParser";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
-import type { Key } from "@lib/hooks/common/useResource";
 import { itrMap } from "@lib/utils/iterableFunctions";
 import createQueryClient from "@lib/utils/createQueryClient";
 import getToken from "@lib/server/parse/getToken";
@@ -34,6 +33,7 @@ import keyName from "@lib/commonValue/keyName";
 import urlTokenRedirect from "@lib/server/parse/urlTokenRedirect";
 import tokenParser from "@lib/server/parse/tokenParser";
 import NextGlobalStyle from "../styles/global.style";
+import type { Resource } from "@lib/queries";
 
 type DehydratedAppProps = AppProps<{
   dehydratedState: DehydratedState;
@@ -66,7 +66,7 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
   }
 
   // 웹 후크 연동 테스트
-
+  console.log(pageProps.dehydratedState);
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
@@ -137,12 +137,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
     }
 
     const PageComponent: typeof Component & {
-      requiredResources?: Array<{
-        key: Key;
-        fetcher: () => void;
-        params?: object;
-        config?: object;
-      }>;
+      requiredResources?: Array<Resource>;
     } = Component;
 
     if (PageComponent.getInitialProps) {
@@ -154,8 +149,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
     if (requiredResources) {
       await Promise.all(
         itrMap(
-          (resource: { key: Key; fetcher: () => void }) =>
-            queryParser(ctx, resource, queryClient),
+          (resource: Resource) => queryParser(ctx, resource, queryClient),
           requiredResources
         )
       );

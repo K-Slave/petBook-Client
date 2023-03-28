@@ -1,15 +1,12 @@
-import React, { useState } from "react";
 import { usePage } from "@components/common/Pagination/usePagination";
-import { useRouter } from "next/router";
-import { useMutation } from "@tanstack/react-query";
-import {
-  HOSPITAL_REVIEW_LIST,
-  HOSPITAL_REVIEW_REMOVE,
-} from "@pages/hospitalmap";
-import { HospitalReveiwRequest } from "@lib/API/petBookAPI/types/hospitalRequest";
 import useModal from "@lib/hooks/common/useModal";
-import useResource from "@lib/hooks/common/useResource";
+import { useResource } from "@lib/hooks/common/useResource";
 import useUserInfo from "@lib/hooks/common/useUserInfo";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { HOSPITAL_REVIEW_REMOVE } from "@pages/hospitalmap";
+import { HospitalReveiwRequest } from "@lib/API/petBookAPI/types/hospitalRequest";
 import HospitalReview from "../HospitalReview";
 import {
   ReviewBox,
@@ -21,6 +18,7 @@ import {
   ReviewBoxMoreWrap,
   ReviewBtn,
 } from "./styled";
+import { HOSPITAL_REVIEW_LIST } from "@lib/queries/hospital";
 
 const HospitalDetailReview = () => {
   const router = useRouter();
@@ -28,16 +26,16 @@ const HospitalDetailReview = () => {
 
   const id = Number(router.query.id);
   const page = usePage() - 1;
-
+  const params = {
+    hospitalId: Number(id),
+    page,
+    size: 20,
+  };
   const { data } = useResource({
-    key: [HOSPITAL_REVIEW_LIST.key[0], { id }],
+    key: HOSPITAL_REVIEW_LIST.createKey({ params }),
     fetcher: () =>
       HOSPITAL_REVIEW_LIST.fetcher({
-        params: {
-          hospitalId: Number(id),
-          page,
-          size: 20,
-        },
+        params,
       }),
   });
 

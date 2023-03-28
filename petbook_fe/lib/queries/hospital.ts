@@ -6,11 +6,14 @@ import type { Parameters } from ".";
 const hospitalKeys = {
   list: (...args: Parameters<typeof hospitalRequest.hospital_list>): Key => [
     "HOSPITAL_LIST",
-    { ...args[0].params },
+    args[0].params,
   ],
   detail: (
     ...args: Parameters<typeof hospitalRequest.hospital_detail>
   ): Key => ["HOSPITAL_DETAIL", args[0].pathParam],
+  reviewList: (
+    ...args: Parameters<typeof hospitalRequest.hospital_review_list>
+  ): Key => ["HOSPITAL_REVIEW_LIST", args[0].params],
 };
 
 // resource들을 한 곳에서 관리하는 방법 테스트
@@ -29,4 +32,9 @@ export const HOSPITAL_DETAIL = {
   name: "HOSPITAL_DETAIL" as const,
   createKey: hospitalKeys.detail,
   fetcher: hospitalRequest.hospital_detail,
+};
+export const HOSPITAL_REVIEW_LIST = {
+  name: "HOSPITAL_REVIEW_LIST" as const,
+  createKey: hospitalKeys.reviewList,
+  fetcher: hospitalRequest.hospital_review_list,
 };

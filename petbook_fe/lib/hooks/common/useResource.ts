@@ -10,14 +10,12 @@ export type Key = [string] | [string, ...any[]] | string[];
  * @param resource.config 헤더에 담을 객체등 옵션으로 호출시 필요한 인자.
  * @returns useQuery 의 state 를 그대로 반환합니다.
  */
-export default function useResource<T, P>(resource: {
+export function useResource<T>(resource: {
   key: Key;
-  fetcher: (payload?: P) => Promise<T>;
-  params?: P;
+  fetcher: () => Promise<T>;
 }) {
-  return useQuery(resource.key, () => resource.fetcher(resource?.params));
+  return useQuery(resource.key, resource.fetcher);
 }
-
 /**
  * @function createResource : 최초 진입시 GET 해올 리소스
  * @param resource 기본적으로 Next JS 서버에서 쿼리 파라미터를 취득해 fetcher 에 파라미터로 담아 호출됩니다.

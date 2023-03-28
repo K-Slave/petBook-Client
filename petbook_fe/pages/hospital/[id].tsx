@@ -1,6 +1,6 @@
 import HospitalDetailContainer from "@containers/hospital/HospitalDetailContainer";
-import { HOSPITAL_DETAIL } from "@lib/resources/hospital";
-import type { NextPageWithResources } from "@lib/resources";
+import { HOSPITAL_DETAIL } from "@lib/queries/hospital";
+import type { NextPageWithResources } from "@lib/queries";
 import styled from "styled-components";
 
 // TODO: add hospital review resource

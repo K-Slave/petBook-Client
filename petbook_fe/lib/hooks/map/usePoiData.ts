@@ -3,12 +3,11 @@ import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
 import { cookieRequest } from "@lib/API/petBookAPI";
 import hospitalOptions from "@lib/commonValue/hospitalOptions";
 import keyName from "@lib/commonValue/keyName";
-import { useResourceNew } from "@lib/resources";
-import { HOSPITAL_LIST } from "@lib/resources/hospital";
+import { HOSPITAL_LIST } from "@lib/queries/hospital";
 import { convRectBoundsToBoundary } from "@lib/utils/kakaoMaps/getRectBounds";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
-import useResource from "../common/useResource";
+import { useResource } from "../common/useResource";
 
 const usePoiData = () => {
   // const cachedRectBounds = useRecoilValue(cachedRectBoundsState);
@@ -25,7 +24,7 @@ const usePoiData = () => {
     size: hospitalOptions.size,
     boundary,
   };
-  const { data } = useResourceNew({
+  const { data } = useResource({
     key: HOSPITAL_LIST.createKey({ params }),
     fetcher: () => HOSPITAL_LIST.fetcher({ params }),
   });

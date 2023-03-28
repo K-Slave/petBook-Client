@@ -143,7 +143,7 @@ export default class HospitalAPI extends RequestCore {
     return result;
   };
 
-  public hospital_review_list = async (payload?: {
+  public hospital_review_list = async (payload: {
     header?: AxiosRequestHeaders;
     params: {
       hospitalId: number;
