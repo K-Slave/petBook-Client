@@ -1,13 +1,21 @@
-import { IconBox, InputBox } from "@components/find/style/styledFindSubmit";
+import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import OnClickOutside from "@components/common/OnClickOutside";
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { HOSPITAL_REVIEW_CREATE } from "@pages/hospitalmap";
-
+import Image from "next/image";
+import {
+  HospitalReveiwImgProps,
+  ReviewBoxProps,
+  ReviewProps,
+} from "@lib/API/petBookAPI/types/hospitalRequest";
+import {
+  HOSPITAL_REVIEW_CREATE,
+  HOSPITAL_REVIEW_LIST,
+} from "@pages/hospitalmap";
+import { useQueryClient } from "@tanstack/react-query";
 import { reviewFormState } from "@atoms/pageAtoms/hospitalmap/reviewState";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { useSetResource } from "@lib/hooks/common/useResource";
 
-import Image from "next/image";
+import { IconBox, InputBox } from "@components/find/style/styledFindSubmit";
 import {
   ReviewWarp,
   ReviewHeader,
@@ -15,12 +23,13 @@ import {
   ReviewForm,
   ReviewFormReactionBtn,
   ReviewButtonWrap,
+  ReviewAddButton,
+  ReviewBoxItem,
   ImgContainer,
   ImgBoxGroup,
   ImgBox,
 } from "./styled";
 
-// 가라데이터
 const PETDATA = [
   {
     title: "토토",
@@ -38,7 +47,6 @@ const PETDATA = [
     select: false,
   },
 ];
-// 버튼!
 const REACTION = [
   {
     title: "좋았어요!",
@@ -50,14 +58,8 @@ const REACTION = [
   },
 ];
 
-interface Props {
-  idx: number;
-  src: string | ArrayBuffer | null | undefined | any;
-}
-
 const ImgWrap = () => {
-  const [imgArr, setImgArr] = useState<Props[]>([]);
-  // async
+  const [imgArr, setImgArr] = useState<HospitalReveiwImgProps[]>([]);
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       if (imgArr.length > 10) {
@@ -65,7 +67,7 @@ const ImgWrap = () => {
       }
       const reader = new FileReader();
       reader.onload = () => {
-        const data: Props[] = [
+        const data: HospitalReveiwImgProps[] = [
           ...imgArr,
           { idx: imgArr.length, src: reader.result },
         ];
@@ -86,7 +88,6 @@ const ImgWrap = () => {
       <hgroup>
         <div className="Camera" />
         <p>이미지첨부 (최대 10장, 선택사항)</p>
-
         <div>
           <label htmlFor="file">
             추가하기
@@ -119,134 +120,96 @@ const ImgWrap = () => {
 const HospitalReview = ({
   closeModal,
   hospitalId,
-}: {
-  closeModal: () => void;
-  hospitalId: number;
-}) => {
-  const setReviewForm = useSetRecoilState(reviewFormState);
-  const reviewForm = useRecoilValue(reviewFormState);
+  hospitalName,
+}: ReviewProps) => {
+  const queryClient = useQueryClient();
+  const [reviewForm, setreviewForm] = useRecoilState(reviewFormState);
   const { data, mutate, status } = useSetResource(HOSPITAL_REVIEW_CREATE);
 
-  // async
   const onSubmit = () => {
     mutate(reviewForm);
-  };
-
-  const onChange = (e: any) => {
-    const name: string = e.target.attributes["data-type"].nodeValue;
-    setReviewForm((el) => ({
-      ...el,
-      hospitalId: hospitalId,
-      [`${name}`]: e.target.value,
-    }));
+    queryClient.invalidateQueries({ queryKey: HOSPITAL_REVIEW_LIST.key });
   };
 
   useEffect(() => {
-    if (data === undefined) {
-      return;
-    }
+    if (data === undefined) return;
     alert("리뷰등록완료");
     closeModal();
   }, [data]);
 
   useEffect(() => {
+    SetReviewDefaultObj();
     document.body.classList.add("dim");
     return () => {
       document.body.classList.remove("dim");
     };
   }, []);
 
+  // 기본 배열요소 추가
+  const SetReviewDefaultObj = () => {
+    setreviewForm((oldEl) => [
+      ...oldEl,
+      {
+        hospitalId,
+        content: "",
+        disease: "",
+        imageIds: undefined,
+        experience: "",
+        petName: "",
+      },
+    ]);
+  };
+
+  // 추가 버튼 클릭
+  const AddReviewBox = () => {
+    const check = CheckValidation("length");
+    check
+      ? SetReviewDefaultObj()
+      : alert("내 동물보다 더 많은 리뷰는 작성이 불가능합니다");
+  };
+
+  // 삭제 버튼 클릭
+  const RemoveReviewBox = (index: number) => {
+    if (reviewForm.length === 0) return;
+    const newArr = [...reviewForm];
+    newArr.splice(index, 1);
+    setreviewForm([...newArr]);
+  };
+
+  // 유효성 체크
+  const CheckValidation = (type: string) => {
+    switch (type) {
+      case "length": {
+        if (PETDATA.length <= reviewForm.length) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+    }
+  };
+
   return (
     <OnClickOutside trigger={closeModal}>
       <ReviewWarp className="Review">
         <ReviewHeader>
-          <p>$ 병원명 $</p>
+          <p>{hospitalName}</p>
           <h3>리뷰 작성</h3>
         </ReviewHeader>
+        <ReviewAddButton onClick={AddReviewBox}>추가</ReviewAddButton>
 
-        <ReviewSelectChip>
-          <h4>진료받은 내 동물</h4>
-          <section>
-            {PETDATA.map((item: { title: string; img: string }, index) => {
-              const id = String(index);
-              return (
-                <article key={id}>
-                  <label htmlFor={id}>
-                    <input
-                      type="checkbox"
-                      name="pet"
-                      data-type="petName"
-                      id={id}
-                      value={item.title}
-                      onChange={onChange}
-                    />
-                    <div className="Img">{item.img}</div>
-                    <h5>{item.title}</h5>
-                  </label>
-                </article>
-              );
-            })}
-          </section>
-        </ReviewSelectChip>
-
-        <ReviewForm>
-          <p>병원진료는 전반적으로</p>
-          <ReviewButtonWrap>
-            {REACTION.map((reaction) => {
-              return (
-                <ReviewFormReactionBtn
-                  key={reaction.value}
-                  htmlFor={reaction.value} // Y | N
-                >
-                  <input
-                    className="default" // 상태값으로 조절
-                    type="radio"
-                    name="reaction"
-                    data-type="experience"
-                    id={reaction.value}
-                    onChange={onChange}
-                    value={reaction.value === "Y" ? "GOOD" : "BAD"}
-                  />
-                  <p>
-                    {reaction.value === "Y" ? (
-                      <div className="Happy" />
-                    ) : (
-                      <div className="Frown" />
-                    )}
-                    <span>{reaction.title}</span>
-                  </p>
-                </ReviewFormReactionBtn>
-              );
-            })}
-          </ReviewButtonWrap>
-
-          <form action="">
-            <InputBox>
-              <IconBox>
-                <div className="Pencil" />
-              </IconBox>
-              <input
-                onChange={onChange}
-                data-type="content"
-                type="text"
-                placeholder="어떤 증상으로 병원에 방문하셨나요?"
+        <ReviewBoxItem>
+          {reviewForm?.map((item, index) => {
+            return (
+              <HospitalReviewBox
+                hospitalId={hospitalId}
+                key={index}
+                reviewIndex={index}
+                removeBox={() => RemoveReviewBox(index)}
               />
-            </InputBox>
-            <InputBox>
-              <IconBox>
-                <div className="Medical" />
-              </IconBox>
-              <textarea
-                onChange={onChange}
-                data-type="disease"
-                cols={30}
-                rows={10}
-                placeholder="병원에서 느낀 점을 자유롭게 작성해주세요."
-              />
-            </InputBox>
-            <HospitalReview.ImgWrap />
-          </form>
-        </ReviewForm>
+            );
+          })}
+        </ReviewBoxItem>
 
         <ReviewButtonWrap>
           <button type="button" value="cancel" onClick={closeModal}>
@@ -258,6 +221,117 @@ const HospitalReview = ({
         </ReviewButtonWrap>
       </ReviewWarp>
     </OnClickOutside>
+  );
+};
+
+const HospitalReviewBox = ({
+  hospitalId,
+  reviewIndex,
+  removeBox,
+}: ReviewBoxProps) => {
+  const [reviewForm, setReviewForm] = useRecoilState(reviewFormState);
+
+  const onChange = (e: any, reviewIndex?: number) => {
+    const name: string = e.target.attributes["data-type"].nodeValue;
+    setReviewForm(
+      reviewForm.map((item, index) => {
+        return index === reviewIndex
+          ? { ...item, hospitalId: hospitalId, [`${name}`]: e.target.value }
+          : item;
+      })
+    );
+  };
+
+  return (
+    <section>
+      <ReviewSelectChip>
+        <h4>진료받은 내 동물</h4>
+        {reviewIndex !== 0 && <button onClick={removeBox}>삭제</button>}
+
+        <section>
+          {PETDATA.map((item: { title: string; img: string }, index) => {
+            const id = String(index);
+            return (
+              <article key={id}>
+                <label htmlFor={id}>
+                  <input
+                    type="radio"
+                    name="pet"
+                    data-type="petName"
+                    id={id}
+                    value={reviewForm[reviewIndex].petName}
+                    onChange={onChange}
+                  />
+                  <div className="Img">{item.img}</div>
+                  <h5>{item.title}</h5>
+                </label>
+              </article>
+            );
+          })}
+        </section>
+      </ReviewSelectChip>
+
+      <ReviewForm>
+        <p>병원진료는 전반적으로</p>
+        <ReviewButtonWrap>
+          {REACTION.map((reaction) => {
+            return (
+              <ReviewFormReactionBtn
+                key={reaction.value}
+                htmlFor={reaction.value} // Y | N
+              >
+                <input
+                  className="default" // 상태값으로 조절
+                  type="radio"
+                  name="reaction"
+                  data-type="experience"
+                  id={reaction.value}
+                  onChange={onChange}
+                  value={reaction.value === "Y" ? "GOOD" : "BAD"}
+                />
+                <p>
+                  {reaction.value === "Y" ? (
+                    <span className="Happy" />
+                  ) : (
+                    <span className="Frown" />
+                  )}
+                  <span>{reaction.title}</span>
+                </p>
+              </ReviewFormReactionBtn>
+            );
+          })}
+        </ReviewButtonWrap>
+
+        <form action="">
+          <InputBox>
+            <IconBox>
+              <div className="Pencil" />
+            </IconBox>
+            <input
+              value={reviewForm[reviewIndex].content}
+              onChange={onChange}
+              data-type="content"
+              type="text"
+              placeholder="어떤 증상으로 병원에 방문하셨나요?"
+            />
+          </InputBox>
+          <InputBox>
+            <IconBox>
+              <div className="Medical" />
+            </IconBox>
+            <textarea
+              value={reviewForm[reviewIndex].disease}
+              onChange={onChange}
+              data-type="disease"
+              cols={30}
+              rows={10}
+              placeholder="병원에서 느낀 점을 자유롭게 작성해주세요."
+            />
+          </InputBox>
+          <HospitalReview.ImgWrap />
+        </form>
+      </ReviewForm>
+    </section>
   );
 };
 HospitalReview.ImgWrap = ImgWrap;

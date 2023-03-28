@@ -1,9 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { HiChevronDoubleRight, HiChevronDoubleLeft } from "react-icons/hi";
-import MyPageSection from "../../components/MyPageSection";
-import SideNav from "../../components/MyPageNav";
-import Keyvisual from "../../components/Keyvisual";
+import MyPageSection from "../components/MyPageSection";
+import SideNav from "../components/MyPageNav";
+import Keyvisual from "../components/Keyvisual";
 
 const MyPageMain = styled.main`
   position: relative;

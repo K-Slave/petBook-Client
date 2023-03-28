@@ -96,7 +96,9 @@ export const ReviewBoxMoreWrap = styled.section`
 
     transform: ${(props: BtnProps) =>
       props.btnState === true ? "translateY(0px)" : " translateY(10px)"};
-    opacity: ${(props: BtnProps) => (props.btnState === true ? 1 : 0)};
+    display: ${(props: BtnProps) =>
+      props.btnState === true ? "block" : "none"};
+    z-index: 1;
     li {
       padding: 0 20px;
       width: 117px;

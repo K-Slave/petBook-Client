@@ -108,7 +108,7 @@ export default class HospitalAPI extends RequestCore {
       disease: string;
       imageIds?: number[];
       experience: string;
-    },
+    }[],
     config?: { headerObj?: object }
   ) => {
     const { requestURL, requestHeaders } = this.getParameters({
@@ -120,6 +120,24 @@ export default class HospitalAPI extends RequestCore {
       requestURL,
       requestHeaders,
       body,
+    });
+
+    return result;
+  };
+
+  public hospital_review_remove = async (payload: {
+    pathParam: string;
+    headerObj?: object;
+  }) => {
+    const { pathParam, headerObj } = payload;
+    const { requestURL, requestHeaders } = this.getParameters({
+      pathParam,
+      headerObj,
+    });
+    const result = await this.getResult({
+      requestMethod: "DELETE",
+      requestURL,
+      requestHeaders,
     });
 
     return result;
@@ -156,6 +174,7 @@ export default class HospitalAPI extends RequestCore {
           };
           disease: string;
           content: string;
+          createdAt: string;
           images: [
             {
               id: number;

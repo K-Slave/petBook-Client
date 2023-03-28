@@ -3,6 +3,8 @@ import { cookieRequest } from "@lib/API/petBookAPI";
 import keyName from "@lib/commonValue/keyName";
 import useUserInfo from "@lib/hooks/common/useUserInfo";
 import navigator from "@lib/modules/navigator";
+import localConsole from "@lib/utils/localConsole";
+import { useRouter } from "next/router";
 import React, { PropsWithChildren, useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 
@@ -15,6 +17,8 @@ interface Props {
 
 const AuthSelfMask = ({ children, toLogin }: PropsWithChildren<Props>) => {
   const { userData } = useUserInfo();
+  const router = useRouter();
+  const idPath = router.asPath.replace("/mypage/", "");
   const setLoading = useSetRecoilState(loadingState);
 
   useEffect(() => {
@@ -55,7 +59,7 @@ const AuthSelfMask = ({ children, toLogin }: PropsWithChildren<Props>) => {
     }
   }, [userData]);
 
-  if (userData) {
+  if (userData && userData.id.toString() === idPath) {
     return <>{children}</>;
   }
 

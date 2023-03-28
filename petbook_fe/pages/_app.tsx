@@ -24,7 +24,7 @@ import DecodedUserInfo from "@lib/types/DecodedUserInfo";
 import "swiper/scss";
 import "swiper/scss/navigation";
 import "swiper/scss/pagination";
-import "../styles/Globals.scss";
+import "../styles/global.scss";
 import "../styles/Icon.scss";
 import "../styles/Swiper.scss";
 import getCookieList from "@lib/utils/getCookieList";
@@ -33,6 +33,7 @@ import recoilHydration from "@lib/modules/recoilHydration";
 import keyName from "@lib/commonValue/keyName";
 import urlTokenRedirect from "@lib/server/parse/urlTokenRedirect";
 import tokenParser from "@lib/server/parse/tokenParser";
+import NextGlobalStyle from "../styles/global.style";
 
 type DehydratedAppProps = AppProps<{
   dehydratedState: DehydratedState;
@@ -81,6 +82,7 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
             );
           }}
         >
+          <NextGlobalStyle />
           <Loader />
           <HtmlHead currentPath={router.pathname} />
           <Header currentPath={router.pathname} />
