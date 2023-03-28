@@ -3,69 +3,13 @@ import {
   CategoryNavButton,
 } from "@components/community/CategoryNav/styled";
 import WriteButton from "@components/community/WriteButton";
-import { sprPetBookClient } from "@lib/API/axios/axiosClient";
-import { articleRequest, categorySprRequest } from "@lib/API/petBookAPI";
-import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
-import { createResource } from "@lib/hooks/common/useResource";
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
-import { useEffect } from "react";
 import styled from "styled-components";
 import ArticleListContainer from "@containers/article/ArticleListContainer";
-import { dehydrate } from "@tanstack/react-query";
-import createQueryClient from "@lib/utils/createQueryClient";
-import getToken from "@lib/server/parse/getToken";
+import { WithResourcesServerSideProps } from "@lib/server/getServerSidePropsWrapper";
+import { CATEGORY_LIST } from "@lib/queries/category";
+import { ARTICLE_LIST, ARTICLE_SEARCH } from "@lib/queries/article";
 
-export const createArticleListResource = ({
-  category,
-  page,
-  searchText,
-}: {
-  category: CategoryItem;
-  page: number;
-  searchText?: string;
-}): {
-  key: [string, ...any[]];
-  fetcher: () =>
-    | ReturnType<typeof articleRequest.article_list>
-    | ReturnType<typeof articleRequest.article_search>;
-} => {
-  if (searchText) {
-    return {
-      key: ["ARTICLE_SEARCH", searchText, page],
-      fetcher: () =>
-        articleRequest.article_search({
-          categoryId: null,
-          page: page - 1,
-          size: 20,
-          searchText,
-        }),
-    };
-  }
-  return {
-    key: ["ARTICLE_LIST", category.name, page],
-    fetcher: () =>
-      articleRequest.article_list({
-        categoryId: category.id === 0 ? "" : category.id,
-        page: page - 1,
-        size: 20,
-        popular: false,
-      }),
-  };
-};
-
-export const CATEGORY_LIST = createResource({
-  key: ["CATEGORY_LIST"],
-  fetcher: () => categorySprRequest.category_list(),
-});
-
-const ArticleListPage = ({
-  token,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  useEffect(() => {
-    if (token) {
-      sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
-    }
-  }, [token]);
+const ArticleListPage = () => {
   return (
     <Main>
       <ArticleListContainer />
@@ -74,29 +18,11 @@ const ArticleListPage = ({
   );
 };
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const { token } = getToken(ctx, { decode: false });
-  const queryClient = createQueryClient();
-  const { query } = ctx;
-  const page = Number(query.page);
-  const searchText = query.query as string | undefined;
-  const [name, id] = query.category
-    ? (query.category as string).split("_")
-    : ["전체", 0];
-  const ARTICLE_LIST = createArticleListResource({
-    category: { id: Number(id), name },
-    searchText,
-    page: Number.isNaN(page) ? 1 : page,
-  });
-  await queryClient.fetchQuery(CATEGORY_LIST.key, CATEGORY_LIST.fetcher);
-  await queryClient.fetchQuery(ARTICLE_LIST.key, ARTICLE_LIST.fetcher);
-  return {
-    props: {
-      token,
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-    },
-  };
-};
+export const getServerSideProps = WithResourcesServerSideProps([
+  ARTICLE_LIST,
+  ARTICLE_SEARCH,
+  CATEGORY_LIST,
+]);
 
 const Main = styled.main`
   max-width: 1330px;

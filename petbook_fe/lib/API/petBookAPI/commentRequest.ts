@@ -91,14 +91,14 @@ export default class CommentAPI extends RequestCore {
    * @param config Header 메시지를 추가할때 씁니다.
    * @returns 게시물의 댓글 리스트를 반환합니다.
    */
-  public comment_list = async (
-    params: { articleId: number; page: number; size: number },
-    config?: { headerObj: object }
-  ) => {
+  public comment_list = async (payload: {
+    params: { articleId: number; page: number; size: number };
+    headerObj?: object;
+  }) => {
     const { requestURL, requestHeaders } = this.getParameters({
       uri: "/list",
-      headerObj: config && config.headerObj,
-      params,
+      headerObj: payload?.headerObj,
+      params: payload.params,
     });
     const result = this.getResult<CommentListResponse>({
       requestMethod: "GET",

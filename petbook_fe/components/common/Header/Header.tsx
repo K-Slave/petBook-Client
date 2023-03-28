@@ -1,4 +1,5 @@
 import loadingState from "@atoms/common/loadingState";
+import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { authRequest } from "@lib/API/petBookAPI";
 import keyName from "@lib/commonValue/keyName";
 import useUserInfo from "@lib/hooks/common/useUserInfo";
@@ -105,6 +106,7 @@ const UserInfo = ({ userData }: { userData: DecodedUserInfo }) => {
 
       if (res.data) {
         client.setQueryData([keyName.userInfo], "");
+        sprPetBookClient.defaults.headers.common.Authorization = "";
       }
 
       if (!res.data) {

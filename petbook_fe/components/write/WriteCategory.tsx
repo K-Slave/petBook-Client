@@ -1,14 +1,14 @@
 import useSelectorState from "@lib/hooks/common/useSelectorState";
 import React, { MouseEventHandler, useEffect } from "react";
 import Skeleton from "@components/common/Skeleton/Skeleton";
-import useResource from "@lib/hooks/common/useResource";
-import { CATEGORY_LIST } from "@pages/community/write";
-import writeState from "../../atoms/pageAtoms/community/writeState";
+import { useResource } from "@lib/hooks/common/useResource";
+import writeState from "@atoms/pageAtoms/community/writeState";
 import {
   ListDiv,
   WriteCategoryButtonBox,
   WriteCategorySection,
 } from "./styled/WriteCategory.style";
+import { CATEGORY_LIST } from "@lib/queries/category";
 
 const WriteCategory = () => {
   return (
@@ -20,7 +20,10 @@ const WriteCategory = () => {
 };
 
 const List = () => {
-  const { data, status } = useResource(CATEGORY_LIST);
+  const { data, status } = useResource({
+    key: CATEGORY_LIST.createKey(),
+    fetcher: () => CATEGORY_LIST.fetcher(),
+  });
 
   const categoryList = data?.data ? data?.data : [];
 

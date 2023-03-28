@@ -30,10 +30,10 @@ export interface ArticleListResponse {
 }
 
 export interface ArticleListRequest {
-  categoryId: number | string | number[];
+  categoryId: string;
   page: number;
   size: number;
-  popular?: boolean;
+  popular: boolean;
 }
 
 export interface ArticleSearchRequest {

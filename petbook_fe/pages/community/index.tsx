@@ -1,10 +1,7 @@
-import { NextPage } from "next";
 import React from "react";
 import styled from "styled-components";
-import { articleRequest, categorySprRequest } from "@lib/API/petBookAPI";
 import CommunityBanner from "@components/community/CommunityBanner";
 import WriteButton from "@components/community/WriteButton";
-import { createResource } from "@lib/hooks/common/useResource";
 import CommunitySection from "@components/community/CommunitySection";
 import HotArticleList from "@components/community/HotArticleList";
 import CategoryNav from "@components/community/CategoryNav";
@@ -12,56 +9,17 @@ import ArticlePreviewList from "@components/community/ArticlePreviewList";
 import QnaArticleList, {
   QNA_CATEGORY,
 } from "@components/community/QnaArticleList";
-import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequestSpr";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 import Link from "next/link";
 import SearchBar from "@components/common/SearchBar";
-import hospitalOptions from "@lib/commonValue/hospitalOptions";
+import { CATEGORY_LIST } from "@lib/queries/category";
+import {
+  ARTICLE_LIST_PREVIEW,
+  POPULAR_ARTICLE_LIST,
+} from "@lib/queries/article";
+import type { NextPageWithResources } from "@lib/queries";
 
-export const CATEGORY_LIST = createResource({
-  key: ["CATEGORY_LIST"],
-  fetcher: categorySprRequest.category_list,
-});
-
-export const HOT_ARTICLE_LIST = createResource({
-  key: ["HOT_ARTICLE_LIST"],
-  fetcher: () =>
-    articleRequest.article_list({
-      categoryId: "",
-      page: hospitalOptions.page,
-      size: 5,
-      popular: true,
-    }),
-});
-
-export const createResourceByCategory = (category: CategoryItem) => ({
-  key: ["ARTICLE_LIST", category.name],
-  fetcher: () =>
-    articleRequest.article_list({
-      categoryId: category.id === 0 ? "" : category.id,
-      page: hospitalOptions.page,
-      size: 5,
-      popular: false,
-    }),
-});
-
-const Main = styled.main`
-  width: 100%;
-  max-width: 1330px;
-  margin: 0 auto;
-  padding: 52px 35px 0;
-  margin-bottom: 100px;
-`;
-
-type PetbookPage = NextPage & {
-  requiredResources?: (
-    | typeof CATEGORY_LIST
-    | typeof HOT_ARTICLE_LIST
-    | ReturnType<typeof createResourceByCategory>
-  )[];
-};
-
-const Community: PetbookPage = () => {
+const Community: NextPageWithResources = () => {
   return (
     <Main>
       <CommunityBanner />
@@ -95,12 +53,17 @@ const Community: PetbookPage = () => {
   );
 };
 
-Community.getInitialProps = async () => {
-  const { data } = await CATEGORY_LIST.fetcher();
-  const resources = data
-    .concat([{ id: 0, name: "전체" }])
-    .map((category) => createResourceByCategory(category));
-  Community.requiredResources = [...resources, CATEGORY_LIST, HOT_ARTICLE_LIST];
-};
+const Main = styled.main`
+  width: 100%;
+  max-width: 1330px;
+  margin: 0 auto;
+  padding: 52px 35px 0;
+  margin-bottom: 100px;
+`;
 
+Community.requiredResources = [
+  CATEGORY_LIST,
+  POPULAR_ARTICLE_LIST,
+  ARTICLE_LIST_PREVIEW,
+];
 export default Community;

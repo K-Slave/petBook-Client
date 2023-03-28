@@ -1,7 +1,7 @@
 import RequestCore from "./RequestCore";
-import { CategoryListResponse } from "./types/categoryRequestSpr";
+import { CategoryListResponse } from "./types/categoryRequest";
 
-export default class CategorySprAPI extends RequestCore {
+export default class CategoryAPI extends RequestCore {
   /**
    * @param config
    * @returns categoryId 에 해당하는 게시물 리스트를 반환합니다.

@@ -1,7 +1,7 @@
 import { nextPetBookClient, sprPetBookClient } from "../axios/axiosClient";
 import ArticleAPI from "./articleRequest";
 import UserAPI from "./userRequest";
-import CategorySprAPI from "./categoryRequestSpr";
+import CategoryAPI from "./categoryRequest";
 import ImgAPI from "./imgRequest";
 import CommentAPI from "./commentRequest";
 import HospitalAPI from "./hospitalRequest";
@@ -48,7 +48,7 @@ export const articleRequest = new ArticleAPI(
  * @uri '/api/v1/board/category'
  * @method category_list(config) : GET 카테고리 조회
  */
-export const categorySprRequest = new CategorySprAPI(
+export const categoryRequest = new CategoryAPI(
   process.env.NEXT_PUBLIC_SPR_URL as string,
   "/api/v1/board/category",
   sprPetBookClient

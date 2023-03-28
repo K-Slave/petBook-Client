@@ -4,32 +4,32 @@ import { useRouter } from "next/router";
 import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
 import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
 import Stats from "@components/common/hospital/Stats";
-import useResource from "@lib/hooks/common/useResource";
-import { HOSPITAL_LIST } from "@pages/hospitalmap";
 import Skeleton from "@components/common/Skeleton/Skeleton";
 import HospitalReview from "@components/hospital/HospitalReview";
 import HospitalDetailReview from "@components/hospital/HospitalDetailReview";
 import PencilEditIcon from "@components/common/icon/PencilEdit";
 import ShareForwardIcon from "@components/common/icon/ShareFoward";
 import useModal from "@lib/hooks/common/useModal";
-import hospitalOptions from "@lib/commonValue/hospitalOptions";
 import { Section, LineDiv, ButtonBoxDiv, Divider } from "./styled";
+import { HOSPITAL_DETAIL } from "@lib/queries/hospital";
+import { useResource } from "@lib/hooks/common/useResource";
+import Link from "next/link";
 
 const HospitalDetail = ({ id }: { id: number }) => {
+  const payload = {
+    pathParam: String(id),
+  };
   const { data } = useResource({
-    key: [HOSPITAL_LIST.key[0], { id }],
-    fetcher: () =>
-      HOSPITAL_LIST.fetcher({
-        params: {
-          id,
-          page: hospitalOptions.page,
-          size: 1,
-        },
-      }),
+    key: HOSPITAL_DETAIL.createKey(payload),
+    fetcher: () => HOSPITAL_DETAIL.fetcher(payload),
   });
   const router = useRouter();
   const goBack = () => {
-    router.back();
+    if (window.history.length <= 2) {
+      router.push("/hospitalmap");
+    } else {
+      router.back();
+    }
   };
   if (!data) {
     return (
@@ -49,7 +49,9 @@ const HospitalDetail = ({ id }: { id: number }) => {
             <ChevronLeft />
           </button>
           <div>
-            <h1>{data?.data.hospitals[0].hospitals.name}</h1>
+            <Link href={`/hospital/${data.data.id}`} passHref>
+              <h1>{data.data.name}</h1>
+            </Link>
             <Stats />
           </div>
         </header>
@@ -61,14 +63,12 @@ const HospitalDetail = ({ id }: { id: number }) => {
         />
         <HospitalDetail.ButtonBox
           id={Number(router.query.id)}
-          name={data?.data.hospitals[0].hospitals.name}
+          name={data.data.name}
         />
       </div>
       <LineDiv />
       <div className="wrapper">
-        <HospitalBasicInfo
-          address={data?.data.hospitals[0].hospitals.address}
-        />
+        <HospitalBasicInfo address={data.data.address} />
         <PossibleAnimalList />
       </div>
       <LineDiv />

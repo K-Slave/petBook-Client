@@ -4,14 +4,13 @@ import { usePage } from "@components/common/Pagination/usePagination";
 import SearchBar from "@components/common/SearchBar";
 import Skeleton from "@components/common/Skeleton/Skeleton";
 import hospitalOptions from "@lib/commonValue/hospitalOptions";
+import { HOSPITAL_LIST } from "@lib/queries/hospital";
 import useDidMountEffect from "@lib/hooks/common/useDidMountEffect";
-import useResource from "@lib/hooks/common/useResource";
+import { useResource } from "@lib/hooks/common/useResource";
 import { getScrollPosition } from "@lib/modules/localStorage";
 import navigator from "@lib/modules/navigator";
 import { removeQuery, replaceQuery } from "@lib/modules/queryString";
 import { convRectBoundsToBoundary } from "@lib/utils/kakaoMaps/getRectBounds";
-import localConsole from "@lib/utils/localConsole";
-import { HOSPITAL_LIST } from "@pages/hospitalmap";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import { useRecoilValue } from "recoil";
@@ -22,23 +21,17 @@ import { FilterButton, FilterDiv, Section } from "./styled";
 const HospitalList = () => {
   const ref = useRef<HTMLElement | null>(null);
   const page = usePage() - 1;
+  const size = hospitalOptions.size;
   const rectBounds = useRecoilValue(rectBoundsState);
   const boundary = convRectBoundsToBoundary(rectBounds);
-
-  const fetchParams = {
+  const params = {
     page,
-    size: 50,
+    size,
     boundary,
   };
-
-  localConsole?.log(fetchParams, "fetchParams");
-
-  const { data, status } = useResource({
-    key: [HOSPITAL_LIST.key[0], fetchParams],
-    fetcher: () =>
-      HOSPITAL_LIST.fetcher({
-        params: fetchParams,
-      }),
+  const { data } = useResource({
+    key: HOSPITAL_LIST.createKey({ params }),
+    fetcher: () => HOSPITAL_LIST.fetcher({ params }),
   });
 
   // mounted
@@ -63,28 +56,33 @@ const HospitalList = () => {
         top: 0,
       });
     }
-  }, [page]);
+  }, [page, data]);
   return (
     <Section ref={ref}>
       <SearchBar placeholder="원하는 위치를 검색해보세요!" />
       <CurrentGps />
       <HospitalList.Filter />
       <div className="Item_Wrapper">
-        {status === "loading"
+        {!data
           ? Array(20)
               .fill("")
               .map((_, index) => (
                 <Skeleton width="100%" height="200px" key={index} />
               ))
-          : data?.data.hospitals.map((hospital) => (
+          : data.data.hospitals.map((hospital) => (
               <HospitalItem
                 key={hospital.hospitals.id}
-                {...hospital}
-                {...ref}
+                parent={ref}
+                hospitals={hospital}
               />
             ))}
       </div>
-      <Pagination buttonNum={5} totalPages={10} />
+      {data && (
+        <Pagination
+          buttonNum={5}
+          totalPages={Math.ceil(data.data.totalCount / hospitalOptions.size)}
+        />
+      )}
     </Section>
   );
 };

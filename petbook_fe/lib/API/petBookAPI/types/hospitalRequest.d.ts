@@ -25,17 +25,19 @@ export interface HospitalFullInfo {
   };
 }
 
-export type HospitalListResponse = {
+export interface HospitalListResponse {
   totalCount: number;
   hospitals: HospitalFullInfo[];
-};
+}
+
+export type HospitalDetailResponse = HospitalInfo;
 
 export interface HospitalListRequest {
   id?: number;
   name?: string;
   address?: string;
-  page: number | 0;
-  size: number | 50;
+  page: number;
+  size: number;
   boundary?: string;
 }
 

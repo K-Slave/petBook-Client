@@ -1,42 +1,35 @@
 import { AxiosRequestHeaders } from "axios";
 import RequestCore from "./RequestCore";
+import {
+  HospitalDetailResponse,
+  HospitalListRequest,
+} from "./types/hospitalRequest";
 
 export default class HospitalAPI extends RequestCore {
-  public hospital_list = async (payload?: {
+  public hospital_detail = async (payload: {
     header?: AxiosRequestHeaders;
-    params?: {
-      id?: number;
-      name?: string;
-      address?: string;
-      page: number | 0;
-      size: number | 50;
-      boundary?: string;
-    };
+    pathParam: string;
   }) => {
-    const pageParam =
-      payload && payload.params && typeof payload.params.page === "number"
-        ? payload.params.page
-        : 0;
+    const { requestURL, requestHeaders } = this.getParameters({
+      headerObj: payload.header,
+      pathParam: payload.pathParam,
+    });
+    const result = await this.getResult<HospitalDetailResponse>({
+      requestMethod: "GET",
+      requestURL,
+      requestHeaders,
+    });
+    return result;
+  };
 
-    const sizeParams =
-      payload && payload.params && typeof payload.params.size === "number"
-        ? payload.params.size
-        : 50;
-
-    const boundaryParams =
-      payload && payload.params && typeof payload.params.boundary === "string"
-        ? payload.params.boundary
-        : "";
-
+  public hospital_list = async (payload: {
+    header?: AxiosRequestHeaders;
+    params: HospitalListRequest;
+  }) => {
     const { requestURL, requestHeaders } = this.getParameters({
       uri: "/list",
-      headerObj: payload?.header,
-      params: {
-        ...payload?.params,
-        page: pageParam,
-        size: sizeParams,
-        boundary: boundaryParams,
-      },
+      headerObj: payload.header,
+      params: payload.params,
     });
 
     const result = await this.getResult<{
@@ -150,7 +143,7 @@ export default class HospitalAPI extends RequestCore {
     return result;
   };
 
-  public hospital_review_list = async (payload?: {
+  public hospital_review_list = async (payload: {
     header?: AxiosRequestHeaders;
     params: {
       hospitalId: number;

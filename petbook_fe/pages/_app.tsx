@@ -15,7 +15,6 @@ import TopNav from "@components/common/Nav/TopNav";
 
 import queryParser from "@lib/server/parse/queryParser";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
-import type { Key } from "@lib/hooks/common/useResource";
 import { itrMap } from "@lib/utils/iterableFunctions";
 import createQueryClient from "@lib/utils/createQueryClient";
 import getToken from "@lib/server/parse/getToken";
@@ -34,6 +33,7 @@ import keyName from "@lib/commonValue/keyName";
 import urlTokenRedirect from "@lib/server/parse/urlTokenRedirect";
 import tokenParser from "@lib/server/parse/tokenParser";
 import NextGlobalStyle from "../styles/global.style";
+import type { Resource } from "@lib/queries";
 
 type DehydratedAppProps = AppProps<{
   dehydratedState: DehydratedState;
@@ -48,8 +48,14 @@ type DehydratedAppProps = AppProps<{
 const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
   const [queryClient] = useState(() => createQueryClient());
 
-  if (pageProps.token && typeof window === "undefined") {
+  if (pageProps.token) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${pageProps.token}`;
+    const { userInfo } = tokenParser(pageProps.token);
+    queryClient.setQueryData([keyName.userInfo], userInfo);
+  } else if (typeof window === "undefined") {
+    // 서버 사이드에서만 token을 가져올 수 있음. (http only cookie라서) 즉, token이 없는데 서버 사이드면 로그아웃 상태
+    sprPetBookClient.defaults.headers.common.Authorization = "";
+    queryClient.setQueryData([keyName.userInfo], "");
   }
 
   if (
@@ -59,13 +65,8 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${process.env.NEXT_PUBLIC_TESTER}`;
   }
 
-  if (pageProps.token) {
-    const { userInfo } = tokenParser(pageProps.token);
-    queryClient.setQueryData([keyName.userInfo], userInfo);
-  }
-
   // 웹 후크 연동 테스트
-
+  console.log(pageProps.dehydratedState);
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
@@ -136,12 +137,7 @@ NextApp.getInitialProps = async (context: AppContext) => {
     }
 
     const PageComponent: typeof Component & {
-      requiredResources?: Array<{
-        key: Key;
-        fetcher: () => void;
-        params?: object;
-        config?: object;
-      }>;
+      requiredResources?: Array<Resource>;
     } = Component;
 
     if (PageComponent.getInitialProps) {
@@ -149,13 +145,11 @@ NextApp.getInitialProps = async (context: AppContext) => {
     }
 
     const { requiredResources } = PageComponent;
-    const { query } = ctx;
 
     if (requiredResources) {
       await Promise.all(
         itrMap(
-          (resource: { key: Key; fetcher: () => void }) =>
-            queryParser(ctx, resource, query, queryClient),
+          (resource: Resource) => queryParser(ctx, resource, queryClient),
           requiredResources
         )
       );

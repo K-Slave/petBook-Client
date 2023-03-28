@@ -62,13 +62,13 @@ export default class ArticleAPI extends RequestCore {
    * @param config Header 메시지를 추가할때 씁니다.
    * @returns 게시물 ID 에 해당하는 게시물을 반환합니다.
    */
-  public article_item = async (
-    pathParam: string,
-    config?: { headerObj: object }
-  ) => {
+  public article_detail = async (payload: {
+    pathParam: string;
+    headerObj?: object;
+  }) => {
     const { requestURL, requestHeaders } = this.getParameters({
-      pathParam,
-      headerObj: config && config.headerObj,
+      pathParam: payload.pathParam,
+      headerObj: payload?.headerObj,
     });
 
     const result = await this.getResult<ArticleResponse>({
@@ -89,14 +89,14 @@ export default class ArticleAPI extends RequestCore {
    * @param config
    * @returns categoryId 에 해당하는 게시물 리스트를 반환합니다.
    */
-  public article_list = async (
-    params?: ArticleListRequest,
-    config?: { headerObj: object }
-  ) => {
+  public article_list = async (payload: {
+    params: ArticleListRequest;
+    headerObj?: object;
+  }) => {
     const { requestURL, requestHeaders } = this.getParameters({
       uri: "/list",
-      params,
-      headerObj: config && config.headerObj,
+      params: payload.params,
+      headerObj: payload.headerObj,
     });
 
     const result = await this.getResult<ArticleListResponse>({
@@ -156,14 +156,14 @@ export default class ArticleAPI extends RequestCore {
     return result;
   };
 
-  public article_search = async (
-    params?: ArticleSearchRequest,
-    config?: { headerObj: object }
-  ) => {
+  public article_search = async (payload: {
+    params: ArticleSearchRequest;
+    headerObj?: object;
+  }) => {
     const { requestURL, requestHeaders } = this.getParameters({
       uri: "/search",
-      params,
-      headerObj: config && config.headerObj,
+      params: payload.params,
+      headerObj: payload.headerObj,
     });
 
     const result = await this.getResult<ArticleListResponse>({

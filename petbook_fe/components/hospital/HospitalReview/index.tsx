@@ -6,10 +6,7 @@ import {
   ReviewBoxProps,
   ReviewProps,
 } from "@lib/API/petBookAPI/types/hospitalRequest";
-import {
-  HOSPITAL_REVIEW_CREATE,
-  HOSPITAL_REVIEW_LIST,
-} from "@pages/hospitalmap";
+import { HOSPITAL_REVIEW_CREATE } from "@pages/hospitalmap";
 import { useQueryClient } from "@tanstack/react-query";
 import { reviewFormState } from "@atoms/pageAtoms/hospitalmap/reviewState";
 import { useRecoilState } from "recoil";
@@ -29,6 +26,7 @@ import {
   ImgBoxGroup,
   ImgBox,
 } from "./styled";
+import { HOSPITAL_REVIEW_LIST } from "@lib/queries/hospital";
 
 const PETDATA = [
   {
@@ -128,7 +126,15 @@ const HospitalReview = ({
 
   const onSubmit = () => {
     mutate(reviewForm);
-    queryClient.invalidateQueries({ queryKey: HOSPITAL_REVIEW_LIST.key });
+    queryClient.invalidateQueries({
+      queryKey: HOSPITAL_REVIEW_LIST.createKey({
+        params: {
+          hospitalId,
+          page: 0,
+          size: 20,
+        },
+      }),
+    });
   };
 
   useEffect(() => {

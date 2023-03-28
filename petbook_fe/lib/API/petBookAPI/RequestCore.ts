@@ -47,7 +47,13 @@ export default class RequestCore {
         `${typeof window === "undefined" ? this.initBaseUrl : ""}` +
           `${this.commonUri}` +
           `${uri || ""}` +
-          `${pathParam || ""}`
+          `${
+            pathParam
+              ? pathParam?.includes("/")
+                ? pathParam
+                : `/${pathParam}`
+              : ""
+          }`
       )}${isNeedQuery ? getQueryString(params) : ""}`,
       requestHeaders: { ...headerObj },
     };

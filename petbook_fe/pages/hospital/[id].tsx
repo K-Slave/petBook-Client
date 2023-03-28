@@ -1,9 +1,11 @@
 import HospitalDetailContainer from "@containers/hospital/HospitalDetailContainer";
+import { HOSPITAL_DETAIL } from "@lib/queries/hospital";
+import type { NextPageWithResources } from "@lib/queries";
 import styled from "styled-components";
 
-// TODO: add required resource (hospital, review)
+// TODO: add hospital review resource
 
-const HospitalDetail = () => {
+const HospitalDetail: NextPageWithResources = () => {
   return (
     <Main>
       <HospitalDetailContainer />
@@ -17,4 +19,5 @@ const Main = styled.main`
   margin: 50px auto;
 `;
 
+HospitalDetail.requiredResources = [HOSPITAL_DETAIL];
 export default HospitalDetail;
