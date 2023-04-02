@@ -53,12 +53,12 @@ const KakaoMap = () => {
       <KakaoMap.Observer />
       <KakaoMap.Rect />
 
-      {status === "success" &&
+      {/* {status === "success" &&
         data &&
         data.data.hospitals.length > 1 &&
         !router.query.id && (
           <KakaoMap.Bound poiDataList={data.data.hospitals} />
-        )}
+        )} */}
       {status === "success" && data && (
         <KakaoMap.List poiDataList={data?.data.hospitals} />
       )}
@@ -95,53 +95,53 @@ interface WrapProps {
   isIdData: boolean;
 }
 
-const Wrap = ({
-  children,
-  poiData,
-  isIdData,
-}: PropsWithChildren<WrapProps>) => {
-  const currentGeoLocation = useRecoilValue(geoLocationState);
-  const setMapState = useSetRecoilState(mapState);
+const Wrap = React.memo(
+  ({ children, poiData, isIdData }: PropsWithChildren<WrapProps>) => {
+    const currentGeoLocation = useRecoilValue(geoLocationState);
+    const setMapState = useSetRecoilState(mapState);
 
-  const initLat = useMemo(() => {
-    return poiData && isIdData
-      ? poiData.hospitals.latitude
-      : currentGeoLocation.latitude;
-  }, []);
+    const initLat = useMemo(() => {
+      return poiData && isIdData
+        ? poiData.hospitals.latitude
+        : currentGeoLocation.latitude;
+    }, []);
 
-  const initLng = useMemo(() => {
-    return poiData && isIdData
-      ? poiData.hospitals.longitude
-      : currentGeoLocation.longitude;
-  }, []);
+    const initLng = useMemo(() => {
+      return poiData && isIdData
+        ? poiData.hospitals.longitude
+        : currentGeoLocation.longitude;
+    }, []);
 
-  return (
-    <>
-      <Map
-        center={{
-          lat: initLat,
-          lng: initLng,
-        }}
-        level={mapsLevelSelector(initLat)}
-        style={{
-          position: "relative",
-          width: "100%",
-          height: "100%",
-          backgroundColor: "rgba(200, 200, 200, 0.3)",
-        }}
-        onZoomChanged={(mapObj) => {
-          setMapState((state) => ({
-            ...state,
-            currentZoomLevel: mapObj.getLevel(),
-          }));
-        }}
-        onBoundsChanged={(mapObj) => {}}
-      >
-        {children}
-      </Map>
-    </>
-  );
-};
+    return (
+      <>
+        <Map
+          center={{
+            lat: initLat,
+            lng: initLng,
+          }}
+          level={mapsLevelSelector(initLat)}
+          style={{
+            position: "relative",
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(200, 200, 200, 0.3)",
+          }}
+          onZoomChanged={(mapObj) => {
+            setMapState((state) => ({
+              ...state,
+              currentZoomLevel: mapObj.getLevel(),
+            }));
+          }}
+          onBoundsChanged={(mapObj) => {}}
+        >
+          {children}
+        </Map>
+      </>
+    );
+  }
+);
+
+Wrap.displayName = "KakaoMapWrap";
 
 const Observer = () => {
   const map = useMap();
@@ -185,32 +185,14 @@ const Rect = React.memo(() => {
 
 Rect.displayName = "Rect";
 
-interface BoundProps {
-  poiDataList: HospitalFullInfo[];
-}
-
-const Bound = ({ poiDataList }: BoundProps) => {
-  // useBounds({ poiDataList });
-  // const map = useMap();
-  // const currentRectBounds = useRecoilValue(rectBoundsState);
-
-  // useEffect(() => {
-  //   const boundsCenter = getBoundsCenter(
-  //     currentRectBounds.SW_7,
-  //     currentRectBounds.NE_1
-  //   );
-  //   map.panTo(new kakao.maps.LatLng(boundsCenter.lat, boundsCenter.lng));
-  // }, [currentRectBounds]);
-
-  return <></>;
-};
-
 interface ListProps {
   poiDataList: HospitalFullInfo[];
 }
 
-const List = ({ poiDataList }: ListProps) => {
+const List = React.memo(({ poiDataList }: ListProps) => {
   const router = useRouter();
+
+  console.log("List Render");
 
   return (
     <>
@@ -226,28 +208,29 @@ const List = ({ poiDataList }: ListProps) => {
       })}
     </>
   );
-};
+});
 
-const Item = ({
-  poiData,
-  isMatched,
-}: {
-  poiData: HospitalInfo;
-  isMatched: boolean;
-}) => {
-  return (
-    <>
-      <KakaoMap.Marker poiData={poiData} />
-      <KakaoMap.Overlay poiData={poiData} isMatched={isMatched} />
-    </>
-  );
-};
+List.displayName = "KakaoMapList";
 
+const Item = React.memo(
+  ({ poiData, isMatched }: { poiData: HospitalInfo; isMatched: boolean }) => {
+    console.log("Item Render");
+
+    return (
+      <>
+        <KakaoMap.Marker poiData={poiData} />
+        <KakaoMap.Overlay poiData={poiData} isMatched={isMatched} />
+      </>
+    );
+  }
+);
+
+Item.displayName = "KakaoMapItem";
 interface MarkerProps {
   poiData: HospitalInfo;
 }
 
-const Marker = ({ poiData }: MarkerProps) => {
+const Marker = React.memo(({ poiData }: MarkerProps) => {
   const image = useMemo(() => {
     return {
       src: "",
@@ -266,7 +249,9 @@ const Marker = ({ poiData }: MarkerProps) => {
       // zIndex={isMatched ? 200 : 0}
     />
   );
-};
+});
+
+Marker.displayName = "KakaoMapMarker";
 
 const RectSearch = () => {
   const map = useMap();
@@ -291,14 +276,13 @@ const RectSearch = () => {
   return <RectSearchButton onClick={onClick}>현위치 재검색</RectSearchButton>;
 };
 
-KakaoMap.Wrap = React.memo(Wrap);
+KakaoMap.Wrap = Wrap;
 KakaoMap.Observer = Observer;
 KakaoMap.Rect = Rect;
-KakaoMap.Bound = React.memo(Bound);
-KakaoMap.List = React.memo(List);
-KakaoMap.Item = React.memo(Item);
-KakaoMap.Marker = React.memo(Marker);
-KakaoMap.Overlay = React.memo(KaKaoOverlay);
+KakaoMap.List = List;
+KakaoMap.Item = Item;
+KakaoMap.Marker = Marker;
+KakaoMap.Overlay = KaKaoOverlay;
 KakaoMap.RectSearch = RectSearch;
 
 export default KakaoMap;
