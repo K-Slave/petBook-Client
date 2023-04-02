@@ -10,6 +10,7 @@ import {
   UserYearSpan,
 } from "./style/UserInfoSection";
 import Image from "next/image";
+import { AuthSelfHiddenMask } from "@components/common/AuthSelfMask/AuthSelfMask";
 
 const UserInfoSection = () => {
   return (
@@ -19,7 +20,9 @@ const UserInfoSection = () => {
         <UserInfoSection.Name userName="유저닉넴" />
         <UserInfoSection.Year userYear="1" />
       </UserInfoSection.Content>
-      <UserInfoSection.Follow isFollowUser={false} isSelfPage={false} />
+      <AuthSelfHiddenMask>
+        <UserInfoSection.Follow isFollowUser={false} isSelfPage={false} />
+      </AuthSelfHiddenMask>
     </UserInfoSection.Wrap>
   );
 };

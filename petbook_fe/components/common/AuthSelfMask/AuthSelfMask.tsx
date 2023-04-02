@@ -42,7 +42,7 @@ const AuthSelfMask = ({ children, toLogin }: PropsWithChildren<Props>) => {
               navigator({ url: "/login" });
             } else {
               // 아니라면 페이지 강제 리로드
-              window.location.reload();
+              // window.location.reload();
             }
           }
           setLoading(false);
@@ -51,7 +51,7 @@ const AuthSelfMask = ({ children, toLogin }: PropsWithChildren<Props>) => {
           if (toLogin) {
             navigator({ url: "/login" });
           } else {
-            window.location.reload();
+            // window.location.reload();
           }
 
           setLoading(false);
@@ -69,5 +69,60 @@ const AuthSelfMask = ({ children, toLogin }: PropsWithChildren<Props>) => {
 AuthSelfMask.defaultProps = {
   toLogin: false,
 };
+
+export const AuthSelfHiddenMask = React.memo(
+  ({ children, toLogin }: PropsWithChildren<Props>) => {
+    const { userData } = useUserInfo();
+    const router = useRouter();
+    const idPath = router.asPath.replace("/mypage/", "");
+    const setLoading = useSetRecoilState(loadingState);
+
+    useEffect(() => {
+      if (!userData) {
+        // 진짜 로그인 안됐는지 재검사
+
+        setLoading(true);
+
+        cookieRequest
+          .getCookie({
+            params: {
+              key: keyName.userToken,
+            },
+          })
+          .then((res) => {
+            if (!res.data) {
+              // token 이 있으면 react-query 에 채워주기
+              // setUserInfo
+              if (toLogin) {
+                // toLogin 이면 로그인 페이지로 이동시키기
+                navigator({ url: "/login" });
+              } else {
+                // 아니라면 페이지 강제 리로드
+                // window.location.reload();
+              }
+            }
+            setLoading(false);
+          })
+          .catch((res) => {
+            if (toLogin) {
+              navigator({ url: "/login" });
+            } else {
+              // window.location.reload();
+            }
+
+            setLoading(false);
+          });
+      }
+    }, [userData]);
+
+    if (userData && userData.id.toString() === idPath) {
+      return <></>;
+    }
+
+    return <>{children}</>;
+  }
+);
+
+AuthSelfHiddenMask.displayName = "AuthSelfHiddenMask";
 
 export default React.memo(AuthSelfMask);
