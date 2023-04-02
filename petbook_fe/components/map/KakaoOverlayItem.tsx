@@ -10,20 +10,6 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { kakaoUseMap } from "./KakaoMap";
 
-// const dd = {
-//   latitude: 37.2820626,
-//   longitude: 126.8295785,
-//   petBookRegionName: "안산시 상록구 해양동",
-//   region_type: "H",
-//   code: "4127153700",
-//   address_name: "경기도 안산시 상록구 해양동",
-//   region_1depth_name: "경기도",
-//   region_2depth_name: "안산시 상록구",
-//   region_3depth_name: "해양동",
-//   region_4depth_name: "",
-//   x: 126.82007738608132,
-//   y: 37.294699470442765,
-// };
 interface OverLayButtonProps {
   isMatched: boolean;
 }
@@ -105,23 +91,12 @@ const randomBox = [
   "🐰",
   "🐹🐹",
   "🐰🐰",
-  "🐹🐰",
   "🐹🐹🐹",
   "🐰🐰🐰",
-  "🐰🐹🐰",
-  "🐹🐰🐹",
   "🐹🐹🐹🐹",
   "🐰🐰🐰🐰",
-  "🐹🐰🐹🐰",
-  "🐰🐹🐰🐹",
-  "🐰🐹🐹🐰",
-  "🐹🐰🐰🐹",
   "🐹🐹🐹🐹 +",
   "🐰🐰🐰🐰 +",
-  "🐹🐰🐹🐰 +",
-  "🐰🐹🐰🐹 +",
-  "🐰🐹🐹🐰 +",
-  "🐹🐰🐰🐹 +",
 ];
 
 interface KaKaoOverlayProps {
@@ -129,7 +104,7 @@ interface KaKaoOverlayProps {
   isMatched: boolean;
 }
 
-const KaKaoOverlay = ({ poiData, isMatched }: KaKaoOverlayProps) => {
+const KaKaoOverlay = React.memo(({ poiData, isMatched }: KaKaoOverlayProps) => {
   const setMapState = useSetRecoilState(mapState);
   const router = useRouter();
   const initMark = useMemo(() => randomBox[getRandomIdx(randomBox)], []);
@@ -183,6 +158,8 @@ const KaKaoOverlay = ({ poiData, isMatched }: KaKaoOverlayProps) => {
       </OverLayDiv>
     </CustomOverlayMap>
   );
-};
+});
+
+KaKaoOverlay.displayName = "KaKaoOverlay";
 
 export default KaKaoOverlay;
