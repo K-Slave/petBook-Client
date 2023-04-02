@@ -1,8 +1,5 @@
-import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
 import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
-import { cookieRequest } from "@lib/API/petBookAPI";
 import hospitalOptions from "@lib/commonValue/hospitalOptions";
-import keyName from "@lib/commonValue/keyName";
 import { HOSPITAL_LIST } from "@lib/queries/hospital";
 import { convRectBoundsToBoundary } from "@lib/utils/kakaoMaps/getRectBounds";
 import { useRouter } from "next/router";

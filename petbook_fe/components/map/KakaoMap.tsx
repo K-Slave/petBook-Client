@@ -14,8 +14,6 @@ import useGetRect from "@lib/hooks/map/useGetRect";
 import usePoiData from "@lib/hooks/map/usePoiData";
 import mapsLevelSelector from "@lib/modules/mapsLevelSelector";
 import getRectBounds, { Coordinates } from "@lib/utils/kakaoMaps/getRectBounds";
-import localConsole from "@lib/utils/localConsole";
-
 import { koreaGeoLocationValidate } from "@lib/utils/validation/geoLocationValidate";
 import { useRouter } from "next/router";
 import React, { PropsWithChildren, useEffect, useMemo } from "react";
@@ -59,9 +57,7 @@ const KakaoMap = () => {
         !router.query.id && (
           <KakaoMap.Bound poiDataList={data.data.hospitals} />
         )} */}
-      {status === "success" && data && (
-        <KakaoMap.List poiDataList={data?.data.hospitals} />
-      )}
+      {data && <KakaoMap.List poiDataList={data?.data.hospitals} />}
       <KakaoMap.RectSearch />
     </KakaoMap.Wrap>
   );
@@ -192,8 +188,6 @@ interface ListProps {
 const List = React.memo(({ poiDataList }: ListProps) => {
   const router = useRouter();
 
-  console.log("List Render");
-
   return (
     <>
       {poiDataList.map((poiData, idx) => {
@@ -214,8 +208,6 @@ List.displayName = "KakaoMapList";
 
 const Item = React.memo(
   ({ poiData, isMatched }: { poiData: HospitalInfo; isMatched: boolean }) => {
-    console.log("Item Render");
-
     return (
       <>
         <KakaoMap.Marker poiData={poiData} />
