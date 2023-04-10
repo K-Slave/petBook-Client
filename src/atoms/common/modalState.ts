@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
 const modalState = atom<{
-  Component:((props: any) => JSX.Element) | null;
+  Component: ((props: any) => JSX.Element) | null;
   props: object;
 }>({
   key: "modalState",

@@ -34,7 +34,7 @@ const date = dayjs().tz();
 const time = `🛬 빌드 종료 : ${(
   date.month() + 1
 ).toString()}/${date.date()} - ${
-  date.hour() < 10 ? "0" + date.hour() : date.hour()
+  date.hour() < 10 ? "0" + date.hour().toString() : date.hour()
 }:${date.minute()}:${date.second()}
 ⏱ 빌드 하는데 걸린 시간 : ??
 `;

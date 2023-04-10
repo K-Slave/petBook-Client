@@ -1,5 +1,5 @@
 {
-  "name": "petbook_fe",
+  "name": "src",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "build:notify": "ts-node ./scripts/preRunner.ts && next build 1> buildLog.txt 2> errorLog.txt && ts-node ./scripts/postRunner.ts || ts-node ./scripts/postRunner.ts",
-    "prepare": "cd .. && husky install petbook_fe/.husky"
+    "prepare": "cd .. && husky install src/.husky"
   },
   "husky": {
     "hooks": {

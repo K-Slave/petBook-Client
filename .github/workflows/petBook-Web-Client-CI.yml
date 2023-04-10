@@ -24,17 +24,17 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: install
-          dir: ./petbook_fe
+          dir: ./src
       - name: yarn run lint
         uses: borales/actions-yarn@v4
         with:
           cmd: lint
-          dir: ./petbook_fe
+          dir: ./src
       - name: yarn run build
         uses: borales/actions-yarn@v4
         with:
           cmd: build
-          dir: ./petbook_fe
+          dir: ./src
   ci-notify:
     name: Discord Notification
     runs-on: ubuntu-latest

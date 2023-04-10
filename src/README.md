@@ -1,6 +1,6 @@
 # Common
 
-- 조만간 eslint 랑 tsconfig 을 적용하겠습니다.
+- eslint 추가 완료
 - 줄임말 등은 대문자로 표기합니다. (API, SDK)
 
 # Folder / File Naming Convetion

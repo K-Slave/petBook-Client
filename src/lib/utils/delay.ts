@@ -1,8 +1,6 @@
 import localConsole from "./localConsole";
 
-const delay = (
-  ms?: number | undefined
-) => {
+const delay = (ms?: number | undefined) => {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
   });
