@@ -171,3 +171,4 @@ https://github.com/K-Slave/petBook-Client/commit/9b7bae2d91b14047844ce27dc8c6257
       아이디 검색과 구분해서 구현필요
 - [ ] 쿠키에서 값 꺼내서 초기 값으로 쓰기
 - [ ] 쿠키에 rect 를 저장시킬지, 아니면 geo 만 꺼내서 rect 로 잘 변환시킬것인지
+      //
