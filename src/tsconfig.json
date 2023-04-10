@@ -18,7 +18,7 @@
     "downlevelIteration": true,
     "incremental": true,
     "useUnknownInCatchVariables": false,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
       "@components/*": ["components/*"],
       "@pages/*": ["pages/*"],
@@ -29,6 +29,6 @@
       "@data/*": ["data/*"]
     }
   },
-  "include": ["src/next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "src/**/*"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*"],
   "exclude": ["node_modules", "unused", "/unused", "unused/*", "./unused"]
 }
