@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import OnClickOutside from "@components/common/OnClickOutside";
 import Image from "next/image";
 import {
@@ -25,7 +25,7 @@ import {
   ImgContainer,
   ImgBoxGroup,
   ImgBox,
-} from "./styled";
+} from "./HospitalReview.style";
 import { HOSPITAL_REVIEW_LIST } from "@lib/queries/hospital";
 
 const PETDATA = [
@@ -94,6 +94,7 @@ const ImgWrap = () => {
               accept="image/png, image/gif, image/jpeg"
               id="file"
               className="default"
+              multiple
               onChange={onChange}
             />
           </label>

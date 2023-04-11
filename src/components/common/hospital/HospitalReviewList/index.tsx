@@ -7,7 +7,7 @@ import {
   ReviewBoxButton,
 } from "./styled";
 import useModal from "@lib/hooks/common/useModal";
-import HospitalReview from "@components/hospital/HospitalReview";
+import HospitalReview from "@components/hospital/HospitalReview/HospitalReview";
 
 export const PointReviewList = (hospitals: HospitalFullInfo) => {
   const { openModal, closeModal } = useModal();

@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { HOSPITAL_REVIEW_REMOVE } from "@pages/hospitalmap";
 import { HospitalReveiwRequest } from "@lib/API/petBookAPI/types/hospitalRequest";
-import HospitalReview from "../HospitalReview";
+import HospitalReview from "../HospitalReview/HospitalReview";
 import {
   ReviewBox,
   ReviewBoxContent,
