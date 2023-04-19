@@ -18,6 +18,7 @@ export const HashTagTitleWrapSpan = styled.span`
 `;
 
 const HashTagTitleP = styled.p`
+  position: relative;
   display: flex;
   align-items: center;
 

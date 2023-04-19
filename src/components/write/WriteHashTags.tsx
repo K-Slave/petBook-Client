@@ -1,10 +1,6 @@
 import writeState from "@atoms/pageAtoms/community/writeState";
-import ToastMessage from "@components/common/ToastMessage/ToastMessage";
 import hashTagKeydown from "@lib/handler/hashTagKeydown";
 import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
-import useToastMessage, {
-  ToastHandlerType,
-} from "@lib/hooks/common/useToastMessage";
 import useSetHashTag from "@lib/hooks/write/useSetHashTag";
 import React, {
   FocusEventHandler,
@@ -13,6 +9,8 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { BubblyTip, BubblyTipHandler, useBubblyTip } from "react-bubblytip";
+
 import {
   HashInput,
   HashTagTitleP,
@@ -24,13 +22,13 @@ import {
 // TODO : 최대 5개 구현, 요소가 HashTagBox 넘어가지 않도록 구현
 const WriteHashTags = () => {
   const [isError, setIsError] = useState(false);
-  const [isToastView, msgPush] = useToastMessage({
+  const [isView, msgPush] = useBubblyTip({
     timeout: 3000,
   });
 
   return (
     <WriteHashTagsSection>
-      <WriteHashTags.Title isToastView={isToastView} />
+      <WriteHashTags.Title isView={isView} />
       <WriteHashTags.TagBox isError={isError} setIsError={setIsError}>
         <WriteHashTags.List />
         <WriteHashTags.Input setIsError={setIsError} msgPush={msgPush} />
@@ -39,13 +37,13 @@ const WriteHashTags = () => {
   );
 };
 
-const Title = React.memo(({ isToastView }: { isToastView: boolean }) => {
+const Title = React.memo(({ isView }: { isView: boolean }) => {
   return (
     <HashTagTitleP className="Hash__Tag__Title">
       # 해시태그를 달아주세요
-      <ToastMessage push={isToastView} marginLeft={12}>
+      <BubblyTip push={isView} marginLeft={12}>
         해시태그가 많을수록 다른 유저한테 더 잘 보여요!
-      </ToastMessage>
+      </BubblyTip>
     </HashTagTitleP>
   );
 });
@@ -117,7 +115,7 @@ Item.displayName = "Item";
 
 interface InputProps {
   setIsError: React.Dispatch<React.SetStateAction<boolean>>;
-  msgPush: (callback: ToastHandlerType) => void;
+  msgPush: (callback: BubblyTipHandler) => void;
 }
 
 const Input = React.memo(({ setIsError, msgPush }: InputProps) => {
