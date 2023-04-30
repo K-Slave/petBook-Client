@@ -18,6 +18,7 @@ import {
   WriteHashDiv,
   WriteHashTagsSection,
 } from "./styled/WriteHashTags.style";
+import "react-bubblytip/lib/bubblytip.css";
 
 // TODO : 최대 5개 구현, 요소가 HashTagBox 넘어가지 않도록 구현
 const WriteHashTags = () => {

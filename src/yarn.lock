@@ -4135,10 +4135,10 @@ rc-util@^5.9.4:
     react-is "^16.12.0"
     shallowequal "^1.1.0"
 
-react-bubblytip@^0.0.12:
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/react-bubblytip/-/react-bubblytip-0.0.12.tgz#c578051d5f5ff634db2b593fbe74389c7642894e"
-  integrity sha512-W3hj6+Q/KTdewCz6Igekq9YEqdHDNT1Al9sbDRaqol9Lbh0m3SNegiUA/gKvRdy9tF2bHKfEXxyDaWCPtbmzlw==
+react-bubblytip@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/react-bubblytip/-/react-bubblytip-0.1.1.tgz#4653fd1cfa4569a72ed888acd9c731a19507b8de"
+  integrity sha512-7ZsXJTRQAIBm+AJg01xw5E1pza3ticzwMOKJh5ys4mdRdJAH6j+Q9Jn3ppuqvSD2ZmefHnso4bs7mpgApnQ0iQ==
 
 react-dom@^18.2.0:
   version "18.2.0"
