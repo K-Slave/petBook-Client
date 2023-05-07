@@ -11,17 +11,17 @@ import PencilEditIcon from "@components/common/icon/PencilEdit";
 import ShareForwardIcon from "@components/common/icon/ShareFoward";
 import useModal from "@lib/hooks/common/useModal";
 import { Section, LineDiv, ButtonBoxDiv, Divider } from "./styled";
-import { HOSPITAL_DETAIL } from "@lib/queries/hospital";
 import { useResource } from "@lib/hooks/common/useResource";
 import Link from "next/link";
+import { HOSPITAL_DETAIL } from "@lib/resources/hospitalResource";
 
 const HospitalDetail = ({ id }: { id: number }) => {
   const payload = {
     pathParam: String(id),
   };
   const { data } = useResource({
-    key: HOSPITAL_DETAIL.createKey(payload),
-    fetcher: () => HOSPITAL_DETAIL.fetcher(payload),
+    resource: HOSPITAL_DETAIL,
+    payload,
   });
   const router = useRouter();
   const goBack = () => {
@@ -49,8 +49,8 @@ const HospitalDetail = ({ id }: { id: number }) => {
             <ChevronLeft />
           </button>
           <div>
-            <Link href={`/hospital/${data.data.id}`} passHref>
-              <h1>{data.data.name}</h1>
+            <Link href={`/hospital/${data.response.data.id}`} passHref>
+              <h1>{data.response.data.name}</h1>
             </Link>
             <Stats />
           </div>
@@ -63,12 +63,12 @@ const HospitalDetail = ({ id }: { id: number }) => {
         />
         <HospitalDetail.ButtonBox
           id={Number(router.query.id)}
-          name={data.data.name}
+          name={data.response.data.name}
         />
       </div>
       <LineDiv />
       <div className="wrapper">
-        <HospitalBasicInfo address={data.data.address} />
+        <HospitalBasicInfo address={data.response.data.address} />
         <PossibleAnimalList />
       </div>
       <LineDiv />

@@ -6,8 +6,8 @@ import {
   ButtonBoxDiv,
   LineDiv,
 } from "@components/hospital/HospitalDetail/styled";
-import { HOSPITAL_DETAIL } from "@lib/queries/hospital";
 import { useResource } from "@lib/hooks/common/useResource";
+import { HOSPITAL_DETAIL } from "@lib/resources/hospitalResource";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
@@ -18,8 +18,8 @@ const HospitalDetailContainer = () => {
     pathParam: String(id),
   };
   const { data } = useResource({
-    key: HOSPITAL_DETAIL.createKey(payload),
-    fetcher: () => HOSPITAL_DETAIL.fetcher(payload),
+    resource: HOSPITAL_DETAIL,
+    payload,
   });
   if (!data) {
     // TODO: add skeleton ui
@@ -33,8 +33,8 @@ const HospitalDetailContainer = () => {
       />
       <Container>
         <section className="Section">
-          <h1 className="Title">{data.data.name}</h1>
-          <HospitalBasicInfo address={data.data.address} />
+          <h1 className="Title">{data.response.data.name}</h1>
+          <HospitalBasicInfo address={data.response.data.address} />
           <PossibleAnimalList />
           <ButtonBox divider id={Number(id)} />
         </section>

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useRef } from "react";
-import mypageImg from "resource/mypageImg";
+import mypageImg from "image/mypageImg";
 import styled from "styled-components";
 
 const MypageBannerDiv = styled.div`

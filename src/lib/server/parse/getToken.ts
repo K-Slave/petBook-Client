@@ -1,5 +1,5 @@
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
-import keyName from "@lib/commonValue/keyName";
+import { cookieKeyName } from "@lib/globalConst";
 import DecodedUserInfo from "@lib/types/DecodedUserInfo";
 import jwtDecode from "jwt-decode";
 import { GetServerSidePropsContext, NextPageContext } from "next";
@@ -12,7 +12,7 @@ export default function getToken(
   }
 ) {
   const allCookies = cookies(ctx);
-  const token = allCookies[keyName.userToken];
+  const token = allCookies[cookieKeyName.userToken];
   if (token) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
     if (options.decode) {

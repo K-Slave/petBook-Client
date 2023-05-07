@@ -51,6 +51,7 @@ const Item = ({ article }: { article: ArticleResponse }) => {
     <Link href={`/community/list/${id}`} passHref>
       <Article>
         <h3>{title}</h3>
+        {/* TODO : InnerHTML 사용하지 않도록 바꿔야함 */}
         <div
           className="Item_Content"
           dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}

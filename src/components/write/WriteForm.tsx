@@ -20,7 +20,8 @@ import {
   GuideTopSpringDiv,
 } from "./styled/WriteForm.style";
 import writeState from "../../atoms/pageAtoms/community/writeState";
-import { CATEGORY_LIST } from "@lib/queries/category";
+import { CATEGORY_LIST } from "@lib/resources/commonResource";
+import { response } from "express";
 
 const WriteForm = () => {
   return (
@@ -86,11 +87,11 @@ Guide.displayName = "Guide";
 
 const GuideTitle = () => {
   const { data, status } = useResource({
-    key: CATEGORY_LIST.createKey(),
-    fetcher: () => CATEGORY_LIST.fetcher(),
+    resource: CATEGORY_LIST,
   });
 
-  const categoryList = data?.data && status === "success" ? data?.data : [];
+  const categoryList =
+    data?.response.data && status === "success" ? data?.response.data : [];
 
   const { selectedCategory } = useRecoilSelector(writeState, {
     selectedCategory: {

@@ -1,4 +1,4 @@
-import resMsg from "@lib/commonValue/responseMsg";
+import resMsg from "@lib/globalConst/responseMsg";
 import AuthController from "@lib/server/controller/AuthController";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -14,7 +14,7 @@ const loginAPI = (req: NextApiRequest, res: NextApiResponse) => {
 
     return controller.login();
   } catch (err) {
-    return res.status(400).json(err);
+    return res.status(400).json(JSON.stringify(err));
   }
 };
 

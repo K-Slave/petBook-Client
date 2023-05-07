@@ -1,14 +1,4 @@
-import loadingState from "@atoms/common/loadingState";
-import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
-import { ImgCreateResponse } from "@lib/API/petBookAPI/types/imgRequest";
-import useLoaderNavigate from "@lib/hooks/common/useLoaderNavigate";
 import useWriteSubmit from "@lib/hooks/write/useWriteSubmit";
-import localConsole from "@lib/utils/localConsole";
-import { ARTICLE_CREATE, IMG_CREATE } from "@pages/community/write";
-import { MouseEventHandler } from "react";
-import { useSetRecoilState } from "recoil";
-import writeState from "../../atoms/pageAtoms/community/writeState";
-import { useSetResource } from "../../lib/hooks/common/useResource";
 import {
   WriteSubmitButton,
   WriteSubmitSection,

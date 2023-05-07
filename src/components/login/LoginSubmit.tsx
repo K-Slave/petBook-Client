@@ -11,17 +11,15 @@ import { useRecoilValue } from "recoil";
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 import useLoaderNavigate from "@lib/hooks/common/useLoaderNavigate";
 import { AxiosError } from "axios";
-import { useSetUserInfo } from "@lib/hooks/common/useUserInfo";
 import { useQueryClient } from "@tanstack/react-query";
-import keyName from "@lib/commonValue/keyName";
 import tokenParser from "@lib/server/parse/tokenParser";
-import localConsole from "@lib/utils/localConsole";
 import {
   ButtonBox,
   PassGuide,
   AutomaticLabel,
   InfoText,
 } from "./styled/styledLoginSubmit";
+import { cookieKeyName } from "@lib/globalConst";
 
 const LOGIN = createRequest({
   key: ["LOGIN"],
@@ -128,10 +126,10 @@ export const LoginSubmitButton = () => {
       navigator({
         url: "/info",
         thenCallback: () => {
-          if (data.data?.token) {
-            const { userInfo } = tokenParser(data.data.token);
+          if (data.response.data?.token) {
+            const { userInfo } = tokenParser(data.response.data.token);
 
-            client.setQueryData([keyName.userInfo], userInfo);
+            client.setQueryData([cookieKeyName.userInfo], userInfo);
           }
 
           // Router.reload();

@@ -1,9 +1,8 @@
 import loadingState from "@atoms/common/loadingState";
 import { cookieRequest } from "@lib/API/petBookAPI";
-import keyName from "@lib/commonValue/keyName";
+import { cookieKeyName } from "@lib/globalConst";
 import useUserInfo from "@lib/hooks/common/useUserInfo";
 import navigator from "@lib/modules/navigator";
-import localConsole from "@lib/utils/localConsole";
 import { useRouter } from "next/router";
 import React, { PropsWithChildren, useEffect } from "react";
 import { useSetRecoilState } from "recoil";
@@ -30,11 +29,11 @@ const AuthSelfMask = ({ children, toLogin }: PropsWithChildren<Props>) => {
       cookieRequest
         .getCookie({
           params: {
-            key: keyName.userToken,
+            key: cookieKeyName.userToken,
           },
         })
         .then((res) => {
-          if (!res.data) {
+          if (!res.response.data) {
             // token 이 있으면 react-query 에 채워주기
             // setUserInfo
             if (toLogin) {
@@ -86,11 +85,11 @@ export const AuthSelfHiddenMask = React.memo(
         cookieRequest
           .getCookie({
             params: {
-              key: keyName.userToken,
+              key: cookieKeyName.userToken,
             },
           })
           .then((res) => {
-            if (!res.data) {
+            if (!res.response.data) {
               // token 이 있으면 react-query 에 채워주기
               // setUserInfo
               if (toLogin) {

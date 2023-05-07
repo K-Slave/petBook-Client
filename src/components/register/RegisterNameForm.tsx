@@ -94,7 +94,7 @@ const RegisterSetNickname = () => {
   };
 
   useEffect(() => {
-    const nicknameData = data?.data as UserCheckNickname; // 호출
+    const nicknameData = data?.response.data as UserCheckNickname; // 호출
     if (nicknameData?.nicknameExist || nicknameData === undefined) {
       SetButton(false);
       setRegisterForm((el) => ({ ...el, nickname: "" }));

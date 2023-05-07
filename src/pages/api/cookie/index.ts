@@ -1,6 +1,6 @@
-import resMsg from "@lib/commonValue/responseMsg";
 import { NextApiRequest, NextApiResponse } from "next";
 import CookieController from "../../../lib/server/controller/CookieController";
+import resMsg from "@lib/globalConst/responseMsg";
 
 const cookieAPI = (req: NextApiRequest, res: NextApiResponse) => {
   const controller = new CookieController(req, res);

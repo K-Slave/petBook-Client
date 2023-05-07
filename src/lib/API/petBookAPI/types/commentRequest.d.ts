@@ -1,8 +1,11 @@
+// comment_create
 export interface CommentCreateRequest {
   content: string;
   articleId: number;
   parentId: number | null;
 }
+
+// comment_update
 
 export type CommentUpdateRequest = Pick<CommentCreateRequest, "content">;
 
@@ -20,6 +23,18 @@ export interface CommentItem {
   createdAt: string;
 }
 
+// comment_list
+
+export interface CommentListPayload {
+  params: CommentListRequest;
+  header?: object;
+}
+export interface CommentListRequest {
+  articleId: number;
+  page: number;
+  size: number;
+}
+
 export type CommentListResponse = {
   page: number;
   commentList: {
@@ -27,11 +42,6 @@ export type CommentListResponse = {
     children: CommentItem[];
   }[];
 };
-
-export interface CommentListRequest {
-  params: { articleId: number; page: number; size: number };
-  headerObj?: object;
-}
 
 export interface CommentErrorResponse {
   response: {

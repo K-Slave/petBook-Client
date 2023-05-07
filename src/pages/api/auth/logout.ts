@@ -1,4 +1,4 @@
-import resMsg from "@lib/commonValue/responseMsg";
+import resMsg from "@lib/globalConst/responseMsg";
 import AuthController from "@lib/server/controller/AuthController";
 import localConsole from "@lib/utils/localConsole";
 import { NextApiRequest, NextApiResponse } from "next";

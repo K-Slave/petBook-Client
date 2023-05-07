@@ -5,24 +5,9 @@ import {
 import WriteButton from "@components/community/WriteButton";
 import styled from "styled-components";
 import ArticleListContainer from "@containers/article/ArticleListContainer";
-import { WithResourcesServerSideProps } from "@lib/server/getServerSidePropsWrapper";
-import { CATEGORY_LIST } from "@lib/queries/category";
-import { ARTICLE_LIST, ARTICLE_SEARCH } from "@lib/queries/article";
-
-const ArticleListPage = () => {
-  return (
-    <Main>
-      <ArticleListContainer />
-      <WriteButton />
-    </Main>
-  );
-};
-
-export const getServerSideProps = WithResourcesServerSideProps([
-  ARTICLE_LIST,
-  ARTICLE_SEARCH,
-  CATEGORY_LIST,
-]);
+import { ARTICLE_LIST, ARTICLE_SEARCH } from "@lib/resources/articleResource";
+import commonServerSideProps from "@lib/server/commonServerSideProps";
+import { CATEGORY_LIST } from "@lib/resources/commonResource";
 
 const Main = styled.main`
   max-width: 1330px;
@@ -58,5 +43,20 @@ const Main = styled.main`
     height: 44px;
   }
 `;
+
+const ArticleListPage = () => {
+  return (
+    <Main>
+      <ArticleListContainer />
+      <WriteButton />
+    </Main>
+  );
+};
+
+export const getServerSideProps = commonServerSideProps([
+  ARTICLE_LIST,
+  ARTICLE_SEARCH,
+  CATEGORY_LIST,
+]);
 
 export default ArticleListPage;

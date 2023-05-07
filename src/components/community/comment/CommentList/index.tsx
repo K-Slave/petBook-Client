@@ -12,7 +12,7 @@ import useModal from "@lib/hooks/common/useModal";
 import useDeleteComment from "@lib/hooks/comment/useDeleteComment";
 import { CommentListDiv } from "./styled";
 import CommunityModal from "../../CommunityModal";
-import { COMMENT_LIST } from "@lib/queries/comment";
+import { COMMENT_LIST } from "@lib/resources/commentResource";
 
 export interface ItemProps {
   comment: CommentItem;
@@ -31,7 +31,7 @@ const CommentList = ({ Item }: Props) => {
   const [hasNextPage, setHasNextPage] = useState(true);
   const queryClient = useQueryClient();
   const { data, fetchNextPage } = useInfiniteQuery(
-    COMMENT_LIST.createKey(Number(articleId)),
+    COMMENT_LIST.createKey(COMMENT_LIST.name, Number(articleId)),
     ({ pageParam = 0 }) =>
       COMMENT_LIST.fetcher({
         params: {
@@ -42,7 +42,7 @@ const CommentList = ({ Item }: Props) => {
       }),
     {
       getNextPageParam: (lastPage) => {
-        return lastPage.data.page + 1;
+        return lastPage.response.data.page + 1;
       },
       onError: (e) => {
         setHasNextPage(false);
@@ -55,7 +55,7 @@ const CommentList = ({ Item }: Props) => {
   const { deleteComment } = useDeleteComment(async () => {
     closeModal();
     await queryClient.invalidateQueries({
-      queryKey: COMMENT_LIST.createKey(Number(articleId)),
+      queryKey: COMMENT_LIST.createKey(COMMENT_LIST.name, Number(articleId)),
     });
   });
   const clickDeleteMenu = (commentId: number) => () => {
@@ -88,8 +88,8 @@ const CommentList = ({ Item }: Props) => {
 
   return (
     <CommentListDiv>
-      {data?.pages.map(({ data: result }) =>
-        result.commentList.map((comment) => (
+      {data?.pages.map(({ response: result }) =>
+        result.data.commentList.map((comment) => (
           <Fragment key={comment.parent.id}>
             {!comment.parent.isDeleted && (
               <Item

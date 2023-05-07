@@ -1,3 +1,4 @@
+import { queryClientOptions } from "@lib/globalConst";
 import { DefaultOptions, QueryClient } from "@tanstack/react-query";
 
 export default function createQueryClient(
@@ -5,10 +6,7 @@ export default function createQueryClient(
 ) {
   return new QueryClient({
     defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-        staleTime: 300000,
-      },
+      ...queryClientOptions,
       ...options,
     },
   });

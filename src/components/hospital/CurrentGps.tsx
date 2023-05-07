@@ -13,7 +13,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import mapsLevelSelector from "@lib/modules/mapsLevelSelector";
 import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
 import regionDataState from "@atoms/pageAtoms/hospitalmap/regionData";
-import keyName from "@lib/commonValue/keyName";
+import { cookieKeyName } from "@lib/globalConst";
 
 const CurrentGps = () => {
   const setRegionData = useSetRecoilState(regionDataState);
@@ -51,7 +51,7 @@ const CurrentGps = () => {
 
       const cookieRes = await cookieRequest.setCookie({
         body: {
-          key: keyName.location,
+          key: cookieKeyName.location,
           value: locationData,
         },
       });

@@ -1,12 +1,16 @@
 import { AxiosRequestHeaders } from "axios";
 import RequestCore from "./RequestCore";
+import {
+  ImgCreateRequest,
+  ImgCreateResponse,
+  ImgListRequest,
+  ImgListResponse,
+} from "./types/imgRequest";
 
 export default class ImgAPI extends RequestCore {
   public img_create = async (payload: {
     header?: AxiosRequestHeaders;
-    body: {
-      fileList: File[];
-    };
+    body: ImgCreateRequest;
   }) => {
     const { requestURL, requestHeaders } = this.getParameters({
       uri: "/upload",
@@ -22,15 +26,7 @@ export default class ImgAPI extends RequestCore {
     // formData.append("comment", "테스트용 이미지");
     // formData.append("content_id", "1111");
 
-    const result = await this.getResult<
-      {
-        imgUrl: string;
-        createdAt: string;
-        modifiedAt: string;
-        id: number;
-      }[],
-      FormData
-    >({
+    const result = await this.getResult<ImgCreateResponse, FormData>({
       requestMethod: "POST",
       requestURL,
       requestHeaders,
@@ -42,9 +38,7 @@ export default class ImgAPI extends RequestCore {
 
   public img_list = async (payload: {
     header?: AxiosRequestHeaders;
-    params: {
-      ids: number[];
-    };
+    params: ImgListRequest;
   }) => {
     const { requestURL, requestHeaders } = this.getParameters({
       uri: "/find-by-ids",
@@ -52,12 +46,7 @@ export default class ImgAPI extends RequestCore {
       params: payload.params,
     });
 
-    const result = await this.getResult<
-      {
-        id: number;
-        imageUrl: string;
-      }[]
-    >({
+    const result = await this.getResult<ImgListResponse, ImgListRequest>({
       requestMethod: "GET",
       requestURL,
       requestHeaders,

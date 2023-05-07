@@ -1,4 +1,4 @@
-import cookieOptions from "@lib/commonValue/cookieOptions";
+import { cookieOptions } from "@lib/globalConst";
 import { AppContext } from "next/app";
 import url from "url";
 

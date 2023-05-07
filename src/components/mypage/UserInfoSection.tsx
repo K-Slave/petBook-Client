@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import mypageImg from "resource/mypageImg";
+import mypageImg from "image/mypageImg";
 import {
   UserFollowButton,
   UserImage,

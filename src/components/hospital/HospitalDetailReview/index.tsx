@@ -5,9 +5,6 @@ import useUserInfo from "@lib/hooks/common/useUserInfo";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { HOSPITAL_REVIEW_REMOVE } from "@pages/hospitalmap";
-import { HospitalReveiwRequest } from "@lib/API/petBookAPI/types/hospitalRequest";
-import HospitalReview from "../HospitalReview/HospitalReview";
 import {
   ReviewBox,
   ReviewBoxContent,
@@ -18,7 +15,12 @@ import {
   ReviewBoxMoreWrap,
   ReviewBtn,
 } from "./styled";
-import { HOSPITAL_REVIEW_LIST } from "@lib/queries/hospital";
+import {
+  HOSPITAL_REVIEW_LIST,
+  HOSPITAL_REVIEW_REMOVE,
+} from "@lib/resources/hospitalResource";
+import { HospitalReview } from "@lib/API/petBookAPI/types/hospitalRequest";
+import HospitalReviewComponent from "../HospitalReview/HospitalReview";
 
 const HospitalDetailReview = () => {
   const router = useRouter();
@@ -26,17 +28,16 @@ const HospitalDetailReview = () => {
 
   const id = Number(router.query.id);
   const page = usePage() - 1;
-  const params = {
-    hospitalId: Number(id),
-    page,
-    size: 20,
+  const payload = {
+    params: {
+      hospitalId: Number(id),
+      page,
+      size: 20,
+    },
   };
   const { data } = useResource({
-    key: HOSPITAL_REVIEW_LIST.createKey({ params }),
-    fetcher: () =>
-      HOSPITAL_REVIEW_LIST.fetcher({
-        params,
-      }),
+    resource: HOSPITAL_REVIEW_LIST,
+    payload,
   });
 
   return (
@@ -44,11 +45,11 @@ const HospitalDetailReview = () => {
       <ReviewContainerHeader>
         {data && (
           <h3>
-            리뷰 <span>{data?.data.totalElements}</span>
+            리뷰 <span>{data?.response.data.totalElements}</span>
           </h3>
         )}
       </ReviewContainerHeader>
-      {data?.data.reviews.map((item) => {
+      {data?.response.data.reviews.map((item) => {
         console.log(item);
         return (
           <ReviewBox key={item.id}>
@@ -80,7 +81,7 @@ const HospitalDetailReview = () => {
   );
 };
 
-const SettingBtn = ({ item }: { item: HospitalReveiwRequest }) => {
+const SettingBtn = ({ item }: { item: HospitalReview }) => {
   const [btnState, setBtnState] = useState(false);
   const { openModal, closeModal } = useModal();
   const { mutate } = useMutation(HOSPITAL_REVIEW_REMOVE.requester);
@@ -88,7 +89,7 @@ const SettingBtn = ({ item }: { item: HospitalReveiwRequest }) => {
     setBtnState(!btnState);
   };
   const openReviewModal = (hospitalId: number) => {
-    openModal(HospitalReview, {
+    openModal(HospitalReviewComponent, {
       closeModal,
       hospitalId,
     });

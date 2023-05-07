@@ -26,7 +26,8 @@
       "@containers/*": ["containers/*"],
       "@atoms/*": ["atoms/*"],
       "@public/*": ["public/*"],
-      "@data/*": ["data/*"]
+      "@data/*": ["data/*"],
+      "@/*": ["./*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*"],

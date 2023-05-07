@@ -1,4 +1,4 @@
-import HtmlHead from "@components/common/HtmlHead";
+import DocumentHead from "@components/server/DocumentHead";
 import Document, {
   DocumentContext,
   DocumentInitialProps,
@@ -6,7 +6,6 @@ import Document, {
   Main,
   NextScript,
 } from "next/document";
-import Script from "next/script";
 import { ServerStyleSheet } from "styled-components";
 
 // styled-component 를 적용시키기 위한 코드
@@ -38,17 +37,17 @@ export default class MyDocument extends Document {
       sheet.seal();
     }
   }
+
+  render() {
+    return (
+      <Html lang="ko">
+        <DocumentHead />
+        <body>
+          <noscript>이 페이지를 보시려면 자바스크립트가 필요합니다.</noscript>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
 }
-
-// export const Temp = () => {
-//   return (
-//     <Html>
-//       <HtmlHead />
-//       <body>
-//         <Main />
-//         <NextScript />
-
-//       </body>
-//     </Html>
-//   );
-// };

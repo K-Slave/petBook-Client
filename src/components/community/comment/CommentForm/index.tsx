@@ -1,6 +1,5 @@
 import useChangeComment from "@lib/hooks/comment/useChangeComment";
 import useSubmitComment from "@lib/hooks/comment/useSubmitComment";
-import { COMMENT_LIST } from "@lib/queries/comment";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useRef } from "react";
@@ -11,6 +10,7 @@ import {
   RectangleBoxDiv,
   Rectangle,
 } from "./styled";
+import { COMMENT_LIST } from "@lib/resources/commentResource";
 
 const CommentForm = ({ initialContent }: { initialContent?: string }) => {
   const queryClient = useQueryClient();
@@ -21,7 +21,10 @@ const CommentForm = ({ initialContent }: { initialContent?: string }) => {
     if (textareaRef && textareaRef.current) {
       textareaRef.current.value = "";
       await queryClient.invalidateQueries({
-        queryKey: COMMENT_LIST.createKey(Number(query.articleId)),
+        queryKey: COMMENT_LIST.createKey(
+          COMMENT_LIST.name,
+          Number(query.articleId)
+        ),
       });
     }
   });

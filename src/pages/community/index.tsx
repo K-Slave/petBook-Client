@@ -12,14 +12,16 @@ import QnaArticleList, {
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 import Link from "next/link";
 import SearchBar from "@components/common/SearchBar";
-import { CATEGORY_LIST } from "@lib/queries/category";
+
 import {
   ARTICLE_LIST_PREVIEW,
-  POPULAR_ARTICLE_LIST,
-} from "@lib/queries/article";
-import type { NextPageWithResources } from "@lib/queries";
+  ARTICLE_POPULAR_LIST,
+} from "@lib/resources/articleResource";
+import commonServerSideProps from "@lib/server/commonServerSideProps";
+import { CATEGORY_LIST } from "@lib/resources/commonResource";
+import { NextPageWithOptions } from "@lib/queries";
 
-const Community: NextPageWithResources = () => {
+const Community: NextPageWithOptions = () => {
   return (
     <Main>
       <CommunityBanner />
@@ -61,9 +63,10 @@ const Main = styled.main`
   margin-bottom: 100px;
 `;
 
-Community.requiredResources = [
+export const getServerSideProps = commonServerSideProps([
   CATEGORY_LIST,
-  POPULAR_ARTICLE_LIST,
+  ARTICLE_POPULAR_LIST,
   ARTICLE_LIST_PREVIEW,
-];
+]);
+
 export default Community;

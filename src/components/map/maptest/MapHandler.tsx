@@ -1,16 +1,12 @@
 /* global kakao */
 
 import { useResource } from "@lib/hooks/common/useResource";
-import {
-  setMarker,
-  setInfoWindow,
-  setCustomOverlay,
-} from "@lib/utils/kakaoMaps/kakaoMarkers";
+import { setMarker, setCustomOverlay } from "@lib/utils/kakaoMaps/kakaoMarkers";
 import localConsole from "@lib/utils/localConsole";
-import { HOSPITAL_LIST } from "@lib/queries/hospital";
 import React, { useEffect, useRef } from "react";
 import { MapInfoWindowDiv } from "./MapHandler.style";
-import hospitalOptions from "@lib/commonValue/hospitalOptions";
+import hospitalOptions from "@lib/globalConst/hospitalOptions";
+import { HOSPITAL_LIST } from "@lib/resources/hospitalResource";
 
 const MapHandler = ({
   mapRef,
@@ -36,14 +32,16 @@ const Init = ({
   mapRef: React.RefObject<HTMLDivElement>;
   infoWindowRef: React.RefObject<HTMLDivElement>;
 }) => {
-  const params = {
-    page: hospitalOptions.page,
-    size: hospitalOptions.size,
-    boundary: hospitalOptions.boundary,
+  const payload = {
+    params: {
+      page: hospitalOptions.page,
+      size: hospitalOptions.size,
+      boundary: hospitalOptions.boundary,
+    },
   };
   const hospital = useResource({
-    key: HOSPITAL_LIST.createKey({ params }),
-    fetcher: () => HOSPITAL_LIST.fetcher({ params }),
+    resource: HOSPITAL_LIST,
+    payload,
   });
   const kakaoMapDom = mapRef.current as HTMLDivElement;
 
@@ -58,7 +56,7 @@ const Init = ({
   const bounds = new kakao.maps.LatLngBounds();
 
   if (hospital.status === "success") {
-    const poiDataList = hospital.data.data.hospitals;
+    const poiDataList = hospital.data.response.data.hospitals;
 
     if (poiDataList.length > 1) {
       latLngList = poiDataList.map((poiData) => {
@@ -84,8 +82,8 @@ const Init = ({
 
     if (poiDataList.length <= 1) {
       options.center = new kakao.maps.LatLng(
-        hospital.data.data.hospitals[0].hospitals.latitude,
-        hospital.data.data.hospitals[0].hospitals.longitude
+        hospital.data.response.data.hospitals[0].hospitals.latitude,
+        hospital.data.response.data.hospitals[0].hospitals.longitude
       );
 
       setMarker({ map, kakaoLatLng: options.center });

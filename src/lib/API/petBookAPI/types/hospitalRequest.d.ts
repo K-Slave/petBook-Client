@@ -1,3 +1,17 @@
+import { GetResultReturn } from "../RequestCore";
+
+// hospital_detail
+
+export type HospitalDetailPayload = {
+  header?: AxiosRequestHeaders;
+  pathParam: string;
+};
+
+export type HospitalDetailResult = GetResultReturn<
+  HospitalDetailResponse,
+  HospitalDetailRequest
+>;
+
 export interface HospitalInfo {
   id: number;
   name: string;
@@ -8,6 +22,23 @@ export interface HospitalInfo {
   modifiedAt: string;
   createdAt: string;
 }
+
+export interface HospitalDetailRequest {
+  pathParam: string;
+}
+export type HospitalDetailResponse = HospitalInfo;
+
+// hospital_list
+
+export type HospitalListPayload = {
+  header?: AxiosRequestHeaders;
+  params: HospitalListRequest;
+};
+
+export type HospitalListResult = GetResultReturn<
+  HospitalListResponse,
+  HospitalListRequest
+>;
 
 export interface HospitalFullInfo {
   hospitals: HospitalInfo;
@@ -25,13 +56,6 @@ export interface HospitalFullInfo {
   };
 }
 
-export interface HospitalListResponse {
-  totalCount: number;
-  hospitals: HospitalFullInfo[];
-}
-
-export type HospitalDetailResponse = HospitalInfo;
-
 export interface HospitalListRequest {
   id?: number;
   name?: string;
@@ -41,7 +65,48 @@ export interface HospitalListRequest {
   boundary?: string;
 }
 
-export interface HospitalReveiwRequest {
+export interface HospitalListResponse {
+  totalCount: number;
+  hospitals: HospitalFullInfo[];
+}
+
+// export interface HospitalReviewRequest {
+//   id: number;
+//   hospital: {
+//     id: number;
+//     name: string;
+//   };
+//   user: {
+//     id: number;
+//     nickname: string;
+//   };
+//   disease: string;
+//   content: string;
+//   createdAt: string;
+//   images: [
+//     {
+//       id: number;
+//       imageUrl: string;
+//     }
+//   ];
+//   isLike: boolean;
+//   likeCount: number;
+//   experience: string;
+// }
+
+// hospital_review_list
+
+export type HospitalReviewListPayload = {
+  header?: AxiosRequestHeaders;
+  params: HospitalReviewListRequest;
+};
+
+export type HospitalReviewListResult = GetResultReturn<
+  HospitalReviewListResponse,
+  HospitalReviewListRequest
+>;
+
+export interface HospitalReview {
   id: number;
   hospital: {
     id: number;
@@ -64,6 +129,30 @@ export interface HospitalReveiwRequest {
   likeCount: number;
   experience: string;
 }
+
+export interface HospitalReviewListRequest {
+  hospitalId: number;
+  page: number;
+  size: number;
+}
+
+export interface HospitalReviewListResponse {
+  reviews: HospitalReview[];
+  totalElements: number;
+}
+
+// TODO: 응답 타입 없음
+// hospital_review_create
+export interface HospitalReviewCreateRequest {
+  hospitalId: number;
+  content: string;
+  disease: string;
+  imageIds?: number[];
+  experience: string;
+}
+
+// TODO: 응답 타입 없음
+// hospital_review_remove
 
 export interface HospitalReveiwImgProps {
   idx: number;

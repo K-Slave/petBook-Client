@@ -8,7 +8,7 @@ import {
   WriteCategoryButtonBox,
   WriteCategorySection,
 } from "./styled/WriteCategory.style";
-import { CATEGORY_LIST } from "@lib/queries/category";
+import { CATEGORY_LIST } from "@lib/resources/commonResource";
 
 const WriteCategory = () => {
   return (
@@ -21,11 +21,10 @@ const WriteCategory = () => {
 
 const List = () => {
   const { data, status } = useResource({
-    key: CATEGORY_LIST.createKey(),
-    fetcher: () => CATEGORY_LIST.fetcher(),
+    resource: CATEGORY_LIST,
   });
 
-  const categoryList = data?.data ? data?.data : [];
+  const categoryList = data?.response.data ? data?.response.data : [];
 
   const [{ selectedCategory }, setWrite] = useSelectorState(writeState, {
     selectedCategory: {

@@ -1,7 +1,7 @@
 import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
 import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
 import regionDataState from "@atoms/pageAtoms/hospitalmap/regionData";
-import keyName from "@lib/commonValue/keyName";
+import { cookieKeyName } from "@lib/globalConst";
 import { UserLocationData } from "@lib/types/CacheData";
 import { convBoundaryToRectBounds } from "@lib/utils/kakaoMaps/getRectBounds";
 import { MutableSnapshot, ResetRecoilState, SetRecoilState } from "recoil";
@@ -20,7 +20,7 @@ const recoilHydration = (
   switch (pathName) {
     case "/hospitalmap": {
       const locationCookie = cookieList.find(
-        (cookie) => cookie.key === keyName.location
+        (cookie) => cookie.key === cookieKeyName.location
       );
 
       if (locationCookie && locationCookie.value) {

@@ -1,29 +1,16 @@
 import HospitalContainer from "@containers/map/HospitalContainer";
 import MapContainer from "@containers/map/MapContainer";
-import { hospitalRequest, imgRequest } from "@lib/API/petBookAPI";
+import { removeScrollPosition } from "@lib/modules/localStorage";
+import { useEffect } from "react";
+import { createGlobalStyle } from "styled-components";
 import {
   HOSPITAL_DETAIL,
   HOSPITAL_LIST,
   HOSPITAL_REVIEW_LIST,
-} from "@lib/queries/hospital";
-import type { NextPageWithResources } from "@lib/queries";
-import { createRequest } from "@lib/hooks/common/useResource";
-import { removeScrollPosition } from "@lib/modules/localStorage";
-import { useEffect } from "react";
-import { createGlobalStyle } from "styled-components";
-
-export const HOSPITAL_REVIEW_CREATE = createRequest({
-  key: ["HOSPITAL_REVIEW_CREATE"],
-  requester: hospitalRequest.hospital_review_create,
-});
-export const HOSPITAL_REVIEW_REMOVE = createRequest({
-  key: ["HOSPITAL_REVIEW_REMOVE"],
-  requester: hospitalRequest.hospital_review_remove,
-});
-export const IMG_CREATE = createRequest({
-  key: ["IMG_CREATE"],
-  requester: imgRequest.img_create,
-});
+} from "@lib/resources/hospitalResource";
+import commonServerSideProps from "@lib/server/commonServerSideProps";
+import { GetServerSideProps } from "next";
+import { NextPageWithOptions } from "@lib/queries";
 
 const HospitalMapGlobalStyle = createGlobalStyle`
   #__next {
@@ -43,7 +30,7 @@ const HospitalMapGlobalStyle = createGlobalStyle`
 
 `;
 
-const HospitalMap: NextPageWithResources = () => {
+const HospitalMap: NextPageWithOptions = () => {
   useEffect(() => {
     return () => {
       removeScrollPosition();
@@ -58,9 +45,10 @@ const HospitalMap: NextPageWithResources = () => {
   );
 };
 
-HospitalMap.requiredResources = [
+export const getServerSideProps: GetServerSideProps = commonServerSideProps([
   HOSPITAL_LIST,
   HOSPITAL_DETAIL,
   HOSPITAL_REVIEW_LIST,
-];
+]);
+
 export default HospitalMap;

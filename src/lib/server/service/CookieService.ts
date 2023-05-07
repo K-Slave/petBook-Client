@@ -1,4 +1,4 @@
-import keyName from "@lib/commonValue/keyName";
+import { cookieKeyName } from "@lib/globalConst";
 import { NextApiRequest, NextApiResponse } from "next";
 import cookies from "next-cookies";
 
@@ -39,7 +39,7 @@ export default class CookieService {
       `${key}=${encodeURIComponent(
         value
       )}; Path=/; SameSite=Strict; Max-Age=2592000; secure; ${
-        key.includes(keyName.location) ? "" : "httpOnly;"
+        key.includes(cookieKeyName.location) ? "" : "httpOnly;"
       }`
     );
 
@@ -75,7 +75,7 @@ export default class CookieService {
       `${cookieKey}=${encodeURIComponent(
         resultValue
       )}; Path=/; SameSite=Strict; Max-Age=2592000; secure; ${
-        cookieKey.includes(keyName.location) ? "" : "httpOnly;"
+        cookieKey.includes(cookieKeyName.location) ? "" : "httpOnly;"
       }`
     );
 
