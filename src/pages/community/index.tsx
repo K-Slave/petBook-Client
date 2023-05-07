@@ -70,4 +70,3 @@ export const getServerSideProps = commonServerSideProps([
 ]);
 
 export default Community;
-// {"message":"timeout of 10000ms exceeded","name":"AxiosError","config":{"transitional":{"silentJSONParsing":true,"forcedJSONParsing":true,"clarifyTimeoutError":false},"transformRequest":[null],"transformResponse":[null],"timeout":10000,"xsrfCookieName":"XSRF-TOKEN","xsrfHeaderName":"X-XSRF-TOKEN","maxContentLength":-1,"maxBodyLength":-1,"env":{},"headers":{"Accept":"*/*","Content-Type":"application/json","Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwZXRib29rIiwiaWQiOiIxIiwiaWF0IjoxNjgxNjMzMDkzLCJlbWFpbCI6InRlc3RAcGV0Ym9vay5jb20ifQ.fCIsSBsyMnfJaZWM8_pr7MfahVFbUCIKCkyIqhUvUis","User-Agent":"axios/0.27.2"},"method":"get","url":"https://api.petbook.site/api/v1/board/category/list"},"code":"ECONNABORTED","status":null}

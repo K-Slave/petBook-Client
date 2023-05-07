@@ -35,7 +35,11 @@ export function useResource<P = ResourceParams, T = ResourceResult>({
   }
 
   // 새로운 파라미터가 들어왔다면, 새로운 파라미터로 쿼리 키를 생성합니다.
-  if (payload && resource.params !== payload) {
+  if (
+    payload &&
+    resource.params !== payload &&
+    clientHydrated.current === true
+  ) {
     resource.key = createKey(resource.name, payload);
     resource.params = payload;
   }
