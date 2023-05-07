@@ -173,12 +173,11 @@ export const ImgContainer = styled.article`
       color: ${(props: imgBoxProps) =>
         props.count > 0 ? "var(--black_02)" : "var(--disabled-font)"};
     }
-    .Camera{
+    .Camera {
       background-image: ${(props: imgBoxProps) =>
         props.count > 0
           ? " url(/img/common/review/camera_active.svg)"
           : " url(/img/common/review/camera.svg)"};
-    };
     }
     label {
       padding: 4px 16px;

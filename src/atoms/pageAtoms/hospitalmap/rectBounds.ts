@@ -1,5 +1,5 @@
-import hospitalOptions from "@lib/commonValue/hospitalOptions";
-import keyName from "@lib/commonValue/keyName";
+import { cookieKeyName } from "@lib/globalConst";
+import hospitalOptions from "@lib/globalConst/hospitalOptions";
 import {
   convBoundaryToRectBounds,
   Coordinates,
@@ -15,7 +15,7 @@ export interface RectBoundary {
   NE_1: Coordinates;
 }
 
-const locationCookie = Cookies.get(keyName.location);
+const locationCookie = Cookies.get(cookieKeyName.location);
 
 const defaultData = locationCookie
   ? (convBoundaryToRectBounds(

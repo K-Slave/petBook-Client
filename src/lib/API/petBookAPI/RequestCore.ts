@@ -1,7 +1,25 @@
-import { AxiosInstance, AxiosRequestHeaders } from "axios";
+import { AxiosInstance, AxiosRequestHeaders, AxiosResponse } from "axios";
 import { getQueryString, getUrl } from "../axios/xhrFunctions";
 
 type AxiosMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+
+interface GetResultArgs<P extends object | string | undefined> {
+  requestURL: string;
+  requestMethod: AxiosMethod;
+  requestHeaders?: AxiosRequestHeaders;
+  body?: P;
+}
+
+export interface GetResultReturn<T, P = object | string | undefined> {
+  response: AxiosResponse<T, any>;
+  request: {
+    requestMethod: AxiosMethod;
+    requestURL: string;
+    body: P | undefined;
+    timeout: number;
+    requestHeaders: AxiosRequestHeaders | undefined;
+  };
+}
 
 // URL 적는 규칙 : BaseUrl 을 제외하고는 모두 /uri 형태로 시작
 
@@ -60,24 +78,23 @@ export default class RequestCore {
   };
 
   /**
-   *
+   * @generic T : response type
+   * @generic P : body type
    * @param requestMethod 정제된 URL 을 입력합니다.
    * @param requestURL 사용할 HTTP 메서드를 입력합니다.
    * @param requestHeaders? 정제된 header 를 입력합니다.
    * @param body? post 요청시 패킷에 담을 body 입니다.
    * @returns AxiosResponse 와 함께 요청한 Request 가 살짝 변경되어 들어옵니다.
    */
-  public getResult = async <T, P = undefined>({
+  public getResult = async <
+    T extends object,
+    P extends object | string | undefined
+  >({
     requestMethod,
     requestURL,
     requestHeaders,
     body,
-  }: {
-    requestURL: string;
-    requestMethod: AxiosMethod;
-    requestHeaders?: AxiosRequestHeaders;
-    body?: P;
-  }) => {
+  }: GetResultArgs<P>) => {
     const response =
       this.client &&
       (await this.client.request<T>({
@@ -87,12 +104,22 @@ export default class RequestCore {
         timeout: 10000,
         headers: requestHeaders,
       }));
+
     if (response && response.request) {
       delete response.request;
     }
 
-    const result = {
-      ...response,
+    const result: {
+      response: AxiosResponse<T>;
+      request: {
+        requestMethod: AxiosMethod;
+        requestURL: string;
+        body: P | undefined;
+        timeout: number;
+        requestHeaders: AxiosRequestHeaders | undefined;
+      };
+    } = {
+      response,
       request: {
         requestMethod,
         requestURL,
@@ -102,6 +129,6 @@ export default class RequestCore {
       },
     };
 
-    return result;
+    return result as GetResultReturn<T, P>;
   };
 }

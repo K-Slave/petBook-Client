@@ -1,23 +1,18 @@
 import React, { useState } from "react";
-import type { AppContext, AppProps } from "next/app";
+import type { AppProps } from "next/app";
 import {
-  dehydrate,
   DehydratedState,
   Hydrate,
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
 import Header from "@components/common/Header/Header";
-import HtmlHead from "@components/common/HtmlHead";
 import Loader from "@components/common/loader/loader";
 import Modal from "@components/common/Modal";
 import TopNav from "@components/common/Nav/TopNav";
 
-import queryParser from "@lib/server/parse/queryParser";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
-import { itrMap } from "@lib/utils/iterableFunctions";
 import createQueryClient from "@lib/utils/createQueryClient";
-import getToken from "@lib/server/parse/getToken";
 import DecodedUserInfo from "@lib/types/DecodedUserInfo";
 
 import "swiper/scss";
@@ -26,36 +21,49 @@ import "swiper/scss/pagination";
 import "../styles/global.scss";
 import "../styles/Icon.scss";
 import "../styles/Swiper.scss";
-import getCookieList from "@lib/utils/getCookieList";
 
 import recoilHydration from "@lib/modules/recoilHydration";
-import keyName from "@lib/commonValue/keyName";
-import urlTokenRedirect from "@lib/server/parse/urlTokenRedirect";
 import tokenParser from "@lib/server/parse/tokenParser";
 import NextGlobalStyle from "../styles/global.style";
-import type { Resource } from "@lib/queries";
+import { DeviceType, UserAgentType } from "@lib/utils/checkUserAgent";
+import localConsole from "@lib/utils/localConsole";
+import { cookieKeyName, requiredResourcesKeyName } from "@lib/globalConst";
+import PageHead from "@components/meta/common/PageHead";
+import { Resource } from "@lib/resources";
+import { itrMap } from "@lib/utils/iterableFunctions";
 
-type DehydratedAppProps = AppProps<{
+export interface PageProps {
   dehydratedState: DehydratedState;
-  token: string;
-  user: DecodedUserInfo;
+  token: string | null;
+  user: DecodedUserInfo | null;
   cookieList: {
     key: string;
     value: any;
   }[];
-}>;
+  device: DeviceType | null;
+  agentName: UserAgentType | null;
+  requiredResources?: Resource[];
+}
+
+type DehydratedAppProps = AppProps<PageProps>;
 
 const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
   const [queryClient] = useState(() => createQueryClient());
 
+  if (pageProps.requiredResources) {
+    for (const resource of pageProps.requiredResources) {
+      queryClient.setQueryData([resource.name], resource);
+    }
+  }
+
   if (pageProps.token) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${pageProps.token}`;
     const { userInfo } = tokenParser(pageProps.token);
-    queryClient.setQueryData([keyName.userInfo], userInfo);
+    queryClient.setQueryData([cookieKeyName.userInfo], userInfo);
   } else if (typeof window === "undefined") {
     // 서버 사이드에서만 token을 가져올 수 있음. (http only cookie라서) 즉, token이 없는데 서버 사이드면 로그아웃 상태
     sprPetBookClient.defaults.headers.common.Authorization = "";
-    queryClient.setQueryData([keyName.userInfo], "");
+    queryClient.setQueryData([cookieKeyName.userInfo], "");
   }
 
   if (
@@ -66,7 +74,7 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
   }
 
   // 웹 후크 연동 테스트
-  console.log(pageProps.dehydratedState);
+  localConsole?.log(pageProps.dehydratedState);
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
@@ -84,7 +92,7 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
         >
           <NextGlobalStyle />
           <Loader />
-          <HtmlHead currentPath={router.pathname} />
+          <PageHead currentPath={router.pathname} />
           <Header currentPath={router.pathname} />
           <TopNav currentPath={router.pathname} />
           <Component {...pageProps} />
@@ -95,97 +103,97 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
   );
 };
 
-NextApp.getInitialProps = async (context: AppContext) => {
-  const { Component, router, ctx } = context;
-  const { token, user } = getToken(ctx, { decode: true });
-  const cookieList = getCookieList(ctx, {
-    decode: true,
-  });
-  const queryClient = createQueryClient();
-  let pageProps = {};
+// NextApp.getInitialProps = async (context: AppContext) => {
+//   const { Component, router, ctx } = context;
+//   const { token, user } = getToken(ctx, { decode: true });
+//   const cookieList = getCookieList(ctx, {
+//     decode: true,
+//   });
+//   const queryClient = createQueryClient();
+//   let pageProps = {};
 
-  try {
-    // 소셜 로그인시, url 에 토큰이 붙어있는경우 쿠키로 변환하여 리다이렉트 시켜쥼
-    if (
-      router.asPath.includes("access_token") ||
-      router.asPath.includes("refresh_token")
-    ) {
-      urlTokenRedirect(context);
-    }
+//   try {
+//     // 소셜 로그인시, url 에 토큰이 붙어있는경우 쿠키로 변환하여 리다이렉트 시켜쥼
+//     // if (
+//     //   router.asPath.includes("access_token") ||
+//     //   router.asPath.includes("refresh_token")
+//     // ) {
+//     //   urlTokenRedirect(context);
+//     // }
 
-    // 쿠키 획득
+//     // 쿠키 획득
 
-    if (token) {
-      // 보안 옵션을 추가한 쿠키를 현재 접속 시각으로부터 30일 갱신
-      ctx.res?.setHeader(
-        "Set-Cookie",
-        `${keyName.userToken}=${token}; Path=/; SameSite=Strict; Max-Age=2592000; secure; httpOnly;`
-      );
-    }
+//     // if (token) {
+//     //   // 보안 옵션을 추가한 쿠키를 현재 접속 시각으로부터 30일 갱신
+//     //   ctx.res?.setHeader(
+//     //     "Set-Cookie",
+//     //     `${keyName.userToken}=${token}; Path=/; SameSite=Strict; Max-Age=2592000; secure; httpOnly;`
+//     //   );
+//     // }
 
-    const locationCookie = cookieList.find(
-      (cookie) => cookie.key === keyName.location
-    );
+//     // const locationCookie = cookieList.find(
+//     //   (cookie) => cookie.key === keyName.location
+//     // );
 
-    if (locationCookie) {
-      ctx.res?.setHeader(
-        "Set-Cookie",
-        `${locationCookie.key}=${encodeURIComponent(
-          JSON.stringify(locationCookie.value)
-        )}; Path=/; SameSite=Strict; Max-Age=2592000; secure;`
-      );
-    }
+//     // if (locationCookie) {
+//     //   ctx.res?.setHeader(
+//     //     "Set-Cookie",
+//     //     `${locationCookie.key}=${encodeURIComponent(
+//     //       JSON.stringify(locationCookie.value)
+//     //     )}; Path=/; SameSite=Strict; Max-Age=2592000; secure;`
+//     //   );
+//     // }
 
-    const PageComponent: typeof Component & {
-      requiredResources?: Array<Resource>;
-    } = Component;
+//     const PageComponent: typeof Component & {
+//       requiredResources?: Array<Resource>;
+//     } = Component;
 
-    if (PageComponent.getInitialProps) {
-      pageProps = await PageComponent.getInitialProps(ctx);
-    }
-
-    const { requiredResources } = PageComponent;
-
-    if (requiredResources) {
-      await Promise.all(
-        itrMap(
-          (resource: Resource) => queryParser(ctx, resource, queryClient),
-          requiredResources
-        )
-      );
-    }
-    // const searchParams = new URLSearchParams(router.asPath);
-  } catch (e) {
-    console.error(e);
-  }
-
-  return {
-    pageProps: {
-      dehydratedState: dehydrate(queryClient),
-      token,
-      user,
-      cookieList,
-      ...pageProps,
-    },
-  };
-};
-
-// export const getServerSideProps: GetServerSideProps = async (ctx) => {
-//   const token = ctx.params?.token
-//   const invite = await fetch(...)
-
-//   if ([403, 404].includes(invite.status)) {
-//     return {
-//       notFound: true,
+//     if (PageComponent.getInitialProps) {
+//       pageProps = await PageComponent.getInitialProps(ctx);
 //     }
+
+//     // const { requiredResources } = PageComponent;
+
+//     // if (requiredResources) {
+//     //   await Promise.all(
+//     //     itrMap(
+//     //       (resource: Resource) => queryParser(ctx, resource, queryClient),
+//     //       requiredResources
+//     //     )
+//     //   );
+//     // }
+//     // const searchParams = new URLSearchParams(router.asPath);
+//   } catch (e) {
+//     console.error(e);
 //   }
 
-//   return {
-//     props: {
-//       ...(await serverSideTranslations(ctx.locale!, ['common'])),
-//       token
-//     },
-//   }
-// }
+//   // return {
+//   //   pageProps: {
+//   //     dehydratedState: dehydrate(queryClient),
+//   //     token,
+//   //     user,
+//   //     cookieList,
+//   //     ...pageProps,
+//   //   },
+//   // };
+// };
+
+// // export const getServerSideProps: GetServerSideProps = async (ctx) => {
+// //   const token = ctx.params?.token
+// //   const invite = await fetch(...)
+
+// //   if ([403, 404].includes(invite.status)) {
+// //     return {
+// //       notFound: true,
+// //     }
+// //   }
+
+// //   return {
+// //     props: {
+// //       ...(await serverSideTranslations(ctx.locale!, ['common'])),
+// //       token
+// //     },
+// //   }
+// // }
 
 export default NextApp;

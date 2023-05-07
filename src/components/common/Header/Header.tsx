@@ -1,7 +1,6 @@
 import loadingState from "@atoms/common/loadingState";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { authRequest } from "@lib/API/petBookAPI";
-import keyName from "@lib/commonValue/keyName";
 import useUserInfo from "@lib/hooks/common/useUserInfo";
 import useNavController from "@lib/hooks/header/useNavController";
 import DecodedUserInfo from "@lib/types/DecodedUserInfo";
@@ -11,7 +10,7 @@ import Link from "next/link";
 import React, { PropsWithChildren } from "react";
 import { useSetRecoilState } from "recoil";
 
-import headerImg from "resource/headerImg";
+import headerImg from "image/headerImg";
 import Menu from "../Nav/Menu";
 import ResponsiveImage from "../ResponsiveImage";
 import {
@@ -22,6 +21,7 @@ import {
   HeaderPersonalDiv,
   HeaderUserInfoA,
 } from "./Header.style";
+import { cookieKeyName } from "@lib/globalConst";
 
 interface Props {
   currentPath: string;
@@ -104,12 +104,12 @@ const UserInfo = ({ userData }: { userData: DecodedUserInfo }) => {
     if (window.confirm("로그아웃 하실건가요?")) {
       const res = await authRequest.logout();
 
-      if (res.data) {
-        client.setQueryData([keyName.userInfo], "");
+      if (res.response.data) {
+        client.setQueryData([cookieKeyName.userInfo], "");
         sprPetBookClient.defaults.headers.common.Authorization = "";
       }
 
-      if (!res.data) {
+      if (!res.response.data) {
         alert(
           "로그아웃 시도에 실패했습니다. 인터넷이 연결되지 않았거나 서버 응답에 문제가 있을수 있습니다. 새로고침후 다시 시도해주시기 바랍니다."
         );

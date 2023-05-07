@@ -4,11 +4,12 @@ import writeState, {
 } from "@atoms/pageAtoms/community/writeState";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import localConsole from "@lib/utils/localConsole";
-import { ARTICLE_CREATE, IMG_CREATE } from "@pages/community/write";
 import React, { MouseEventHandler } from "react";
 import { useSetRecoilState } from "recoil";
 import useLoaderNavigate from "../common/useLoaderNavigate";
 import { useSetResource } from "../common/useResource";
+import { ARTICLE_CREATE } from "@lib/resources/articleResource";
+import { IMG_CREATE } from "@lib/resources/commonResource";
 
 const multipartHeader = { "Content-Type": "multipart/form-data" };
 
@@ -39,11 +40,14 @@ const useWriteSubmit = () => {
         },
       });
 
-      const responseData = mutateState.data as ArticleResponse;
+      const responseData = mutateState.response.data as ArticleResponse;
 
-      localConsole?.log(mutateState.statusText);
+      localConsole?.log(mutateState.response.statusText);
 
-      if (mutateState.status === 201 || mutateState.statusText === "Created") {
+      if (
+        mutateState.response.status === 201 ||
+        mutateState.response.statusText === "Created"
+      ) {
         setLoading(false);
 
         navigator({
@@ -67,12 +71,12 @@ const useWriteSubmit = () => {
       });
 
       if (
-        mutateState.status === 201 ||
-        mutateState.statusText === "Created" ||
-        mutateState.status === 200 ||
-        mutateState.statusText === "OK"
+        mutateState.response.status === 201 ||
+        mutateState.response.statusText === "Created" ||
+        mutateState.response.status === 200 ||
+        mutateState.response.statusText === "OK"
       ) {
-        const imgIds = mutateState.data.map((res) => {
+        const imgIds = mutateState.response.data.map((res) => {
           return res.id;
         });
 

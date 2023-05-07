@@ -1,4 +1,4 @@
-import keyName from "@lib/commonValue/keyName";
+import { cookieKeyName } from "@lib/globalConst";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface UserInfo {
@@ -9,7 +9,7 @@ interface UserInfo {
 }
 
 const useUserInfo = () => {
-  const { data } = useQuery<UserInfo | undefined>([keyName.userInfo]);
+  const { data } = useQuery<UserInfo | undefined>([cookieKeyName.userInfo]);
 
   return { userData: data };
 };
@@ -19,7 +19,7 @@ export const useSetUserInfo = () => {
   const client = useQueryClient();
 
   const mutate = (data: UserInfo) => {
-    client.setQueryData([keyName.userInfo], data);
+    client.setQueryData([cookieKeyName.userInfo], data);
   };
 
   return mutate;

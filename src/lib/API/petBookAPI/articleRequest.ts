@@ -1,9 +1,13 @@
 import RequestCore from "./RequestCore";
 import {
-  ArticleResponse,
   ArticleListResponse,
   ArticleListRequest,
   ArticleSearchRequest,
+  ArticleCreateRequest,
+  ArticleListPayload,
+  ArticleDetailResponse,
+  ArticleDetailPayload,
+  ArticleSearchPayload,
 } from "./types/articleRequest";
 
 export default class ArticleAPI extends RequestCore {
@@ -19,13 +23,7 @@ export default class ArticleAPI extends RequestCore {
    */
   public article_create = async (payload: {
     header?: object;
-    body: {
-      title: string;
-      content: string;
-      categoryId: number;
-      imgIds?: number[];
-      tags: string[];
-    };
+    body: ArticleCreateRequest;
   }) => {
     const { requestURL, requestHeaders } = this.getParameters({
       headerObj: payload.header,
@@ -40,21 +38,6 @@ export default class ArticleAPI extends RequestCore {
 
     return result;
   };
-
-  // public img_create = async (body: File, config?: { headerObj: object }) => {
-  //   const { requestURL, requestHeaders } = this.getParameters({
-  //     headerObj: config && config.headerObj,
-  //   });
-
-  //   const result = await this.getResult({
-  //     requestMethod: "POST",
-  //     requestURL,
-  //     requestHeaders,
-  //     body,
-  //   });
-
-  //   return result;
-  // };
 
   /**
    *
@@ -71,7 +54,10 @@ export default class ArticleAPI extends RequestCore {
       headerObj: payload?.headerObj,
     });
 
-    const result = await this.getResult<ArticleResponse>({
+    const result = await this.getResult<
+      ArticleDetailResponse,
+      ArticleDetailPayload
+    >({
       requestMethod: "GET",
       requestURL,
       requestHeaders,
@@ -99,7 +85,10 @@ export default class ArticleAPI extends RequestCore {
       headerObj: payload.headerObj,
     });
 
-    const result = await this.getResult<ArticleListResponse>({
+    const result = await this.getResult<
+      ArticleListResponse,
+      ArticleListPayload
+    >({
       requestMethod: "GET",
       requestURL,
       requestHeaders,
@@ -166,7 +155,10 @@ export default class ArticleAPI extends RequestCore {
       headerObj: payload.headerObj,
     });
 
-    const result = await this.getResult<ArticleListResponse>({
+    const result = await this.getResult<
+      ArticleListResponse,
+      ArticleSearchPayload
+    >({
       requestMethod: "GET",
       requestURL,
       requestHeaders,

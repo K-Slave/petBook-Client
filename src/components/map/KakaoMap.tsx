@@ -34,7 +34,7 @@ const KakaoMap = () => {
   // }
 
   if (status === "success" && data && router.query.id) {
-    idMatchedData = data.data.hospitals.find(
+    idMatchedData = data.response.data.hospitals.find(
       (poiData) => poiData.hospitals.id.toString() === router.query.id
     );
   }
@@ -43,7 +43,7 @@ const KakaoMap = () => {
     <KakaoMap.Wrap
       poiData={
         status === "success" && data
-          ? idMatchedData || data.data.hospitals[0]
+          ? idMatchedData || data.response.data.hospitals[0]
           : undefined
       }
       isIdData={!!router.query.id}
@@ -57,7 +57,7 @@ const KakaoMap = () => {
         !router.query.id && (
           <KakaoMap.Bound poiDataList={data.data.hospitals} />
         )} */}
-      {data && <KakaoMap.List poiDataList={data?.data.hospitals} />}
+      {data && <KakaoMap.List poiDataList={data?.response.data.hospitals} />}
       <KakaoMap.RectSearch />
     </KakaoMap.Wrap>
   );

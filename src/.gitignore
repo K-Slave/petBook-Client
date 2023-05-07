@@ -42,3 +42,6 @@ yarn-error.log*
 *.txt
 buildLog.txt
 errorLog.txt
+
+.env.local
+*.env

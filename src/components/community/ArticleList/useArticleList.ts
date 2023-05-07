@@ -5,7 +5,8 @@ import { useResource } from "@lib/hooks/common/useResource";
 import useCategory from "@lib/hooks/article/useActiveCategory";
 import useSearchText from "@lib/hooks/common/useSearchText";
 import { usePage } from "../../common/Pagination/usePagination";
-import { ARTICLE_LIST, ARTICLE_SEARCH } from "@lib/queries/article";
+import { ARTICLE_LIST, ARTICLE_SEARCH } from "@lib/resources/articleResource";
+import { articleQueryKey } from "@lib/globalConst/queryKey";
 
 export default function useArticleList(): {
   status: UseQueryResult["status"];
@@ -22,59 +23,47 @@ export default function useArticleList(): {
   const searchText = useSearchText();
   const { categoryName: name, categoryId: id } = useCategory();
 
+  const searchPayload = {
+    categoryId: id === 0 ? null : id,
+    page,
+    size: size.current,
+    searchText,
+  };
+
+  const defaultPayload = {
+    categoryId: id === 0 ? "" : id.toString(),
+    page,
+    size: size.current,
+    popular: false,
+  };
+
+  searchText
+    ? {
+        resource: ARTICLE_SEARCH,
+        payload: searchPayload,
+      }
+    : {
+        resource: ARTICLE_LIST,
+        payload: defaultPayload,
+      };
+
   // fetch data
-  const { data, status } = useResource(
-    searchText
-      ? {
-          key: ARTICLE_SEARCH.createKey({
-            params: {
-              categoryId: id === 0 ? null : id,
-              page,
-              size: size.current,
-              searchText,
-            },
-          }),
-          fetcher: () =>
-            ARTICLE_SEARCH.fetcher({
-              params: {
-                categoryId: id === 0 ? null : id,
-                page,
-                size: size.current,
-                searchText,
-              },
-            }),
-        }
-      : {
-          key: ARTICLE_LIST.createKey({
-            params: {
-              categoryId: id === 0 ? "" : id.toString(),
-              page,
-              size: size.current,
-              popular: false,
-            },
-          }),
-          fetcher: () =>
-            ARTICLE_LIST.fetcher({
-              params: {
-                categoryId: id === 0 ? "" : id.toString(),
-                page,
-                size: size.current,
-                popular: false,
-              },
-            }),
-        }
-  );
+  // TODO: 2개의 리소스를 받을수 있게 처리해야함
+  const { data, status } = useResource<any, ArticleListResponse>({
+    resource: searchText ? ARTICLE_SEARCH : ARTICLE_LIST,
+    payload: searchText ? searchPayload : defaultPayload,
+  });
 
   // return data
   const articleList = {
     status,
-    articles: data === undefined ? [] : data.data.articles,
+    articles: data === undefined ? [] : data.response.data.articles,
     totalPages:
       data === undefined
         ? 0
         : searchText
-        ? Math.ceil(data.data.articles.length / size.current)
-        : Math.ceil(data.data.totalElements / size.current),
+        ? Math.ceil(data.response.data.articles.length / size.current)
+        : Math.ceil(data.response.data.totalElements / size.current),
     params: {
       searchText,
       categoryName: name,

@@ -1,8 +1,8 @@
 import Header from "@components/common/Header/Header";
-import HtmlHead from "@components/common/HtmlHead";
 import Loader from "@components/common/loader/loader";
 import Modal from "@components/common/Modal";
 import TopNav from "@components/common/Nav/TopNav";
+import PageHead from "@components/meta/common/PageHead";
 import { Router } from "next/router";
 import React from "react";
 
@@ -18,7 +18,7 @@ const ComponentsRoot = ({
   return (
     <>
       <Loader />
-      <HtmlHead currentPath={router.pathname} />
+      <PageHead currentPath={router.pathname} />
       <Header currentPath={router.pathname} />
       <TopNav currentPath={router.pathname} />
       <Component />

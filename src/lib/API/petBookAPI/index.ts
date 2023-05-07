@@ -13,12 +13,6 @@ import AuthRequest from "./authRequest";
  * @method login(body,config) : POST 로그인 요청
  * @method login_check(params,config) : POST 로그인 요청
  */
-// export const authRequest = new AuthRequest(
-//   process.env.NEXT_PUBLIC_SPR_URL as string,
-//   "/api/v1",
-//   sprPetBookClient
-// );
-
 export const authRequest = new AuthRequest("", "/api/auth", nextPetBookClient);
 
 /**

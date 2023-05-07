@@ -1,5 +1,8 @@
 import RequestCore from "./RequestCore";
-import { CategoryListResponse } from "./types/categoryRequest";
+import {
+  CategoryListPayload,
+  CategoryListResponse,
+} from "./types/categoryRequest";
 
 export default class CategoryAPI extends RequestCore {
   /**
@@ -12,7 +15,10 @@ export default class CategoryAPI extends RequestCore {
       headerObj: payload?.header,
     });
 
-    const result = await this.getResult<CategoryListResponse>({
+    const result = await this.getResult<
+      CategoryListResponse,
+      CategoryListPayload
+    >({
       requestMethod: "GET",
       requestURL,
       requestHeaders,

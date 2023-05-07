@@ -76,7 +76,7 @@ export default class AuthRequest extends RequestCore {
       headerObj: config && config.headerObj,
     });
 
-    const result = await this.getResult<AuthLogoutResponse>({
+    const result = await this.getResult<AuthLogoutResponse, undefined>({
       requestMethod: "POST",
       requestURL,
       requestHeaders,

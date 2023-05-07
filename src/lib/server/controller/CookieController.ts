@@ -1,4 +1,4 @@
-import keyName from "@lib/commonValue/keyName";
+import { cookieKeyName } from "@lib/globalConst";
 import CookieService from "@lib/server/service/CookieService";
 import localConsole from "@lib/utils/localConsole";
 
@@ -45,7 +45,7 @@ export default class CookieController extends CookieService {
 
   public delete = () => {
     try {
-      const result = this.removeCookie(keyName.userToken);
+      const result = this.removeCookie(cookieKeyName.userToken);
       this.nextRes.status(200).json(result);
 
       return result;

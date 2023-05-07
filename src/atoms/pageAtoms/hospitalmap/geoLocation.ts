@@ -1,9 +1,9 @@
-import hospitalOptions from "@lib/commonValue/hospitalOptions";
-import keyName from "@lib/commonValue/keyName";
+import { cookieKeyName } from "@lib/globalConst";
+import hospitalOptions from "@lib/globalConst/hospitalOptions";
 import Cookies from "js-cookie";
 import { atom } from "recoil";
 
-const locationCookie = Cookies.get(keyName.location);
+const locationCookie = Cookies.get(cookieKeyName.location);
 
 const defaultData = {
   latitude: locationCookie

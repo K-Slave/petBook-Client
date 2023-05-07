@@ -1,4 +1,3 @@
-import localConsole from "@lib/utils/localConsole";
 import { AxiosRequestHeaders } from "axios";
 import RequestCore from "./RequestCore";
 import {
@@ -22,7 +21,7 @@ export default class CookieAPI extends RequestCore {
       headerObj: header,
     });
 
-    const result = await this.getResult<GetCookieResponse>({
+    const result = await this.getResult<GetCookieResponse, GetCookieRequest>({
       requestMethod: "GET",
       requestURL,
       requestHeaders,
@@ -41,7 +40,7 @@ export default class CookieAPI extends RequestCore {
       headerObj: header,
     });
 
-    const result = await this.getResult<SetCookieRequest, SetCookieResponse>({
+    const result = await this.getResult<SetCookieResponse, SetCookieRequest>({
       requestMethod: "POST",
       requestURL,
       requestHeaders,
@@ -61,7 +60,7 @@ export default class CookieAPI extends RequestCore {
       headerObj: header,
     });
 
-    const result = await this.getResult<SetCookieRequest, SetCookieResponse>({
+    const result = await this.getResult<SetCookieResponse, SetCookieRequest>({
       requestMethod: "PATCH",
       requestURL,
       requestHeaders,
@@ -86,8 +85,8 @@ export default class CookieAPI extends RequestCore {
     });
 
     const result = await this.getResult<
-      RemoveCookieRequest,
-      RemoveCookieResponse
+      RemoveCookieResponse,
+      RemoveCookieRequest
     >({
       requestMethod: "DELETE",
       requestURL,

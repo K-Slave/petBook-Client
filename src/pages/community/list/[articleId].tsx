@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import BackButton from "@components/community/BackButton";
 import ArticleContainer from "@containers/article/ArticleContainer";
-import { WithResourcesServerSideProps } from "@lib/server/getServerSidePropsWrapper";
-import { ARTICLE_DETAIL } from "@lib/queries/article";
-import { COMMENT_LIST } from "@lib/queries/comment";
-import type { NextPageWithResources } from "@lib/queries";
+import { ARTICLE_DETAIL } from "@lib/resources/articleResource";
+import { COMMENT_LIST } from "@lib/resources/commentResource";
+import commonServerSideProps from "@lib/server/commonServerSideProps";
+import { NextPageWithOptions } from "@lib/queries";
 
-const ArticleDetail: NextPageWithResources = () => {
+const ArticleDetail: NextPageWithOptions = () => {
   return (
     <Main>
       <BackButton position="start" />
@@ -26,11 +26,9 @@ const Main = styled.main`
   padding: 52px 35px;
 `;
 
-export const getServerSideProps = WithResourcesServerSideProps([
+export const getServerSideProps = commonServerSideProps([
   ARTICLE_DETAIL,
   COMMENT_LIST,
 ]);
-
-// ArticleDetail.requiredResources = [ARTICLE_DETAIL, COMMENT_LIST];
 
 export default ArticleDetail;

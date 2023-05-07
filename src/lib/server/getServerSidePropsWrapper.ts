@@ -1,10 +1,10 @@
-import type { Resource } from "@lib/queries";
 import type { GetServerSidePropsContext } from "next";
 import createQueryClient from "@lib/utils/createQueryClient";
 import { itrMap } from "@lib/utils/iterableFunctions";
 import getToken from "./parse/getToken";
-import queryParser from "./parse/queryParser";
 import { dehydrate } from "@tanstack/react-query";
+import { Resource } from "@lib/resources";
+import parserSelector from "./parse/ResourceParser/parserSelector";
 
 export function WithResourcesServerSideProps(
   requiredResources: Resource[] = [],
@@ -20,7 +20,8 @@ export function WithResourcesServerSideProps(
     if (requiredResources) {
       await Promise.all(
         itrMap(
-          (resource: Resource) => queryParser(context, resource, queryClient),
+          (resource: Resource) =>
+            parserSelector(context, resource, queryClient),
           requiredResources
         )
       );

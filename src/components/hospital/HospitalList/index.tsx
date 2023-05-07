@@ -3,8 +3,6 @@ import Pagination from "@components/common/Pagination";
 import { usePage } from "@components/common/Pagination/usePagination";
 import SearchBar from "@components/common/SearchBar";
 import Skeleton from "@components/common/Skeleton/Skeleton";
-import hospitalOptions from "@lib/commonValue/hospitalOptions";
-import { HOSPITAL_LIST } from "@lib/queries/hospital";
 import useDidMountEffect from "@lib/hooks/common/useDidMountEffect";
 import { useResource } from "@lib/hooks/common/useResource";
 import { getScrollPosition } from "@lib/modules/localStorage";
@@ -17,6 +15,8 @@ import { useRecoilValue } from "recoil";
 import CurrentGps from "../CurrentGps";
 import HospitalItem from "../HospitalItem";
 import { FilterButton, FilterDiv, Section } from "./styled";
+import hospitalOptions from "@lib/globalConst/hospitalOptions";
+import { HOSPITAL_LIST } from "@lib/resources/hospitalResource";
 
 const HospitalList = () => {
   const ref = useRef<HTMLElement | null>(null);
@@ -24,14 +24,16 @@ const HospitalList = () => {
   const size = hospitalOptions.size;
   const rectBounds = useRecoilValue(rectBoundsState);
   const boundary = convRectBoundsToBoundary(rectBounds);
-  const params = {
-    page,
-    size,
-    boundary,
+  const payload = {
+    params: {
+      page,
+      size,
+      boundary,
+    },
   };
   const { data } = useResource({
-    key: HOSPITAL_LIST.createKey({ params }),
-    fetcher: () => HOSPITAL_LIST.fetcher({ params }),
+    resource: HOSPITAL_LIST,
+    payload,
   });
 
   // mounted
@@ -69,7 +71,7 @@ const HospitalList = () => {
               .map((_, index) => (
                 <Skeleton width="100%" height="200px" key={index} />
               ))
-          : data.data.hospitals.map((hospital) => (
+          : data.response.data.hospitals.map((hospital) => (
               <HospitalItem
                 key={hospital.hospitals.id}
                 parent={ref}
@@ -80,7 +82,9 @@ const HospitalList = () => {
       {data && (
         <Pagination
           buttonNum={5}
-          totalPages={Math.ceil(data.data.totalCount / hospitalOptions.size)}
+          totalPages={Math.ceil(
+            data.response.data.totalCount / hospitalOptions.size
+          )}
         />
       )}
     </Section>

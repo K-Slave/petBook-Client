@@ -1,7 +1,6 @@
 import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
 import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
 import { cookieRequest } from "@lib/API/petBookAPI";
-import keyName from "@lib/commonValue/keyName";
 import getRectBounds, {
   convRectBoundsToBoundary,
   Coordinates,
@@ -9,6 +8,7 @@ import getRectBounds, {
 import { useMap } from "react-kakao-maps-sdk";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import useDidMountEffect from "../common/useDidMountEffect";
+import { cookieKeyName } from "@lib/globalConst";
 
 const useGetRect = () => {
   const map = useMap();
@@ -33,7 +33,7 @@ const useGetRect = () => {
     const patchCookie = async () => {
       await cookieRequest.patchCookie({
         body: {
-          key: keyName.location,
+          key: cookieKeyName.location,
           value: {
             boundary,
           },

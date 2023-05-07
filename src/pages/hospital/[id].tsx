@@ -1,11 +1,13 @@
 import HospitalDetailContainer from "@containers/hospital/HospitalDetailContainer";
-import { HOSPITAL_DETAIL } from "@lib/queries/hospital";
-import type { NextPageWithResources } from "@lib/queries";
+import { NextPageWithOptions } from "@lib/queries";
+import { HOSPITAL_DETAIL } from "@lib/resources/hospitalResource";
+import commonServerSideProps from "@lib/server/commonServerSideProps";
+import { GetServerSideProps } from "next";
 import styled from "styled-components";
 
 // TODO: add hospital review resource
 
-const HospitalDetail: NextPageWithResources = () => {
+const HospitalDetail: NextPageWithOptions = () => {
   return (
     <Main>
       <HospitalDetailContainer />
@@ -19,5 +21,8 @@ const Main = styled.main`
   margin: 50px auto;
 `;
 
-HospitalDetail.requiredResources = [HOSPITAL_DETAIL];
+export const getServerSideProps: GetServerSideProps = commonServerSideProps([
+  HOSPITAL_DETAIL,
+]);
+
 export default HospitalDetail;

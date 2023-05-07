@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import OnClickOutside from "@components/common/OnClickOutside";
 import Image from "next/image";
 import {
@@ -6,7 +6,6 @@ import {
   ReviewBoxProps,
   ReviewProps,
 } from "@lib/API/petBookAPI/types/hospitalRequest";
-import { HOSPITAL_REVIEW_CREATE } from "@pages/hospitalmap";
 import { useQueryClient } from "@tanstack/react-query";
 import { reviewFormState } from "@atoms/pageAtoms/hospitalmap/reviewState";
 import { useRecoilState } from "recoil";
@@ -25,8 +24,11 @@ import {
   ImgContainer,
   ImgBoxGroup,
   ImgBox,
-} from "./styled";
-import { HOSPITAL_REVIEW_LIST } from "@lib/queries/hospital";
+} from "./HospitalReview.style";
+import {
+  HOSPITAL_REVIEW_CREATE,
+  HOSPITAL_REVIEW_LIST,
+} from "@lib/resources/hospitalResource";
 
 const PETDATA = [
   {
@@ -94,6 +96,7 @@ const ImgWrap = () => {
               accept="image/png, image/gif, image/jpeg"
               id="file"
               className="default"
+              multiple
               onChange={onChange}
             />
           </label>
@@ -127,12 +130,10 @@ const HospitalReview = ({
   const onSubmit = () => {
     mutate(reviewForm);
     queryClient.invalidateQueries({
-      queryKey: HOSPITAL_REVIEW_LIST.createKey({
-        params: {
-          hospitalId,
-          page: 0,
-          size: 20,
-        },
+      queryKey: HOSPITAL_REVIEW_LIST.createKey(HOSPITAL_REVIEW_LIST.name, {
+        hospitalId,
+        page: 0,
+        size: 20,
       }),
     });
   };

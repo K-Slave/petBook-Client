@@ -1,5 +1,5 @@
-import hospitalOptions from "@lib/commonValue/hospitalOptions";
-import keyName from "@lib/commonValue/keyName";
+import { cookieKeyName } from "@lib/globalConst";
+import hospitalOptions from "@lib/globalConst/hospitalOptions";
 import { UserLocationData } from "@lib/types/CacheData";
 import Cookies from "js-cookie";
 import { atom } from "recoil";
@@ -19,7 +19,7 @@ interface RegionDataType {
   x: number;
   y: number;
 }
-const locationCookie = Cookies.get(keyName.location);
+const locationCookie = Cookies.get(cookieKeyName.location);
 
 const initData = {
   ...hospitalOptions.kakaoRegionData_강남역,

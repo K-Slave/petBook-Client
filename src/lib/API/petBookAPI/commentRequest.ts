@@ -1,6 +1,8 @@
 import RequestCore from "./RequestCore";
 import {
   CommentCreateRequest,
+  CommentListPayload,
+  CommentListRequest,
   CommentListResponse,
   CommentUpdateRequest,
 } from "./types/commentRequest";
@@ -92,15 +94,15 @@ export default class CommentAPI extends RequestCore {
    * @returns 게시물의 댓글 리스트를 반환합니다.
    */
   public comment_list = async (payload: {
-    params: { articleId: number; page: number; size: number };
-    headerObj?: object;
+    params: CommentListRequest;
+    header?: object;
   }) => {
     const { requestURL, requestHeaders } = this.getParameters({
       uri: "/list",
-      headerObj: payload?.headerObj,
+      headerObj: payload?.header,
       params: payload.params,
     });
-    const result = this.getResult<CommentListResponse>({
+    const result = this.getResult<CommentListResponse, CommentListPayload>({
       requestMethod: "GET",
       requestURL,
       requestHeaders,
@@ -123,6 +125,7 @@ export default class CommentAPI extends RequestCore {
       uri: `/${pathParam}/like`,
       headerObj,
     });
+
     const result = this.getResult({
       requestMethod: "POST",
       requestURL,
