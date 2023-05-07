@@ -27,10 +27,9 @@ import tokenParser from "@lib/server/parse/tokenParser";
 import NextGlobalStyle from "../styles/global.style";
 import { DeviceType, UserAgentType } from "@lib/utils/checkUserAgent";
 import localConsole from "@lib/utils/localConsole";
-import { cookieKeyName, requiredResourcesKeyName } from "@lib/globalConst";
+import { cookieKeyName } from "@lib/globalConst";
 import PageHead from "@components/meta/common/PageHead";
 import { Resource } from "@lib/resources";
-import { itrMap } from "@lib/utils/iterableFunctions";
 
 export interface PageProps {
   dehydratedState: DehydratedState;
@@ -52,7 +51,7 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
 
   if (pageProps.requiredResources) {
     for (const resource of pageProps.requiredResources) {
-      queryClient.setQueryData([resource.name], resource);
+      queryClient.setQueryData([resource.name + "_RESOURCE"], resource);
     }
   }
 
@@ -74,7 +73,6 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
   }
 
   // 웹 후크 연동 테스트
-  localConsole?.log(pageProps.dehydratedState);
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>

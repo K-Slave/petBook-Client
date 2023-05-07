@@ -1,7 +1,7 @@
 import createQueryClient from "@/lib/utils/createQueryClient";
 import { dehydrate } from "@tanstack/react-query";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { Resource, ResourceParams, ResourceResult } from "@lib/resources";
+import { Resource } from "@lib/resources";
 import parserSelector from "./parse/ResourceParser/parserSelector";
 import { itrMap } from "@lib/utils/iterableFunctions";
 import getToken from "./parse/getToken";
@@ -74,7 +74,7 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
             cookieList,
             device,
             agentName,
-            requiredResources,
+            requiredResources: JSON.parse(JSON.stringify(requiredResources)),
           },
         };
       }
@@ -102,7 +102,7 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
           cookieList,
           device,
           agentName,
-          requiredResources,
+          requiredResources: JSON.parse(JSON.stringify(requiredResources)),
         },
       };
     } catch (err) {
@@ -120,7 +120,7 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
         cookieList: [],
         device: null,
         agentName: null,
-        requiredResources,
+        requiredResources: JSON.parse(JSON.stringify(requiredResources)),
       },
     };
   };

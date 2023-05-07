@@ -9,7 +9,7 @@ const useServerQueryData = <K>(
   const queryClient = useQueryClient();
   const clientHydrated = useRef(false);
   if (isClientFetch) return { serverData: null, clientHydrated };
-  const serverData = queryClient.getQueryData<K>([key]);
+  const serverData = queryClient.getQueryData<K>([key + "_RESOURCE"]);
 
   return { serverData, clientHydrated };
 };

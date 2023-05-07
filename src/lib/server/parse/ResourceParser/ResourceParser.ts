@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext, NextPageContext } from "next";
 import type { QueryClient } from "@tanstack/react-query";
-import { Resource, ResourceParams, ResourceResult } from "@lib/resources";
+import { Resource, ResourceParams } from "@lib/resources";
 
 export default class ResourceParser {
   constructor(
@@ -22,7 +22,10 @@ export default class ResourceParser {
     payload?: P
   ) => {
     this.resource.key = this.resource.createKey(this.resource.name, payload);
-    this.resource.params = payload;
+
+    if (payload) {
+      this.resource.params = payload;
+    }
 
     const result = await this.client.fetchQuery(this.resource.key, () =>
       this.resource.fetcher(payload as ResourceParams)
