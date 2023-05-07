@@ -20,7 +20,7 @@ export default class HospitalAPI extends RequestCore {
   }) => {
     const { requestURL, requestHeaders } = this.getParameters({
       headerObj: payload.header,
-      pathParam: payload.pathParam,
+      pathParam: payload.pathParam ? payload.pathParam : "0",
     });
     const result = await this.getResult<
       HospitalDetailResponse,

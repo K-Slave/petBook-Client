@@ -15,6 +15,8 @@ export type Parameters<T extends (...args: any[]) => any> = T extends (
   : never;
 
 export const createKey = <K>(name: QueryKeyList, ...args: K[]) => {
+  if (!args[0]) return [name];
+  if (args.length === 0) return [name];
   return [name, args[0]] as QueryKey;
 };
 

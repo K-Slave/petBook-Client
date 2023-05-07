@@ -45,9 +45,10 @@ const HospitalMap: NextPageWithOptions = () => {
   );
 };
 
+// TODO : HOSPITAL_DETAIL 에 들어가는 pathParam 이 없을때 0 으로 보내야 하지만, 0 을 보내면 에러가 발생한다.
 export const getServerSideProps: GetServerSideProps = commonServerSideProps([
   HOSPITAL_LIST,
-  HOSPITAL_DETAIL,
+  // HOSPITAL_DETAIL,
   HOSPITAL_REVIEW_LIST,
 ]);
 

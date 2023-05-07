@@ -32,7 +32,7 @@ export default class HospitalParser extends ResourceParser {
   public detailFetch = async () => {
     const { query } = this.context;
     const payload = {
-      pathParam: String(query.id),
+      pathParam: query.id ? (query.id as string) : "",
     };
 
     return this.clientFetch<typeof HOSPITAL_DETAIL["params"]>(payload);
@@ -42,7 +42,7 @@ export default class HospitalParser extends ResourceParser {
     const { query } = this.context;
     const payload = {
       params: {
-        hospitalId: Number(query.id),
+        hospitalId: query.id ? Number(query.id) : 0,
         page: 0,
         size: 20,
       },

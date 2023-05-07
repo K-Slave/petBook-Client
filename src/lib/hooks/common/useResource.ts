@@ -3,6 +3,7 @@ import { Resource, ResourceParams, ResourceResult } from "@lib/resources";
 import { QueryKey, useMutation, useQuery } from "@tanstack/react-query";
 import useServerQueryData from "./useServerQueryData";
 import { GetResultReturn } from "@lib/API/petBookAPI/RequestCore";
+import localConsole from "@lib/utils/localConsole";
 /**
  * @function useResource : GET 요청 결과를 받아오는 useQuery 를 내포한 Hook
  *
@@ -27,7 +28,10 @@ export function useResource<P = ResourceParams, T = ResourceResult>({
   // 서버에서 사용한 쿼리 데이터를 클라이언트에 적용합니다.
   if (!resource.key && serverData && clientHydrated.current === false) {
     resource.key = serverData.key;
-    resource.params = serverData.params;
+
+    if (serverData.params) {
+      resource.params = serverData.params;
+    }
   }
 
   // 새로운 파라미터가 들어왔다면, 새로운 파라미터로 쿼리 키를 생성합니다.

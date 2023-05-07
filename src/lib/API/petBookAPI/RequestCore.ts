@@ -1,5 +1,6 @@
 import { AxiosInstance, AxiosRequestHeaders, AxiosResponse } from "axios";
 import { getQueryString, getUrl } from "../axios/xhrFunctions";
+import localConsole from "@lib/utils/localConsole";
 
 type AxiosMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
@@ -110,22 +111,28 @@ export default class RequestCore {
     }
 
     const result: {
-      response: AxiosResponse<T>;
+      response: {
+        data: AxiosResponse<T>["data"];
+        status: AxiosResponse<T>["status"] | null;
+        statusText: AxiosResponse<T>["statusText"] | null;
+      };
       request: {
         requestMethod: AxiosMethod;
         requestURL: string;
-        body: P | undefined;
+        body: P | null;
         timeout: number;
-        requestHeaders: AxiosRequestHeaders | undefined;
       };
     } = {
-      response,
+      response: {
+        data: response.data || null,
+        status: response.status || null,
+        statusText: response.statusText || null,
+      },
       request: {
         requestMethod,
         requestURL,
-        body,
+        body: body || null,
         timeout: 10000,
-        requestHeaders,
       },
     };
 
