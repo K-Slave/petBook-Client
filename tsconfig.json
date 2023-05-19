@@ -18,18 +18,24 @@
     "downlevelIteration": true,
     "incremental": true,
     "useUnknownInCatchVariables": false,
-    "baseUrl": "src",
     "paths": {
-      "@components/*": ["components/*"],
-      "@pages/*": ["pages/*"],
-      "@lib/*": ["lib/*"],
-      "@containers/*": ["containers/*"],
-      "@atoms/*": ["atoms/*"],
-      "@public/*": ["public/*"],
-      "@data/*": ["data/*"],
-      "@/*": ["./*"]
+      "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@containers/*": ["./src/containers/*"],
+      "@atoms/*": ["./src/atoms/*"],
+      "@public/*": ["./src/public/*"],
+      "@data/*": ["./src/data/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@/*": ["./src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*"],
-  "exclude": ["node_modules", "unused", "/unused", "unused/*", "./unused"]
+  "exclude": [
+    "node_modules",
+    "src/unused",
+    "/unused",
+    "src/unused/*",
+    "src/unused"
+  ]
 }

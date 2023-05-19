@@ -1,3 +1,4 @@
 /dist
 *.js
 /unused
+/src/unused

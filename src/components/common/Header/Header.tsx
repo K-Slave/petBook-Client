@@ -10,7 +10,6 @@ import Link from "next/link";
 import React, { PropsWithChildren } from "react";
 import { useSetRecoilState } from "recoil";
 
-import headerImg from "image/headerImg";
 import Menu from "../Nav/Menu";
 import ResponsiveImage from "../ResponsiveImage";
 import {
@@ -22,6 +21,7 @@ import {
   HeaderUserInfoA,
 } from "./Header.style";
 import { cookieKeyName } from "@lib/globalConst";
+import headerImg from "@/image/headerImg";
 
 interface Props {
   currentPath: string;

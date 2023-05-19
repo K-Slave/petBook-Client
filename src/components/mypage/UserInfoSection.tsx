@@ -1,5 +1,4 @@
 import React, { PropsWithChildren } from "react";
-import mypageImg from "image/mypageImg";
 import {
   UserFollowButton,
   UserImage,
@@ -11,6 +10,7 @@ import {
 } from "./style/UserInfoSection";
 import Image from "next/image";
 import { AuthSelfHiddenMask } from "@components/common/AuthSelfMask/AuthSelfMask";
+import mypageImg from "@/image/mypageImg";
 
 const UserInfoSection = () => {
   return (

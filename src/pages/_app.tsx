@@ -18,18 +18,17 @@ import DecodedUserInfo from "@lib/types/DecodedUserInfo";
 import "swiper/scss";
 import "swiper/scss/navigation";
 import "swiper/scss/pagination";
-import "../styles/global.scss";
-import "../styles/Icon.scss";
-import "../styles/Swiper.scss";
+import "@styles/Icon.scss";
+import "@styles/Swiper.scss";
 
 import recoilHydration from "@lib/modules/recoilHydration";
 import tokenParser from "@lib/server/parse/tokenParser";
-import NextGlobalStyle from "../styles/global.style";
 import { DeviceType, UserAgentType } from "@lib/utils/checkUserAgent";
 import localConsole from "@lib/utils/localConsole";
 import { cookieKeyName } from "@lib/globalConst";
 import PageHead from "@components/meta/common/PageHead";
 import { Resource } from "@lib/resources";
+import NextGlobalStyle from "@components/GlobalStyle";
 
 export interface PageProps {
   dehydratedState: DehydratedState;

@@ -5,11 +5,12 @@
 const path = require("path");
 
 module.exports = {
+  compress: true,
   compiler: {
     styledComponents: true,
   },
   sassOptions: {
-    includePaths: [path.join(__dirname, "styles")],
+    includePaths: [path.join(__dirname, "/src/styles")],
   },
   webpack: (
     config,
