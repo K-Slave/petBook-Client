@@ -26,7 +26,7 @@ export function useResource<P = ResourceParams, T = ResourceResult>({
 
   // 서버에서 사용한 쿼리 데이터가 있고, 클라이언트가 아직 hydration 되지 않았다면
   // 서버에서 사용한 쿼리 데이터를 클라이언트에 적용합니다.
-  if (!resource.key && serverData && clientHydrated.current === false) {
+  if (serverData && clientHydrated.current === false) {
     resource.key = serverData.key;
 
     if (serverData.params) {
