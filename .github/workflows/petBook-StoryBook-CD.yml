@@ -28,4 +28,4 @@ jobs:
           yarn build-storybook
           cd ./storybook-static
       - name: Deploy Storybook Artifacts to Vercel
-        run: echo 'Y' | vercel --prod ./storybook-static --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
+        run: vercel --prod --yes --projectId=${{ env.VERCEL_PROJECT_ID }} ./storybook-static --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
