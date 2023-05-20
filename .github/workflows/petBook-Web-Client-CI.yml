@@ -24,17 +24,14 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: install
-          dir: ./src
       - name: yarn run lint
         uses: borales/actions-yarn@v4
         with:
           cmd: lint
-          dir: ./src
       - name: yarn run build
         uses: borales/actions-yarn@v4
         with:
           cmd: build
-          dir: ./src
   ci-notify:
     name: Discord Notification
     runs-on: ubuntu-latest
