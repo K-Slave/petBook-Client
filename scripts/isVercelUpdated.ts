@@ -12,7 +12,7 @@ const webhookClient = new WebhookClient({
   url: env.webhookURL,
 });
 
-const buildLogPath = path.join(__dirname, "../src/buildLog.txt");
+const buildLogPath = path.join(__dirname, "buildLog.txt");
 const buildLog = fs.readFileSync(buildLogPath, "utf-8");
 
 if (buildLog.includes("success")) {
