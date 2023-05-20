@@ -34,3 +34,13 @@ jobs:
           yarn build-storybook
       - name: Deploy Storybook Artifacts to Vercel
         run: vercel --prod ./storybook-static --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
+
+  call-storybook-cd-workflow:
+    needs:
+      - deploy-production
+    if: ${{ success() && github.event_name == 'push' }}
+    uses: ./.github/workflows/petBook-StoryBook-CD.yml
+    with:
+      status: 'Success'
+    secrets:
+      VERCEL_DEPLOY_TOKEN: ${{ secrets.VERCEL_DEPLOY_TOKEN }}
