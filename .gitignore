@@ -46,3 +46,5 @@ errorLog.txt
 
 .env.local
 *.env
+
+build-storybook.log
