@@ -64,14 +64,3 @@ jobs:
       status: 'Success'
     secrets:
       VERCEL_DEPLOY_TOKEN: ${{ secrets.VERCEL_DEPLOY_TOKEN }}
-call-storybook-cd-workflow:
-  needs:
-    - problem-check
-    - ci-notify
-    - call-cd-workflow
-  if: ${{ success() && github.event_name == 'push' }}
-  uses: ./.github/workflows/petBook-StoryBook-CD.yml
-  with:
-    status: 'Success'
-  secrets:
-    VERCEL_DEPLOY_TOKEN: ${{ secrets.VERCEL_DEPLOY_TOKEN }}
