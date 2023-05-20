@@ -20,8 +20,8 @@ const webhookClient = new WebhookClient({
   url: env.webhookURL,
 });
 
-const buildLogPath = path.join(__dirname, "../buildLog.txt");
-const errorLogPath = path.join(__dirname, "../errorLog.txt");
+const buildLogPath = path.join(__dirname, "./buildLog.txt");
+const errorLogPath = path.join(__dirname, "./errorLog.txt");
 
 const buildLog = fs.readFileSync(buildLogPath, "utf-8");
 const errorLog = fs.readFileSync(errorLogPath, "utf-8");
