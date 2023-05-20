@@ -1,0 +1,31 @@
+name: petBook Web Client CD
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_STORYBOOK_ID }}
+
+on:
+  workflow_call:
+    inputs:
+      status:
+        required: true
+        type: string
+    secrets:
+      VERCEL_DEPLOY_TOKEN:
+        required: true
+
+jobs:
+  deploy-production:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
+      - name: Build Storybook Artifacts
+        run: |
+          yarn install
+          yarn build-storybook
+          cd ./storybook-static
+      - name: Deploy Storybook Artifacts to Vercel
+        run: vercel --prod ./storybook-static --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
