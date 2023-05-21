@@ -15,7 +15,7 @@ on:
 # 이거 참조해주세욤
 
 jobs:
-  deploy-client-production:
+  deploy-production:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
