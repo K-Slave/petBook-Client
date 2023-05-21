@@ -9,6 +9,12 @@ const config: StorybookConfig = {
     "@storybook/addon-interactions",
     "@storybook/addon-styling",
   ],
+  env: (config) => ({
+    ...config,
+    NEXT_PUBLIC_STORAGE:
+      (process.env.NEXT_PUBLIC_STORAGE as string) ||
+      "https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnkpahvshifr/b/petbook-image/o/assets",
+  }),
   framework: {
     name: "@storybook/nextjs",
     options: {},
