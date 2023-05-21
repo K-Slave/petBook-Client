@@ -8,6 +8,8 @@ const MenuListStyle = css`
 
   width: 100%;
 
+  background-color: var(--bg_white_02);
+
   white-space: nowrap;
   font-weight: 400;
   font-size: 0.875rem;
