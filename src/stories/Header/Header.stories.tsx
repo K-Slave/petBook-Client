@@ -6,6 +6,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import TopNav from "./TopNav";
 import { cookieKeyName } from "@lib/globalConst";
 import tokenParser from "@lib/server/parse/tokenParser";
+import NextGlobalStyle from "@components/GlobalStyle";
 
 const meta: Meta<typeof Header> = {
   title: "Header/Header",
@@ -29,6 +30,7 @@ const meta: Meta<typeof Header> = {
     },
   ],
 };
+
 type Story = StoryObj<typeof Header>;
 
 export const LoggedIn: Story = {
@@ -40,11 +42,9 @@ export const LoggedIn: Story = {
     (Story) => {
       const [queryClient] = useState(() => createQueryClient());
 
-      const { userInfo } = tokenParser(
-        process.env.NEXT_PUBLIC_TESTER as string
-      );
-
-      queryClient.setQueryData([cookieKeyName.userInfo], userInfo);
+      queryClient.setQueryData([cookieKeyName.userInfo], {
+        iss: "petbook",
+      });
 
       return (
         <QueryClientProvider client={queryClient}>

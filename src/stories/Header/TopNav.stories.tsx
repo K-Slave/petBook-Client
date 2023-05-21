@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import TopNav from "./TopNav";
+import NextGlobalStyle from "@components/GlobalStyle";
 
 const meta: Meta<typeof TopNav> = {
   title: "Header/TopNav",
@@ -8,6 +9,13 @@ const meta: Meta<typeof TopNav> = {
   parameters: {
     layout: "fullscreen",
   },
+  decorators: [
+    (Story) => (
+      <>
+        <Story />
+      </>
+    ),
+  ],
 };
 
 type Story = StoryObj<typeof TopNav>;

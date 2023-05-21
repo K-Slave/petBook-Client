@@ -29,7 +29,7 @@ interface Props {
 
 const Header = ({ maxWidth, position }: Props) => {
   const { userData } = useUserInfo();
-
+  localConsole?.log(userData, "userData");
   return (
     <Header.Wrap maxWidth={maxWidth} position={position}>
       <Header.Logo />
