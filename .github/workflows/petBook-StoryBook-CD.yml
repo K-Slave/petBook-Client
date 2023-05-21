@@ -16,7 +16,7 @@ on:
         required: true
 
 jobs:
-  deploy-storybook-production:
+  deploy-production:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
