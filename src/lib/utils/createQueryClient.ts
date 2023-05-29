@@ -6,8 +6,7 @@ export default function createQueryClient(
 ) {
   return new QueryClient({
     defaultOptions: {
-      ...queryClientOptions,
-      ...options,
+      queries: queryClientOptions,
     },
   });
 }

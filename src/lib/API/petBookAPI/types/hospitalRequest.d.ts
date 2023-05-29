@@ -66,8 +66,12 @@ export interface HospitalListRequest {
 }
 
 export interface HospitalListResponse {
-  totalCount: number;
-  hospitals: HospitalFullInfo[];
+  code: string;
+  message: string | null;
+  result: {
+    totalCount: number;
+    hospitals: HospitalFullInfo[];
+  };
 }
 
 // export interface HospitalReviewRequest {

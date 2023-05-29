@@ -8,6 +8,7 @@ import {
 import ResourceParser from "./ResourceParser";
 import { categoryRequest } from "@lib/API/petBookAPI";
 import { itrMap } from "@lib/utils/iterableFunctions";
+import localConsole from "@lib/utils/localConsole";
 
 export default class ArticleParser extends ResourceParser {
   public listFetch = async () => {

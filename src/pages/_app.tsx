@@ -58,17 +58,19 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${pageProps.token}`;
     const { userInfo } = tokenParser(pageProps.token);
     queryClient.setQueryData([cookieKeyName.userInfo], userInfo);
-  } else if (typeof window === "undefined") {
-    // 서버 사이드에서만 token을 가져올 수 있음. (http only cookie라서) 즉, token이 없는데 서버 사이드면 로그아웃 상태
-    sprPetBookClient.defaults.headers.common.Authorization = "";
-    queryClient.setQueryData([cookieKeyName.userInfo], "");
   }
+
+  // else if (typeof window === "undefined") {
+  //   // 서버 사이드에서만 token을 가져올 수 있음. (http only cookie라서) 즉, token이 없는데 서버 사이드면 로그아웃 상태
+  //   sprPetBookClient.defaults.headers.common.Authorization = "";
+  //   queryClient.setQueryData([cookieKeyName.userInfo], "");
+  // }
 
   if (
     process.env.NODE_ENV === "development" &&
     process.env.NEXT_PUBLIC_TESTER
   ) {
-    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${process.env.NEXT_PUBLIC_TESTER}`;
+    // sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${process.env.NEXT_PUBLIC_TESTER}`;
   }
 
   // 웹 후크 연동 테스트

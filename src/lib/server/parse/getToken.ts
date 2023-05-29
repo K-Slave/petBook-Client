@@ -14,7 +14,7 @@ export default function getToken(
   const allCookies = cookies(ctx);
   const token = allCookies[cookieKeyName.userToken];
   if (token) {
-    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
+    // sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
     if (options.decode) {
       const user = jwtDecode<DecodedUserInfo>(token);
       return {
@@ -22,8 +22,11 @@ export default function getToken(
         user,
       };
     }
-  } else if (typeof window === "undefined") {
-    sprPetBookClient.defaults.headers.common.Authorization = "";
   }
+
+  // else if (typeof window === "undefined") {
+  //   sprPetBookClient.defaults.headers.common.Authorization = "";
+  // }
+
   return { token: token || null, user: null };
 }
