@@ -9,19 +9,20 @@ const meta: Meta<typeof TopNav> = {
   parameters: {
     layout: "fullscreen",
   },
-  decorators: [
-    (Story) => (
-      <>
-        <Story />
-      </>
-    ),
-  ],
+  args: {
+    isScrollUse: false,
+    navView: false,
+  },
+  decorators: [(Story, ctx) => <Story {...ctx.args} />],
 };
 
 type Story = StoryObj<typeof TopNav>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    isScrollUse: false,
+    navView: false,
+  },
 };
 
 export default meta;

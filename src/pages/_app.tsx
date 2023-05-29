@@ -6,10 +6,8 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
-import Header from "@components/common/Header/Header";
 import Loader from "@components/common/loader/loader";
 import Modal from "@components/common/Modal";
-import TopNav from "@components/common/Nav/TopNav";
 
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import createQueryClient from "@lib/utils/createQueryClient";
@@ -29,6 +27,8 @@ import { cookieKeyName } from "@lib/globalConst";
 import PageHead from "@components/meta/common/PageHead";
 import { Resource } from "@lib/resources";
 import NextGlobalStyle from "@components/GlobalStyle";
+import Header from "@/stories/Header/Header";
+import TopNav from "@/stories/Header/TopNav";
 
 export interface PageProps {
   dehydratedState: DehydratedState;
@@ -90,8 +90,8 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
           <NextGlobalStyle />
           <Loader />
           <PageHead currentPath={router.pathname} />
-          <Header currentPath={router.pathname} />
-          <TopNav currentPath={router.pathname} />
+          <Header isScrollUse={true} />
+          <TopNav isScrollUse={true} />
           <Component {...pageProps} />
           <Modal />
         </RecoilRoot>

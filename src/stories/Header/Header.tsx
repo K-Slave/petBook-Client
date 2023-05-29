@@ -2,9 +2,10 @@ import loadingState from "@atoms/common/loadingState";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { authRequest } from "@lib/API/petBookAPI";
 import useUserInfo from "@lib/hooks/common/useUserInfo";
-import useNavController from "@lib/hooks/header/useNavController";
+import useNavController, {
+  NavControllerProps,
+} from "@lib/hooks/header/useNavController";
 import DecodedUserInfo from "@lib/types/DecodedUserInfo";
-import localConsole from "@lib/utils/localConsole";
 import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import React, { PropsWithChildren } from "react";
@@ -22,18 +23,17 @@ import headerImg from "@/image/headerImg";
 import ResponsiveImage from "../common/ResponsiveImage";
 import Menu from "./Menu";
 
-interface Props {
+interface Props extends NavControllerProps {
   maxWidth?: string;
   position?: "fixed" | "absolute" | "relative";
 }
 
-const Header = ({ maxWidth, position }: Props) => {
+const Header = ({ maxWidth, position, isScrollUse, navView }: Props) => {
   const { userData } = useUserInfo();
-  localConsole?.log(userData, "userData");
   return (
     <Header.Wrap maxWidth={maxWidth} position={position}>
       <Header.Logo />
-      <Header.MenuNav />
+      <Header.MenuNav isScrollUse={isScrollUse} navView={navView} />
       <Header.Personal isLoggedUser={!!userData}>
         {userData ? <Header.UserInfo userData={userData} /> : <Header.Auth />}
       </Header.Personal>
@@ -77,8 +77,10 @@ const Logo = () => {
   );
 };
 
-const MenuNav = () => {
-  const [isNeedNav] = useNavController();
+type MenuNavProps = NavControllerProps;
+
+const MenuNav = ({ isScrollUse, navView }: MenuNavProps) => {
+  const [isNeedNav] = useNavController({ isScrollUse, navView });
 
   return <>{isNeedNav ? <Menu isHeaderMenu /> : <div />}</>;
 };
@@ -91,8 +93,6 @@ const Personal = ({
   children,
   isLoggedUser,
 }: PropsWithChildren<PersonalProps>) => {
-  localConsole?.log(isLoggedUser, "isLoggedUser");
-
   return (
     <HeaderPersonalDiv isLoggedUser={isLoggedUser}>
       {children}

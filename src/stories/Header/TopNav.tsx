@@ -1,15 +1,20 @@
 import React, { PropsWithChildren } from "react";
 import Menu from "./Menu";
 import { TopNavBox, TopNavDiv } from "./TopNav.style";
+import useNavController, {
+  NavControllerProps,
+} from "@lib/hooks/header/useNavController";
 
-interface Props {
+interface Props extends NavControllerProps {
   maxWidth?: string;
 }
 
-const TopNav = ({ maxWidth }: Props) => {
+const TopNav = ({ maxWidth, isScrollUse, navView }: Props) => {
+  const [isNeedNav] = useNavController({ isScrollUse, navView });
+
   return (
     <TopNav.Wrap maxWidth={maxWidth}>
-      <TopNav.Menu />
+      {isNeedNav ? <div style={{ height: "3.625rem" }} /> : <TopNav.Menu />}
     </TopNav.Wrap>
   );
 };

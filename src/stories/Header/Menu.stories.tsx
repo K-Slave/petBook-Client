@@ -10,13 +10,7 @@ const meta: Meta<typeof Menu> = {
     layout: "fullscreen",
   },
 
-  decorators: [
-    (Story) => (
-      <>
-        <Story />
-      </>
-    ),
-  ],
+  decorators: [(Story) => <Story />],
 };
 
 type Story = StoryObj<typeof Menu>;

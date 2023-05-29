@@ -39,4 +39,9 @@ export const MenuItemLink = styled(Link)<{ iscurrentpath: boolean }>`
   color: ${({ iscurrentpath }) => (iscurrentpath ? "#FF6847" : "inherit")};
   border-bottom: ${({ iscurrentpath }) =>
     iscurrentpath ? "4px solid #FF6847" : ""};
+
+  &:hover {
+    transition: all 0.15s ease-in-out;
+    font-weight: bold;
+  }
 `;
