@@ -22,8 +22,11 @@ export default function getToken(
         user,
       };
     }
-  } else if (typeof window === "undefined") {
-    sprPetBookClient.defaults.headers.common.Authorization = "";
   }
+
+  // else if (typeof window === "undefined") {
+  //   sprPetBookClient.defaults.headers.common.Authorization = "";
+  // }
+
   return { token: token || null, user: null };
 }

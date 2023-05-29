@@ -17,6 +17,7 @@ import HospitalItem from "../HospitalItem";
 import { FilterButton, FilterDiv, Section } from "./styled";
 import hospitalOptions from "@lib/globalConst/hospitalOptions";
 import { HOSPITAL_LIST } from "@lib/resources/hospitalResource";
+import localConsole from "@lib/utils/localConsole";
 
 const HospitalList = () => {
   const ref = useRef<HTMLElement | null>(null);
@@ -51,6 +52,8 @@ const HospitalList = () => {
     }
   }, []);
 
+  localConsole?.log(data, "testdata");
+
   // page updated
   useDidMountEffect(() => {
     if (ref.current) {
@@ -71,7 +74,7 @@ const HospitalList = () => {
               .map((_, index) => (
                 <Skeleton width="100%" height="200px" key={index} />
               ))
-          : data.response.data.hospitals.map((hospital) => (
+          : data.response.data.result.hospitals.map((hospital) => (
               <HospitalItem
                 key={hospital.hospitals.id}
                 parent={ref}
@@ -83,7 +86,7 @@ const HospitalList = () => {
         <Pagination
           buttonNum={5}
           totalPages={Math.ceil(
-            data.response.data.totalCount / hospitalOptions.size
+            data.response.data.result.totalCount / hospitalOptions.size
           )}
         />
       )}

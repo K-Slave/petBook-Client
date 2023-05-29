@@ -6,11 +6,12 @@ export const cacheLifeTime = getMinToMs(5);
 export const queryClientOptions: QueryObserverOptions = {
   staleTime: cacheLifeTime,
   cacheTime: cacheLifeTime,
-  refetchInterval: cacheLifeTime,
-  // refetchOnMount: true,
-  // refetchOnReconnect: true,
-  refetchIntervalInBackground: true,
+  // refetchInterval: cacheLifeTime,
+  refetchOnMount: false,
+  refetchOnReconnect: false,
+  refetchIntervalInBackground: false,
   refetchOnWindowFocus: false,
+  refetchInterval: false,
   retry: 2,
 };
 

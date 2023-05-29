@@ -9,6 +9,7 @@ import getCookieList from "@lib/utils/getCookieList";
 import { checkDevice, checkUserAgent } from "@lib/utils/checkUserAgent";
 import { PageProps } from "@pages/_app";
 import { cookieKeyName } from "@lib/globalConst";
+import localConsole from "@lib/utils/localConsole";
 
 // 추후 특정 페이지에서 필요하지 않은 API 호출을 막는 용도로 사용할수 있음
 const userAPIBlackList = [""];
@@ -94,6 +95,28 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
         );
       }
 
+      const usedResource = queryClient
+        .getQueryCache()
+        .getAll()
+        .map((elem) => {
+          if (elem.queryKey[1]) {
+            const paramsObj = elem.queryKey[1] as { params: object };
+
+            return {
+              key: elem.queryKey,
+              name: elem.queryKey[0],
+              params: {
+                ...paramsObj.params,
+              },
+            };
+          }
+
+          return {
+            key: elem.queryKey,
+            name: elem.queryKey[0],
+          };
+        });
+
       return {
         props: {
           dehydratedState: dehydrate(queryClient),
@@ -102,7 +125,7 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
           cookieList,
           device,
           agentName,
-          requiredResources: JSON.parse(JSON.stringify(requiredResources)),
+          requiredResources: JSON.parse(JSON.stringify(usedResource)),
         },
       };
     } catch (err) {

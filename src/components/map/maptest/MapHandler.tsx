@@ -56,7 +56,7 @@ const Init = ({
   const bounds = new kakao.maps.LatLngBounds();
 
   if (hospital.status === "success") {
-    const poiDataList = hospital.data.response.data.hospitals;
+    const poiDataList = hospital.data.response.data.result.hospitals;
 
     if (poiDataList.length > 1) {
       latLngList = poiDataList.map((poiData) => {
@@ -82,8 +82,8 @@ const Init = ({
 
     if (poiDataList.length <= 1) {
       options.center = new kakao.maps.LatLng(
-        hospital.data.response.data.hospitals[0].hospitals.latitude,
-        hospital.data.response.data.hospitals[0].hospitals.longitude
+        hospital.data.response.data.result.hospitals[0].hospitals.latitude,
+        hospital.data.response.data.result.hospitals[0].hospitals.longitude
       );
 
       setMarker({ map, kakaoLatLng: options.center });

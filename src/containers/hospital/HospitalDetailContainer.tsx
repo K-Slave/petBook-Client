@@ -33,8 +33,8 @@ const HospitalDetailContainer = () => {
       />
       <Container>
         <section className="Section">
-          <h1 className="Title">{data.response.data.name}</h1>
-          <HospitalBasicInfo address={data.response.data.address} />
+          <h1 className="Title">{data.response.data.result.name}</h1>
+          <HospitalBasicInfo address={data.response.data.result.address} />
           <PossibleAnimalList />
           <ButtonBox divider id={Number(id)} />
         </section>

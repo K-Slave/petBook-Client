@@ -1,3 +1,4 @@
+import localConsole from "@lib/utils/localConsole";
 import RequestCore from "./RequestCore";
 import {
   ArticleListResponse,

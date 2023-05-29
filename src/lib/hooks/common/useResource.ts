@@ -47,6 +47,8 @@ export function useResource<P = ResourceParams, T = ResourceResult>({
     return resource.fetcher(resource.params as P);
   };
 
+  // localConsole?.log(resource, 'resource');
+
   return useQuery<GetResultReturn<T, P>>(
     resource.key as QueryKey,
     paramFetcher

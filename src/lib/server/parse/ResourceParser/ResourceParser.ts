@@ -1,6 +1,7 @@
 import { GetServerSidePropsContext, NextPageContext } from "next";
 import type { QueryClient } from "@tanstack/react-query";
 import { Resource, ResourceParams } from "@lib/resources";
+import localConsole from "@lib/utils/localConsole";
 
 export default class ResourceParser {
   constructor(

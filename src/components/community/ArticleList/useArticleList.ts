@@ -6,7 +6,7 @@ import useCategory from "@lib/hooks/article/useActiveCategory";
 import useSearchText from "@lib/hooks/common/useSearchText";
 import { usePage } from "../../common/Pagination/usePagination";
 import { ARTICLE_LIST, ARTICLE_SEARCH } from "@lib/resources/articleResource";
-import { articleQueryKey } from "@lib/globalConst/queryKey";
+import localConsole from "@lib/utils/localConsole";
 
 export default function useArticleList(): {
   status: UseQueryResult["status"];
@@ -24,17 +24,21 @@ export default function useArticleList(): {
   const { categoryName: name, categoryId: id } = useCategory();
 
   const searchPayload = {
-    categoryId: id === 0 ? null : id,
-    page,
-    size: size.current,
-    searchText,
+    params: {
+      categoryId: id === 0 ? null : id,
+      page,
+      size: size.current,
+      searchText,
+    },
   };
 
   const defaultPayload = {
-    categoryId: id === 0 ? "" : id.toString(),
-    page,
-    size: size.current,
-    popular: false,
+    params: {
+      categoryId: id === 0 ? "" : id.toString(),
+      page,
+      size: size.current,
+      popular: false,
+    },
   };
 
   searchText

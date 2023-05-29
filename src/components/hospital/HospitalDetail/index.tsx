@@ -49,8 +49,8 @@ const HospitalDetail = ({ id }: { id: number }) => {
             <ChevronLeft />
           </button>
           <div>
-            <Link href={`/hospital/${data.response.data.id}`} passHref>
-              <h1>{data.response.data.name}</h1>
+            <Link href={`/hospital/${data.response.data.result.id}`} passHref>
+              <h1>{data.response.data.result.name}</h1>
             </Link>
             <Stats />
           </div>
@@ -63,12 +63,12 @@ const HospitalDetail = ({ id }: { id: number }) => {
         />
         <HospitalDetail.ButtonBox
           id={Number(router.query.id)}
-          name={data.response.data.name}
+          name={data.response.data.result.name}
         />
       </div>
       <LineDiv />
       <div className="wrapper">
-        <HospitalBasicInfo address={data.response.data.address} />
+        <HospitalBasicInfo address={data.response.data.result.address} />
         <PossibleAnimalList />
       </div>
       <LineDiv />

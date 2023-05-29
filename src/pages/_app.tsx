@@ -100,6 +100,8 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
   );
 };
 
+//
+
 // NextApp.getInitialProps = async (context: AppContext) => {
 //   const { Component, router, ctx } = context;
 //   const { token, user } = getToken(ctx, { decode: true });

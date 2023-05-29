@@ -26,7 +26,9 @@ export interface HospitalInfo {
 export interface HospitalDetailRequest {
   pathParam: string;
 }
-export type HospitalDetailResponse = HospitalInfo;
+export interface HospitalDetailResponse extends CommonRequestResult {
+  result: HospitalInfo;
+}
 
 // hospital_list
 
@@ -65,9 +67,11 @@ export interface HospitalListRequest {
   boundary?: string;
 }
 
-export interface HospitalListResponse {
-  totalCount: number;
-  hospitals: HospitalFullInfo[];
+export interface HospitalListResponse extends CommonRequestResult {
+  result: {
+    totalCount: number;
+    hospitals: HospitalFullInfo[];
+  };
 }
 
 // export interface HospitalReviewRequest {
@@ -136,9 +140,11 @@ export interface HospitalReviewListRequest {
   size: number;
 }
 
-export interface HospitalReviewListResponse {
-  reviews: HospitalReview[];
-  totalElements: number;
+export interface HospitalReviewListResponse extends CommonRequestResult {
+  result: {
+    reviews: HospitalReview[];
+    totalElements: number;
+  };
 }
 
 // TODO: 응답 타입 없음

@@ -27,6 +27,13 @@ export const ARTICLE_LIST_PREVIEW = createResource({
   fetcher: articleRequest.article_list,
 });
 
+// export const ARTICLE_LIST_PREVIEW_LIST = new Array(ARTICLE_LIST_PREVIEW)
+//   .concat(ARTICLE_LIST_PREVIEW)
+//   .concat(ARTICLE_LIST_PREVIEW)
+//   .concat(ARTICLE_LIST_PREVIEW)
+//   .concat(ARTICLE_LIST_PREVIEW)
+//   .concat(ARTICLE_LIST_PREVIEW);
+
 export const ARTICLE_CREATE = createRequest({
   key: ["ARTICLE_CREATE"],
   requester: articleRequest.article_create,
