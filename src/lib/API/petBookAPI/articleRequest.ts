@@ -55,9 +55,6 @@ export default class ArticleAPI extends RequestCore {
       headerObj: payload?.headerObj,
     });
 
-    localConsole?.log(payload.pathParam, "pathParam");
-    localConsole?.log(requestURL, "requestURL");
-
     const result = await this.getResult<
       ArticleDetailResponse,
       ArticleDetailPayload
@@ -88,8 +85,6 @@ export default class ArticleAPI extends RequestCore {
       params: payload.params,
       headerObj: payload.headerObj,
     });
-
-    localConsole?.log(requestURL, "requestURL");
 
     const result = await this.getResult<
       ArticleListResponse,

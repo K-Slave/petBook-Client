@@ -14,7 +14,7 @@ export default function getToken(
   const allCookies = cookies(ctx);
   const token = allCookies[cookieKeyName.userToken];
   if (token) {
-    // sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
+    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
     if (options.decode) {
       const user = jwtDecode<DecodedUserInfo>(token);
       return {
