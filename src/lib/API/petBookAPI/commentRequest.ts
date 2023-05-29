@@ -1,3 +1,4 @@
+import localConsole from "@lib/utils/localConsole";
 import RequestCore from "./RequestCore";
 import {
   CommentCreateRequest,
@@ -102,6 +103,7 @@ export default class CommentAPI extends RequestCore {
       headerObj: payload?.header,
       params: payload.params,
     });
+
     const result = this.getResult<CommentListResponse, CommentListPayload>({
       requestMethod: "GET",
       requestURL,

@@ -13,6 +13,7 @@ import useDeleteComment from "@lib/hooks/comment/useDeleteComment";
 import { CommentListDiv } from "./styled";
 import CommunityModal from "../../CommunityModal";
 import { COMMENT_LIST } from "@lib/resources/commentResource";
+import localConsole from "@lib/utils/localConsole";
 
 export interface ItemProps {
   comment: CommentItem;
@@ -42,7 +43,7 @@ const CommentList = ({ Item }: Props) => {
       }),
     {
       getNextPageParam: (lastPage) => {
-        return lastPage.response.data.page + 1;
+        return lastPage.response.data.result.page + 1;
       },
       onError: (e) => {
         setHasNextPage(false);
@@ -88,8 +89,8 @@ const CommentList = ({ Item }: Props) => {
 
   return (
     <CommentListDiv>
-      {data?.pages.map(({ response: result }) =>
-        result.data.commentList.map((comment) => (
+      {data?.pages.map(({ response }) =>
+        response.data.result.commentList.map((comment) => (
           <Fragment key={comment.parent.id}>
             {!comment.parent.isDeleted && (
               <Item

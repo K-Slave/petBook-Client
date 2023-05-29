@@ -35,13 +35,16 @@ export interface CommentListRequest {
   size: number;
 }
 
-export type CommentListResponse = {
-  page: number;
-  commentList: {
-    parent: CommentItem;
-    children: CommentItem[];
-  }[];
-};
+export interface CommentListResponse extends CommonRequestResult {
+  result: {
+    page: number;
+    totalElements: number;
+    commentList: {
+      parent: CommentItem;
+      children: CommentItem[];
+    }[];
+  };
+}
 
 export interface CommentErrorResponse {
   response: {

@@ -45,12 +45,11 @@ const HospitalDetailReview = () => {
       <ReviewContainerHeader>
         {data && (
           <h3>
-            리뷰 <span>{data?.response.data.totalElements}</span>
+            리뷰 <span>{data.response.data.result.totalElements}</span>
           </h3>
         )}
       </ReviewContainerHeader>
-      {data?.response.data.reviews.map((item) => {
-        console.log(item);
+      {data?.response.data.result.reviews.map((item) => {
         return (
           <ReviewBox key={item.id}>
             <ReviewBoxHeader>
