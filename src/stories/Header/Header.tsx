@@ -22,17 +22,26 @@ import { cookieKeyName } from "@lib/globalConst";
 import headerImg from "@/image/headerImg";
 import ResponsiveImage from "../common/ResponsiveImage";
 import Menu from "./Menu";
+import { useRouter } from "next/router";
+import localConsole from "@lib/utils/localConsole";
 
 interface Props extends NavControllerProps {
   maxWidth?: string;
   position?: "fixed" | "absolute" | "relative";
+  defaultLogo?: boolean;
 }
 
-const Header = ({ maxWidth, position, isScrollUse, navView }: Props) => {
+const Header = ({
+  maxWidth,
+  position,
+  isScrollUse,
+  navView,
+  defaultLogo,
+}: Props) => {
   const { userData } = useUserInfo();
   return (
     <Header.Wrap maxWidth={maxWidth} position={position}>
-      <Header.Logo />
+      <Header.Logo defaultLogo={defaultLogo} />
       <Header.MenuNav isScrollUse={isScrollUse} navView={navView} />
       <Header.Personal isLoggedUser={!!userData}>
         {userData ? <Header.UserInfo userData={userData} /> : <Header.Auth />}
@@ -56,12 +65,29 @@ const Wrap = ({
   );
 };
 
-const Logo = () => {
+interface LogoProps {
+  defaultLogo?: boolean;
+}
+
+const Logo = ({ defaultLogo }: LogoProps) => {
+  const router = useRouter();
+
   return (
     <HeaderLogoLink href="/">
       <ResponsiveImage
-        src={headerImg.illust_img_placeholder}
+        // src={headerImg.illust_img_placeholder}
+        src={
+          router.pathname === "/" && defaultLogo !== true
+            ? "/LOGO.png"
+            : headerImg.illust_img_placeholder
+        }
         alt="일러스트 플레이스 홀더"
+        imgFillWidth={
+          router.pathname === "/" && defaultLogo !== true ? "50px" : ""
+        }
+        imgFillHeight={
+          router.pathname === "/" && defaultLogo !== true ? "50px" : ""
+        }
         boxwidth="40px"
         boxheight="40px"
         fill

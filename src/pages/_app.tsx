@@ -91,7 +91,10 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
           <Loader />
           <PageHead currentPath={router.pathname} />
           <Header isScrollUse={true} />
-          <TopNav isScrollUse={true} />
+          <TopNav
+            isScrollUse={router.pathname !== "/" ? true : false}
+            navView={router.pathname !== "/" ? false : true}
+          />
           <Component {...pageProps} />
           <Modal />
         </RecoilRoot>

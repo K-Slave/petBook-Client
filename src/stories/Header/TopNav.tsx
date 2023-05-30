@@ -4,6 +4,7 @@ import { TopNavBox, TopNavDiv } from "./TopNav.style";
 import useNavController, {
   NavControllerProps,
 } from "@lib/hooks/header/useNavController";
+import localConsole from "@lib/utils/localConsole";
 
 interface Props extends NavControllerProps {
   maxWidth?: string;
@@ -11,6 +12,9 @@ interface Props extends NavControllerProps {
 
 const TopNav = ({ maxWidth, isScrollUse, navView }: Props) => {
   const [isNeedNav] = useNavController({ isScrollUse, navView });
+
+  localConsole?.log(isScrollUse, "isScrollUse");
+  localConsole?.log(navView, "navView");
 
   return (
     <TopNav.Wrap maxWidth={maxWidth}>

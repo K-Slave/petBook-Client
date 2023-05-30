@@ -21,6 +21,9 @@ const PageHead = ({ currentPath }: { currentPath: string }) => {
         as="text/javascript"
         href="https://dapi.kakao.com/v2/maps/sdk.js?appkey=d5c682ad42a1b2dc53379222a3b46761&libraries=services,clusterer&autoload=false"
       />
+
+      <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+      <link rel="apple-touch-icon" href="/favicon.ico" />
     </Head>
   );
 };

@@ -18,6 +18,7 @@ const meta: Meta<typeof Header> = {
     maxWidth: "100%",
     isScrollUse: false,
     navView: false,
+    defaultLogo: true,
   },
   decorators: [
     (Story, ctx) => {
@@ -47,6 +48,7 @@ export const Default: Story = {
     maxWidth: "100%",
     isScrollUse: false,
     navView: false,
+    defaultLogo: true,
   },
   decorators: [(Story, ctx) => <Story {...ctx.args} />],
 };
@@ -57,6 +59,7 @@ export const ScrollNav: Story = {
     maxWidth: "100%",
     isScrollUse: false,
     navView: true,
+    defaultLogo: true,
   },
   decorators: [(Story, ctx) => <Story {...ctx.args} />],
 };
@@ -67,6 +70,7 @@ export const LoggedIn: Story = {
     maxWidth: "100%",
     isScrollUse: false,
     navView: false,
+    defaultLogo: true,
   },
   decorators: [
     (Story, ctx) => {
