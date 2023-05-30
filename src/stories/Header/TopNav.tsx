@@ -7,14 +7,19 @@ import useNavController, {
 
 interface Props extends NavControllerProps {
   maxWidth?: string;
+  isDevelopment: boolean;
 }
 
-const TopNav = ({ maxWidth, isScrollUse, navView }: Props) => {
+const TopNav = ({ maxWidth, isScrollUse, navView, isDevelopment }: Props) => {
   const [isNeedNav] = useNavController({ isScrollUse, navView });
 
   return (
     <TopNav.Wrap maxWidth={maxWidth}>
-      {isNeedNav ? <div style={{ height: "3.625rem" }} /> : <TopNav.Menu />}
+      {isNeedNav ? (
+        <div style={{ height: "3.625rem" }} />
+      ) : (
+        isDevelopment && <TopNav.Menu />
+      )}
     </TopNav.Wrap>
   );
 };

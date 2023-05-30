@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useState } from "react";
+import React, { PropsWithChildren, useEffect, useState } from "react";
 import { MenuItemLink, MenuListDiv, MenuListNav } from "./Menu.style";
 import { useRouter } from "next/router";
 import localConsole from "@lib/utils/localConsole";
@@ -29,8 +29,6 @@ interface Props {
 const Menu = ({ isHeaderMenu }: Props) => {
   const router = useRouter();
 
-  localConsole?.log(router, "router");
-
   return (
     <Menu.Wrap isHeaderMenu={isHeaderMenu || false}>
       <Menu.List currentPath={router.pathname} />
@@ -55,9 +53,27 @@ const Wrap = ({
 
 const List = ({ currentPath }: { currentPath: string }) => {
   const [clickedPath, setClickedPath] = useState(currentPath);
+
+  useEffect(() => {
+    if (currentPath !== clickedPath) {
+      setClickedPath(currentPath);
+    }
+  }, [currentPath]);
+
   return (
     <>
       {menuList.map((menu) => {
+        localConsole?.log(menu.path.replace("/", ""), "menu.path.replace");
+        localConsole?.log(
+          clickedPath.includes(menu.path.replace("/", "")),
+          "includes"
+        );
+
+        localConsole?.log(
+          clickedPath === menu.path,
+          "clickedPath === menu.path"
+        );
+
         return (
           <Item
             key={menu.name}
@@ -89,7 +105,7 @@ const Item = ({ menu, iscurrentpath, setClickedPath }: MenuItemProps) => {
     <MenuItemLink
       href={menu.path}
       iscurrentpath={iscurrentpath}
-      onClick={() => {
+      onClick={(e) => {
         setClickedPath(menu.path);
       }}
     >

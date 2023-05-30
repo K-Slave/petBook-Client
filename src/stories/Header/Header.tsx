@@ -15,6 +15,7 @@ import {
   HeaderDiv,
   HeaderLogoLink,
   HeaderLogoutButton,
+  HeaderOwnerAuthButton,
   HeaderPersonalDiv,
   HeaderUserInfoA,
 } from "./Header.style";
@@ -22,21 +23,46 @@ import { cookieKeyName } from "@lib/globalConst";
 import headerImg from "@/image/headerImg";
 import ResponsiveImage from "../common/ResponsiveImage";
 import Menu from "./Menu";
+import { useRouter } from "next/router";
 
 interface Props extends NavControllerProps {
   maxWidth?: string;
   position?: "fixed" | "absolute" | "relative";
+  isDevelopment: boolean;
+  isNeedOwnerAuthor?: boolean;
+  isOwnerAuthorization?: boolean;
 }
 
-const Header = ({ maxWidth, position, isScrollUse, navView }: Props) => {
+const Header = ({
+  maxWidth,
+  position,
+  isScrollUse,
+  navView,
+  isDevelopment,
+  isNeedOwnerAuthor,
+  isOwnerAuthorization,
+}: Props) => {
   const { userData } = useUserInfo();
+
   return (
     <Header.Wrap maxWidth={maxWidth} position={position}>
-      <Header.Logo />
-      <Header.MenuNav isScrollUse={isScrollUse} navView={navView} />
-      <Header.Personal isLoggedUser={!!userData}>
-        {userData ? <Header.UserInfo userData={userData} /> : <Header.Auth />}
-      </Header.Personal>
+      <Header.Logo defaultLogo={isDevelopment} />
+      {isDevelopment === true && (
+        <Header.MenuNav isScrollUse={isScrollUse} navView={navView} />
+      )}
+      {isDevelopment === true ? (
+        <Header.Personal isLoggedUser={!!userData}>
+          {userData ? <Header.UserInfo userData={userData} /> : <Header.Auth />}
+        </Header.Personal>
+      ) : (
+        <div />
+      )}
+      {/* {router.query.owner_author && } */}
+      {!isOwnerAuthorization && isNeedOwnerAuthor && (
+        <Header.Personal isLoggedUser={!!userData}>
+          <Header.OwnerAuth />
+        </Header.Personal>
+      )}
     </Header.Wrap>
   );
 };
@@ -56,12 +82,21 @@ const Wrap = ({
   );
 };
 
-const Logo = () => {
+interface LogoProps {
+  defaultLogo?: boolean;
+}
+
+const Logo = ({ defaultLogo }: LogoProps) => {
   return (
     <HeaderLogoLink href="/">
       <ResponsiveImage
-        src={headerImg.illust_img_placeholder}
+        // src={headerImg.illust_img_placeholder}
+        src={
+          defaultLogo !== true ? "/LOGO.png" : headerImg.illust_img_placeholder
+        }
         alt="일러스트 플레이스 홀더"
+        imgFillWidth={defaultLogo !== true ? "50px" : ""}
+        imgFillHeight={defaultLogo !== true ? "50px" : ""}
         boxwidth="40px"
         boxheight="40px"
         fill
@@ -153,11 +188,26 @@ const Auth = () => {
   );
 };
 
+const OwnerAuth = () => {
+  const router = useRouter();
+
+  const onClick = () => {
+    router.push("/?owner_author=true");
+  };
+
+  return (
+    <HeaderOwnerAuthButton onClick={onClick}>
+      방문자 인증하기
+    </HeaderOwnerAuthButton>
+  );
+};
+
 Header.Wrap = React.memo(Wrap);
 Header.Logo = Logo;
 Header.MenuNav = React.memo(MenuNav);
 Header.Personal = Personal;
 Header.UserInfo = UserInfo;
 Header.Auth = Auth;
+Header.OwnerAuth = OwnerAuth;
 
 export default Header;
