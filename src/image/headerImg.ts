@@ -1,5 +1,5 @@
 const STORAGE_PATH =
-  (process.env.NEXT_PUBLIC_STORAGE as string) ||
+  process.env.NEXT_PUBLIC_STORAGE ||
   "https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnkpahvshifr/b/petbook-image/o/assets";
 
 const headerImg = {

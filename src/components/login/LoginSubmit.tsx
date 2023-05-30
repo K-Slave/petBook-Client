@@ -27,7 +27,7 @@ const LOGIN = createRequest({
 });
 
 export const SocialLogin = () => {
-  const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_PY_URL as string;
+  const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_PY_URL;
   const router = useRouter();
 
   const [href, setHref] = useState("");

@@ -6,7 +6,7 @@ import CookieService from "../service/CookieService";
 import { cookieKeyName } from "@lib/globalConst";
 
 const authRequestOrigin = new AuthRequest(
-  process.env.NEXT_PUBLIC_SPR_URL as string,
+  process.env.NEXT_PUBLIC_SPR_URL,
   "/api/v1",
   sprPetBookClient
 );
