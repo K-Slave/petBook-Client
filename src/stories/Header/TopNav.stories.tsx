@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import TopNav from "./TopNav";
-import NextGlobalStyle from "@components/GlobalStyle";
 
 const meta: Meta<typeof TopNav> = {
   title: "Header/TopNav",
@@ -12,6 +11,7 @@ const meta: Meta<typeof TopNav> = {
   args: {
     isScrollUse: false,
     navView: false,
+    isDevelopment: true,
   },
   decorators: [(Story, ctx) => <Story {...ctx.args} />],
 };
@@ -22,6 +22,7 @@ export const Default: Story = {
   args: {
     isScrollUse: false,
     navView: false,
+    isDevelopment: true,
   },
 };
 

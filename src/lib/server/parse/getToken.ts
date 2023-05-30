@@ -13,6 +13,8 @@ export default function getToken(
 ) {
   const allCookies = cookies(ctx);
   const token = allCookies[cookieKeyName.userToken];
+  const ownerToken = allCookies[cookieKeyName.owner];
+
   if (token) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
     if (options.decode) {
@@ -20,6 +22,7 @@ export default function getToken(
       return {
         token,
         user,
+        ownerToken: ownerToken ? ownerToken : "",
       };
     }
   }
@@ -28,5 +31,9 @@ export default function getToken(
   //   sprPetBookClient.defaults.headers.common.Authorization = "";
   // }
 
-  return { token: token || null, user: null };
+  return {
+    token: token || null,
+    user: null,
+    ownerToken: ownerToken ? ownerToken : "",
+  };
 }

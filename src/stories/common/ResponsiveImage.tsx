@@ -64,6 +64,7 @@ const ResponsiveImage = (props: Props) => {
           alt={props.alt}
           src={props.src}
           priority={props.priority}
+          style={props.style}
         />
       </ResponsiveImageContainerSpan>
     </ResponsiveImageSpan>

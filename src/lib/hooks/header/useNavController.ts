@@ -54,7 +54,7 @@ const useNavController = ({ isScrollUse, navView }: NavControllerProps) => {
     [isNeedNav]
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isScrollUse) {
       window.addEventListener("scroll", scrollHandler);
     }

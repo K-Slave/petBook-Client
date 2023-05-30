@@ -18,7 +18,7 @@ const meta: Meta<typeof Header> = {
     maxWidth: "100%",
     isScrollUse: false,
     navView: false,
-    defaultLogo: true,
+    isDevelopment: true,
   },
   decorators: [
     (Story, ctx) => {
@@ -32,6 +32,7 @@ const meta: Meta<typeof Header> = {
               maxWidth="100%"
               isScrollUse={ctx.args.isScrollUse}
               navView={ctx.args.navView}
+              isDevelopment={ctx.args.isDevelopment}
             />
           </div>
         </QueryClientProvider>
@@ -48,7 +49,7 @@ export const Default: Story = {
     maxWidth: "100%",
     isScrollUse: false,
     navView: false,
-    defaultLogo: true,
+    isDevelopment: true,
   },
   decorators: [(Story, ctx) => <Story {...ctx.args} />],
 };
@@ -59,7 +60,7 @@ export const ScrollNav: Story = {
     maxWidth: "100%",
     isScrollUse: false,
     navView: true,
-    defaultLogo: true,
+    isDevelopment: true,
   },
   decorators: [(Story, ctx) => <Story {...ctx.args} />],
 };
@@ -70,7 +71,7 @@ export const LoggedIn: Story = {
     maxWidth: "100%",
     isScrollUse: false,
     navView: false,
-    defaultLogo: true,
+    isDevelopment: true,
   },
   decorators: [
     (Story, ctx) => {

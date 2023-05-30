@@ -8,7 +8,7 @@ import getToken from "./parse/getToken";
 import getCookieList from "@lib/utils/getCookieList";
 import { checkDevice, checkUserAgent } from "@lib/utils/checkUserAgent";
 import { PageProps } from "@pages/_app";
-import { cookieKeyName } from "@lib/globalConst";
+import { cookieKeyName, cookieOptions } from "@lib/globalConst";
 import localConsole from "@lib/utils/localConsole";
 
 // 추후 특정 페이지에서 필요하지 않은 API 호출을 막는 용도로 사용할수 있음
@@ -29,12 +29,31 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
     try {
       const { req } = context;
       const { headers } = req;
+      const url = context.req.url;
+      const { ownerToken, token, user } = getToken(context, { decode: true });
+
+      const path = url?.split("?")[0];
+
+      if (path !== "/" && !ownerToken) {
+        localConsole?.log("dddddddd");
+        context.res?.writeHead(301, {
+          Location: `/?owner_author=true`,
+        });
+
+        context.res?.end();
+      } else if (path !== "/" && ownerToken === process.env.NEXT_PUBLIC_OWNER) {
+        localConsole?.log("ssssssss");
+
+        context.res?.setHeader(
+          "Set-Cookie",
+          `${cookieKeyName.owner}=${process.env.NEXT_PUBLIC_OWNER} SameSite=Strict; Max-Age=${cookieOptions.maxAge}; secure;`
+        );
+      }
 
       const userAgent = headers["user-agent"];
       const device = checkDevice(userAgent);
       const agentName = checkUserAgent(userAgent);
 
-      const { token, user } = getToken(context, { decode: true });
       const cookieList = getCookieList(context, {
         decode: true,
       });
@@ -71,6 +90,7 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
             ...props,
             dehydratedState: dehydrate(queryClient),
             token,
+            ownerToken,
             user,
             cookieList,
             device,
@@ -121,6 +141,7 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
         props: {
           dehydratedState: dehydrate(queryClient),
           token,
+          ownerToken,
           user,
           cookieList,
           device,
@@ -139,6 +160,7 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
       props: {
         dehydratedState: dehydrate(queryClient),
         token: null,
+        ownerToken: null,
         user: null,
         cookieList: [],
         device: null,

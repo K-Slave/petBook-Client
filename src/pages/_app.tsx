@@ -22,17 +22,19 @@ import "@styles/Swiper.scss";
 import recoilHydration from "@lib/modules/recoilHydration";
 import tokenParser from "@lib/server/parse/tokenParser";
 import { DeviceType, UserAgentType } from "@lib/utils/checkUserAgent";
-import localConsole from "@lib/utils/localConsole";
 import { cookieKeyName } from "@lib/globalConst";
 import PageHead from "@components/meta/common/PageHead";
 import { Resource } from "@lib/resources";
 import NextGlobalStyle from "@components/GlobalStyle";
 import Header from "@/stories/Header/Header";
 import TopNav from "@/stories/Header/TopNav";
+import localConsole from "@lib/utils/localConsole";
+import Cookies from "js-cookie";
 
 export interface PageProps {
   dehydratedState: DehydratedState;
   token: string | null;
+  ownerToken: string | null;
   user: DecodedUserInfo | null;
   cookieList: {
     key: string;
@@ -47,22 +49,29 @@ type DehydratedAppProps = AppProps<PageProps>;
 
 const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
   const [queryClient] = useState(() => createQueryClient());
+  const isOwnerAuthorization =
+    pageProps?.ownerToken === process.env.NEXT_PUBLIC_OWNER ||
+    Cookies.get(cookieKeyName.owner) === process.env.NEXT_PUBLIC_OWNER;
 
-  if (pageProps.requiredResources) {
+  localConsole?.log(isOwnerAuthorization, "isOwnerAuthorization");
+
+  if (pageProps && pageProps.requiredResources) {
     for (const resource of pageProps.requiredResources) {
       queryClient.setQueryData([resource.name + "_RESOURCE"], resource);
     }
   }
 
-  if (pageProps.token) {
+  if (pageProps && pageProps.token) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${pageProps.token}`;
     const { userInfo } = tokenParser(pageProps.token);
     queryClient.setQueryData([cookieKeyName.userInfo], userInfo);
-  } else if (typeof window === "undefined") {
-    // 서버 사이드에서만 token을 가져올 수 있음. (http only cookie라서) 즉, token이 없는데 서버 사이드면 로그아웃 상태
-    sprPetBookClient.defaults.headers.common.Authorization = "";
-    queryClient.setQueryData([cookieKeyName.userInfo], "");
   }
+
+  // else if (typeof window === 'undefined') {
+  //   // 서버 사이드에서만 token을 가져올 수 있음. (http only cookie라서) 즉, token이 없는데 서버 사이드면 로그아웃 상태
+  //   sprPetBookClient.defaults.headers.common.Authorization = '';
+  //   queryClient.setQueryData([cookieKeyName.userInfo], '');
+  // }
 
   if (
     process.env.NODE_ENV === "development" &&
@@ -89,12 +98,28 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
         >
           <NextGlobalStyle />
           <Loader />
-          <PageHead currentPath={router.pathname} />
-          <Header isScrollUse={true} />
-          <TopNav
-            isScrollUse={router.pathname !== "/" ? true : false}
-            navView={router.pathname !== "/" ? false : true}
+          {router.pathname !== "/" && (
+            <PageHead currentPath={router.pathname} />
+          )}
+          <Header
+            isScrollUse={true}
+            isDevelopment={router.pathname === "/" ? false : true}
+            isNeedOwnerAuthor={router.pathname === "/" ? true : false}
+            isOwnerAuthorization={isOwnerAuthorization}
           />
+          {(isOwnerAuthorization || router.pathname !== "/") && (
+            <TopNav
+              isScrollUse={
+                isOwnerAuthorization && router.pathname === "/" ? false : true
+              }
+              navView={
+                !isOwnerAuthorization && router.pathname === "/" ? true : false
+              }
+              isDevelopment={
+                !isOwnerAuthorization && router.pathname === "/" ? false : true
+              }
+            />
+          )}
           <Component {...pageProps} />
           <Modal />
         </RecoilRoot>
@@ -102,100 +127,5 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
     </QueryClientProvider>
   );
 };
-
-//
-
-// NextApp.getInitialProps = async (context: AppContext) => {
-//   const { Component, router, ctx } = context;
-//   const { token, user } = getToken(ctx, { decode: true });
-//   const cookieList = getCookieList(ctx, {
-//     decode: true,
-//   });
-//   const queryClient = createQueryClient();
-//   let pageProps = {};
-
-//   try {
-//     // 소셜 로그인시, url 에 토큰이 붙어있는경우 쿠키로 변환하여 리다이렉트 시켜쥼
-//     // if (
-//     //   router.asPath.includes("access_token") ||
-//     //   router.asPath.includes("refresh_token")
-//     // ) {
-//     //   urlTokenRedirect(context);
-//     // }
-
-//     // 쿠키 획득
-
-//     // if (token) {
-//     //   // 보안 옵션을 추가한 쿠키를 현재 접속 시각으로부터 30일 갱신
-//     //   ctx.res?.setHeader(
-//     //     "Set-Cookie",
-//     //     `${keyName.userToken}=${token}; Path=/; SameSite=Strict; Max-Age=2592000; secure; httpOnly;`
-//     //   );
-//     // }
-
-//     // const locationCookie = cookieList.find(
-//     //   (cookie) => cookie.key === keyName.location
-//     // );
-
-//     // if (locationCookie) {
-//     //   ctx.res?.setHeader(
-//     //     "Set-Cookie",
-//     //     `${locationCookie.key}=${encodeURIComponent(
-//     //       JSON.stringify(locationCookie.value)
-//     //     )}; Path=/; SameSite=Strict; Max-Age=2592000; secure;`
-//     //   );
-//     // }
-
-//     const PageComponent: typeof Component & {
-//       requiredResources?: Array<Resource>;
-//     } = Component;
-
-//     if (PageComponent.getInitialProps) {
-//       pageProps = await PageComponent.getInitialProps(ctx);
-//     }
-
-//     // const { requiredResources } = PageComponent;
-
-//     // if (requiredResources) {
-//     //   await Promise.all(
-//     //     itrMap(
-//     //       (resource: Resource) => queryParser(ctx, resource, queryClient),
-//     //       requiredResources
-//     //     )
-//     //   );
-//     // }
-//     // const searchParams = new URLSearchParams(router.asPath);
-//   } catch (e) {
-//     console.error(e);
-//   }
-
-//   // return {
-//   //   pageProps: {
-//   //     dehydratedState: dehydrate(queryClient),
-//   //     token,
-//   //     user,
-//   //     cookieList,
-//   //     ...pageProps,
-//   //   },
-//   // };
-// };
-
-// // export const getServerSideProps: GetServerSideProps = async (ctx) => {
-// //   const token = ctx.params?.token
-// //   const invite = await fetch(...)
-
-// //   if ([403, 404].includes(invite.status)) {
-// //     return {
-// //       notFound: true,
-// //     }
-// //   }
-
-// //   return {
-// //     props: {
-// //       ...(await serverSideTranslations(ctx.locale!, ['common'])),
-// //       token
-// //     },
-// //   }
-// // }
 
 export default NextApp;

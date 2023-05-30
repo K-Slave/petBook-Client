@@ -71,3 +71,7 @@ export const HeaderPersonalDiv = styled.div<{ isLoggedUser: boolean }>`
 export const HeaderUserInfoA = styled.a``;
 
 export const HeaderLogoutButton = styled.button``;
+
+export const HeaderOwnerAuthButton = styled.button`
+  /* padding: 1.25rem; */
+`;

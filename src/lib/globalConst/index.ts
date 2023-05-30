@@ -26,5 +26,6 @@ export const cookieOptions = {
 export const cookieKeyName = {
   userToken: "PETBOOK_USER",
   userInfo: "USER_INFO",
+  owner: "OWNER",
   location: "USER_LOCATION_DATA",
 };

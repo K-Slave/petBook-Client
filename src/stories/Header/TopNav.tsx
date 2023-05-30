@@ -4,21 +4,22 @@ import { TopNavBox, TopNavDiv } from "./TopNav.style";
 import useNavController, {
   NavControllerProps,
 } from "@lib/hooks/header/useNavController";
-import localConsole from "@lib/utils/localConsole";
 
 interface Props extends NavControllerProps {
   maxWidth?: string;
+  isDevelopment: boolean;
 }
 
-const TopNav = ({ maxWidth, isScrollUse, navView }: Props) => {
+const TopNav = ({ maxWidth, isScrollUse, navView, isDevelopment }: Props) => {
   const [isNeedNav] = useNavController({ isScrollUse, navView });
-
-  localConsole?.log(isScrollUse, "isScrollUse");
-  localConsole?.log(navView, "navView");
 
   return (
     <TopNav.Wrap maxWidth={maxWidth}>
-      {isNeedNav ? <div style={{ height: "3.625rem" }} /> : <TopNav.Menu />}
+      {isNeedNav ? (
+        <div style={{ height: "3.625rem" }} />
+      ) : (
+        isDevelopment && <TopNav.Menu />
+      )}
     </TopNav.Wrap>
   );
 };
