@@ -1,4 +1,4 @@
-const STORAGE_PATH = process.env.NEXT_PUBLIC_STORAGE as string;
+const STORAGE_PATH = process.env.NEXT_PUBLIC_STORAGE;
 const PAGE_PATH = "mypage";
 
 const mypageImg = {

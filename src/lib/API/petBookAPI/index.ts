@@ -21,7 +21,7 @@ export const authRequest = new AuthRequest("", "/api/auth", nextPetBookClient);
  * @method registerCheckNickname : GET 닉네임 중복확인
  */
 export const registerRequest = new UserAPI(
-  process.env.NEXT_PUBLIC_SPR_URL as string,
+  process.env.NEXT_PUBLIC_SPR_URL,
   "/api/v1/user",
   sprPetBookClient
 );
@@ -33,7 +33,7 @@ export const registerRequest = new UserAPI(
  * @method article_list : GET 게시물 리스트 요청
  */
 export const articleRequest = new ArticleAPI(
-  process.env.NEXT_PUBLIC_SPR_URL as string,
+  process.env.NEXT_PUBLIC_SPR_URL,
   "/api/v1/board/article",
   sprPetBookClient
 );
@@ -43,7 +43,7 @@ export const articleRequest = new ArticleAPI(
  * @method category_list(config) : GET 카테고리 조회
  */
 export const categoryRequest = new CategoryAPI(
-  process.env.NEXT_PUBLIC_SPR_URL as string,
+  process.env.NEXT_PUBLIC_SPR_URL,
   "/api/v1/board/category",
   sprPetBookClient
 );
@@ -53,7 +53,7 @@ export const categoryRequest = new CategoryAPI(
  * @method img_create : POST 이미지 첨부
  */
 export const imgRequest = new ImgAPI(
-  process.env.NEXT_PUBLIC_SPR_URL as string,
+  process.env.NEXT_PUBLIC_SPR_URL,
   "/api/v1/image",
   sprPetBookClient
 );
@@ -66,13 +66,13 @@ export const imgRequest = new ImgAPI(
  * @method comment_list : GET 댓글 조회
  */
 export const commentRequest = new CommentAPI(
-  process.env.NEXT_PUBLIC_SPR_URL as string,
+  process.env.NEXT_PUBLIC_SPR_URL,
   "/api/v1/board/comment",
   sprPetBookClient
 );
 
 export const hospitalRequest = new HospitalAPI(
-  process.env.NEXT_PUBLIC_SPR_URL as string,
+  process.env.NEXT_PUBLIC_SPR_URL,
   "/api/v1/hospital",
   sprPetBookClient
 );
