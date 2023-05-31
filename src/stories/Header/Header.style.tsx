@@ -78,4 +78,9 @@ export const HeaderLogoutButton = styled.button``;
 
 export const HeaderOwnerAuthButton = styled.button`
   /* padding: 1.25rem; */
+  margin-bottom: 0.75rem;
+
+  font-size: 0.875rem;
+
+  color: #383835;
 `;

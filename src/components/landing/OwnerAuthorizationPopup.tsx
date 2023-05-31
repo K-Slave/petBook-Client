@@ -1,5 +1,5 @@
-import { cookieKeyName, cookieOptions } from "@lib/globalConst";
-import Cookies from "js-cookie";
+import { cookieRequest } from "@lib/API/petBookAPI";
+import { cookieKeyName } from "@lib/globalConst";
 import { useRouter } from "next/router";
 import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
 import styled from "styled-components";
@@ -55,9 +55,10 @@ const OwnerAuthorizationPopupDiv = styled.div`
 
     padding: 0.625rem;
 
-    border: none;
+    border: 0.1px solid #bbb;
     border-radius: 10px;
-    box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.3);
+    background-color: #fff;
 
     font-size: 1.25rem;
   }
@@ -80,6 +81,14 @@ const OwnerAuthorizationPopupDiv = styled.div`
 
     padding-bottom: 1.875rem;
   }
+
+  .Owner__Popup__Guide {
+    display: block;
+
+    margin-top: 0.625rem;
+    font-weight: normal;
+    color: #3e3e3e;
+  }
 `;
 
 const OwnerAuthorizationPopup = () => {
@@ -91,16 +100,17 @@ const OwnerAuthorizationPopup = () => {
     setValue(e.target.value);
   };
 
-  const onSubmit: FormEventHandler = (e) => {
+  const onSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
 
     if (value === process.env.NEXT_PUBLIC_OWNER) {
       alert("인증되었습니다");
 
-      Cookies.set(cookieKeyName.owner, process.env.NEXT_PUBLIC_OWNER, {
-        sameSite: "strict",
-        secure: true,
-        expires: cookieOptions.maxAge,
+      await cookieRequest.setCookie({
+        body: {
+          key: cookieKeyName.owner,
+          value: process.env.NEXT_PUBLIC_OWNER,
+        },
       });
 
       router.push("/").then(() => router.reload());
@@ -144,6 +154,10 @@ const OwnerAuthorizationPopup = () => {
         한번 인증하고 나면 브라우저에 저장되어
         <br />
         다음에는 인증키를 입력하지 않아도 되요.
+        <br />
+        <span className="Owner__Popup__Guide">
+          이 창을 닫으시려면 뒤로가기를 눌러주세요.
+        </span>
       </p>
     </OwnerAuthorizationPopupDiv>
   );
