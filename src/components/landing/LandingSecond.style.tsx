@@ -6,21 +6,21 @@ export const LandingSecondSection = styled.section`
   align-items: center;
 
   width: 100vw;
-  height: 42.5rem;
-  margin: 9.375rem 0;
+  padding: 11.25rem 0;
+  margin: 10rem 0;
 
   /* background-color: var(--bg_white_01); */
   background-color: #fdfcf7;
   border: 1px solid #ebebeb;
 
   @media screen and (max-width: 845px) {
-    height: 33.125rem;
-    margin: 6.25rem 0;
+    padding: 8.75rem 0;
+    margin: 7.5rem 0;
   }
 
   @media screen and (max-width: 574px) {
-    height: 28.125rem;
-    margin: 4.6875rem 0;
+    padding: 6.25rem 0;
+    margin: 4.375rem 0;
   }
 `;
 

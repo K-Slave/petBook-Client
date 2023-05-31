@@ -4,7 +4,12 @@ import styled from "styled-components";
 
 const LandingLoopBannerWrapDiv = styled.div`
   position: absolute;
-  top: calc(100vh - 5.1563rem - 4.6875rem);
+  z-index: 1;
+  top: calc(100vh - 5.1563rem - 2.1875rem);
+
+  @media screen and (max-width: 574px) {
+    top: calc(100vh - 5.1563rem - 5.625rem);
+  }
 `;
 
 const LandingLoopBannerDiv = styled.div`

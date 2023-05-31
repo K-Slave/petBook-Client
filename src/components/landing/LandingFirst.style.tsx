@@ -4,8 +4,11 @@ export const LandingFirstSection = styled.section`
   position: relative;
   width: 100%;
   height: 100vh;
-
   padding-top: 6.5625rem;
+
+  @media screen and (max-width: 1300px) {
+    padding-top: 5.3125rem;
+  }
 
   @media screen and (max-width: 768px) {
     padding-top: 4.6875rem;

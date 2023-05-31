@@ -1,18 +1,35 @@
 import ResponsiveImage from "@/stories/common/ResponsiveImage";
-import React from "react";
+import React, { PropsWithChildren } from "react";
+import { LandingThirdSection } from "./LandingThird.style";
 
 const LandingThird = () => {
   return (
-    <div>
-      <ResponsiveImage
-        src="/hospitalMapEx.png"
-        boxwidth="80vw"
-        boxheight="350px"
-        fill
-        alt=""
-      />
-    </div>
+    <LandingThird.Wrap>
+      <LandingThird.Img />
+    </LandingThird.Wrap>
   );
 };
+
+const Wrap = ({ children }: PropsWithChildren<any>) => {
+  return <LandingThirdSection>{children}</LandingThirdSection>;
+};
+
+const Img = () => {
+  return (
+    <ResponsiveImage
+      src="/hospitalMapEx_1.png"
+      boxwidth="360px"
+      boxheight="200px"
+      width={360}
+      height={200}
+      alt=""
+    />
+  );
+};
+
+// hospitalMapEx_1
+
+LandingThird.Wrap = Wrap;
+LandingThird.Img = Img;
 
 export default LandingThird;
