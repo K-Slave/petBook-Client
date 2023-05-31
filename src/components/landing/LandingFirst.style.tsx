@@ -3,8 +3,13 @@ import styled from "styled-components";
 export const LandingFirstSection = styled.section`
   position: relative;
   width: 100%;
+  height: 100vh;
 
   padding-top: 6.5625rem;
+
+  @media screen and (max-width: 768px) {
+    padding-top: 4.6875rem;
+  }
 `;
 
 export const LandingFirstTitleH1 = styled.h1`
@@ -32,29 +37,49 @@ export const LandingFirstTitleH1 = styled.h1`
 
   span {
     text-align: center;
-    font-size: 4.125rem;
-    font-weight: bold;
+
     line-height: 1.4;
     color: #202020;
   }
 
+  .Landing__Title {
+    font-size: 4.125rem;
+    font-weight: bold;
+  }
+
+  .Landing__Subtitle {
+    padding-top: 0.625rem;
+
+    font-size: 2.1875rem;
+    font-weight: 500;
+  }
+
   @media screen and (max-width: 1020px) {
-    span {
+    .Landing__Title {
       width: 26.4375rem;
       font-size: 3.125rem;
+      line-height: 1.3;
+    }
+
+    .Landing__Subtitle {
+      font-size: 1.75rem;
       line-height: 1.3;
     }
   }
 
   @media screen and (max-width: 768px) {
-    span {
+    .Landing__Title {
       min-width: 26.4375rem;
+      line-height: 1.2;
+    }
+
+    .Landing__Subtitle {
       line-height: 1.2;
     }
   }
 
   @media screen and (max-width: 368px) {
-    span {
+    .Landing__Title {
       min-width: 20.9375rem;
       font-size: 2.8125rem;
       line-height: 1.1;

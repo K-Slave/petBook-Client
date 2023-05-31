@@ -47,8 +47,12 @@ const Header = ({
   return (
     <Header.Wrap maxWidth={maxWidth} position={position}>
       <Header.Logo defaultLogo={isDevelopment} />
-      {isDevelopment === true && (
-        <Header.MenuNav isScrollUse={isScrollUse} navView={navView} />
+      {(isOwnerAuthorization || isDevelopment === true) && (
+        <Header.MenuNav
+          isScrollUse={isScrollUse}
+          navView={navView}
+          isOwnerAuthorization={isOwnerAuthorization}
+        />
       )}
       {isDevelopment === true ? (
         <Header.Personal isLoggedUser={!!userData}>
@@ -112,12 +116,24 @@ const Logo = ({ defaultLogo }: LogoProps) => {
   );
 };
 
-type MenuNavProps = NavControllerProps;
+interface MenuNavProps extends NavControllerProps {
+  isOwnerAuthorization?: boolean;
+}
 
-const MenuNav = ({ isScrollUse, navView }: MenuNavProps) => {
+const MenuNav = ({
+  isScrollUse,
+  navView,
+  isOwnerAuthorization,
+}: MenuNavProps) => {
   const [isNeedNav] = useNavController({ isScrollUse, navView });
+  const router = useRouter();
 
-  return <>{isNeedNav ? <Menu isHeaderMenu /> : <div />}</>;
+  return (
+    <>
+      {isNeedNav ? <Menu isHeaderMenu /> : <div />}
+      {router.pathname === "/" && isOwnerAuthorization && <Menu isHeaderMenu />}
+    </>
+  );
 };
 
 interface PersonalProps {

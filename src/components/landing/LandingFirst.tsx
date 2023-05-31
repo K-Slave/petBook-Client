@@ -33,8 +33,8 @@ const Title = () => {
         }
       }}
     >
-      <span>특별한 동물을 위한 특별한 전자책</span>
-      <span>이색동물 커뮤니티 PetBook</span>
+      <span className="Landing__Title">특별한 동물을 위한 특별한 전자책</span>
+      <span className="Landing__Subtitle">이색동물 커뮤니티 PetBook</span>
     </LandingFirstTitleH1>
   );
 };

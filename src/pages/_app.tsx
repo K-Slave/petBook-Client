@@ -53,8 +53,6 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
     pageProps?.ownerToken === process.env.NEXT_PUBLIC_OWNER ||
     Cookies.get(cookieKeyName.owner) === process.env.NEXT_PUBLIC_OWNER;
 
-  localConsole?.log(isOwnerAuthorization, "isOwnerAuthorization");
-
   if (pageProps && pageProps.requiredResources) {
     for (const resource of pageProps.requiredResources) {
       queryClient.setQueryData([resource.name + "_RESOURCE"], resource);
@@ -107,17 +105,11 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
             isNeedOwnerAuthor={router.pathname === "/" ? true : false}
             isOwnerAuthorization={isOwnerAuthorization}
           />
-          {(isOwnerAuthorization || router.pathname !== "/") && (
+          {router.pathname !== "/" && (
             <TopNav
-              isScrollUse={
-                isOwnerAuthorization && router.pathname === "/" ? false : true
-              }
-              navView={
-                !isOwnerAuthorization && router.pathname === "/" ? true : false
-              }
-              isDevelopment={
-                !isOwnerAuthorization && router.pathname === "/" ? false : true
-              }
+              isScrollUse={router.pathname === "/" ? false : true}
+              navView={router.pathname === "/" ? true : false}
+              isDevelopment={router.pathname === "/" ? false : true}
             />
           )}
           <Component {...pageProps} />
