@@ -26,7 +26,7 @@ const Description = () => {
         unsetObserver();
       }
     },
-    rootMargin: "-150px",
+    rootMargin: "-170px",
     isScrollObserver: true,
   });
 
