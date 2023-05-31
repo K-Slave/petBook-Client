@@ -7,6 +7,7 @@ import IndexGlobalStyle, { IndexPageMain } from "@styles/indexGlobalStyle";
 import LandingFirst from "@components/landing/LandingFirst";
 import LandingLoopBanner from "@components/landing/LandingLoopBanner";
 import dynamic from "next/dynamic";
+import LandingSecond from "@components/landing/LandingSecond";
 
 const OwnerAuthorizationPopup = dynamic(
   () => import("@components/landing/OwnerAuthorizationPopup"),
@@ -19,10 +20,11 @@ const Home: NextPage = () => {
     <>
       <PageHead currentPath={router.pathname} />
       <IndexGlobalStyle />
+      <LandingLoopBanner />
       <IndexPageMain>
         <LandingFirst />
+        <LandingSecond />
       </IndexPageMain>
-      <LandingLoopBanner />
       {router.query?.owner_author && <OwnerAuthorizationPopup />}
     </>
   );

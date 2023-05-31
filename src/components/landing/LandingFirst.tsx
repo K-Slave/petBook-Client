@@ -10,7 +10,6 @@ const LandingFirst = () => {
   return (
     <LandingFirst.Wrap>
       <LandingFirst.Title />
-      {/* <LandingFirst.Icons /> */}
     </LandingFirst.Wrap>
   );
 };
