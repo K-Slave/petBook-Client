@@ -7,6 +7,8 @@ export const LandingNoticeSection = styled.section`
   align-items: center;
 
   width: 100%;
+
+  margin-bottom: 5rem;
 `;
 
 export const LandingNoticeIframe = styled.iframe`
