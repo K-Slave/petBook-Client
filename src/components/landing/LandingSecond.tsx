@@ -46,16 +46,18 @@ const Description = () => {
         // e.currentTarget.style.removeProperty
       }}
     >
-      내 아이가 아파도 병원 한번 찾기 힘들었던 집사님들, <br />
-      이색 동물을 처음 키워보시는 초보 집사님들,
+      내 아이가 아파도 병원 한번 찾기 힘들었던 집사님들
       <br />
-      다른 집사님들과 소통하며 정보를 공유하고 싶은 집사님들,
+      이색 동물을 처음 키워보시는 초보 집사님들
+      <br />
+      다른 집사님들과 소통하며 정보를 공유하고 싶은 집사님들
       <br />
       이색 동물을 키워보시고 싶은 예비 집사님들까지
-      <br />
-      이제껏 없었던 이색동물 플랫폼 <span className="Petbook">펫북</span> 에서
-      <br />
-      누구보다 특별한 내 아이와 함께한 이야기 한 권을 써 내려가 보세요.
+      <span className="Desc__Ext">
+        이제껏 없었던 이색동물 플랫폼 <span className="Petbook">펫북</span> 에서
+        <br />
+        누구보다 특별한 내 아이와 함께한 이야기를 써 내려가 보세요.
+      </span>
     </LandingSecondDescP>
   );
 };

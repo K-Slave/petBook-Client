@@ -8,6 +8,7 @@ import LandingFirst from "@components/landing/LandingFirst";
 import LandingLoopBanner from "@components/landing/LandingLoopBanner";
 import dynamic from "next/dynamic";
 import LandingSecond from "@components/landing/LandingSecond";
+import LandingThird from "@components/landing/LandingThird";
 
 const OwnerAuthorizationPopup = dynamic(
   () => import("@components/landing/OwnerAuthorizationPopup"),
@@ -24,6 +25,7 @@ const Home: NextPage = () => {
       <IndexPageMain>
         <LandingFirst />
         <LandingSecond />
+        <LandingThird />
       </IndexPageMain>
       {router.query?.owner_author && <OwnerAuthorizationPopup />}
     </>
