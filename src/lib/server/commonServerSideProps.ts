@@ -46,7 +46,7 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
 
         context.res?.setHeader(
           "Set-Cookie",
-          `${cookieKeyName.owner}=${process.env.NEXT_PUBLIC_OWNER} SameSite=Strict; Max-Age=${cookieOptions.maxAge}; secure;`
+          `${cookieKeyName.owner}=${process.env.NEXT_PUBLIC_OWNER}; SameSite=Strict; Max-Age=${cookieOptions.maxAge}; secure;`
         );
       }
 

@@ -42,6 +42,10 @@ export const HeaderLogoLink = styled(Link)`
   column-gap: 1.0417vw;
 
   padding: 15px 1.0417vw;
+
+  @media screen and (max-width: 768px) {
+    column-gap: 4.1667vw;
+  }
 `;
 
 export const HeaderPersonalDiv = styled.div<{ isLoggedUser: boolean }>`
