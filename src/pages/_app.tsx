@@ -28,8 +28,6 @@ import { Resource } from "@lib/resources";
 import NextGlobalStyle from "@components/GlobalStyle";
 import Header from "@/stories/Header/Header";
 import TopNav from "@/stories/Header/TopNav";
-import localConsole from "@lib/utils/localConsole";
-import Cookies from "js-cookie";
 
 export interface PageProps {
   dehydratedState: DehydratedState;
@@ -49,9 +47,13 @@ type DehydratedAppProps = AppProps<PageProps>;
 
 const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
   const [queryClient] = useState(() => createQueryClient());
-  const isOwnerAuthorization =
-    pageProps?.ownerToken === process.env.NEXT_PUBLIC_OWNER ||
-    Cookies.get(cookieKeyName.owner) === process.env.NEXT_PUBLIC_OWNER;
+
+  if (pageProps && pageProps.ownerToken) {
+    queryClient.setQueryData([cookieKeyName.owner], pageProps.ownerToken);
+  }
+
+  // ||
+  // allCookies[cookieKeyName.owner] === process.env.NEXT_PUBLIC_OWNER;
 
   if (pageProps && pageProps.requiredResources) {
     for (const resource of pageProps.requiredResources) {
@@ -70,6 +72,11 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
   //   sprPetBookClient.defaults.headers.common.Authorization = '';
   //   queryClient.setQueryData([cookieKeyName.userInfo], '');
   // }
+
+  const isOwnerAuthorization =
+    pageProps?.ownerToken === process.env.NEXT_PUBLIC_OWNER ||
+    queryClient.getQueryData([cookieKeyName.owner]) ===
+      process.env.NEXT_PUBLIC_OWNER;
 
   if (
     process.env.NODE_ENV === "development" &&

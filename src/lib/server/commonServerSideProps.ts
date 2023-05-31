@@ -9,7 +9,6 @@ import getCookieList from "@lib/utils/getCookieList";
 import { checkDevice, checkUserAgent } from "@lib/utils/checkUserAgent";
 import { PageProps } from "@pages/_app";
 import { cookieKeyName, cookieOptions } from "@lib/globalConst";
-import localConsole from "@lib/utils/localConsole";
 
 // 추후 특정 페이지에서 필요하지 않은 API 호출을 막는 용도로 사용할수 있음
 const userAPIBlackList = [""];
@@ -35,18 +34,15 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
       const path = url?.split("?")[0];
 
       if (path !== "/" && !ownerToken) {
-        localConsole?.log("dddddddd");
         context.res?.writeHead(301, {
           Location: `/?owner_author=true`,
         });
 
         context.res?.end();
       } else if (path !== "/" && ownerToken === process.env.NEXT_PUBLIC_OWNER) {
-        localConsole?.log("ssssssss");
-
         context.res?.setHeader(
           "Set-Cookie",
-          `${cookieKeyName.owner}=${process.env.NEXT_PUBLIC_OWNER}; SameSite=Strict; Max-Age=${cookieOptions.maxAge}; secure;`
+          `${cookieKeyName.owner}=${process.env.NEXT_PUBLIC_OWNER}; SameSite=Strict; Max-Age=${cookieOptions.maxAge}; secure; httpOnly;`
         );
       }
 
