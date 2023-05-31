@@ -14,7 +14,6 @@ export const LandingFirstSection = styled.section`
 
 export const LandingFirstTitleH1 = styled.h1`
   position: relative;
-  z-index: 10;
 
   display: flex;
   flex-direction: column;
@@ -25,10 +24,10 @@ export const LandingFirstTitleH1 = styled.h1`
 
   margin-top: 6.25rem;
 
-  animation: 0.5s slideUp ease-in-out 1;
-  -o-animation: 0.5s slideUp ease-in-out 1;
-  -moz-animation: 0.5s slideUp ease-in-out 1;
-  -webkit-animation: 0.5s slideUp ease-in-out 1;
+  animation: 0.5s fadeIn ease-in-out 1;
+  -o-animation: 0.5s fadeIn ease-in-out 1;
+  -moz-animation: 0.5s fadeIn ease-in-out 1;
+  -webkit-animation: 0.5s fadeIn ease-in-out 1;
 
   animation-delay: 1.5s;
   -o-animation-delay: 1.5s;
@@ -75,14 +74,6 @@ export const LandingFirstTitleH1 = styled.h1`
 
     .Landing__Subtitle {
       line-height: 1.2;
-    }
-  }
-
-  @media screen and (max-width: 368px) {
-    .Landing__Title {
-      min-width: 20.9375rem;
-      font-size: 2.8125rem;
-      line-height: 1.1;
     }
   }
 `;

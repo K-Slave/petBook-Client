@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const LandingLoopBannerWrapDiv = styled.div`
   position: absolute;
-  bottom: 50px;
+  top: calc(100vh - 5.1563rem - 3.4375rem);
 `;
 
 const LandingLoopBannerDiv = styled.div`

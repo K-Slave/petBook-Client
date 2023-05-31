@@ -130,7 +130,13 @@ const MenuNav = ({
 
   return (
     <>
-      {isNeedNav ? <Menu isHeaderMenu /> : <div />}
+      {router.pathname === "/" ? (
+        <></>
+      ) : isNeedNav ? (
+        <Menu isHeaderMenu />
+      ) : (
+        <div />
+      )}
       {router.pathname === "/" && isOwnerAuthorization && <Menu isHeaderMenu />}
     </>
   );
