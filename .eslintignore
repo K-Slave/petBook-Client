@@ -2,3 +2,5 @@
 *.js
 /unused
 /src/unused
+jest.setup.ts
+jest.config.js
