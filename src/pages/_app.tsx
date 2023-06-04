@@ -25,9 +25,9 @@ import { DeviceType, UserAgentType } from "@lib/utils/checkUserAgent";
 import { cookieKeyName } from "@lib/globalConst";
 import PageHead from "@components/meta/common/PageHead";
 import { Resource } from "@lib/resources";
-import NextGlobalStyle from "@components/GlobalStyle";
 import Header from "@/stories/Header/Header";
 import TopNav from "@/stories/Header/TopNav";
+import NextGlobalStyle from "@styles/Global.style";
 
 export interface PageProps {
   dehydratedState: DehydratedState;
