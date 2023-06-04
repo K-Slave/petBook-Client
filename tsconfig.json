@@ -3,7 +3,7 @@
     "target": "es5",
     "module": "commonjs",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "jsx": "preserve",
+    "jsx": "react",
     "noEmit": true,
     "allowJs": true,
     "strict": true,
@@ -18,6 +18,7 @@
     "downlevelIteration": true,
     "incremental": true,
     "useUnknownInCatchVariables": false,
+    "types": ["jest", "@testing-library/jest-dom"],
     "paths": {
       "@components/*": ["./src/components/*"],
       "@pages/*": ["./src/pages/*"],
@@ -36,6 +37,13 @@
     "src/unused",
     "/unused",
     "src/unused/*",
-    "src/unused"
+    "src/unused",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/*.config.js",
+    "**/*.config.ts",
+    "**/*.build.js",
+    "jest.config.js",
+    "jest.setup.ts"
   ]
 }

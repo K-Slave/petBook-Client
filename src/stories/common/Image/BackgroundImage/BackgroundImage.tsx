@@ -9,7 +9,7 @@ interface Props {
   url: string;
   width: string;
   height: string;
-  tag: "span" | "a" | "div";
+  tag?: "span" | "a" | "div";
   anchorAttr?: AnchorHTMLAttributes<HTMLAnchorElement>;
   display?: CSSProperties["display"];
   bgPosition?: CSSProperties["backgroundPosition"];
