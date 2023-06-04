@@ -4,7 +4,6 @@ import WriteForm from "@components/write/WriteForm";
 import WriteImgAttach from "@components/write/WriteImgAttach";
 import WriteHashTags from "@components/write/WriteHashTags";
 import WriteSubmit from "@components/write/WriteSubmit";
-import styles from "../../../styles/Write.module.scss";
 import { GetServerSideProps } from "next";
 import commonServerSideProps from "@lib/server/commonServerSideProps";
 import { CATEGORY_LIST } from "@lib/resources/commonResource";
@@ -29,7 +28,7 @@ const WriteMain = styled.main`
 
 const Write: NextPageWithOptions = (pageProps: any) => {
   return (
-    <WriteMain className={`Content ${styles.Write__Page}`}>
+    <WriteMain>
       <CategoryContainer />
       <WriteForm />
       <WriteImgAttach />
