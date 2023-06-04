@@ -38,7 +38,7 @@ export const MenuItemLink = styled(Link)<{ iscurrentpath: boolean }>`
   font-weight: ${({ iscurrentpath }) => (iscurrentpath ? "700" : "inherit")};
   color: ${({ iscurrentpath }) => (iscurrentpath ? "#FF6847" : "inherit")};
   border-bottom: ${({ iscurrentpath }) =>
-    iscurrentpath ? "4px solid #FF6847" : ""};
+    iscurrentpath ? "4px solid #FF6847" : "4px solid transparent"};
 
   &:hover {
     transition: all 0.15s ease-in-out;

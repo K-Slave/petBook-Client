@@ -9,7 +9,7 @@ export const LandingSecondSection = styled.section`
   padding: 11.25rem 0;
   margin: 10rem 0;
 
-  /* background-color: var(--bg_white_01); */
+  /* background-color: var(--bg_white_02_white_01); */
   background-color: #fdfcf7;
   border: 1px solid #ebebeb;
 

@@ -26,9 +26,6 @@ const OwnerAuthorizationPopupDiv = styled.div`
   background-color: #fff;
 
   animation: 0.5s slideUp ease-in-out 1;
-  -o-animation: 0.5s slideUp ease-in-out 1;
-  -moz-animation: 0.5s slideUp ease-in-out 1;
-  -webkit-animation: 0.5s slideUp ease-in-out 1;
 
   .Owner__Popup__Title {
     text-align: center;

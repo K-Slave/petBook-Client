@@ -8,7 +8,7 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--bg);
+  background-color: var(--bg_white_02);
 
   input {
     max-width: 412px;

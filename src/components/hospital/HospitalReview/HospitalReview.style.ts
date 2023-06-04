@@ -17,7 +17,7 @@ export const ReviewWarp = styled.section`
 
   overflow: auto;
 
-  background-color: var(--modal-bg);
+  background-color: var(--bg_white_02);
 `;
 
 export const ReviewHeader = styled.hgroup`

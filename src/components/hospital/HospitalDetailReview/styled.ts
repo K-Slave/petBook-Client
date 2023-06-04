@@ -11,7 +11,7 @@ export const ReviewContainerHeader = styled.div`
 export const ReviewBox = styled.article`
   padding: 1.25rem 1rem;
   border-radius: 12px;
-  background-color: var(--bg);
+  background-color: var(--bg_white_02);
   margin-bottom: 0.5rem;
 `;
 

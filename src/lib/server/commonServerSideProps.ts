@@ -9,6 +9,7 @@ import getCookieList from "@lib/utils/getCookieList";
 import { checkDevice, checkUserAgent } from "@lib/utils/checkUserAgent";
 import { PageProps } from "@pages/_app";
 import { cookieKeyName, cookieOptions } from "@lib/globalConst";
+import { cookieRequest } from "@lib/API/petBookAPI";
 
 // 추후 특정 페이지에서 필요하지 않은 API 호출을 막는 용도로 사용할수 있음
 const userAPIBlackList = [""];
@@ -31,6 +32,17 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
       const url = context.req.url;
       const { ownerToken, token, user } = getToken(context, { decode: true });
 
+      let resultOwnerToken = ownerToken;
+
+      if (process.env.NODE_ENV === "development" && !ownerToken) {
+        context.res?.setHeader(
+          "Set-Cookie",
+          `${cookieKeyName.owner}=${process.env.NEXT_PUBLIC_OWNER}; SameSite=Strict; Max-Age=${cookieOptions.maxAge}; secure; httpOnly;`
+        );
+
+        resultOwnerToken = process.env.NEXT_PUBLIC_OWNER;
+      }
+
       const path = url?.split("?")[0];
 
       if (path !== "/" && !ownerToken) {
@@ -44,6 +56,8 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
           "Set-Cookie",
           `${cookieKeyName.owner}=${process.env.NEXT_PUBLIC_OWNER}; SameSite=Strict; Max-Age=${cookieOptions.maxAge}; secure; httpOnly;`
         );
+
+        resultOwnerToken = process.env.NEXT_PUBLIC_OWNER;
       }
 
       const userAgent = headers["user-agent"];
@@ -86,7 +100,7 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
             ...props,
             dehydratedState: dehydrate(queryClient),
             token,
-            ownerToken,
+            ownerToken: resultOwnerToken,
             user,
             cookieList,
             device,
@@ -137,7 +151,7 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
         props: {
           dehydratedState: dehydrate(queryClient),
           token,
-          ownerToken,
+          ownerToken: resultOwnerToken,
           user,
           cookieList,
           device,

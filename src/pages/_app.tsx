@@ -25,9 +25,9 @@ import { DeviceType, UserAgentType } from "@lib/utils/checkUserAgent";
 import { cookieKeyName } from "@lib/globalConst";
 import PageHead from "@components/meta/common/PageHead";
 import { Resource } from "@lib/resources";
-import NextGlobalStyle from "@components/GlobalStyle";
 import Header from "@/stories/Header/Header";
 import TopNav from "@/stories/Header/TopNav";
+import NextGlobalStyle from "@styles/Global.style";
 
 export interface PageProps {
   dehydratedState: DehydratedState;
@@ -50,10 +50,12 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
 
   if (pageProps && pageProps.ownerToken) {
     queryClient.setQueryData([cookieKeyName.owner], pageProps.ownerToken);
+  } else if (process.env.NODE_ENV === "development" && !pageProps?.ownerToken) {
+    queryClient.setQueryData(
+      [cookieKeyName.owner],
+      process.env.NEXT_PUBLIC_OWNER
+    );
   }
-
-  // ||
-  // allCookies[cookieKeyName.owner] === process.env.NEXT_PUBLIC_OWNER;
 
   if (pageProps && pageProps.requiredResources) {
     for (const resource of pageProps.requiredResources) {

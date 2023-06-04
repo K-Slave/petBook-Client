@@ -21,7 +21,7 @@ import {
 } from "./Header.style";
 import { cookieKeyName } from "@lib/globalConst";
 import headerImg from "@/image/headerImg";
-import ResponsiveImage from "../common/ResponsiveImage";
+import ResponsiveImage from "../common/Image/ResponsiveImage";
 import Menu from "./Menu";
 import { useRouter } from "next/router";
 

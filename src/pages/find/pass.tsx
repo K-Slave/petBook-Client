@@ -8,7 +8,7 @@ const Main = styled.main`
   margin: 0 auto;
   max-width: 400px;
   height: calc(100vh - 61px);
-  background-color: var(--bg);
+  background-color: var(--bg_white_02);
 `;
 
 export const FindUserInfo = () => {

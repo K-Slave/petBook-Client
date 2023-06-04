@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ReviewBox = styled.article`
   position: relative;
   border-radius: 12px;
-  background-color: var(--bg);
+  background-color: var(--bg_white_02);
   padding: 0.6875rem 1rem;
   &:has(.GOOD) {
     margin-bottom: 0.5rem;
@@ -15,7 +15,7 @@ export const ReveiwBoxHeader = styled.hgroup`
   margin-bottom: 0.25rem;
 
   border-radius: 12px;
-  background-color: var(--bg);
+  background-color: var(--bg_white_02);
 
   font-size: 14px;
   font-weight: 700;

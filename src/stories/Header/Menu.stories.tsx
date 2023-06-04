@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Menu from "./Menu";
-import NextGlobalStyle from "@components/GlobalStyle";
+import NextGlobalStyle from "@styles/Global.style";
 
 const meta: Meta<typeof Menu> = {
   title: "Header/Menu",

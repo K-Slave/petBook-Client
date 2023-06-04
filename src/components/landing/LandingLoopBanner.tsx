@@ -107,6 +107,7 @@ const LandingLoopBanner = () => {
           <IconBoxDiv>
             <IconImgA
               target="_blank"
+              rel="noopener"
               href="https://icons8.com/icon/5N7Fl28rFEw_/rabbit"
               imgUrl="/icons/icons8-rabbit-96.png"
             />
@@ -114,6 +115,7 @@ const LandingLoopBanner = () => {
           <IconBoxDiv>
             <IconImgA
               target="_blank"
+              rel="noopener"
               href="https://icons8.com/icon/aKEeT9FEK2cQ/%EA%B3%A0%EC%8A%B4%EB%8F%84%EC%B9%98"
               imgUrl="/icons/icons8-gosum-96.png"
             />
@@ -121,6 +123,7 @@ const LandingLoopBanner = () => {
           <IconBoxDiv>
             <IconImgA
               target="_blank"
+              rel="noopener"
               href="https://icons8.com/icon/P5jz51DWtv4I/%EB%A7%88%EC%9A%B0%EC%8A%A4-%EB%8F%99%EB%AC%BC"
               imgUrl="/icons/icons8-mouse-96.png"
             />
@@ -128,6 +131,7 @@ const LandingLoopBanner = () => {
           <IconBoxDiv>
             <IconImgA
               target="_blank"
+              rel="noopener"
               href="hhttps://icons8.com/icon/OClCFhCarb8m/fish"
               imgUrl="/icons/icons8-fish-96.png"
             />
@@ -135,6 +139,7 @@ const LandingLoopBanner = () => {
           <IconBoxDiv>
             <IconImgA
               target="_blank"
+              rel="noopener"
               href="https://icons8.com/icon/8S7SkmQtNOry/%EB%B1%80"
               imgUrl="/icons/icons8-snake-96.png"
             />
@@ -142,6 +147,7 @@ const LandingLoopBanner = () => {
           <IconBoxDiv>
             <IconImgA
               target="_blank"
+              rel="noopener"
               href="https://icons8.com/icon/8uUpoMsM4WMd/%EC%96%91"
               imgUrl="/icons/icons8-sheep-96.png"
             />
@@ -149,6 +155,7 @@ const LandingLoopBanner = () => {
           <IconBoxDiv>
             <IconImgA
               target="_blank"
+              rel="noopener"
               href="https://icons8.com/icon/SFUN6DqJTqwG/woodpecker"
               imgUrl="/icons/icons8-woodpecker-96.png"
             />
@@ -156,6 +163,7 @@ const LandingLoopBanner = () => {
           <IconBoxDiv>
             <IconImgA
               target="_blank"
+              rel="noopener"
               href="https://icons8.com/icon/OClCFhCarb8m/fish"
               imgUrl="/icons/icons8-fish-96.png"
             />
@@ -163,6 +171,7 @@ const LandingLoopBanner = () => {
           <IconBoxDiv>
             <IconImgA
               target="_blank"
+              rel="noopener"
               href="https://icons8.com/icon/t37RqElMGb3l/%EB%B0%B1%EC%A1%B0"
               imgUrl="/icons/icons8-backjo-96.png"
             />
@@ -170,6 +179,7 @@ const LandingLoopBanner = () => {
           <IconBoxDiv>
             <IconImgA
               target="_blank"
+              rel="noopener"
               href="https://icons8.com/icon/DPKGTkO02XSs/%EB%B9%84%EB%B2%84"
               imgUrl="/icons/icons8-biber-96.png"
             />
@@ -177,6 +187,7 @@ const LandingLoopBanner = () => {
           <IconBoxDiv>
             <IconImgA
               target="_blank"
+              rel="noopener"
               href="https://icons8.com/icon/PI2iDb1j6Nxf/deer"
               imgUrl="/icons/icons8-deer-96.png"
             />
@@ -184,6 +195,7 @@ const LandingLoopBanner = () => {
           <IconBoxDiv>
             <IconImgA
               target="_blank"
+              rel="noopener"
               href="https://icons8.com/icon/UoIYjsa9KdQ7/lizard"
               imgUrl="/icons/icons8-lizard-96.png"
             />
@@ -191,6 +203,7 @@ const LandingLoopBanner = () => {
           <IconBoxDiv>
             <IconImgA
               target="_blank"
+              rel="noopener"
               href="https://icons8.com/icon/kkjBrqTcWZwu/%EB%B2%A8%EB%A1%9C%EC%8B%9C-%EB%9E%A9%ED%84%B0"
               imgUrl="/icons/icons8-raptor-96.png"
             />
