@@ -32,8 +32,6 @@ const ResponsiveImageContainerSpan = styled.span<ImageContainerProps>`
 `;
 
 const ResponsiveNextImage = styled(Image)`
-  /* image-rendering: -webkit-optimize-contrast; */
-
   object-fit: contain;
 
   transform: translateZ(0);

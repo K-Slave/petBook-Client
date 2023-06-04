@@ -6,7 +6,7 @@ const Container = styled.main`
   max-width: 25rem;
   width: calc(100% - 32px);
   height: calc(100vh - 61px);
-  background-color: var(--bg);
+  background-color: var(--bg_white_02);
 `;
 
 const InfoPage = () => {

@@ -1,4 +1,4 @@
-import ResponsiveImage from "@/stories/common/ResponsiveImage";
+import ResponsiveImage from "@/stories/common/Image/ResponsiveImage";
 import React, { PropsWithChildren } from "react";
 import { LandingThirdSection } from "./LandingThird.style";
 

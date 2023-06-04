@@ -9,7 +9,7 @@ const Main = styled.main`
   align-items: center;
   height: calc(100vh - 61px);
   overflow: auto;
-  background-color: var(--bg);
+  background-color: var(--bg_white_02);
   h1 {
     margin-bottom: 40px;
     font-size: 25px;

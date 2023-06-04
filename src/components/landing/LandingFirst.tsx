@@ -4,7 +4,7 @@ import {
   LandingFirstTitleH1,
   LandingImageBoxDiv,
 } from "./LandingFirst.style";
-import ResponsiveImage from "@/stories/common/ResponsiveImage";
+import ResponsiveImage from "@/stories/common/Image/ResponsiveImage";
 
 const LandingFirst = () => {
   return (

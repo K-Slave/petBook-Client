@@ -26,7 +26,7 @@ export const ModalItemWrap = styled.section`
   border-radius: 16px;
 
   text-align: center;
-  background-color: var(--modal-bg);
+  background-color: var(--bg_white_02);
   padding: 48px 32px 30px;
   max-width: 464px;
   width: calc(100% - 16px);
