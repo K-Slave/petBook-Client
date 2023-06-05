@@ -13,7 +13,7 @@ module.exports = {
   },
   globals: {
     "ts-jest": {
-      jsx: "react",
+      tsconfig: "tsconfig.test.json",
     },
   },
   testEnvironment: "jest-environment-jsdom",
