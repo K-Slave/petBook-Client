@@ -1,8 +1,8 @@
 import React, { PropsWithChildren, useReducer } from "react";
 import { LoginFormBox } from "./LoginForm.style";
-import FocusBasedInput from "../common/Input/FocusBasedInput";
 import inputImg from "@/image/inputImg";
 import authOptions from "@lib/globalConst/authOptions";
+import FocusBasedInput from "../common/Input/FocusBasedInput/FocusBasedInput";
 
 const LoginForm = () => {
   const [formState, setFormState] = useReducer(

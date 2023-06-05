@@ -4,7 +4,7 @@ import {
   FocusBasedBgSpan,
   FocusBasedInputElem,
 } from "./FocusBasedInput.style";
-import { CommonInputProps } from "./CommonInput";
+import { CommonInputProps } from "../CommonInput/CommonInput";
 
 export interface FocusBasedInputProps extends CommonInputProps {
   value: string;

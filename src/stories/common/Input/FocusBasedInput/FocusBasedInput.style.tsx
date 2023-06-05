@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { BackgroundImageSpan } from "../Image/BackgroundImage/BackgroundImage.style";
-import CommonLabel from "../Label/CommonLabel";
-import CommonInput from "./CommonInput";
+import { BackgroundImageSpan } from "../../Image/BackgroundImage/BackgroundImage.style";
+import CommonLabel from "../../Label/CommonLabel";
+import CommonInput from "../CommonInput/CommonInput";
 
 export const FocusBasedAlginCenterLabel = styled(CommonLabel)`
   display: flex;
