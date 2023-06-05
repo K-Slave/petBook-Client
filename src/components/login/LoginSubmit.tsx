@@ -102,10 +102,6 @@ export const LoginPassGuide = () => {
 };
 
 export const LoginSubmitButton = () => {
-  // { test용
-  //   "email": "test@petbook.com",
-  //   "password": "p@55w0rd1!"
-  // }
   const [errorState, setErrorState] = useState(false);
   const [errorText, setErrorText] = useState("");
   const { navigator } = useLoaderNavigate();

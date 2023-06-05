@@ -154,7 +154,6 @@ const WriteEditorDiv = styled.div`
   .ql-editor.ql-blank::before {
     left: 24px;
 
-    font-family: "Pretendard";
     font-style: normal;
     font-weight: 400;
     font-size: 1rem;

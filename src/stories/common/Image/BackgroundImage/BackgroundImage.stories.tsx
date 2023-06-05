@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import BackgroundImage from "./BackgroundImage";
+import publicDirectorySelector from "@lib/utils/publicDirectorySelector";
 
 const meta: Meta<typeof BackgroundImage> = {
   title: "common/Image/BackgroundImage",
@@ -12,14 +13,9 @@ const meta: Meta<typeof BackgroundImage> = {
 
 type Story = StoryObj<typeof BackgroundImage>;
 
-const originUrl =
-  process.env.NODE_ENV === "production"
-    ? "https://petbook.site"
-    : "http://localhost:3000";
-
 export const BgImgSpan: Story = {
   args: {
-    url: `${originUrl}/icons/icons8-backjo-96.png`,
+    url: `${publicDirectorySelector}/icons/icons8-backjo-96.png`,
     width: "3.125rem",
     height: "3.125rem",
     bgPosition: "center",
@@ -29,7 +25,7 @@ export const BgImgSpan: Story = {
 
 export const BgImgA: Story = {
   args: {
-    url: `${originUrl}/icons/icons8-gosum-96.png`,
+    url: `${publicDirectorySelector}/icons/icons8-gosum-96.png`,
     width: "3.125rem",
     height: "3.125rem",
     bgPosition: "center",
@@ -44,7 +40,7 @@ export const BgImgA: Story = {
 
 export const BgImgDiv: Story = {
   args: {
-    url: `${originUrl}/Landing__Background.png`,
+    url: `${publicDirectorySelector}/Landing__Background.png`,
     width: "18.75rem",
     height: "18.75rem",
     bgPosition: "center",

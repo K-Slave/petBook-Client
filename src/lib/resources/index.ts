@@ -3,7 +3,6 @@ import {
   ArticleDetailPayload,
   ArticleDetailResponse,
   ArticleListPayload,
-  ArticleListRequest,
   ArticleListResponse,
   ArticleSearchPayload,
   ArticleSearchRequest,

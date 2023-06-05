@@ -28,6 +28,7 @@ import { Resource } from "@lib/resources";
 import Header from "@/stories/Header/Header";
 import TopNav from "@/stories/Header/TopNav";
 import NextGlobalStyle from "@styles/Global.style";
+import NextFontStyle from "@styles/Font.style";
 
 export interface PageProps {
   dehydratedState: DehydratedState;
@@ -104,6 +105,7 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
           }}
         >
           <NextGlobalStyle />
+          <NextFontStyle />
           <Loader />
           {router.pathname !== "/" && (
             <PageHead currentPath={router.pathname} />

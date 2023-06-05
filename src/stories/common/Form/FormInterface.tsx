@@ -1,13 +1,20 @@
-import React from "react";
+import React, { Fragment, ReactNode, useId, useState } from "react";
 import FormInterfaceForm from "./FormInterface.style";
 
-// interface Props {}
+interface InputContent {
+  label?: ReactNode;
+  input: ReactNode;
+}
 
-const FormInterface = () => {
+interface Props {
+  inputContentList: InputContent[];
+}
+
+const FormInterface = ({ inputContentList }: Props) => {
+  //
   return (
     <FormInterfaceForm>
-      <label></label>
-      <input></input>
+      {/* <FormInterface.List inputContentList={inputContentList} /> */}
       <button></button>
     </FormInterfaceForm>
   );
