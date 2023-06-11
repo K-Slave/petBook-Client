@@ -157,7 +157,6 @@ const InputBox = styled.div`
     letter-spacing: -0.02em;
     line-height: 17px;
     font-weight: 500;
-    font-family: "Pretendard";
     font-size: 14px;
 
     text-decoration-line: underline;

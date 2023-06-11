@@ -14,23 +14,6 @@ import TextAreaCommonStyle from "./common/TextArea.style";
 
 const NextGlobalStyle = createGlobalStyle`
 
-* {
-  margin: 0;
-  padding: 0;
-
-  box-sizing: border-box; /* 엘리먼트의 box-sizing 값을 border-box 로 설정 */
-
-  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
-    "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
-    "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-    sans-serif;
-  font-style: normal;
-
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
 //컬러설정
 :root {
   /* black */
@@ -45,7 +28,10 @@ const NextGlobalStyle = createGlobalStyle`
   /* bg */
   --bg_white_02: #f8f7f2;
   --bg_white_01: #eeede7;
-  --bg_white_02: #f8f7f2;
+
+  /* shadow */
+  --shadow_01: #d6d3c5;
+
 
   /* primary */
   --primary: #ff6847;
@@ -67,28 +53,39 @@ const NextGlobalStyle = createGlobalStyle`
   --error: #ff0000;
 }
 
-html,
-body {
-  position: relative;
-  z-index: 0;
+* {
+  margin: 0;
+  padding: 0;
 
-  width: 100%;
-  min-height: 100%;
-  min-width: 22.5rem;
+  box-sizing: border-box;
+  outline: none;
 
-  margin: 0 auto;
+  font-family: Pretendard;
+
+  font-style: normal;
+  font-stretch: normal;
+  background-repeat: no-repeat;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html,
+body {
+  position: relative;
+
+  width: 100%;
+  min-width: 100vw;
+  min-height: 100vh;
+
+  margin: 0 auto;
 
   background-color: var(--bg_white_02);
 }
 
-
 #__next {
   position: relative;
-
-  min-width: 22.5rem;
 }
 
 a {
@@ -114,6 +111,12 @@ img {
       clip-path: inset(0.6px);
     }
   }
+}
+
+button {
+    border: transparent;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 

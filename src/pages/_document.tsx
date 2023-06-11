@@ -1,3 +1,4 @@
+import Pretendard from "@components/Pretendard";
 import DocumentHead from "@components/server/DocumentHead";
 import Document, {
   DocumentContext,
@@ -40,10 +41,9 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="ko">
+      <Html lang="ko" className={Pretendard.className}>
         <DocumentHead />
         <body>
-          <noscript>이 페이지를 보시려면 자바스크립트가 필요합니다.</noscript>
           <Main />
           <NextScript />
         </body>
