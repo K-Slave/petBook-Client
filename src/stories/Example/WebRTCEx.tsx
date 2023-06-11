@@ -1,4 +1,3 @@
-import localConsole from "@lib/utils/localConsole";
 import dynamic from "next/dynamic";
 import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
 
@@ -13,7 +12,7 @@ const WebRTCEx = () => {
   const [width, setWidth] = useState<number>(320);
   const [height, setHeight] = useState<number>(300);
 
-  localConsole?.log(navigator.mediaDevices);
+  console?.log(navigator.mediaDevices);
 
   async function getMedia(constraints: MediaStreamConstraints) {
     try {
@@ -49,7 +48,7 @@ const WebRTCEx = () => {
         audio: false,
       });
 
-      localConsole?.log(stream, "stream");
+      console?.log(stream, "stream");
 
       if (videoRef.current === null) return;
       videoRef.current.srcObject = stream;
@@ -57,14 +56,14 @@ const WebRTCEx = () => {
     } catch (err) {
       /* 오류 처리 */
 
-      localConsole?.log(err);
+      console?.log(err);
     }
 
     // try {
     //   stream = await navigator.mediaDevices.getUserMedia(constraints);
     //   /* 스트림 사용 */
 
-    //   localConsole?.log(stream, 'stream');
+    //   console?.log(stream, 'stream');
 
     //   stream.srcObject = stream;
     //   stream.play();
