@@ -4,6 +4,8 @@ import StyledCommonInput from "./CommonInput.style";
 export interface CommonInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   type: "text" | "password" | "email";
+  width?: string;
+  height?: string;
 }
 
 const CommonInput = (props: CommonInputProps) => {
