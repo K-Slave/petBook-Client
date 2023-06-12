@@ -1,4 +1,9 @@
-import React, { PropsWithChildren, useReducer, useState } from "react";
+import React, {
+  FormEventHandler,
+  PropsWithChildren,
+  useReducer,
+  useState,
+} from "react";
 import {
   LoginFormInputBoxDiv,
   LoginFormBox,
@@ -6,6 +11,8 @@ import {
   LoginFormLogoDiv,
   LoginFormCookieButton,
   LoginSubmitBoxDiv,
+  LoginFormSubmitButton,
+  LoginFormGuideDiv,
 } from "./LoginForm.style";
 import inputImg from "@/image/inputImg";
 import authOptions from "@lib/globalConst/authOptions";
@@ -14,6 +21,7 @@ import headerImg from "@/image/headerImg";
 import { BackgroundImageSpan } from "../common/Image/BackgroundImage/BackgroundImage.style";
 
 const LoginForm = () => {
+  // TODO : 전역 상태 관리 라이브러리 사용하도록 수정하기
   const [formState, setFormState] = useReducer(
     (
       prev: { email: string; password: string; check: boolean },
@@ -59,6 +67,10 @@ const LoginForm = () => {
     });
   };
 
+  const onSubmit: FormEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+  };
+
   const emailBgUrl =
     formState.email.length > 0 ? inputImg.face_wink_on : inputImg.face_wink_off;
 
@@ -68,6 +80,7 @@ const LoginForm = () => {
   return (
     <LoginFormBox>
       <LoginForm.Title />
+      {/* TODO : Input Box 쪼개기 */}
       <LoginFormInputBoxDiv>
         <LoginForm.Email
           type="email"
@@ -105,7 +118,10 @@ const LoginForm = () => {
           setFormState={setFormState}
         />
       </LoginFormInputBoxDiv>
-      <LoginSubmitBoxDiv></LoginSubmitBoxDiv>
+      {/* TODO: Submit Box 쪼개기 */}
+      <LoginSubmitBoxDiv>
+        <LoginForm.Submit onSubmit={onSubmit} />
+      </LoginSubmitBoxDiv>
     </LoginFormBox>
   );
 };
@@ -135,6 +151,7 @@ interface CookieBtnProps {
   }>;
 }
 
+// TODO : Cookie API 연동 해야함
 const CookieBtn = ({ check, setFormState }: CookieBtnProps) => {
   return (
     <LoginFormCookieButton
@@ -157,10 +174,29 @@ const CookieBtn = ({ check, setFormState }: CookieBtnProps) => {
   );
 };
 
+// TODO : Login API 연동 해야함
+interface SubmitProps {
+  onSubmit: FormEventHandler<HTMLButtonElement>;
+}
+
+const Submit = ({ onSubmit }: SubmitProps) => {
+  return (
+    <LoginFormSubmitButton type="submit" onSubmit={onSubmit}>
+      로그인
+    </LoginFormSubmitButton>
+  );
+};
+
+const Guide = () => {
+  return <LoginFormGuideDiv></LoginFormGuideDiv>;
+};
+
 LoginForm.Wrap = Wrap;
 LoginForm.Title = Title;
 LoginForm.Email = FocusBasedInput;
 LoginForm.Password = FocusBasedInput;
 LoginForm.CookieBtn = CookieBtn;
+LoginForm.Submit = Submit;
+LoginForm.Guide = Guide;
 
 export default LoginForm;
