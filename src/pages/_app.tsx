@@ -29,6 +29,7 @@ import Header from "@/stories/Header/Header";
 import TopNav from "@/stories/Header/TopNav";
 import NextGlobalStyle from "@styles/Global.style";
 import NextFontStyle from "@styles/Font.style";
+import Footer from "@components/common/Footer/Footer";
 
 export interface PageProps {
   dehydratedState: DehydratedState;
@@ -127,6 +128,7 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
           <Modal />
         </RecoilRoot>
       </Hydrate>
+      <Footer currentPath={router.pathnames} />
     </QueryClientProvider>
   );
 };
