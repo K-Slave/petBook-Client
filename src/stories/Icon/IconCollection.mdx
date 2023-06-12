@@ -15,12 +15,35 @@ import Clock from "./Clock";
 import PencilEdit from "./PencilEdit";
 import ShareForward from "./ShareForward";
 
-
 <Meta title="Icons/Icon Collection" />
+
+<style>
+  {`
+    .icon-gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+    @media screen and (max-width: 1024px) {
+      .icon-gallery {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+    @media screen and (max-width: 768px) {
+      .icon-gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media screen and (max-width: 425px) {
+      .icon-gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+  `}
+</style>
 
 # Icons
 
-<IconGallery>
+<div className="icon-gallery">
   <IconItem name="ChevronLeftRounded">
     <ChevronLeftRounded />
   </IconItem>
@@ -75,4 +98,4 @@ import ShareForward from "./ShareForward";
   <IconItem name="HeartOutline">
     <HeartOutline />
   </IconItem>
-</IconGallery>
+</div>
