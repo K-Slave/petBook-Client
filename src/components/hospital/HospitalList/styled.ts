@@ -1,4 +1,3 @@
-import { SearchBarDiv } from "@components/common/SearchBar/styled";
 import styled, { css } from "styled-components";
 
 export const Section = styled.section`
@@ -8,9 +7,6 @@ export const Section = styled.section`
   overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;
-  }
-  ${SearchBarDiv} {
-    width: 100%;
   }
   & > header {
     display: flex;

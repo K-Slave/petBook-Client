@@ -24,7 +24,7 @@ export const removeLocalStorage = (key: string) => {
   localStorage.removeItem(key);
 };
 
-interface Item {
+export interface SearchKeywordItem {
   target: "hospital" | "community";
   type: "query" | "location";
   timezone: string;
@@ -33,8 +33,8 @@ interface Item {
 }
 
 const RECENT_SEARCH_KEY = "RECENT_SEARCH";
-export const addSearchValue = (
-  params: Pick<Item, "target" | "type" | "value">
+export const addSearchKeyword = (
+  params: Pick<SearchKeywordItem, "target" | "type" | "value">
 ) => {
   const tz = "Asia/Seoul";
   const time = dayjs().tz(tz).format("YYYY-MM-DD HH:mm:ss.SSS");
@@ -43,9 +43,9 @@ export const addSearchValue = (
     timezone: tz,
     time,
   };
-  const list = getLocalStorage<Item[]>(RECENT_SEARCH_KEY);
+  const list = getLocalStorage<SearchKeywordItem[]>(RECENT_SEARCH_KEY);
   if (list === null) {
-    setLocalStorage<Item[]>({
+    setLocalStorage<SearchKeywordItem[]>({
       key: RECENT_SEARCH_KEY,
       value: [data],
     });
@@ -61,15 +61,15 @@ export const addSearchValue = (
     } else {
       list.push(data);
     }
-    setLocalStorage<Item[]>({
+    setLocalStorage<SearchKeywordItem[]>({
       key: RECENT_SEARCH_KEY,
       value: list,
     });
   }
 };
-export const getRecentSearchList = (target: Item["target"]) => {
-  const list = getLocalStorage<Item[]>(RECENT_SEARCH_KEY);
-  return list ? list.filter((item) => item.target === target) : null;
+export const getSearchKeywordList = (target: SearchKeywordItem["target"]) => {
+  const list = getLocalStorage<SearchKeywordItem[]>(RECENT_SEARCH_KEY);
+  return list ? list.filter((item) => item.target === target) : [];
 };
 
 const SCROLL_POS = "SCROLL_POS";

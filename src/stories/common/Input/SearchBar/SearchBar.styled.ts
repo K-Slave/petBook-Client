@@ -7,6 +7,7 @@ export const SearchBarInput = styled.input`
   border: 2px solid var(--black_04) !important;
   background-color: white !important;
   outline: none !important;
+  border-radius: 8px;
   &:focus {
     border-color: var(--primary) !important;
   }
@@ -15,8 +16,8 @@ export const SearchBarInput = styled.input`
   }
 `;
 
-export const SearchBarDiv = styled.div`
-  width: 278px;
+export const SearchBarDiv = styled.div<{ width?: string }>`
+  width: ${({ width }) => width || "278px"};
   height: 40px;
   position: relative;
   box-shadow: 0px 20px 16px -20px #d6d3c5;
@@ -41,8 +42,8 @@ export const SearchListUl = styled.ul`
   overflow-y: scroll;
   background: white;
   border: 1px solid var(--black_06);
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
   box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.1);
   z-index: 5;
   &::-webkit-scrollbar {
@@ -57,5 +58,12 @@ export const SearchListUl = styled.ul`
     &:hover {
       background-color: var(--bg_white_02);
     }
+  }
+  .no-item {
+    padding: 0.5rem 1rem;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--black_03);
+    text-align: center;
   }
 `;

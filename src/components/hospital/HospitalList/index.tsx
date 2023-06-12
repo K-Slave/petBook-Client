@@ -1,7 +1,7 @@
 import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
 import Pagination from "@components/common/Pagination";
 import { usePage } from "@components/common/Pagination/usePagination";
-import SearchBar from "@components/common/SearchBar";
+import SearchBar from "@/stories/common/Input/SearchBar";
 import Skeleton from "@components/common/Skeleton/Skeleton";
 import useDidMountEffect from "@lib/hooks/common/useDidMountEffect";
 import { useResource } from "@lib/hooks/common/useResource";
@@ -64,7 +64,11 @@ const HospitalList = () => {
   }, [page, data]);
   return (
     <Section ref={ref}>
-      <SearchBar placeholder="원하는 위치를 검색해보세요!" />
+      <SearchBar
+        placeholder="원하는 위치를 검색해보세요!"
+        target="hospital"
+        width="100%"
+      />
       <CurrentGps />
       <HospitalList.Filter />
       <div className="Item_Wrapper">
