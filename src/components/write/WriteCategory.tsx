@@ -1,6 +1,6 @@
 import useSelectorState from "@lib/hooks/common/useSelectorState";
 import React, { MouseEventHandler, useEffect } from "react";
-import Skeleton from "@components/common/Skeleton/Skeleton";
+import Skeleton from "@/stories/common/Skeleton";
 import { useResource } from "@lib/hooks/common/useResource";
 import writeState from "@atoms/pageAtoms/community/writeState";
 import {

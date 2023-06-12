@@ -2,7 +2,7 @@ import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
 import Pagination from "@/stories/common/Pagination";
 import usePage from "@lib/hooks/common/usePage";
 import SearchBar from "@/stories/common/Input/SearchBar";
-import Skeleton from "@components/common/Skeleton/Skeleton";
+import Skeleton from "@/stories/common/Skeleton";
 import useDidMountEffect from "@lib/hooks/common/useDidMountEffect";
 import { useResource } from "@lib/hooks/common/useResource";
 import { getScrollPosition } from "@lib/modules/localStorage";
@@ -72,19 +72,17 @@ const HospitalList = () => {
       <CurrentGps />
       <HospitalList.Filter />
       <div className="Item_Wrapper">
-        {!data
-          ? Array(20)
-              .fill("")
-              .map((_, index) => (
-                <Skeleton width="100%" height="200px" key={index} />
-              ))
-          : data.response.data.result.hospitals.map((hospital) => (
-              <HospitalItem
-                key={hospital.hospitals.id}
-                parent={ref}
-                hospitals={hospital}
-              />
-            ))}
+        {!data ? (
+          <Skeleton width="100%" height="200px" copy={20} />
+        ) : (
+          data.response.data.result.hospitals.map((hospital) => (
+            <HospitalItem
+              key={hospital.hospitals.id}
+              parent={ref}
+              hospitals={hospital}
+            />
+          ))
+        )}
       </div>
       {data && (
         <Pagination

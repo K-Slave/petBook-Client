@@ -2,7 +2,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
-import Skeleton from "../Skeleton/Skeleton";
+import Skeleton from "@/stories/common/Skeleton";
 
 const QuillLoader = dynamic(() => import("react-quill"), {
   ssr: false,

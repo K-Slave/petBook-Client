@@ -6,7 +6,7 @@ import { HeartBlankIcon, HeartFilledIcon } from "@components/common/icon/Heart";
 import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
 import CommonInfo from "@components/community/CommonInfo";
 import Pagination from "@/stories/common/Pagination";
-import Skeleton from "@components/common/Skeleton/Skeleton";
+import Skeleton from "@/stories/common/Skeleton";
 import useArticleList from "./useArticleList";
 import { ListDiv, Article, Text } from "./styled";
 

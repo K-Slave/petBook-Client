@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
 import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
 import Stats from "@components/common/hospital/Stats";
-import Skeleton from "@components/common/Skeleton/Skeleton";
+import Skeleton from "@/stories/common/Skeleton";
 import HospitalReview from "@components/hospital/HospitalReview/HospitalReview";
 import HospitalDetailReview from "@components/hospital/HospitalDetailReview";
 import PencilEditIcon from "@components/common/icon/PencilEdit";

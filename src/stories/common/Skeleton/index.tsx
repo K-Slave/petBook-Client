@@ -1,8 +1,3 @@
-import {
-  templateBgColor,
-  getSkeletonCopy,
-} from "@lib/modules/skeletonFunctions";
-import getRandomKey from "@lib/utils/getRandomKey";
 import React from "react";
 
 type SkeletonCSS = React.CSSProperties & {
@@ -18,6 +13,21 @@ export interface SkeletonProps {
   animation?: boolean;
   copy?: number;
 }
+
+const templateBgColor = (template: SkeletonProps["template"]) => {
+  switch (template) {
+    case "normal": {
+      return "rgba(200, 200, 200, 0.3)";
+    }
+
+    case "white": {
+      return "#fff";
+    }
+
+    default:
+      return "rgba(200, 200, 200, 0.3)";
+  }
+};
 
 const Skeleton = ({
   width,
@@ -48,19 +58,13 @@ const Skeleton = ({
   }
 
   if (copy) {
-    const copyArray = getSkeletonCopy(copy);
-
     return (
       <>
-        {copyArray.map((elem) => {
-          return (
-            <div
-              className="Skeleton__Box"
-              style={skeletonStyle}
-              key={getRandomKey()}
-            />
-          );
-        })}
+        {Array(copy)
+          .fill("")
+          .map((_, index) => (
+            <div className="Skeleton__Box" style={skeletonStyle} key={index} />
+          ))}
       </>
     );
   }
