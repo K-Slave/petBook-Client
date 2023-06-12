@@ -1,4 +1,4 @@
-const ChevronUp = () => {
+export const ChevronUpRounded = () => {
   return (
     <svg
       width="10"
@@ -17,5 +17,3 @@ const ChevronUp = () => {
     </svg>
   );
 };
-
-export default ChevronUp;

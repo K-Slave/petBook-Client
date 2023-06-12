@@ -1,4 +1,4 @@
-const MarkerPin = () => {
+const MapMarker = () => {
   return (
     <svg
       width="14"
@@ -25,4 +25,4 @@ const MarkerPin = () => {
   );
 };
 
-export default MarkerPin;
+export default MapMarker;

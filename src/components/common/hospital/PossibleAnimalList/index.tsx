@@ -1,5 +1,5 @@
 import Image from "next/image";
-import FaceHappy from "@components/common/icon/FaceHappy";
+import FaceHappy from "@/stories/Icon/FaceHappy";
 import Badge from "../Badge";
 import { AnimalListBox, UL, Div } from "./styled";
 

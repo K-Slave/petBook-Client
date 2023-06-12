@@ -1,4 +1,4 @@
-const PencilEditIcon = () => {
+const PencilEdit = () => {
   return (
     <svg
       width="20"
@@ -18,4 +18,4 @@ const PencilEditIcon = () => {
   );
 };
 
-export default PencilEditIcon;
+export default PencilEdit;

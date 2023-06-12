@@ -1,4 +1,4 @@
-import SearchIcon from "@components/common/icon/Search";
+import { SearchOutline } from "@/stories/Icon/Search";
 import navigator from "@lib/modules/navigator";
 import React, { KeyboardEventHandler, useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -83,7 +83,7 @@ const SearchBar = ({ placeholder, target, width }: Props) => {
           onChange={onChange}
           onFocus={onFocus}
         />
-        {searchText ? <IoCloseCircle onClick={clear} /> : <SearchIcon />}
+        {searchText ? <IoCloseCircle onClick={clear} /> : <SearchOutline />}
         {showBox && <SearchBar.RecentKeywordList target={target} />}
       </SearchBarDiv>
     </OnClickOutside>

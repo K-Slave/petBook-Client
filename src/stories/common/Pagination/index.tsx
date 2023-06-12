@@ -1,7 +1,7 @@
 import usePagination from "@lib/hooks/common/usePagination";
 import { PaginationButton, PaginationDiv } from "./Pagination.styled";
-import ChevronLeft from "../icons/ChevronLeft";
-import ChevronRight from "../icons/ChevronRight";
+import { ChevronLeftRounded } from "../../Icon/ChevronLeft";
+import { ChevronRightRounded } from "../../Icon/ChevronRight";
 
 interface Props {
   totalPages: number;
@@ -29,7 +29,7 @@ const Pagination = ({ totalPages, buttonNum }: Props) => {
     <PaginationDiv>
       {offset !== 1 && (
         <button onClick={onClickPrevButton} type="button">
-          <ChevronLeft />
+          <ChevronLeftRounded />
         </button>
       )}
       {Array(totalPages + 1)
@@ -47,7 +47,7 @@ const Pagination = ({ totalPages, buttonNum }: Props) => {
         ))}
       {buttonNum + offset <= totalPages && (
         <button onClick={onClickNextButton} type="button">
-          <ChevronRight />
+          <ChevronRightRounded />
         </button>
       )}
     </PaginationDiv>

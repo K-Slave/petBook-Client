@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { Button, ChevronLeft } from "./styled";
+import { Button } from "./styled";
+import { ChevronLeftThin } from "@/stories/Icon/ChevronLeft";
 
 export type Position = "start" | "end";
 
@@ -11,7 +12,7 @@ const BackButton = ({ position }: { position: Position }) => {
   };
   return (
     <Button type="button" onClick={onClick} position={position}>
-      <ChevronLeft />
+      <ChevronLeftThin />
       <span>전체 게시물로 돌아가기</span>
     </Button>
   );

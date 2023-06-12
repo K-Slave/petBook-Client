@@ -1,4 +1,4 @@
-const ShareForwardIcon = () => {
+const ShareForward = () => {
   return (
     <svg
       width="22"
@@ -18,4 +18,4 @@ const ShareForwardIcon = () => {
   );
 };
 
-export default ShareForwardIcon;
+export default ShareForward;

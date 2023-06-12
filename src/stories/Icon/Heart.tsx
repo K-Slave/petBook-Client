@@ -1,4 +1,4 @@
-export const HeartFilledIcon = () => {
+export const HeartFilled = () => {
   return (
     <svg
       width="16"
@@ -21,7 +21,7 @@ export const HeartFilledIcon = () => {
   );
 };
 
-export const HeartBlankIcon = () => {
+export const HeartOutline = () => {
   return (
     <svg
       width="16"

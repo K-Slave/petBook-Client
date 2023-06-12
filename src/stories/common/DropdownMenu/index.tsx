@@ -1,5 +1,5 @@
 import React, { type MouseEventHandler, useState } from "react";
-import ThreeDotsVerticalIcon from "../icons/ThreeDotsVertical";
+import ThreeDotsVerticalIcon from "../../Icon/ThreeDotsVertical";
 import OnClickOutside from "../OnClickOutside";
 import { MenuBox, MenuButton, MenuList } from "./DropdownMenu.styled";
 

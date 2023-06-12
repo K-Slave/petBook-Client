@@ -1,7 +1,7 @@
 import DropdownMenu from "@/stories/common/DropdownMenu";
 import { BsArrowReturnRight } from "react-icons/bs";
 import CommonInfo from "@components/community/CommonInfo";
-import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
+import { BookmarkOutline } from "@/stories/Icon/Bookmark";
 import { commentRequest } from "@lib/API/petBookAPI";
 import { useRef, useState } from "react";
 import useChangeComment from "@lib/hooks/comment/useChangeComment";
@@ -195,7 +195,7 @@ const EditForm = ({ content, id, articleId, clickCancelButton }: Props) => {
 const ScrapButton = () => {
   return (
     <ScrapButtonBox type="button" isScrap="">
-      <BookmarkBlankIcon />
+      <BookmarkOutline />
       <span>0</span>
     </ScrapButtonBox>
   );

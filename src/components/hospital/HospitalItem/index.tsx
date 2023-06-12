@@ -1,4 +1,4 @@
-import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
+import { BookmarkOutline } from "@/stories/Icon/Bookmark";
 import CustomSwiper, {
   SlideNextButton,
   SlidePrevButton,
@@ -37,7 +37,7 @@ const HospitalItem = ({
       <ItemHeader>
         <h1 onClick={navigateToDetail}>{hospitals.hospitals.name}</h1>
         <button type="button">
-          <BookmarkBlankIcon />
+          <BookmarkOutline />
         </button>
       </ItemHeader>
       <PossibleAnimalList />

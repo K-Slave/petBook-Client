@@ -1,4 +1,4 @@
-export const BookmarkFilledIcon = () => {
+export const BookmarkFilled = () => {
   return (
     <svg
       width="12"
@@ -19,7 +19,7 @@ export const BookmarkFilledIcon = () => {
   );
 };
 
-export const BookmarkBlankIcon = () => {
+export const BookmarkOutline = () => {
   return (
     <svg
       width="12"
@@ -39,7 +39,7 @@ export const BookmarkBlankIcon = () => {
   );
 };
 
-export const BookmarkBlankSharpIcon = () => {
+export const BookmarkOutlineThin = () => {
   return (
     <svg
       width="16"

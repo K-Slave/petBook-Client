@@ -2,7 +2,7 @@ import DOMPurify from "isomorphic-dompurify";
 import CommonInfo from "@components/community/CommonInfo";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import DropdownMenu from "@/stories/common/DropdownMenu";
-import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
+import { BookmarkOutline } from "@/stories/Icon/Bookmark";
 import useModal from "@lib/hooks/common/useModal";
 import { articleRequest } from "@lib/API/petBookAPI";
 import TagList from "@components/community/TagList";
@@ -89,7 +89,7 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
         />
         <div>
           <button type="button">
-            <BookmarkBlankIcon />
+            <BookmarkOutline />
           </button>
           <span className="scrapCount">0</span>
         </div>

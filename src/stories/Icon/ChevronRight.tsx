@@ -1,4 +1,4 @@
-const ChevronLeft = () => {
+export const ChevronRightRounded = () => {
   return (
     <svg
       width="8"
@@ -8,7 +8,7 @@ const ChevronLeft = () => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M7 13L1 7L7 1"
+        d="M1 13L7 7L1 1"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
@@ -17,5 +17,3 @@ const ChevronLeft = () => {
     </svg>
   );
 };
-
-export default ChevronLeft;

@@ -1,7 +1,7 @@
-import ChevronDown from "@components/common/icon/ChevronDown";
-import ChevronUp from "@components/common/icon/ChevronUp";
-import ClockBlankIcon from "@components/common/icon/Clock";
-import MarkerPin from "@components/common/icon/MarkerPin";
+import { ChevronUpRounded } from "@/stories/Icon/ChevronUp";
+import { ChevronDownRounded } from "@/stories/Icon/ChevronDown";
+import Clock from "@/stories/Icon/Clock";
+import MapMarker from "@/stories/Icon/MapMarker";
 import type { HospitalInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
 import { useState } from "react";
 import Badge from "../Badge";
@@ -12,14 +12,14 @@ const HospitalBasicInfo = ({ address }: Pick<HospitalInfo, "address">) => {
     <HospitalInfoUL>
       <LI>
         <span>
-          <MarkerPin />
+          <MapMarker />
           주소
         </span>
         <span>{address}</span>
       </LI>
       {/* <LI>
         <span>
-          <ClockBlankIcon />
+          <Clock />
           시간
         </span>
         <span>화요일 9:00~12:00</span>
@@ -39,7 +39,7 @@ const TimeBox = () => {
   };
   return (
     <button type="button" className="up-down-button" onClick={toggle}>
-      {show ? <ChevronUp /> : <ChevronDown />}
+      {show ? <ChevronUpRounded /> : <ChevronDownRounded />}
     </button>
   );
 };
