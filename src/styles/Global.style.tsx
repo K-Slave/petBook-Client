@@ -94,7 +94,6 @@ a {
 }
 
 ul,
-li,
 ol {
   list-style: none;
   list-style-type: none;
