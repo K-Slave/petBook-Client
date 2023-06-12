@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
 import Loader from "@components/common/loader/loader";
-import Modal from "@components/common/Modal";
+import ModalRenderer from "@components/common/ModalRenderer";
 
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import createQueryClient from "@lib/utils/createQueryClient";
@@ -124,7 +124,7 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
             />
           )}
           <Component {...pageProps} />
-          <Modal />
+          <ModalRenderer />
         </RecoilRoot>
       </Hydrate>
     </QueryClientProvider>

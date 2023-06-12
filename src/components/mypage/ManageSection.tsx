@@ -1,4 +1,4 @@
-import AuthSelfMask from "@components/common/AuthSelfMask/AuthSelfMask";
+import AuthSelfMask from "@components/common/AuthSelfMask";
 import React, { PropsWithChildren } from "react";
 // import { BubblyTip, useBubblyTip } from "react-bubblytip";
 
