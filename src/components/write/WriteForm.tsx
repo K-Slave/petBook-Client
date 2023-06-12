@@ -1,4 +1,4 @@
-import QuillWrapper from "@components/common/Editor/QuillWrapper";
+import QuillWrapper from "@/stories/common/Editor/QuillWrapper";
 import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
 import useSelectorState from "@lib/hooks/common/useSelectorState";
 import React, {

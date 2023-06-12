@@ -11,7 +11,6 @@ const QuillLoader = dynamic(() => import("react-quill"), {
   ),
 });
 
-/** */
 type Props = {
   theme?: "snow" | "bubble" | undefined;
   onChange?: (
@@ -49,7 +48,7 @@ const QuillWrapper = ({
 };
 
 QuillWrapper.defaultProps = {
-  theme: "snow",
+  theme: "snow" as const,
   placeholder: "",
   onChange: () => {},
 };
