@@ -1,8 +1,8 @@
 import getRandomKey from "@lib/utils/getRandomKey";
-import usePagination from "./usePagination";
-import { PaginationButton, PaginationDiv } from "./styled";
-import ChevronLeft from "../icon/ChevronLeft";
-import ChevronRight from "../icon/ChevronRight";
+import usePagination from "@/lib/hooks/common/usePagination";
+import { PaginationButton, PaginationDiv } from "./Pagination.styled";
+import ChevronLeft from "../../assets/ChevronLeft";
+import ChevronRight from "../../assets/ChevronRight";
 
 interface Props {
   totalPages: number;

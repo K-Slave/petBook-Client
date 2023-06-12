@@ -1,4 +1,4 @@
-import { usePage } from "@components/common/Pagination/usePagination";
+import { usePage } from "@/lib/hooks/common/usePagination";
 import useModal from "@lib/hooks/common/useModal";
 import { useResource } from "@lib/hooks/common/useResource";
 import useUserInfo from "@lib/hooks/common/useUserInfo";
