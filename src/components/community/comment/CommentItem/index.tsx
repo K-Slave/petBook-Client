@@ -1,4 +1,4 @@
-import DropdownMenu from "@components/common/DropdownMenu";
+import DropdownMenu from "@/stories/common/DropdownMenu";
 import { BsArrowReturnRight } from "react-icons/bs";
 import CommonInfo from "@components/community/CommonInfo";
 import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
