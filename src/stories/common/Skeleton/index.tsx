@@ -1,4 +1,5 @@
 import React from "react";
+import { SkeletonDiv } from "./Skeleton.styled";
 
 type SkeletonCSS = React.CSSProperties & {
   "--template"?: string;
@@ -45,11 +46,8 @@ const Skeleton = ({
     borderRadius,
   };
 
-  if (template) {
-    skeletonStyle["--template"] = templateBgColor(template);
-    if (template === "white") {
-      skeletonStyle.background = templateBgColor(template);
-    }
+  if (template === "white") {
+    skeletonStyle.background = templateBgColor(template);
   }
 
   if (animation === false) {
@@ -63,13 +61,17 @@ const Skeleton = ({
         {Array(copy)
           .fill("")
           .map((_, index) => (
-            <div className="Skeleton__Box" style={skeletonStyle} key={index} />
+            <SkeletonDiv
+              className="Skeleton__Box"
+              style={skeletonStyle}
+              key={index}
+            />
           ))}
       </>
     );
   }
 
-  return <div className="Skeleton__Box" style={skeletonStyle} />;
+  return <SkeletonDiv className="Skeleton__Box" style={skeletonStyle} />;
 };
 
 Skeleton.defaultProps = {

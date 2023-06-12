@@ -4,9 +4,7 @@ import ErrorShakeAnimation from "./Animation/ErrorShakeAnimation.style";
 import RotateAnimation from "./Animation/RotateAnimation.style";
 import FadeAnimation from "./Animation/FadeAnimation.style";
 import SlideAnimation from "./Animation/SlideAnimation.style";
-import SkeletonAnimation from "./Animation/SkeletonAnimation.style";
 import LoaderCommonStyle from "./common/Loader.style";
-import SkeletonCommonStyle from "./common/Skeleton.style";
 import ButtonCommonStyle from "./common/Button.style";
 import LabelCommonStyle from "./common/Label.style";
 import InputCommonStyle from "./common/Input.style";
@@ -199,13 +197,11 @@ body.dim::before {
 }
 
   ${LoaderCommonStyle}
-  ${SkeletonCommonStyle}
   ${ButtonCommonStyle}
   ${LabelCommonStyle}
   ${InputCommonStyle}
   ${TextAreaCommonStyle}
 
-  ${SkeletonAnimation}
   ${LoaderAnimation}
   ${ErrorShakeAnimation}
   ${RotateAnimation}
