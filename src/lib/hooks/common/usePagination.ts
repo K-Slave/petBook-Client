@@ -1,7 +1,14 @@
+import { useRouter } from "next/router";
 import { removeQuery, replaceQuery } from "@lib/modules/queryString";
 import navigator from "@lib/modules/navigator";
-import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+
+export const usePage = () => {
+  const router = useRouter();
+  const pageParam = Number(router.query?.page);
+  const currentPage = Number.isNaN(pageParam) ? 1 : pageParam;
+  return currentPage;
+};
 
 export default function usePagination({
   totalPages,
@@ -12,8 +19,7 @@ export default function usePagination({
 }) {
   const [offset, setOffset] = useState(1);
   const router = useRouter();
-  const pageParam = Number(router.query?.page);
-  const currentPage = Number.isNaN(pageParam) ? 1 : pageParam;
+  const currentPage = usePage();
   const changeCurrentPage = (page: number) => {
     const url =
       page === 1
