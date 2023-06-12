@@ -1,6 +1,6 @@
 import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
 import Pagination from "@/stories/common/Pagination";
-import { usePage } from "@/lib/hooks/common/usePagination";
+import usePage from "@lib/hooks/common/usePage";
 import SearchBar from "@/stories/common/Input/SearchBar";
 import Skeleton from "@components/common/Skeleton/Skeleton";
 import useDidMountEffect from "@lib/hooks/common/useDidMountEffect";

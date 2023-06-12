@@ -1,8 +1,7 @@
-import getRandomKey from "@lib/utils/getRandomKey";
-import usePagination from "@/lib/hooks/common/usePagination";
+import usePagination from "./usePagination";
 import { PaginationButton, PaginationDiv } from "./Pagination.styled";
-import ChevronLeft from "../../assets/ChevronLeft";
-import ChevronRight from "../../assets/ChevronRight";
+import ChevronLeft from "../icons/ChevronLeft";
+import ChevronRight from "../icons/ChevronRight";
 
 interface Props {
   totalPages: number;
@@ -39,7 +38,7 @@ const Pagination = ({ totalPages, buttonNum }: Props) => {
         .map((_, i) => (
           <PaginationButton
             type="button"
-            key={getRandomKey()}
+            key={i}
             onClick={onClickPageButton}
             selected={currentPage === offset + i}
           >
