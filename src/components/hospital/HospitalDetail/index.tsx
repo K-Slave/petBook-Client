@@ -1,8 +1,8 @@
 import { BookmarkOutlineThin } from "@/stories/Icon/Bookmark";
 import { ChevronLeftRounded } from "@/stories/Icon/ChevronLeft";
 import { useRouter } from "next/router";
-import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
-import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
+import PossibleAnimalList from "@components/hospital/PossibleAnimalList";
+import HospitalBasicInfo from "@components/hospital/HospitalBasicInfo";
 import Stats from "@components/hospital/Stats";
 import Skeleton from "@/stories/common/Skeleton";
 import HospitalReview from "@components/hospital/HospitalReview/HospitalReview";

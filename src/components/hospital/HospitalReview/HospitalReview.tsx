@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import OnClickOutside from "@/stories/common/OnClickOutside";
 import Image from "next/image";
 import {
   HospitalReveiwImgProps,
@@ -14,13 +13,11 @@ import { useSetResource } from "@lib/hooks/common/useResource";
 import { IconBox, InputBox } from "@components/find/style/styledFindSubmit";
 import {
   ReviewWarp,
-  ReviewHeader,
   ReviewSelectChip,
   ReviewForm,
   ReviewFormReactionBtn,
   ReviewButtonWrap,
   ReviewAddButton,
-  ReviewBoxItem,
   ImgContainer,
   ImgBoxGroup,
   ImgBox,
@@ -29,7 +26,7 @@ import {
   HOSPITAL_REVIEW_CREATE,
   HOSPITAL_REVIEW_LIST,
 } from "@lib/resources/hospitalResource";
-import Button from "@/stories/common/Button";
+import Modal from "@/stories/common/Modal";
 
 const PETDATA = [
   {
@@ -147,10 +144,6 @@ const HospitalReview = ({
 
   useEffect(() => {
     SetReviewDefaultObj();
-    document.body.classList.add("dim");
-    return () => {
-      document.body.classList.remove("dim");
-    };
   }, []);
 
   // 기본 배열요소 추가
@@ -198,42 +191,38 @@ const HospitalReview = ({
   };
 
   return (
-    <OnClickOutside trigger={closeModal}>
+    <Modal
+      closeModal={closeModal}
+      subTitle={hospitalName}
+      title="리뷰 작성"
+      buttons={[
+        {
+          text: "취소",
+          variant: "secondary",
+          onClick: closeModal,
+        },
+        {
+          text: "작성 완료",
+          variant: "primary",
+          onClick: onSubmit,
+          disabled: true,
+        },
+      ]}
+    >
       <ReviewWarp className="Review">
-        <ReviewHeader>
-          <p>{hospitalName}</p>
-          <h3>리뷰 작성</h3>
-        </ReviewHeader>
-        <ReviewAddButton onClick={AddReviewBox}>추가</ReviewAddButton>
-
-        <ReviewBoxItem>
-          {reviewForm?.map((item, index) => {
-            return (
-              <HospitalReviewBox
-                hospitalId={hospitalId}
-                key={index}
-                reviewIndex={index}
-                removeBox={() => RemoveReviewBox(index)}
-              />
-            );
-          })}
-        </ReviewBoxItem>
-
-        <ReviewButtonWrap>
-          <Button variant="secondary" onClick={closeModal} width="fit-content">
-            취소
-          </Button>
-          <Button
-            variant="primary"
-            onClick={onSubmit}
-            width="fit-content"
-            disabled={true}
-          >
-            작성완료
-          </Button>
-        </ReviewButtonWrap>
+        {/* <ReviewAddButton onClick={AddReviewBox}>추가</ReviewAddButton> */}
+        {reviewForm?.map((item, index) => {
+          return (
+            <HospitalReviewBox
+              hospitalId={hospitalId}
+              key={index}
+              reviewIndex={index}
+              removeBox={() => RemoveReviewBox(index)}
+            />
+          );
+        })}
       </ReviewWarp>
-    </OnClickOutside>
+    </Modal>
   );
 };
 

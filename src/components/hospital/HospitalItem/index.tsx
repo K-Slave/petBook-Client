@@ -9,9 +9,9 @@ import { saveScrollPosition } from "@lib/modules/localStorage";
 
 import { SwiperSlide } from "swiper/react";
 import { MutableRefObject } from "react";
-import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
-import { PointReviewList } from "@components/common/hospital/HospitalReviewList";
-import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
+import PossibleAnimalList from "@components/hospital/PossibleAnimalList";
+import { PointReviewList } from "@components/hospital/HospitalReviewList";
+import HospitalBasicInfo from "@components/hospital/HospitalBasicInfo";
 import Stats from "@components/hospital/Stats";
 import { ImageSliderDiv, ItemHeader } from "./styled";
 
