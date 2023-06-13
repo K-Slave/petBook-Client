@@ -12,15 +12,6 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
-    decorators: [
-      (Story) => {
-        return (
-          <RecoilRoot>
-            <Story />
-          </RecoilRoot>
-        );
-      },
-    ],
   },
 };
 
@@ -28,6 +19,13 @@ export const decorators = [
   withThemeFromJSXProvider({
     GlobalStyles: NextGlobalStyle, // Adds your GlobalStyle component to all stories
   }),
+  (Story) => {
+    return (
+      <RecoilRoot>
+        <Story />
+      </RecoilRoot>
+    );
+  },
 ];
 
 export default preview;

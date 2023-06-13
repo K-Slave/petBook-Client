@@ -38,4 +38,5 @@ export const ImageSliderDiv = styled.div<{ cnt: number }>`
 export const ImageSliderImg = styled(Image)`
   border-radius: 16px;
   cursor: pointer;
+  object-fit: cover;
 `;

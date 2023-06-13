@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
 import Loader from "@components/common/Loader";
-import ModalRenderer from "@components/common/ModalRenderer";
+import ModalRenderer from "@/stories/common/Modal/ModalRenderer";
 
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import createQueryClient from "@lib/utils/createQueryClient";
