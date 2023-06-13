@@ -1,6 +1,7 @@
 import loadingState from "@atoms/common/loadingState";
 import React from "react";
 import { useRecoilValue } from "recoil";
+import { LoaderDiv } from "./Loader.styled";
 
 const Loader = () => {
   const loading = useRecoilValue(loadingState);
@@ -9,13 +10,13 @@ const Loader = () => {
   return (
     <>
       {loading && (
-        <div className="Loader__Layer">
+        <LoaderDiv>
           <div className="loader-inner Loader">
             {loaderDummy.map((_, idx) => {
               return <div key={idx} />;
             })}
           </div>
-        </div>
+        </LoaderDiv>
       )}
     </>
   );

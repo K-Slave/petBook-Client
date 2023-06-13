@@ -1,10 +1,8 @@
 import { createGlobalStyle } from "styled-components";
-import LoaderAnimation from "./Animation/LoaderAnimation.style";
 import ErrorShakeAnimation from "./Animation/ErrorShakeAnimation.style";
 import RotateAnimation from "./Animation/RotateAnimation.style";
 import FadeAnimation from "./Animation/FadeAnimation.style";
 import SlideAnimation from "./Animation/SlideAnimation.style";
-import LoaderCommonStyle from "./common/Loader.style";
 import LabelCommonStyle from "./common/Label.style";
 import InputCommonStyle from "./common/Input.style";
 import TextAreaCommonStyle from "./common/TextArea.style";
@@ -194,12 +192,10 @@ body.dim::before {
   }
 }
 
-  ${LoaderCommonStyle}
   ${LabelCommonStyle}
   ${InputCommonStyle}
   ${TextAreaCommonStyle}
 
-  ${LoaderAnimation}
   ${ErrorShakeAnimation}
   ${RotateAnimation}
   ${FadeAnimation}
