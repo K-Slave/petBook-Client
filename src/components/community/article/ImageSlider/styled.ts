@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Image from "next/image";
-import { SliderButton } from "@components/common/Slider/styled";
+import { SwiperSlide } from "swiper/react";
 
 export const ImageSliderDiv = styled.div<{ cnt: number }>`
   position: relative;
@@ -8,19 +8,7 @@ export const ImageSliderDiv = styled.div<{ cnt: number }>`
   justify-content: center;
   align-items: center;
   gap: 17px;
-  margin-bottom: ${({ cnt }) => cnt === 1 && "20px"};
-  .swiper-wrapper {
-    margin-bottom: ${({ cnt }) => (cnt === 1 ? "0" : "20px")};
-  }
-  .swiper-slide {
-    position: relative;
-    width: 354px !important;
-    height: 354px;
-  }
-  .swiper-pagination {
-    display: none;
-  }
-  ${SliderButton} {
+  button {
     position: absolute;
     z-index: 2;
     top: 50%;
@@ -33,6 +21,11 @@ export const ImageSliderDiv = styled.div<{ cnt: number }>`
       transform: translate(50%, -50%);
     }
   }
+`;
+
+export const StyledSwiperSlide = styled(SwiperSlide)`
+  width: 354px;
+  height: 354px;
 `;
 
 export const ImageSliderImg = styled(Image)`

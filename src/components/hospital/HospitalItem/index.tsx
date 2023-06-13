@@ -1,8 +1,5 @@
 import { BookmarkOutline } from "@/stories/Icon/Bookmark";
-import CustomSwiper, {
-  SlideNextButton,
-  SlidePrevButton,
-} from "@components/common/Slider";
+import CustomSwiper from "@/stories/common/SwiperSlider";
 import navigator from "@lib/modules/navigator";
 import type { HospitalFullInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
 import { saveScrollPosition } from "@lib/modules/localStorage";
@@ -33,7 +30,12 @@ const HospitalItem = ({
   };
   return (
     <article>
-      <HospitalItem.ImageSlider id={hospitals.hospitals.id} />
+      <ImageSliderDiv>
+        <CustomSwiper loop id={`Hospital_Item_${hospitals.hospitals.id}`}>
+          <SwiperSlide>illust</SwiperSlide>
+          <SwiperSlide>asdfasdf</SwiperSlide>
+        </CustomSwiper>
+      </ImageSliderDiv>
       <ItemHeader>
         <h1 onClick={navigateToDetail}>{hospitals.hospitals.name}</h1>
         <button type="button">
@@ -48,20 +50,4 @@ const HospitalItem = ({
   );
 };
 
-const ImageSlider = ({ id }: { id: number }) => {
-  const prevElId = `slider_prev_${id}`;
-  const nextElId = `slider_next_${id}`;
-  return (
-    <ImageSliderDiv>
-      <SlidePrevButton prevElId={prevElId} />
-      <CustomSwiper loop prevElId={prevElId} nextElId={nextElId}>
-        <SwiperSlide>illust</SwiperSlide>
-        <SwiperSlide>asdfasdf</SwiperSlide>
-      </CustomSwiper>
-      <SlideNextButton nextElId={nextElId} />
-    </ImageSliderDiv>
-  );
-};
-
-HospitalItem.ImageSlider = ImageSlider;
 export default HospitalItem;

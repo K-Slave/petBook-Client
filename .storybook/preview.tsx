@@ -3,6 +3,11 @@ import { RecoilRoot } from "recoil";
 import React from "react";
 import { withThemeFromJSXProvider } from "@storybook/addon-styling";
 import NextGlobalStyle from "../src/styles/Global.style";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: "^on[A-Z].*" },

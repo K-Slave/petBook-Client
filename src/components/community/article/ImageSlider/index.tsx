@@ -1,12 +1,8 @@
-import CustomSwiper, {
-  SlidePrevButton,
-  SlideNextButton,
-} from "@components/common/Slider";
+import CustomSwiper from "@/stories/common/SwiperSlider";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import useModal from "@lib/hooks/common/useModal";
-import { SwiperSlide } from "swiper/react";
 import ImageSliderModal from "../ImageSliderModal";
-import { ImageSliderDiv, ImageSliderImg } from "./styled";
+import { ImageSliderDiv, ImageSliderImg, StyledSwiperSlide } from "./styled";
 
 interface Props {
   images: ArticleResponse["images"];
@@ -26,27 +22,34 @@ const ImageSlider = ({ images, alt }: Props) => {
   return (
     <ImageSliderDiv cnt={images.length}>
       {images.length === 1 ? (
-        <SwiperSlide key={images[0].id} onClick={onClickSlide(0)}>
-          <ImageSliderImg src={images[0].imageUrl} alt="이미지" fill priority />
-        </SwiperSlide>
+        <ImageSliderImg
+          src={images[0].imageUrl}
+          alt="이미지"
+          width={354}
+          height={354}
+          priority
+          onClick={onClickSlide(0)}
+        />
       ) : (
-        <>
-          <SlidePrevButton />
-          <CustomSwiper slidesPerView="auto" spaceBetween={17}>
-            {images.map((image, index) => (
-              <SwiperSlide key={image.id} onClick={onClickSlide(index)}>
-                <ImageSliderImg
-                  src={image.imageUrl}
-                  alt={alt}
-                  fill
-                  priority
-                  sizes="354px"
-                />
-              </SwiperSlide>
-            ))}
-          </CustomSwiper>
-          <SlideNextButton />
-        </>
+        <CustomSwiper
+          slidesPerView="auto"
+          spaceBetween={17}
+          pagination={false}
+          id="Image_Slider"
+        >
+          {images.map((image, index) => (
+            <StyledSwiperSlide key={image.id}>
+              <ImageSliderImg
+                src={image.imageUrl}
+                alt={alt}
+                fill
+                priority
+                sizes="354px"
+                onClick={onClickSlide(index)}
+              />
+            </StyledSwiperSlide>
+          ))}
+        </CustomSwiper>
       )}
     </ImageSliderDiv>
   );

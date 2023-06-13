@@ -13,11 +13,10 @@ import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import createQueryClient from "@lib/utils/createQueryClient";
 import DecodedUserInfo from "@lib/types/DecodedUserInfo";
 
-import "swiper/scss";
-import "swiper/scss/navigation";
-import "swiper/scss/pagination";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import "@styles/Icon.scss";
-import "@styles/Swiper.scss";
 
 import recoilHydration from "@lib/modules/recoilHydration";
 import tokenParser from "@lib/server/parse/tokenParser";
