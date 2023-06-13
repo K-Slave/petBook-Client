@@ -15,7 +15,7 @@ const meta: Meta<typeof DropdownMenu> = {
 };
 
 type Story = StoryObj<typeof DropdownMenu>;
-export const Default: Story = {
+export const Example: Story = {
   args: {
     menuList: [
       {

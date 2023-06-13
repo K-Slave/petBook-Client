@@ -15,7 +15,7 @@ const meta: Meta<typeof Skeleton> = {
 };
 
 type Story = StoryObj<typeof Skeleton>;
-export const Default: Story = {
+export const Example: Story = {
   args: {
     width: "20rem",
     height: "5rem",

@@ -8,7 +8,7 @@ const meta: Meta<typeof Pagination> = {
 };
 
 type Story = StoryObj<typeof Pagination>;
-export const Default: Story = {
+export const Example: Story = {
   args: {
     totalPages: 10,
     buttonNum: 5,
