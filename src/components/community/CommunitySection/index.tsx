@@ -1,26 +1,6 @@
 import React from "react";
-import styled from "styled-components";
+import { CommunitySectionBox } from "./styled";
 
-const CommunitySectionBox = styled.section`
-  margin-top: 56px;
-  color: var(--black_01);
-  & > .heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-bottom: 28px;
-    h3 {
-      font-size: 22px;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-  }
-  button {
-    color: var(--black_01);
-    font-size: 14px;
-  }
-`;
 interface Props {
   title: string;
   sideElement?: React.ReactNode;

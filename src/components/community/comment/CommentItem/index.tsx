@@ -20,6 +20,7 @@ import LikeButton from "../../LikeButton";
 import { CommentFormTextarea } from "../CommentForm/styled";
 import useUserInfo from "@lib/hooks/common/useUserInfo";
 import { COMMENT_LIST } from "@lib/resources/commentResource";
+import Button from "@/stories/common/Button";
 
 const avatar =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
@@ -54,7 +55,7 @@ export const NormalItem = ({
             avatar={avatar}
             year={1}
           />
-          {userData?.id === user.id && !isEditing && (
+          {userData?.id == user.id && !isEditing && (
             <DropdownMenu menuList={menuList} />
           )}
         </div>
@@ -120,7 +121,7 @@ export const QnaItem = ({ comment, isChild, clickDeleteMenu }: ItemProps) => {
           ) : (
             <p className="Item_Content">{content}</p>
           )}
-          {userData?.id === user.id && !isEditing && (
+          {userData?.id == user.id && !isEditing && (
             <DropdownMenu menuList={menuList} />
           )}
         </div>
@@ -174,17 +175,12 @@ const EditForm = ({ content, id, articleId, clickCancelButton }: Props) => {
         autoFocus
       />
       <div>
-        <button className="Secondary" type="button" onClick={clickCancelButton}>
+        <Button variant="secondary" onClick={clickCancelButton}>
           취소
-        </button>
-        <button
-          className="Primary"
-          type="submit"
-          onClick={onSubmit}
-          disabled={isLoading}
-        >
-          수정 완료
-        </button>
+        </Button>
+        <Button variant="primary" onClick={onSubmit} disabled={isLoading}>
+          {isLoading ? "수정 중" : "완료"}
+        </Button>
       </div>
     </Form>
   );

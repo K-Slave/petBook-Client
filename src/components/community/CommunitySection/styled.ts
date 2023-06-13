@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const CommunitySectionBox = styled.section`
+export const CommunitySectionBox = styled.section`
   margin-top: 56px;
   color: var(--black_01);
   .heading {
@@ -14,10 +14,4 @@ const CommunitySectionBox = styled.section`
       text-transform: uppercase;
     }
   }
-  button {
-    color: var(--black_01);
-    font-size: 14px;
-  }
 `;
-
-export default CommunitySectionBox;

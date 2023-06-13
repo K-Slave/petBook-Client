@@ -3,11 +3,14 @@ import useCategories from "@lib/hooks/article/useCategories";
 import useActiveCategory from "@lib/hooks/article/useActiveCategory";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 import navigator from "@lib/modules/navigator";
-import { CategoryNavDiv, CategoryNavButton } from "./styled";
+import { CategoryNavDiv } from "./styled";
+import Button from "@/stories/common/Button";
+import { useRouter } from "next/router";
 
 const CategoryNav = () => {
   const { categories, status } = useCategories({ all: true });
   const { categoryName } = useActiveCategory();
+  const router = useRouter();
   const onClick = (category: CategoryItem) => () => {
     navigator({
       url: getHrefWithCategory(category),
@@ -17,16 +20,19 @@ const CategoryNav = () => {
     });
   };
   return (
-    <CategoryNavDiv>
+    <CategoryNavDiv list={router.asPath.includes("list")}>
       {status === "success"
         ? categories.map((category) => (
-            <CategoryNavButton
+            <Button
+              variant="tertiary"
               key={category.id}
               onClick={onClick(category)}
-              active={categoryName === category.name ? "true" : ""}
+              active={categoryName === category.name ? true : false}
+              width={router.asPath.includes("list") ? "110px" : "132px"}
+              height={router.asPath.includes("list") ? "44px" : "52px"}
             >
               {category.name}
-            </CategoryNavButton>
+            </Button>
           ))
         : null}
     </CategoryNavDiv>

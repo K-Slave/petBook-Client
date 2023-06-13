@@ -18,7 +18,7 @@ export default function useSubmitComment(onSuccess: () => Promise<unknown>) {
   );
   const { articleId } = router.query;
 
-  const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!userData) {
       alert("🔒 로그인해주세요!");
