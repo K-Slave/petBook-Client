@@ -37,6 +37,9 @@ export const ImageSliderDiv = styled.div`
     &:last-child {
       right: 10px;
     }
+    svg {
+      height: 10px;
+    }
   }
   .swiper-slide {
     width: 100%;

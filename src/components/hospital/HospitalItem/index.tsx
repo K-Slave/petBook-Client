@@ -12,7 +12,7 @@ import { MutableRefObject } from "react";
 import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
 import { PointReviewList } from "@components/common/hospital/HospitalReviewList";
 import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
-import Stats from "@components/common/hospital/Stats";
+import Stats from "@components/hospital/Stats";
 import { ImageSliderDiv, ItemHeader } from "./styled";
 
 const HospitalItem = ({
