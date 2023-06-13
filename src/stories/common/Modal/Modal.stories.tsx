@@ -1,13 +1,13 @@
 import { Meta, StoryObj } from "@storybook/react";
-import Modal from ".";
-const meta: Meta<typeof Modal> = {
-  title: "common/Modal",
-  component: Modal,
+import _Modal from ".";
+const meta: Meta<typeof _Modal> = {
+  title: "common/Modal/Modal",
+  component: _Modal,
 };
 
-type Story = StoryObj<typeof Modal>;
+type Story = StoryObj<typeof _Modal>;
 
-export const Example: Story = {
+export const ModalExample: Story = {
   args: {
     subTitle: "부제목",
     title: "제목이 들어갑니다.",

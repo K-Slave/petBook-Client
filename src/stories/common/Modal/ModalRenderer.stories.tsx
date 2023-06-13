@@ -5,7 +5,7 @@ import Modal from ".";
 import Button from "../Button";
 
 const meta: Meta<typeof ModalRenderer> = {
-  title: "common/ModalRenderer",
+  title: "common/Modal/ModalRenderer",
   component: ModalRenderer,
 };
 
@@ -42,18 +42,6 @@ const MockModalRenderer = () => {
       <Button variant="primary" onClick={onClick}>
         모달 열기
       </Button>
-      <p
-        style={{
-          marginTop: "2rem",
-          textAlign: "center",
-        }}
-      >
-        모달 컴포넌트를 렌더링하는 함수로, NextApp 컴포넌트에서 딱 한번
-        사용됩니다.
-        <br />
-        useModal 공용 훅을 사용하여 모달을 열고 닫을 수 있습니다. 구체적인 사용
-        방법은 코드를 참고해주세요!
-      </p>
       <ModalRenderer />
     </>
   );
