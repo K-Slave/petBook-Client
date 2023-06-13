@@ -34,14 +34,14 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
 
       let resultOwnerToken = ownerToken;
 
-      if (process.env.NODE_ENV === "development" && !ownerToken) {
-        context.res?.setHeader(
-          "Set-Cookie",
-          `${cookieKeyName.owner}=${process.env.NEXT_PUBLIC_OWNER}; SameSite=Strict; Max-Age=${cookieOptions.maxAge}; secure; httpOnly;`
-        );
+      // if (process.env.NODE_ENV === "development" && !ownerToken) {
+      //   context.res?.setHeader(
+      //     "Set-Cookie",
+      //     `${cookieKeyName.owner}=${process.env.NEXT_PUBLIC_OWNER}; SameSite=Strict; Max-Age=${cookieOptions.maxAge}; secure; httpOnly;`
+      //   );
 
-        resultOwnerToken = process.env.NEXT_PUBLIC_OWNER;
-      }
+      //   resultOwnerToken = process.env.NEXT_PUBLIC_OWNER;
+      // }
 
       const path = url?.split("?")[0];
 

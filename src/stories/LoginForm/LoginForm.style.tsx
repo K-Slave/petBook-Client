@@ -2,9 +2,11 @@ import styled from "styled-components";
 import { BackgroundImageDiv } from "../common/Image/BackgroundImage/BackgroundImage.style";
 import {
   TextBodyMedium14,
+  TextBodySmall14,
   TextH3Bold22,
   TextH4Bold18,
 } from "../common/Text/Text.style";
+import Link from "next/link";
 
 export const LoginFormBox = styled.form`
   display: grid;
@@ -19,6 +21,7 @@ export const LoginFormBox = styled.form`
   padding: 3rem 2rem 1.6875rem;
 
   background-color: var(--bg_white_02);
+  border-radius: 1rem;
 `;
 
 export const LoginFormTitleH1 = styled.h1`
@@ -77,7 +80,22 @@ export const LoginFormSubmitButton = styled.button`
   color: #fff;
 `;
 
-export const LoginFormGuideDiv = styled.div``;
+export const LoginFormGuideDiv = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1.25rem;
+`;
+
+export const LoginFormLink = styled(Link)<{ em?: boolean }>`
+  position: relative;
+  top: 0.0625rem;
+
+  ${({ em }) => (em ? TextBodyMedium14 : TextBodySmall14)};
+
+  color: ${({ em }) => (em ? "var(--primary)" : "var(--black_03)")};
+`;
 
 // TODO: 공용 구분선 컴포넌트 만들어서 붙이기
 // export const LoginFormGuide

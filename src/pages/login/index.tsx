@@ -2,12 +2,14 @@ import React from "react";
 import styled from "styled-components";
 
 import { LoginIndex } from "@components/login/LoginIndex";
+import LoginForm from "@/stories/LoginForm/LoginForm";
 
 const Main = styled.main`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  height: calc(100vh - 61px);
+  height: calc(100vh - 10.25rem);
   overflow: auto;
   background-color: var(--bg_white_02);
   h1 {
@@ -20,7 +22,8 @@ const Main = styled.main`
 const Login = () => {
   return (
     <Main>
-      <LoginIndex />
+      {/* <LoginIndex /> */}
+      <LoginForm />
     </Main>
   );
 };

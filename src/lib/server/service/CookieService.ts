@@ -1,4 +1,4 @@
-import { cookieKeyName } from "@lib/globalConst";
+import { cookieKeyName, cookieOptions } from "@lib/globalConst";
 import { NextApiRequest, NextApiResponse } from "next";
 import cookies from "next-cookies";
 
@@ -33,14 +33,12 @@ export default class CookieService {
     };
   };
 
-  public setCookie = (key: string, value: string) => {
+  public setCookie = (key: string, value: string, isSave?: boolean) => {
     this.nextRes.setHeader(
       "Set-Cookie",
-      `${key}=${encodeURIComponent(
-        value
-      )}; Path=/; SameSite=Strict; Max-Age=2592000; secure; ${
-        key.includes(cookieKeyName.location) ? "" : "httpOnly;"
-      }`
+      `${key}=${encodeURIComponent(value)}; Path=/; SameSite=Strict; ${
+        isSave ? `Max-Age=${cookieOptions.loginMaxAge};` : ""
+      } secure; ${key.includes(cookieKeyName.location) ? "" : "httpOnly;"}`
     );
 
     return { key, value };

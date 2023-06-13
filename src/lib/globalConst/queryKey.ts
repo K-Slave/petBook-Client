@@ -23,3 +23,7 @@ export const categoryQueryKey = {
 export const imgQueryKey = {
   create: "IMG_CREATE" as const,
 };
+
+export const authQueryKey = {
+  login: "LOGIN" as const,
+};

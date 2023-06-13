@@ -19,6 +19,7 @@ export default class AuthRequest extends RequestCore {
     body: {
       email: string;
       password: string;
+      isSave?: boolean;
     },
     config?: { headerObj?: object }
   ) => {

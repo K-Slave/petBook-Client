@@ -20,7 +20,9 @@ export const requiredResourcesKeyName = {
 };
 
 export const cookieOptions = {
+  oneDay: getDayToSeconds(1),
   maxAge: getDayToSeconds(30),
+  loginMaxAge: getDayToSeconds(15),
 };
 
 export const cookieKeyName = {

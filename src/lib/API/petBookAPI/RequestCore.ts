@@ -63,8 +63,8 @@ export default class RequestCore {
   } => {
     return {
       requestURL: `${getUrl(
-        `${typeof window === "undefined" ? this.initBaseUrl : ""}` +
-          `${this.commonUri}` +
+        `${typeof window === "undefined" ? this.initBaseUrl || "" : ""}` +
+          `${this.commonUri || ""}` +
           `${uri || ""}` +
           `${
             pathParam

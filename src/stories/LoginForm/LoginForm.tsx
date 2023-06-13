@@ -1,9 +1,4 @@
-import React, {
-  FormEventHandler,
-  PropsWithChildren,
-  useReducer,
-  useState,
-} from "react";
+import React, { FormEventHandler, PropsWithChildren } from "react";
 import {
   LoginFormInputBoxDiv,
   LoginFormBox,
@@ -13,121 +8,91 @@ import {
   LoginSubmitBoxDiv,
   LoginFormSubmitButton,
   LoginFormGuideDiv,
+  LoginFormLink,
 } from "./LoginForm.style";
 import inputImg from "@/image/inputImg";
 import authOptions from "@lib/globalConst/authOptions";
 import FocusBasedInput from "../common/Input/FocusBasedInput/FocusBasedInput";
 import headerImg from "@/image/headerImg";
 import { BackgroundImageSpan } from "../common/Image/BackgroundImage/BackgroundImage.style";
+import useLoginForm from "@lib/hooks/login/useLoginForm";
+import { VerticalDividerSpan } from "../common/Divider/Divider.style";
+import dynamic from "next/dynamic";
 
 const LoginForm = () => {
-  // TODO : 전역 상태 관리 라이브러리 사용하도록 수정하기
-  const [formState, setFormState] = useReducer(
-    (
-      prev: { email: string; password: string; check: boolean },
-      next: { type: "email" | "pw" | "cookie"; value: string }
-    ) => {
-      if (next.type === "email") {
-        return {
-          ...prev,
-          email: next.value,
-        };
-      }
-
-      if (next.type === "pw") {
-        return {
-          ...prev,
-          password: next.value,
-        };
-      }
-
-      if (next.type === "cookie") {
-        return {
-          ...prev,
-          check: !prev.check,
-        };
-      }
-
-      return { ...prev };
-    },
-    { email: "", password: "", check: false }
-  );
-
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormState({
-      type: "email",
-      value: e.target.value,
-    });
-  };
-
-  const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormState({
-      type: "pw",
-      value: e.target.value,
-    });
-  };
-
-  const onSubmit: FormEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault();
-  };
+  const {
+    emailRegister,
+    passwordRegister,
+    onSubmit,
+    isSubmitting,
+    formSubState,
+    setFormSubState,
+  } = useLoginForm();
 
   const emailBgUrl =
-    formState.email.length > 0 ? inputImg.face_wink_on : inputImg.face_wink_off;
+    formSubState.email.value.length > 0
+      ? inputImg.face_wink_on
+      : inputImg.face_wink_off;
 
   const pwBgUrl =
-    formState.password.length > 0 ? inputImg.keyhole_on : inputImg.keyhole_off;
+    formSubState.password.value.length > 0
+      ? inputImg.keyhole_on
+      : inputImg.keyhole_off;
 
   return (
-    <LoginFormBox>
+    <LoginForm.Wrap onSubmit={onSubmit}>
       <LoginForm.Title />
-      {/* TODO : Input Box 쪼개기 */}
-      <LoginFormInputBoxDiv>
+      <LoginForm.InputField>
         <LoginForm.Email
           type="email"
-          value={formState.email}
-          onChange={onInputChange}
           placeholder="이메일"
           autoComplete="email"
           maxLength={authOptions.email.max}
           pattern={process.env.NEXT_PUBLIC_EMAIL_REG}
+          disabled={isSubmitting}
           required
           width="25rem"
           height="3rem"
           bgUrl={emailBgUrl}
           bgWidth="1rem"
           bgHeight="1rem"
+          register={emailRegister}
         />
         <LoginForm.Password
           type="password"
-          value={formState.password}
-          onChange={onPasswordChange}
           placeholder="비밀번호"
           autoComplete="current-password"
           minLength={authOptions.password.min}
           maxLength={authOptions.password.max}
           // pattern={process.env.NEXT_PUBLIC_PASSWORD_REG}
+          disabled={isSubmitting}
           required
           width="25rem"
           height="3rem"
           bgUrl={pwBgUrl}
           bgWidth="1rem"
           bgHeight="1rem"
+          register={passwordRegister}
         />
         <LoginForm.CookieBtn
-          check={formState.check}
-          setFormState={setFormState}
+          check={formSubState.check}
+          setFormSubState={setFormSubState}
         />
-      </LoginFormInputBoxDiv>
-      {/* TODO: Submit Box 쪼개기 */}
-      <LoginSubmitBoxDiv>
-        <LoginForm.Submit onSubmit={onSubmit} />
-      </LoginSubmitBoxDiv>
-    </LoginFormBox>
+      </LoginForm.InputField>
+      <LoginForm.BottomWrap>
+        <LoginForm.Submit />
+        <LoginForm.Guide />
+      </LoginForm.BottomWrap>
+    </LoginForm.Wrap>
   );
 };
 
-const Wrap = ({ children }: PropsWithChildren<any>) => {
-  return <LoginFormBox>{children}</LoginFormBox>;
+interface SubmitProps {
+  onSubmit: FormEventHandler<HTMLFormElement>;
+}
+
+const Wrap = ({ children, onSubmit }: PropsWithChildren<SubmitProps>) => {
+  return <LoginFormBox onSubmit={onSubmit}>{children}</LoginFormBox>;
 };
 
 const Title = () => {
@@ -143,22 +108,25 @@ const Title = () => {
   );
 };
 
+const InputField = ({ children }: PropsWithChildren<any>) => {
+  return <LoginFormInputBoxDiv>{children}</LoginFormInputBoxDiv>;
+};
+
 interface CookieBtnProps {
   check: boolean;
-  setFormState: React.Dispatch<{
+  setFormSubState: React.Dispatch<{
     type: "email" | "pw" | "cookie";
     value: string;
   }>;
 }
 
-// TODO : Cookie API 연동 해야함
-const CookieBtn = ({ check, setFormState }: CookieBtnProps) => {
+const CookieBtn = ({ check, setFormSubState }: CookieBtnProps) => {
   return (
     <LoginFormCookieButton
       type="button"
       check={check}
       onClick={() => {
-        setFormState({
+        setFormSubState({
           type: "cookie",
           value: "",
         });
@@ -174,29 +142,38 @@ const CookieBtn = ({ check, setFormState }: CookieBtnProps) => {
   );
 };
 
-// TODO : Login API 연동 해야함
-interface SubmitProps {
-  onSubmit: FormEventHandler<HTMLButtonElement>;
-}
+const BottomWrap = ({ children }: PropsWithChildren<any>) => {
+  return <LoginSubmitBoxDiv>{children}</LoginSubmitBoxDiv>;
+};
 
-const Submit = ({ onSubmit }: SubmitProps) => {
-  return (
-    <LoginFormSubmitButton type="submit" onSubmit={onSubmit}>
-      로그인
-    </LoginFormSubmitButton>
-  );
+const Submit = () => {
+  return <LoginFormSubmitButton type="submit">로그인</LoginFormSubmitButton>;
 };
 
 const Guide = () => {
-  return <LoginFormGuideDiv></LoginFormGuideDiv>;
+  return (
+    <LoginFormGuideDiv>
+      <LoginFormLink href="#" target="_blank">
+        로그인에 문제가 있나요?
+      </LoginFormLink>
+      <VerticalDividerSpan width="0.0625rem" height="0.75rem" />
+      <LoginFormLink href="/register" em={true}>
+        회원가입
+      </LoginFormLink>
+    </LoginFormGuideDiv>
+  );
 };
 
 LoginForm.Wrap = Wrap;
 LoginForm.Title = Title;
+LoginForm.InputField = InputField;
 LoginForm.Email = FocusBasedInput;
 LoginForm.Password = FocusBasedInput;
 LoginForm.CookieBtn = CookieBtn;
+LoginForm.BottomWrap = BottomWrap;
 LoginForm.Submit = Submit;
 LoginForm.Guide = Guide;
 
-export default LoginForm;
+export default dynamic(() => Promise.resolve(LoginForm), {
+  ssr: false,
+});

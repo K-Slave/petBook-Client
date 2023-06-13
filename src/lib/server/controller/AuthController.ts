@@ -1,6 +1,6 @@
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import AuthRequest from "@lib/API/petBookAPI/authRequest";
-import { AuthLoginRequest } from "@lib/API/petBookAPI/types/authRequest";
+import { ProxyLoginRequest } from "@lib/API/petBookAPI/types/authRequest";
 import localConsole from "@lib/utils/localConsole";
 import CookieService from "../service/CookieService";
 import { cookieKeyName } from "@lib/globalConst";
@@ -14,9 +14,15 @@ const authRequestOrigin = new AuthRequest(
 export default class AuthController extends CookieService {
   public login = async () => {
     try {
-      const { email, password } = this.nextReq.body as AuthLoginRequest;
+      const { email, password, isSave } = this.nextReq
+        .body as ProxyLoginRequest;
 
-      const tokenResult = await authRequestOrigin.login({ email, password });
+      const tokenResult = await authRequestOrigin.login({
+        email,
+        password,
+      });
+
+      localConsole?.log(tokenResult.response, "tokenResult.response");
 
       if (!tokenResult.response.data || !tokenResult.response.data.token) {
         throw new Error(
@@ -24,14 +30,15 @@ export default class AuthController extends CookieService {
         );
       }
 
-      const cookieResult = this.setCookie(
+      this.setCookie(
         cookieKeyName.userToken,
-        tokenResult.response.data.token
+        tokenResult.response.data.token,
+        isSave
       );
 
-      this.nextRes.status(200).json({ token: cookieResult.value });
+      this.nextRes.status(200).json({ token: tokenResult.response.data.token });
 
-      return cookieResult;
+      return tokenResult.response.data.token;
     } catch (err) {
       localConsole?.warn(err);
       return this.nextRes.status(400).json(JSON.stringify(err));

@@ -34,6 +34,25 @@ export const BackgroundImageSpan = styled.span<{
     props.bgPosition ? props.bgPosition : "center"};
 `;
 
+export const BackgroundImageButton = styled.button<{
+  url: string;
+  width: string;
+  height: string;
+  display?: CSSProperties["display"];
+  bgPosition?: CSSProperties["backgroundPosition"];
+}>`
+  ${BackgroundImageCommon}
+  display: ${(props) => (props.display ? props.display : "inline-block")};
+
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+
+  background-image: url(${(props) => props.url});
+  background-size: ${(props) => `${props.width} ${props.height}`};
+  background-position: ${(props) =>
+    props.bgPosition ? props.bgPosition : "center"};
+`;
+
 export const BackgroundImageA = styled.a<{
   url: string;
   width: string;

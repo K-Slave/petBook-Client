@@ -1,6 +1,11 @@
 export interface AuthLoginRequest {
   email: string;
   password: string;
+  isSave?: boolean;
+}
+
+export interface ProxyLoginRequest extends AuthLoginRequest {
+  isSave: boolean;
 }
 
 export interface AuthLoginResponse {
