@@ -5,9 +5,8 @@ import CustomSwiper, {
 } from "@components/common/Slider";
 import { SwiperSlide } from "swiper/react";
 import Image from "next/image";
-import OnClickOutside from "@components/common/OnClickOutside";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
-import { Container } from "../../CommunityModal/styled";
+import Modal from "@/stories/common/Modal";
 
 const prevElId = "image_slider_modal_back";
 const nextElId = "image_slider_modal_forward";
@@ -26,26 +25,30 @@ const ImageSliderModal = ({
   closeModal,
 }: Props) => {
   return (
-    <Container>
-      <OnClickOutside trigger={closeModal}>
-        <SliderDiv>
-          {images.length !== 1 && <SlidePrevButton prevElId={prevElId} />}
-          <CustomSwiper
-            loop
-            initialSlide={initialImageIndex}
-            prevElId={prevElId}
-            nextElId={nextElId}
-          >
-            {images.map((image) => (
-              <SwiperSlide key={image.id}>
-                <Image src={image.imageUrl} alt={alt} fill sizes="500px" />
-              </SwiperSlide>
-            ))}
-          </CustomSwiper>
-          {images.length !== 1 && <SlideNextButton nextElId={nextElId} />}
-        </SliderDiv>
-      </OnClickOutside>
-    </Container>
+    <Modal closeModal={closeModal} modalBox={false}>
+      <SliderDiv>
+        {images.length !== 1 && <SlidePrevButton prevElId={prevElId} />}
+        <CustomSwiper
+          loop
+          initialSlide={initialImageIndex}
+          prevElId={prevElId}
+          nextElId={nextElId}
+        >
+          {images.map((image) => (
+            <SwiperSlide key={image.id}>
+              <Image
+                src={image.imageUrl}
+                alt={alt}
+                fill
+                sizes="500px"
+                style={{ objectFit: "cover" }}
+              />
+            </SwiperSlide>
+          ))}
+        </CustomSwiper>
+        {images.length !== 1 && <SlideNextButton nextElId={nextElId} />}
+      </SliderDiv>
+    </Modal>
   );
 };
 

@@ -9,8 +9,8 @@ import TagList from "@components/community/TagList";
 import { ArticleSectionBox, Spacer } from "./styled";
 import ImageSlider from "../ImageSlider";
 import LikeButton from "../../LikeButton";
-import CommunityModal from "../../CommunityModal";
 import useUserInfo from "@lib/hooks/common/useUserInfo";
+import Modal from "@/stories/common/Modal";
 
 const dummyImage =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
@@ -35,12 +35,22 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
     isLike,
   } = data;
   const clickDeleteMenu = () => {
-    openModal(CommunityModal, {
+    openModal(Modal, {
       subTitle: title,
-      modalTitle: "정말 이 글을 삭제하시겠습니까?",
+      title: "정말 이 글을 삭제하시겠습니까?",
       closeModal,
-      clickCancelButton: closeModal,
-      clickConfirmButton: closeModal,
+      buttons: [
+        {
+          text: "취소",
+          onClick: closeModal,
+          variant: "secondary",
+        },
+        {
+          text: "삭제하기",
+          onClick: closeModal,
+          variant: "primary",
+        },
+      ],
     });
   };
   const clickEditMenu = () => {};

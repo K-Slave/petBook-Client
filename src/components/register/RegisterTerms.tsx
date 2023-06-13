@@ -1,23 +1,15 @@
 import { useEffect, useState } from "react";
-import { Modal } from "@components/common/modal/Modal";
-
 import { useSetRecoilState } from "recoil";
 import { registerFormState } from "@atoms/pageAtoms/login/userState";
-
 import { Terms } from "./styled/styledRegisterForm";
+import Modal from "@/stories/common/Modal";
 import TermsInfo from "./info/Terms";
+import useModal from "@lib/hooks/common/useModal";
 
 const TermsWrap = () => {
+  const { openModal, closeModal } = useModal();
   const registerForm = useSetRecoilState(registerFormState);
   const [agree, setAgree] = useState([false, false]);
-  const [modal, setModal] = useState({
-    state: false,
-    data: {
-      content: "",
-      title: "",
-    },
-  });
-
   const agreeContent = [
     {
       id: "terms",
@@ -31,32 +23,21 @@ const TermsWrap = () => {
     },
   ];
 
-  const handleCloseModal = () => {
-    setModal((modalState) => ({ ...modalState, state: false }));
-  };
-
   const HandlerOpen = (title: string) => {
     let titleName = "";
     let contentKey = "";
-    let active = false;
 
     switch (title) {
       case "terms": {
-        if (agree[0] === false) {
-          titleName = "이용약관";
-          contentKey = "terms";
-          active = true;
-        }
-        setAgree((el) => [active, el[1]]);
+        titleName = "이용약관";
+        contentKey = "terms";
+        setAgree((el) => [true, el[1]]);
         break;
       }
       case "privacy": {
-        if (agree[1] === false) {
-          titleName = "개인정보 수집 및 이용약관";
-          contentKey = "privacy";
-          active = true;
-        }
-        setAgree((el) => [el[0], active]);
+        titleName = "개인정보 수집 및 이용약관";
+        contentKey = "privacy";
+        setAgree((el) => [el[0], true]);
         break;
       }
       default: {
@@ -64,14 +45,18 @@ const TermsWrap = () => {
       }
     }
 
-    setModal((modalState) => ({
-      ...modalState,
-      state: active,
-      data: {
-        title: titleName,
-        content: contentKey,
-      },
-    }));
+    openModal(Modal, {
+      closeModal,
+      title: titleName,
+      children: <TermsInfo content={contentKey} />,
+      buttons: [
+        {
+          text: "확인",
+          variant: "primary",
+          onClick: closeModal,
+        },
+      ],
+    });
   };
 
   useEffect(() => {
@@ -81,13 +66,6 @@ const TermsWrap = () => {
 
   return (
     <Terms>
-      <Modal modalState={modal} handleCloseModal={handleCloseModal}>
-        <hgroup>
-          <h2>{modal.data.title}</h2>
-        </hgroup>
-
-        <TermsInfo content={modal.data.content} />
-      </Modal>
       {agreeContent.map((agreeEl) => {
         return (
           <li key={agreeEl.id}>
@@ -110,4 +88,5 @@ const TermsWrap = () => {
     </Terms>
   );
 };
+
 export default TermsWrap;

@@ -11,9 +11,9 @@ import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import useModal from "@lib/hooks/common/useModal";
 import useDeleteComment from "@lib/hooks/comment/useDeleteComment";
 import { CommentListDiv } from "./styled";
-import CommunityModal from "../../CommunityModal";
 import { COMMENT_LIST } from "@lib/resources/commentResource";
 import localConsole from "@lib/utils/localConsole";
+import Modal from "@/stories/common/Modal";
 
 export interface ItemProps {
   comment: CommentItem;
@@ -60,11 +60,21 @@ const CommentList = ({ Item }: Props) => {
     });
   });
   const clickDeleteMenu = (commentId: number) => () => {
-    openModal(CommunityModal, {
-      modalTitle: "정말 이 댓글을 삭제하시겠습니까?",
+    openModal(Modal, {
+      title: "정말 이 댓글을 삭제하시겠습니까?",
       closeModal,
-      clickCancelButton: closeModal,
-      clickConfirmButton: deleteComment(commentId),
+      buttons: [
+        {
+          text: "취소",
+          onClick: closeModal,
+          variant: "secondary",
+        },
+        {
+          text: "삭제하기",
+          onClick: deleteComment(commentId),
+          variant: "primary",
+        },
+      ],
     });
   };
 

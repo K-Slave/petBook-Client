@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import OnClickOutside from "@components/common/OnClickOutside";
+import OnClickOutside from "@/stories/common/OnClickOutside";
 import Image from "next/image";
 import {
   HospitalReveiwImgProps,
@@ -29,6 +29,7 @@ import {
   HOSPITAL_REVIEW_CREATE,
   HOSPITAL_REVIEW_LIST,
 } from "@lib/resources/hospitalResource";
+import Button from "@/stories/common/Button";
 
 const PETDATA = [
   {
@@ -219,12 +220,17 @@ const HospitalReview = ({
         </ReviewBoxItem>
 
         <ReviewButtonWrap>
-          <button type="button" value="cancel" onClick={closeModal}>
+          <Button variant="secondary" onClick={closeModal} width="fit-content">
             취소
-          </button>
-          <button type="button" value="submit" onClick={onSubmit}>
+          </Button>
+          <Button
+            variant="primary"
+            onClick={onSubmit}
+            width="fit-content"
+            disabled={true}
+          >
             작성완료
-          </button>
+          </Button>
         </ReviewButtonWrap>
       </ReviewWarp>
     </OnClickOutside>
