@@ -21,7 +21,7 @@ export const requiredResourcesKeyName = {
 
 export const cookieOptions = {
   oneDay: getDayToSeconds(1),
-  maxAge: getDayToSeconds(30),
+  oneMonth: getDayToSeconds(30),
   loginMaxAge: getDayToSeconds(15),
 };
 
@@ -29,6 +29,7 @@ export const cookieKeyName = {
   userToken: "PETBOOK_USER",
   userInfo: "USER_INFO",
   owner: "OWNER",
+  isOwnerCheck: "IS_OWNER_CHECK",
   location: "USER_LOCATION_DATA",
 };
 

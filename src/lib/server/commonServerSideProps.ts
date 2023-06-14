@@ -9,7 +9,9 @@ import getCookieList from "@lib/utils/getCookieList";
 import { checkDevice, checkUserAgent } from "@lib/utils/checkUserAgent";
 import { PageProps } from "@pages/_app";
 import { cookieKeyName, cookieOptions } from "@lib/globalConst";
-import { cookieRequest } from "@lib/API/petBookAPI";
+import ownerAuth, { ownerAuthRedirect } from "./helper/ownerAuth";
+import putHttpCookie from "../utils/putHttpCookie";
+import loggedUserRedirect from "./helper/loggedUserRedirect";
 
 // 추후 특정 페이지에서 필요하지 않은 API 호출을 막는 용도로 사용할수 있음
 const userAPIBlackList = [""];
@@ -28,68 +30,64 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
     // 웹 서버 request - response 처리 및 response 에러 핸들링
     try {
       const { req } = context;
-      const { headers } = req;
-      const url = context.req.url;
-      const { ownerToken, token, user } = getToken(context, { decode: true });
-
-      let resultOwnerToken = ownerToken;
-
-      // if (process.env.NODE_ENV === "development" && !ownerToken) {
-      //   context.res?.setHeader(
-      //     "Set-Cookie",
-      //     `${cookieKeyName.owner}=${process.env.NEXT_PUBLIC_OWNER}; SameSite=Strict; Max-Age=${cookieOptions.maxAge}; secure; httpOnly;`
-      //   );
-
-      //   resultOwnerToken = process.env.NEXT_PUBLIC_OWNER;
-      // }
-
-      const path = url?.split("?")[0];
-
-      if (path !== "/" && !ownerToken) {
-        context.res?.writeHead(301, {
-          Location: `/?owner_author=true`,
-        });
-
-        context.res?.end();
-      } else if (path !== "/" && ownerToken === process.env.NEXT_PUBLIC_OWNER) {
-        context.res?.setHeader(
-          "Set-Cookie",
-          `${cookieKeyName.owner}=${process.env.NEXT_PUBLIC_OWNER}; SameSite=Strict; Max-Age=${cookieOptions.maxAge}; secure; httpOnly;`
-        );
-
-        resultOwnerToken = process.env.NEXT_PUBLIC_OWNER;
-      }
+      const { headers, url } = req;
 
       const userAgent = headers["user-agent"];
       const device = checkDevice(userAgent);
       const agentName = checkUserAgent(userAgent);
-
       const cookieList = getCookieList(context, {
         decode: true,
       });
 
-      // 토큰이 존재하면 쿠키에 토큰을 저장
-      // 보안 옵션을 추가한 쿠키를 현재 접속 시각으로부터 30일 갱신
-      if (token) {
-        context.res?.setHeader(
-          "Set-Cookie",
-          `${cookieKeyName.userToken}=${token}; Path=/; SameSite=Strict; Max-Age=2592000; secure; httpOnly;`
-        );
-      }
-
+      const path = url?.split("?")[0];
+      const { ownerToken, isOwnerCheck, token, user } = getToken(context, {
+        decode: true,
+      });
       const locationCookie = cookieList.find(
         (cookie) => cookie.key === cookieKeyName.location
       );
 
-      // 쿠키에 location 이 존재하면 쿠키에 location 을 저장
-      // 보안 옵션을 추가한 쿠키를 현재 접속 시각으로부터 30일 갱신
+      // 방문자 인증 처리
+
+      let resultOwnerToken = ownerToken;
+
+      if (path !== "/" && !ownerToken) {
+        ownerAuthRedirect(context);
+      }
+
+      if (
+        isOwnerCheck === false &&
+        (ownerToken === process.env.NEXT_PUBLIC_OWNER ||
+          process.env.NODE_ENV === "development")
+      ) {
+        ownerAuth(context);
+
+        resultOwnerToken = process.env.NEXT_PUBLIC_OWNER;
+      }
+
+      // 로그인 유저 리다이렉트 처리
+      if (path?.includes("login") && user) {
+        loggedUserRedirect(context);
+      }
+
+      // 유저 토큰 쿠키를 현재 접속 시각으로부터 15일 갱신
+      if (token) {
+        putHttpCookie({
+          context,
+          key: cookieKeyName.userToken,
+          value: token,
+          lifeTime: cookieOptions.loginMaxAge.toString(),
+        });
+      }
+
+      // location 쿠키를 현재 접속 시각으로부터 30일 갱신
       if (locationCookie) {
-        context.res?.setHeader(
-          "Set-Cookie",
-          `${locationCookie.key}=${encodeURIComponent(
-            JSON.stringify(locationCookie.value)
-          )}; Path=/; SameSite=Strict; Max-Age=2592000; secure;`
-        );
+        putHttpCookie({
+          context,
+          key: cookieKeyName.location,
+          value: encodeURIComponent(JSON.stringify(locationCookie.value || "")),
+          lifeTime: cookieOptions.oneMonth.toString(),
+        });
       }
 
       // getServerSidePropsFunc 가 존재하면 해당 함수를 실행하고 반환된 props 를 반환

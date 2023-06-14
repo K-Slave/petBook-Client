@@ -20,6 +20,10 @@ import { VerticalDividerSpan } from "../common/Divider/Divider.style";
 import dynamic from "next/dynamic";
 import { commonReg } from "../../lib/globalConst";
 
+// TODO : 외부에서 받아온 props를 Zustand에 저장하고, Zustand를 통해 상태 관리
+// TODO : 로그인 되있을시 Redirection 또는 라우팅 처리하기
+// TODO : 로그인 액션후 이동할 페이지 로직 작성하기
+
 const LoginForm = () => {
   const {
     emailRegister,

@@ -101,7 +101,7 @@ const LabeledExample = (props: EmailExampleProps) => {
   return (
     <form>
       <FocusBasedInput {...props} value={value} onChange={onChange}>
-        <span style={{ padding: "15px" }}>유저 이름 같은걸 입력해보세요</span>
+        <span style={{ padding: "15px" }}>닉네임</span>
       </FocusBasedInput>
     </form>
   );

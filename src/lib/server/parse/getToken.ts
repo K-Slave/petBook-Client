@@ -14,6 +14,7 @@ export default function getToken(
   const allCookies = cookies(ctx);
   const token = allCookies[cookieKeyName.userToken];
   const ownerToken = allCookies[cookieKeyName.owner];
+  const isOwnerCheck = allCookies[cookieKeyName.isOwnerCheck];
 
   if (token) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -23,6 +24,7 @@ export default function getToken(
         token,
         user,
         ownerToken: ownerToken ? ownerToken : "",
+        isOwnerCheck: !!isOwnerCheck,
       };
     }
   }
