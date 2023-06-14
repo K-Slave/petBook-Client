@@ -28,7 +28,7 @@ const Button = ({
 };
 
 Button.defaultProps = {
-  type: "button",
+  type: "button" as const,
   active: false,
   disabled: false,
   width: "100%",
