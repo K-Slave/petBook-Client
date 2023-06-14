@@ -167,7 +167,7 @@ const EditForm = ({ content, id, articleId, clickCancelButton }: Props) => {
     clickCancelButton();
   });
   return (
-    <Form>
+    <Form onSubmit={onSubmit}>
       <CommentFormTextarea
         ref={textareaRef}
         defaultValue={content}
@@ -178,7 +178,7 @@ const EditForm = ({ content, id, articleId, clickCancelButton }: Props) => {
         <Button variant="secondary" onClick={clickCancelButton}>
           취소
         </Button>
-        <Button variant="primary" onClick={onSubmit} disabled={isLoading}>
+        <Button variant="primary" disabled={isLoading}>
           {isLoading ? "수정 중" : "완료"}
         </Button>
       </div>
