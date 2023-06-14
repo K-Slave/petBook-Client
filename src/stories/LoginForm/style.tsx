@@ -11,14 +11,13 @@ import Link from "next/link";
 export const LoginFormBox = styled.form`
   display: grid;
   grid-auto-flow: row;
-  grid-auto-rows: 5.7088rem auto auto;
   row-gap: 2rem;
   align-content: center;
 
   width: 29rem;
-  height: 27.875rem;
+  height: 28.0206rem;
 
-  padding: 3rem 2rem 1.6875rem;
+  padding: 2rem 1.6875rem;
 
   background-color: var(--bg_white_02);
   border-radius: 1rem;
@@ -28,6 +27,8 @@ export const LoginFormTitleH1 = styled.h1`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  height: 5.7081rem;
 
   ${TextH3Bold22};
   color: var(--black_01);
@@ -46,7 +47,7 @@ export const LoginFormInputBoxDiv = styled.div`
   justify-content: center;
   row-gap: 0.5rem;
 
-  height: fit-content;
+  height: 8.5rem;
 `;
 
 export const LoginFormCookieButton = styled.button<{ check: boolean }>`
@@ -57,6 +58,7 @@ export const LoginFormCookieButton = styled.button<{ check: boolean }>`
   gap: 0.4375rem;
 
   width: fit-content;
+  height: 1.5rem;
   padding: 0.25rem 0 0.1875rem;
 
   ${TextBodyMedium14};
@@ -67,6 +69,8 @@ export const LoginSubmitBoxDiv = styled.div`
   display: grid;
   grid-auto-flow: row;
   row-gap: 1.5rem;
+
+  height: 5.8125rem;
 `;
 
 export const LoginFormSubmitButton = styled.button`
