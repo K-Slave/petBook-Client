@@ -1,6 +1,7 @@
 import type { Preview } from "@storybook/react";
 import { RecoilRoot } from "recoil";
 import React from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { withThemeFromJSXProvider } from "@storybook/addon-styling";
 import NextGlobalStyle from "../src/styles/Global.style";
 
@@ -20,15 +21,19 @@ const preview: Preview = {
   },
 };
 
+const queryClient = new QueryClient();
+
 export const decorators = [
   withThemeFromJSXProvider({
     GlobalStyles: NextGlobalStyle, // Adds your GlobalStyle component to all stories
   }),
   (Story) => {
     return (
-      <RecoilRoot>
-        <Story />
-      </RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <RecoilRoot>
+          <Story />
+        </RecoilRoot>
+      </QueryClientProvider>
     );
   },
 ];

@@ -9,7 +9,7 @@ import {
   UserYearSpan,
 } from "./style/UserInfoSection";
 import Image from "next/image";
-import { AuthSelfHiddenMask } from "@components/common/AuthSelfMask";
+import AuthSelfHiddenMask from "@/stories/common/Auth/AuthSelfHiddenMask";
 import mypageImg from "@/image/mypageImg";
 
 const UserInfoSection = () => {
