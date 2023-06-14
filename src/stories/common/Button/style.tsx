@@ -22,6 +22,7 @@ const SecondaryStyle = css`
 `;
 
 const TertiaryStyle = css`
+  font-weight: 400;
   color: var(--black_01);
   background-color: white;
   &:hover {
@@ -38,29 +39,48 @@ const TertiaryActiveStyle = css`
   }
 `;
 
-export const StyledButton = styled.button<
-  Pick<ButtonProps, "width" | "variant" | "active" | "height">
->`
+const SmallButtonStyle = css`
+  width: fit-content;
+  height: fit-content;
+  font-size: 0.875rem;
+  font-weight: 400;
+  padding: 0.25rem 1rem;
+  border-radius: 40px;
+`;
+
+export const StyledButton = styled.button<ButtonProps>`
   display: flex;
   align-items: center;
   justify-content: center;
+
   font-size: 1rem;
   line-height: 24px;
-  width: ${({ width }) => width || "100%"};
-  height: ${({ height }) => height || "52px"};
+
   border-radius: 8px;
   transition: all 0.3s ease;
-  ${({ variant }) =>
-    variant === "primary"
+
+  ${(props) =>
+    props.variant === "small"
+      ? css`
+          ${SmallButtonStyle};
+          background-color: ${props.bgColor};
+          color: ${props.color};
+        `
+      : css`
+          width: ${props.width};
+          height: ${props.height};
+        `};
+  ${(props) =>
+    props.variant === "primary"
       ? PrimaryStyle
-      : variant === "secondary"
+      : props.variant === "secondary"
       ? SecondaryStyle
-      : TertiaryStyle};
-  ${({ variant, active }) =>
-    variant === "tertiary" && active && TertiaryActiveStyle};
+      : props.variant === "tertiary"
+      ? props.active
+        ? TertiaryActiveStyle
+        : TertiaryStyle
+      : null};
   &:disabled {
-    font-weight: bold;
-    font-size: 1.125rem;
     color: var(--black_05);
     background-color: var(--black_07);
   }

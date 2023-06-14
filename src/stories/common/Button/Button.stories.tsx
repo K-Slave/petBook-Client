@@ -25,11 +25,20 @@ export const Tertiary: Story = {
     children: "질문과 답변",
   },
 };
-export const TertiaryActive = {
+export const TertiaryActive: Story = {
   args: {
     variant: "tertiary",
     children: "질문과 답변",
     active: true,
+  },
+};
+
+export const Small: Story = {
+  args: {
+    variant: "small",
+    bgColor: "var(--secondary)",
+    color: "var(--primary)",
+    children: "추가하기",
   },
 };
 export default meta;

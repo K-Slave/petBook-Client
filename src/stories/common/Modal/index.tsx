@@ -3,9 +3,9 @@ import { Container, ModalBox, ButtonBox } from "./style";
 import { useEffect, type PropsWithChildren } from "react";
 import Button, { type ButtonProps } from "../Button";
 
-interface ButtonItem extends ButtonProps {
+type ButtonItem = ButtonProps & {
   text: string;
-}
+};
 
 interface Props {
   subTitle?: string;

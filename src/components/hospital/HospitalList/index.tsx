@@ -14,10 +14,11 @@ import { useEffect, useRef } from "react";
 import { useRecoilValue } from "recoil";
 import CurrentGps from "../CurrentGps";
 import HospitalItem from "../HospitalItem";
-import { FilterButton, FilterDiv, Section } from "./styled";
+import { FilterDiv, Section } from "./styled";
 import hospitalOptions from "@lib/globalConst/hospitalOptions";
 import { HOSPITAL_LIST } from "@lib/resources/hospitalResource";
 import localConsole from "@lib/utils/localConsole";
+import Button from "@/stories/common/Button";
 
 const HospitalList = () => {
   const ref = useRef<HTMLElement | null>(null);
@@ -101,6 +102,7 @@ const FILTERS = ["모든 동물", "햄스터", "토끼"];
 const Filter = () => {
   const router = useRouter();
   const { filter } = router.query;
+  const selected = (filter as string) || FILTERS[0];
   const selectFilter = (name: string) => () => {
     const url =
       name === FILTERS[0]
@@ -123,15 +125,15 @@ const Filter = () => {
   return (
     <FilterDiv>
       {FILTERS.map((name) => (
-        <FilterButton
-          selected={(filter as string) || FILTERS[0]}
-          name={name}
-          type="button"
+        <Button
           key={name}
+          variant="small"
+          bgColor={selected === name ? "var(--black_01)" : "var(--bg_white_02)"}
+          color={selected === name ? "white" : "var(--black_03)"}
           onClick={selectFilter(name)}
         >
           {name}
-        </FilterButton>
+        </Button>
       ))}
     </FilterDiv>
   );

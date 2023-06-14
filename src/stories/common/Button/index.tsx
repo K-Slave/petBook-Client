@@ -1,27 +1,37 @@
 import React, { MouseEventHandler, PropsWithChildren } from "react";
 import { StyledButton } from "./style";
 
-export type ButtonProps = {
-  variant: "primary" | "secondary" | "tertiary" | "small";
+interface CommonProps {
   className?: string;
-  width?: string;
-  height?: string;
   type?: "button" | "submit";
-  bgColor?: string;
-  color?: string;
-  disabled?: boolean;
   active?: boolean;
   onClick?: MouseEventHandler;
   style?: React.CSSProperties;
-};
+  disabled?: boolean;
+  buttonRef?: React.RefObject<HTMLButtonElement>;
+}
+
+export type ButtonProps = CommonProps &
+  (
+    | {
+        variant: "primary" | "secondary" | "tertiary";
+        width?: string;
+        height?: string;
+      }
+    | {
+        variant: "small";
+        bgColor: string;
+        color: string;
+      }
+  );
 
 const Button = ({
   children,
-  type,
+  buttonRef,
   ...props
 }: PropsWithChildren<ButtonProps>) => {
   return (
-    <StyledButton type={type || "button"} {...props}>
+    <StyledButton ref={buttonRef} {...props}>
       {children}
     </StyledButton>
   );

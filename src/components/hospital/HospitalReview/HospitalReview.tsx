@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { type ChangeEvent, useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import {
   HospitalReveiwImgProps,
@@ -27,6 +27,7 @@ import {
   HOSPITAL_REVIEW_LIST,
 } from "@lib/resources/hospitalResource";
 import Modal from "@/stories/common/Modal";
+import Button from "@/stories/common/Button";
 
 const PETDATA = [
   {
@@ -57,6 +58,7 @@ const REACTION = [
 ];
 
 const ImgWrap = () => {
+  const ref = useRef<HTMLInputElement | null>(null);
   const [imgArr, setImgArr] = useState<HospitalReveiwImgProps[]>([]);
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -87,17 +89,22 @@ const ImgWrap = () => {
         <div className="Camera" />
         <p>이미지첨부 (최대 10장, 선택사항)</p>
         <div>
-          <label htmlFor="file">
+          <Button
+            variant="small"
+            bgColor="var(--secondary)"
+            color="var(--primary)"
+            onClick={() => ref.current?.click()}
+          >
             추가하기
-            <input
-              type="file"
-              accept="image/png, image/gif, image/jpeg"
-              id="file"
-              className="default"
-              multiple
-              onChange={onChange}
-            />
-          </label>
+          </Button>
+          <input
+            ref={ref}
+            type="file"
+            accept="image/png, image/gif, image/jpeg"
+            className="default"
+            multiple
+            onChange={onChange}
+          />
         </div>
       </hgroup>
       <ImgBoxGroup id="group">

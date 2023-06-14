@@ -19,6 +19,7 @@ import {
   WriteHashTagsSection,
 } from "./styled/WriteHashTags.style";
 import "react-bubblytip/lib/bubblytip.css";
+import Button from "@/stories/common/Button";
 
 // TODO : 최대 5개 구현, 요소가 HashTagBox 넘어가지 않도록 구현
 const WriteHashTags = () => {
@@ -109,7 +110,16 @@ const Item = React.memo(({ hashTag }: { hashTag: string }) => {
     removeTag(hashTag);
   };
 
-  return <RoundHashTagButton onClick={onClick}>#{hashTag}</RoundHashTagButton>;
+  return (
+    <Button
+      variant="small"
+      bgColor="var(--bg_white_02)"
+      color="var(--black_03)"
+      onClick={onClick}
+    >
+      #{hashTag}
+    </Button>
+  );
 });
 
 Item.displayName = "Item";

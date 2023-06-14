@@ -145,19 +145,8 @@ export const ImgContainer = styled.article`
           ? " url(/img/common/review/camera_active.svg)"
           : " url(/img/common/review/camera.svg)"};
     }
-    label {
-      padding: 4px 16px;
-      width: 80px;
-      font-size: 14px;
-      color: var(--primary);
-
-      background-color: var(--secondary);
-      border-radius: 40px;
-
-      cursor: pointer;
-      input {
-        display: none;
-      }
+    input {
+      display: none;
     }
   }
 `;
