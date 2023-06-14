@@ -1,5 +1,5 @@
 import usePagination from "@lib/hooks/common/usePagination";
-import { PaginationButton, PaginationDiv } from "./Pagination.styled";
+import { PaginationButton, PaginationDiv } from "./style";
 import { ChevronLeftRounded } from "../../Icon/ChevronLeft";
 import { ChevronRightRounded } from "../../Icon/ChevronRight";
 

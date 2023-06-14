@@ -1,5 +1,5 @@
 import React from "react";
-import { SkeletonDiv } from "./Skeleton.styled";
+import { SkeletonDiv } from "./style";
 
 type SkeletonCSS = React.CSSProperties & {
   "--template"?: string;

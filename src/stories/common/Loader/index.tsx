@@ -1,7 +1,7 @@
 import loadingState from "@atoms/common/loadingState";
 import React from "react";
 import { useRecoilValue } from "recoil";
-import { LoaderDiv } from "./Loader.styled";
+import { LoaderDiv } from "./style";
 
 const Loader = () => {
   const loading = useRecoilValue(loadingState);

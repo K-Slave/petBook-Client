@@ -1,45 +1,38 @@
 import React, { MouseEventHandler, PropsWithChildren } from "react";
-import { StyledButton } from "./Button.styled";
+import { StyledButton } from "./style";
 
 export type ButtonProps = {
+  variant: "primary" | "secondary" | "tertiary" | "small";
   className?: string;
   width?: string;
   height?: string;
   type?: "button" | "submit";
-  variant: "primary" | "secondary" | "tertiary";
+  bgColor?: string;
+  color?: string;
   disabled?: boolean;
+  active?: boolean;
   onClick?: MouseEventHandler;
   style?: React.CSSProperties;
-  active?: boolean;
 };
 
 const Button = ({
-  className,
-  width,
-  height,
-  variant,
-  disabled,
   children,
-  onClick,
-  style,
-  active,
   type,
+  ...props
 }: PropsWithChildren<ButtonProps>) => {
   return (
-    <StyledButton
-      type={type || "button"}
-      className={className}
-      disabled={disabled}
-      onClick={onClick}
-      style={style}
-      width={width}
-      height={height}
-      variant={variant}
-      active={active}
-    >
+    <StyledButton type={type || "button"} {...props}>
       {children}
     </StyledButton>
   );
+};
+
+Button.defaultProps = {
+  type: "button",
+  active: false,
+  disabled: false,
+  width: "100%",
+  height: "52px",
 };
 
 export default Button;

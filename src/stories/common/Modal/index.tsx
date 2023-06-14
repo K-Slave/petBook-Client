@@ -1,5 +1,5 @@
 import OnClickOutside from "@/stories/common/OnClickOutside";
-import { Container, ModalBox, ButtonBox } from "./Modal.styled";
+import { Container, ModalBox, ButtonBox } from "./style";
 import { useEffect, type PropsWithChildren } from "react";
 import Button, { type ButtonProps } from "../Button";
 

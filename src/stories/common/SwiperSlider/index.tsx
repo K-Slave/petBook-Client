@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperProps, useSwiper } from "swiper/react";
-import { SliderButton, SwiperStyle } from "./SwiperSlider.styled";
+import { SliderButton, SwiperStyle } from "./style";
 import { ChevronRightRounded } from "@/stories/Icon/ChevronRight";
 import { ChevronLeftRounded } from "@/stories/Icon/ChevronLeft";
 

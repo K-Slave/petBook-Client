@@ -1,7 +1,7 @@
 import React, { type MouseEventHandler, useState } from "react";
 import ThreeDotsVerticalIcon from "../../Icon/ThreeDotsVertical";
 import OnClickOutside from "../OnClickOutside";
-import { MenuBox, MenuButton, MenuList } from "./DropdownMenu.styled";
+import { MenuBox, MenuButton, MenuList } from "./style";
 
 interface Props {
   menuList: {
