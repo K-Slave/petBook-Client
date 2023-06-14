@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import FocusBasedInput, { FocusBasedInputProps } from "./FocusBasedInput";
+import FocusBasedInput, { FocusBasedInputProps } from ".";
 import { useState } from "react";
 import inputImg from "@/image/inputImg";
 import authOptions from "@lib/globalConst/authOptions";

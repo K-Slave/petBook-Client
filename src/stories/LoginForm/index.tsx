@@ -9,15 +9,16 @@ import {
   LoginFormSubmitButton,
   LoginFormGuideDiv,
   LoginFormLink,
-} from "./LoginForm.style";
+} from "./style";
 import inputImg from "@/image/inputImg";
 import authOptions from "@lib/globalConst/authOptions";
-import FocusBasedInput from "../common/Input/FocusBasedInput/FocusBasedInput";
+import FocusBasedInput from "../common/Input/FocusBasedInput";
 import headerImg from "@/image/headerImg";
 import { BackgroundImageSpan } from "../common/Image/BackgroundImage/BackgroundImage.style";
 import useLoginForm from "@lib/hooks/login/useLoginForm";
 import { VerticalDividerSpan } from "../common/Divider/Divider.style";
 import dynamic from "next/dynamic";
+import { commonReg } from "../../lib/globalConst";
 
 const LoginForm = () => {
   const {
@@ -48,7 +49,7 @@ const LoginForm = () => {
           placeholder="이메일"
           autoComplete="email"
           maxLength={authOptions.email.max}
-          pattern={process.env.NEXT_PUBLIC_EMAIL_REG}
+          pattern={commonReg.email}
           disabled={isSubmitting}
           required
           width="25rem"
@@ -64,7 +65,7 @@ const LoginForm = () => {
           autoComplete="current-password"
           minLength={authOptions.password.min}
           maxLength={authOptions.password.max}
-          // pattern={process.env.NEXT_PUBLIC_PASSWORD_REG}
+          pattern={commonReg.password}
           disabled={isSubmitting}
           required
           width="25rem"

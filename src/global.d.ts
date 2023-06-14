@@ -7,7 +7,5 @@ declare namespace NodeJS {
     TEST_WEBHOOK_URL: string;
     PETBOOK_WEBHOOK_URL: string;
     NEXT_PUBLIC_OWNER: string;
-    NEXT_PUBLIC_EMAIL_REG: string;
-    NEXT_PUBLIC_PASSWORD_REG: string;
   }
 }

@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import LoginForm from "./LoginForm";
+import LoginForm from ".";
 import { useState } from "react";
 import createQueryClient from "@lib/utils/createQueryClient";
 import { QueryClientProvider } from "@tanstack/react-query";

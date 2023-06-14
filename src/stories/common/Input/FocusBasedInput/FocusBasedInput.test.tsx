@@ -1,5 +1,5 @@
 import { render, fireEvent } from "@testing-library/react";
-import FocusBasedInput from "./FocusBasedInput";
+import FocusBasedInput from ".";
 import React, { useState } from "react";
 import renderer from "react-test-renderer";
 

@@ -31,3 +31,9 @@ export const cookieKeyName = {
   owner: "OWNER",
   location: "USER_LOCATION_DATA",
 };
+
+export const commonReg = {
+  email: "^[a-zA-Z0-9]{1,30}@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$",
+  password:
+    "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$",
+};

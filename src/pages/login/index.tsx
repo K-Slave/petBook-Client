@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
-import { LoginIndex } from "@components/login/LoginIndex";
-import LoginForm from "@/stories/LoginForm/LoginForm";
+import LoginForm from "@/stories/LoginForm";
 
 const Main = styled.main`
   display: flex;

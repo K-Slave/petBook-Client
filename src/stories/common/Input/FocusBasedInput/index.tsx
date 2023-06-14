@@ -4,10 +4,8 @@ import {
   FocusBasedBgSpan,
   FocusBasedInputElem,
   PasswordShowHideButton,
-} from "./FocusBasedInput.style";
+} from "./style";
 import { CommonInputProps } from "../CommonInput/CommonInput";
-import localConsole from "@lib/utils/localConsole";
-import { UseFormRegisterReturn } from "react-hook-form";
 
 // 포커스 기반 비제어 컴포넌트
 export interface FocusBasedInputProps extends CommonInputProps {
