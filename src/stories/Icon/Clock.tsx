@@ -1,9 +1,9 @@
-const Clock = () => {
+const Clock = ({ width, height, viewBox }: Props) => {
   return (
     <svg
-      width="14"
-      height="14"
-      viewBox="0 0 14 14"
+      width={width}
+      height={height}
+      viewBox={viewBox}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -16,6 +16,12 @@ const Clock = () => {
       />
     </svg>
   );
+};
+
+Clock.defaultProps = {
+  width: "14",
+  height: "14",
+  viewBox: "0 0 14 14",
 };
 
 export default Clock;

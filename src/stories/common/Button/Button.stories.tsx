@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import Button from ".";
+import { ChevronLeftThin } from "@/stories/Icon/ChevronLeft";
 
 const meta: Meta<typeof Button> = {
   title: "common/Button",
@@ -39,6 +40,23 @@ export const Small: Story = {
     bgColor: "var(--secondary)",
     color: "var(--primary)",
     children: "추가하기",
+  },
+};
+
+export const Custom: Story = {
+  args: {
+    variant: "tertiary",
+    width: "220px",
+    color: "var(--black_02)",
+    style: {
+      gap: "6px",
+    },
+    children: (
+      <>
+        <ChevronLeftThin width="24" />
+        <span>전체 게시물로 돌아가기</span>
+      </>
+    ),
   },
 };
 export default meta;

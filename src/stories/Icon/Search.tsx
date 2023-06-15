@@ -1,9 +1,9 @@
-export const SearchOutline = () => {
+export const SearchOutline = ({ width, height, viewBox }: Props) => {
   return (
     <svg
-      width="18"
-      height="18"
-      viewBox="0 0 18 18"
+      width={width}
+      height={height}
+      viewBox={viewBox}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -16,4 +16,10 @@ export const SearchOutline = () => {
       />
     </svg>
   );
+};
+
+SearchOutline.defaultProps = {
+  width: "18",
+  height: "18",
+  viewBox: "0 0 18 18",
 };

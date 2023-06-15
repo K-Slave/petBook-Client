@@ -60,16 +60,11 @@ export const StyledButton = styled.button<ButtonProps>`
   transition: all 0.3s ease;
 
   ${(props) =>
-    props.variant === "small"
-      ? css`
-          ${SmallButtonStyle};
-          background-color: ${props.bgColor};
-          color: ${props.color};
-        `
-      : css`
-          width: ${props.width};
-          height: ${props.height};
-        `};
+    props.variant !== "small" &&
+    css`
+      width: ${props.width};
+      height: ${props.height}; ;
+    `};
   ${(props) =>
     props.variant === "primary"
       ? PrimaryStyle
@@ -79,7 +74,17 @@ export const StyledButton = styled.button<ButtonProps>`
       ? props.active
         ? TertiaryActiveStyle
         : TertiaryStyle
-      : null};
+      : SmallButtonStyle};
+  ${(props) =>
+    props.bgColor &&
+    css`
+      background-color: ${props.bgColor};
+    `};
+  ${(props) =>
+    props.color &&
+    css`
+      color: ${props.color};
+    `};
   &:disabled {
     color: var(--black_05);
     background-color: var(--black_07);

@@ -17,6 +17,8 @@ export type ButtonProps = CommonProps &
         variant: "primary" | "secondary" | "tertiary";
         width?: string;
         height?: string;
+        bgColor?: string;
+        color?: string;
       }
     | {
         variant: "small";

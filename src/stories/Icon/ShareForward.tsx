@@ -1,9 +1,9 @@
-const ShareForward = () => {
+const ShareForward = ({ width, height, viewBox }: Props) => {
   return (
     <svg
-      width="22"
-      height="20"
-      viewBox="0 0 22 20"
+      width={width}
+      height={height}
+      viewBox={viewBox}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -16,6 +16,12 @@ const ShareForward = () => {
       />
     </svg>
   );
+};
+
+ShareForward.defaultProps = {
+  width: "22",
+  height: "20",
+  viewBox: "0 0 22 20",
 };
 
 export default ShareForward;

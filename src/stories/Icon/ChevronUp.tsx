@@ -1,9 +1,9 @@
-export const ChevronUpRounded = () => {
+export const ChevronUpRounded = ({ width, height, viewBox }: Props) => {
   return (
     <svg
-      width="10"
-      height="6"
-      viewBox="0 0 10 6"
+      width={width}
+      height={height}
+      viewBox={viewBox}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -16,4 +16,10 @@ export const ChevronUpRounded = () => {
       />
     </svg>
   );
+};
+
+ChevronUpRounded.defaultProps = {
+  width: "10",
+  height: "6",
+  viewBox: "0 0 10 6",
 };

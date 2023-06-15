@@ -1,9 +1,9 @@
-export const BookmarkFilled = () => {
+export const BookmarkFilled = ({ width, height, viewBox }: Props) => {
   return (
     <svg
-      width="12"
-      height="16"
-      viewBox="0 0 12 16"
+      width={width}
+      height={height}
+      viewBox={viewBox}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -19,12 +19,18 @@ export const BookmarkFilled = () => {
   );
 };
 
-export const BookmarkOutline = () => {
+BookmarkFilled.defaultProps = {
+  width: "12",
+  height: "16",
+  viewBox: "0 0 12 16",
+};
+
+export const BookmarkOutline = ({ width, height, viewBox }: Props) => {
   return (
     <svg
-      width="12"
-      height="16"
-      viewBox="0 0 12 16"
+      width={width}
+      height={height}
+      viewBox={viewBox}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -39,12 +45,18 @@ export const BookmarkOutline = () => {
   );
 };
 
-export const BookmarkOutlineThin = () => {
+BookmarkOutline.defaultProps = {
+  width: "12",
+  height: "16",
+  viewBox: "0 0 12 16",
+};
+
+export const BookmarkOutlineThin = ({ width, height, viewBox }: Props) => {
   return (
     <svg
-      width="16"
-      height="22"
-      viewBox="0 0 16 22"
+      width={width}
+      height={height}
+      viewBox={viewBox}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -57,4 +69,10 @@ export const BookmarkOutlineThin = () => {
       />
     </svg>
   );
+};
+
+BookmarkOutlineThin.defaultProps = {
+  width: "16",
+  height: "22",
+  viewBox: "0 0 16 22",
 };

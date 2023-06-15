@@ -1,9 +1,9 @@
-const FaceHappy = () => {
+const FaceHappy = ({ width, height, viewBox }: Props) => {
   return (
     <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
+      width={width}
+      height={height}
+      viewBox={viewBox}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -16,6 +16,12 @@ const FaceHappy = () => {
       />
     </svg>
   );
+};
+
+FaceHappy.defaultProps = {
+  width: "16",
+  height: "16",
+  viewBox: "0 0 16 16",
 };
 
 export default FaceHappy;

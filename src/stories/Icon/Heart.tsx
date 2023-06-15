@@ -1,9 +1,9 @@
-export const HeartFilled = () => {
+export const HeartFilled = ({ width, height, viewBox }: Props) => {
   return (
     <svg
-      width="16"
-      height="14"
-      viewBox="0 0 16 14"
+      width={width}
+      height={height}
+      viewBox={viewBox}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -21,12 +21,18 @@ export const HeartFilled = () => {
   );
 };
 
-export const HeartOutline = () => {
+HeartFilled.defaultProps = {
+  width: "16",
+  height: "14",
+  viewBox: "0 0 16 14",
+};
+
+export const HeartOutline = ({ width, height, viewBox }: Props) => {
   return (
     <svg
-      width="16"
-      height="14"
-      viewBox="0 0 16 14"
+      width={width}
+      height={height}
+      viewBox={viewBox}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -41,4 +47,10 @@ export const HeartOutline = () => {
       />
     </svg>
   );
+};
+
+HeartOutline.defaultProps = {
+  width: "16",
+  height: "14",
+  viewBox: "0 0 16 14",
 };

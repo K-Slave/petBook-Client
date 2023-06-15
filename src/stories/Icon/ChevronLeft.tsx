@@ -1,9 +1,9 @@
-export const ChevronLeftRounded = () => {
+export const ChevronLeftRounded = ({ width, height, viewBox }: Props) => {
   return (
     <svg
-      width="8"
-      height="14"
-      viewBox="0 0 8 14"
+      width={width}
+      height={height}
+      viewBox={viewBox}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -18,12 +18,18 @@ export const ChevronLeftRounded = () => {
   );
 };
 
-export const ChevronLeftThin = () => {
+ChevronLeftRounded.defaultProps = {
+  width: "8",
+  height: "14",
+  viewBox: "0 0 8 14",
+};
+
+export const ChevronLeftThin = ({ width, height, viewBox }: Props) => {
   return (
     <svg
-      width="8"
-      height="14"
-      viewBox="0 0 8 14"
+      width={width}
+      height={height}
+      viewBox={viewBox}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -38,16 +44,28 @@ export const ChevronLeftThin = () => {
   );
 };
 
-export const ChevronLeftSharp = () => {
+ChevronLeftThin.defaultProps = {
+  width: "8",
+  height: "14",
+  viewBox: "0 0 8 14",
+};
+
+export const ChevronLeftSharp = ({ width, height, viewBox }: Props) => {
   return (
     <svg
-      width="16"
-      height="26"
-      viewBox="0 0 16 26"
+      width={width}
+      height={height}
+      viewBox={viewBox}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path d="M14 2L3 13L14 24" stroke="currentColor" strokeWidth="4" />
     </svg>
   );
+};
+
+ChevronLeftSharp.defaultProps = {
+  width: "16",
+  height: "26",
+  viewBox: "0 0 16 26",
 };

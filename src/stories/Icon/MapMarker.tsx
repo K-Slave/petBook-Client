@@ -1,9 +1,9 @@
-const MapMarker = () => {
+const MapMarker = ({ width, height, viewBox }: Props) => {
   return (
     <svg
-      width="14"
-      height="17"
-      viewBox="0 0 14 17"
+      width={width}
+      height={height}
+      viewBox={viewBox}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -23,6 +23,12 @@ const MapMarker = () => {
       />
     </svg>
   );
+};
+
+MapMarker.defaultProps = {
+  width: "14",
+  height: "17",
+  viewBox: "0 0 14 17",
 };
 
 export default MapMarker;

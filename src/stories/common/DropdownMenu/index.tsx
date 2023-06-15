@@ -1,5 +1,5 @@
 import React, { type MouseEventHandler, useState } from "react";
-import ThreeDotsVerticalIcon from "../../Icon/ThreeDotsVertical";
+import ThreeDotsVertical from "../../Icon/ThreeDotsVertical";
 import OnClickOutside from "../OnClickOutside";
 import { MenuBox, MenuButton, MenuList } from "./style";
 
@@ -18,7 +18,7 @@ const DropdownMenu = ({ menuList }: Props) => {
     <OnClickOutside trigger={onClose}>
       <MenuBox>
         <MenuButton type="button" onClick={onToggle}>
-          <ThreeDotsVerticalIcon />
+          <ThreeDotsVertical />
         </MenuButton>
         {show && (
           <MenuList>
