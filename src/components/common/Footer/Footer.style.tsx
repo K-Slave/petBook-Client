@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-export const FooterContainer = styled.footer`
+export const Container = styled.footer`
   /* height: 100vh; */
   display: flex;
   flex-direction: column;
@@ -9,10 +9,10 @@ export const FooterContainer = styled.footer`
 
   padding: 27px 0 36px 0;
 
-  background-color: var(--black_07); //#e0dfd9
+  background-color: var(--black_07);
 `;
 
-export const FooterLogoLink = styled(Link)`
+export const LogoLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,7 +20,7 @@ export const FooterLogoLink = styled(Link)`
   margin-bottom: 1rem;
 `;
 
-export const FooterContent = styled.p`
+export const ContentWap = styled.p`
   display: fixed;
   justify-content: center;
   align-items: center;
@@ -30,7 +30,7 @@ export const FooterContent = styled.p`
   color: var(--black_01);
 `;
 
-export const FooterEmailAddress = styled.span`
+export const EmailAddress = styled.span`
   display: fixed;
   justify-content: center;
   align-items: center;
@@ -39,5 +39,5 @@ export const FooterEmailAddress = styled.span`
 
   font-weight: 400px;
   font-size: "14px";
-  color: var(--black_04); //#92928E;
+  color: var(--black_04);
 `;
