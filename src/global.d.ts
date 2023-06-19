@@ -9,3 +9,6 @@ declare namespace NodeJS {
     NEXT_PUBLIC_OWNER: string;
   }
 }
+interface Window {
+  dataLayer: any[];
+}

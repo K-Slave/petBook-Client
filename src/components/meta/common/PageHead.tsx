@@ -1,7 +1,5 @@
 import Head from "next/head";
 import React from "react";
-import OpenGraphTag from "./OpenGraphTag";
-
 interface Props {
   currentPath: string;
 }
@@ -22,7 +20,7 @@ const PageHead = ({ currentPath }: Props) => {
         content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
       />
 
-      <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+      <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
       <link rel="apple-touch-icon" href="/favicon.ico" />
 
       <meta http-equiv="cache-control" content="max-age=3540" />
@@ -32,24 +30,26 @@ const PageHead = ({ currentPath }: Props) => {
 
       <meta content="1 Days" name="revisit-after" />
       <meta name="robots" content="all" />
+      <meta
+        name="naver-site-verification"
+        content="dcc61c867ca41c5f677844df083301a4182687a5"
+      />
 
       <title>{defaultTitle}</title>
       <meta name="description" content={defaultDesc} />
+
       <link
         className="Kakao__Pre"
         rel={`${currentPath.includes("hospitalmap") ? "preload" : "prefetch"}`}
         as="text/javascript"
         href="https://dapi.kakao.com/v2/maps/sdk.js?appkey=d5c682ad42a1b2dc53379222a3b46761&libraries=services,clusterer&autoload=false"
       />
-
-      <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
-      <link rel="apple-touch-icon" href="/favicon.ico" />
-      <meta
-        name="naver-site-verification"
-        content="dcc61c867ca41c5f677844df083301a4182687a5"
+      <link
+        id="GTAG_LINK"
+        rel="preload"
+        as="text/javascript"
+        href="https://www.googletagmanager.com/gtag/js?id=G-CKMJ0JWT9R"
       />
-      {/* TODO: URL, site img, Twitter 넣어야함 */}
-      <OpenGraphTag title={defaultTitle} desc={defaultDesc} />
     </Head>
   );
 };
