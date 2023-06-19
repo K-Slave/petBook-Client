@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const CommunitySamePetUserBox = styled.div`
   display: flex;
-  margin-top: 56px;
+  margin-top: 3.5rem;
 
   color: var(--black_01);
 
@@ -10,19 +10,19 @@ const CommunitySamePetUserBox = styled.div`
     flex: 1;
 
     h3 {
-      margin: 52px 0 28px;
+      margin: 3.25rem 0 1.75rem;
 
-      font-size: 22px;
+      font-size: 1.375rem;
       font-weight: bold;
       text-transform: uppercase;
     }
 
     .Same_User_Box {
-      margin-top: 28px;
-      margin-right: 24px;
-      padding: 24px;
+      margin-top: 1.75rem;
+      margin-right: 1.5rem;
+      padding: 1.5rem;
 
-      border-radius: 16px;
+      border-radius: 1rem;
       background-color: var(--bg_white_01);
     }
   }
@@ -31,19 +31,19 @@ const CommunitySamePetUserBox = styled.div`
     flex-direction: column;
     flex: 1;
 
-    border-radius: 16px;
+    border-radius: 1rem;
 
     background-color: var(--primary);
-    font-size: 34px;
+    font-size: 2.125rem;
     color: var(--bg_white_02);
 
     .Banner_Box {
-      padding: 72px 40px;
+      padding: 4.5rem 2.5rem;
     }
 
     .Banner_Text {
-      padding-top: 20px;
-      font-size: 22px;
+      padding-top: 1.25rem;
+      font-size: 1.375rem;
     }
   }
 `;

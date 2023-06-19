@@ -7,7 +7,7 @@ export const Container = styled.footer`
   flex-direction: column;
   flex: 1;
 
-  padding: 27px 0 36px 0;
+  padding: 1.6875rem 0 2.25rem 0;
 
   background-color: var(--black_07);
 `;
@@ -25,8 +25,8 @@ export const ContentWap = styled.p`
   justify-content: center;
   align-items: center;
 
-  font-weight: 700px;
-  font-size: "16px";
+  font-weight: 700;
+  font-size: 1rem;
   color: var(--black_01);
 `;
 
@@ -35,9 +35,9 @@ export const EmailAddress = styled.span`
   justify-content: center;
   align-items: center;
 
-  margin: 16px;
+  margin: 1rem;
 
-  font-weight: 400px;
-  font-size: "14px";
+  font-weight: 25rem;
+  font-size: 0.875rem;
   color: var(--black_04);
 `;

@@ -4,9 +4,9 @@ import Image from "next/image";
 export const BoxGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px 8px;
+  gap: 1.5rem 0.5rem;
 
-  border-radius: 16px;
+  border-radius: 1rem;
 `;
 
 // SamePetUSerInfo.tsx (style) //
@@ -15,12 +15,12 @@ export const SameUserPetBox = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
 
-  padding: 20px;
+  padding: 1.25rem;
 
   cursor: pointer;
-  border-radius: 16px;
+  border-radius: 1rem;
   background-color: #ffffff;
 
   .Same_User_Nick {
@@ -29,17 +29,17 @@ export const SameUserPetBox = styled.div`
     align-items: center;
 
     font-weight: 700;
-    font-size: 18px;
+    font-size: 1.125rem;
     color: var(--black_03); //#777774
   }
 
   .Same_User_Period {
     background-color: var(--black_07);
-    padding: 3px 10px;
-    margin-left: 8px;
+    padding: 0.1875rem 0.625rem;
+    margin-left: 0.5rem;
 
-    border-radius: 10px;
-    font-size: 10px;
+    border-radius: 0.625rem;
+    font-size: 0.625rem;
     color: var(--black_02);
   }
 `;
