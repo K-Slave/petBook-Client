@@ -10,7 +10,6 @@ const SamePetUserInfo = ({ image, nick, period }: Props) => {
   return (
     <SameUserPetBox>
       <SamePetImage
-        className="Same_User_Profile"
         src={image}
         width={64}
         height={64}

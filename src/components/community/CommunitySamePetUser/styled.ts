@@ -37,12 +37,11 @@ const CommunitySamePetUserBox = styled.div`
     font-size: 34px;
     color: var(--bg_white_02);
 
-    .Banner_Text {
+    .Banner_Box {
       padding: 72px 40px;
     }
 
-    p,
-    span {
+    .Banner_Text {
       padding-top: 20px;
       font-size: 22px;
     }

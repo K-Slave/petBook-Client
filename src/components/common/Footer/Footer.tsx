@@ -49,7 +49,7 @@ const Email = () => {
   return <FooterEmailAddress>petboooklfmlsd@ldfsklf.com</FooterEmailAddress>;
 };
 
-Footer.Wrap = React.memo(Wrap);
+Footer.Wrap = Wrap;
 Footer.Logo = Logo;
 Footer.Content = Content;
 Footer.Email = Email;
