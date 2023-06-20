@@ -13,9 +13,6 @@ import dynamic from "next/dynamic";
 import DefaultLoginForm from "../common/Form/DefaultLoginForm/DefaultLoginForm";
 import FormModuleWrap from "../common/Form/FormModuleWrap";
 
-// TODO : 로그인 되있을시 Redirection 또는 라우팅 처리하기
-// TODO : 로그인 액션후 이동할 페이지 로직 작성하기
-
 const LoginModule = () => {
   return (
     <LoginModule.Wrap>

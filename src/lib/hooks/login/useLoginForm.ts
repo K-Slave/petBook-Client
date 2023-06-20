@@ -28,6 +28,7 @@ const useLoginForm = (props?: UseFormProps) => {
       });
 
       if (loginResponse.response.status === 200) {
+        // TODO : 로그인 액션후 이동할 페이지 로직 작성하기
         router.back();
       } else {
         alert("로그인에 실패하였습니다.");

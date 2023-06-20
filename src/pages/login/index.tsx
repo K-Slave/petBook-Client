@@ -15,6 +15,7 @@ const Main = styled.main`
   background-color: var(--bg_white_02);
 `;
 
+// TODO : 로그인 되있을시 Redirection 또는 라우팅 처리하기
 const Login = () => {
   return (
     <Main>
