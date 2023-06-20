@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import {
-  BackgroundImageButton,
-  BackgroundImageSpan,
-} from "../../Image/BackgroundImage/BackgroundImage.style";
+import { BackgroundImageSpan } from "../../Image/BackgroundImage/BackgroundImage.style";
 import CommonLabel from "../../Label/CommonLabel";
 import CommonInput from "../CommonInput/CommonInput";
 
@@ -16,12 +13,6 @@ export const FocusBasedBgSpan = styled(BackgroundImageSpan)`
   position: absolute;
   z-index: 1;
   left: 1.25rem;
-`;
-
-export const PasswordShowHideButton = styled(BackgroundImageButton)`
-  position: absolute;
-  z-index: 1;
-  right: 1.25rem;
 `;
 
 export const FocusBasedInputElem = styled(CommonInput)<{

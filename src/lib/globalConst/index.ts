@@ -38,3 +38,7 @@ export const commonReg = {
   password:
     "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$",
 };
+
+export const STORAGE_PATH =
+  process.env.NEXT_PUBLIC_STORAGE ||
+  "https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnkpahvshifr/b/petbook-image/o/assets";

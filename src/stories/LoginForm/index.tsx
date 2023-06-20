@@ -1,4 +1,8 @@
-import React, { FormEventHandler, PropsWithChildren } from "react";
+import React, {
+  ChangeEventHandler,
+  FormEventHandler,
+  PropsWithChildren,
+} from "react";
 import {
   LoginFormInputBoxDiv,
   LoginFormBox,
@@ -19,20 +23,42 @@ import useLoginForm from "@lib/hooks/login/useLoginForm";
 import { VerticalDividerSpan } from "../common/Divider/Divider.style";
 import dynamic from "next/dynamic";
 import { commonReg } from "../../lib/globalConst";
+import PWShowHide from "../common/PWShowHideButton";
+import usePWShowHide from "@lib/hooks/input/usePWShowHide";
+import localConsole from "@lib/utils/localConsole";
 
 // TODO : 외부에서 받아온 props를 Zustand에 저장하고, Zustand를 통해 상태 관리
 // TODO : 로그인 되있을시 Redirection 또는 라우팅 처리하기
 // TODO : 로그인 액션후 이동할 페이지 로직 작성하기
 
 const LoginForm = () => {
+  const { isPWHide, onClickPW } = usePWShowHide();
   const {
     emailRegister,
     passwordRegister,
-    onSubmit,
     isSubmitting,
     formSubState,
     setFormSubState,
+    onSubmit,
   } = useLoginForm();
+
+  const onEmailChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    if (e.target.value.length <= 1) {
+      setFormSubState({
+        type: "email",
+        value: e.target.value,
+      });
+    }
+  };
+
+  const onPasswordChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    if (e.target.value.length <= 1) {
+      setFormSubState({
+        type: "pw",
+        value: e.target.value,
+      });
+    }
+  };
 
   const emailBgUrl =
     formSubState.email.value.length > 0
@@ -43,6 +69,9 @@ const LoginForm = () => {
     formSubState.password.value.length > 0
       ? inputImg.keyhole_on
       : inputImg.keyhole_off;
+
+  const isEmailTyping = !!formSubState.email.value.length;
+  const isPWTyping = !!formSubState.password.value.length;
 
   return (
     <LoginForm.Wrap onSubmit={onSubmit}>
@@ -56,21 +85,24 @@ const LoginForm = () => {
           pattern={commonReg.email}
           disabled={isSubmitting}
           required
+          isTyping={isEmailTyping}
           width="25rem"
           height="3rem"
           bgUrl={emailBgUrl}
           bgWidth="1rem"
           bgHeight="1rem"
           register={emailRegister}
+          onChange={onEmailChange}
         />
         <LoginForm.Password
-          type="password"
+          type={isPWHide ? "password" : "text"}
           placeholder="비밀번호"
           autoComplete="current-password"
           minLength={authOptions.password.min}
           maxLength={authOptions.password.max}
           pattern={commonReg.password}
           disabled={isSubmitting}
+          isTyping={isPWTyping}
           required
           width="25rem"
           height="3rem"
@@ -78,7 +110,14 @@ const LoginForm = () => {
           bgWidth="1rem"
           bgHeight="1rem"
           register={passwordRegister}
-        />
+          onChange={onPasswordChange}
+        >
+          <PWShowHide
+            isTyping={isPWTyping}
+            isPWHide={isPWHide}
+            onClick={onClickPW}
+          />
+        </LoginForm.Password>
         <LoginForm.CookieBtn
           check={formSubState.check}
           setFormSubState={setFormSubState}

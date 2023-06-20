@@ -1,15 +1,15 @@
-import React, { PropsWithChildren, useState } from "react";
+import React, { PropsWithChildren } from "react";
 import {
   FocusBasedAlginCenterLabel,
   FocusBasedBgSpan,
   FocusBasedInputElem,
-  PasswordShowHideButton,
 } from "./style";
 import { CommonInputProps } from "../CommonInput/CommonInput";
 
 // 포커스 기반 비제어 컴포넌트
 export interface FocusBasedInputProps extends CommonInputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isTyping?: boolean;
   bgUrl?: string;
   bgWidth?: string;
   bgHeight?: string;
@@ -20,20 +20,6 @@ const FocusBasedInput = (props: PropsWithChildren<FocusBasedInputProps>) => {
     props;
   const inputProps = { ...props };
   delete inputProps.children;
-
-  const [isPWHide, setPWHide] = useState(true);
-
-  const inputType = () => {
-    if (type === "password" && isPWHide) {
-      return "password";
-    }
-
-    if (type === "password" && !isPWHide) {
-      return "text";
-    }
-
-    return type;
-  };
 
   const onBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
     if (e.target.validity.valid) {
@@ -60,24 +46,13 @@ const FocusBasedInput = (props: PropsWithChildren<FocusBasedInputProps>) => {
       )}
       <FocusBasedInputElem
         {...inputProps}
-        type={inputType()}
+        type={type}
         onChange={onChange}
         onBlur={onBlur}
         onFocus={onFocus}
         bgWidth={bgWidth}
         register={register}
       />
-      {type === "password" && (
-        <PasswordShowHideButton
-          type="button"
-          url={bgUrl || ""}
-          width={bgWidth || "1rem"}
-          height={bgHeight || "1rem"}
-          onClick={() => {
-            setPWHide(!isPWHide);
-          }}
-        />
-      )}
     </FocusBasedAlginCenterLabel>
   );
 };

@@ -1,5 +1,5 @@
 import { LOGIN_REQUEST } from "@lib/resources/commonResource";
-import { FormEventHandler, useReducer } from "react";
+import { ChangeEventHandler, FormEventHandler, useReducer } from "react";
 import { UseFormProps, useForm } from "react-hook-form";
 import { useSetResource } from "../common/useResource";
 import localConsole from "@lib/utils/localConsole";
@@ -75,24 +75,6 @@ const useLoginForm = (props?: UseFormProps) => {
   const emailRegister = register("email");
   const passwordRegister = register("password");
 
-  emailRegister.onChange = async (e) => {
-    if (e.target.value.length <= 1) {
-      setFormSubState({
-        type: "email",
-        value: e.target.value,
-      });
-    }
-  };
-
-  passwordRegister.onChange = async (e) => {
-    if (e.target.value.length <= 1) {
-      setFormSubState({
-        type: "pw",
-        value: e.target.value,
-      });
-    }
-  };
-
   const onSubmit: FormEventHandler<HTMLFormElement> = handleSubmit(
     async (formValue) => {
       const loginResponse = await mutateAsync({
@@ -112,10 +94,10 @@ const useLoginForm = (props?: UseFormProps) => {
   return {
     emailRegister,
     passwordRegister,
-    onSubmit,
     isSubmitting,
     formSubState,
     setFormSubState,
+    onSubmit,
   };
 };
 
