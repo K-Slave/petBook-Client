@@ -15,7 +15,6 @@ export const LoginModuleBox = styled.form`
   align-content: center;
 
   width: 29rem;
-  height: 28.0206rem;
 
   padding: 2rem 1.6875rem;
 
@@ -27,8 +26,6 @@ export const LoginModuleTitleH1 = styled.h1`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  height: 5.7081rem;
 
   ${TextH3Bold22};
   color: var(--black_01);
@@ -58,7 +55,6 @@ export const LoginModuleCookieButton = styled.button<{ check: boolean }>`
   gap: 0.4375rem;
 
   width: fit-content;
-  height: 1.5rem;
   padding: 0.25rem 0 0.1875rem;
 
   ${TextBodyMedium14};

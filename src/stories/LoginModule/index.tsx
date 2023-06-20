@@ -25,7 +25,6 @@ import dynamic from "next/dynamic";
 import { commonReg } from "../../lib/globalConst";
 import PWShowHide from "../common/PWShowHideButton";
 import usePWShowHide from "@lib/hooks/input/usePWShowHide";
-import localConsole from "@lib/utils/localConsole";
 
 // TODO : 외부에서 받아온 props를 Zustand에 저장하고, Zustand를 통해 상태 관리
 // TODO : 로그인 되있을시 Redirection 또는 라우팅 처리하기
@@ -34,47 +33,26 @@ import localConsole from "@lib/utils/localConsole";
 const LoginModule = () => {
   const { isPWHide, onClickPW } = usePWShowHide();
   const {
+    loginStore,
     emailRegister,
     passwordRegister,
     isSubmitting,
-    formSubState,
-    setFormSubState,
-    onSubmit,
+    evenvtHandler,
   } = useLoginModule();
 
-  const onEmailChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    if (e.target.value.length <= 1) {
-      setFormSubState({
-        type: "email",
-        value: e.target.value,
-      });
-    }
-  };
-
-  const onPasswordChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    if (e.target.value.length <= 1) {
-      setFormSubState({
-        type: "pw",
-        value: e.target.value,
-      });
-    }
-  };
-
   const emailBgUrl =
-    formSubState.email.value.length > 0
+    loginStore.email.length > 0
       ? inputImg.face_wink_on
       : inputImg.face_wink_off;
 
   const pwBgUrl =
-    formSubState.password.value.length > 0
-      ? inputImg.keyhole_on
-      : inputImg.keyhole_off;
+    loginStore.password.length > 0 ? inputImg.keyhole_on : inputImg.keyhole_off;
 
-  const isEmailTyping = !!formSubState.email.value.length;
-  const isPWTyping = !!formSubState.password.value.length;
+  const isEmailTyping = !!loginStore.email.length;
+  const isPWTyping = !!loginStore.password.length;
 
   return (
-    <LoginModule.Wrap onSubmit={onSubmit}>
+    <LoginModule.Wrap onSubmit={evenvtHandler.onSubmit}>
       <LoginModule.Title />
       <LoginModule.InputField>
         <LoginModule.Email
@@ -92,7 +70,7 @@ const LoginModule = () => {
           bgWidth="1rem"
           bgHeight="1rem"
           register={emailRegister}
-          onChange={onEmailChange}
+          onChange={evenvtHandler.onEmailChange}
         />
         <LoginModule.Password
           type={isPWHide ? "password" : "text"}
@@ -110,7 +88,7 @@ const LoginModule = () => {
           bgWidth="1rem"
           bgHeight="1rem"
           register={passwordRegister}
-          onChange={onPasswordChange}
+          onChange={evenvtHandler.onPasswordChange}
         >
           <PWShowHide
             isTyping={isPWTyping}
@@ -119,8 +97,8 @@ const LoginModule = () => {
           />
         </LoginModule.Password>
         <LoginModule.CookieBtn
-          check={formSubState.check}
-          setFormSubState={setFormSubState}
+          check={loginStore.check}
+          onClick={evenvtHandler.onSaveClick}
         />
       </LoginModule.InputField>
       <LoginModule.BottomWrap>
@@ -158,24 +136,12 @@ const InputField = ({ children }: PropsWithChildren<any>) => {
 
 interface CookieBtnProps {
   check: boolean;
-  setFormSubState: React.Dispatch<{
-    type: "email" | "pw" | "cookie";
-    value: string;
-  }>;
+  onClick: () => void;
 }
 
-const CookieBtn = ({ check, setFormSubState }: CookieBtnProps) => {
+const CookieBtn = ({ check, onClick }: CookieBtnProps) => {
   return (
-    <LoginModuleCookieButton
-      type="button"
-      check={check}
-      onClick={() => {
-        setFormSubState({
-          type: "cookie",
-          value: "",
-        });
-      }}
-    >
+    <LoginModuleCookieButton type="button" check={check} onClick={onClick}>
       <BackgroundImageSpan
         url={check ? inputImg.check_true : inputImg.check_false}
         width="0.875rem"
