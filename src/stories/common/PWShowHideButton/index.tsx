@@ -24,6 +24,7 @@ const PWShowHideButton = ({
       {isTyping && (
         <PasswordShowHideButtonStyle
           type="button"
+          className="Show__Hide__Button"
           url={bgUrl || ""}
           width={width || "1rem"}
           height={height || "1rem"}

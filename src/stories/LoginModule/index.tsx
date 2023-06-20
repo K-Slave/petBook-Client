@@ -1,8 +1,4 @@
-import React, {
-  ChangeEventHandler,
-  FormEventHandler,
-  PropsWithChildren,
-} from "react";
+import React, { FormEventHandler, PropsWithChildren } from "react";
 import {
   LoginModuleInputBoxDiv,
   LoginModuleBox,
@@ -19,7 +15,7 @@ import authOptions from "@lib/globalConst/authOptions";
 import FocusBasedInputBox from "../common/Input/FocusBasedInputBox";
 import headerImg from "@/image/headerImg";
 import { BackgroundImageSpan } from "../common/Image/BackgroundImage/BackgroundImage.style";
-import useLoginModule from "@lib/hooks/login/useLoginModule";
+import useLoginModule from "@lib/hooks/login/useLoginForm";
 import { VerticalDividerSpan } from "../common/Divider/Divider.style";
 import dynamic from "next/dynamic";
 import { commonReg } from "../../lib/globalConst";
@@ -54,53 +50,7 @@ const LoginModule = () => {
   return (
     <LoginModule.Wrap onSubmit={evenvtHandler.onSubmit}>
       <LoginModule.Title />
-      <LoginModule.InputField>
-        <LoginModule.Email
-          type="email"
-          placeholder="이메일"
-          autoComplete="email"
-          maxLength={authOptions.email.max}
-          pattern={commonReg.email}
-          disabled={isSubmitting}
-          required
-          isTyping={isEmailTyping}
-          width="25rem"
-          height="3rem"
-          bgUrl={emailBgUrl}
-          bgWidth="1rem"
-          bgHeight="1rem"
-          register={emailRegister}
-          onChange={evenvtHandler.onEmailChange}
-        />
-        <LoginModule.Password
-          type={isPWHide ? "password" : "text"}
-          placeholder="비밀번호"
-          autoComplete="current-password"
-          minLength={authOptions.password.min}
-          maxLength={authOptions.password.max}
-          pattern={commonReg.password}
-          disabled={isSubmitting}
-          isTyping={isPWTyping}
-          required
-          width="25rem"
-          height="3rem"
-          bgUrl={pwBgUrl}
-          bgWidth="1rem"
-          bgHeight="1rem"
-          register={passwordRegister}
-          onChange={evenvtHandler.onPasswordChange}
-        >
-          <PWShowHide
-            isTyping={isPWTyping}
-            isPWHide={isPWHide}
-            onClick={onClickPW}
-          />
-        </LoginModule.Password>
-        <LoginModule.CookieBtn
-          check={loginStore.check}
-          onClick={evenvtHandler.onSaveClick}
-        />
-      </LoginModule.InputField>
+
       <LoginModule.BottomWrap>
         <LoginModule.Submit />
         <LoginModule.Guide />

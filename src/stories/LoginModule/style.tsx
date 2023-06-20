@@ -9,7 +9,7 @@ import {
 import Link from "next/link";
 
 export const LoginModuleBox = styled.form`
-  display: grid;
+  /* display: grid;
   grid-auto-flow: row;
   row-gap: 2rem;
   align-content: center;
@@ -19,7 +19,7 @@ export const LoginModuleBox = styled.form`
   padding: 2rem 1.6875rem;
 
   background-color: var(--bg_white_02);
-  border-radius: 1rem;
+  border-radius: 1rem; */
 `;
 
 export const LoginModuleTitleH1 = styled.h1`

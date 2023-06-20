@@ -1,11 +1,12 @@
 import { LOGIN_REQUEST } from "@lib/resources/commonResource";
-import { ChangeEventHandler, FormEventHandler } from "react";
+import { FocusEvent, FormEventHandler, useRef } from "react";
 import { UseFormProps, useForm } from "react-hook-form";
 import { useSetResource } from "../common/useResource";
 import { useRouter } from "next/router";
 import useLoginStore from "../store/useLoginStore";
+import localConsole from "@lib/utils/localConsole";
 
-const useLoginModule = (props?: UseFormProps) => {
+const useLoginForm = (props?: UseFormProps) => {
   const router = useRouter();
   const loginStore = useLoginStore();
   const { mutateAsync } = useSetResource(LOGIN_REQUEST);
@@ -34,15 +35,51 @@ const useLoginModule = (props?: UseFormProps) => {
     }
   );
 
-  const onEmailChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+  emailRegister.onChange = async (e) => {
     if (e.target.value.length <= 1) {
       loginStore.setEmail(e.target.value);
     }
   };
 
-  const onPasswordChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+  passwordRegister.onChange = async (e) => {
     if (e.target.value.length <= 1) {
       loginStore.setPassword(e.target.value);
+    }
+  };
+
+  emailRegister.onBlur = async (e) => {
+    const event = e as FocusEvent<HTMLInputElement>;
+
+    loginStore.setEmail(event.target.value);
+
+    if (event.relatedTarget?.classList.contains("Show__Hide__Button")) {
+      event.preventDefault();
+      event.target.classList.add("valid");
+      return;
+    }
+
+    if (e.target.validity.valid) {
+      e.target.classList.add("valid");
+    } else if (!e.target.validity.valid && e.target.value.length > 0) {
+      e.target.classList.add("invalid");
+    }
+  };
+
+  passwordRegister.onBlur = async (e) => {
+    const event = e as FocusEvent<HTMLInputElement>;
+
+    loginStore.setPassword(event.target.value);
+
+    if (event.relatedTarget?.classList.contains("Show__Hide__Button")) {
+      event.preventDefault();
+      event.target.classList.add("valid");
+      return;
+    }
+
+    if (e.target.validity.valid) {
+      e.target.classList.add("valid");
+    } else if (!e.target.validity.valid && e.target.value.length > 0) {
+      e.target.classList.add("invalid");
     }
   };
 
@@ -57,11 +94,9 @@ const useLoginModule = (props?: UseFormProps) => {
     isSubmitting,
     evenvtHandler: {
       onSubmit,
-      onEmailChange,
-      onPasswordChange,
       onSaveClick,
     },
   };
 };
 
-export default useLoginModule;
+export default useLoginForm;

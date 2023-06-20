@@ -9,6 +9,7 @@ import { CommonInputProps } from "../CommonInput/CommonInput";
 // 포커스 기반 Input Box
 // Label 태그로 감싸져 있음
 export interface FocusBasedInputBoxProps extends CommonInputProps {
+  inputRef?: React.RefObject<HTMLInputElement>;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isTyping?: boolean;
   bgUrl?: string;
@@ -16,7 +17,7 @@ export interface FocusBasedInputBoxProps extends CommonInputProps {
   bgHeight?: string;
 }
 
-const FocusBasedInputBoxBox = (
+const FocusBasedInputBox = (
   props: PropsWithChildren<FocusBasedInputBoxProps>
 ) => {
   const { children, type, bgUrl, bgWidth, bgHeight, register, onChange } =
@@ -50,8 +51,8 @@ const FocusBasedInputBoxBox = (
       <FocusBasedInputBoxElem
         {...inputProps}
         type={type}
-        onChange={onChange}
-        onBlur={onBlur}
+        onChange={register ? register.onChange : onChange}
+        onBlur={register ? register.onBlur : onBlur}
         onFocus={onFocus}
         bgWidth={bgWidth}
         register={register}
@@ -60,4 +61,4 @@ const FocusBasedInputBoxBox = (
   );
 };
 
-export default FocusBasedInputBoxBox;
+export default FocusBasedInputBox;
