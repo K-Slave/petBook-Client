@@ -24,7 +24,7 @@ const QnaArticleList = () => {
   });
   return (
     <ListBox>
-      {data?.response.data.articles.slice(0, 4).map((article) => (
+      {data?.response.data.result.articles.slice(0, 4).map((article) => (
         <Link key={article.id} href={`/community/list/${article.id}`} passHref>
           <Article>
             <h4>{article.title}</h4>

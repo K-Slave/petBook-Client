@@ -7,4 +7,6 @@ export interface CategoryItem {
   name: string;
 }
 
-export type CategoryListResponse = Array<CategoryItem>;
+export interface CategoryListResponse extends CommonRequestResult {
+  result: Array<CategoryItem>;
+}

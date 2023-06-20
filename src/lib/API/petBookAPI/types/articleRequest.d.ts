@@ -39,9 +39,11 @@ interface ArticleItem {
 }
 
 export type ArticleDetailResponse = ArticleItem;
-export interface ArticleListResponse {
-  articles: ArticleItem[];
-  totalElements: number;
+export interface ArticleListResponse extends CommonRequestResult {
+  result: {
+    articles: ArticleItem[];
+    totalElements: number;
+  };
 }
 
 // article_list
