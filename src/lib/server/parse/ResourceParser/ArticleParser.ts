@@ -31,7 +31,7 @@ export default class ArticleParser extends ResourceParser {
 
   public listPreviewFetch = async () => {
     const { response } = await categoryRequest.category_list();
-    response.data.push({ id: 0, name: "전체" });
+    response.data.result.push({ id: 0, name: "전체" });
 
     const promises = Promise.all(
       itrMap(async (category) => {
@@ -46,7 +46,7 @@ export default class ArticleParser extends ResourceParser {
         };
 
         return this.clientFetch<typeof ARTICLE_LIST_PREVIEW["params"]>(payload);
-      }, response.data)
+      }, response.data.result)
     );
 
     return promises;
