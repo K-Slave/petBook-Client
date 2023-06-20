@@ -10,7 +10,13 @@ interface Props {
   height?: string;
 }
 
-const PWShowHide = ({ isTyping, isPWHide, onClick, width, height }: Props) => {
+const PWShowHideButton = ({
+  isTyping,
+  isPWHide,
+  onClick,
+  width,
+  height,
+}: Props) => {
   const bgUrl = isPWHide ? inputImg.password_hide : inputImg.password_show;
 
   return (
@@ -28,4 +34,4 @@ const PWShowHide = ({ isTyping, isPWHide, onClick, width, height }: Props) => {
   );
 };
 
-export default PWShowHide;
+export default PWShowHideButton;

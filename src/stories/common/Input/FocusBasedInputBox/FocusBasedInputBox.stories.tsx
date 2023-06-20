@@ -2,18 +2,18 @@ import { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 import inputImg from "@/image/inputImg";
 import authOptions from "@lib/globalConst/authOptions";
-import FocusBasedInput, { FocusBasedInputProps } from ".";
+import FocusBasedInputBox, { FocusBasedInputBoxProps } from ".";
 
-const meta: Meta<typeof FocusBasedInput> = {
-  title: "common/Input/FocusBasedInput",
-  component: FocusBasedInput,
+const meta: Meta<typeof FocusBasedInputBox> = {
+  title: "common/Input/FocusBasedInputBox",
+  component: FocusBasedInputBox,
   tags: ["autodocs"],
   parameters: { layout: "fullscreen" },
 };
 
-type Story = StoryObj<typeof FocusBasedInput>;
+type Story = StoryObj<typeof FocusBasedInputBox>;
 
-type EmailExampleProps = FocusBasedInputProps;
+type EmailExampleProps = FocusBasedInputBoxProps;
 
 const EmailExample = (props: EmailExampleProps) => {
   const [value, setValue] = useState("");
@@ -24,7 +24,7 @@ const EmailExample = (props: EmailExampleProps) => {
 
   return (
     <form>
-      <FocusBasedInput
+      <FocusBasedInputBox
         {...props}
         value={value}
         onChange={onChange}
@@ -62,7 +62,7 @@ const PasswordExample = (props: EmailExampleProps) => {
 
   return (
     <form>
-      <FocusBasedInput
+      <FocusBasedInputBox
         {...props}
         value={value}
         onChange={onChange}
@@ -100,9 +100,9 @@ const LabeledExample = (props: EmailExampleProps) => {
 
   return (
     <form>
-      <FocusBasedInput {...props} value={value} onChange={onChange}>
+      <FocusBasedInputBox {...props} value={value} onChange={onChange}>
         <span style={{ padding: "15px" }}>닉네임</span>
-      </FocusBasedInput>
+      </FocusBasedInputBox>
     </form>
   );
 };

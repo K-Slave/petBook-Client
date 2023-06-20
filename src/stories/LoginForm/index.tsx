@@ -16,7 +16,7 @@ import {
 } from "./style";
 import inputImg from "@/image/inputImg";
 import authOptions from "@lib/globalConst/authOptions";
-import FocusBasedInput from "../common/Input/FocusBasedInput";
+import FocusBasedInputBox from "../common/Input/FocusBasedInputBox";
 import headerImg from "@/image/headerImg";
 import { BackgroundImageSpan } from "../common/Image/BackgroundImage/BackgroundImage.style";
 import useLoginForm from "@lib/hooks/login/useLoginForm";
@@ -211,8 +211,8 @@ const Guide = () => {
 LoginForm.Wrap = Wrap;
 LoginForm.Title = Title;
 LoginForm.InputField = InputField;
-LoginForm.Email = FocusBasedInput;
-LoginForm.Password = FocusBasedInput;
+LoginForm.Email = FocusBasedInputBox;
+LoginForm.Password = FocusBasedInputBox;
 LoginForm.CookieBtn = CookieBtn;
 LoginForm.BottomWrap = BottomWrap;
 LoginForm.Submit = Submit;

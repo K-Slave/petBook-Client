@@ -2,12 +2,13 @@ import React, { PropsWithChildren } from "react";
 import {
   FocusBasedAlginCenterLabel,
   FocusBasedBgSpan,
-  FocusBasedInputElem,
+  FocusBasedInputBoxElem,
 } from "./style";
 import { CommonInputProps } from "../CommonInput/CommonInput";
 
-// 포커스 기반 비제어 컴포넌트
-export interface FocusBasedInputProps extends CommonInputProps {
+// 포커스 기반 Input Box
+// Label 태그로 감싸져 있음
+export interface FocusBasedInputBoxProps extends CommonInputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isTyping?: boolean;
   bgUrl?: string;
@@ -15,7 +16,9 @@ export interface FocusBasedInputProps extends CommonInputProps {
   bgHeight?: string;
 }
 
-const FocusBasedInput = (props: PropsWithChildren<FocusBasedInputProps>) => {
+const FocusBasedInputBoxBox = (
+  props: PropsWithChildren<FocusBasedInputBoxProps>
+) => {
   const { children, type, bgUrl, bgWidth, bgHeight, register, onChange } =
     props;
   const inputProps = { ...props };
@@ -44,7 +47,7 @@ const FocusBasedInput = (props: PropsWithChildren<FocusBasedInputProps>) => {
           height={bgHeight || "1rem"}
         />
       )}
-      <FocusBasedInputElem
+      <FocusBasedInputBoxElem
         {...inputProps}
         type={type}
         onChange={onChange}
@@ -57,4 +60,4 @@ const FocusBasedInput = (props: PropsWithChildren<FocusBasedInputProps>) => {
   );
 };
 
-export default FocusBasedInput;
+export default FocusBasedInputBoxBox;

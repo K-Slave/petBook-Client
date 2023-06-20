@@ -1,5 +1,5 @@
 import { render, fireEvent } from "@testing-library/react";
-import FocusBasedInput from ".";
+import FocusBasedInputBox from ".";
 import React, { useState } from "react";
 import renderer from "react-test-renderer";
 
@@ -9,7 +9,7 @@ const TestComponent = () => {
     setValue(e.target.value);
   };
   return (
-    <FocusBasedInput
+    <FocusBasedInputBox
       type="text"
       value={value}
       onChange={onChange}
@@ -20,7 +20,7 @@ const TestComponent = () => {
   );
 };
 
-describe("FocusBasedInput", () => {
+describe("FocusBasedInputBox", () => {
   it("should render without errors", () => {
     const { container } = render(<TestComponent />);
 

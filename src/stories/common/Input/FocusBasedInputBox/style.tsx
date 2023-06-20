@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { BackgroundImageSpan } from "../../Image/BackgroundImage/BackgroundImage.style";
-import CommonLabel from "../../Label/CommonLabel";
+import CommonLabel from "../../Label";
 import CommonInput from "../CommonInput/CommonInput";
 
 export const FocusBasedAlginCenterLabel = styled(CommonLabel)`
@@ -15,7 +15,7 @@ export const FocusBasedBgSpan = styled(BackgroundImageSpan)`
   left: 1.25rem;
 `;
 
-export const FocusBasedInputElem = styled(CommonInput)<{
+export const FocusBasedInputBoxElem = styled(CommonInput)<{
   bgWidth?: string;
 }>`
   padding-left: ${({ bgWidth }) =>
