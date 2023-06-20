@@ -39,11 +39,11 @@ const ArticleBox = ({ category }: { category: CategoryItem }) => {
           <button type="button">더보기</button>
         </Link>
       </div>
-      {data?.response.data.articles.length === 0 ? (
+      {data?.response.data.result.articles.length === 0 ? (
         <p className="text">아직 게시물이 없어요!</p>
       ) : (
         <List>
-          {data?.response.data.articles.map((article) => (
+          {data?.response.data.result.articles.map((article) => (
             <li key={article.id}>
               <Link href={`/community/list/${article.id}`} passHref>
                 <span className="Article_title">{article.title}</span>

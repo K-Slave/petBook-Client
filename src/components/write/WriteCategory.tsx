@@ -24,7 +24,9 @@ const List = () => {
     resource: CATEGORY_LIST,
   });
 
-  const categoryList = data?.response.data ? data?.response.data : [];
+  const categoryList = data?.response.data.result
+    ? data?.response.data.result
+    : [];
 
   const [{ selectedCategory }, setWrite] = useSelectorState(writeState, {
     selectedCategory: {
