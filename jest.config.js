@@ -19,5 +19,9 @@ module.exports = {
   testEnvironment: "jest-environment-jsdom",
   setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"],
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  moduleNameMapper: {
+    "^@/(.*)": "<rootDir>/src/$1",
+    "@lib/(.*)": "<rootDir>/src/lib/$1",
+  },
   verbose: true,
 };

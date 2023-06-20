@@ -109,6 +109,7 @@
     "jest-environment-jsdom": "^29.5.0",
     "jsdoc": "^3.6.11",
     "lint-staged": "^13.2.0",
+    "next-router-mock": "^0.9.6",
     "prettier": "^2.7.1",
     "react-is": "^18.1.0",
     "react-test-renderer": "^18.2.0",

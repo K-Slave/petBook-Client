@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
-export const WrapperForm = styled.form`
+export const FormModuleWrapDiv = styled.div<{ width: string }>`
   display: grid;
   grid-auto-flow: row;
-  row-gap: 2rem;
+  row-gap: 1.25rem;
   align-content: center;
 
-  width: 29rem;
+  width: ${({ width }) => width};
 
   padding: 2rem 1.6875rem;
 
   background-color: var(--bg_white_02);
-  border-radius: 1rem;
+  border-radius: 16px;
 `;

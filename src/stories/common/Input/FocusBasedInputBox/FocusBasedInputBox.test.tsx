@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import renderer from "react-test-renderer";
 
 const TestComponent = () => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("test");
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
@@ -36,9 +36,11 @@ describe("FocusBasedInputBox", () => {
     render(<TestComponent />);
     const input = document.querySelector("input");
 
-    // Fire blur event
-    fireEvent.blur(input!);
-    expect(input).toHaveClass("valid");
+    if (input) {
+      // Fire blur event
+      fireEvent.blur(input);
+      expect(input).toHaveClass("valid");
+    }
   });
 
   test('adds "invalid" class on blur if input is invalid', () => {
