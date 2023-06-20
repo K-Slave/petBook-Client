@@ -8,7 +8,7 @@ import {
 } from "../common/Text/Text.style";
 import Link from "next/link";
 
-export const LoginFormBox = styled.form`
+export const LoginModuleBox = styled.form`
   display: grid;
   grid-auto-flow: row;
   row-gap: 2rem;
@@ -23,7 +23,7 @@ export const LoginFormBox = styled.form`
   border-radius: 1rem;
 `;
 
-export const LoginFormTitleH1 = styled.h1`
+export const LoginModuleTitleH1 = styled.h1`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,13 +34,13 @@ export const LoginFormTitleH1 = styled.h1`
   color: var(--black_01);
 `;
 
-export const LoginFormLogoDiv = styled(BackgroundImageDiv)`
+export const LoginModuleLogoDiv = styled(BackgroundImageDiv)`
   box-sizing: content-box;
   width: 100%;
   padding: 1.0219rem 0;
 `;
 
-export const LoginFormInputBoxDiv = styled.div`
+export const LoginModuleInputBoxDiv = styled.div`
   display: grid;
   grid-auto-flow: row;
   grid-auto-rows: 3rem 3rem auto;
@@ -50,7 +50,7 @@ export const LoginFormInputBoxDiv = styled.div`
   height: 8.5rem;
 `;
 
-export const LoginFormCookieButton = styled.button<{ check: boolean }>`
+export const LoginModuleCookieButton = styled.button<{ check: boolean }>`
   justify-self: flex-end;
   display: grid;
   grid-auto-flow: column;
@@ -73,7 +73,7 @@ export const LoginSubmitBoxDiv = styled.div`
   height: 5.8125rem;
 `;
 
-export const LoginFormSubmitButton = styled.button`
+export const LoginModuleSubmitButton = styled.button`
   width: 100%;
   padding: 0.875rem 0;
 
@@ -84,7 +84,7 @@ export const LoginFormSubmitButton = styled.button`
   color: #fff;
 `;
 
-export const LoginFormGuideDiv = styled.div`
+export const LoginModuleGuideDiv = styled.div`
   display: grid;
   grid-auto-flow: column;
   justify-content: center;
@@ -92,7 +92,7 @@ export const LoginFormGuideDiv = styled.div`
   column-gap: 1.25rem;
 `;
 
-export const LoginFormLink = styled(Link)<{ em?: boolean }>`
+export const LoginModuleLink = styled(Link)<{ em?: boolean }>`
   position: relative;
   top: 0.0625rem;
 
@@ -102,4 +102,4 @@ export const LoginFormLink = styled(Link)<{ em?: boolean }>`
 `;
 
 // TODO: 공용 구분선 컴포넌트 만들어서 붙이기
-// export const LoginFormGuide
+// export const LoginModuleGuide

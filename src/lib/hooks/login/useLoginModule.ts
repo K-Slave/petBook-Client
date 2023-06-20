@@ -1,11 +1,10 @@
 import { LOGIN_REQUEST } from "@lib/resources/commonResource";
-import { ChangeEventHandler, FormEventHandler, useReducer } from "react";
+import { FormEventHandler, useReducer } from "react";
 import { UseFormProps, useForm } from "react-hook-form";
 import { useSetResource } from "../common/useResource";
-import localConsole from "@lib/utils/localConsole";
 import { useRouter } from "next/router";
 
-const useLoginForm = (props?: UseFormProps) => {
+const useLoginModule = (props?: UseFormProps) => {
   const {
     register,
     handleSubmit,
@@ -101,4 +100,4 @@ const useLoginForm = (props?: UseFormProps) => {
   };
 };
 
-export default useLoginForm;
+export default useLoginModule;

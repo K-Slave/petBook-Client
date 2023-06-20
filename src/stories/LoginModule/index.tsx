@@ -4,22 +4,22 @@ import React, {
   PropsWithChildren,
 } from "react";
 import {
-  LoginFormInputBoxDiv,
-  LoginFormBox,
-  LoginFormTitleH1,
-  LoginFormLogoDiv,
-  LoginFormCookieButton,
+  LoginModuleInputBoxDiv,
+  LoginModuleBox,
+  LoginModuleTitleH1,
+  LoginModuleLogoDiv,
+  LoginModuleCookieButton,
   LoginSubmitBoxDiv,
-  LoginFormSubmitButton,
-  LoginFormGuideDiv,
-  LoginFormLink,
+  LoginModuleSubmitButton,
+  LoginModuleGuideDiv,
+  LoginModuleLink,
 } from "./style";
 import inputImg from "@/image/inputImg";
 import authOptions from "@lib/globalConst/authOptions";
 import FocusBasedInputBox from "../common/Input/FocusBasedInputBox";
 import headerImg from "@/image/headerImg";
 import { BackgroundImageSpan } from "../common/Image/BackgroundImage/BackgroundImage.style";
-import useLoginForm from "@lib/hooks/login/useLoginForm";
+import useLoginModule from "@lib/hooks/login/useLoginModule";
 import { VerticalDividerSpan } from "../common/Divider/Divider.style";
 import dynamic from "next/dynamic";
 import { commonReg } from "../../lib/globalConst";
@@ -31,7 +31,7 @@ import localConsole from "@lib/utils/localConsole";
 // TODO : 로그인 되있을시 Redirection 또는 라우팅 처리하기
 // TODO : 로그인 액션후 이동할 페이지 로직 작성하기
 
-const LoginForm = () => {
+const LoginModule = () => {
   const { isPWHide, onClickPW } = usePWShowHide();
   const {
     emailRegister,
@@ -40,7 +40,7 @@ const LoginForm = () => {
     formSubState,
     setFormSubState,
     onSubmit,
-  } = useLoginForm();
+  } = useLoginModule();
 
   const onEmailChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.value.length <= 1) {
@@ -74,10 +74,10 @@ const LoginForm = () => {
   const isPWTyping = !!formSubState.password.value.length;
 
   return (
-    <LoginForm.Wrap onSubmit={onSubmit}>
-      <LoginForm.Title />
-      <LoginForm.InputField>
-        <LoginForm.Email
+    <LoginModule.Wrap onSubmit={onSubmit}>
+      <LoginModule.Title />
+      <LoginModule.InputField>
+        <LoginModule.Email
           type="email"
           placeholder="이메일"
           autoComplete="email"
@@ -94,7 +94,7 @@ const LoginForm = () => {
           register={emailRegister}
           onChange={onEmailChange}
         />
-        <LoginForm.Password
+        <LoginModule.Password
           type={isPWHide ? "password" : "text"}
           placeholder="비밀번호"
           autoComplete="current-password"
@@ -117,17 +117,17 @@ const LoginForm = () => {
             isPWHide={isPWHide}
             onClick={onClickPW}
           />
-        </LoginForm.Password>
-        <LoginForm.CookieBtn
+        </LoginModule.Password>
+        <LoginModule.CookieBtn
           check={formSubState.check}
           setFormSubState={setFormSubState}
         />
-      </LoginForm.InputField>
-      <LoginForm.BottomWrap>
-        <LoginForm.Submit />
-        <LoginForm.Guide />
-      </LoginForm.BottomWrap>
-    </LoginForm.Wrap>
+      </LoginModule.InputField>
+      <LoginModule.BottomWrap>
+        <LoginModule.Submit />
+        <LoginModule.Guide />
+      </LoginModule.BottomWrap>
+    </LoginModule.Wrap>
   );
 };
 
@@ -136,24 +136,24 @@ interface SubmitProps {
 }
 
 const Wrap = ({ children, onSubmit }: PropsWithChildren<SubmitProps>) => {
-  return <LoginFormBox onSubmit={onSubmit}>{children}</LoginFormBox>;
+  return <LoginModuleBox onSubmit={onSubmit}>{children}</LoginModuleBox>;
 };
 
 const Title = () => {
   return (
-    <LoginFormTitleH1>
-      <LoginFormLogoDiv
+    <LoginModuleTitleH1>
+      <LoginModuleLogoDiv
         url={headerImg.petbook_logo}
         width="147.35px"
         height="26.65px"
       />
       로그인 후 다양한 콘텐츠를 즐겨보세요
-    </LoginFormTitleH1>
+    </LoginModuleTitleH1>
   );
 };
 
 const InputField = ({ children }: PropsWithChildren<any>) => {
-  return <LoginFormInputBoxDiv>{children}</LoginFormInputBoxDiv>;
+  return <LoginModuleInputBoxDiv>{children}</LoginModuleInputBoxDiv>;
 };
 
 interface CookieBtnProps {
@@ -166,7 +166,7 @@ interface CookieBtnProps {
 
 const CookieBtn = ({ check, setFormSubState }: CookieBtnProps) => {
   return (
-    <LoginFormCookieButton
+    <LoginModuleCookieButton
       type="button"
       check={check}
       onClick={() => {
@@ -182,7 +182,7 @@ const CookieBtn = ({ check, setFormSubState }: CookieBtnProps) => {
         height="0.875rem"
       />
       로그인 상태 유지
-    </LoginFormCookieButton>
+    </LoginModuleCookieButton>
   );
 };
 
@@ -191,33 +191,35 @@ const BottomWrap = ({ children }: PropsWithChildren<any>) => {
 };
 
 const Submit = () => {
-  return <LoginFormSubmitButton type="submit">로그인</LoginFormSubmitButton>;
+  return (
+    <LoginModuleSubmitButton type="submit">로그인</LoginModuleSubmitButton>
+  );
 };
 
 const Guide = () => {
   return (
-    <LoginFormGuideDiv>
-      <LoginFormLink href="#" target="_blank">
+    <LoginModuleGuideDiv>
+      <LoginModuleLink href="#" target="_blank">
         로그인에 문제가 있나요?
-      </LoginFormLink>
+      </LoginModuleLink>
       <VerticalDividerSpan width="0.0625rem" height="0.75rem" />
-      <LoginFormLink href="/register" em={true}>
+      <LoginModuleLink href="/register" em={true}>
         회원가입
-      </LoginFormLink>
-    </LoginFormGuideDiv>
+      </LoginModuleLink>
+    </LoginModuleGuideDiv>
   );
 };
 
-LoginForm.Wrap = Wrap;
-LoginForm.Title = Title;
-LoginForm.InputField = InputField;
-LoginForm.Email = FocusBasedInputBox;
-LoginForm.Password = FocusBasedInputBox;
-LoginForm.CookieBtn = CookieBtn;
-LoginForm.BottomWrap = BottomWrap;
-LoginForm.Submit = Submit;
-LoginForm.Guide = Guide;
+LoginModule.Wrap = Wrap;
+LoginModule.Title = Title;
+LoginModule.InputField = InputField;
+LoginModule.Email = FocusBasedInputBox;
+LoginModule.Password = FocusBasedInputBox;
+LoginModule.CookieBtn = CookieBtn;
+LoginModule.BottomWrap = BottomWrap;
+LoginModule.Submit = Submit;
+LoginModule.Guide = Guide;
 
-export default dynamic(() => Promise.resolve(LoginForm), {
+export default dynamic(() => Promise.resolve(LoginModule), {
   ssr: false,
 });

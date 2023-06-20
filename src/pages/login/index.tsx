@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import LoginForm from "@/stories/LoginForm";
+import LoginForm from "@/stories/LoginModule";
 
 const Main = styled.main`
   display: flex;
