@@ -1,3 +1,4 @@
+import Head from "next/head";
 import React from "react";
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
 
 const OpenGraphTag = ({ title, desc, url, siteImg }: Props) => {
   return (
-    <>
+    <Head>
       <meta property="og:type" content="website" />
       <meta property="og:locale" content="ko_KR" />
       <meta property="og:site_name" content="petbook" />
@@ -23,7 +24,7 @@ const OpenGraphTag = ({ title, desc, url, siteImg }: Props) => {
       <meta property="og:image:width" content="200" />
       <meta property="og:image:height" content="200" />
       <meta property="og:image:alt" content={title ? title : ""} />
-    </>
+    </Head>
   );
 };
 

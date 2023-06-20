@@ -11,3 +11,7 @@ declare namespace NodeJS {
     NEXT_PUBLIC_PASSWORD_REG: string;
   }
 }
+
+interface Window {
+  dataLayer: any[];
+}

@@ -4,12 +4,14 @@ import React, { useEffect } from "react";
 
 const GTAGScript = () => {
   useEffect(() => {
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag("js", new Date());
-    gtag("config", "G-CKMJ0JWT9R");
+    setTimeout(() => {
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-CKMJ0JWT9R");
+    }, 400);
   });
   return (
     <Script
