@@ -11,6 +11,7 @@ import FocusBasedInputBox from "../../Input/FocusBasedInputBox";
 import PWShowHideButton from "../../PWShowHideButton";
 import LoginSaveButton from "../../LoginSaveButton/LoginSaveButton";
 import HelperText from "../HelperText/HelperText";
+import dynamic from "next/dynamic";
 
 const DefaultLoginForm = () => {
   const { isPWHide, onClickPW } = usePWShowHide();
@@ -38,6 +39,7 @@ const DefaultLoginForm = () => {
       <DefaultLoginForm.Email
         id="Email__Input"
         type="email"
+        name="email"
         placeholder="이메일"
         autoComplete="email"
         defaultValue={loginStore.email}
@@ -52,6 +54,7 @@ const DefaultLoginForm = () => {
       <DefaultLoginForm.Password
         id="PW__Input"
         type={isPWHide ? "password" : "text"}
+        name="password"
         placeholder="비밀번호"
         autoComplete="current-password"
         defaultValue={loginStore.password}
@@ -92,7 +95,7 @@ interface WrapProps {
 
 const Wrap = ({ children, onSubmit }: PropsWithChildren<WrapProps>) => {
   return (
-    <LoginWrapForm onSubmit={onSubmit} noValidate>
+    <LoginWrapForm onSubmit={onSubmit} autoComplete="on">
       {children}
     </LoginWrapForm>
   );
@@ -121,5 +124,9 @@ DefaultLoginForm.MiddleWrap = MiddleWrap;
 DefaultLoginForm.Save = LoginSaveButton;
 DefaultLoginForm.Submit = Submit;
 DefaultLoginForm.Helper = HelperText;
+
+// export default dynamic(() => Promise.resolve(DefaultLoginForm), {
+//   ssr: false,
+// });
 
 export default DefaultLoginForm;

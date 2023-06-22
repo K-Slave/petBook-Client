@@ -1,36 +1,53 @@
 import { commonReg } from "@lib/globalConst";
+import localConsole from "@lib/utils/localConsole";
 
 class inputEventHelperMethod {
-  private e: React.FocusEvent<HTMLInputElement>;
+  private e?:
+    | React.FocusEvent<HTMLInputElement>
+    | React.ChangeEvent<HTMLInputElement>;
+  private target?: HTMLInputElement;
 
-  constructor(e: React.FocusEvent<HTMLInputElement>) {
+  constructor(
+    e?:
+      | React.FocusEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLInputElement>,
+    target?: HTMLInputElement
+  ) {
     this.e = e;
+    this.target = target || e?.target;
   }
 
   public preventBlur = () => {
+    if (!this.e) return;
     this.e.preventDefault();
     this.e.target.classList.add("valid");
   };
 
   public checkValidity = (which: "email" | "password") => {
+    if (!this.target) return false;
+
+    localConsole?.log(this.target.value, "this.target.value");
+
     if (which === "email") {
-      return commonReg.email.test(this.e.target.value);
+      return commonReg.email.test(this.target.value);
     }
 
-    return isValidPassword(this.e.target.value);
-
-    return true;
+    return isValidPassword(this.target.value);
   };
 
   public setValid = (method: "add" | "remove") => {
+    if (!this.target) return;
+
     if (method === "add") {
-      this.e.target.classList.add("valid");
+      this.target.classList.add("valid");
     } else {
-      this.e.target.classList.remove("valid");
+      this.target.classList.remove("valid");
     }
   };
 
   public setInvalid = (method: "add" | "remove") => {
+    if (!this.e) return;
+
     if (method === "add") {
       this.e.target.classList.add("invalid");
     } else {
@@ -39,12 +56,12 @@ class inputEventHelperMethod {
   };
 
   public setSubmitReady = (method: "add" | "remove") => {
-    if (!this.e.target.parentElement) return;
+    if (!this.target || !this.target.parentElement) return;
 
     if (method === "add") {
-      this.e.target.parentElement.classList.add("Submit__Ready");
+      this.target.parentElement.classList.add("Submit__Ready");
     } else {
-      this.e.target.parentElement.classList.remove("Submit__Ready");
+      this.target.parentElement.classList.remove("Submit__Ready");
     }
   };
 }

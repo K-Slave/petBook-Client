@@ -1,10 +1,11 @@
-import { FocusEvent, FormEventHandler, useEffect } from "react";
+import { ChangeEvent, FocusEvent, FormEventHandler, useEffect } from "react";
 import { UseFormProps, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import useLoginStore from "../store/useLoginStore";
 import authOptions from "@lib/globalConst/authOptions";
 import useLoginMutaion from "./useLoginMutaion";
 import inputEventHelperMethod from "@lib/modules/login/inputEventHelperMethod";
+import localConsole from "@lib/utils/localConsole";
 
 const useLoginForm = (props?: UseFormProps) => {
   const router = useRouter();
@@ -12,7 +13,7 @@ const useLoginForm = (props?: UseFormProps) => {
   const { mutateAsync, status, failureReason, errorHelperText } =
     useLoginMutaion();
 
-  const { register, handleSubmit, formState } = useForm<{
+  const { register, handleSubmit, formState, getValues } = useForm<{
     email: string;
     password: string;
   }>();
@@ -43,7 +44,9 @@ const useLoginForm = (props?: UseFormProps) => {
 
       if (loginResponse.response.status === 200) {
         // TODO : 로그인 액션후 이동할 페이지 로직 작성하기
-        router.back();
+        // router.back();
+        // router.push('/');
+        // window.location.reload();
       }
     }
   );
@@ -51,7 +54,7 @@ const useLoginForm = (props?: UseFormProps) => {
   emailRegister.onBlur = async (e) => {
     const event = e as FocusEvent<HTMLInputElement>;
 
-    loginStore.setEmail(e.target.value);
+    loginStore.setEmail(event.target.value);
 
     const handler = new inputEventHelperMethod(event);
 
@@ -71,7 +74,7 @@ const useLoginForm = (props?: UseFormProps) => {
   passwordRegister.onBlur = async (e) => {
     const event = e as FocusEvent<HTMLInputElement>;
 
-    loginStore.setPassword(e.target.value);
+    loginStore.setPassword(event.target.value);
 
     const handler = new inputEventHelperMethod(event);
 
@@ -108,6 +111,33 @@ const useLoginForm = (props?: UseFormProps) => {
     }
   };
 
+  const onEmailAutoComplete = (e: any) => {
+    const event = e as ChangeEvent<HTMLInputElement>;
+
+    const emailHandler = new inputEventHelperMethod(event);
+
+    if (event.target.value.length > 0 && emailHandler.checkValidity("email")) {
+      loginStore.setEmail(event.target.value);
+      emailHandler.setValid("add");
+      emailHandler.setSubmitReady("add");
+    }
+  };
+
+  const onPWAutoComplete = (e: any) => {
+    const event = e as ChangeEvent<HTMLInputElement>;
+
+    const passwordHandler = new inputEventHelperMethod(event);
+
+    if (
+      event.target.value.length > 0 &&
+      passwordHandler.checkValidity("password")
+    ) {
+      loginStore.setPassword(event.target.value);
+      passwordHandler.setValid("add");
+      passwordHandler.setSubmitReady("add");
+    }
+  };
+
   useEffect(() => {
     const $Email__Input =
       document.querySelector<HTMLInputElement>("#Email__Input");
@@ -116,9 +146,17 @@ const useLoginForm = (props?: UseFormProps) => {
     if ($Email__Input && $PW__Input) {
       $Email__Input.addEventListener("keydown", onEmailKeyDown);
       $PW__Input.addEventListener("keydown", onPWKeyDown);
+
+      $Email__Input.addEventListener("change", onEmailAutoComplete, {
+        once: true,
+      });
+      $PW__Input.addEventListener("change", onPWAutoComplete, { once: true });
     }
 
     return () => {
+      loginStore.setEmail(getValues("email"));
+      loginStore.setPassword(getValues("password"));
+
       const $Email__Input =
         document.querySelector<HTMLInputElement>("#Email__Input");
       const $PW__Input = document.querySelector<HTMLInputElement>("#PW__Input");
@@ -126,9 +164,8 @@ const useLoginForm = (props?: UseFormProps) => {
       if ($Email__Input && $PW__Input) {
         $Email__Input.removeEventListener("keydown", onEmailKeyDown);
         $PW__Input.removeEventListener("keydown", onPWKeyDown);
-
-        loginStore.setEmail($Email__Input.value);
-        loginStore.setPassword($PW__Input.value);
+        $Email__Input.removeEventListener("change", onEmailAutoComplete);
+        $PW__Input.removeEventListener("change", onPWAutoComplete);
       }
     };
   }, []);
