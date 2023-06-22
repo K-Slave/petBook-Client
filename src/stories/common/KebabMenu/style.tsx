@@ -1,10 +1,16 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const KebabMenuBox = styled.div<{ width?: string; height?: string }>`
+export const KebabMenuBox = styled.div<{
+  width?: string;
+  height?: string;
+  color?: string;
+}>`
   position: relative;
-  width: ${({ width }) => width};
-  height: ${({ height }) => height};
-  color: var(--black_04);
+  ${({ width, height, color }) => css`
+    width: ${width};
+    height: ${height};
+    color: ${color};
+  `}
 `;
 
 export const KebabMenuButton = styled.button`
@@ -17,7 +23,20 @@ export const KebabMenuButton = styled.button`
   }
 `;
 
-export const MenuListDiv = styled.div<{ top?: string }>`
+export const KebabMenuListWrapper = styled.div<{
+  top?: string;
+  left?: string;
+  right?: string;
+}>`
+  position: absolute;
+  ${({ top, right, left }) => css`
+    top: ${top};
+    right: ${right};
+    left: ${left};
+  `}
+`;
+
+export const DefaultMenuListDiv = styled.div<{ top?: string }>`
   position: absolute;
   top: ${({ top }) => top};
   right: 0;
