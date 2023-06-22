@@ -4,7 +4,7 @@ import { TextH4Bold18 } from "../../Text/Text.style";
 export const LoginWrapForm = styled.form`
   display: grid;
   grid-auto-flow: row;
-  grid-auto-rows: 3rem 3rem auto auto;
+  grid-auto-rows: 3rem 3rem auto auto auto;
   justify-content: center;
   row-gap: 0.5rem;
 `;

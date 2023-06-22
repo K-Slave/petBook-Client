@@ -1,23 +1,34 @@
-import { LOGIN_REQUEST } from "@lib/resources/commonResource";
-import { FocusEvent, FormEventHandler, useRef } from "react";
+import { FocusEvent, FormEventHandler, useEffect } from "react";
 import { UseFormProps, useForm } from "react-hook-form";
-import { useSetResource } from "../common/useResource";
 import { useRouter } from "next/router";
 import useLoginStore from "../store/useLoginStore";
-import localConsole from "@lib/utils/localConsole";
+import authOptions from "@lib/globalConst/authOptions";
+import useLoginMutaion from "./useLoginMutaion";
 
 const useLoginForm = (props?: UseFormProps) => {
   const router = useRouter();
   const loginStore = useLoginStore();
-  const { mutateAsync } = useSetResource(LOGIN_REQUEST);
+  const { mutateAsync, status, failureReason, errorHelperText } =
+    useLoginMutaion();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = useForm<{ email: string; password: string }>();
+  const { register, handleSubmit, formState } = useForm<{
+    email: string;
+    password: string;
+  }>();
   const emailRegister = register("email");
   const passwordRegister = register("password");
+
+  emailRegister.maxLength = authOptions.email.max;
+  passwordRegister.minLength = authOptions.password.min;
+  passwordRegister.maxLength = authOptions.password.max;
+
+  emailRegister.disabled = formState.isSubmitting;
+  passwordRegister.disabled = formState.isSubmitting;
+
+  // passwordRegister.pattern = commonReg.password;
+
+  // emailRegister.required = true;
+  // passwordRegister.required = true;
 
   const onSubmit: FormEventHandler<HTMLFormElement> = handleSubmit(
     async (formValue) => {
@@ -30,28 +41,12 @@ const useLoginForm = (props?: UseFormProps) => {
       if (loginResponse.response.status === 200) {
         // TODO : 로그인 액션후 이동할 페이지 로직 작성하기
         router.back();
-      } else {
-        alert("로그인에 실패하였습니다.");
       }
     }
   );
 
-  emailRegister.onChange = async (e) => {
-    if (e.target.value.length <= 1) {
-      loginStore.setEmail(e.target.value);
-    }
-  };
-
-  passwordRegister.onChange = async (e) => {
-    if (e.target.value.length <= 1) {
-      loginStore.setPassword(e.target.value);
-    }
-  };
-
   emailRegister.onBlur = async (e) => {
     const event = e as FocusEvent<HTMLInputElement>;
-
-    loginStore.setEmail(event.target.value);
 
     if (event.relatedTarget?.classList.contains("Show__Hide__Button")) {
       event.preventDefault();
@@ -68,8 +63,6 @@ const useLoginForm = (props?: UseFormProps) => {
 
   passwordRegister.onBlur = async (e) => {
     const event = e as FocusEvent<HTMLInputElement>;
-
-    loginStore.setPassword(event.target.value);
 
     if (event.relatedTarget?.classList.contains("Show__Hide__Button")) {
       event.preventDefault();
@@ -88,11 +81,56 @@ const useLoginForm = (props?: UseFormProps) => {
     loginStore.setCheck();
   };
 
+  const onEmailKeyDown = (e: KeyboardEvent) => {
+    const input = e.target as HTMLInputElement;
+
+    if (input.value.length <= 1) {
+      loginStore.setEmail(input.value);
+    }
+  };
+
+  const onPWKeyDown = (e: KeyboardEvent) => {
+    const input = e.target as HTMLInputElement;
+
+    if (input.value.length <= 1) {
+      loginStore.setPassword(input.value);
+    }
+  };
+
+  useEffect(() => {
+    const $Email__Input =
+      document.querySelector<HTMLInputElement>("#Email__Input");
+    const $PW__Input = document.querySelector<HTMLInputElement>("#PW__Input");
+
+    if ($Email__Input && $PW__Input) {
+      $Email__Input.addEventListener("keydown", onEmailKeyDown);
+      $PW__Input.addEventListener("keydown", onPWKeyDown);
+    }
+
+    return () => {
+      const $Email__Input =
+        document.querySelector<HTMLInputElement>("#Email__Input");
+      const $PW__Input = document.querySelector<HTMLInputElement>("#PW__Input");
+
+      if ($Email__Input && $PW__Input) {
+        $Email__Input.removeEventListener("keydown", onEmailKeyDown);
+        $PW__Input.removeEventListener("keydown", onPWKeyDown);
+
+        loginStore.setEmail($Email__Input.value);
+        loginStore.setPassword($PW__Input.value);
+      }
+    };
+  }, []);
+
   return {
     loginStore,
+    loginRequest: {
+      status,
+      failureReason,
+      errorHelperText,
+    },
     emailRegister,
     passwordRegister,
-    isSubmitting,
     evenvtHandler: {
       onSubmit,
       onSaveClick,

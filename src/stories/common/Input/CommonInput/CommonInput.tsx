@@ -15,8 +15,8 @@ const CommonInput = (props: CommonInputProps) => {
   return (
     <StyledCommonInput
       placeholder={props.placeholder || "내용을 입력해주세요."}
-      {...props.register}
       {...props}
+      {...props.register}
     />
   );
 };

@@ -1,4 +1,9 @@
-import { AxiosInstance, AxiosRequestHeaders, AxiosResponse } from "axios";
+import {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestHeaders,
+  AxiosResponse,
+} from "axios";
 import { getQueryString, getUrl } from "../axios/xhrFunctions";
 import localConsole from "@lib/utils/localConsole";
 
@@ -12,14 +17,31 @@ interface GetResultArgs<P extends object | string | undefined> {
 }
 
 export interface GetResultReturn<T, P = object | string | undefined> {
-  response: AxiosResponse<T, any>;
+  // response: AxiosResponse<T, any>;
+  // request: {
+  //   requestMethod: AxiosMethod;
+  //   requestURL: string;
+  //   body: P | undefined;
+  //   timeout: number;
+  //   requestHeaders: AxiosRequestHeaders | undefined;
+  // };
+
+  headers: null;
+  config: null;
+  response: {
+    data: T | null;
+    status: number | null;
+    statusText: string | null;
+  };
   request: {
     requestMethod: AxiosMethod;
     requestURL: string;
-    body: P | undefined;
+    body: P | null;
     timeout: number;
-    requestHeaders: AxiosRequestHeaders | undefined;
   };
+  data: T;
+  status: number;
+  statusText: string;
 }
 
 // URL 적는 규칙 : BaseUrl 을 제외하고는 모두 /uri 형태로 시작
@@ -96,6 +118,7 @@ export default class RequestCore {
     requestHeaders,
     body,
   }: GetResultArgs<P>) => {
+    // try {
     const response =
       this.client &&
       (await this.client.request<T>({
@@ -110,9 +133,9 @@ export default class RequestCore {
       delete response.request;
     }
 
-    const result: {
+    const successResult: {
       response: {
-        data: AxiosResponse<T>["data"];
+        data: AxiosResponse<T>["data"] | null;
         status: AxiosResponse<T>["status"] | null;
         statusText: AxiosResponse<T>["statusText"] | null;
       };
@@ -136,6 +159,53 @@ export default class RequestCore {
       },
     };
 
-    return result as GetResultReturn<T, P>;
+    const result = {
+      ...response,
+      ...successResult,
+      headers: null,
+      config: null,
+    };
+
+    return result;
+    // } catch (err) {
+    //   const error = err as AxiosError<T, P>;
+
+    //   if (error.request) {
+    //     delete error.request;
+    //   }
+
+    //   const errorResult: {
+    //     response: {
+    //       data: AxiosResponse<T>['data'] | null;
+    //       status: AxiosResponse<T>['status'] | null;
+    //       statusText: AxiosResponse<T>['statusText'] | null;
+    //     };
+    //     request: {
+    //       requestMethod: AxiosMethod;
+    //       requestURL: string;
+    //       body: P | null;
+    //       timeout: number;
+    //     };
+    //   } = {
+    //     response: {
+    //       data: error.response?.data || null,
+    //       status: error.response?.status || null,
+    //       statusText: error.response?.statusText || null,
+    //     },
+    //     request: {
+    //       requestMethod,
+    //       requestURL,
+    //       body: body || null,
+    //       timeout: 10000,
+    //     },
+    //   };
+
+    //   const result = {
+    //     ...error,
+    //     ...errorResult,
+    //   };
+
+    //   return result;
+    // }
   };
 }

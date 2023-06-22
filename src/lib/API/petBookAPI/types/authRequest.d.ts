@@ -8,8 +8,22 @@ export interface ProxyLoginRequest extends AuthLoginRequest {
   isSave: boolean;
 }
 
-export interface AuthLoginResponse {
+export interface AuthLoginResponse extends CommonRequestResult {
+  result: AuthLoginSuccess;
+}
+
+export interface AuthLoginSuccess {
   token?: string;
+}
+
+export interface AuthLoginError {
+  timestamp: string;
+  status: number;
+  error: string;
+  message: string;
+  path: string;
+  errorType: string;
+  token?: undefined;
 }
 
 export interface AuthLogoutResponse {

@@ -1,23 +1,24 @@
 import React, { FormEventHandler, PropsWithChildren } from "react";
 import { LoginSubmitButton, LoginWrapForm } from "./DefaultLoginForm.style";
 import inputImg from "@/image/inputImg";
-import useLoginModule from "@lib/hooks/login/useLoginForm";
+import useLoginForm from "@lib/hooks/login/useLoginForm";
 import usePWShowHide from "@lib/hooks/input/usePWShowHide";
 import FocusBasedInputBox from "../../Input/FocusBasedInputBox";
 import PWShowHideButton from "../../PWShowHideButton";
-import authOptions from "@lib/globalConst/authOptions";
-import { commonReg } from "@lib/globalConst";
 import LoginSaveButton from "../../LoginSaveButton/LoginSaveButton";
+import { AuthLoginError } from "@lib/API/petBookAPI/types/authRequest";
+import localConsole from "@lib/utils/localConsole";
+import HelperText from "../../Text/HelperText/HelperText";
 
 const DefaultLoginForm = () => {
   const { isPWHide, onClickPW } = usePWShowHide();
   const {
     loginStore,
+    loginRequest,
     emailRegister,
     passwordRegister,
-    isSubmitting,
     evenvtHandler,
-  } = useLoginModule();
+  } = useLoginForm();
 
   const emailBgUrl =
     loginStore.email.length > 0
@@ -33,13 +34,11 @@ const DefaultLoginForm = () => {
   return (
     <DefaultLoginForm.Wrap onSubmit={evenvtHandler.onSubmit}>
       <DefaultLoginForm.Email
+        id="Email__Input"
         type="email"
         placeholder="이메일"
         autoComplete="email"
         defaultValue={loginStore.email}
-        maxLength={authOptions.email.max}
-        disabled={isSubmitting}
-        required
         isTyping={isEmailTyping}
         width="25rem"
         height="3rem"
@@ -49,16 +48,12 @@ const DefaultLoginForm = () => {
         register={emailRegister}
       />
       <DefaultLoginForm.Password
+        id="PW__Input"
         type={isPWHide ? "password" : "text"}
         placeholder="비밀번호"
         autoComplete="current-password"
         defaultValue={loginStore.password}
-        minLength={authOptions.password.min}
-        maxLength={authOptions.password.max}
-        pattern={commonReg.password}
-        disabled={isSubmitting}
         isTyping={isPWTyping}
-        required
         width="25rem"
         height="3rem"
         bgUrl={pwBgUrl}
@@ -78,6 +73,10 @@ const DefaultLoginForm = () => {
         text="로그인 상태 유지"
       />
       <DefaultLoginForm.Submit />
+      <DefaultLoginForm.Helper
+        status={loginRequest.status}
+        message={loginRequest.errorHelperText}
+      />
     </DefaultLoginForm.Wrap>
   );
 };
@@ -87,7 +86,11 @@ interface WrapProps {
 }
 
 const Wrap = ({ children, onSubmit }: PropsWithChildren<WrapProps>) => {
-  return <LoginWrapForm onSubmit={onSubmit}>{children}</LoginWrapForm>;
+  return (
+    <LoginWrapForm onSubmit={onSubmit} noValidate>
+      {children}
+    </LoginWrapForm>
+  );
 };
 
 const Submit = () => {
@@ -99,5 +102,6 @@ DefaultLoginForm.Email = FocusBasedInputBox;
 DefaultLoginForm.Password = FocusBasedInputBox;
 DefaultLoginForm.Save = LoginSaveButton;
 DefaultLoginForm.Submit = Submit;
+DefaultLoginForm.Helper = HelperText;
 
 export default DefaultLoginForm;
