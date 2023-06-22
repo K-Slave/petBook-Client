@@ -56,7 +56,9 @@ export const NormalItem = ({
             year={1}
           />
           {userData?.id == user.id && !isEditing && (
-            <KebabMenu menuList={menuList} />
+            <KebabMenu
+              MenuListBox={<KebabMenu.DefaultListBox menuList={menuList} />}
+            />
           )}
         </div>
         {isEditing ? (
@@ -122,7 +124,9 @@ export const QnaItem = ({ comment, isChild, clickDeleteMenu }: ItemProps) => {
             <p className="Item_Content">{content}</p>
           )}
           {userData?.id == user.id && !isEditing && (
-            <KebabMenu menuList={menuList} />
+            <KebabMenu
+              MenuListBox={<KebabMenu.DefaultListBox menuList={menuList} />}
+            />
           )}
         </div>
         {!isEditing && (

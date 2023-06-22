@@ -36,10 +36,7 @@ export const KebabMenuListWrapper = styled.div<{
   `}
 `;
 
-export const DefaultMenuListDiv = styled.div<{ top?: string }>`
-  position: absolute;
-  top: ${({ top }) => top};
-  right: 0;
+export const DefaultMenuListDiv = styled.div`
   width: 6.25rem;
   display: flex;
   flex-direction: column;

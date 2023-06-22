@@ -4,7 +4,6 @@ import KebabMenu from ".";
 const meta: Meta<typeof KebabMenu> = {
   title: "common/KebabMenu",
   component: KebabMenu,
-  tags: ["autodocs"],
   decorators: [
     (Story) => (
       <div style={{ marginLeft: "5rem" }}>
@@ -17,22 +16,25 @@ const meta: Meta<typeof KebabMenu> = {
 type Story = StoryObj<typeof KebabMenu>;
 export const DefaultKebabMenu: Story = {
   args: {
-    menuList: [
-      {
-        name: "수정",
-      },
-      {
-        name: "삭제",
-      },
-    ],
+    MenuListBox: (
+      <KebabMenu.DefaultListBox
+        menuList={[
+          { name: "수정" },
+          {
+            name: "삭제",
+          },
+        ]}
+      />
+    ),
   },
 };
+
 export const CustomKebabMenu: Story = {
   args: {
     width: "50px",
     height: "50px",
     color: "red",
-    positionLeftStyle: "0",
+    boxPositionLeftStyle: "0",
     MenuListBox: (
       <div
         style={{

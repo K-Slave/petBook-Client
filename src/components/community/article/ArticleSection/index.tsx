@@ -69,7 +69,11 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
     <ArticleSectionBox>
       <div className="ArticleSection_Top_Row">
         <h2>{title}</h2>
-        {user.id == userData?.id && <KebabMenu menuList={menuList} />}
+        {user.id == userData?.id && (
+          <KebabMenu
+            MenuListBox={<KebabMenu.DefaultListBox menuList={menuList} />}
+          />
+        )}
       </div>
       <CommonInfo
         avatar={dummyImage}

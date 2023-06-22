@@ -8,31 +8,15 @@ import {
   DefaultMenuListDiv,
 } from "./style";
 
-interface MenuListBoxProps {
-  top?: string;
-  menuList: {
-    name: string;
-    onClick?: MouseEventHandler<HTMLButtonElement>;
-  }[];
-}
-
-type KebabMenuProps =
-  | {
-      width?: string;
-      height?: string;
-      color?: string;
-      menuStyle?: React.CSSProperties;
-      MenuListBox: React.ReactNode;
-      positionLeftStyle: string;
-      positionRightStyle?: string;
-    }
-  | {
-      width?: string;
-      height?: string;
-      color?: string;
-      menuStyle?: React.CSSProperties;
-      menuList: MenuListBoxProps["menuList"];
-    };
+type KebabMenuProps = {
+  width?: string;
+  height?: string;
+  color?: string;
+  menuStyle?: React.CSSProperties;
+  MenuListBox: React.ReactNode;
+  boxPositionLeftStyle?: string;
+  boxPositionRightStyle?: string;
+};
 
 const KebabMenu = ({
   width,
@@ -55,26 +39,31 @@ const KebabMenu = ({
         <KebabMenuButton type="button" onClick={onClickToggle}>
           <ThreeDotsVertical />
         </KebabMenuButton>
-        {show &&
-          ("menuList" in props ? (
-            <KebabMenu.ListBox menuList={props.menuList} top={width} />
-          ) : (
-            <KebabMenuListWrapper
-              top={width}
-              left={props.positionLeftStyle}
-              right={props.positionRightStyle}
-            >
-              {props.MenuListBox}
-            </KebabMenuListWrapper>
-          ))}
+        {show && (
+          <KebabMenuListWrapper
+            top={width}
+            left={props.boxPositionLeftStyle}
+            right={props.boxPositionRightStyle}
+          >
+            {props.MenuListBox}
+          </KebabMenuListWrapper>
+        )}
       </KebabMenuBox>
     </OnClickOutside>
   );
 };
 
-export const DefaultMenuListBox = ({ menuList, top }: MenuListBoxProps) => {
+interface MenuListBoxProps {
+  menuList: {
+    name: string;
+    onClick?: MouseEventHandler<HTMLButtonElement>;
+  }[];
+  style?: React.CSSProperties;
+}
+
+const DefaultMenuListBox = ({ menuList, style }: MenuListBoxProps) => {
   return (
-    <DefaultMenuListDiv top={top}>
+    <DefaultMenuListDiv style={style}>
       {menuList.map(({ name, onClick }) => (
         <button
           className="menu-item-button"
@@ -89,12 +78,12 @@ export const DefaultMenuListBox = ({ menuList, top }: MenuListBoxProps) => {
   );
 };
 
-KebabMenu.ListBox = DefaultMenuListBox;
+KebabMenu.DefaultListBox = DefaultMenuListBox;
 KebabMenu.defaultProps = {
   width: "1.5rem",
   height: "1.5rem",
   color: "var(--black_04)",
-  positionRightStyle: 0,
+  boxPositionRightStyle: "0",
 };
 
 export default KebabMenu;
