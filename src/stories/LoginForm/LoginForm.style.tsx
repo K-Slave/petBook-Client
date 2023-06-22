@@ -4,7 +4,7 @@ import {
   TextBodyMedium14,
   TextH3Bold22,
   TextH4Bold18,
-} from "../../styles/common/Text.style";
+} from "../common/Typography/style";
 
 export const LoginFormBox = styled.form`
   display: grid;
