@@ -73,4 +73,20 @@ export const CommentDeleteModal: Story = {
   },
 };
 
+export const CustomModalWithoutDefaultBox: Story = {
+  args: {
+    defaultModalBox: false,
+    children: (
+      <div
+        style={{
+          background: "white",
+          padding: "1rem",
+        }}
+      >
+        <p>기본 모달 박스 없이 커스텀이 가능합니다!</p>
+      </div>
+    ),
+  },
+};
+
 export default meta;

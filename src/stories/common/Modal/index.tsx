@@ -1,6 +1,6 @@
 import OnClickOutside from "@/stories/common/OnClickOutside";
 import { Container, ModalBox, ButtonBox } from "./style";
-import { useEffect, type PropsWithChildren } from "react";
+import { type PropsWithChildren, useLayoutEffect } from "react";
 import Button, { type ButtonProps } from "../Button";
 
 type ButtonItem = ButtonProps & {
@@ -11,7 +11,8 @@ interface Props {
   subTitle?: string;
   title?: string;
   closeModal: () => void;
-  modalBox?: boolean;
+  defaultModalBox?: boolean;
+  modalBoxStyle?: React.CSSProperties;
   buttons?: [ButtonItem] | [ButtonItem, ButtonItem];
 }
 
@@ -21,18 +22,19 @@ const Modal = ({
   closeModal,
   children,
   buttons,
-  modalBox,
+  defaultModalBox,
+  modalBoxStyle,
 }: PropsWithChildren<Props>) => {
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.style.overflow = "hidden";
     return () => {
-      document.documentElement.style.overflow = "auto";
+      document.documentElement.style.removeProperty("overflow");
     };
   }, []);
   return (
     <Container>
       <OnClickOutside trigger={closeModal}>
-        <ModalBox modalBox={modalBox}>
+        <ModalBox modalBox={defaultModalBox} style={modalBoxStyle}>
           {subTitle && <p className="sub-title">{subTitle}</p>}
           {title && <h1>{title}</h1>}
           {children}
@@ -52,7 +54,7 @@ const Modal = ({
 };
 
 Modal.defaultProps = {
-  modalBox: true,
+  defaultModalBox: true,
 };
 
 export default Modal;
