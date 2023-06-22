@@ -12,6 +12,7 @@ import { cookieKeyName, cookieOptions } from "@lib/globalConst";
 import ownerAuth, { ownerAuthRedirect } from "./helper/ownerAuth";
 import putHttpCookie from "../utils/putHttpCookie";
 import loggedUserRedirect from "./helper/loggedUserRedirect";
+import localConsole from "@lib/utils/localConsole";
 
 // 추후 특정 페이지에서 필요하지 않은 API 호출을 막는 용도로 사용할수 있음
 const userAPIBlackList = [""];
@@ -40,29 +41,27 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
       });
 
       const path = url?.split("?")[0];
-      const { ownerToken, isOwnerCheck, token, user } = getToken(context, {
+      const { ownerToken, token, user } = getToken(context, {
         decode: true,
       });
+
       const locationCookie = cookieList.find(
         (cookie) => cookie.key === cookieKeyName.location
       );
 
-      // 방문자 인증 처리
-
       let resultOwnerToken = ownerToken;
 
-      if (path !== "/" && !ownerToken) {
-        ownerAuthRedirect(context);
-      }
-
       if (
-        isOwnerCheck === false &&
-        (ownerToken === process.env.NEXT_PUBLIC_OWNER ||
-          process.env.NODE_ENV === "development")
+        resultOwnerToken === process.env.NEXT_PUBLIC_OWNER ||
+        process.env.NODE_ENV === "development"
       ) {
         ownerAuth(context);
-
         resultOwnerToken = process.env.NEXT_PUBLIC_OWNER;
+      }
+
+      // 방문자 인증 처리
+      if (path !== "/" && !resultOwnerToken) {
+        ownerAuthRedirect(context);
       }
 
       // 로그인 유저 리다이렉트 처리
@@ -98,7 +97,7 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
             ...props,
             dehydratedState: dehydrate(queryClient),
             token,
-            ownerToken: resultOwnerToken,
+            ownerToken: resultOwnerToken || null,
             user,
             cookieList,
             device,
@@ -149,7 +148,7 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
         props: {
           dehydratedState: dehydrate(queryClient),
           token,
-          ownerToken: resultOwnerToken,
+          ownerToken: resultOwnerToken || null,
           user,
           cookieList,
           device,

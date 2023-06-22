@@ -55,6 +55,11 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
       [cookieKeyName.owner],
       pageProps.ownerToken || process.env.NEXT_PUBLIC_OWNER || ""
     );
+  } else if (pageProps && process.env.NODE_ENV === "development") {
+    queryClient.setQueryData(
+      [cookieKeyName.owner],
+      process.env.NEXT_PUBLIC_OWNER || ""
+    );
   }
 
   if (pageProps && pageProps.requiredResources) {

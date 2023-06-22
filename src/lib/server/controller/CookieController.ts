@@ -7,8 +7,9 @@ export default class CookieController extends CookieService {
     try {
       const cookieKey = String(this.nextReq.body.key);
       const cookieValue = JSON.stringify(this.nextReq.body.value);
+      const cookieSave = this.nextReq.body.isSave;
 
-      const result = this.setCookie(cookieKey, cookieValue);
+      const result = this.setCookie(cookieKey, cookieValue, cookieSave);
       this.nextRes.status(200).json(result);
 
       return result;
