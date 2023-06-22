@@ -1,12 +1,67 @@
 import styled from "styled-components";
-import { TextH4Bold18 } from "../../Text/Text.style";
+import { TextBodyMedium14, TextH4Bold18 } from "../../Text/Text.style";
 
 export const LoginWrapForm = styled.form`
   display: grid;
   grid-auto-flow: row;
-  grid-auto-rows: 3rem 3rem auto auto auto;
+  grid-auto-rows: auto auto auto auto;
   justify-content: center;
   row-gap: 0.5rem;
+
+  * {
+    transition: all 0.2s ease-in-out;
+  }
+
+  @keyframes inputReadyUp {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-0.625rem);
+    }
+  }
+
+  label.Submit__Ready[data-type="email"] {
+    input#Email__Input {
+      height: 3.5rem;
+      padding-top: 1.8125rem;
+      padding-bottom: 0.625rem;
+    }
+  }
+
+  label.Submit__Ready[data-type="email"]::after {
+    content: "이메일";
+
+    position: absolute;
+    left: 3rem;
+
+    ${TextBodyMedium14}
+    color: var(--black_06);
+
+    animation: inputReadyUp 0.2s ease-in-out;
+    animation-fill-mode: forwards;
+  }
+
+  label.Submit__Ready[data-type="password"] {
+    input#PW__Input {
+      height: 3.5rem;
+      padding-top: 1.8125rem;
+      padding-bottom: 0.625rem;
+    }
+  }
+
+  label.Submit__Ready[data-type="password"]::after {
+    content: "비밀번호";
+
+    position: absolute;
+    left: 3rem;
+
+    ${TextBodyMedium14}
+    color: var(--black_06);
+
+    animation: inputReadyUp 0.2s ease-in-out;
+    animation-fill-mode: forwards;
+  }
 `;
 
 export const LoginMiddleWrap = styled.div`

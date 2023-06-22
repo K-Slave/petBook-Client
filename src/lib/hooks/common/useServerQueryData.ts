@@ -1,4 +1,5 @@
 import { QueryKeyList } from "@lib/queries";
+import localConsole from "@lib/utils/localConsole";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 
@@ -15,6 +16,8 @@ const useServerQueryData = <K>(
 
   if (isClientFetch) return { serverData: null, clientHydrated };
   const serverData = queryClient.getQueryData<K>([key + "_RESOURCE"]);
+
+  // localConsole?.log(serverData, 'serverData');
 
   return { serverData, clientHydrated };
 };

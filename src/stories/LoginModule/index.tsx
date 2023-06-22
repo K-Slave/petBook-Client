@@ -61,6 +61,8 @@ LoginModule.Email = FocusBasedInputBox;
 LoginModule.Password = FocusBasedInputBox;
 LoginModule.Guide = Guide;
 
-export default dynamic(() => Promise.resolve(LoginModule), {
-  ssr: false,
-});
+// export default dynamic(() => Promise.resolve(LoginModule), {
+//   ssr: false,
+// });
+
+export default LoginModule;

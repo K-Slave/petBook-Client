@@ -33,6 +33,13 @@ export function useResource<P = ResourceParams, T = ResourceResult>({
     if (serverData.params) {
       resource.params = serverData.params;
     }
+  } else {
+    // 서버에서 사용한 쿼리 데이터가 없다면, 새로운 파라미터로 쿼리 키를 생성합니다.
+    resource.key = createKey(resource.name, payload);
+
+    if (payload) {
+      resource.params = payload;
+    }
   }
 
   // 새로운 파라미터가 들어왔다면, 새로운 파라미터로 쿼리 키를 생성합니다.

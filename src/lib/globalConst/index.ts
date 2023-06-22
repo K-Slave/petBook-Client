@@ -34,7 +34,8 @@ export const cookieKeyName = {
 };
 
 export const commonReg = {
-  password: "^(?=(.*[a-zA-Z]){1,})(?=(.*[\\d]){1,})(?=(.*[\\W]){1,}).{8,}$",
+  email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+  password: /^(?=(.*[a-zA-Z]){1,})(?=(.*[\\d]){1,})(?=(.*[\\W]){1,}).{8,}$/,
 };
 
 export const STORAGE_PATH =

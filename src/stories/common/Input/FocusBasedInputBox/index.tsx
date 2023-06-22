@@ -1,10 +1,11 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useMemo } from "react";
 import {
   FocusBasedAlginCenterLabel,
   FocusBasedBgSpan,
   FocusBasedInputBoxElem,
 } from "./style";
 import { CommonInputProps } from "../CommonInput/CommonInput";
+import inputEventHelperMethod from "@lib/modules/login/inputEventHelperMethod";
 
 // 포커스 기반 Input Box
 // Label 태그로 감싸져 있음
@@ -26,20 +27,28 @@ const FocusBasedInputBox = (
   delete inputProps.children;
 
   const onBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
+    const handler = new inputEventHelperMethod(e);
+
     if (e.target.validity.valid) {
-      e.target.classList.add("valid");
+      handler.setValid("add");
     } else if (!e.target.validity.valid && e.target.value.length > 0) {
       e.target.classList.add("invalid");
+      handler.setInvalid("add");
     }
   };
 
   const onFocus: React.FocusEventHandler<HTMLInputElement> = (e) => {
-    e.target.classList.remove("valid");
-    e.target.classList.remove("invalid");
+    const handler = new inputEventHelperMethod(e);
+
+    handler.setValid("remove");
+    handler.setInvalid("remove");
+    handler.setSubmitReady("remove");
   };
 
+  const dataType = useMemo(() => type, []);
+
   return (
-    <FocusBasedAlginCenterLabel>
+    <FocusBasedAlginCenterLabel data-type={dataType}>
       {children}
       {bgUrl && (
         <FocusBasedBgSpan

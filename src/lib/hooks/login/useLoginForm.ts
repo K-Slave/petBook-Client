@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import useLoginStore from "../store/useLoginStore";
 import authOptions from "@lib/globalConst/authOptions";
 import useLoginMutaion from "./useLoginMutaion";
-import localConsole from "@lib/utils/localConsole";
+import inputEventHelperMethod from "@lib/modules/login/inputEventHelperMethod";
 
 const useLoginForm = (props?: UseFormProps) => {
   const router = useRouter();
@@ -26,14 +26,12 @@ const useLoginForm = (props?: UseFormProps) => {
   emailRegister.disabled = formState.isLoading;
   passwordRegister.disabled = formState.isLoading;
 
-  // passwordRegister.pattern = commonReg.password;
-
   // emailRegister.required = true;
   // passwordRegister.required = true;
 
   const onSubmit: FormEventHandler<HTMLFormElement> = handleSubmit(
     async (formValue) => {
-      if (status === "loading") {
+      if (formState.isLoading) {
         return;
       }
 
@@ -53,32 +51,40 @@ const useLoginForm = (props?: UseFormProps) => {
   emailRegister.onBlur = async (e) => {
     const event = e as FocusEvent<HTMLInputElement>;
 
+    loginStore.setEmail(e.target.value);
+
+    const handler = new inputEventHelperMethod(event);
+
     if (event.relatedTarget?.classList.contains("Show__Hide__Button")) {
-      event.preventDefault();
-      event.target.classList.add("valid");
+      handler.preventBlur();
       return;
     }
 
-    if (e.target.validity.valid) {
-      e.target.classList.add("valid");
-    } else if (!e.target.validity.valid && e.target.value.length > 0) {
-      e.target.classList.add("invalid");
+    if (event.target.validity.valid && handler.checkValidity("email")) {
+      handler.setValid("add");
+      handler.setSubmitReady("add");
+    } else if (!event.target.validity.valid && event.target.value.length > 0) {
+      handler.setInvalid("add");
     }
   };
 
   passwordRegister.onBlur = async (e) => {
     const event = e as FocusEvent<HTMLInputElement>;
 
+    loginStore.setPassword(e.target.value);
+
+    const handler = new inputEventHelperMethod(event);
+
     if (event.relatedTarget?.classList.contains("Show__Hide__Button")) {
-      event.preventDefault();
-      event.target.classList.add("valid");
+      handler.preventBlur();
       return;
     }
 
-    if (e.target.validity.valid) {
-      e.target.classList.add("valid");
-    } else if (!e.target.validity.valid && e.target.value.length > 0) {
-      e.target.classList.add("invalid");
+    if (event.target.validity.valid && handler.checkValidity("password")) {
+      handler.setValid("add");
+      handler.setSubmitReady("add");
+    } else if (!event.target.validity.valid && event.target.value.length > 0) {
+      handler.setInvalid("add");
     }
   };
 

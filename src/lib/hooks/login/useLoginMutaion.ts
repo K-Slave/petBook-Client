@@ -1,7 +1,7 @@
 import { useSetResource } from "../common/useResource";
 import { LOGIN_REQUEST } from "@lib/resources/commonResource";
 import { AuthLoginError } from "@lib/API/petBookAPI/types/authRequest";
-import loginHelperTextSelector from "@lib/modules/loginHelperTextSelector";
+import loginHelperTextSelector from "@lib/modules/login/loginHelperTextSelector";
 
 const useLoginMutaion = () => {
   const { mutateAsync, status, failureReason } = useSetResource(LOGIN_REQUEST);
