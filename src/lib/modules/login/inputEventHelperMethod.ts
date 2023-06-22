@@ -1,5 +1,4 @@
 import { commonReg } from "@lib/globalConst";
-import localConsole from "@lib/utils/localConsole";
 
 class inputEventHelperMethod {
   private e?:
@@ -27,10 +26,12 @@ class inputEventHelperMethod {
     if (!this.target) return false;
 
     if (which === "email") {
-      return commonReg.email.test(this.target.value);
+      return commonReg.email.test(
+        this.target.value || this.target.defaultValue
+      );
     }
 
-    return isValidPassword(this.target.value);
+    return isValidPassword(this.target.value || this.target.defaultValue);
   };
 
   public setValid = (method: "add" | "remove") => {

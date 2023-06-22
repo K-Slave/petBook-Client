@@ -33,44 +33,42 @@ const useLoginForm = (props?: UseFormProps) => {
   // emailRegister.required = true;
   // passwordRegister.required = true;
 
-  const emailValidityCheck = (target?: HTMLInputElement) => {
+  const emailValidityCheck = (
+    target?: HTMLInputElement,
+    defaultValue?: string
+  ) => {
     const emailHandler = new inputEventHelperMethod(undefined, target);
+    const targetValue = defaultValue ? defaultValue || "" : target?.value || "";
+    const isValueExist = target && targetValue.length > 0;
+    const isVaild = emailHandler.checkValidity("email");
+    const vaildityResult = isValueExist && isVaild;
 
-    if (
-      target &&
-      target.value.length > 0 &&
-      emailHandler.checkValidity("email")
-    ) {
-      loginStore.setEmail(target.value);
+    if (vaildityResult) {
+      loginStore.setEmail(targetValue);
       emailHandler.setValid("add");
       emailHandler.setSubmitReady("add");
-    } else if (
-      target &&
-      !emailHandler.checkValidity("email") &&
-      target.value.length > 0
-    ) {
+    } else if (!vaildityResult) {
       emailHandler.setInvalid("add");
       emailHandler.setValid("remove");
       emailHandler.setSubmitReady("remove");
     }
   };
 
-  const onPWValidityCheck = (target?: HTMLInputElement) => {
+  const pwValidityCheck = (
+    target?: HTMLInputElement,
+    defaultValue?: string
+  ) => {
     const passwordHandler = new inputEventHelperMethod(undefined, target);
+    const targetValue = defaultValue ? defaultValue || "" : target?.value || "";
+    const isValueExist = target && targetValue.length > 0;
+    const isVaild = passwordHandler.checkValidity("password");
+    const vaildityResult = isValueExist && isVaild;
 
-    if (
-      target &&
-      target.value.length > 0 &&
-      passwordHandler.checkValidity("password")
-    ) {
-      loginStore.setPassword(target.value);
+    if (vaildityResult) {
+      loginStore.setPassword(targetValue);
       passwordHandler.setValid("add");
       passwordHandler.setSubmitReady("add");
-    } else if (
-      target &&
-      !passwordHandler.checkValidity("password") &&
-      target.value.length > 0
-    ) {
+    } else if (!vaildityResult) {
       passwordHandler.setInvalid("add");
       passwordHandler.setValid("remove");
       passwordHandler.setSubmitReady("remove");
@@ -97,7 +95,7 @@ const useLoginForm = (props?: UseFormProps) => {
       return;
     }
 
-    onPWValidityCheck(event.target);
+    pwValidityCheck(event.target);
   };
 
   const onSaveClick = () => {
@@ -129,7 +127,7 @@ const useLoginForm = (props?: UseFormProps) => {
   const onPWAutoComplete = (e: any) => {
     const event = e as ChangeEvent<HTMLInputElement>;
 
-    onPWValidityCheck(event.target);
+    pwValidityCheck(event.target);
   };
 
   const onSubmit: FormEventHandler<HTMLFormElement> = handleSubmit(
@@ -171,7 +169,7 @@ const useLoginForm = (props?: UseFormProps) => {
         $Email__Input.value.length > 0 ||
         $Email__Input.defaultValue.length > 0
       ) {
-        emailValidityCheck($Email__Input);
+        emailValidityCheck($Email__Input, $Email__Input.defaultValue);
       } else {
         $Email__Input.addEventListener("change", onEmailAutoComplete, {
           once: true,
@@ -179,7 +177,7 @@ const useLoginForm = (props?: UseFormProps) => {
       }
 
       if ($PW__Input.value.length > 0 || $PW__Input.defaultValue.length > 0) {
-        onPWValidityCheck($PW__Input);
+        pwValidityCheck($PW__Input, $Email__Input.defaultValue);
       } else {
         $PW__Input.addEventListener("change", onPWAutoComplete, { once: true });
       }
