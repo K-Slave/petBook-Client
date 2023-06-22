@@ -19,7 +19,7 @@ const ImageSliderModal = ({
   closeModal,
 }: Props) => {
   return (
-    <Modal closeModal={closeModal} defaultModalBox={false}>
+    <Modal closeModal={closeModal}>
       <SliderDiv>
         <CustomSwiper
           loop

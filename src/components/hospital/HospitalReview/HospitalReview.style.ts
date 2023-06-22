@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const ReviewWarp = styled.section`
-  padding: 1.5rem 0 0;
   max-height: calc(100vh - 12.5rem);
   width: 100%;
   overflow-y: scroll;

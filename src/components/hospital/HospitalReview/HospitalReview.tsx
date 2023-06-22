@@ -28,6 +28,7 @@ import {
 } from "@lib/resources/hospitalResource";
 import Modal from "@/stories/common/Modal";
 import Button from "@/stories/common/Button";
+import Typography from "@/stories/common/Typography";
 
 const PETDATA = [
   {
@@ -198,37 +199,50 @@ const HospitalReview = ({
   };
 
   return (
-    <Modal
-      closeModal={closeModal}
-      subTitle={hospitalName}
-      title="리뷰 작성"
-      buttons={[
-        {
-          text: "취소",
-          variant: "secondary",
-          onClick: closeModal,
-        },
-        {
-          text: "작성 완료",
-          variant: "primary",
-          onClick: onSubmit,
-          disabled: true,
-        },
-      ]}
-    >
-      <ReviewWarp className="Review">
-        {/* <ReviewAddButton onClick={AddReviewBox}>추가</ReviewAddButton> */}
-        {reviewForm?.map((item, index) => {
-          return (
-            <HospitalReviewBox
-              hospitalId={hospitalId}
-              key={index}
-              reviewIndex={index}
-              removeBox={() => RemoveReviewBox(index)}
-            />
-          );
-        })}
-      </ReviewWarp>
+    <Modal closeModal={closeModal}>
+      <Modal.DefaultContentBox>
+        <Typography
+          tag="p"
+          variant="body-default-medium"
+          color="var(--black_03)"
+          style={{
+            marginBottom: "0.25rem",
+          }}
+        >
+          {hospitalName}
+        </Typography>
+        <Typography
+          tag="h1"
+          variant="h3-bold"
+          color="var(--black_01)"
+          style={{
+            marginBottom: "1.5rem",
+          }}
+        >
+          리뷰 작성
+        </Typography>
+        <ReviewWarp className="Review">
+          {/* <ReviewAddButton onClick={AddReviewBox}>추가</ReviewAddButton> */}
+          {reviewForm?.map((item, index) => {
+            return (
+              <HospitalReviewBox
+                hospitalId={hospitalId}
+                key={index}
+                reviewIndex={index}
+                removeBox={() => RemoveReviewBox(index)}
+              />
+            );
+          })}
+        </ReviewWarp>
+        <Modal.DefaultButtonBox buttonNum={2} style={{ marginTop: "2.5rem" }}>
+          <Button variant="secondary" onClick={closeModal}>
+            취소
+          </Button>
+          <Button variant="primary" onClick={onSubmit} disabled={true}>
+            작성 완료
+          </Button>
+        </Modal.DefaultButtonBox>
+      </Modal.DefaultContentBox>
     </Modal>
   );
 };

@@ -5,6 +5,8 @@ import { Terms } from "./styled/styledRegisterForm";
 import Modal from "@/stories/common/Modal";
 import TermsInfo from "./info/Terms";
 import useModal from "@lib/hooks/common/useModal";
+import Typography from "@/stories/common/Typography";
+import Button from "@/stories/common/Button";
 
 const TermsWrap = () => {
   const { openModal, closeModal } = useModal();
@@ -47,15 +49,19 @@ const TermsWrap = () => {
 
     openModal(Modal, {
       closeModal,
-      title: titleName,
-      children: <TermsInfo content={contentKey} />,
-      buttons: [
-        {
-          text: "확인",
-          variant: "primary",
-          onClick: closeModal,
-        },
-      ],
+      children: (
+        <Modal.DefaultContentBox>
+          <Typography variant="h3-bold" tag="h1">
+            {titleName}
+          </Typography>
+          <TermsInfo content={contentKey} />
+          <Modal.DefaultButtonBox buttonNum={1} style={{ marginTop: "2rem" }}>
+            <Button variant="primary" onClick={closeModal}>
+              확인
+            </Button>
+          </Modal.DefaultButtonBox>
+        </Modal.DefaultContentBox>
+      ),
     });
   };
 

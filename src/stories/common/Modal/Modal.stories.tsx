@@ -1,5 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
 import _Modal from ".";
+import Typography from "../Typography";
+import Button from "../Button";
+
 const meta: Meta<typeof _Modal> = {
   title: "common/Modal/Modal",
   component: _Modal,
@@ -9,73 +12,100 @@ type Story = StoryObj<typeof _Modal>;
 
 export const ModalExample: Story = {
   args: {
-    subTitle: "부제목",
-    title: "제목이 들어갑니다.",
     children: (
-      <p
-        style={{
-          textAlign: "center",
-          marginTop: "1rem",
-        }}
-      >
-        아무 컴포넌트나 들어갈 수 있어요.
-        <br />
-        아래 버튼은 최소 1개에서 최대 2개까지 넣을 수 있어요.
-      </p>
+      <_Modal.DefaultContentBox>
+        <Typography
+          tag="p"
+          variant="body-default-medium"
+          color="var(--black_03)"
+          style={{
+            marginBottom: "0.25rem",
+          }}
+        >
+          부제목입니다
+        </Typography>
+        <Typography tag="h1" variant="h3-bold" color="var(--black_01)">
+          제목입니다
+        </Typography>
+        <p
+          style={{
+            textAlign: "center",
+            margin: "1rem 0 2.5rem",
+          }}
+        >
+          아무 컴포넌트나 들어갈 수 있어요.
+          <br />
+          아래 버튼은 최소 1개에서 최대 2개까지 넣을 수 있어요.
+        </p>
+        <_Modal.DefaultButtonBox buttonNum={1}>
+          <Button variant="secondary">완료</Button>
+        </_Modal.DefaultButtonBox>
+      </_Modal.DefaultContentBox>
     ),
     closeModal: () => {},
-    buttons: [
-      {
-        text: "완료",
-        onClick: () => {},
-        variant: "secondary",
-      },
-    ],
   },
 };
 
 export const PostDeleteModal: Story = {
   args: {
-    subTitle: "커뮤니티 게시물 제목",
-    title: "정말 이 글을 삭제하시겠습니까?",
+    children: (
+      <_Modal.DefaultContentBox>
+        <Typography
+          tag="p"
+          variant="body-default-medium"
+          color="var(--black_03)"
+          style={{
+            marginBottom: "0.25rem",
+          }}
+        >
+          글제목이 들어갑니다
+        </Typography>
+        <Typography
+          tag="h1"
+          variant="h3-bold"
+          color="var(--black_01)"
+          style={{
+            marginBottom: "2.5rem",
+          }}
+        >
+          정말 이 글을 삭제하시겠습니까?
+        </Typography>
+        <_Modal.DefaultButtonBox buttonNum={2}>
+          <Button variant="secondary">취소</Button>
+          <Button variant="primary">삭제하기</Button>
+        </_Modal.DefaultButtonBox>
+      </_Modal.DefaultContentBox>
+    ),
     closeModal: () => {},
-    buttons: [
-      {
-        text: "취소",
-        onClick: () => {},
-        variant: "secondary",
-      },
-      {
-        text: "삭제하기",
-        onClick: () => {},
-        variant: "primary",
-      },
-    ],
   },
 };
 
 export const CommentDeleteModal: Story = {
   args: {
-    title: "정말 이 댓글을 삭제하시겠습니까?",
     closeModal: () => {},
-    buttons: [
-      {
-        text: "취소",
-        onClick: () => {},
-        variant: "secondary",
-      },
-      {
-        text: "삭제하기",
-        onClick: () => {},
-        variant: "primary",
-      },
-    ],
+    children: (
+      <_Modal.DefaultContentBox>
+        <Typography
+          tag="h1"
+          variant="h3-bold"
+          color="var(--black_01)"
+          style={{
+            marginBottom: "2.5rem",
+          }}
+        >
+          정말 이 댓글을 삭제하시겠습니까?
+        </Typography>
+        <_Modal.DefaultButtonBox buttonNum={2}>
+          <Button variant="secondary">취소</Button>
+          <Button variant="primary">삭제하기</Button>
+        </_Modal.DefaultButtonBox>
+      </_Modal.DefaultContentBox>
+    ),
   },
 };
 
 export const CustomModalWithoutDefaultBox: Story = {
   args: {
-    defaultModalBox: false,
     children: (
       <div
         style={{

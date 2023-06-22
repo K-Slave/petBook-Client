@@ -11,6 +11,8 @@ import ImageSlider from "../ImageSlider";
 import LikeButton from "../../LikeButton";
 import useUserInfo from "@lib/hooks/common/useUserInfo";
 import Modal from "@/stories/common/Modal";
+import Typography from "@/stories/common/Typography";
+import Button from "@/stories/common/Button";
 
 const dummyImage =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
@@ -36,21 +38,39 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
   } = data;
   const clickDeleteMenu = () => {
     openModal(Modal, {
-      subTitle: title,
-      title: "정말 이 글을 삭제하시겠습니까?",
+      children: (
+        <Modal.DefaultContentBox>
+          <Typography
+            tag="p"
+            variant="body-default-medium"
+            color="var(--black_03)"
+            style={{
+              marginBottom: "0.25rem",
+            }}
+          >
+            글제목이 들어갑니다
+          </Typography>
+          <Typography
+            tag="h1"
+            variant="h3-bold"
+            color="var(--black_01)"
+            style={{
+              marginBottom: "2.5rem",
+            }}
+          >
+            정말 이 글을 삭제하시겠습니까?
+          </Typography>
+          <Modal.DefaultButtonBox buttonNum={2}>
+            <Button variant="secondary" onClick={closeModal}>
+              취소
+            </Button>
+            <Button variant="primary" onClick={closeModal}>
+              삭제하기
+            </Button>
+          </Modal.DefaultButtonBox>
+        </Modal.DefaultContentBox>
+      ),
       closeModal,
-      buttons: [
-        {
-          text: "취소",
-          onClick: closeModal,
-          variant: "secondary",
-        },
-        {
-          text: "삭제하기",
-          onClick: closeModal,
-          variant: "primary",
-        },
-      ],
     });
   };
   const clickEditMenu = () => {};

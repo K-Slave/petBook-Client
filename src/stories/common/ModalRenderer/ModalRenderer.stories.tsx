@@ -3,6 +3,7 @@ import ModalRenderer from ".";
 import useModal from "@lib/hooks/common/useModal";
 import Modal from "../Modal";
 import Button from "../Button";
+import Typography from "../Typography";
 
 const meta: Meta<typeof ModalRenderer> = {
   title: "common/Modal/ModalRenderer",
@@ -13,28 +14,39 @@ const MockModalRenderer = () => {
   const { openModal, closeModal } = useModal();
   const onClick = () => {
     openModal(Modal, {
-      subTitle: "부제목",
-      title: "제목이 들어갑니다.",
       children: (
-        <p
-          style={{
-            textAlign: "center",
-            marginTop: "1rem",
-          }}
-        >
-          아무 컴포넌트나 들어갈 수 있어요.
-          <br />
-          아래 버튼은 최소 1개에서 최대 2개까지 넣을 수 있어요.
-        </p>
+        <Modal.DefaultContentBox>
+          <Typography
+            tag="p"
+            variant="body-default-medium"
+            color="var(--black_03)"
+            style={{
+              marginBottom: "0.25rem",
+            }}
+          >
+            부제목입니다
+          </Typography>
+          <Typography tag="h1" variant="h3-bold" color="var(--black_01)">
+            제목입니다
+          </Typography>
+          <p
+            style={{
+              textAlign: "center",
+              margin: "1rem 0 2.5rem",
+            }}
+          >
+            아무 컴포넌트나 들어갈 수 있어요.
+            <br />
+            아래 버튼은 최소 1개에서 최대 2개까지 넣을 수 있어요.
+          </p>
+          <Modal.DefaultButtonBox buttonNum={1}>
+            <Button variant="secondary" onClick={closeModal}>
+              완료
+            </Button>
+          </Modal.DefaultButtonBox>
+        </Modal.DefaultContentBox>
       ),
       closeModal,
-      buttons: [
-        {
-          text: "완료",
-          onClick: closeModal,
-          variant: "secondary",
-        },
-      ],
     });
   };
   return (

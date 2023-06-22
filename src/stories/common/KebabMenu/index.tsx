@@ -8,7 +8,7 @@ import {
   DefaultMenuListDiv,
 } from "./style";
 
-type KebabMenuProps = {
+interface KebabMenuProps {
   width?: string;
   height?: string;
   color?: string;
@@ -16,7 +16,7 @@ type KebabMenuProps = {
   MenuListBox: React.ReactNode;
   boxPositionLeftStyle?: string;
   boxPositionRightStyle?: string;
-};
+}
 
 const KebabMenu = ({
   width,
