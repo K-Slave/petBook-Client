@@ -26,8 +26,6 @@ class inputEventHelperMethod {
   public checkValidity = (which: "email" | "password") => {
     if (!this.target) return false;
 
-    localConsole?.log(this.target.value, "this.target.value");
-
     if (which === "email") {
       return commonReg.email.test(this.target.value);
     }
@@ -46,12 +44,12 @@ class inputEventHelperMethod {
   };
 
   public setInvalid = (method: "add" | "remove") => {
-    if (!this.e) return;
+    if (!this.target) return;
 
     if (method === "add") {
-      this.e.target.classList.add("invalid");
+      this.target.classList.add("invalid");
     } else {
-      this.e.target.classList.remove("invalid");
+      this.target.classList.remove("invalid");
     }
   };
 

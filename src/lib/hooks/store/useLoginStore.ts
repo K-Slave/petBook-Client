@@ -1,6 +1,8 @@
 import { create } from "zustand";
 
 interface LoginStore {
+  prevPath: string;
+  setPrevPath: (value: string) => void;
   email: string;
   setEmail: (value: string) => void;
   password: string;
@@ -11,6 +13,12 @@ interface LoginStore {
 
 // set 함수를 통해서만 상태를 변경할 수 있다
 const useLoginStore = create<LoginStore>((set) => ({
+  prevPath: "/",
+  setPrevPath: (value: string) =>
+    set((state) => ({
+      ...state,
+      prevPath: value,
+    })),
   email: "",
   setEmail: (value: string) =>
     set((state) => ({

@@ -11,7 +11,6 @@ import FocusBasedInputBox from "../../Input/FocusBasedInputBox";
 import PWShowHideButton from "../../PWShowHideButton";
 import LoginSaveButton from "../../LoginSaveButton/LoginSaveButton";
 import HelperText from "../HelperText/HelperText";
-import dynamic from "next/dynamic";
 
 const DefaultLoginForm = () => {
   const { isPWHide, onClickPW } = usePWShowHide();

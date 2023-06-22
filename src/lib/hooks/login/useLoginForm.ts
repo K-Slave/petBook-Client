@@ -5,14 +5,17 @@ import useLoginStore from "../store/useLoginStore";
 import authOptions from "@lib/globalConst/authOptions";
 import useLoginMutaion from "./useLoginMutaion";
 import inputEventHelperMethod from "@lib/modules/login/inputEventHelperMethod";
+import tokenParser from "@lib/server/parse/tokenParser";
+import { useSetRecoilState } from "recoil";
+import loadingState from "@atoms/common/loadingState";
 import localConsole from "@lib/utils/localConsole";
 
 const useLoginForm = (props?: UseFormProps) => {
   const router = useRouter();
   const loginStore = useLoginStore();
-  const { mutateAsync, status, failureReason, errorHelperText } =
+  const setLoading = useSetRecoilState(loadingState);
+  const { mutateAsync, setUserInfo, status, failureReason, errorHelperText } =
     useLoginMutaion();
-
   const { register, handleSubmit, formState, getValues } = useForm<{
     email: string;
     password: string;
@@ -30,45 +33,56 @@ const useLoginForm = (props?: UseFormProps) => {
   // emailRegister.required = true;
   // passwordRegister.required = true;
 
-  const onSubmit: FormEventHandler<HTMLFormElement> = handleSubmit(
-    async (formValue) => {
-      if (formState.isLoading) {
-        return;
-      }
+  const emailValidityCheck = (target?: HTMLInputElement) => {
+    const emailHandler = new inputEventHelperMethod(undefined, target);
 
-      const loginResponse = await mutateAsync({
-        email: formValue.email,
-        password: formValue.password,
-        isSave: loginStore.check,
-      });
-
-      if (loginResponse.response.status === 200) {
-        // TODO : 로그인 액션후 이동할 페이지 로직 작성하기
-        // router.back();
-        // router.push('/');
-        // window.location.reload();
-      }
+    if (
+      target &&
+      target.value.length > 0 &&
+      emailHandler.checkValidity("email")
+    ) {
+      loginStore.setEmail(target.value);
+      emailHandler.setValid("add");
+      emailHandler.setSubmitReady("add");
+    } else if (
+      target &&
+      !emailHandler.checkValidity("email") &&
+      target.value.length > 0
+    ) {
+      emailHandler.setInvalid("add");
+      emailHandler.setValid("remove");
+      emailHandler.setSubmitReady("remove");
     }
-  );
+  };
+
+  const onPWValidityCheck = (target?: HTMLInputElement) => {
+    const passwordHandler = new inputEventHelperMethod(undefined, target);
+
+    if (
+      target &&
+      target.value.length > 0 &&
+      passwordHandler.checkValidity("password")
+    ) {
+      loginStore.setPassword(target.value);
+      passwordHandler.setValid("add");
+      passwordHandler.setSubmitReady("add");
+    } else if (
+      target &&
+      !passwordHandler.checkValidity("password") &&
+      target.value.length > 0
+    ) {
+      passwordHandler.setInvalid("add");
+      passwordHandler.setValid("remove");
+      passwordHandler.setSubmitReady("remove");
+    }
+  };
 
   emailRegister.onBlur = async (e) => {
     const event = e as FocusEvent<HTMLInputElement>;
 
     loginStore.setEmail(event.target.value);
 
-    const handler = new inputEventHelperMethod(event);
-
-    if (event.relatedTarget?.classList.contains("Show__Hide__Button")) {
-      handler.preventBlur();
-      return;
-    }
-
-    if (event.target.validity.valid && handler.checkValidity("email")) {
-      handler.setValid("add");
-      handler.setSubmitReady("add");
-    } else if (!event.target.validity.valid && event.target.value.length > 0) {
-      handler.setInvalid("add");
-    }
+    emailValidityCheck(event.target);
   };
 
   passwordRegister.onBlur = async (e) => {
@@ -83,12 +97,7 @@ const useLoginForm = (props?: UseFormProps) => {
       return;
     }
 
-    if (event.target.validity.valid && handler.checkValidity("password")) {
-      handler.setValid("add");
-      handler.setSubmitReady("add");
-    } else if (!event.target.validity.valid && event.target.value.length > 0) {
-      handler.setInvalid("add");
-    }
+    onPWValidityCheck(event.target);
   };
 
   const onSaveClick = () => {
@@ -114,29 +123,40 @@ const useLoginForm = (props?: UseFormProps) => {
   const onEmailAutoComplete = (e: any) => {
     const event = e as ChangeEvent<HTMLInputElement>;
 
-    const emailHandler = new inputEventHelperMethod(event);
-
-    if (event.target.value.length > 0 && emailHandler.checkValidity("email")) {
-      loginStore.setEmail(event.target.value);
-      emailHandler.setValid("add");
-      emailHandler.setSubmitReady("add");
-    }
+    emailValidityCheck(event.target);
   };
 
   const onPWAutoComplete = (e: any) => {
     const event = e as ChangeEvent<HTMLInputElement>;
 
-    const passwordHandler = new inputEventHelperMethod(event);
-
-    if (
-      event.target.value.length > 0 &&
-      passwordHandler.checkValidity("password")
-    ) {
-      loginStore.setPassword(event.target.value);
-      passwordHandler.setValid("add");
-      passwordHandler.setSubmitReady("add");
-    }
+    onPWValidityCheck(event.target);
   };
+
+  const onSubmit: FormEventHandler<HTMLFormElement> = handleSubmit(
+    async (formValue) => {
+      setLoading(true);
+
+      if (formState.isLoading) {
+        return;
+      } else {
+        setLoading(false);
+      }
+
+      const loginResponse = await mutateAsync({
+        email: formValue.email,
+        password: formValue.password,
+        isSave: loginStore.check,
+      });
+
+      if (loginResponse.response.status === 200 && loginResponse.data.token) {
+        const { userInfo } = tokenParser(loginResponse.data.token);
+        setUserInfo(userInfo);
+        router.push(loginStore.prevPath);
+      }
+
+      setLoading(false);
+    }
+  );
 
   useEffect(() => {
     const $Email__Input =
@@ -147,10 +167,22 @@ const useLoginForm = (props?: UseFormProps) => {
       $Email__Input.addEventListener("keydown", onEmailKeyDown);
       $PW__Input.addEventListener("keydown", onPWKeyDown);
 
-      $Email__Input.addEventListener("change", onEmailAutoComplete, {
-        once: true,
-      });
-      $PW__Input.addEventListener("change", onPWAutoComplete, { once: true });
+      if (
+        $Email__Input.value.length > 0 ||
+        $Email__Input.defaultValue.length > 0
+      ) {
+        emailValidityCheck($Email__Input);
+      } else {
+        $Email__Input.addEventListener("change", onEmailAutoComplete, {
+          once: true,
+        });
+      }
+
+      if ($PW__Input.value.length > 0 || $PW__Input.defaultValue.length > 0) {
+        onPWValidityCheck($PW__Input);
+      } else {
+        $PW__Input.addEventListener("change", onPWAutoComplete, { once: true });
+      }
     }
 
     return () => {
