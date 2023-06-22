@@ -19,7 +19,7 @@ const HotArticleList = () => {
   });
   return (
     <List>
-      {data?.response.data.articles.map(({ id, title, stat }) => (
+      {data?.response.data.result.articles.map(({ id, title, stat }) => (
         <Item key={id}>
           <span className="HotArticle_title">{title}</span>
           <span className="HotArticle_stats">

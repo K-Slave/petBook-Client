@@ -1,18 +1,22 @@
 import styled from "styled-components";
+import { BackgroundImageDiv } from "../common/Image/BackgroundImage/BackgroundImage.style";
 import {
-  BackgroundImageDiv,
-  BackgroundImageSpan,
-} from "../common/Image/BackgroundImage/BackgroundImage.style";
-import { TextBodyMedium14, TextH3Bold22 } from "../common/Text/Text.style";
+  TextBodyMedium14,
+  TextH3Bold22,
+  TextH4Bold18,
+} from "../common/Text/Text.style";
 
 export const LoginFormBox = styled.form`
   display: grid;
   grid-auto-flow: row;
   grid-auto-rows: 5.7088rem auto auto;
   row-gap: 2rem;
+  align-content: center;
 
   width: 29rem;
   height: 27.875rem;
+
+  padding: 3rem 2rem 1.6875rem;
 
   background-color: var(--bg_white_02);
 `;
@@ -56,4 +60,24 @@ export const LoginFormCookieButton = styled.button<{ check: boolean }>`
   color: ${({ check }) => (check ? "var(--black_01)" : "var(--black_04)")};
 `;
 
-export const LoginSubmitBoxDiv = styled.div``;
+export const LoginSubmitBoxDiv = styled.div`
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 1.5rem;
+`;
+
+export const LoginFormSubmitButton = styled.button`
+  width: 100%;
+  padding: 0.875rem 0;
+
+  border-radius: 8px;
+  background-color: var(--primary);
+
+  ${TextH4Bold18};
+  color: #fff;
+`;
+
+export const LoginFormGuideDiv = styled.div``;
+
+// TODO: 공용 구분선 컴포넌트 만들어서 붙이기
+// export const LoginFormGuide

@@ -28,6 +28,7 @@ import Header from "@/stories/Header/Header";
 import TopNav from "@/stories/Header/TopNav";
 import NextGlobalStyle from "@styles/Global.style";
 import NextFontStyle from "@styles/Font.style";
+import GTAGScript from "@components/meta/script/GTAGScript";
 
 export interface PageProps {
   dehydratedState: DehydratedState;
@@ -124,6 +125,7 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
           )}
           <Component {...pageProps} />
           <ModalRenderer />
+          <GTAGScript />
         </RecoilRoot>
       </Hydrate>
     </QueryClientProvider>
