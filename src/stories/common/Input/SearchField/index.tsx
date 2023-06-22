@@ -13,7 +13,7 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import OnClickOutside from "../../OnClickOutside";
-import { SearchBarDiv, SearchBarInput, SearchListUl } from "./SearchBar.styled";
+import { SearchFieldDiv, SearchFieldInput, SearchListUl } from "./style";
 
 interface Props {
   placeholder?: string;
@@ -75,8 +75,8 @@ const SearchBar = ({ placeholder, target, width }: Props) => {
         setShowBox(false);
       }}
     >
-      <SearchBarDiv onKeyUp={search} width={width}>
-        <SearchBarInput
+      <SearchFieldDiv onKeyUp={search} width={width}>
+        <SearchFieldInput
           type="text"
           placeholder={placeholder}
           value={text}
@@ -85,7 +85,7 @@ const SearchBar = ({ placeholder, target, width }: Props) => {
         />
         {searchText ? <IoCloseCircle onClick={clear} /> : <SearchOutline />}
         {showBox && <SearchBar.RecentKeywordList target={target} />}
-      </SearchBarDiv>
+      </SearchFieldDiv>
     </OnClickOutside>
   );
 };

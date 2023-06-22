@@ -1,14 +1,14 @@
 import { Meta, StoryObj } from "@storybook/react";
-import SearchBar from ".";
+import SearchField from ".";
 
-const meta: Meta<typeof SearchBar> = {
-  title: "common/Input/SearchBar",
-  component: SearchBar,
+const meta: Meta<typeof SearchField> = {
+  title: "common/Input/SearchField",
+  component: SearchField,
   tags: ["autodocs"],
   parameters: { layout: "fullscreen" },
 };
 
-type Story = StoryObj<typeof SearchBar>;
+type Story = StoryObj<typeof SearchField>;
 export const Community: Story = {
   args: {
     placeholder: "관심있는 내용을 검색해보세요!",

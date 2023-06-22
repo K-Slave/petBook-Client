@@ -11,7 +11,7 @@ import QnaArticleList, {
 } from "@components/community/QnaArticleList";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 import Link from "next/link";
-import SearchBar from "@/stories/common/Input/SearchBar";
+import SearchField from "@/stories/common/Input/SearchField";
 
 import {
   ARTICLE_LIST_PREVIEW,
@@ -41,7 +41,7 @@ const Community: NextPageWithOptions = () => {
       <CommunitySection
         title="실시간 live talk"
         sideElement={
-          <SearchBar
+          <SearchField
             placeholder="관심있는 내용을 검색해보세요!"
             target="community"
           />

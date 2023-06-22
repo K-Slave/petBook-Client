@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const SearchBarInput = styled.input`
+export const SearchFieldInput = styled.input`
   width: 100% !important;
   height: 100% !important;
   padding: 0 40px 0 8px !important;
@@ -16,7 +16,7 @@ export const SearchBarInput = styled.input`
   }
 `;
 
-export const SearchBarDiv = styled.div<{ width?: string }>`
+export const SearchFieldDiv = styled.div<{ width?: string }>`
   width: ${({ width }) => width || "278px"};
   height: 40px;
   position: relative;
