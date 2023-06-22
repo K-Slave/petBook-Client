@@ -22,6 +22,7 @@ module.exports = {
   moduleNameMapper: {
     "^@/(.*)": "<rootDir>/src/$1",
     "@lib/(.*)": "<rootDir>/src/lib/$1",
+    "@image/(.*)": "<rootDir>/src/image/$1",
   },
   verbose: true,
 };

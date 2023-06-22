@@ -26,24 +26,6 @@ describe("DefaultLoginForm", () => {
     expect(submitButton).toBeInTheDocument();
   });
 
-  // it('form should call onSubmit prop when submitted', async () => {
-  //   const onSubmit = jest.fn();
-  //   const { getByRole } = render(
-  //     <DefaultLoginForm.Wrap onSubmit={onSubmit}>
-  //       <DefaultLoginForm.Submit />
-  //     </DefaultLoginForm.Wrap>
-  //   );
-
-  //   const form = getByRole('form');
-  //   const submitButton = getByRole('button', { name: /로그인/i });
-
-  //   await act(async () => {
-  //     fireEvent.submit(form);
-  //   });
-
-  //   expect(onSubmit).toHaveBeenCalled();
-  // });
-
   it("changes value when input is updated", async () => {
     const { getByPlaceholderText } = render(<TestComponent />);
 
@@ -58,4 +40,27 @@ describe("DefaultLoginForm", () => {
     expect(inputEmail.value).toBe("test@email.com");
     expect(inputPassword.value).toBe("password123");
   });
+
+  // TODO: xhr 요청 목킹 처리 해야함
+  // it('displays error message when login request fails', async () => {
+  //   const errorMessage = /일치하지 않습니다./;
+  //   const { getByPlaceholderText, getByText, findByText } = render(
+  //     <TestComponent />
+  //   );
+
+  //   const inputEmail = getByPlaceholderText('이메일') as HTMLInputElement;
+  //   const inputPassword = getByPlaceholderText('비밀번호') as HTMLInputElement;
+
+  //   fireEvent.change(inputEmail, { target: { value: 'test@test.com' } });
+  //   fireEvent.change(inputPassword, { target: { value: 'password' } });
+
+  //   fireEvent.click(getByText('로그인'));
+
+  //   const errorMessageElement = await findByText(errorMessage);
+
+  //   expect(errorMessageElement).toBeInTheDocument();
+  //   // await waitFor(() => {
+  //   //   expect(findByText(errorMessage)).toBeInTheDocument();
+  //   // });
+  // });
 });

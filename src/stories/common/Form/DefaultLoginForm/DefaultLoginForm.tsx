@@ -4,7 +4,7 @@ import {
   LoginSubmitButton,
   LoginWrapForm,
 } from "./DefaultLoginForm.style";
-import inputImg from "@/image/inputImg";
+import inputImg from "@image/inputImg";
 import useLoginForm from "@lib/hooks/login/useLoginForm";
 import usePWShowHide from "@lib/hooks/input/usePWShowHide";
 import FocusBasedInputBox from "../../Input/FocusBasedInputBox";
