@@ -1,3 +1,4 @@
+import layoutCalculator from "@lib/utils/layoutCalculator";
 import styled, { CSSProperties, css } from "styled-components";
 
 const BackgroundImageCommon = css`
@@ -25,11 +26,12 @@ export const BackgroundImageSpan = styled.span<{
   ${BackgroundImageCommon}
   display: ${(props) => (props.display ? props.display : "inline-block")};
 
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
+  width: ${(props) => layoutCalculator(props.width)};
+  height: ${(props) => layoutCalculator(props.height)};
 
   background-image: url(${(props) => props.url});
-  background-size: ${(props) => `${props.width} ${props.height}`};
+  background-size: ${(props) =>
+    `${layoutCalculator(props.width)} ${layoutCalculator(props.height)}`};
   background-position: ${(props) =>
     props.bgPosition ? props.bgPosition : "center"};
 `;

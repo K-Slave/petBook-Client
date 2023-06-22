@@ -10,11 +10,24 @@ const layoutCalculator = (value: string | number) => {
   }
 
   if (typeof value === "string") {
-    const numberValue = parseFloat(value);
-    if (isNaN(numberValue)) {
+    if (
+      value.includes("px") ||
+      value.includes("rem") ||
+      value.includes("em") ||
+      value.includes("vw") ||
+      value.includes("vh") ||
+      value.includes("vmin") ||
+      value.includes("vmax") ||
+      value.includes("%")
+    ) {
       result = value;
+    } else {
+      const numberValue = parseFloat(value);
+      if (isNaN(numberValue)) {
+        result = value;
+      }
+      result = `${numberValue}px`;
     }
-    result = `${numberValue}px`;
   }
 
   if (result.toString().includes("px")) {

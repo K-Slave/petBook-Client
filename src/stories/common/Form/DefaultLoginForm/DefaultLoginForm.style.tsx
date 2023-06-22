@@ -9,7 +9,13 @@ export const LoginWrapForm = styled.form`
   row-gap: 0.5rem;
 `;
 
-export const LoginSubmitButton = styled.button`
+export const LoginMiddleWrap = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr auto;
+`;
+
+export const LoginSubmitButton = styled.button<{ disabled: boolean }>`
   width: 100%;
 
   margin-top: 0.8125rem;
@@ -20,4 +26,6 @@ export const LoginSubmitButton = styled.button`
 
   ${TextH4Bold18};
   color: #fff;
+
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 `;

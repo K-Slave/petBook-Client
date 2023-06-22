@@ -9,6 +9,7 @@ export const LoginSaveCheckutton = styled.button<{
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 0.875rem auto;
+  align-items: center;
   gap: 0.4375rem;
 
   width: fit-content;

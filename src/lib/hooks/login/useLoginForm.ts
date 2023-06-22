@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import useLoginStore from "../store/useLoginStore";
 import authOptions from "@lib/globalConst/authOptions";
 import useLoginMutaion from "./useLoginMutaion";
+import localConsole from "@lib/utils/localConsole";
 
 const useLoginForm = (props?: UseFormProps) => {
   const router = useRouter();
@@ -22,8 +23,8 @@ const useLoginForm = (props?: UseFormProps) => {
   passwordRegister.minLength = authOptions.password.min;
   passwordRegister.maxLength = authOptions.password.max;
 
-  emailRegister.disabled = formState.isSubmitting;
-  passwordRegister.disabled = formState.isSubmitting;
+  emailRegister.disabled = formState.isLoading;
+  passwordRegister.disabled = formState.isLoading;
 
   // passwordRegister.pattern = commonReg.password;
 
@@ -32,6 +33,10 @@ const useLoginForm = (props?: UseFormProps) => {
 
   const onSubmit: FormEventHandler<HTMLFormElement> = handleSubmit(
     async (formValue) => {
+      if (status === "loading") {
+        return;
+      }
+
       const loginResponse = await mutateAsync({
         email: formValue.email,
         password: formValue.password,

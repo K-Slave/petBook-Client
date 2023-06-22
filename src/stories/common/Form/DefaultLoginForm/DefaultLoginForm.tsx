@@ -1,14 +1,16 @@
 import React, { FormEventHandler, PropsWithChildren } from "react";
-import { LoginSubmitButton, LoginWrapForm } from "./DefaultLoginForm.style";
+import {
+  LoginMiddleWrap,
+  LoginSubmitButton,
+  LoginWrapForm,
+} from "./DefaultLoginForm.style";
 import inputImg from "@/image/inputImg";
 import useLoginForm from "@lib/hooks/login/useLoginForm";
 import usePWShowHide from "@lib/hooks/input/usePWShowHide";
 import FocusBasedInputBox from "../../Input/FocusBasedInputBox";
 import PWShowHideButton from "../../PWShowHideButton";
 import LoginSaveButton from "../../LoginSaveButton/LoginSaveButton";
-import { AuthLoginError } from "@lib/API/petBookAPI/types/authRequest";
-import localConsole from "@lib/utils/localConsole";
-import HelperText from "../../Text/HelperText/HelperText";
+import HelperText from "../HelperText/HelperText";
 
 const DefaultLoginForm = () => {
   const { isPWHide, onClickPW } = usePWShowHide();
@@ -67,16 +69,19 @@ const DefaultLoginForm = () => {
           onClick={onClickPW}
         />
       </DefaultLoginForm.Password>
-      <DefaultLoginForm.Save
-        check={loginStore.check}
-        onClick={evenvtHandler.onSaveClick}
-        text="로그인 상태 유지"
-      />
-      <DefaultLoginForm.Submit />
-      <DefaultLoginForm.Helper
-        status={loginRequest.status}
-        message={loginRequest.errorHelperText}
-      />
+
+      <DefaultLoginForm.MiddleWrap>
+        <DefaultLoginForm.Helper
+          status={loginRequest.status}
+          message={loginRequest.errorHelperText}
+        />
+        <DefaultLoginForm.Save
+          check={loginStore.check}
+          onClick={evenvtHandler.onSaveClick}
+          text="로그인 상태 유지"
+        />
+      </DefaultLoginForm.MiddleWrap>
+      <DefaultLoginForm.Submit isLoading={loginRequest.status === "loading"} />
     </DefaultLoginForm.Wrap>
   );
 };
@@ -93,13 +98,26 @@ const Wrap = ({ children, onSubmit }: PropsWithChildren<WrapProps>) => {
   );
 };
 
-const Submit = () => {
-  return <LoginSubmitButton type="submit">로그인</LoginSubmitButton>;
+const MiddleWrap = ({ children }: PropsWithChildren<any>) => {
+  return <LoginMiddleWrap>{children}</LoginMiddleWrap>;
+};
+
+interface SubmitProps {
+  isLoading: boolean;
+}
+
+const Submit = ({ isLoading }: SubmitProps) => {
+  return (
+    <LoginSubmitButton type="submit" disabled={isLoading}>
+      로그인
+    </LoginSubmitButton>
+  );
 };
 
 DefaultLoginForm.Wrap = Wrap;
 DefaultLoginForm.Email = FocusBasedInputBox;
 DefaultLoginForm.Password = FocusBasedInputBox;
+DefaultLoginForm.MiddleWrap = MiddleWrap;
 DefaultLoginForm.Save = LoginSaveButton;
 DefaultLoginForm.Submit = Submit;
 DefaultLoginForm.Helper = HelperText;
