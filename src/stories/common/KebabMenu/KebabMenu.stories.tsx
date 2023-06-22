@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react";
-import DropdownMenu from ".";
+import KebabMenu from ".";
 
-const meta: Meta<typeof DropdownMenu> = {
-  title: "common/DropdownMenu",
-  component: DropdownMenu,
+const meta: Meta<typeof KebabMenu> = {
+  title: "common/KebabMenu",
+  component: KebabMenu,
   tags: ["autodocs"],
   decorators: [
     (Story) => (
@@ -14,17 +14,15 @@ const meta: Meta<typeof DropdownMenu> = {
   ],
 };
 
-type Story = StoryObj<typeof DropdownMenu>;
+type Story = StoryObj<typeof KebabMenu>;
 export const Example: Story = {
   args: {
     menuList: [
       {
         name: "수정",
-        onClick: () => {},
       },
       {
         name: "삭제",
-        onClick: () => {},
       },
     ],
   },

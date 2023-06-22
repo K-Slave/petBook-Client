@@ -1,7 +1,7 @@
 import DOMPurify from "isomorphic-dompurify";
 import CommonInfo from "@components/community/CommonInfo";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
-import DropdownMenu from "@/stories/common/DropdownMenu";
+import KebabMenu from "@/stories/common/KebabMenu";
 import { BookmarkOutline } from "@/stories/Icon/Bookmark";
 import useModal from "@lib/hooks/common/useModal";
 import { articleRequest } from "@lib/API/petBookAPI";
@@ -69,7 +69,7 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
     <ArticleSectionBox>
       <div className="ArticleSection_Top_Row">
         <h2>{title}</h2>
-        {user.id == userData?.id && <DropdownMenu menuList={menuList} />}
+        {user.id == userData?.id && <KebabMenu menuList={menuList} />}
       </div>
       <CommonInfo
         avatar={dummyImage}

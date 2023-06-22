@@ -1,22 +1,27 @@
 import styled from "styled-components";
 
-export const MenuBox = styled.div`
+export const KebabMenuBox = styled.div<{ width?: string; height?: string }>`
   position: relative;
-  width: 24px;
-  height: 24px;
-`;
-
-export const MenuButton = styled.button`
-  width: 100%;
-  height: 100%;
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
   color: var(--black_04);
 `;
 
-export const MenuList = styled.div`
+export const KebabMenuButton = styled.button`
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+export const MenuListDiv = styled.div<{ top?: string }>`
   position: absolute;
-  top: 24px;
+  top: ${({ top }) => top};
   right: 0;
-  width: 100px;
+  width: 6.25rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -26,7 +31,7 @@ export const MenuList = styled.div`
   box-shadow: 0px 8px 12px rgba(50, 26, 9, 0.1);
   border-radius: 12px;
   color: var(--black_02);
-  button {
+  .menu-item-button {
     width: 100%;
     text-align: left;
     padding: 0.5rem 0 0.5rem 1.25rem;

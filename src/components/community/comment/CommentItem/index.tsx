@@ -1,4 +1,4 @@
-import DropdownMenu from "@/stories/common/DropdownMenu";
+import KebabMenu from "@/stories/common/KebabMenu";
 import { BsArrowReturnRight } from "react-icons/bs";
 import CommonInfo from "@components/community/CommonInfo";
 import { BookmarkOutline } from "@/stories/Icon/Bookmark";
@@ -56,7 +56,7 @@ export const NormalItem = ({
             year={1}
           />
           {userData?.id == user.id && !isEditing && (
-            <DropdownMenu menuList={menuList} />
+            <KebabMenu menuList={menuList} />
           )}
         </div>
         {isEditing ? (
@@ -122,7 +122,7 @@ export const QnaItem = ({ comment, isChild, clickDeleteMenu }: ItemProps) => {
             <p className="Item_Content">{content}</p>
           )}
           {userData?.id == user.id && !isEditing && (
-            <DropdownMenu menuList={menuList} />
+            <KebabMenu menuList={menuList} />
           )}
         </div>
         {!isEditing && (
