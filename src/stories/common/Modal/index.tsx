@@ -13,6 +13,7 @@ interface Props {
   closeModal: () => void;
   defaultModalBox?: boolean;
   modalBoxStyle?: React.CSSProperties;
+  buttonBoxStyle?: React.CSSProperties;
   buttons?: [ButtonItem] | [ButtonItem, ButtonItem];
 }
 
@@ -24,6 +25,7 @@ const Modal = ({
   buttons,
   defaultModalBox,
   modalBoxStyle,
+  buttonBoxStyle,
 }: PropsWithChildren<Props>) => {
   useLayoutEffect(() => {
     document.documentElement.style.overflow = "hidden";
@@ -39,7 +41,7 @@ const Modal = ({
           {title && <h1>{title}</h1>}
           {children}
           {buttons && (
-            <ButtonBox count={buttons.length}>
+            <ButtonBox count={buttons.length} style={buttonBoxStyle}>
               {buttons.map(({ text, ...props }) => (
                 <Button {...props} key={text}>
                   {text}
