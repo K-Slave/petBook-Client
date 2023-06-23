@@ -184,8 +184,11 @@ const useLoginForm = (props?: UseFormProps) => {
 
       setLoading(false);
 
-      if (loginResponse.response.status === 200 && loginResponse.data.token) {
-        const { userInfo } = tokenParser(loginResponse.data.token);
+      if (
+        loginResponse.response.status === 200 &&
+        loginResponse.response.data.token
+      ) {
+        const { userInfo } = tokenParser(loginResponse.response.data.token);
         setUserInfo(userInfo);
         // TODO: replace 하는게 맞는건지?
         router.replace(loginStore.prevPath);
