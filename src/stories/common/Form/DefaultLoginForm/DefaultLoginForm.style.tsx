@@ -8,6 +8,8 @@ export const LoginWrapForm = styled.form`
   justify-content: center;
   row-gap: 0.5rem;
 
+  transition: all 0.2s ease-in-out;
+
   * {
     transition: all 0.2s ease-in-out;
   }

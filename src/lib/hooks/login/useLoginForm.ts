@@ -104,6 +104,8 @@ const useLoginForm = (props?: UseFormProps) => {
 
   const onEmailKeyDown = (e: KeyboardEvent) => {
     const input = e.target as HTMLInputElement;
+    const emailHandler = new inputEventHelperMethod(undefined, input);
+    emailHandler.setSubmitReady("remove");
 
     if (input.value.length <= 1) {
       loginStore.setEmail(input.value);
@@ -112,6 +114,8 @@ const useLoginForm = (props?: UseFormProps) => {
 
   const onPWKeyDown = (e: KeyboardEvent) => {
     const input = e.target as HTMLInputElement;
+    const passwordHandler = new inputEventHelperMethod(undefined, input);
+    passwordHandler.setSubmitReady("remove");
 
     if (input.value.length <= 1) {
       loginStore.setPassword(input.value);
@@ -149,7 +153,8 @@ const useLoginForm = (props?: UseFormProps) => {
       if (loginResponse.response.status === 200 && loginResponse.data.token) {
         const { userInfo } = tokenParser(loginResponse.data.token);
         setUserInfo(userInfo);
-        router.push(loginStore.prevPath);
+        // TODO: replace 하는게 맞는건지?
+        router.replace(loginStore.prevPath);
       }
 
       setLoading(false);
@@ -171,15 +176,13 @@ const useLoginForm = (props?: UseFormProps) => {
       ) {
         emailValidityCheck($Email__Input, $Email__Input.defaultValue);
       } else {
-        $Email__Input.addEventListener("change", onEmailAutoComplete, {
-          once: true,
-        });
+        $Email__Input.addEventListener("change", onEmailAutoComplete);
       }
 
       if ($PW__Input.value.length > 0 || $PW__Input.defaultValue.length > 0) {
         pwValidityCheck($PW__Input, $Email__Input.defaultValue);
       } else {
-        $PW__Input.addEventListener("change", onPWAutoComplete, { once: true });
+        $PW__Input.addEventListener("change", onPWAutoComplete);
       }
     }
 

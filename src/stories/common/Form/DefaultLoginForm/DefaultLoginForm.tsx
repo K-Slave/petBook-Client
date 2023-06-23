@@ -94,7 +94,7 @@ interface WrapProps {
 
 const Wrap = ({ children, onSubmit }: PropsWithChildren<WrapProps>) => {
   return (
-    <LoginWrapForm onSubmit={onSubmit} autoComplete="on">
+    <LoginWrapForm onSubmit={onSubmit} autoComplete="on" noValidate>
       {children}
     </LoginWrapForm>
   );

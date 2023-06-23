@@ -51,6 +51,8 @@ const NextGlobalStyle = createGlobalStyle`
   /* action */
   --success: #2bc128;
   --error: #ff0000;
+
+
 }
 
 * {
@@ -58,8 +60,7 @@ const NextGlobalStyle = createGlobalStyle`
   padding: 0;
 
   box-sizing: border-box;
-  outline: none;
-
+  
   font-family: Pretendard;
 
   font-style: normal;
