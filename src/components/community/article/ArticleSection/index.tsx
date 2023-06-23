@@ -75,16 +75,6 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
     });
   };
   const clickEditMenu = () => {};
-  const menuList = [
-    {
-      name: "수정",
-      onClick: clickEditMenu,
-    },
-    {
-      name: "삭제",
-      onClick: clickDeleteMenu,
-    },
-  ];
 
   return (
     <ArticleSectionBox>
@@ -94,8 +84,12 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
           <KebabMenu
             MenuListBox={
               <MenuListBox>
-                <MenuListBox.DefaultItem>수정</MenuListBox.DefaultItem>
-                <MenuListBox.DefaultItem>삭제</MenuListBox.DefaultItem>
+                <MenuListBox.DefaultItem onClick={clickEditMenu}>
+                  수정
+                </MenuListBox.DefaultItem>
+                <MenuListBox.DefaultItem onClick={clickDeleteMenu}>
+                  삭제
+                </MenuListBox.DefaultItem>
               </MenuListBox>
             }
           />

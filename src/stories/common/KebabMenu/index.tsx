@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import ThreeDotsVertical from "../../Icon/ThreeDotsVertical";
 import OnClickOutside from "../OnClickOutside";
 import { KebabMenuBox, KebabMenuButton, KebabMenuListWrapper } from "./style";
-import MenuListBox from "../MenuListBox";
 
 interface KebabMenuProps {
   width?: string;

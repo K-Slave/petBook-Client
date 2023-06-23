@@ -35,16 +35,6 @@ export const NormalItem = ({
   const { userData } = useUserInfo();
   const { user, createdAt, content, likeCount, id, articleId, isLiked } =
     comment;
-  const menuList = [
-    {
-      name: "수정",
-      onClick: () => setIsEditing(true),
-    },
-    {
-      name: "삭제",
-      onClick: clickDeleteMenu,
-    },
-  ];
   return (
     <NormalItemDiv isEditing={isEditing ? "true" : ""}>
       {isChild && <BsArrowReturnRight />}
@@ -60,8 +50,12 @@ export const NormalItem = ({
             <KebabMenu
               MenuListBox={
                 <MenuListBox>
-                  <MenuListBox.DefaultItem>수정</MenuListBox.DefaultItem>
-                  <MenuListBox.DefaultItem>삭제</MenuListBox.DefaultItem>
+                  <MenuListBox.DefaultItem onClick={() => setIsEditing(true)}>
+                    수정
+                  </MenuListBox.DefaultItem>
+                  <MenuListBox.DefaultItem onClick={clickDeleteMenu}>
+                    삭제
+                  </MenuListBox.DefaultItem>
                 </MenuListBox>
               }
             />
@@ -99,16 +93,6 @@ export const QnaItem = ({ comment, isChild, clickDeleteMenu }: ItemProps) => {
     comment;
   const { userData } = useUserInfo();
   const [isEditing, setIsEditing] = useState(false);
-  const menuList = [
-    {
-      name: "수정",
-      onClick: () => setIsEditing(true),
-    },
-    {
-      name: "삭제",
-      onClick: clickDeleteMenu,
-    },
-  ];
   return (
     <QnaItemDiv>
       <CommonInfo
@@ -133,8 +117,12 @@ export const QnaItem = ({ comment, isChild, clickDeleteMenu }: ItemProps) => {
             <KebabMenu
               MenuListBox={
                 <MenuListBox>
-                  <MenuListBox.DefaultItem>수정</MenuListBox.DefaultItem>
-                  <MenuListBox.DefaultItem>삭제</MenuListBox.DefaultItem>
+                  <MenuListBox.DefaultItem onClick={() => setIsEditing(true)}>
+                    수정
+                  </MenuListBox.DefaultItem>
+                  <MenuListBox.DefaultItem onClick={clickDeleteMenu}>
+                    삭제
+                  </MenuListBox.DefaultItem>
                 </MenuListBox>
               }
             />
