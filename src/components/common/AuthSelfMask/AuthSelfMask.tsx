@@ -38,7 +38,7 @@ const AuthSelfMask = ({ children, toLogin }: PropsWithChildren<Props>) => {
             // setUserInfo
             if (toLogin) {
               // toLogin 이면 로그인 페이지로 이동시키기
-              navigator({ url: "/login" });
+              navigator({ url: "/auth" });
             } else {
               // 아니라면 페이지 강제 리로드
               // window.location.reload();
@@ -48,7 +48,7 @@ const AuthSelfMask = ({ children, toLogin }: PropsWithChildren<Props>) => {
         })
         .catch((res) => {
           if (toLogin) {
-            navigator({ url: "/login" });
+            navigator({ url: "/auth" });
           } else {
             // window.location.reload();
           }
@@ -94,7 +94,7 @@ export const AuthSelfHiddenMask = React.memo(
               // setUserInfo
               if (toLogin) {
                 // toLogin 이면 로그인 페이지로 이동시키기
-                navigator({ url: "/login" });
+                navigator({ url: "/auth" });
               } else {
                 // 아니라면 페이지 강제 리로드
                 // window.location.reload();
@@ -104,7 +104,7 @@ export const AuthSelfHiddenMask = React.memo(
           })
           .catch((res) => {
             if (toLogin) {
-              navigator({ url: "/login" });
+              navigator({ url: "/auth" });
             } else {
               // window.location.reload();
             }

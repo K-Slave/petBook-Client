@@ -16,13 +16,12 @@ const Main = styled.main`
 `;
 
 // TODO : 로그인 되있을시 Redirection 또는 라우팅 처리하기
-const Login = () => {
+const Auth = () => {
   return (
     <Main>
-      {/* <LoginIndex /> */}
       <LoginForm />
     </Main>
   );
 };
 
-export default Login;
+export default Auth;

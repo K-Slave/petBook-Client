@@ -15,7 +15,7 @@ const LoginLink = (props: PropsWithChildren<Props>) => {
     loginStore.setPrevPath(router.asPath);
   };
 
-  return <Link onClick={onClick} href="/login" {...props}></Link>;
+  return <Link onClick={onClick} href="/auth" {...props}></Link>;
 };
 
 export default LoginLink;
