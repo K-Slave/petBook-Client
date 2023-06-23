@@ -135,14 +135,34 @@ const useLoginForm = (props?: UseFormProps) => {
   };
 
   const onSubmit: FormEventHandler<HTMLFormElement> = handleSubmit(
-    async (formValue) => {
-      setLoading(true);
-
+    async (formValue, e) => {
+      // onSubmit 이벤트가 발생하면서, formState.isLoading 값이 true로 바뀌는데,
+      // 이때, 다시 한번 submit 이벤트가 발생하면 아래의 코드가 실행되지 않는다.
       if (formState.isLoading) {
         return;
-      } else {
-        setLoading(false);
       }
+
+      const isEmailValid = inputEventHelperMethod.checkValidityWithValue(
+        "email",
+        formValue.email
+      );
+      const isPasswordValid = inputEventHelperMethod.checkValidityWithValue(
+        "password",
+        formValue.password
+      );
+
+      if (!isEmailValid && !isPasswordValid) {
+        inputEventHelperMethod.invalidError("email");
+        inputEventHelperMethod.invalidError("password");
+        return;
+      } else if (!isEmailValid) {
+        inputEventHelperMethod.invalidError("email");
+        return;
+      } else if (!isPasswordValid) {
+        inputEventHelperMethod.invalidError("password");
+        return;
+      }
+      setLoading(true);
 
       const loginResponse = await mutateAsync({
         email: formValue.email,
@@ -150,14 +170,14 @@ const useLoginForm = (props?: UseFormProps) => {
         isSave: loginStore.check,
       });
 
+      setLoading(false);
+
       if (loginResponse.response.status === 200 && loginResponse.data.token) {
         const { userInfo } = tokenParser(loginResponse.data.token);
         setUserInfo(userInfo);
         // TODO: replace 하는게 맞는건지?
         router.replace(loginStore.prevPath);
       }
-
-      setLoading(false);
     }
   );
 

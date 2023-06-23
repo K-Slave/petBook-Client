@@ -63,6 +63,52 @@ class inputEventHelperMethod {
       this.target.parentElement.classList.remove("Submit__Ready");
     }
   };
+
+  static checkValidityWithValue = (
+    which: "email" | "password",
+    value: string
+  ) => {
+    if (which === "email") {
+      return commonReg.email.test(value);
+    }
+
+    return isValidPassword(value);
+  };
+
+  static invalidError = (which: "email" | "password") => {
+    if (which === "email") {
+      const $Email__Input__Label = document.querySelector("#Email__Input")
+        ?.parentElement as HTMLLabelElement | null | undefined;
+
+      if ($Email__Input__Label) {
+        $Email__Input__Label.classList.add("Invalid__Error");
+        $Email__Input__Label.addEventListener(
+          "animationend",
+          () => {
+            $Email__Input__Label?.classList.remove("Invalid__Error");
+          },
+          { once: true }
+        );
+      }
+    }
+
+    if (which === "password") {
+      const $Password__Input__Label = document.querySelector<HTMLInputElement>(
+        "#PW__Input"
+      )?.parentElement as HTMLLabelElement | null | undefined;
+
+      if ($Password__Input__Label) {
+        $Password__Input__Label.classList.add("Invalid__Error");
+        $Password__Input__Label.addEventListener(
+          "animationend",
+          () => {
+            $Password__Input__Label?.classList.remove("Invalid__Error");
+          },
+          { once: true }
+        );
+      }
+    }
+  };
 }
 
 export default inputEventHelperMethod;
