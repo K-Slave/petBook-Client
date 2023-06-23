@@ -135,12 +135,24 @@ const useLoginForm = (props?: UseFormProps) => {
   };
 
   const onSubmit: FormEventHandler<HTMLFormElement> = handleSubmit(
-    async (formValue, e) => {
+    async (formValue) => {
       // onSubmit 이벤트가 발생하면서, formState.isLoading 값이 true로 바뀌는데,
       // 이때, 다시 한번 submit 이벤트가 발생하면 아래의 코드가 실행되지 않는다.
       if (formState.isLoading) {
         return;
       }
+
+      const $Email__Input = document.querySelector("#Email__Input");
+      const $Email__Label = $Email__Input?.parentElement as
+        | HTMLLabelElement
+        | null
+        | undefined;
+
+      const $PW__Input = document.querySelector<HTMLInputElement>("#PW__Input");
+      const $PW__Label = $PW__Input?.parentElement as
+        | HTMLLabelElement
+        | null
+        | undefined;
 
       const isEmailValid = inputEventHelperMethod.checkValidityWithValue(
         "email",
@@ -152,14 +164,14 @@ const useLoginForm = (props?: UseFormProps) => {
       );
 
       if (!isEmailValid && !isPasswordValid) {
-        inputEventHelperMethod.invalidError("email");
-        inputEventHelperMethod.invalidError("password");
+        inputEventHelperMethod.invalidError($Email__Label);
+        inputEventHelperMethod.invalidError($PW__Label);
         return;
       } else if (!isEmailValid) {
-        inputEventHelperMethod.invalidError("email");
+        inputEventHelperMethod.invalidError($Email__Label);
         return;
       } else if (!isPasswordValid) {
-        inputEventHelperMethod.invalidError("password");
+        inputEventHelperMethod.invalidError($PW__Label);
         return;
       }
       setLoading(true);
