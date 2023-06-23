@@ -16,7 +16,7 @@ interface CommonProps {
 export type ButtonProps = CommonProps &
   (
     | {
-        variant: "primary" | "secondary" | "tertiary" | "";
+        variant?: "primary" | "secondary" | "tertiary";
         width?: string;
         height?: string;
         bgColor?: string;
@@ -48,7 +48,6 @@ Button.defaultProps = {
   width: "100%",
   height: "3.25rem",
   hidden: false,
-  variant: "" as const,
 };
 
 export default Button;

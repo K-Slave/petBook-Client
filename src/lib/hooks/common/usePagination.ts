@@ -29,11 +29,11 @@ export default function usePagination({
     const url =
       page === 1
         ? removeQuery({
-            asPath: router.asPath,
+            fullPath: router.asPath,
             key: "page",
           })
         : replaceQuery({
-            asPath: router.asPath,
+            fullPath: router.asPath,
             key: "page",
             query: String(page),
           });

@@ -6,8 +6,3 @@ export const PaginationDiv = styled.div`
   align-items: center;
   gap: 0.125rem;
 `;
-
-export const StyledPageButton = styled.button`
-  width: 2rem;
-  height: 2rem;
-`;
