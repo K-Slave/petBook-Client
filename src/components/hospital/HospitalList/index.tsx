@@ -87,7 +87,7 @@ const HospitalList = () => {
       </div>
       {data && (
         <Pagination
-          buttonNum={5}
+          buttonCntPerLine={5}
           totalPages={Math.ceil(
             data.response.data.result.totalCount / hospitalOptions.size
           )}

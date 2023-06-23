@@ -49,7 +49,7 @@ const SmallButtonStyle = css`
 `;
 
 export const StyledButton = styled.button<ButtonProps>`
-  display: flex;
+  display: ${({ hidden }) => (hidden ? "none" : "flex")};
   align-items: center;
   justify-content: center;
 
@@ -74,7 +74,9 @@ export const StyledButton = styled.button<ButtonProps>`
       ? props.active
         ? TertiaryActiveStyle
         : TertiaryStyle
-      : SmallButtonStyle};
+      : props.variant === "small"
+      ? SmallButtonStyle
+      : null};
   ${(props) =>
     props.bgColor &&
     css`
@@ -85,8 +87,12 @@ export const StyledButton = styled.button<ButtonProps>`
     css`
       color: ${props.color};
     `};
-  &:disabled {
-    color: var(--black_05);
-    background-color: var(--black_07);
-  }
+  ${(props) =>
+    props.variant &&
+    css`
+      &:disabled {
+        color: var(--black_05);
+        background-color: var(--black_07);
+      }
+    `}
 `;

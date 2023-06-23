@@ -2,19 +2,21 @@ import React, { MouseEventHandler, PropsWithChildren } from "react";
 import { StyledButton } from "./style";
 
 interface CommonProps {
+  id?: string;
   className?: string;
   type?: "button" | "submit";
   active?: boolean;
   onClick?: MouseEventHandler;
   style?: React.CSSProperties;
   disabled?: boolean;
+  hidden?: boolean;
   buttonRef?: React.RefObject<HTMLButtonElement>;
 }
 
 export type ButtonProps = CommonProps &
   (
     | {
-        variant: "primary" | "secondary" | "tertiary";
+        variant?: "primary" | "secondary" | "tertiary";
         width?: string;
         height?: string;
         bgColor?: string;
@@ -44,7 +46,9 @@ Button.defaultProps = {
   active: false,
   disabled: false,
   width: "100%",
-  height: "52px",
+  height: "3.25rem",
+  hidden: false,
+  variant: "",
 };
 
 export default Button;

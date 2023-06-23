@@ -38,7 +38,7 @@ const ArticleList = ({ status, articles, totalPages, emptyText }: Props) => {
       {articles.map((article) => (
         <ArticleList.Item article={article} key={article.id} />
       ))}
-      <Pagination totalPages={totalPages} buttonNum={10} />
+      <Pagination totalPages={totalPages} buttonCntPerLine={10} />
     </ListDiv>
   );
 };

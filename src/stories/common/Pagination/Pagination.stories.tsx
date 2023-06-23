@@ -8,10 +8,28 @@ const meta: Meta<typeof Pagination> = {
 };
 
 type Story = StoryObj<typeof Pagination>;
-export const Example: Story = {
+export const Default: Story = {
   args: {
     totalPages: 10,
-    buttonNum: 5,
+    buttonCntPerLine: 5,
+  },
+};
+
+export const Custom: Story = {
+  args: {
+    totalPages: 10,
+    buttonCntPerLine: 5,
+    PageButton: ({ onClick, active, page }) => (
+      <button
+        onClick={onClick}
+        style={{
+          color: active ? "red" : "black",
+          padding: "1rem",
+        }}
+      >
+        {page} page
+      </button>
+    ),
   },
 };
 

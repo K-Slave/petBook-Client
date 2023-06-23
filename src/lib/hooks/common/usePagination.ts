@@ -3,23 +3,28 @@ import { removeQuery, replaceQuery } from "@lib/modules/queryString";
 import navigator from "@lib/modules/navigator";
 import { useState, useEffect } from "react";
 
-export const usePage = () => {
+export const usePage = (totalPages?: number) => {
   const router = useRouter();
   const pageParam = Number(router.query?.page);
-  const currentPage = Number.isNaN(pageParam) ? 1 : pageParam;
+  let currentPage = Number.isNaN(pageParam) ? 1 : pageParam;
+  if (currentPage < 1) {
+    currentPage = 1;
+  } else if (totalPages && currentPage > totalPages) {
+    currentPage = totalPages;
+  }
   return currentPage;
 };
 
 export default function usePagination({
   totalPages,
-  buttonNum,
+  buttonCntPerLine,
 }: {
   totalPages: number;
-  buttonNum: number;
+  buttonCntPerLine: number;
 }) {
-  const [offset, setOffset] = useState(1);
+  const [startPageNum, setStartPageNum] = useState(1);
   const router = useRouter();
-  const currentPage = usePage();
+  const currentPage = usePage(totalPages);
   const changeCurrentPage = (page: number) => {
     const url =
       page === 1
@@ -41,28 +46,18 @@ export default function usePagination({
     });
   };
 
-  // currentPage가 1 ~ totalPages range에 존재하는지 판단
-  useEffect(() => {
-    if (totalPages === 0) return;
-    if (currentPage < 1) {
-      changeCurrentPage(1);
-    } else if (currentPage > totalPages) {
-      changeCurrentPage(totalPages);
-    }
-  }, [currentPage, totalPages]);
-
   // currentPage 변화에 따른 button offset 판단
   useEffect(() => {
-    if (currentPage >= offset + buttonNum) {
-      setOffset((oldOffset) => oldOffset + buttonNum);
-    } else if (currentPage < offset) {
-      setOffset((oldOffset) => oldOffset - buttonNum);
+    if (currentPage >= startPageNum + buttonCntPerLine) {
+      setStartPageNum((oldOffset) => oldOffset + buttonCntPerLine);
+    } else if (currentPage < startPageNum) {
+      setStartPageNum((oldOffset) => oldOffset - buttonCntPerLine);
     }
   }, [currentPage]);
 
   return {
     currentPage,
     changeCurrentPage,
-    offset,
+    startPageNum,
   };
 }
