@@ -1,21 +1,19 @@
-import React, { type MouseEventHandler, useState } from "react";
+import React, { useState } from "react";
 import ThreeDotsVertical from "../../Icon/ThreeDotsVertical";
 import OnClickOutside from "../OnClickOutside";
-import {
-  KebabMenuBox,
-  KebabMenuButton,
-  KebabMenuListWrapper,
-  DefaultMenuListDiv,
-} from "./style";
+import { KebabMenuBox, KebabMenuButton, KebabMenuListWrapper } from "./style";
+import MenuListBox from "../MenuListBox";
 
 interface KebabMenuProps {
   width?: string;
   height?: string;
   color?: string;
   menuStyle?: React.CSSProperties;
+  boxPosition?: {
+    left?: string;
+    right?: string;
+  };
   MenuListBox: React.ReactNode;
-  boxPositionLeftStyle?: string;
-  boxPositionRightStyle?: string;
 }
 
 const KebabMenu = ({
@@ -23,7 +21,8 @@ const KebabMenu = ({
   height,
   color,
   menuStyle,
-  ...props
+  MenuListBox,
+  boxPosition,
 }: KebabMenuProps) => {
   const [show, setShow] = useState(false);
   const onClickToggle = () => setShow((state) => !state);
@@ -39,51 +38,25 @@ const KebabMenu = ({
         <KebabMenuButton type="button" onClick={onClickToggle}>
           <ThreeDotsVertical />
         </KebabMenuButton>
-        {show && (
-          <KebabMenuListWrapper
-            top={width}
-            left={props.boxPositionLeftStyle}
-            right={props.boxPositionRightStyle}
-          >
-            {props.MenuListBox}
-          </KebabMenuListWrapper>
-        )}
+        <KebabMenuListWrapper
+          show={show}
+          top={width}
+          left={boxPosition?.left}
+          right={boxPosition?.right}
+        >
+          {MenuListBox}
+        </KebabMenuListWrapper>
       </KebabMenuBox>
     </OnClickOutside>
   );
 };
-
-interface MenuListBoxProps {
-  menuList: {
-    name: string;
-    onClick?: MouseEventHandler<HTMLButtonElement>;
-  }[];
-  style?: React.CSSProperties;
-}
-
-const DefaultMenuListBox = ({ menuList, style }: MenuListBoxProps) => {
-  return (
-    <DefaultMenuListDiv style={style}>
-      {menuList.map(({ name, onClick }) => (
-        <button
-          className="menu-item-button"
-          type="button"
-          onClick={onClick}
-          key={name}
-        >
-          {name}
-        </button>
-      ))}
-    </DefaultMenuListDiv>
-  );
-};
-
-KebabMenu.DefaultListBox = DefaultMenuListBox;
 KebabMenu.defaultProps = {
   width: "1.5rem",
   height: "1.5rem",
   color: "var(--black_04)",
-  boxPositionRightStyle: "0",
+  boxPosition: {
+    right: "0",
+  },
 };
 
 export default KebabMenu;

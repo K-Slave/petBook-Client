@@ -13,6 +13,7 @@ import useUserInfo from "@lib/hooks/common/useUserInfo";
 import Modal from "@/stories/common/Modal";
 import Typography from "@/stories/common/Typography";
 import Button from "@/stories/common/Button";
+import MenuListBox from "@/stories/common/MenuListBox";
 
 const dummyImage =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
@@ -91,7 +92,12 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
         <h2>{title}</h2>
         {user.id == userData?.id && (
           <KebabMenu
-            MenuListBox={<KebabMenu.DefaultListBox menuList={menuList} />}
+            MenuListBox={
+              <MenuListBox>
+                <MenuListBox.DefaultItem>수정</MenuListBox.DefaultItem>
+                <MenuListBox.DefaultItem>삭제</MenuListBox.DefaultItem>
+              </MenuListBox>
+            }
           />
         )}
       </div>

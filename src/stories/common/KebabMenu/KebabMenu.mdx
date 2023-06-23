@@ -5,8 +5,7 @@ import * as KebabMenuStories from './KebabMenu.stories';
 
 # KebabMenu
 
-케밥 메뉴를 나타내는 공용 컴포넌트입니다. 기본 메뉴 박스를 제공하고, `MenuListBox` props로 전달할 수 있습니다.
-해당 props로 커스텀 메뉴 박스 컴포넌트를 전달할 수 있습니다.
+케밥 메뉴를 나타내는 공용 컴포넌트입니다. `MenuListBox` props로 커스텀 메뉴 박스 컴포넌트를 전달할 수 있습니다. 혹은 `MenuListBox` 공용 컴포넌트를 이용할 수 있습니다.
 
 <br/>
 
@@ -21,7 +20,12 @@ import * as KebabMenuStories from './KebabMenu.stories';
   sourceState="shown"
   source={{
     language: 'jsx',
-    code: `<KebabMenu MenuListBox={<KekbabMenu.DefaultListBox menuList={[{name: '수정'}, {name: '삭제'}]} />} />`
+    code: `<KebabMenu MenuListBox={
+      <MenuListBox>
+        <MenuListBox.DefaultItem>수정</MenuListBox.DefaultItem>
+        <MenuListBox.DefaultItem>삭제</MenuListBox.DefaultItem>
+      </MenuListBox>} 
+    />`
   }}
 />
 
