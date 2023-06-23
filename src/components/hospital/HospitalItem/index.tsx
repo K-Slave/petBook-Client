@@ -1,5 +1,5 @@
 import { BookmarkOutline } from "@/stories/Icon/Bookmark";
-import CustomSwiper, { SlideButton } from "@/stories/common/SwiperSlider";
+import SwiperSlider, { SlideButton } from "@/stories/common/SwiperSlider";
 import navigator from "@lib/modules/navigator";
 import type { HospitalFullInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
 import { saveScrollPosition } from "@lib/modules/localStorage";
@@ -52,14 +52,14 @@ const HospitalItem = ({
         >
           <ChevronLeftRounded height="0.625rem" />
         </SlideButton>
-        <CustomSwiper
+        <SwiperSlider
           loop
           prevButtonId={prevButtonId}
           nextButtonId={nextButtonId}
         >
           <SwiperSlide>illust</SwiperSlide>
           <SwiperSlide>asdfasdf</SwiperSlide>
-        </CustomSwiper>
+        </SwiperSlider>
         <SlideButton
           prevOrnext="next"
           id={nextButtonId}

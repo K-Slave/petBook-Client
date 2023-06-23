@@ -9,7 +9,7 @@ interface Props extends SwiperProps {
   nextButtonId: string;
 }
 
-const CustomSwiper = ({
+const SwiperSlider = ({
   children,
   prevButtonId,
   nextButtonId,
@@ -33,7 +33,7 @@ const CustomSwiper = ({
   );
 };
 
-export default CustomSwiper;
+export default SwiperSlider;
 
 type SlideButtonProps = ButtonProps & {
   id: string;
@@ -78,7 +78,6 @@ export const SlideButton = ({
 };
 
 SlideButton.defaultProps = {
-  variant: "",
   width: "1.875rem",
   height: "1.875rem",
   bgColor: "rgba(255, 255, 255, 0.6)",

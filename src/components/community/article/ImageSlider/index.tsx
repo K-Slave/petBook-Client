@@ -1,4 +1,4 @@
-import CustomSwiper, { SlideButton } from "@/stories/common/SwiperSlider";
+import SwiperSlider, { SlideButton } from "@/stories/common/SwiperSlider";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import useModal from "@lib/hooks/common/useModal";
 import ImageSliderModal from "../ImageSliderModal";
@@ -39,7 +39,7 @@ const ImageSlider = ({ images, alt }: Props) => {
           <SlideButton id={prevButtonId} prevOrnext="prev">
             <ChevronLeftRounded />
           </SlideButton>
-          <CustomSwiper
+          <SwiperSlider
             prevButtonId={prevButtonId}
             nextButtonId={nextButtonId}
             slidesPerView="auto"
@@ -58,7 +58,7 @@ const ImageSlider = ({ images, alt }: Props) => {
                 />
               </StyledSwiperSlide>
             ))}
-          </CustomSwiper>
+          </SwiperSlider>
           <SlideButton id={nextButtonId} prevOrnext="next">
             <ChevronRightRounded />
           </SlideButton>

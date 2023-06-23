@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import CustomSwiper, { SlideButton } from "@/stories/common/SwiperSlider";
+import SwiperSlider, { SlideButton } from "@/stories/common/SwiperSlider";
 import { SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
@@ -28,7 +28,7 @@ const ImageSliderModal = ({
         <SlideButton id={prevButtonId} prevOrnext="prev">
           <ChevronLeftRounded />
         </SlideButton>
-        <CustomSwiper
+        <SwiperSlider
           loop
           prevButtonId={prevButtonId}
           nextButtonId={nextButtonId}
@@ -45,7 +45,7 @@ const ImageSliderModal = ({
               />
             </SwiperSlide>
           ))}
-        </CustomSwiper>
+        </SwiperSlider>
         <SlideButton id={nextButtonId} prevOrnext="next">
           <ChevronRightRounded />
         </SlideButton>

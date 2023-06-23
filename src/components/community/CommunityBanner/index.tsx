@@ -1,6 +1,6 @@
 import React from "react";
 import { SwiperSlide } from "swiper/react";
-import CustomSwiper, { SlideButton } from "@/stories/common/SwiperSlider";
+import SwiperSlider, { SlideButton } from "@/stories/common/SwiperSlider";
 import { CommunityBannerBox, SlideBox } from "./styled";
 import { ChevronLeftRounded } from "@/stories/Icon/ChevronLeft";
 import { ChevronRightRounded } from "@/stories/Icon/ChevronRight";
@@ -13,7 +13,7 @@ const CommunityBanner = () => {
       <SlideButton id={prevButtonId} prevOrnext="prev">
         <ChevronLeftRounded />
       </SlideButton>
-      <CustomSwiper
+      <SwiperSlider
         loop
         prevButtonId={prevButtonId}
         nextButtonId={nextButtonId}
@@ -27,7 +27,7 @@ const CommunityBanner = () => {
         <SwiperSlide>
           <SlideBox>Slide 3</SlideBox>
         </SwiperSlide>
-      </CustomSwiper>
+      </SwiperSlider>
       <SlideButton id={nextButtonId} prevOrnext="next">
         <ChevronRightRounded />
       </SlideButton>
