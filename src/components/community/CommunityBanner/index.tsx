@@ -1,12 +1,23 @@
 import React from "react";
 import { SwiperSlide } from "swiper/react";
-import CustomSwiper from "@/stories/common/SwiperSlider";
+import CustomSwiper, { SlideButton } from "@/stories/common/SwiperSlider";
 import { CommunityBannerBox, SlideBox } from "./styled";
+import { ChevronLeftRounded } from "@/stories/Icon/ChevronLeft";
+import { ChevronRightRounded } from "@/stories/Icon/ChevronRight";
 
 const CommunityBanner = () => {
+  const prevButtonId = "Community_Banner_Prev_Button";
+  const nextButtonId = "Community_Banner_Next_Button";
   return (
     <CommunityBannerBox>
-      <CustomSwiper loop id="Community_Banner">
+      <SlideButton id={prevButtonId} prevOrnext="prev">
+        <ChevronLeftRounded />
+      </SlideButton>
+      <CustomSwiper
+        loop
+        prevButtonId={prevButtonId}
+        nextButtonId={nextButtonId}
+      >
         <SwiperSlide>
           <AboutSlide />
         </SwiperSlide>
@@ -17,6 +28,9 @@ const CommunityBanner = () => {
           <SlideBox>Slide 3</SlideBox>
         </SwiperSlide>
       </CustomSwiper>
+      <SlideButton id={nextButtonId} prevOrnext="next">
+        <ChevronRightRounded />
+      </SlideButton>
     </CommunityBannerBox>
   );
 };

@@ -1,5 +1,5 @@
 import { BookmarkOutline } from "@/stories/Icon/Bookmark";
-import CustomSwiper from "@/stories/common/SwiperSlider";
+import CustomSwiper, { SlideButton } from "@/stories/common/SwiperSlider";
 import navigator from "@lib/modules/navigator";
 import type { HospitalFullInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
 import { saveScrollPosition } from "@lib/modules/localStorage";
@@ -11,6 +11,8 @@ import { PointReviewList } from "@components/hospital/HospitalReviewList";
 import HospitalBasicInfo from "@components/hospital/HospitalBasicInfo";
 import Stats from "@components/hospital/Stats";
 import { ImageSliderDiv, ItemHeader } from "./styled";
+import { ChevronLeftRounded } from "@/stories/Icon/ChevronLeft";
+import { ChevronRightRounded } from "@/stories/Icon/ChevronRight";
 
 const HospitalItem = ({
   hospitals,
@@ -28,13 +30,48 @@ const HospitalItem = ({
       },
     });
   };
+  const prevButtonId = `Hospital_Item_${hospitals.hospitals.id}_Prev`;
+  const nextButtonId = `Hospital_Item_${hospitals.hospitals.id}_Next`;
+  const slideButtonStyle = {
+    position: "absolute" as const,
+    top: "50%",
+    transform: "translateY(-50%)",
+  };
   return (
     <article>
       <ImageSliderDiv>
-        <CustomSwiper loop id={`Hospital_Item_${hospitals.hospitals.id}`}>
+        <SlideButton
+          prevOrnext="prev"
+          id={prevButtonId}
+          width="1.25rem"
+          height="1.25rem"
+          style={{
+            ...slideButtonStyle,
+            left: "10px",
+          }}
+        >
+          <ChevronLeftRounded height="0.625rem" />
+        </SlideButton>
+        <CustomSwiper
+          loop
+          prevButtonId={prevButtonId}
+          nextButtonId={nextButtonId}
+        >
           <SwiperSlide>illust</SwiperSlide>
           <SwiperSlide>asdfasdf</SwiperSlide>
         </CustomSwiper>
+        <SlideButton
+          prevOrnext="next"
+          id={nextButtonId}
+          width="1.25rem"
+          height="1.25rem"
+          style={{
+            ...slideButtonStyle,
+            right: "10px",
+          }}
+        >
+          <ChevronRightRounded height="0.625rem" />
+        </SlideButton>
       </ImageSliderDiv>
       <ItemHeader>
         <h1 onClick={navigateToDetail}>{hospitals.hospitals.name}</h1>

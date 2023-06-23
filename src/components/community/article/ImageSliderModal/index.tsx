@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import CustomSwiper from "@/stories/common/SwiperSlider";
+import CustomSwiper, { SlideButton } from "@/stories/common/SwiperSlider";
 import { SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import Modal from "@/stories/common/Modal";
+import { ChevronLeftRounded } from "@/stories/Icon/ChevronLeft";
+import { ChevronRightRounded } from "@/stories/Icon/ChevronRight";
 
 interface Props {
   images: ArticleResponse["images"];
@@ -18,12 +20,18 @@ const ImageSliderModal = ({
   initialImageIndex,
   closeModal,
 }: Props) => {
+  const prevButtonId = "Image_Slider_Modal_Prev";
+  const nextButtonId = "Image_Slider_Modal_Next";
   return (
     <Modal closeModal={closeModal}>
       <SliderDiv>
+        <SlideButton id={prevButtonId} prevOrnext="prev">
+          <ChevronLeftRounded />
+        </SlideButton>
         <CustomSwiper
           loop
-          id="Image_Slider_Modal"
+          prevButtonId={prevButtonId}
+          nextButtonId={nextButtonId}
           initialSlide={initialImageIndex}
         >
           {images.map((image) => (
@@ -38,6 +46,9 @@ const ImageSliderModal = ({
             </SwiperSlide>
           ))}
         </CustomSwiper>
+        <SlideButton id={nextButtonId} prevOrnext="next">
+          <ChevronRightRounded />
+        </SlideButton>
       </SliderDiv>
     </Modal>
   );

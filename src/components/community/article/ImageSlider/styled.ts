@@ -7,20 +7,7 @@ export const ImageSliderDiv = styled.div<{ cnt: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 17px;
-  button {
-    position: absolute;
-    z-index: 2;
-    top: 50%;
-    &:first-child {
-      left: 0;
-      transform: translate(-50%, -50%);
-    }
-    &:last-child {
-      right: 0;
-      transform: translate(50%, -50%);
-    }
-  }
+  gap: 1rem;
 `;
 
 export const StyledSwiperSlide = styled(SwiperSlide)`

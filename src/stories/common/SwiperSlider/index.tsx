@@ -1,29 +1,27 @@
-import React from "react";
+import React, { type PropsWithChildren } from "react";
 import { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperProps, useSwiper } from "swiper/react";
-import { SliderButton, SwiperStyle } from "./style";
-import { ChevronRightRounded } from "@/stories/Icon/ChevronRight";
-import { ChevronLeftRounded } from "@/stories/Icon/ChevronLeft";
+import { SwiperStyle } from "./style";
+import Button, { type ButtonProps } from "../Button";
 
 interface Props extends SwiperProps {
-  id: string;
-  buttonClassNames?: [string, string];
+  prevButtonId: string;
+  nextButtonId: string;
 }
 
-const CustomSwiper = ({ children, id, buttonClassNames, ...props }: Props) => {
-  const prevElId = `swiper_${id}_prev`;
-  const nextElId = `swiper_${id}_next`;
+const CustomSwiper = ({
+  children,
+  prevButtonId,
+  nextButtonId,
+  ...props
+}: Props) => {
   return (
     <>
       <SwiperStyle spaceBetween={props.spaceBetween} />
-      <SlidePrevButton
-        id={prevElId}
-        className={buttonClassNames ? buttonClassNames[0] : ""}
-      />
       <Swiper
         navigation={{
-          prevEl: `#${prevElId}`,
-          nextEl: `#${nextElId}`,
+          prevEl: `#${prevButtonId}`,
+          nextEl: `#${nextButtonId}`,
         }}
         pagination={{ clickable: true }}
         modules={[Navigation, Pagination]}
@@ -31,45 +29,57 @@ const CustomSwiper = ({ children, id, buttonClassNames, ...props }: Props) => {
       >
         {children}
       </Swiper>
-      <SlideNextButton
-        id={nextElId}
-        className={buttonClassNames ? buttonClassNames[1] : ""}
-      />
     </>
   );
 };
 
 export default CustomSwiper;
 
-interface ButtonProps {
+type SlideButtonProps = ButtonProps & {
   id: string;
-  className: string;
-}
+  className?: string;
+  prevOrnext: "prev" | "next";
+};
 
-export const SlideNextButton = ({ id, className }: ButtonProps) => {
+export const SlideButton = ({
+  prevOrnext,
+  children,
+  style,
+  ...props
+}: PropsWithChildren<SlideButtonProps>) => {
   const swiper = useSwiper();
   const onClick = () => {
-    if (swiper) {
+    if (!swiper) return;
+    if (prevOrnext === "prev") {
+      swiper.slidePrev();
+    } else {
       swiper.slideNext();
     }
   };
+  const defaultStyle = {
+    borderRadius: "50%",
+    boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)",
+    flexShrink: "0",
+    zIndex: "2",
+    transform: "translateY(-60%)",
+  };
   return (
-    <SliderButton onClick={onClick} type="button" id={id} className={className}>
-      <ChevronRightRounded />
-    </SliderButton>
+    <Button
+      {...props}
+      onClick={onClick}
+      style={{
+        ...defaultStyle,
+        ...style,
+      }}
+    >
+      {children}
+    </Button>
   );
 };
 
-export const SlidePrevButton = ({ id, className }: ButtonProps) => {
-  const swiper = useSwiper();
-  const onClick = () => {
-    if (swiper) {
-      swiper.slidePrev();
-    }
-  };
-  return (
-    <SliderButton onClick={onClick} type="button" id={id} className={className}>
-      <ChevronLeftRounded />
-    </SliderButton>
-  );
+SlideButton.defaultProps = {
+  variant: "",
+  width: "1.875rem",
+  height: "1.875rem",
+  bgColor: "rgba(255, 255, 255, 0.6)",
 };

@@ -23,21 +23,4 @@ export const ImageSliderDiv = styled.div`
   height: 180px;
   background: #e1e1e1;
   border-radius: 12px;
-  button {
-    position: absolute;
-    top: 50%;
-    width: 20px;
-    height: 20px;
-    z-index: 2;
-    transform: translateY(-50%);
-    &:first-child {
-      left: 10px;
-    }
-    &:last-child {
-      right: 10px;
-    }
-    svg {
-      height: 10px;
-    }
-  }
 `;
