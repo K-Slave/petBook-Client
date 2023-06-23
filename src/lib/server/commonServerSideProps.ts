@@ -65,7 +65,7 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
       }
 
       // 로그인 유저 리다이렉트 처리
-      if (path?.includes("login") && user) {
+      if (path?.includes("auth") && user) {
         loggedUserRedirect(context);
       }
 

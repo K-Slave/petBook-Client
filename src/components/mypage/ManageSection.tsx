@@ -1,4 +1,5 @@
-import AuthSelfMask from "@components/common/AuthSelfMask/AuthSelfMask";
+import AuthWrapper from "@components/common/AuthWrapper/AuthWrapper";
+import { useRouter } from "next/router";
 import React, { PropsWithChildren } from "react";
 // import { BubblyTip, useBubblyTip } from "react-bubblytip";
 
@@ -12,10 +13,13 @@ const ManageSection = () => {
 };
 
 const Wrap = ({ children }: PropsWithChildren<any>) => {
+  const { query } = useRouter();
+  const idPath = query.id as string;
+
   return (
-    <AuthSelfMask>
+    <AuthWrapper userId={idPath}>
       <section>{children}</section>
-    </AuthSelfMask>
+    </AuthWrapper>
   );
 };
 

@@ -1,4 +1,3 @@
-import AuthSelfMask from "@components/common/AuthSelfMask/AuthSelfMask";
 import MypageBanner from "@components/mypage/MypageBanner";
 import MypageContainer from "@containers/mypage/MyPageContainer";
 

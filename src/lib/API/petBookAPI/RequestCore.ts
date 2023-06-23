@@ -1,12 +1,5 @@
-import {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosRequestHeaders,
-  AxiosResponse,
-} from "axios";
+import { AxiosInstance, AxiosRequestHeaders, AxiosResponse } from "axios";
 import { getQueryString, getUrl } from "../axios/xhrFunctions";
-import localConsole from "@lib/utils/localConsole";
-
 type AxiosMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
 interface GetResultArgs<P extends object | string | undefined> {
@@ -25,7 +18,7 @@ export interface GetResultReturn<T, P = object | string | undefined> {
   request: {
     method: AxiosMethod;
     url: string;
-    data?: P;
+    data: P | null;
     timeout: 10000;
   };
 }
@@ -123,7 +116,7 @@ export default class RequestCore {
       request: {
         method: requestMethod,
         url: requestURL,
-        data: body,
+        data: body || null,
         timeout: 10000,
       },
     };

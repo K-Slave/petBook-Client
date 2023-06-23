@@ -26,7 +26,8 @@ export default class CookieController extends CookieService {
 
       return result;
     } catch (err) {
-      return this.nextRes.status(400).json(err);
+      const errorMessage = err instanceof Error ? err.message : "Unknown error";
+      return this.nextRes.status(400).json({ message: errorMessage });
     }
   };
 

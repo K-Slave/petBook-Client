@@ -25,6 +25,7 @@ import ResponsiveImage from "../common/Image/ResponsiveImage";
 import Menu from "./Menu";
 import { useRouter } from "next/router";
 import LoginLink from "../common/Link/LoginLink";
+import localConsole from "@lib/utils/localConsole";
 
 interface Props extends NavControllerProps {
   maxWidth?: string;
@@ -44,6 +45,8 @@ const Header = ({
   isOwnerAuthorization,
 }: Props) => {
   const { userData } = useUserInfo();
+
+  localConsole?.log(userData, "userData");
 
   return (
     <Header.Wrap maxWidth={maxWidth} position={position}>

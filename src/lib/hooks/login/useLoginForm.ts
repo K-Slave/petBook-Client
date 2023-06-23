@@ -9,6 +9,8 @@ import tokenParser from "@lib/server/parse/tokenParser";
 import { useSetRecoilState } from "recoil";
 import loadingState from "@atoms/common/loadingState";
 import localConsole from "@lib/utils/localConsole";
+import Cookies from "js-cookie";
+import { memoizedValue } from "@lib/globalConst";
 
 const useLoginForm = (props?: UseFormProps) => {
   const router = useRouter();
@@ -190,8 +192,13 @@ const useLoginForm = (props?: UseFormProps) => {
       ) {
         const { userInfo } = tokenParser(loginResponse.response.data.token);
         setUserInfo(userInfo);
+
+        const prevPath = Cookies.get(memoizedValue.prevPath);
+
+        Cookies.remove(memoizedValue.prevPath);
+
         // TODO: replace 하는게 맞는건지?
-        router.replace(loginStore.prevPath);
+        router.replace(prevPath || "/");
       }
     }
   );

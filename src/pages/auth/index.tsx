@@ -1,6 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import LoginForm from "@/stories/LoginModule";
+import { AuthRedirectWrapper } from "@components/common/AuthWrapper/AuthWrapper";
+import useLoginStore from "@lib/hooks/store/useLoginStore";
+import commonServerSideProps from "@lib/server/commonServerSideProps";
+import Cookies from "js-cookie";
+import { memoizedValue } from "@lib/globalConst";
 
 const Main = styled.main`
   display: flex;
@@ -17,11 +22,19 @@ const Main = styled.main`
 
 // TODO : 로그인 되있을시 Redirection 또는 라우팅 처리하기
 const Auth = () => {
+  const prevPath = Cookies.get(memoizedValue.prevPath);
+
+  Cookies.remove(memoizedValue.prevPath);
+
   return (
-    <Main>
-      <LoginForm />
-    </Main>
+    <AuthRedirectWrapper pathTo={prevPath || "/"}>
+      <Main>
+        <LoginForm />
+      </Main>
+    </AuthRedirectWrapper>
   );
 };
+
+export const getServerSideProps = commonServerSideProps();
 
 export default Auth;

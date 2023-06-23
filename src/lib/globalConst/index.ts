@@ -41,3 +41,7 @@ export const commonReg = {
 export const STORAGE_PATH =
   process.env.NEXT_PUBLIC_STORAGE ||
   "https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnkpahvshifr/b/petbook-image/o/assets";
+
+export const memoizedValue = {
+  prevPath: "prevPath" as const,
+};
