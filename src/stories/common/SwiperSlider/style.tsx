@@ -14,18 +14,18 @@ export const SwiperStyle = createGlobalStyle<{ spaceBetween?: number }>`
 
   .swiper-pagination {
     position: relative;
-    margin-top: 20px;
+    margin-top: 1.25rem;
   }
 
   .swiper-pagination-bullet {
-    width: 8px;
-    height: 8px;
+    width: 0.5rem;
+    height: 0.5rem;
     background: var(--black_06);
     opacity: 1;
   }
 
   .swiper-pagination-bullet-active {
-    width: 40px;
+    width: 2.5rem;
     background: var(--primary);
     border-radius: 8px;
   }
