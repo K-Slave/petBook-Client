@@ -144,7 +144,7 @@ export const TextBodyMedium14 = css`
   letter-spacing: -0.02em;
 `;
 
-const getFontStyle = (variant: TypographyVariant) => {
+export const getFontStyle = (variant: TypographyVariant) => {
   switch (variant) {
     case "h1-bold":
       return TextH1Bold;

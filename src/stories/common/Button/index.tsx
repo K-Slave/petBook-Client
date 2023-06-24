@@ -1,5 +1,6 @@
 import React, { type PropsWithChildren } from "react";
 import { StyledButton } from "./style";
+import type { TypographyVariant } from "../Typography";
 
 interface CommonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   active?: boolean;
@@ -7,6 +8,7 @@ interface CommonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   buttonRef?: React.RefObject<HTMLButtonElement>;
   hoverColor?: string;
   hoverBgColor?: string;
+  typography?: TypographyVariant;
 }
 
 export type ButtonProps = CommonProps &

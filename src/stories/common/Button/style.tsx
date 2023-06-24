@@ -1,11 +1,17 @@
 import type { ButtonProps } from ".";
 import styled, { css } from "styled-components";
+import {
+  TextBodyDefaultBold,
+  TextBodyDefaultMedium,
+  TextBodySmallMedium,
+  TextH4Bold,
+  getFontStyle,
+} from "../Typography/style";
 
 const PrimaryStyle = css`
   color: var(--bg_white_02);
   background-color: var(--primary);
-  font-weight: bold;
-  font-size: 1.125rem;
+  ${TextH4Bold};
   &:hover {
     background-color: var(--primary-hover);
   }
@@ -14,26 +20,25 @@ const PrimaryStyle = css`
 const SecondaryStyle = css`
   color: var(--primary);
   background-color: var(--secondary);
-  font-weight: bold;
-  font-size: 1.125rem;
+  ${TextH4Bold};
   &:hover {
     box-shadow: inset 0px 1px 16px var(--secondary-hover);
   }
 `;
 
 const TertiaryStyle = css`
-  font-weight: 400;
   color: var(--black_01);
   background-color: white;
+  ${TextBodyDefaultMedium};
   &:hover {
     box-shadow: inset 0px 1px 16px #dfdfd8;
   }
 `;
 
 const TertiaryActiveStyle = css`
-  font-weight: bold;
   color: var(--bg_white_02);
   background-color: var(--black_01);
+  ${TextBodyDefaultBold};
   &:hover {
     box-shadow: none;
   }
@@ -42,20 +47,15 @@ const TertiaryActiveStyle = css`
 const SmallButtonStyle = css`
   width: fit-content;
   height: fit-content;
-  font-size: 0.875rem;
-  font-weight: 400;
   padding: 0.25rem 1rem;
   border-radius: 40px;
+  ${TextBodySmallMedium};
 `;
 
 export const StyledButton = styled.button<ButtonProps>`
   display: ${({ hidden }) => (hidden ? "none" : "flex")};
   align-items: center;
   justify-content: center;
-
-  font-size: 1rem;
-  line-height: 24px;
-
   border-radius: 8px;
   transition: all 0.3s ease;
 
@@ -109,4 +109,5 @@ export const StyledButton = styled.button<ButtonProps>`
         background-color: var(--black_07);
       }
     `}
+  ${(props) => props?.typography && getFontStyle(props.typography)}
 `;

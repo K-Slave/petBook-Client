@@ -43,7 +43,7 @@ export const Small: Story = {
   },
 };
 
-export const Custom: Story = {
+export const Combination: Story = {
   args: {
     variant: "tertiary",
     width: "220px",
@@ -57,6 +57,16 @@ export const Custom: Story = {
         <span>전체 게시물로 돌아가기</span>
       </>
     ),
+  },
+};
+
+export const Custom: Story = {
+  args: {
+    width: "100%",
+    bgColor: "black",
+    color: "white",
+    typography: "h3-bold",
+    children: <span>Variant 없음</span>,
   },
 };
 export default meta;

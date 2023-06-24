@@ -1,25 +1,34 @@
-import type { PropsWithChildren } from "react";
+import type { MouseEventHandler, PropsWithChildren } from "react";
 import usePagination from "@lib/hooks/common/usePagination";
 import { PaginationDiv } from "./style";
 import { ChevronLeftRounded } from "../../Icon/ChevronLeft";
 import { ChevronRightRounded } from "../../Icon/ChevronRight";
-import Button, { type ButtonProps } from "../Button";
-import Typography from "../Typography";
+import Button from "../Button";
 
-interface Props {
+interface PageButtonProps {
+  onClick: MouseEventHandler;
+  active: boolean;
+  page: number;
+}
+
+interface DirectionButtonProps {
+  onClick: MouseEventHandler;
+  disabled: boolean;
+}
+
+interface PaginationProps {
   totalPages: number;
   buttonCntPerLine: number;
   PageButton?: (props: PropsWithChildren<PageButtonProps>) => JSX.Element;
-  PrevButton?: (props: PropsWithChildren<ButtonProps>) => JSX.Element;
-  NextButton?: (props: PropsWithChildren<ButtonProps>) => JSX.Element;
+  PrevButton?: (props: PropsWithChildren<DirectionButtonProps>) => JSX.Element;
+  NextButton?: (props: PropsWithChildren<DirectionButtonProps>) => JSX.Element;
 }
 
-type PageButtonProps = ButtonProps & {
-  active: boolean;
-  page: number;
-};
-
-const Pagination = ({ totalPages, buttonCntPerLine, ...props }: Props) => {
+const Pagination = ({
+  totalPages,
+  buttonCntPerLine,
+  ...props
+}: PaginationProps) => {
   const { currentPage, changeCurrentPage, startPageNum } = usePagination({
     totalPages,
     buttonCntPerLine,
@@ -59,28 +68,21 @@ const Pagination = ({ totalPages, buttonCntPerLine, ...props }: Props) => {
   );
 };
 
-const DefaultPageButton = ({
-  active,
-  page,
-  ...props
-}: PropsWithChildren<PageButtonProps>) => (
-  <Button {...props} width="2rem" height="2rem">
-    <Typography
-      tag="span"
-      variant={active ? "body-small-bold" : "body-small-medium"}
-      color={active ? "var(--black_01)" : "var(--black_05)"}
-    >
-      {page}
-    </Typography>
+const DefaultPageButton = ({ active, page, onClick }: PageButtonProps) => (
+  <Button
+    onClick={onClick}
+    width="2rem"
+    height="2rem"
+    color={active ? "var(--black_01)" : "var(--black_05)"}
+    typography={active ? "body-small-bold" : "body-small-medium"}
+  >
+    {page}
   </Button>
 );
 
-const DefaultPrevButton = ({
-  disabled,
-  ...props
-}: PropsWithChildren<ButtonProps>) => (
+const DefaultPrevButton = ({ disabled, onClick }: DirectionButtonProps) => (
   <Button
-    {...props}
+    onClick={onClick}
     width="1.5rem"
     height="1.5rem"
     hidden={disabled}
@@ -92,12 +94,9 @@ const DefaultPrevButton = ({
   </Button>
 );
 
-const DefaultNextButton = ({
-  disabled,
-  ...props
-}: PropsWithChildren<ButtonProps>) => (
+const DefaultNextButton = ({ disabled, onClick }: DirectionButtonProps) => (
   <Button
-    {...props}
+    onClick={onClick}
     width="1.5rem"
     height="1.5rem"
     hidden={disabled}

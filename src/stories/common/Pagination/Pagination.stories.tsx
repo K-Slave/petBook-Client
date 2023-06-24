@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
 import Pagination from ".";
-import Typography from "../Typography";
 import Button from "../Button";
 
 const meta: Meta<typeof Pagination> = {
@@ -21,40 +20,43 @@ export const Custom: Story = {
   args: {
     totalPages: 10,
     buttonCntPerLine: 5,
-    PageButton: ({ active, page, ...props }) => (
-      <Button {...props} width="6rem" height="fit-content">
-        <Typography
-          tag="span"
-          variant={active ? "body-default-bold" : "body-default-medium"}
-          color={active ? "red" : "var(--black_05)"}
-        >
-          {page} page
-        </Typography>
+    PageButton: ({ active, page, onClick }) => (
+      <Button
+        onClick={onClick}
+        width="6rem"
+        height="fit-content"
+        color={active ? "red" : "var(--black_05)"}
+        typography={active ? "body-default-bold" : "body-default-medium"}
+      >
+        {page} page
       </Button>
     ),
-    PrevButton: ({ disabled, ...props }) => (
+    PrevButton: ({ disabled, onClick }) => (
       <Button
-        {...props}
+        onClick={onClick}
         disabled={disabled}
         width="2rem"
         height="fit-content"
+        typography={disabled ? "body-small-medium" : "body-small-bold"}
         style={{
           color: disabled ? "var(--black_05)" : "black",
         }}
       >
-        <Typography
-          variant={disabled ? "body-small-medium" : "body-small-bold"}
-          tag="span"
-        >
-          이전
-        </Typography>
+        이전
       </Button>
     ),
-    NextButton: (props) => (
-      <Button {...props} width="2rem" height="fit-content">
-        <Typography variant="body-small-bold" tag="span">
-          다음
-        </Typography>
+    NextButton: ({ disabled, onClick }) => (
+      <Button
+        onClick={onClick}
+        disabled={disabled}
+        width="2rem"
+        height="fit-content"
+        typography={disabled ? "body-small-medium" : "body-small-bold"}
+        style={{
+          color: disabled ? "var(--black_05)" : "black",
+        }}
+      >
+        다음
       </Button>
     ),
   },
