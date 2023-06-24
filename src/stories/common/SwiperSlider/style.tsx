@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-export const SwiperStyle = createGlobalStyle<{ spaceBetween?: number }>`
+export const SwiperStyle = createGlobalStyle`
   .swiper {
     width: 100%;
     height: 100%;

@@ -17,7 +17,7 @@ const SwiperSlider = ({
 }: Props) => {
   return (
     <>
-      <SwiperStyle spaceBetween={props.spaceBetween} />
+      <SwiperStyle />
       <Swiper
         navigation={{
           prevEl: `#${prevButtonId}`,
