@@ -29,6 +29,8 @@ const NextGlobalStyle = createGlobalStyle`
   --bg_white_02: #f8f7f2;
   --bg_white_01: #eeede7;
 
+  --bg_gray_01:#d9d9d9;
+
   /* shadow */
   --shadow_01: #d6d3c5;
 

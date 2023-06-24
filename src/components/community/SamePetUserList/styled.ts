@@ -58,6 +58,6 @@ export const SamePetImage = styled(Image)<{ isImgExist: boolean }>`
     height: 4rem;
     content: "";
 
-    background-color: #d9d9d9;
+    background-color: var(--bg_gray_01);
   }
 `;
