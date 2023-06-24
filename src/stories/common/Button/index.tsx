@@ -11,6 +11,8 @@ interface CommonProps {
   disabled?: boolean;
   hidden?: boolean;
   buttonRef?: React.RefObject<HTMLButtonElement>;
+  hoverColor?: string;
+  hoverBgColor?: string;
 }
 
 export type ButtonProps = CommonProps &

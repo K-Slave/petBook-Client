@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import type { Variant } from ".";
+import type { TypographyVariant } from ".";
 
 const TextH1 = css`
   font-size: 2.875rem;
@@ -144,7 +144,7 @@ export const TextBodyMedium14 = css`
   letter-spacing: -0.02em;
 `;
 
-const getFontStyle = (variant: Variant) => {
+const getFontStyle = (variant: TypographyVariant) => {
   switch (variant) {
     case "h1-bold":
       return TextH1Bold;
@@ -183,6 +183,6 @@ const getFontStyle = (variant: Variant) => {
   }
 };
 
-export const StyledTypography = styled.div<{ variant: Variant }>`
+export const StyledTypography = styled.div<{ variant: TypographyVariant }>`
   ${({ variant }) => getFontStyle(variant)}
 `;

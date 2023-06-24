@@ -3,7 +3,7 @@ import ThreeDotsVertical from "../../Icon/ThreeDotsVertical";
 import OnClickOutside from "../OnClickOutside";
 import { KebabMenuBox, KebabMenuButton, KebabMenuListWrapper } from "./style";
 
-interface KebabMenuProps {
+interface Props {
   width?: string;
   height?: string;
   color?: string;
@@ -22,7 +22,7 @@ const KebabMenu = ({
   menuStyle,
   MenuListBox,
   boxPosition,
-}: KebabMenuProps) => {
+}: Props) => {
   const [show, setShow] = useState(false);
   const onClickToggle = () => setShow((state) => !state);
   const onClickClose = () => setShow(false);

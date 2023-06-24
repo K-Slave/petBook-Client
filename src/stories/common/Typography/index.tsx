@@ -1,7 +1,7 @@
-import React, { type PropsWithChildren } from "react";
+import React, { type PropsWithChildren, type MouseEventHandler } from "react";
 import { StyledTypography } from "./style";
 
-export type Variant =
+export type TypographyVariant =
   | "h1-bold"
   | "h1-medium"
   | "h2-bold"
@@ -19,36 +19,30 @@ export type Variant =
   | "button-small"
   | "tag-small";
 
-interface Props {
+export interface TypographyProps {
   color?: string;
   align?: React.CSSProperties["textAlign"];
   className?: string;
   style?: React.CSSProperties;
   tag: keyof JSX.IntrinsicElements;
-  variant: Variant;
+  variant: TypographyVariant;
+  onClick?: MouseEventHandler;
 }
 
 const Typography = ({
   color,
   align,
-  className,
   style,
-  tag,
-  variant,
   children,
-}: PropsWithChildren<Props>) => {
+  ...props
+}: PropsWithChildren<TypographyProps>) => {
   const customStyle = {
     ...style,
     textAlign: align,
     color,
   };
   return (
-    <StyledTypography
-      as={tag}
-      variant={variant}
-      style={customStyle}
-      className={className}
-    >
+    <StyledTypography {...props} style={customStyle}>
       {children}
     </StyledTypography>
   );

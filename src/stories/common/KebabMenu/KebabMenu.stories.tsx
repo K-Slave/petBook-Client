@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import KebabMenu from ".";
-import MenuListBox from "../MenuListBox";
+import ListBox from "../ListBox";
+import Typography from "../Typography";
 
 const meta: Meta<typeof KebabMenu> = {
   title: "common/KebabMenu",
@@ -15,18 +16,27 @@ const meta: Meta<typeof KebabMenu> = {
 };
 
 type Story = StoryObj<typeof KebabMenu>;
-export const DefaultKebabMenu: Story = {
+
+const itemProps = {
+  tag: "button" as const,
+  variant: "body-small-medium" as const,
+  style: {
+    width: "100%",
+    padding: "0.5rem 0 0.5rem 1.25rem",
+  },
+};
+export const Default: Story = {
   args: {
     MenuListBox: (
-      <MenuListBox>
-        <MenuListBox.DefaultItem>수정</MenuListBox.DefaultItem>
-        <MenuListBox.DefaultItem>삭제</MenuListBox.DefaultItem>
-      </MenuListBox>
+      <ListBox width="7.3125rem">
+        <Typography {...itemProps}>수정</Typography>
+        <Typography {...itemProps}>삭제</Typography>
+      </ListBox>
     ),
   },
 };
 
-export const CustomKebabMenu: Story = {
+export const Custom: Story = {
   args: {
     width: "50px",
     height: "50px",

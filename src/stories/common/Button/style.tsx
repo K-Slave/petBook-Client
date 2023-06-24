@@ -88,6 +88,20 @@ export const StyledButton = styled.button<ButtonProps>`
       color: ${props.color};
     `};
   ${(props) =>
+    props.hoverBgColor &&
+    css`
+      &:hover {
+        background-color: ${props.hoverBgColor};
+      }
+    `};
+  ${(props) =>
+    props.hoverColor &&
+    css`
+      &:hover {
+        color: ${props.hoverColor};
+      }
+    `};
+  ${(props) =>
     props?.variant &&
     css`
       &:disabled {

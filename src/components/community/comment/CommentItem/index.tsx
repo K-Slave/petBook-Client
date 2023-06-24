@@ -21,7 +21,8 @@ import { CommentFormTextarea } from "../CommentForm/styled";
 import useUserInfo from "@lib/hooks/common/useUserInfo";
 import { COMMENT_LIST } from "@lib/resources/commentResource";
 import Button from "@/stories/common/Button";
-import MenuListBox from "@/stories/common/MenuListBox";
+import ListBox from "@/stories/common/ListBox";
+import Typography from "@/stories/common/Typography";
 
 const avatar =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
@@ -35,6 +36,14 @@ export const NormalItem = ({
   const { userData } = useUserInfo();
   const { user, createdAt, content, likeCount, id, articleId, isLiked } =
     comment;
+  const menuItemProps = {
+    tag: "button" as const,
+    variant: "body-small-medium" as const,
+    style: {
+      width: "100%",
+      padding: "0.5rem 0 0.5rem 1.25rem",
+    },
+  };
   return (
     <NormalItemDiv isEditing={isEditing ? "true" : ""}>
       {isChild && <BsArrowReturnRight />}
@@ -49,14 +58,17 @@ export const NormalItem = ({
           {userData?.id == user.id && !isEditing && (
             <KebabMenu
               MenuListBox={
-                <MenuListBox>
-                  <MenuListBox.DefaultItem onClick={() => setIsEditing(true)}>
+                <ListBox width="7.3125rem">
+                  <Typography
+                    {...menuItemProps}
+                    onClick={() => setIsEditing(true)}
+                  >
                     수정
-                  </MenuListBox.DefaultItem>
-                  <MenuListBox.DefaultItem onClick={clickDeleteMenu}>
+                  </Typography>
+                  <Typography {...menuItemProps} onClick={clickDeleteMenu}>
                     삭제
-                  </MenuListBox.DefaultItem>
-                </MenuListBox>
+                  </Typography>
+                </ListBox>
               }
             />
           )}
@@ -93,6 +105,14 @@ export const QnaItem = ({ comment, isChild, clickDeleteMenu }: ItemProps) => {
     comment;
   const { userData } = useUserInfo();
   const [isEditing, setIsEditing] = useState(false);
+  const menuItemProps = {
+    tag: "button" as const,
+    variant: "body-small-medium" as const,
+    style: {
+      width: "100%",
+      padding: "0.5rem 0 0.5rem 1.25rem",
+    },
+  };
   return (
     <QnaItemDiv>
       <CommonInfo
@@ -116,14 +136,17 @@ export const QnaItem = ({ comment, isChild, clickDeleteMenu }: ItemProps) => {
           {userData?.id == user.id && !isEditing && (
             <KebabMenu
               MenuListBox={
-                <MenuListBox>
-                  <MenuListBox.DefaultItem onClick={() => setIsEditing(true)}>
+                <ListBox width="7.3125rem">
+                  <Typography
+                    {...menuItemProps}
+                    onClick={() => setIsEditing(true)}
+                  >
                     수정
-                  </MenuListBox.DefaultItem>
-                  <MenuListBox.DefaultItem onClick={clickDeleteMenu}>
+                  </Typography>
+                  <Typography {...menuItemProps} onClick={clickDeleteMenu}>
                     삭제
-                  </MenuListBox.DefaultItem>
-                </MenuListBox>
+                  </Typography>
+                </ListBox>
               }
             />
           )}
