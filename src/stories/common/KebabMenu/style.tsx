@@ -17,10 +17,6 @@ export const KebabMenuButton = styled.button`
   width: 100%;
   height: 100%;
   color: inherit;
-  svg {
-    width: 100%;
-    height: 100%;
-  }
 `;
 
 export const KebabMenuListWrapper = styled.div<{

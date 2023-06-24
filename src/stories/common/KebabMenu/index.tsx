@@ -12,6 +12,7 @@ interface Props {
     left?: string;
     right?: string;
   };
+  ButtonIcon?: React.ReactNode;
   MenuListBox: React.ReactNode;
 }
 
@@ -22,6 +23,7 @@ const KebabMenu = ({
   menuStyle,
   MenuListBox,
   boxPosition,
+  ButtonIcon,
 }: Props) => {
   const [show, setShow] = useState(false);
   const onClickToggle = () => setShow((state) => !state);
@@ -35,7 +37,7 @@ const KebabMenu = ({
         style={menuStyle}
       >
         <KebabMenuButton type="button" onClick={onClickToggle}>
-          <ThreeDotsVertical />
+          {ButtonIcon || <ThreeDotsVertical width="100%" height="100%" />}
         </KebabMenuButton>
         <KebabMenuListWrapper
           show={show}
