@@ -33,6 +33,15 @@ export default function useQuerySearch(domain: SearchKeywordItem["domain"]) {
       },
     });
   };
+
+  return {
+    searchText,
+    handleQuerySearch,
+  };
+}
+
+export const useClearQuerySearch = () => {
+  const router = useRouter();
   const handleClearQuery = () => {
     const url = removeQuery({ fullPath: router.asPath, key: QUERY_KEY });
     navigator({
@@ -43,35 +52,19 @@ export default function useQuerySearch(domain: SearchKeywordItem["domain"]) {
     });
   };
   return {
-    searchText,
-    handleQuerySearch,
     handleClearQuery,
   };
-}
+};
 
-export const useRecentSearchKeyword = (domain: SearchKeywordItem["domain"]) => {
-  const router = useRouter();
-  const list = getSearchKeywordList(domain).sort(
-    ({ time: timeA, timezone: tzA }, { time: timeB, timezone: tzB }) => {
+export const useRecentSearchKeywordList = (
+  domain: SearchKeywordItem["domain"]
+) => {
+  const list = getSearchKeywordList(domain)
+    .map((item, index) => ({ ...item, id: index + 1 }))
+    .sort(({ time: timeA, timezone: tzA }, { time: timeB, timezone: tzB }) => {
       const dateA = dayjs(timeA).tz(tzA);
       const dateB = dayjs(timeB).tz(tzB);
       return dateB.diff(dateA);
-    }
-  );
-  const onClickSearch = (keyword: string) => () => {
-    const url = replaceQuery({
-      fullPath: router.asPath,
-      key: QUERY_KEY,
-      query: keyword,
-      basePath: domain === "community" ? "/community/list" : undefined,
     });
-    addSearchKeyword({ domain, type: "query", value: keyword });
-    navigator({
-      url,
-      options: {
-        shallow: true,
-      },
-    });
-  };
-  return { list, onClickSearch };
+  return { list };
 };

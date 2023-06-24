@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { TextBodySmallMedium } from "../../Typography/style";
 
 export const SearchFieldDiv = styled.div<{ width?: string; height?: string }>`
   position: relative;
@@ -8,33 +9,35 @@ export const SearchFieldDiv = styled.div<{ width?: string; height?: string }>`
   `}
 `;
 
-export const SearchFieldInput = styled.input`
+export const SearchForm = styled.form`
   width: 100%;
   height: 100%;
-  padding: 0 2.5rem 0 0.5rem;
-  border: 1px solid var(--black_04);
-  background-color: white;
   border-radius: 8px;
-  &:focus {
-    border-color: var(--primary);
-  }
-  &:focus + svg {
-    color: var(--primary);
-  }
-`;
-
-export const SearchFieldForm = styled.form`
-  width: 100%;
-  height: 100%;
-  box-shadow: 0px 20px 16px -20px #d6d3c5;
-  border-radius: 8px;
-  svg {
+  .search-input-icon {
     position: absolute;
     top: 50%;
-    right: 12px;
-    font-size: 1.5rem;
+    right: 0;
     transform: translateY(-50%);
-    cursor: pointer;
+    width: 3rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .search-input {
+    ${TextBodySmallMedium};
+  }
+  .search-input:focus {
+    border-color: var(--primary) !important;
+  }
+
+  .search-input:focus + .search-input-icon {
+    color: var(--primary);
+  }
+
+  .search-input::placeholder {
+    color: var(--black_05);
+    ${TextBodySmallMedium}
   }
 `;
 
