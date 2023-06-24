@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { TextBodySmallMedium } from "../../Typography/style";
+import type { SearchFieldProps } from ".";
 
 export const SearchFieldDiv = styled.div<{ width?: string; height?: string }>`
   position: relative;
@@ -9,10 +10,9 @@ export const SearchFieldDiv = styled.div<{ width?: string; height?: string }>`
   `}
 `;
 
-export const SearchForm = styled.form`
+export const SearchForm = styled.form<Pick<SearchFieldProps, "focusColor">>`
   width: 100%;
   height: 100%;
-  border-radius: 8px;
   .search-input-icon {
     position: absolute;
     top: 50%;
@@ -27,21 +27,22 @@ export const SearchForm = styled.form`
   .search-input {
     ${TextBodySmallMedium};
   }
-  .search-input:focus {
-    border-color: var(--primary) !important;
-  }
+  ${({ focusColor }) => css`
+    .search-input:focus {
+      border-color: ${focusColor} !important;
+    }
 
-  .search-input:focus + .search-input-icon {
-    color: var(--primary);
-  }
-
+    .search-input:focus + .search-input-icon {
+      color: ${focusColor};
+    }
+  `}
   .search-input::placeholder {
-    color: var(--black_05);
-    ${TextBodySmallMedium}
+    ${TextBodySmallMedium};
   }
 `;
 
-export const KeywordListBoxWrapper = styled.div<{ top: string }>`
+export const KeywordListBoxWrapper = styled.div<{ top: string; show: boolean }>`
+  display: ${({ show }) => (show ? "block" : "none")};
   position: absolute;
   top: ${({ top }) => top};
   left: 0;

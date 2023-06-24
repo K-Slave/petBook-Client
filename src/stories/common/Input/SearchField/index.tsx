@@ -18,11 +18,20 @@ import Typography from "../../Typography";
 import Button, { type ButtonProps } from "../../Button";
 import CommonInput, { type CommonInputProps } from "../CommonInput/CommonInput";
 
-interface Props {
-  domain: SearchKeywordItem["domain"];
+interface SearchFieldInputProps
+  extends Pick<CommonInputProps, "placeholder" | "style"> {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onFocus: FocusEventHandler;
+  className: string;
+}
+
+export interface SearchFieldProps {
+  domain?: SearchKeywordItem["domain"];
   placeholder?: string;
   width?: string;
   height?: string;
+  focusColor?: string;
   KeywordListBox?: React.ReactNode;
   SearchIcon?: React.ReactNode;
   renderInput?: (props: SearchFieldInputProps) => React.ReactNode;
@@ -34,11 +43,12 @@ const SearchField = ({
   domain,
   width,
   height,
+  focusColor,
   KeywordListBox,
   SearchIcon,
   renderInput,
   renderCloseButton,
-}: Props) => {
+}: SearchFieldProps) => {
   const { searchText, handleQuerySearch } = useQuerySearch(domain);
   const { handleClearQuery } = useClearQuerySearch();
   const [text, setText] = useState(searchText);
@@ -68,7 +78,7 @@ const SearchField = ({
       }}
     >
       <SearchFieldDiv width={width} height={height}>
-        <SearchForm onSubmit={onSubmitSearch}>
+        <SearchForm onSubmit={onSubmitSearch} focusColor={focusColor}>
           {renderInput ? (
             renderInput({
               value: text,
@@ -79,7 +89,6 @@ const SearchField = ({
             })
           ) : (
             <SearchField.Input
-              type="text"
               value={text}
               placeholder={placeholder}
               onChange={onChange}
@@ -107,25 +116,18 @@ const SearchField = ({
             )}
           </div>
         </SearchForm>
-        {showBox && (
-          <KeywordListBoxWrapper top={`calc(${height || "2.5rem"} - 3px)`}>
-            {KeywordListBox || (
-              <SearchField.RecentKeywordList domain={domain} />
-            )}
+        {KeywordListBox && (
+          <KeywordListBoxWrapper
+            top={`calc(${height || "2.5rem"} - 3px)`}
+            show={showBox}
+          >
+            {KeywordListBox}
           </KeywordListBoxWrapper>
         )}
       </SearchFieldDiv>
     </OnClickOutside>
   );
 };
-
-interface SearchFieldInputProps
-  extends Pick<CommonInputProps, "placeholder" | "style"> {
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onFocus: FocusEventHandler;
-  className: string;
-}
 
 const SearchFieldInput = ({
   value,
@@ -137,9 +139,9 @@ const SearchFieldInput = ({
 }: CommonInputProps) => {
   return (
     <CommonInput
-      {...props}
       className="search-input"
-      type="text"
+      placeholderColor="var(--black_05)"
+      {...props}
       value={value}
       placeholder={placeholder}
       onChange={onChange}
@@ -147,8 +149,8 @@ const SearchFieldInput = ({
       width="100%"
       height="100%"
       style={{
-        padding: "0 2.5rem 0 0.5rem",
-        border: `1px solid var(--black_04)`,
+        padding: "0 3rem 0 0.5rem",
+        border: "1px solid var(--black_04)",
         ...style,
       }}
     />
@@ -208,7 +210,10 @@ KeywordItem.defaultProps = {
   },
 };
 
-export const RecentKeywordListBox = ({ domain }: Pick<Props, "domain">) => {
+interface RecentKeywordListBoxProps {
+  domain: SearchKeywordItem["domain"];
+}
+const RecentKeywordListBox = ({ domain }: RecentKeywordListBoxProps) => {
   const { list } = useRecentSearchKeywordList(domain);
   const { handleQuerySearch } = useQuerySearch(domain);
   return (
@@ -246,6 +251,8 @@ SearchField.defaultProps = {
   showRecentKeywords: true,
   width: "17.375rem",
   height: "2.5rem",
+  placeholderColor: "var(--black_05)",
+  focusBorderColor: "var(--primary)",
 };
 
 export default SearchField;

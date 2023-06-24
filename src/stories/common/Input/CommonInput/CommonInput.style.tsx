@@ -1,12 +1,16 @@
 import styled from "styled-components";
 
-const StyledCommonInput = styled.input<{ width?: string; height?: string }>`
+const StyledCommonInput = styled.input<{
+  width?: string;
+  height?: string;
+  placeholderColor?: string;
+}>`
   width: ${({ width }) => width || "100%"};
   height: ${({ height }) => height || "3rem"};
   padding: 1rem 1.25rem 0.9375rem;
 
   border-radius: 8px;
-  border: solid 1px #fff;
+  border: 1px solid #fff;
 
   background-color: #fff;
 
@@ -17,16 +21,16 @@ const StyledCommonInput = styled.input<{ width?: string; height?: string }>`
   color: var(--black_02);
 
   &:focus {
-    border: solid 1px var(--black_04);
+    border: 1px solid var(--black_04);
     box-shadow: 0px 20px 16px -20px var(--shadow_01);
   }
 
   &.valid {
-    border: solid 1px var(--black_04);
+    border: 1px solid var(--black_04);
   }
 
   &.invalid {
-    border: solid 1px var(--error);
+    border: 1px solid var(--error);
   }
 
   &::placeholder {
@@ -34,7 +38,8 @@ const StyledCommonInput = styled.input<{ width?: string; height?: string }>`
     font-size: 0.875rem;
     line-height: 1.0625rem;
     letter-spacing: -0.02em;
-    color: var(--disabled-font);
+    color: ${({ placeholderColor }) =>
+      placeholderColor || "var(--disabled-font)"};
   }
 `;
 

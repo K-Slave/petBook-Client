@@ -14,7 +14,7 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 const QUERY_KEY = "query";
 
-export default function useQuerySearch(domain: SearchKeywordItem["domain"]) {
+export default function useQuerySearch(domain?: SearchKeywordItem["domain"]) {
   const router = useRouter();
   const { query } = router.query;
   const searchText = query === undefined ? "" : (query as string);
@@ -25,7 +25,7 @@ export default function useQuerySearch(domain: SearchKeywordItem["domain"]) {
       query: value,
       basePath: domain === "community" ? "/community/list" : undefined,
     });
-    addSearchKeyword({ domain, type: "query", value });
+    if (domain) addSearchKeyword({ domain, type: "query", value });
     navigator({
       url,
       options: {
