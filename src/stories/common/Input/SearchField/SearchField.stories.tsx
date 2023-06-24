@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
 import SearchField from ".";
-import Button from "../../Button";
 
 const meta: Meta<typeof SearchField> = {
   title: "common/Input/SearchField",
@@ -30,7 +29,7 @@ export const CustomInput: Story = {
   args: {
     width: "20rem",
     placeholder: "커스텀 인풋 컴포넌트를 렌더링할 수 있어요",
-    renderInput(props) {
+    SearchFieldInput(props) {
       return (
         <SearchField.Input
           {...props}
@@ -49,8 +48,12 @@ export const CustomIcon: Story = {
   args: {
     placeholder: "검색",
     SearchIcon: <span style={{ textAlign: "center" }}>검색 아이콘</span>,
-    renderCloseButton(props) {
-      return <Button {...props}>초기화</Button>;
+    ClearButton({ onClick }) {
+      return (
+        <SearchField.ClearButton onClick={onClick}>
+          초기화
+        </SearchField.ClearButton>
+      );
     },
   },
 };

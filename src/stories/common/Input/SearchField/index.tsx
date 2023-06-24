@@ -2,6 +2,7 @@ import { SearchOutline } from "@/stories/Icon/Search";
 import React, {
   type PropsWithChildren,
   type FocusEventHandler,
+  type MouseEventHandler,
   useState,
   useEffect,
 } from "react";
@@ -26,6 +27,10 @@ interface SearchFieldInputProps
   className: string;
 }
 
+interface ClearButtonProps {
+  onClick: MouseEventHandler;
+}
+
 export interface SearchFieldProps {
   domain?: SearchKeywordItem["domain"];
   placeholder?: string;
@@ -34,8 +39,8 @@ export interface SearchFieldProps {
   focusColor?: string;
   KeywordListBox?: React.ReactNode;
   SearchIcon?: React.ReactNode;
-  renderInput?: (props: SearchFieldInputProps) => React.ReactNode;
-  renderCloseButton?: (props?: ButtonProps) => React.ReactNode;
+  SearchFieldInput?: (props: SearchFieldInputProps) => JSX.Element;
+  ClearButton?: (props: ClearButtonProps) => JSX.Element;
 }
 
 const SearchField = ({
@@ -46,8 +51,7 @@ const SearchField = ({
   focusColor,
   KeywordListBox,
   SearchIcon,
-  renderInput,
-  renderCloseButton,
+  ...props
 }: SearchFieldProps) => {
   const { searchText, handleQuerySearch } = useQuerySearch(domain);
   const { handleClearQuery } = useClearQuerySearch();
@@ -67,6 +71,8 @@ const SearchField = ({
     setText("");
     handleClearQuery();
   };
+  const SearchFieldInput = props?.SearchFieldInput || SearchField.Input;
+  const ClearButton = props?.ClearButton || SearchField.ClearButton;
   useEffect(() => {
     setText(searchText);
     setShowBox(false);
@@ -79,38 +85,16 @@ const SearchField = ({
     >
       <SearchFieldDiv width={width} height={height}>
         <SearchForm onSubmit={onSubmitSearch} focusColor={focusColor}>
-          {renderInput ? (
-            renderInput({
-              value: text,
-              placeholder,
-              onChange,
-              onFocus,
-              className: "search-input",
-            })
-          ) : (
-            <SearchField.Input
-              value={text}
-              placeholder={placeholder}
-              onChange={onChange}
-              onFocus={onFocus}
-            />
-          )}
+          <SearchFieldInput
+            className="search-input"
+            value={text}
+            placeholder={placeholder}
+            onChange={onChange}
+            onFocus={onFocus}
+          />
           <div className="search-input-icon">
-            {searchText && text ? (
-              renderCloseButton ? (
-                renderCloseButton({ onClick: onClickClear })
-              ) : (
-                <Button
-                  onClick={onClickClear}
-                  height="100%"
-                  color="inherit"
-                  style={{
-                    transition: "unset",
-                  }}
-                >
-                  <IoCloseCircle fontSize="1.5rem" color="currentColor" />
-                </Button>
-              )
+            {!(searchText && text) ? (
+              <ClearButton onClick={onClickClear} />
             ) : (
               SearchIcon || <SearchOutline />
             )}
@@ -154,6 +138,26 @@ const SearchFieldInput = ({
         ...style,
       }}
     />
+  );
+};
+
+const ClearButton = ({
+  style,
+  children,
+  ...props
+}: PropsWithChildren<ButtonProps>) => {
+  return (
+    <Button
+      {...props}
+      height="100%"
+      color="inherit"
+      style={{
+        transition: "unset",
+        ...style,
+      }}
+    >
+      {children || <IoCloseCircle fontSize="1.5rem" color="currentColor" />}
+    </Button>
   );
 };
 
@@ -243,6 +247,7 @@ const RecentKeywordListBox = ({ domain }: RecentKeywordListBoxProps) => {
   );
 };
 SearchField.Input = SearchFieldInput;
+SearchField.ClearButton = ClearButton;
 SearchField.KeywordListBox = KeywordListBox;
 SearchField.KeywordItem = KeywordItem;
 SearchField.RecentKeywordList = RecentKeywordListBox;
