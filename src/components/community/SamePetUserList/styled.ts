@@ -21,6 +21,7 @@ export const SameUserPetBox = styled.div`
 
   cursor: pointer;
   border-radius: 1rem;
+
   background-color: #ffffff;
 
   .Same_User_Nick {
@@ -34,9 +35,10 @@ export const SameUserPetBox = styled.div`
   }
 
   .Same_User_Period {
-    background-color: var(--black_07);
-    padding: 0.1875rem 0.625rem;
     margin-left: 0.5rem;
+    padding: 0.1875rem 0.625rem;
+
+    background-color: var(--black_07);
 
     border-radius: 0.625rem;
     font-size: 0.625rem;
@@ -46,6 +48,7 @@ export const SameUserPetBox = styled.div`
 
 export const SamePetImage = styled(Image)<{ isImgExist: boolean }>`
   position: relative;
+
   border-radius: 50%;
 
   &::before {

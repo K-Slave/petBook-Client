@@ -12,8 +12,8 @@ const CommunitySamePetUserBox = styled.div`
     h3 {
       margin: 3.25rem 0 1.75rem;
 
-      font-size: 1.375rem;
       font-weight: bold;
+      font-size: 1.375rem;
       text-transform: uppercase;
     }
 
@@ -34,6 +34,7 @@ const CommunitySamePetUserBox = styled.div`
     border-radius: 1rem;
 
     background-color: var(--primary);
+
     font-size: 2.125rem;
     color: var(--bg_white_02);
 
@@ -43,6 +44,7 @@ const CommunitySamePetUserBox = styled.div`
 
     .Banner_Text {
       padding-top: 1.25rem;
+
       font-size: 1.375rem;
     }
   }
