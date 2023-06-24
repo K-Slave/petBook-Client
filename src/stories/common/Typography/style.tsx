@@ -99,25 +99,25 @@ export const TextBodySmallMedium = css`
   font-weight: normal;
 `;
 
-const TextLabel = css`
+export const TextLabel = css`
   font-size: 1rem;
   font-weight: 500;
   letter-spacing: -0.02rem;
 `;
 
-const TextButtonDefault = css`
+export const TextButtonDefault = css`
   font-size: 1rem;
   font-weight: 500;
   letter-spacing: -0.02rem;
 `;
 
-const TextButtonSmall = css`
+export const TextButtonSmall = css`
   font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: -0.0175rem;
 `;
 
-const TextTagSmall = css`
+export const TextTagSmall = css`
   font-size: 0.625rem;
   font-weight: 500;
   letter-spacing: -0.0125rem;

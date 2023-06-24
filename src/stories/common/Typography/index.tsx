@@ -20,7 +20,7 @@ export type TypographyVariant =
   | "tag-small";
 
 export interface TypographyProps {
-  color?: string;
+  color?: React.CSSProperties["color"];
   align?: React.CSSProperties["textAlign"];
   className?: string;
   style?: React.CSSProperties;
@@ -33,6 +33,7 @@ const Typography = ({
   color,
   align,
   style,
+  tag,
   children,
   ...props
 }: PropsWithChildren<TypographyProps>) => {
@@ -42,15 +43,15 @@ const Typography = ({
     color,
   };
   return (
-    <StyledTypography {...props} style={customStyle}>
+    <StyledTypography {...props} as={tag} style={customStyle}>
       {children}
     </StyledTypography>
   );
 };
 
 Typography.defaultProps = {
-  align: "inherit",
-  color: "inherit",
+  align: "inherit" as const,
+  color: "inherit" as const,
 };
 
 export default Typography;
