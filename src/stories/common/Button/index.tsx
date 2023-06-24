@@ -1,14 +1,8 @@
-import React, { MouseEventHandler, PropsWithChildren } from "react";
+import React, { type PropsWithChildren } from "react";
 import { StyledButton } from "./style";
 
-interface CommonProps {
-  id?: string;
-  className?: string;
-  type?: "button" | "submit";
+interface CommonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   active?: boolean;
-  onClick?: MouseEventHandler;
-  style?: React.CSSProperties;
-  disabled?: boolean;
   hidden?: boolean;
   buttonRef?: React.RefObject<HTMLButtonElement>;
   hoverColor?: string;
