@@ -31,7 +31,7 @@ export const Custom: Story = {
         {page} page
       </Button>
     ),
-    PrevButton: ({ disabled, onClick }) => (
+    DirectionButton: ({ disabled, onClick, prevOrNext }) => (
       <Button
         onClick={onClick}
         disabled={disabled}
@@ -42,21 +42,7 @@ export const Custom: Story = {
           color: disabled ? "var(--black_05)" : "black",
         }}
       >
-        이전
-      </Button>
-    ),
-    NextButton: ({ disabled, onClick }) => (
-      <Button
-        onClick={onClick}
-        disabled={disabled}
-        width="2rem"
-        height="fit-content"
-        typography={disabled ? "body-small-medium" : "body-small-bold"}
-        style={{
-          color: disabled ? "var(--black_05)" : "black",
-        }}
-      >
-        다음
+        {prevOrNext === "prev" ? "이전" : "다음"}
       </Button>
     ),
   },

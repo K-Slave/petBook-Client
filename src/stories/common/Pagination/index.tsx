@@ -4,6 +4,7 @@ import { PaginationDiv } from "./style";
 import { ChevronLeftRounded } from "../../Icon/ChevronLeft";
 import { ChevronRightRounded } from "../../Icon/ChevronRight";
 import Button from "../Button";
+import React from "react";
 
 interface PageButtonProps {
   onClick: MouseEventHandler;
@@ -14,14 +15,16 @@ interface PageButtonProps {
 interface DirectionButtonProps {
   onClick: MouseEventHandler;
   disabled: boolean;
+  prevOrNext: "prev" | "next";
 }
 
 interface PaginationProps {
   totalPages: number;
   buttonCntPerLine: number;
   PageButton?: (props: PropsWithChildren<PageButtonProps>) => JSX.Element;
-  PrevButton?: (props: PropsWithChildren<DirectionButtonProps>) => JSX.Element;
-  NextButton?: (props: PropsWithChildren<DirectionButtonProps>) => JSX.Element;
+  DirectionButton?: (
+    props: PropsWithChildren<DirectionButtonProps>
+  ) => JSX.Element;
 }
 
 const Pagination = ({
@@ -50,11 +53,14 @@ const Pagination = ({
     changeCurrentPage(page);
   };
   const PageButton = props?.PageButton || DefaultPageButton;
-  const PrevButton = props?.PrevButton || DefaultPrevButton;
-  const NextButton = props?.NextButton || DefaultNextButton;
+  const DirectionButton = props?.DirectionButton || DefaultDirectionButton;
   return (
     <PaginationDiv>
-      <PrevButton disabled={prevButtonDisabled} onClick={onClickPrevButton} />
+      <DirectionButton
+        disabled={prevButtonDisabled}
+        onClick={onClickPrevButton}
+        prevOrNext="prev"
+      />
       {shownButtons.map((_, i) => (
         <PageButton
           key={i}
@@ -63,7 +69,11 @@ const Pagination = ({
           page={getPageNum(i)}
         />
       ))}
-      <NextButton disabled={nextButtonDisabled} onClick={onClickNextButton} />
+      <DirectionButton
+        disabled={nextButtonDisabled}
+        onClick={onClickNextButton}
+        prevOrNext="next"
+      />
     </PaginationDiv>
   );
 };
@@ -80,7 +90,11 @@ const DefaultPageButton = ({ active, page, onClick }: PageButtonProps) => (
   </Button>
 );
 
-const DefaultPrevButton = ({ disabled, onClick }: DirectionButtonProps) => (
+const DefaultDirectionButton = ({
+  disabled,
+  onClick,
+  prevOrNext,
+}: DirectionButtonProps) => (
   <Button
     onClick={onClick}
     width="1.5rem"
@@ -90,27 +104,12 @@ const DefaultPrevButton = ({ disabled, onClick }: DirectionButtonProps) => (
       marginRight: "0.625rem",
     }}
   >
-    <ChevronLeftRounded />
-  </Button>
-);
-
-const DefaultNextButton = ({ disabled, onClick }: DirectionButtonProps) => (
-  <Button
-    onClick={onClick}
-    width="1.5rem"
-    height="1.5rem"
-    hidden={disabled}
-    style={{
-      marginLeft: "0.625rem",
-    }}
-  >
-    <ChevronRightRounded />
+    {prevOrNext === "prev" ? <ChevronLeftRounded /> : <ChevronRightRounded />}
   </Button>
 );
 
 Pagination.defaultProps = {
   PageButton: DefaultPageButton,
-  PrevButton: DefaultPrevButton,
-  NextButton: DefaultNextButton,
+  DirectionButton: DefaultDirectionButton,
 };
 export default Pagination;
