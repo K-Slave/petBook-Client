@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
-import type { ListBoxProps } from ".";
+import type { ListBoxStyleProps } from ".";
 
-export const ListDiv = styled.div<ListBoxProps>`
+export const ListDiv = styled.div<ListBoxStyleProps>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;

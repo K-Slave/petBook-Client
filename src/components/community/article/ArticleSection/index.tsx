@@ -90,14 +90,26 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
         {user.id == userData?.id && (
           <KebabMenu
             MenuListBox={
-              <ListBox width="7.3125rem">
-                <Typography {...menuItemProps} onClick={clickEditMenu}>
-                  수정
-                </Typography>
-                <Typography {...menuItemProps} onClick={clickDeleteMenu}>
-                  삭제
-                </Typography>
-              </ListBox>
+              <ListBox
+                width="7.3125rem"
+                list={[
+                  {
+                    id: 1,
+                    menu: "수정",
+                    onClick: clickEditMenu,
+                  },
+                  {
+                    id: 2,
+                    menu: "삭제",
+                    onClick: clickDeleteMenu,
+                  },
+                ]}
+                renderItem={(item) => (
+                  <Typography {...menuItemProps} onClick={item.onClick}>
+                    {item.menu}
+                  </Typography>
+                )}
+              />
             }
           />
         )}

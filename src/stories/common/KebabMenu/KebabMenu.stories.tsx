@@ -28,10 +28,22 @@ const itemProps = {
 export const Default: Story = {
   args: {
     MenuListBox: (
-      <ListBox width="7.3125rem">
-        <Typography {...itemProps}>수정</Typography>
-        <Typography {...itemProps}>삭제</Typography>
-      </ListBox>
+      <ListBox
+        width="7.3125rem"
+        list={[
+          {
+            id: 1,
+            menu: "수정",
+          },
+          {
+            id: 2,
+            menu: "삭제",
+          },
+        ]}
+        renderItem={(item) => (
+          <Typography {...itemProps}>{item.menu}</Typography>
+        )}
+      />
     ),
   },
 };

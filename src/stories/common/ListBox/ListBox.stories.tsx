@@ -24,12 +24,19 @@ const itemProps = {
 export const Default: Story = {
   args: {
     width: "6.25rem",
-    children: (
-      <>
-        <Typography {...itemProps}>메뉴1</Typography>
-        <Typography {...itemProps}>메뉴2</Typography>
-      </>
-    ),
+    list: [
+      {
+        id: 1,
+        menu: "메뉴1",
+      },
+      {
+        id: 1,
+        menu: "메뉴2",
+      },
+    ],
+    renderItem(item) {
+      return <Typography {...itemProps}>{item.menu}</Typography>;
+    },
   },
 };
 
@@ -47,18 +54,26 @@ const itemProps2 = {
 };
 export const Custom: Story = {
   args: {
-    children: (
-      <>
+    list: [
+      {
+        id: 1,
+        icon: <FaceHappy width="20" height="20" />,
+        menu: "메뉴1",
+      },
+      {
+        id: 2,
+        icon: <Clock width="20" height="20" />,
+        menu: "메뉴2",
+      },
+    ],
+    renderItem(item) {
+      return (
         <Typography {...itemProps2}>
-          <FaceHappy width="20" height="20" />
-          메뉴1
+          {item.icon}
+          {item.menu}
         </Typography>
-        <Typography {...itemProps2}>
-          <Clock width="20" height="20" />
-          메뉴2
-        </Typography>
-      </>
-    ),
+      );
+    },
     width: "15rem",
     bgColor: "red",
     color: "white",

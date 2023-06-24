@@ -1,7 +1,7 @@
-import type { PropsWithChildren } from "react";
+import { Fragment } from "react";
 import { ListDiv } from "./style";
 
-export interface ListBoxProps {
+export interface ListBoxStyleProps {
   width?: string;
   maxHeight?: string;
   color?: string;
@@ -14,8 +14,28 @@ export interface ListBoxProps {
   style?: React.CSSProperties;
 }
 
-const ListBox = (props: PropsWithChildren<ListBoxProps>) => {
-  return <ListDiv {...props}>{props.children}</ListDiv>;
+export interface ListBoxProps<T> extends ListBoxStyleProps {
+  list: T[];
+  renderItem: (item: T) => React.ReactNode;
+  EmptyGuide?: React.ReactNode;
+}
+
+export type ListItem = { id: number } & { [key: string]: any };
+
+const ListBox = <T extends ListItem>({
+  list,
+  renderItem,
+  EmptyGuide,
+  ...props
+}: ListBoxProps<T>) => {
+  return (
+    <ListDiv {...props}>
+      {list.map((item) => (
+        <Fragment key={item.id}>{renderItem(item)}</Fragment>
+      ))}
+      {list.length === 0 && EmptyGuide}
+    </ListDiv>
+  );
 };
 
 ListBox.defaultProps = {
@@ -27,6 +47,7 @@ ListBox.defaultProps = {
     color: "var(--bg_white_01)",
     radius: "12px",
   },
+  EmptyGuide: null,
 };
 
 export default ListBox;
