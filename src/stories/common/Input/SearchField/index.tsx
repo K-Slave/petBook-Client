@@ -1,34 +1,31 @@
 import { SearchOutline } from "@/stories/Icon/Search";
-import navigator from "@lib/modules/navigator";
-import React, { KeyboardEventHandler, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import React, { useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
-import { removeQuery, replaceQuery } from "@lib/modules/queryString";
-import {
-  addSearchKeyword,
-  getSearchKeywordList,
-  type SearchKeywordItem,
-} from "@lib/modules/localStorage";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
+import type { SearchKeywordItem } from "@lib/modules/localStorage";
 import OnClickOutside from "../../OnClickOutside";
-import { SearchFieldDiv, SearchFieldInput, SearchListUl } from "./style";
+import {
+  SearchFieldDiv,
+  SearchFieldForm,
+  SearchFieldInput,
+  KeywordListBoxWrapper,
+} from "./style";
+import useQuerySearch, {
+  useRecentSearchKeyword,
+} from "@lib/hooks/common/useQuerySearch";
+import ListBox from "../../ListBox";
+import Typography from "../../Typography";
+import Button from "../../Button";
 
 interface Props {
   placeholder?: string;
-  target: SearchKeywordItem["target"];
+  domain: SearchKeywordItem["domain"];
   width?: string;
+  height?: string;
 }
 
-const QUERY_KEY = "query";
-dayjs.extend(utc);
-dayjs.extend(timezone);
-
-const SearchBar = ({ placeholder, target, width }: Props) => {
-  const router = useRouter();
-  const { query } = router.query;
-  const searchText = query === undefined ? "" : (query as string);
+const SearchField = ({ placeholder, domain, width, height }: Props) => {
+  const { searchText, handleQuerySearch, handleClearQuery } =
+    useQuerySearch(domain);
   const [text, setText] = useState(searchText);
   const [showBox, setShowBox] = useState(false);
   const onFocus = () => {
@@ -37,101 +34,103 @@ const SearchBar = ({ placeholder, target, width }: Props) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
-  const search: KeyboardEventHandler = (e) => {
-    const key = e.key || e.keyCode;
-    if (key === "Enter" || key === 13) {
-      const url = replaceQuery({
-        asPath: router.asPath,
-        key: QUERY_KEY,
-        query: text,
-        basePath: target === "community" ? "/community/list" : undefined,
-      });
-      addSearchKeyword({ target, type: "query", value: text });
-      navigator({
-        url,
-        options: {
-          shallow: true,
-        },
-      });
-    }
+  const onSubmitSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleQuerySearch(text);
   };
-  const clear = () => {
+  const onClickClear = () => {
     setText("");
-    const url = removeQuery({ asPath: router.asPath, key: QUERY_KEY });
-    navigator({
-      url,
-      options: {
-        shallow: true,
-      },
-    });
+    handleClearQuery();
   };
-  useEffect(() => {
-    setText(searchText);
-    setShowBox(false);
-  }, [searchText]);
   return (
     <OnClickOutside
       trigger={() => {
         setShowBox(false);
       }}
     >
-      <SearchFieldDiv onKeyUp={search} width={width}>
-        <SearchFieldInput
-          type="text"
-          placeholder={placeholder}
-          value={text}
-          onChange={onChange}
-          onFocus={onFocus}
-        />
-        {searchText ? <IoCloseCircle onClick={clear} /> : <SearchOutline />}
-        {showBox && <SearchBar.RecentKeywordList target={target} />}
+      <SearchFieldDiv width={width} height={height}>
+        <SearchFieldForm onSubmit={onSubmitSearch}>
+          <SearchFieldInput
+            type="text"
+            placeholder={placeholder}
+            value={text}
+            onChange={onChange}
+            onFocus={onFocus}
+          />
+          {searchText ? (
+            <IoCloseCircle onClick={onClickClear} />
+          ) : (
+            <SearchOutline />
+          )}
+        </SearchFieldForm>
+        {showBox && (
+          <KeywordListBoxWrapper top={`calc(${height || "2.5rem"} - 3px)`}>
+            <RecentKeywordListBox domain={domain} />
+          </KeywordListBoxWrapper>
+        )}
       </SearchFieldDiv>
     </OnClickOutside>
   );
 };
 
-const RecentKeywordList = ({ target }: Pick<Props, "target">) => {
-  const list = getSearchKeywordList(target);
-  const router = useRouter();
-  const search = (keyword: string) => () => {
-    const url = replaceQuery({
-      asPath: router.asPath,
-      key: QUERY_KEY,
-      query: keyword,
-    });
-    addSearchKeyword({ target, type: "query", value: keyword });
-    navigator({
-      url,
-      options: {
-        shallow: true,
-      },
-    });
-  };
-  return list ? (
-    <SearchListUl>
-      {list
-        .sort(
-          ({ time: timeA, timezone: tzA }, { time: timeB, timezone: tzB }) => {
-            const dateA = dayjs(timeA).tz(tzA);
-            const dateB = dayjs(timeB).tz(tzB);
-            return dateB.diff(dateA);
-          }
-        )
-        .map((keyword) => (
-          <li onClick={search(keyword.value)} key={keyword.value}>
+const RecentKeywordListBox = ({ domain }: Pick<Props, "domain">) => {
+  const { list, onClickSearch } = useRecentSearchKeyword(domain);
+  return (
+    <ListBox
+      width="100%"
+      maxHeight="11.875rem"
+      boxShadow="0px 3px 4px rgba(0, 0, 0, 0.1)"
+      border={{
+        color: "var(--black_06)",
+        radius: "0",
+      }}
+      style={{
+        borderBottomLeftRadius: "8px",
+        borderBottomRightRadius: "8px",
+        padding: "0.8rem 0",
+      }}
+    >
+      {list.map((keyword) => (
+        <Button
+          onClick={onClickSearch(keyword.value)}
+          key={keyword.value}
+          width="100%"
+          height="fit-content"
+          color="var(--black_01)"
+          hoverBgColor="var(--bg_white_02)"
+          style={{
+            padding: "0.5rem 1rem",
+            justifyContent: "flex-start",
+            borderRadius: "0",
+          }}
+        >
+          <Typography tag="span" variant="body-small-medium">
             {keyword.value}
-          </li>
-        ))}
-      {list.length === 0 && <p className="no-item">최근 검색어가 없습니다.</p>}
-    </SearchListUl>
-  ) : null;
+          </Typography>
+        </Button>
+      ))}
+      {list.length === 0 && (
+        <Typography
+          tag="p"
+          variant="body-small-medium"
+          align="center"
+          color="var(--black_03)"
+          style={{
+            padding: "0.5rem 1rem",
+          }}
+        >
+          최근 검색어가 없습니다.
+        </Typography>
+      )}
+    </ListBox>
+  );
 };
 
-SearchBar.RecentKeywordList = RecentKeywordList;
-SearchBar.defaultProps = {
+SearchField.defaultProps = {
   placeholder: "",
   showRecentKeywords: true,
-  width: "278px",
+  width: "17.375rem",
+  height: "2.5rem",
 };
 
-export default SearchBar;
+export default SearchField;

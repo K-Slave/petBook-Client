@@ -67,7 +67,7 @@ const HospitalList = () => {
     <Section ref={ref}>
       <SearchField
         placeholder="원하는 위치를 검색해보세요!"
-        target="hospital"
+        domain="hospital"
         width="100%"
       />
       <CurrentGps />
@@ -107,11 +107,11 @@ const Filter = () => {
     const url =
       name === FILTERS[0]
         ? removeQuery({
-            asPath: router.asPath,
+            fullPath: router.asPath,
             key: "filter",
           })
         : replaceQuery({
-            asPath: router.asPath,
+            fullPath: router.asPath,
             key: "filter",
             query: name,
           });

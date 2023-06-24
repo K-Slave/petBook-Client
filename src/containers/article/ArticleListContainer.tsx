@@ -21,7 +21,7 @@ const ArticleListContainer = () => {
         </h1>
         <SearchField
           placeholder="관심있는 내용을 검색해보세요!"
-          target="community"
+          domain="community"
         />
       </div>
       {!searchText && <CategoryNav />}

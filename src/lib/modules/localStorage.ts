@@ -25,7 +25,7 @@ export const removeLocalStorage = (key: string) => {
 };
 
 export interface SearchKeywordItem {
-  target: "hospital" | "community";
+  domain: "hospital" | "community";
   type: "query" | "location";
   timezone: string;
   time: string;
@@ -34,7 +34,7 @@ export interface SearchKeywordItem {
 
 const RECENT_SEARCH_KEY = "RECENT_SEARCH";
 export const addSearchKeyword = (
-  params: Pick<SearchKeywordItem, "target" | "type" | "value">
+  params: Pick<SearchKeywordItem, "domain" | "type" | "value">
 ) => {
   const tz = "Asia/Seoul";
   const time = dayjs().tz(tz).format("YYYY-MM-DD HH:mm:ss.SSS");
@@ -53,7 +53,7 @@ export const addSearchKeyword = (
     const idx = list.findIndex(
       (item) =>
         item.value === params.value &&
-        item.target === params.target &&
+        item.domain === params.domain &&
         item.type === params.type
     );
     if (idx !== -1) {
@@ -67,9 +67,9 @@ export const addSearchKeyword = (
     });
   }
 };
-export const getSearchKeywordList = (target: SearchKeywordItem["target"]) => {
+export const getSearchKeywordList = (domain: SearchKeywordItem["domain"]) => {
   const list = getLocalStorage<SearchKeywordItem[]>(RECENT_SEARCH_KEY);
-  return list ? list.filter((item) => item.target === target) : [];
+  return list ? list.filter((item) => item.domain === domain) : [];
 };
 
 const SCROLL_POS = "SCROLL_POS";

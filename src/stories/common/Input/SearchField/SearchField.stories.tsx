@@ -12,14 +12,14 @@ type Story = StoryObj<typeof SearchField>;
 export const Community: Story = {
   args: {
     placeholder: "관심있는 내용을 검색해보세요!",
-    target: "community",
+    domain: "community",
   },
 };
 
 export const Hospital: Story = {
   args: {
     placeholder: "원하는 위치를 검색해보세요!",
-    target: "hospital",
+    domain: "hospital",
   },
 };
 
