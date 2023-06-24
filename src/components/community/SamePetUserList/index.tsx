@@ -39,7 +39,7 @@ const List = ({ sameUserPetList }: ListProps) => {
   // });
   return (
     <>
-      {SameUser.nick.length === null || "" ? (
+      {!SameUser.nick ? (
         <p>로그인하면 나와 같은 펫을 키우는 작가를 만날 수 있어요!</p>
       ) : (
         <BoxGrid>

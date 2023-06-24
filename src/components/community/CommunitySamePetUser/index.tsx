@@ -1,14 +1,10 @@
 import React from "react";
 import CommunitySamePetUserBox from "./styled";
 
-interface Props {
-  title: string;
-}
-
 const CommunitySamePetUser = ({
   title,
   children,
-}: React.PropsWithChildren<Props>) => {
+}: React.PropsWithChildren<any>) => {
   return (
     <CommunitySamePetUserBox>
       <div className="Same_User_Wrap">
