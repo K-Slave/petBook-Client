@@ -12,7 +12,6 @@ import useModal from "@lib/hooks/common/useModal";
 import useDeleteComment from "@lib/hooks/comment/useDeleteComment";
 import { CommentListDiv } from "./styled";
 import { COMMENT_LIST } from "@lib/resources/commentResource";
-import localConsole from "@lib/utils/localConsole";
 import Modal from "@/stories/common/Modal";
 import Typography from "@/stories/common/Typography";
 import Button from "@/stories/common/Button";
@@ -64,7 +63,7 @@ const CommentList = ({ Item }: Props) => {
   const clickDeleteMenu = (commentId: number) => () => {
     openModal(Modal, {
       children: (
-        <Modal.DefaultContentBox>
+        <Modal.ContentBox>
           <Typography
             tag="h1"
             variant="h3-bold"
@@ -75,15 +74,19 @@ const CommentList = ({ Item }: Props) => {
           >
             정말 이 댓글을 삭제하시겠습니까?
           </Typography>
-          <Modal.DefaultButtonBox buttonNum={2}>
-            <Button variant="secondary" onClick={closeModal}>
+          <Modal.ButtonBox buttonNum={2}>
+            <Button height="100%" variant="secondary" onClick={closeModal}>
               취소
             </Button>
-            <Button variant="primary" onClick={() => deleteComment(commentId)}>
+            <Button
+              height="100%"
+              variant="primary"
+              onClick={() => deleteComment(commentId)}
+            >
               삭제하기
             </Button>
-          </Modal.DefaultButtonBox>
-        </Modal.DefaultContentBox>
+          </Modal.ButtonBox>
+        </Modal.ContentBox>
       ),
       closeModal,
     });

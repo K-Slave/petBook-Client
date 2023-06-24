@@ -13,7 +13,7 @@ type Story = StoryObj<typeof Modal>;
 export const ModalExample: Story = {
   args: {
     children: (
-      <Modal.DefaultContentBox>
+      <Modal.ContentBox>
         <Typography
           tag="p"
           variant="body-default-medium"
@@ -37,10 +37,12 @@ export const ModalExample: Story = {
           <br />
           아래 버튼은 최소 1개에서 최대 2개까지 넣을 수 있어요.
         </p>
-        <Modal.DefaultButtonBox buttonNum={1}>
-          <Button variant="secondary">완료</Button>
-        </Modal.DefaultButtonBox>
-      </Modal.DefaultContentBox>
+        <Modal.ButtonBox buttonNum={1}>
+          <Button height="100%" variant="secondary">
+            완료
+          </Button>
+        </Modal.ButtonBox>
+      </Modal.ContentBox>
     ),
     closeModal: () => {},
   },
@@ -49,7 +51,7 @@ export const ModalExample: Story = {
 export const PostDeleteModal: Story = {
   args: {
     children: (
-      <Modal.DefaultContentBox>
+      <Modal.ContentBox>
         <Typography
           tag="p"
           variant="body-default-medium"
@@ -70,11 +72,15 @@ export const PostDeleteModal: Story = {
         >
           정말 이 글을 삭제하시겠습니까?
         </Typography>
-        <Modal.DefaultButtonBox buttonNum={2}>
-          <Button variant="secondary">취소</Button>
-          <Button variant="primary">삭제하기</Button>
-        </Modal.DefaultButtonBox>
-      </Modal.DefaultContentBox>
+        <Modal.ButtonBox buttonNum={2}>
+          <Button variant="secondary" height="100%">
+            취소
+          </Button>
+          <Button variant="primary" height="100%">
+            삭제하기
+          </Button>
+        </Modal.ButtonBox>
+      </Modal.ContentBox>
     ),
     closeModal: () => {},
   },
@@ -84,7 +90,7 @@ export const CommentDeleteModal: Story = {
   args: {
     closeModal: () => {},
     children: (
-      <Modal.DefaultContentBox>
+      <Modal.ContentBox>
         <Typography
           tag="h1"
           variant="h3-bold"
@@ -95,11 +101,15 @@ export const CommentDeleteModal: Story = {
         >
           정말 이 댓글을 삭제하시겠습니까?
         </Typography>
-        <Modal.DefaultButtonBox buttonNum={2}>
-          <Button variant="secondary">취소</Button>
-          <Button variant="primary">삭제하기</Button>
-        </Modal.DefaultButtonBox>
-      </Modal.DefaultContentBox>
+        <Modal.ButtonBox buttonNum={2}>
+          <Button variant="secondary" height="100%">
+            취소
+          </Button>
+          <Button variant="primary" height="100%">
+            삭제하기
+          </Button>
+        </Modal.ButtonBox>
+      </Modal.ContentBox>
     ),
   },
 };

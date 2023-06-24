@@ -200,7 +200,7 @@ const HospitalReview = ({
 
   return (
     <Modal closeModal={closeModal}>
-      <Modal.DefaultContentBox>
+      <Modal.ContentBox>
         <Typography
           tag="p"
           variant="body-default-medium"
@@ -234,15 +234,20 @@ const HospitalReview = ({
             );
           })}
         </ReviewWarp>
-        <Modal.DefaultButtonBox buttonNum={2} style={{ marginTop: "2.5rem" }}>
-          <Button variant="secondary" onClick={closeModal}>
+        <Modal.ButtonBox buttonNum={2} style={{ marginTop: "2.5rem" }}>
+          <Button height="100%" variant="secondary" onClick={closeModal}>
             취소
           </Button>
-          <Button variant="primary" onClick={onSubmit} disabled={true}>
+          <Button
+            height="100%"
+            variant="primary"
+            onClick={onSubmit}
+            disabled={true}
+          >
             작성 완료
           </Button>
-        </Modal.DefaultButtonBox>
-      </Modal.DefaultContentBox>
+        </Modal.ButtonBox>
+      </Modal.ContentBox>
     </Modal>
   );
 };

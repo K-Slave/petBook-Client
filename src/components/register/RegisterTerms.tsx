@@ -50,17 +50,17 @@ const TermsWrap = () => {
     openModal(Modal, {
       closeModal,
       children: (
-        <Modal.DefaultContentBox>
+        <Modal.ContentBox>
           <Typography variant="h3-bold" tag="h1">
             {titleName}
           </Typography>
           <TermsInfo content={contentKey} />
-          <Modal.DefaultButtonBox buttonNum={1} style={{ marginTop: "2rem" }}>
-            <Button variant="primary" onClick={closeModal}>
+          <Modal.ButtonBox buttonNum={1} style={{ marginTop: "2rem" }}>
+            <Button height="100%" variant="primary" onClick={closeModal}>
               확인
             </Button>
-          </Modal.DefaultButtonBox>
-        </Modal.DefaultContentBox>
+          </Modal.ButtonBox>
+        </Modal.ContentBox>
       ),
     });
   };

@@ -15,7 +15,7 @@ const MockModalRenderer = () => {
   const onClick = () => {
     openModal(Modal, {
       children: (
-        <Modal.DefaultContentBox>
+        <Modal.ContentBox>
           <Typography
             tag="p"
             variant="body-default-medium"
@@ -39,12 +39,12 @@ const MockModalRenderer = () => {
             <br />
             아래 버튼은 최소 1개에서 최대 2개까지 넣을 수 있어요.
           </p>
-          <Modal.DefaultButtonBox buttonNum={1}>
-            <Button variant="secondary" onClick={closeModal}>
+          <Modal.ButtonBox buttonNum={1}>
+            <Button variant="secondary" onClick={closeModal} height="100%">
               완료
             </Button>
-          </Modal.DefaultButtonBox>
-        </Modal.DefaultContentBox>
+          </Modal.ButtonBox>
+        </Modal.ContentBox>
       ),
       closeModal,
     });

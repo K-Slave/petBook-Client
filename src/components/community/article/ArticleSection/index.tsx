@@ -40,7 +40,7 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
   const clickDeleteMenu = () => {
     openModal(Modal, {
       children: (
-        <Modal.DefaultContentBox>
+        <Modal.ContentBox>
           <Typography
             tag="p"
             variant="body-default-medium"
@@ -61,15 +61,15 @@ const ArticleSection = ({ data }: { data: ArticleResponse | undefined }) => {
           >
             정말 이 글을 삭제하시겠습니까?
           </Typography>
-          <Modal.DefaultButtonBox buttonNum={2}>
-            <Button variant="secondary" onClick={closeModal}>
+          <Modal.ButtonBox buttonNum={2}>
+            <Button height="100%" variant="secondary" onClick={closeModal}>
               취소
             </Button>
-            <Button variant="primary" onClick={closeModal}>
+            <Button height="100%" variant="primary" onClick={closeModal}>
               삭제하기
             </Button>
-          </Modal.DefaultButtonBox>
-        </Modal.DefaultContentBox>
+          </Modal.ButtonBox>
+        </Modal.ContentBox>
       ),
       closeModal,
     });
