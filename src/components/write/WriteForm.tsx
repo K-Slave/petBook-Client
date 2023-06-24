@@ -91,7 +91,9 @@ const GuideTitle = () => {
   });
 
   const categoryList =
-    data?.response.data && status === "success" ? data?.response.data : [];
+    data?.response.data.result && status === "success"
+      ? data?.response.data.result
+      : [];
 
   const { selectedCategory } = useRecoilSelector(writeState, {
     selectedCategory: {

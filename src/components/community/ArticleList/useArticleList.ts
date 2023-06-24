@@ -10,7 +10,7 @@ import localConsole from "@lib/utils/localConsole";
 
 export default function useArticleList(): {
   status: UseQueryResult["status"];
-  articles: ArticleListResponse["articles"];
+  articles: ArticleListResponse["result"]["articles"];
   totalPages: number;
   params: {
     searchText: string;
@@ -61,13 +61,13 @@ export default function useArticleList(): {
   // return data
   const articleList = {
     status,
-    articles: data === undefined ? [] : data.response.data.articles,
+    articles: data === undefined ? [] : data.response.data.result.articles,
     totalPages:
       data === undefined
         ? 0
         : searchText
-        ? Math.ceil(data.response.data.articles.length / size.current)
-        : Math.ceil(data.response.data.totalElements / size.current),
+        ? Math.ceil(data.response.data.result.articles.length / size.current)
+        : Math.ceil(data.response.data.result.totalElements / size.current),
     params: {
       searchText,
       categoryName: name,
