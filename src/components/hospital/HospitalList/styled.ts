@@ -1,5 +1,4 @@
-import { SearchBarDiv } from "@components/common/SearchBar/styled";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const Section = styled.section`
   padding: 1rem 1.4rem;
@@ -8,9 +7,6 @@ export const Section = styled.section`
   overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;
-  }
-  ${SearchBarDiv} {
-    width: 100%;
   }
   & > header {
     display: flex;
@@ -28,12 +24,6 @@ export const Section = styled.section`
     gap: 2.5rem;
     margin: 1rem 0;
   }
-  button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: inherit;
-  }
 `;
 
 export const FilterDiv = styled.div`
@@ -41,19 +31,4 @@ export const FilterDiv = styled.div`
   align-items: center;
   gap: 0.5rem;
   flex-wrap: wrap;
-`;
-
-export const FilterButton = styled.button<{ selected: string; name: string }>`
-  padding: 0.5rem 1rem;
-  border-radius: 40px;
-  ${({ selected, name }) =>
-    selected === name
-      ? css`
-          color: white !important;
-          background-color: var(--black_01);
-        `
-      : css`
-          color: var(--black_03) !important;
-          background-color: var(--bg_white_02);
-        `}
 `;

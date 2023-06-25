@@ -1,0 +1,22 @@
+import { Meta, Story, Canvas } from '@storybook/blocks';
+import * as OnClickOutsideStories from './OnClickOutside.stories';
+
+<Meta title="common/OnClickOutside" of={OnClickOutsideStories} />
+
+# OnClickOutside
+
+자식 컴포넌트 바깥을 클릭하면 trigger 함수가 동작합니다.
+
+주의해야 할 점은 자식 컴포넌트 트리의 root는 div HTML element 하나여야 합니다.<br/>
+허용되는 자식 컴포넌트 형태: `<div>{/*...*/}</div>` (코드를 참고하세요!)
+            
+사용 예시: Modal 컴포넌트, DropdownMenu 컴포넌트, SearchBar 컴포넌트
+
+<Canvas 
+    of={OnClickOutsideStories.Example}   
+    story={{
+        inline: false,
+        height: '200px'
+    }} 
+    sourceState="shown"
+/>

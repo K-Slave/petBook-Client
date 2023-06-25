@@ -1,0 +1,41 @@
+import { Meta, Story, Canvas } from '@storybook/blocks';
+import * as KebabMenuStories from './KebabMenu.stories';
+
+<Meta title="common/KebabMenu" of={KebabMenuStories} />
+
+# KebabMenu
+
+케밥 메뉴를 나타내는 공용 컴포넌트입니다. `MenuListBox` props로 커스텀 메뉴 박스 컴포넌트를 전달할 수 있습니다. 혹은 `MenuListBox` 공용 컴포넌트를 이용할 수 있습니다.
+
+<br/>
+
+### Default Kebab Menu
+
+<Canvas 
+  of={KebabMenuStories.Default}
+  story={{
+    inline: false,
+    height: '40vh'
+  }} 
+  sourceState="shown"
+  source={{
+    language: 'jsx',
+    code: `<KebabMenu MenuListBox={
+      <MenuListBox>
+        <MenuListBox.DefaultItem>수정</MenuListBox.DefaultItem>
+        <MenuListBox.DefaultItem>삭제</MenuListBox.DefaultItem>
+      </MenuListBox>} 
+    />`
+  }}
+/>
+
+### Custom Kebab Menu
+
+<Canvas 
+  of={KebabMenuStories.Custom}
+  sourceState="shown"
+  story={{
+    inline: false,
+    height: '40vh'
+  }} 
+/>

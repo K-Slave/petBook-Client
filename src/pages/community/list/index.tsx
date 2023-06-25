@@ -1,7 +1,3 @@
-import {
-  CategoryNavDiv,
-  CategoryNavButton,
-} from "@components/community/CategoryNav/styled";
 import WriteButton from "@components/community/WriteButton";
 import styled from "styled-components";
 import ArticleListContainer from "@containers/article/ArticleListContainer";
@@ -32,15 +28,6 @@ const Main = styled.main`
     & > span:last-child {
       color: var(--black_05);
     }
-  }
-
-  ${CategoryNavDiv} {
-    gap: 8px;
-    margin: 20px 0 0 0;
-  }
-  ${CategoryNavButton} {
-    width: 110px;
-    height: 44px;
   }
 `;
 

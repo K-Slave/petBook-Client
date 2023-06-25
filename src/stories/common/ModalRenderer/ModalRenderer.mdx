@@ -1,0 +1,65 @@
+import { Meta, Story, Canvas } from '@storybook/blocks';
+import * as ModalRendererStories from './ModalRenderer.stories';
+
+<Meta title="common/Modal/ModalRenderer" of={ModalRendererStories} />
+
+# ModalRenderer & Modal
+
+ModalRenderer 컴포넌트는 Modal 컴포넌트를 렌더링하는 함수로, NextApp 컴포넌트에서 딱 한번 사용됩니다.
+
+useModal 공용 훅을 사용하여 모달을 열고 닫을 수 있습니다. 구체적인 사용 방법은 코드를 참고해주세요!
+
+<Canvas 
+  of={ModalRendererStories.Example}
+  sourceState="shown"
+  source={{
+    language: 'jsx',
+    code: `() => {
+  const { openModal, closeModal } = useModal();
+  const onClick = () => {
+    openModal(Modal, {
+      children: (
+        <Modal.DefaultContentBox>
+          <Typography
+            tag="p"
+            variant="body-default-medium"
+            color="var(--black_03)"
+            style={{
+              marginBottom: "0.25rem",
+            }}
+          >
+            부제목입니다
+          </Typography>
+          <Typography tag="h1" variant="h3-bold" color="var(--black_01)">
+            제목입니다
+          </Typography>
+          <p
+            style={{
+              textAlign: "center",
+              margin: "1rem 0 2.5rem",
+            }}
+          >
+            아무 컴포넌트나 들어갈 수 있어요.
+            <br />
+            아래 버튼은 최소 1개에서 최대 2개까지 넣을 수 있어요.
+          </p>
+          <Modal.DefaultButtonBox buttonNum={1}>
+            <Button variant="secondary" onClick={closeModal}>
+              완료
+            </Button>
+          </Modal.DefaultButtonBox>
+        </Modal.DefaultContentBox>
+      ),
+      closeModal,
+    });
+  };
+  return (
+    <>
+      <Button variant="primary" onClick={onClick}>
+        모달 열기
+      </Button>
+      <ModalRenderer />
+    </>
+  );
+};`}}
+/>

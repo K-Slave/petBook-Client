@@ -1,12 +1,10 @@
-import CustomSwiper, {
-  SlidePrevButton,
-  SlideNextButton,
-} from "@components/common/Slider";
+import SwiperSlider, { SlideButton } from "@/stories/common/SwiperSlider";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import useModal from "@lib/hooks/common/useModal";
-import { SwiperSlide } from "swiper/react";
 import ImageSliderModal from "../ImageSliderModal";
-import { ImageSliderDiv, ImageSliderImg } from "./styled";
+import { ImageSliderDiv, ImageSliderImg, StyledSwiperSlide } from "./styled";
+import { ChevronLeftRounded } from "@/stories/Icon/ChevronLeft";
+import { ChevronRightRounded } from "@/stories/Icon/ChevronRight";
 
 interface Props {
   images: ArticleResponse["images"];
@@ -14,6 +12,8 @@ interface Props {
 }
 
 const ImageSlider = ({ images, alt }: Props) => {
+  const prevButtonId = "Image_Slider_Prev";
+  const nextButtonId = "Image_Slider_Next";
   const { closeModal, openModal } = useModal();
   const onClickSlide = (index: number) => () => {
     openModal(ImageSliderModal, {
@@ -26,26 +26,42 @@ const ImageSlider = ({ images, alt }: Props) => {
   return (
     <ImageSliderDiv cnt={images.length}>
       {images.length === 1 ? (
-        <SwiperSlide key={images[0].id} onClick={onClickSlide(0)}>
-          <ImageSliderImg src={images[0].imageUrl} alt="이미지" fill priority />
-        </SwiperSlide>
+        <ImageSliderImg
+          src={images[0].imageUrl}
+          alt="이미지"
+          width={354}
+          height={354}
+          priority
+          onClick={onClickSlide(0)}
+        />
       ) : (
         <>
-          <SlidePrevButton />
-          <CustomSwiper slidesPerView="auto" spaceBetween={17}>
+          <SlideButton id={prevButtonId} prevOrnext="prev">
+            <ChevronLeftRounded />
+          </SlideButton>
+          <SwiperSlider
+            prevButtonId={prevButtonId}
+            nextButtonId={nextButtonId}
+            slidesPerView="auto"
+            spaceBetween={17}
+            pagination={false}
+          >
             {images.map((image, index) => (
-              <SwiperSlide key={image.id} onClick={onClickSlide(index)}>
+              <StyledSwiperSlide key={image.id}>
                 <ImageSliderImg
                   src={image.imageUrl}
                   alt={alt}
                   fill
                   priority
                   sizes="354px"
+                  onClick={onClickSlide(index)}
                 />
-              </SwiperSlide>
+              </StyledSwiperSlide>
             ))}
-          </CustomSwiper>
-          <SlideNextButton />
+          </SwiperSlider>
+          <SlideButton id={nextButtonId} prevOrnext="next">
+            <ChevronRightRounded />
+          </SlideButton>
         </>
       )}
     </ImageSliderDiv>

@@ -3,7 +3,7 @@ import { useResource } from "@lib/hooks/common/useResource";
 import Link from "next/link";
 import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequest";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
-import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
+import { BookmarkOutline } from "@/stories/Icon/Bookmark";
 import { Article, BoxGrid, List } from "./styled";
 import { ARTICLE_LIST_PREVIEW } from "@lib/resources/articleResource";
 
@@ -49,7 +49,7 @@ const ArticleBox = ({ category }: { category: CategoryItem }) => {
                 <span className="Article_title">{article.title}</span>
               </Link>
               <span className="Article_scrap">
-                <BookmarkBlankIcon />
+                <BookmarkOutline />
                 <span>0</span>
               </span>
             </li>

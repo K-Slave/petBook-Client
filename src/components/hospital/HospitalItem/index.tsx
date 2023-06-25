@@ -1,19 +1,18 @@
-import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
-import CustomSwiper, {
-  SlideNextButton,
-  SlidePrevButton,
-} from "@components/common/Slider";
+import { BookmarkOutline } from "@/stories/Icon/Bookmark";
+import SwiperSlider, { SlideButton } from "@/stories/common/SwiperSlider";
 import navigator from "@lib/modules/navigator";
 import type { HospitalFullInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
 import { saveScrollPosition } from "@lib/modules/localStorage";
 
 import { SwiperSlide } from "swiper/react";
 import { MutableRefObject } from "react";
-import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
-import { PointReviewList } from "@components/common/hospital/HospitalReviewList";
-import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
-import Stats from "@components/common/hospital/Stats";
+import PossibleAnimalList from "@components/hospital/PossibleAnimalList";
+import { PointReviewList } from "@components/hospital/HospitalReviewList";
+import HospitalBasicInfo from "@components/hospital/HospitalBasicInfo";
+import Stats from "@components/hospital/Stats";
 import { ImageSliderDiv, ItemHeader } from "./styled";
+import { ChevronLeftRounded } from "@/stories/Icon/ChevronLeft";
+import { ChevronRightRounded } from "@/stories/Icon/ChevronRight";
 
 const HospitalItem = ({
   hospitals,
@@ -31,13 +30,53 @@ const HospitalItem = ({
       },
     });
   };
+  const prevButtonId = `Hospital_Item_${hospitals.hospitals.id}_Prev`;
+  const nextButtonId = `Hospital_Item_${hospitals.hospitals.id}_Next`;
+  const slideButtonStyle = {
+    position: "absolute" as const,
+    top: "50%",
+    transform: "translateY(-50%)",
+  };
   return (
     <article>
-      <HospitalItem.ImageSlider id={hospitals.hospitals.id} />
+      <ImageSliderDiv>
+        <SlideButton
+          prevOrnext="prev"
+          id={prevButtonId}
+          width="1.25rem"
+          height="1.25rem"
+          style={{
+            ...slideButtonStyle,
+            left: "10px",
+          }}
+        >
+          <ChevronLeftRounded height="0.625rem" />
+        </SlideButton>
+        <SwiperSlider
+          loop
+          prevButtonId={prevButtonId}
+          nextButtonId={nextButtonId}
+        >
+          <SwiperSlide>illust</SwiperSlide>
+          <SwiperSlide>asdfasdf</SwiperSlide>
+        </SwiperSlider>
+        <SlideButton
+          prevOrnext="next"
+          id={nextButtonId}
+          width="1.25rem"
+          height="1.25rem"
+          style={{
+            ...slideButtonStyle,
+            right: "10px",
+          }}
+        >
+          <ChevronRightRounded height="0.625rem" />
+        </SlideButton>
+      </ImageSliderDiv>
       <ItemHeader>
         <h1 onClick={navigateToDetail}>{hospitals.hospitals.name}</h1>
         <button type="button">
-          <BookmarkBlankIcon />
+          <BookmarkOutline />
         </button>
       </ItemHeader>
       <PossibleAnimalList />
@@ -48,20 +87,4 @@ const HospitalItem = ({
   );
 };
 
-const ImageSlider = ({ id }: { id: number }) => {
-  const prevElId = `slider_prev_${id}`;
-  const nextElId = `slider_next_${id}`;
-  return (
-    <ImageSliderDiv>
-      <SlidePrevButton prevElId={prevElId} />
-      <CustomSwiper loop prevElId={prevElId} nextElId={nextElId}>
-        <SwiperSlide>illust</SwiperSlide>
-        <SwiperSlide>asdfasdf</SwiperSlide>
-      </CustomSwiper>
-      <SlideNextButton nextElId={nextElId} />
-    </ImageSliderDiv>
-  );
-};
-
-HospitalItem.ImageSlider = ImageSlider;
 export default HospitalItem;

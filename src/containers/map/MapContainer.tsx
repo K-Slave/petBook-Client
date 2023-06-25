@@ -1,4 +1,4 @@
-import Skeleton from "@components/common/Skeleton/Skeleton";
+import Skeleton from "@/stories/common/Skeleton";
 import KakaoMap from "@components/map/KakaoMap";
 import MapScript from "@components/map/MapScript";
 import useMapLoad from "@lib/hooks/map/useMapLoad";

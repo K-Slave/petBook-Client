@@ -1,5 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import OnClickOutside from "@components/common/OnClickOutside";
+import React, { type ChangeEvent, useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import {
   HospitalReveiwImgProps,
@@ -14,13 +13,11 @@ import { useSetResource } from "@lib/hooks/common/useResource";
 import { IconBox, InputBox } from "@components/find/style/styledFindSubmit";
 import {
   ReviewWarp,
-  ReviewHeader,
   ReviewSelectChip,
   ReviewForm,
   ReviewFormReactionBtn,
   ReviewButtonWrap,
   ReviewAddButton,
-  ReviewBoxItem,
   ImgContainer,
   ImgBoxGroup,
   ImgBox,
@@ -29,6 +26,9 @@ import {
   HOSPITAL_REVIEW_CREATE,
   HOSPITAL_REVIEW_LIST,
 } from "@lib/resources/hospitalResource";
+import Modal from "@/stories/common/Modal";
+import Button from "@/stories/common/Button";
+import Typography from "@/stories/common/Typography";
 
 const PETDATA = [
   {
@@ -59,6 +59,7 @@ const REACTION = [
 ];
 
 const ImgWrap = () => {
+  const ref = useRef<HTMLInputElement | null>(null);
   const [imgArr, setImgArr] = useState<HospitalReveiwImgProps[]>([]);
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -89,17 +90,22 @@ const ImgWrap = () => {
         <div className="Camera" />
         <p>이미지첨부 (최대 10장, 선택사항)</p>
         <div>
-          <label htmlFor="file">
+          <Button
+            variant="small"
+            bgColor="var(--secondary)"
+            color="var(--primary)"
+            onClick={() => ref.current?.click()}
+          >
             추가하기
-            <input
-              type="file"
-              accept="image/png, image/gif, image/jpeg"
-              id="file"
-              className="default"
-              multiple
-              onChange={onChange}
-            />
-          </label>
+          </Button>
+          <input
+            ref={ref}
+            type="file"
+            accept="image/png, image/gif, image/jpeg"
+            className="default"
+            multiple
+            onChange={onChange}
+          />
         </div>
       </hgroup>
       <ImgBoxGroup id="group">
@@ -146,10 +152,6 @@ const HospitalReview = ({
 
   useEffect(() => {
     SetReviewDefaultObj();
-    document.body.classList.add("dim");
-    return () => {
-      document.body.classList.remove("dim");
-    };
   }, []);
 
   // 기본 배열요소 추가
@@ -197,15 +199,30 @@ const HospitalReview = ({
   };
 
   return (
-    <OnClickOutside trigger={closeModal}>
-      <ReviewWarp className="Review">
-        <ReviewHeader>
-          <p>{hospitalName}</p>
-          <h3>리뷰 작성</h3>
-        </ReviewHeader>
-        <ReviewAddButton onClick={AddReviewBox}>추가</ReviewAddButton>
-
-        <ReviewBoxItem>
+    <Modal closeModal={closeModal}>
+      <Modal.ContentBox>
+        <Typography
+          tag="p"
+          variant="body-default-medium"
+          color="var(--black_03)"
+          style={{
+            marginBottom: "0.25rem",
+          }}
+        >
+          {hospitalName}
+        </Typography>
+        <Typography
+          tag="h1"
+          variant="h3-bold"
+          color="var(--black_01)"
+          style={{
+            marginBottom: "1.5rem",
+          }}
+        >
+          리뷰 작성
+        </Typography>
+        <ReviewWarp className="Review">
+          {/* <ReviewAddButton onClick={AddReviewBox}>추가</ReviewAddButton> */}
           {reviewForm?.map((item, index) => {
             return (
               <HospitalReviewBox
@@ -216,18 +233,22 @@ const HospitalReview = ({
               />
             );
           })}
-        </ReviewBoxItem>
-
-        <ReviewButtonWrap>
-          <button type="button" value="cancel" onClick={closeModal}>
+        </ReviewWarp>
+        <Modal.ButtonBox buttonNum={2} style={{ marginTop: "2.5rem" }}>
+          <Button height="100%" variant="secondary" onClick={closeModal}>
             취소
-          </button>
-          <button type="button" value="submit" onClick={onSubmit}>
-            작성완료
-          </button>
-        </ReviewButtonWrap>
-      </ReviewWarp>
-    </OnClickOutside>
+          </Button>
+          <Button
+            height="100%"
+            variant="primary"
+            onClick={onSubmit}
+            disabled={true}
+          >
+            작성 완료
+          </Button>
+        </Modal.ButtonBox>
+      </Modal.ContentBox>
+    </Modal>
   );
 };
 

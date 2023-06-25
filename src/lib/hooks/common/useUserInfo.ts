@@ -10,7 +10,6 @@ interface UserInfo {
 
 const useUserInfo = () => {
   const { data } = useQuery<UserInfo | undefined>([cookieKeyName.userInfo]);
-
   return { userData: data };
 };
 
@@ -23,6 +22,15 @@ export const useSetUserInfo = () => {
   };
 
   return mutate;
+};
+
+export const useRemoveUserInfo = () => {
+  const client = useQueryClient();
+  const remove = async () => {
+    await client.invalidateQueries([cookieKeyName.userInfo]); // invalidate 안됨
+    client.setQueryData([cookieKeyName.userInfo], undefined);
+  };
+  return remove;
 };
 
 export default useUserInfo;

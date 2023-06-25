@@ -4,9 +4,8 @@ import { UseQueryResult } from "@tanstack/react-query";
 import { useResource } from "@lib/hooks/common/useResource";
 import useCategory from "@lib/hooks/article/useActiveCategory";
 import useSearchText from "@lib/hooks/common/useSearchText";
-import { usePage } from "../../common/Pagination/usePagination";
+import { usePage } from "@lib/hooks/common/usePagination";
 import { ARTICLE_LIST, ARTICLE_SEARCH } from "@lib/resources/articleResource";
-import localConsole from "@lib/utils/localConsole";
 
 export default function useArticleList(): {
   status: UseQueryResult["status"];

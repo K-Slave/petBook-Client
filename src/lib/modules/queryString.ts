@@ -1,15 +1,15 @@
 export function replaceQuery({
-  asPath,
+  fullPath,
   key,
   query,
   basePath: path,
 }: {
-  asPath: string;
+  fullPath: string;
   key: string;
   query: string;
   basePath?: string;
 }) {
-  const splitedPath = asPath.split("?");
+  const splitedPath = fullPath.split("?");
   const basePath = path || splitedPath[0];
   const params = new URLSearchParams(splitedPath[1]);
   params.delete(key);
@@ -20,8 +20,14 @@ export function replaceQuery({
   }`;
 }
 
-export function removeQuery({ asPath, key }: { asPath: string; key: string }) {
-  const splitedPath = asPath.split("?");
+export function removeQuery({
+  fullPath,
+  key,
+}: {
+  fullPath: string;
+  key: string;
+}) {
+  const splitedPath = fullPath.split("?");
   const basePath = splitedPath[0];
   const params = new URLSearchParams(splitedPath[1]);
   params.delete(key);
