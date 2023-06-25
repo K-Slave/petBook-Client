@@ -25,6 +25,7 @@ export interface SearchFieldProps {
   width?: string;
   height?: string;
   focusColor?: string;
+  activeColor?: string;
   KeywordListBox?: React.ReactNode;
   SearchIcon?: React.ReactNode;
   SearchFieldInput?: ReturnType<typeof getSearchFieldInput>;
@@ -37,6 +38,7 @@ const SearchField = ({
   width,
   height,
   focusColor,
+  activeColor,
   KeywordListBox,
   SearchIcon,
   ...props
@@ -73,7 +75,11 @@ const SearchField = ({
       }}
     >
       <SearchFieldDiv width={width} height={height}>
-        <SearchForm onSubmit={onSubmitSearch} focusColor={focusColor}>
+        <SearchForm
+          onSubmit={onSubmitSearch}
+          focusColor={focusColor}
+          activeColor={text && activeColor}
+        >
           <SearchFieldInput
             value={text}
             placeholder={placeholder}

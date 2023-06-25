@@ -21,6 +21,7 @@ export const CustomWrap: Story = {
     width: "100%",
     height: "5rem",
     focusColor: "blue",
+    activeColor: "green",
     placeholder: "너비와 높이를 조절할 수 있어요.",
   },
 };

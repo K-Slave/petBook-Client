@@ -10,7 +10,9 @@ export const SearchFieldDiv = styled.div<{ width?: string; height?: string }>`
   `}
 `;
 
-export const SearchForm = styled.form<Pick<SearchFieldProps, "focusColor">>`
+export const SearchForm = styled.form<
+  Pick<SearchFieldProps, "focusColor" | "activeColor">
+>`
   width: 100%;
   height: 100%;
   .search-input-icon {
@@ -23,6 +25,7 @@ export const SearchForm = styled.form<Pick<SearchFieldProps, "focusColor">>`
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--black_01);
   }
   .search-input {
     ${TextBodySmallMedium};
@@ -37,6 +40,17 @@ export const SearchForm = styled.form<Pick<SearchFieldProps, "focusColor">>`
       color: ${focusColor};
     }
   `}
+  ${({ activeColor }) =>
+    activeColor &&
+    css`
+      .search-input {
+        border-color: ${activeColor} !important;
+      }
+
+      .search-input + .search-input-icon {
+        color: ${activeColor};
+      }
+    `}
   .search-input::placeholder {
     ${TextBodySmallMedium};
   }
