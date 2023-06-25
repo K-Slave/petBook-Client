@@ -29,18 +29,16 @@ export const CustomInput: Story = {
   args: {
     width: "20rem",
     placeholder: "커스텀 인풋 컴포넌트를 렌더링할 수 있어요",
-    SearchFieldInput(props) {
-      return (
-        <SearchField.Input
-          {...props}
-          placeholderColor="gray"
-          style={{
-            color: "red",
-            borderColor: "blue",
-          }}
-        />
-      );
-    },
+    SearchFieldInput: SearchField.getSearchFieldInput({
+      placeholderColor: "gray",
+      borderColor: {
+        withoutValue: "black",
+        withValue: "blue",
+      },
+      style: {
+        color: "red",
+      },
+    }),
   },
 };
 
@@ -48,13 +46,7 @@ export const CustomIcon: Story = {
   args: {
     placeholder: "검색",
     SearchIcon: <span style={{ textAlign: "center" }}>검색 아이콘</span>,
-    ClearButton({ onClick }) {
-      return (
-        <SearchField.ClearButton onClick={onClick}>
-          초기화
-        </SearchField.ClearButton>
-      );
-    },
+    ClearButton: SearchField.getClearButton({ children: "초기화" }),
   },
 };
 
@@ -69,7 +61,10 @@ export const CustomKeywordListBox: Story = {
           { id: 2, value: "ㅎㅎㅎ" },
         ]}
         renderItem={(item) => (
-          <SearchField.KeywordItem onClick={() => alert(item.value)}>
+          <SearchField.KeywordItem
+            typography="h4-bold"
+            onClick={() => alert(item.value)}
+          >
             <p>{item.value}</p>
           </SearchField.KeywordItem>
         )}

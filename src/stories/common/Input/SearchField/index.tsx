@@ -19,18 +19,6 @@ import Typography from "../../Typography";
 import Button, { type ButtonProps } from "../../Button";
 import CommonInput, { type CommonInputProps } from "../CommonInput/CommonInput";
 
-interface SearchFieldInputProps
-  extends Pick<CommonInputProps, "placeholder" | "style"> {
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onFocus: FocusEventHandler;
-  className: string;
-}
-
-interface ClearButtonProps {
-  onClick: MouseEventHandler;
-}
-
 export interface SearchFieldProps {
   domain?: SearchKeywordItem["domain"];
   placeholder?: string;
@@ -39,8 +27,8 @@ export interface SearchFieldProps {
   focusColor?: string;
   KeywordListBox?: React.ReactNode;
   SearchIcon?: React.ReactNode;
-  SearchFieldInput?: (props: SearchFieldInputProps) => JSX.Element;
-  ClearButton?: (props: ClearButtonProps) => JSX.Element;
+  SearchFieldInput?: ReturnType<typeof getSearchFieldInput>;
+  ClearButton?: ReturnType<typeof getClearButton>;
 }
 
 const SearchField = ({
@@ -71,8 +59,9 @@ const SearchField = ({
     setText("");
     handleClearQuery();
   };
-  const SearchFieldInput = props?.SearchFieldInput || SearchField.Input;
-  const ClearButton = props?.ClearButton || SearchField.ClearButton;
+  const SearchFieldInput =
+    props?.SearchFieldInput || SearchField.DefaultSearchFieldInput;
+  const ClearButton = props?.ClearButton || SearchField.DefaultClearButton;
   useEffect(() => {
     setText(searchText);
     setShowBox(false);
@@ -86,15 +75,14 @@ const SearchField = ({
       <SearchFieldDiv width={width} height={height}>
         <SearchForm onSubmit={onSubmitSearch} focusColor={focusColor}>
           <SearchFieldInput
-            className="search-input"
             value={text}
             placeholder={placeholder}
             onChange={onChange}
             onFocus={onFocus}
           />
           <div className="search-input-icon">
-            {!(searchText && text) ? (
-              <ClearButton onClick={onClickClear} />
+            {searchText && text ? (
+              <ClearButton onClickClear={onClickClear} />
             ) : (
               SearchIcon || <SearchOutline />
             )}
@@ -113,52 +101,76 @@ const SearchField = ({
   );
 };
 
-const SearchFieldInput = ({
-  value,
-  placeholder,
-  onChange,
-  onFocus,
-  style,
-  ...props
-}: CommonInputProps) => {
-  return (
-    <CommonInput
-      className="search-input"
-      placeholderColor="var(--black_05)"
-      {...props}
-      value={value}
-      placeholder={placeholder}
-      onChange={onChange}
-      onFocus={onFocus}
-      width="100%"
-      height="100%"
-      style={{
-        padding: "0 3rem 0 0.5rem",
-        border: "1px solid var(--black_04)",
-        ...style,
-      }}
-    />
-  );
+interface SearchFieldInputProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onFocus: FocusEventHandler;
+  placeholder?: string;
+}
+interface InputProps extends CommonInputProps {
+  borderColor?: { withoutValue?: string; withValue?: string };
+}
+const getSearchFieldInput = ({ style, borderColor, ...props }: InputProps) => {
+  const SearchFieldInput = ({
+    value,
+    placeholder,
+    onChange,
+    onFocus,
+  }: SearchFieldInputProps) => {
+    const borderColorWithValue = borderColor?.withValue || "var(--black_01)";
+    const borderColorWithoutValue =
+      borderColor?.withoutValue || "var(--black_04)";
+    return (
+      <CommonInput
+        placeholderColor="var(--black_05)"
+        {...props}
+        className={
+          props.className ? `search-input ${props.className}` : "search-input"
+        }
+        value={value}
+        placeholder={placeholder}
+        onChange={onChange}
+        onFocus={onFocus}
+        width="100%"
+        height="100%"
+        style={{
+          padding: "0 3rem 0 0.5rem",
+          border: `1px solid ${
+            value ? borderColorWithValue : borderColorWithoutValue
+          } `,
+          ...style,
+        }}
+      />
+    );
+  };
+  return SearchFieldInput;
 };
 
-const ClearButton = ({
+interface ClearButtonProps {
+  onClickClear: MouseEventHandler;
+}
+const getClearButton = ({
   style,
   children,
   ...props
 }: PropsWithChildren<ButtonProps>) => {
-  return (
-    <Button
-      {...props}
-      height="100%"
-      color="inherit"
-      style={{
-        transition: "unset",
-        ...style,
-      }}
-    >
-      {children || <IoCloseCircle fontSize="1.5rem" color="currentColor" />}
-    </Button>
-  );
+  const ClearButton = ({ onClickClear }: ClearButtonProps) => {
+    return (
+      <Button
+        color="inherit"
+        {...props}
+        onClick={onClickClear}
+        height="100%"
+        style={{
+          transition: "unset",
+          ...style,
+        }}
+      >
+        {children || <IoCloseCircle fontSize="1.5rem" color="currentColor" />}
+      </Button>
+    );
+  };
+  return ClearButton;
 };
 
 const KeywordListBox = <T extends ListItem>(props: ListBoxProps<T>) => {
@@ -246,8 +258,11 @@ const RecentKeywordListBox = ({ domain }: RecentKeywordListBoxProps) => {
     />
   );
 };
-SearchField.Input = SearchFieldInput;
-SearchField.ClearButton = ClearButton;
+
+SearchField.getSearchFieldInput = getSearchFieldInput;
+SearchField.getClearButton = getClearButton;
+SearchField.DefaultSearchFieldInput = getSearchFieldInput({});
+SearchField.DefaultClearButton = getClearButton({});
 SearchField.KeywordListBox = KeywordListBox;
 SearchField.KeywordItem = KeywordItem;
 SearchField.RecentKeywordList = RecentKeywordListBox;
@@ -256,8 +271,9 @@ SearchField.defaultProps = {
   showRecentKeywords: true,
   width: "17.375rem",
   height: "2.5rem",
-  placeholderColor: "var(--black_05)",
-  focusBorderColor: "var(--primary)",
+  focusColor: "var(--primary)",
+  SearchFieldInput: SearchField.DefaultSearchFieldInput,
+  ClearButton: SearchField.DefaultClearButton,
 };
 
 export default SearchField;

@@ -26,6 +26,7 @@ export const SearchForm = styled.form<Pick<SearchFieldProps, "focusColor">>`
   }
   .search-input {
     ${TextBodySmallMedium};
+    color: var(--black_01);
   }
   ${({ focusColor }) => css`
     .search-input:focus {
