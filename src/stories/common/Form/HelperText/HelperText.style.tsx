@@ -2,7 +2,9 @@ import styled from "styled-components";
 import { TextBodyMedium14 } from "../../Text/Text.style";
 import { BackgroundImageSpan } from "../../Image/BackgroundImage/BackgroundImage.style";
 
-export const HelperTextP = styled.p`
+export const HelperTextP = styled.p<{
+  status: "idle" | "loading" | "success" | "error";
+}>`
   justify-self: flex-start;
   position: relative;
 
@@ -13,7 +15,9 @@ export const HelperTextP = styled.p`
   padding-left: 1.3125rem;
 
   ${TextBodyMedium14};
-  color: var(--error);
+  ${(props) => props.status === "error" && `color: var(--error);`}
+  ${(props) => props.status === "success" && `color: var(--success);`}
+  ${(props) => props.status === "loading" && `color: var(--primary);`}
 `;
 
 export const HelperTextIconSpan = styled(BackgroundImageSpan)`

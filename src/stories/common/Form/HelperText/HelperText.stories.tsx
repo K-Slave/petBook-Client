@@ -8,7 +8,9 @@ const meta: Meta<typeof HelperText> = {
   parameters: { layout: "fullscreen" },
   args: {
     status: "error",
-    message: "이메일 형식이 올바르지 않습니다.",
+    message: {
+      error: "이메일 형식이 올바르지 않습니다.",
+    },
   },
 };
 

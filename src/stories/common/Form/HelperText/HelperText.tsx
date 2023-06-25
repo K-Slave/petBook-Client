@@ -4,23 +4,28 @@ import commonImg from "@image/commonImg";
 
 interface Props {
   status: "idle" | "loading" | "success" | "error";
-  message: string;
+  message: {
+    success?: string;
+    error?: string;
+    loading?: string;
+  };
 }
 
 const HelperText = ({ status, message }: Props) => {
   if (status === "error") {
     return (
-      <HelperTextP>
+      <HelperTextP status={status}>
         <HelperTextIconSpan
           url={commonImg.error_helper}
           width="14px"
           height="14px"
         />
-        {message}
+        {message.error}
       </HelperTextP>
     );
   }
-  return <></>;
+
+  return null;
 };
 
 export default HelperText;
