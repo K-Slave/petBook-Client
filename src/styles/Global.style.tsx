@@ -1,13 +1,8 @@
 import { createGlobalStyle } from "styled-components";
-import LoaderAnimation from "./Animation/LoaderAnimation.style";
 import ErrorShakeAnimation from "./Animation/ErrorShakeAnimation.style";
 import RotateAnimation from "./Animation/RotateAnimation.style";
 import FadeAnimation from "./Animation/FadeAnimation.style";
 import SlideAnimation from "./Animation/SlideAnimation.style";
-import SkeletonAnimation from "./Animation/SkeletonAnimation.style";
-import LoaderCommonStyle from "./common/Loader.style";
-import SkeletonCommonStyle from "./common/Skeleton.style";
-import ButtonCommonStyle from "./common/Button.style";
 import LabelCommonStyle from "./common/Label.style";
 import InputCommonStyle from "./common/Input.style";
 import TextAreaCommonStyle from "./common/TextArea.style";
@@ -36,21 +31,16 @@ const NextGlobalStyle = createGlobalStyle`
   /* shadow */
   --shadow_01: #d6d3c5;
 
-
   /* primary */
   --primary: #ff6847;
   --primary-hover: #ff542f;
 
   /* secondary */
   --secondary: #ffcfc5;
-  --secondary-hover: #ffcfc5;
+  --secondary-hover: #ffa48f;
 
   /* map */
   --map-primary: #f0892f;
-
-  /* button */
-  --disabled: #e0dfd9;
-  --disabled-font: #c5c4bd;
 
   /* action */
   --success: #2bc128;
@@ -122,6 +112,10 @@ button {
     border: transparent;
     background-color: transparent;
     cursor: pointer;
+}
+
+button:disabled {
+  cursor: auto;
 }
 
 
@@ -203,15 +197,10 @@ body.dim::before {
   }
 }
 
-  ${LoaderCommonStyle}
-  ${SkeletonCommonStyle}
-  ${ButtonCommonStyle}
   ${LabelCommonStyle}
   ${InputCommonStyle}
   ${TextAreaCommonStyle}
 
-  ${SkeletonAnimation}
-  ${LoaderAnimation}
   ${ErrorShakeAnimation}
   ${RotateAnimation}
   ${FadeAnimation}

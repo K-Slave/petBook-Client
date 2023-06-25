@@ -6,18 +6,17 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
-import Loader from "@components/common/loader/loader";
-import Modal from "@components/common/Modal";
+import Loader from "@/stories/common/Loader";
+import ModalRenderer from "@/stories/common/ModalRenderer";
 
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import createQueryClient from "@lib/utils/createQueryClient";
 import DecodedUserInfo from "@lib/types/DecodedUserInfo";
 
-import "swiper/scss";
-import "swiper/scss/navigation";
-import "swiper/scss/pagination";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import "@styles/Icon.scss";
-import "@styles/Swiper.scss";
 
 import recoilHydration from "@lib/modules/recoilHydration";
 import tokenParser from "@lib/server/parse/tokenParser";
@@ -128,7 +127,7 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
             />
           )}
           <Component {...pageProps} />
-          <Modal />
+          <ModalRenderer />
           <GTAGScript />
         </RecoilRoot>
       </Hydrate>

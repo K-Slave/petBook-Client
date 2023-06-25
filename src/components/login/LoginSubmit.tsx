@@ -20,6 +20,7 @@ import {
   InfoText,
 } from "./styled/styledLoginSubmit";
 import { cookieKeyName } from "@lib/globalConst";
+import Button from "@/stories/common/Button";
 
 const LOGIN = createRequest({
   key: ["LOGIN"],
@@ -162,9 +163,9 @@ export const LoginSubmitButton = () => {
           <p>로그인 상태유지</p>
         </AutomaticLabel>
       </div>
-      <button type="button" className="Primary" onClick={onSubmit}>
+      <Button variant="primary" onClick={onSubmit}>
         로그인
-      </button>
+      </Button>
     </>
   );
 };

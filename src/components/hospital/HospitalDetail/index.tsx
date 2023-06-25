@@ -1,14 +1,14 @@
-import { BookmarkBlankSharpIcon } from "@components/common/icon/Bookmark";
-import ChevronLeft from "@components/common/icon/ChevronLeft";
+import { BookmarkOutlineThin } from "@/stories/Icon/Bookmark";
+import { ChevronLeftRounded } from "@/stories/Icon/ChevronLeft";
 import { useRouter } from "next/router";
-import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
-import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
-import Stats from "@components/common/hospital/Stats";
-import Skeleton from "@components/common/Skeleton/Skeleton";
+import PossibleAnimalList from "@components/hospital/PossibleAnimalList";
+import HospitalBasicInfo from "@components/hospital/HospitalBasicInfo";
+import Stats from "@components/hospital/Stats";
+import Skeleton from "@/stories/common/Skeleton";
 import HospitalReview from "@components/hospital/HospitalReview/HospitalReview";
 import HospitalDetailReview from "@components/hospital/HospitalDetailReview";
-import PencilEditIcon from "@components/common/icon/PencilEdit";
-import ShareForwardIcon from "@components/common/icon/ShareFoward";
+import PencilEdit from "@/stories/Icon/PencilEdit";
+import ShareForward from "@/stories/Icon/ShareForward";
 import useModal from "@lib/hooks/common/useModal";
 import { Section, LineDiv, ButtonBoxDiv, Divider } from "./styled";
 import { useResource } from "@lib/hooks/common/useResource";
@@ -46,7 +46,7 @@ const HospitalDetail = ({ id }: { id: number }) => {
       <div className="wrapper">
         <header>
           <button type="button" onClick={goBack}>
-            <ChevronLeft />
+            <ChevronLeftRounded />
           </button>
           <div>
             <Link href={`/hospital/${data.response.data.result.id}`} passHref>
@@ -99,21 +99,21 @@ export const ButtonBox = ({
     <ButtonBoxDiv>
       <div>
         <button type="button">
-          <BookmarkBlankSharpIcon />
+          <BookmarkOutlineThin />
           <span>책갈피</span>
         </button>
       </div>
       {divider && <Divider />}
       <div>
         <button type="button">
-          <ShareForwardIcon />
+          <ShareForward />
           <span>공유</span>
         </button>
       </div>
       {divider && <Divider />}
       <div>
         <button type="button" onClick={() => openReviewModal(id, name)}>
-          <PencilEditIcon />
+          <PencilEdit />
           <span>리뷰작성</span>
         </button>
       </div>

@@ -1,6 +1,6 @@
 import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
 import useLikeDebounce from "@components/community/LikeButton/useLikeDebounce";
-import { HeartFilledIcon, HeartBlankIcon } from "@components/common/icon/Heart";
+import { HeartFilled, HeartOutline } from "@/stories/Icon/Heart";
 import { LikeRequest } from "@lib/API/petBookAPI/types/likeRequest";
 import LikeButtonBox from "./styled";
 
@@ -30,7 +30,7 @@ const LikeButton = ({
       onClick={clickLikeButton}
       isLiked={isLiked ? "true" : ""}
     >
-      {isLiked ? <HeartFilledIcon /> : <HeartBlankIcon />}
+      {isLiked ? <HeartFilled /> : <HeartOutline />}
       <span className={`likeCount ${isLiked ? "active" : ""}`}>
         {computedLikeCount}
       </span>

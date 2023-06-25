@@ -1,6 +1,6 @@
-import HospitalBasicInfo from "@components/common/hospital/HospitalBasicInfo";
-import { HospitalInfoUL } from "@components/common/hospital/HospitalBasicInfo/styled";
-import PossibleAnimalList from "@components/common/hospital/PossibleAnimalList";
+import HospitalBasicInfo from "@components/hospital/HospitalBasicInfo";
+import { HospitalInfoUL } from "@components/hospital/HospitalBasicInfo/styled";
+import PossibleAnimalList from "@components/hospital/PossibleAnimalList";
 import { ButtonBox } from "@components/hospital/HospitalDetail";
 import {
   ButtonBoxDiv,

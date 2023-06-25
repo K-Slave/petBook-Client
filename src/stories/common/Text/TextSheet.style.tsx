@@ -4,7 +4,7 @@ import {
   TextBodySmall14,
   TextH3Bold22,
   TextH4Bold18,
-} from "./Text.style";
+} from "../Typography/style";
 
 export const TextSheetDiv = styled.div`
   display: grid;

@@ -1,7 +1,7 @@
-import DropdownMenu from "@components/common/DropdownMenu";
+import KebabMenu from "@/stories/common/KebabMenu";
 import { BsArrowReturnRight } from "react-icons/bs";
 import CommonInfo from "@components/community/CommonInfo";
-import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
+import { BookmarkOutline } from "@/stories/Icon/Bookmark";
 import { commentRequest } from "@lib/API/petBookAPI";
 import { useRef, useState } from "react";
 import useChangeComment from "@lib/hooks/comment/useChangeComment";
@@ -20,6 +20,9 @@ import LikeButton from "../../LikeButton";
 import { CommentFormTextarea } from "../CommentForm/styled";
 import useUserInfo from "@lib/hooks/common/useUserInfo";
 import { COMMENT_LIST } from "@lib/resources/commentResource";
+import Button from "@/stories/common/Button";
+import ListBox from "@/stories/common/ListBox";
+import Typography from "@/stories/common/Typography";
 
 const avatar =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";
@@ -33,16 +36,14 @@ export const NormalItem = ({
   const { userData } = useUserInfo();
   const { user, createdAt, content, likeCount, id, articleId, isLiked } =
     comment;
-  const menuList = [
-    {
-      name: "수정",
-      onClick: () => setIsEditing(true),
+  const menuItemProps = {
+    tag: "button" as const,
+    variant: "body-small-medium" as const,
+    style: {
+      width: "100%",
+      padding: "0.5rem 0 0.5rem 1.25rem",
     },
-    {
-      name: "삭제",
-      onClick: clickDeleteMenu,
-    },
-  ];
+  };
   return (
     <NormalItemDiv isEditing={isEditing ? "true" : ""}>
       {isChild && <BsArrowReturnRight />}
@@ -54,8 +55,31 @@ export const NormalItem = ({
             avatar={avatar}
             year={1}
           />
-          {userData?.id === user.id && !isEditing && (
-            <DropdownMenu menuList={menuList} />
+          {userData?.id == user.id && !isEditing && (
+            <KebabMenu
+              MenuListBox={
+                <ListBox
+                  width="7.3125rem"
+                  list={[
+                    {
+                      id: 1,
+                      menu: "수정",
+                      onClick: () => setIsEditing(true),
+                    },
+                    {
+                      id: 2,
+                      menu: "삭제",
+                      onClick: clickDeleteMenu,
+                    },
+                  ]}
+                  renderItem={(item) => (
+                    <Typography {...menuItemProps} onClick={item.onClick}>
+                      {item.menu}
+                    </Typography>
+                  )}
+                />
+              }
+            />
           )}
         </div>
         {isEditing ? (
@@ -90,16 +114,14 @@ export const QnaItem = ({ comment, isChild, clickDeleteMenu }: ItemProps) => {
     comment;
   const { userData } = useUserInfo();
   const [isEditing, setIsEditing] = useState(false);
-  const menuList = [
-    {
-      name: "수정",
-      onClick: () => setIsEditing(true),
+  const menuItemProps = {
+    tag: "button" as const,
+    variant: "body-small-medium" as const,
+    style: {
+      width: "100%",
+      padding: "0.5rem 0 0.5rem 1.25rem",
     },
-    {
-      name: "삭제",
-      onClick: clickDeleteMenu,
-    },
-  ];
+  };
   return (
     <QnaItemDiv>
       <CommonInfo
@@ -120,8 +142,31 @@ export const QnaItem = ({ comment, isChild, clickDeleteMenu }: ItemProps) => {
           ) : (
             <p className="Item_Content">{content}</p>
           )}
-          {userData?.id === user.id && !isEditing && (
-            <DropdownMenu menuList={menuList} />
+          {userData?.id == user.id && !isEditing && (
+            <KebabMenu
+              MenuListBox={
+                <ListBox
+                  width="7.3125rem"
+                  list={[
+                    {
+                      id: 1,
+                      menu: "수정",
+                      onClick: () => setIsEditing(true),
+                    },
+                    {
+                      id: 2,
+                      menu: "삭제",
+                      onClick: clickDeleteMenu,
+                    },
+                  ]}
+                  renderItem={(item) => (
+                    <Typography {...menuItemProps} onClick={item.onClick}>
+                      {item.menu}
+                    </Typography>
+                  )}
+                />
+              }
+            />
           )}
         </div>
         {!isEditing && (
@@ -166,7 +211,7 @@ const EditForm = ({ content, id, articleId, clickCancelButton }: Props) => {
     clickCancelButton();
   });
   return (
-    <Form>
+    <Form onSubmit={onSubmit}>
       <CommentFormTextarea
         ref={textareaRef}
         defaultValue={content}
@@ -174,17 +219,12 @@ const EditForm = ({ content, id, articleId, clickCancelButton }: Props) => {
         autoFocus
       />
       <div>
-        <button className="Secondary" type="button" onClick={clickCancelButton}>
+        <Button variant="secondary" onClick={clickCancelButton}>
           취소
-        </button>
-        <button
-          className="Primary"
-          type="submit"
-          onClick={onSubmit}
-          disabled={isLoading}
-        >
-          수정 완료
-        </button>
+        </Button>
+        <Button variant="primary" disabled={isLoading}>
+          {isLoading ? "수정 중" : "완료"}
+        </Button>
       </div>
     </Form>
   );
@@ -195,7 +235,7 @@ const EditForm = ({ content, id, articleId, clickCancelButton }: Props) => {
 const ScrapButton = () => {
   return (
     <ScrapButtonBox type="button" isScrap="">
-      <BookmarkBlankIcon />
+      <BookmarkOutline />
       <span>0</span>
     </ScrapButtonBox>
   );

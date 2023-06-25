@@ -1,15 +1,15 @@
 import React from "react";
 import StyledCommonInput from "./CommonInput.style";
 import { UseFormRegisterReturn } from "react-hook-form";
-import localConsole from "@lib/utils/localConsole";
 import layoutCalculator from "@lib/utils/layoutCalculator";
 
 export interface CommonInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   type: "text" | "password" | "email" | "checkbox" | "radio" | "number";
-  width?: string | number;
-  height?: string | number;
   register?: UseFormRegisterReturn;
+  width?: string;
+  height?: string;
+  placeholderColor?: string;
 }
 
 const CommonInput = (props: CommonInputProps) => {

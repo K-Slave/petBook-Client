@@ -2,11 +2,11 @@ import Link from "next/link";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import DOMPurify from "isomorphic-dompurify";
 import React from "react";
-import { HeartBlankIcon, HeartFilledIcon } from "@components/common/icon/Heart";
-import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
+import { HeartOutline, HeartFilled } from "@/stories/Icon/Heart";
+import { BookmarkOutline } from "@/stories/Icon/Bookmark";
 import CommonInfo from "@components/community/CommonInfo";
-import Pagination from "@components/common/Pagination";
-import Skeleton from "@components/common/Skeleton/Skeleton";
+import Pagination from "@/stories/common/Pagination";
+import Skeleton from "@/stories/common/Skeleton";
 import useArticleList from "./useArticleList";
 import { ListDiv, Article, Text } from "./styled";
 
@@ -38,7 +38,7 @@ const ArticleList = ({ status, articles, totalPages, emptyText }: Props) => {
       {articles.map((article) => (
         <ArticleList.Item article={article} key={article.id} />
       ))}
-      <Pagination totalPages={totalPages} buttonNum={10} />
+      <Pagination totalPages={totalPages} buttonCntPerLine={10} />
     </ListDiv>
   );
 };
@@ -59,11 +59,11 @@ const Item = ({ article }: { article: ArticleResponse }) => {
         <div className="Item_Row">
           <div className="Item_Stats">
             <div className={isLike ? "like" : ""}>
-              {isLike ? <HeartFilledIcon /> : <HeartBlankIcon />}
+              {isLike ? <HeartFilled /> : <HeartOutline />}
               <span>{stat.likeCount}</span>
             </div>
             <div>
-              <BookmarkBlankIcon />
+              <BookmarkOutline />
               <span>0</span>
             </div>
           </div>
