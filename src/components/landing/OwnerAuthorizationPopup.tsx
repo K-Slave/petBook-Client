@@ -68,7 +68,7 @@ const OwnerAuthorizationPopupDiv = styled.div`
 
     font-size: 0.9375rem;
     font-weight: bold;
-    color: #2b85e5;
+    color: var(--blue);
   }
 
   .Owner__Popup__Desc {
@@ -84,7 +84,7 @@ const OwnerAuthorizationPopupDiv = styled.div`
 
     margin-top: 0.625rem;
     font-weight: normal;
-    color: #2b85e5;
+    color: var(--blue);
   }
 `;
 

@@ -25,6 +25,10 @@ const NextGlobalStyle = createGlobalStyle`
   --black_06: #c5c4bd;
   --black_07: #e0dfd9;
 
+  /* blue */
+
+  --blue: #2b85e5;
+
   /* bg */
   --bg_white_02: #f8f7f2;
   --bg_white_01: #eeede7;
