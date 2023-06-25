@@ -21,9 +21,11 @@ const useLoginForm = (props?: UseFormProps) => {
   const { register, handleSubmit, formState, getValues } = useForm<{
     email: string;
     password: string;
+    checkbox: boolean;
   }>();
   const emailRegister = register("email");
   const passwordRegister = register("password");
+  const checkBoxRegister = register("checkbox");
 
   emailRegister.maxLength = authOptions.email.max;
   passwordRegister.minLength = authOptions.password.min;
@@ -100,10 +102,6 @@ const useLoginForm = (props?: UseFormProps) => {
     pwValidityCheck(event.target);
   };
 
-  const onSaveClick = () => {
-    loginStore.setCheck();
-  };
-
   const onEmailKeyDown = (e: KeyboardEvent) => {
     const input = e.target as HTMLInputElement;
     const emailHandler = new inputEventHelperMethod(undefined, input);
@@ -138,6 +136,7 @@ const useLoginForm = (props?: UseFormProps) => {
 
   const onSubmit: FormEventHandler<HTMLFormElement> = handleSubmit(
     async (formValue) => {
+      localConsole?.log(formValue, "formValue");
       // onSubmit 이벤트가 발생하면서, formState.isLoading 값이 true로 바뀌는데,
       // 이때, 다시 한번 submit 이벤트가 발생하면 아래의 코드가 실행되지 않는다.
       if (formState.isLoading) {
@@ -181,7 +180,7 @@ const useLoginForm = (props?: UseFormProps) => {
       const loginResponse = await mutateAsync({
         email: formValue.email,
         password: formValue.password,
-        isSave: loginStore.check,
+        isSave: formValue.checkbox,
       });
 
       setLoading(false);
@@ -254,9 +253,9 @@ const useLoginForm = (props?: UseFormProps) => {
     },
     emailRegister,
     passwordRegister,
+    checkBoxRegister,
     evenvtHandler: {
       onSubmit,
-      onSaveClick,
     },
   };
 };

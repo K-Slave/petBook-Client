@@ -5,6 +5,8 @@
 const layoutCalculator = (value: string | number) => {
   let result = value;
 
+  if (!value) return "";
+
   if (typeof value === "number") {
     result = `${value}px`;
   }

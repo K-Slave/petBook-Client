@@ -1,7 +1,7 @@
 import layoutCalculator from "@lib/utils/layoutCalculator";
 import styled, { CSSProperties, css } from "styled-components";
 
-const BackgroundImageCommon = css`
+export const BackgroundImageCommon = css`
   position: relative;
 
   image-rendering: -webkit-optimize-contrast;
@@ -43,6 +43,26 @@ export const BackgroundImageButton = styled.button<{
   display?: CSSProperties["display"];
   bgPosition?: CSSProperties["backgroundPosition"];
 }>`
+  ${BackgroundImageCommon}
+  display: ${(props) => (props.display ? props.display : "inline-block")};
+
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+
+  background-image: url(${(props) => props.url});
+  background-size: ${(props) => `${props.width} ${props.height}`};
+  background-position: ${(props) =>
+    props.bgPosition ? props.bgPosition : "center"};
+`;
+
+export interface BackgroundImageProps {
+  url: string;
+  width: string;
+  height: string;
+  display?: CSSProperties["display"];
+  bgPosition?: CSSProperties["backgroundPosition"];
+}
+export const BackgroundImageInput = styled.input<BackgroundImageProps>`
   ${BackgroundImageCommon}
   display: ${(props) => (props.display ? props.display : "inline-block")};
 

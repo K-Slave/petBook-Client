@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import { TextBodyMedium14 } from "../../Text/Text.style";
 
-const StyledCommonInput = styled.input<{ width?: string; height?: string }>`
+const StyledCommonInput = styled.input<{
+  width?: string;
+  height?: string;
+}>`
   width: ${({ width }) => width || "100%"};
   height: ${({ height }) => height || "3rem"};
   padding: 1rem 1.25rem 0.9375rem;

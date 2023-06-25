@@ -9,8 +9,8 @@ import useLoginForm from "@lib/hooks/login/useLoginForm";
 import usePWShowHide from "@lib/hooks/input/usePWShowHide";
 import FocusBasedInputBox from "../../Input/FocusBasedInputBox";
 import PWShowHideButton from "../../PWShowHideButton";
-import LoginSaveButton from "../../LoginSaveButton/LoginSaveButton";
 import HelperText from "../HelperText/HelperText";
+import CommonCheckBox from "../../Input/CommonCheckBox/CommonCheckBox";
 
 const DefaultLoginForm = () => {
   const { isPWHide, onClickPW } = usePWShowHide();
@@ -19,6 +19,7 @@ const DefaultLoginForm = () => {
     loginRequest,
     emailRegister,
     passwordRegister,
+    checkBoxRegister,
     evenvtHandler,
   } = useLoginForm();
 
@@ -75,12 +76,26 @@ const DefaultLoginForm = () => {
       <DefaultLoginForm.MiddleWrap>
         <DefaultLoginForm.Helper
           status={loginRequest.status}
-          message={loginRequest.errorHelperText}
+          message={{
+            error: loginRequest.errorHelperText,
+          }}
         />
         <DefaultLoginForm.Save
-          check={loginStore.check}
-          onClick={evenvtHandler.onSaveClick}
+          register={checkBoxRegister}
           text="로그인 상태 유지"
+          checkBoxWidth="0.875rem"
+          checkBoxHeight="0.875rem"
+          checkBoxBgUrl={{
+            checked: inputImg.check_true,
+            unChecked: inputImg.check_false,
+          }}
+          labelStyle={{
+            justifySelf: "flex-end",
+          }}
+          inputStyle={{
+            position: "relative",
+            top: "-0.0625rem",
+          }}
         />
       </DefaultLoginForm.MiddleWrap>
       <DefaultLoginForm.Submit isLoading={loginRequest.status === "loading"} />
@@ -120,7 +135,7 @@ DefaultLoginForm.Wrap = Wrap;
 DefaultLoginForm.Email = FocusBasedInputBox;
 DefaultLoginForm.Password = FocusBasedInputBox;
 DefaultLoginForm.MiddleWrap = MiddleWrap;
-DefaultLoginForm.Save = LoginSaveButton;
+DefaultLoginForm.Save = CommonCheckBox;
 DefaultLoginForm.Submit = Submit;
 DefaultLoginForm.Helper = HelperText;
 
