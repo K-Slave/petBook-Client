@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TextBodyMedium14, TextH4Bold18 } from "../../Text/Text.style";
+import { TextBodyMedium14, TextH4Bold18 } from "../../Typography/style";
 
 export const LoginWrapForm = styled.form`
   display: grid;

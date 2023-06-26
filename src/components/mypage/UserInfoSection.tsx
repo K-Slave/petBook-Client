@@ -10,7 +10,7 @@ import {
 } from "./style/UserInfoSection";
 import Image from "next/image";
 import mypageImg from "@/image/mypageImg";
-import { AuthSelfHiddenMask } from "@components/common/AuthWrapper/AuthWrapper";
+import { AuthSelfHiddenMask } from "@/stories/common/Auth/AuthWrapper";
 
 const UserInfoSection = () => {
   return (

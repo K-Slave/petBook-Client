@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { TextBodyMedium14 } from "../../Text/Text.style";
 import { BackgroundImageSpan } from "../../Image/BackgroundImage/BackgroundImage.style";
+import { TextBodyMedium14 } from "../../Typography/style";
 
 export const HelperTextP = styled.p<{
   status: "idle" | "loading" | "success" | "error";

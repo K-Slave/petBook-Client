@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import LoginForm from "@/stories/LoginModule";
-import { AuthRedirectWrapper } from "@components/common/AuthWrapper/AuthWrapper";
-import useLoginStore from "@lib/hooks/store/useLoginStore";
 import commonServerSideProps from "@lib/server/commonServerSideProps";
 import Cookies from "js-cookie";
 import { memoizedValue } from "@lib/globalConst";
+import { AuthRedirectWrapper } from "@/stories/common/Auth/AuthWrapper";
 
 const Main = styled.main`
   display: flex;

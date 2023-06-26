@@ -1,4 +1,4 @@
-import AuthWrapper from "@components/common/AuthWrapper/AuthWrapper";
+import AuthWrapper from "@/stories/common/Auth/AuthWrapper";
 import { useRouter } from "next/router";
 import React, { PropsWithChildren } from "react";
 // import { BubblyTip, useBubblyTip } from "react-bubblytip";

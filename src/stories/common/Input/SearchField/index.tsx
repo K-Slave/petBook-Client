@@ -116,7 +116,12 @@ interface SearchFieldInputProps {
 interface InputProps extends CommonInputProps {
   borderColor?: { withoutValue?: string; withValue?: string };
 }
-const getSearchFieldInput = ({ style, borderColor, ...props }: InputProps) => {
+const getSearchFieldInput = ({
+  type,
+  style,
+  borderColor,
+  ...props
+}: InputProps) => {
   const SearchFieldInput = ({
     value,
     placeholder,
@@ -128,6 +133,7 @@ const getSearchFieldInput = ({ style, borderColor, ...props }: InputProps) => {
       borderColor?.withoutValue || "var(--black_04)";
     return (
       <CommonInput
+        type={type}
         placeholderColor="var(--black_05)"
         {...props}
         className={
@@ -267,7 +273,7 @@ const RecentKeywordListBox = ({ domain }: RecentKeywordListBoxProps) => {
 
 SearchField.getSearchFieldInput = getSearchFieldInput;
 SearchField.getClearButton = getClearButton;
-SearchField.DefaultSearchFieldInput = getSearchFieldInput({});
+SearchField.DefaultSearchFieldInput = getSearchFieldInput({ type: "text" });
 SearchField.DefaultClearButton = getClearButton({});
 SearchField.KeywordListBox = KeywordListBox;
 SearchField.KeywordItem = KeywordItem;

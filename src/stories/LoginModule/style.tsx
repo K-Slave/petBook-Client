@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { BackgroundImageSpan } from "../common/Image/BackgroundImage/BackgroundImage.style";
+
+import Link from "next/link";
 import {
   TextBodyMedium14,
   TextBodySmall14,
   TextH3Bold22,
-} from "../common/Text/Text.style";
-import Link from "next/link";
+} from "../common/Typography/style";
 
 export const LoginModuleWrapDiv = styled.div`
   display: grid;
