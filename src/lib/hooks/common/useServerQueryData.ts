@@ -22,7 +22,7 @@ const useServerQueryData = <P = ResourceParams, T = ResourceResult>(
       return { serverData, clientHydrated };
 
     const pureServerQueries = queryClient.getQueriesData<Resource<P, T>>([
-      `${resource.name}`,
+      resource.name,
     ]);
 
     const serverQueryKey = pureServerQueries[resource.idx][0];
@@ -41,7 +41,7 @@ const useServerQueryData = <P = ResourceParams, T = ResourceResult>(
   }
 
   const pureServerQueries = queryClient.getQueriesData<Resource<P, T>>([
-    `${resource.name}`,
+    resource.name,
   ]);
 
   const serverQueryKey = pureServerQueries[0][0];
