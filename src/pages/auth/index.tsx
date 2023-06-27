@@ -5,6 +5,8 @@ import commonServerSideProps from "@lib/server/commonServerSideProps";
 import Cookies from "js-cookie";
 import { memoizedValue } from "@lib/globalConst";
 import { AuthRedirectWrapper } from "@/stories/common/Auth/AuthWrapper";
+import { useRouter } from "next/router";
+import localConsole from "@lib/utils/localConsole";
 
 const Main = styled.main`
   display: flex;
@@ -22,13 +24,17 @@ const Main = styled.main`
 // TODO : 로그인 되있을시 Redirection 또는 라우팅 처리하기
 const Auth = () => {
   const prevPath = Cookies.get(memoizedValue.prevPath);
+  const { query } = useRouter();
+
+  localConsole?.log(query, "query");
 
   Cookies.remove(memoizedValue.prevPath);
 
   return (
     <AuthRedirectWrapper pathTo={prevPath || "/"}>
       <Main>
-        <LoginForm />
+        {query.register !== "true" && <LoginForm />}
+        {query.register === "true" && <>{/* 회원가입 컴포넌트 */}</>}
       </Main>
     </AuthRedirectWrapper>
   );
