@@ -38,7 +38,7 @@ export default class ArticleParser extends ResourceParser {
         const { id } = category;
         const payload = {
           params: {
-            categoryId: id === 0 ? "" : id.toString(),
+            categoryId: id.toString(),
             page: 0,
             size: 5,
             popular: false,

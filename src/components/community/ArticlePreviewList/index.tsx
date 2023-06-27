@@ -21,7 +21,7 @@ const ArticlePreviewList = () => {
 const ArticleBox = ({ category }: { category: CategoryItem }) => {
   const payload = {
     params: {
-      categoryId: category.id === 0 ? "" : category.id.toString(),
+      categoryId: category.id.toString(),
       page: 0,
       size: 5,
       popular: false,
