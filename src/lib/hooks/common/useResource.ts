@@ -21,11 +21,7 @@ export function useResource<P = ResourceParams, T = ResourceResult>({
   payload?: P;
 }) {
   // 서버에서 사용한 각 페이지 리소스에 대한 쿼리 데이터를 가져옵니다.
-  const { serverData, clientHydrated } = useServerQueryData<Resource<P, T>>(
-    resource.name
-  );
-
-  localConsole?.log(serverData, "serverData");
+  const { serverData, clientHydrated } = useServerQueryData<P, T>(resource);
 
   // 서버에서 사용한 쿼리 데이터가 있고, 클라이언트가 아직 hydration 되지 않았다면
   // 서버에서 사용한 쿼리 데이터를 클라이언트에 적용합니다.
@@ -70,12 +66,34 @@ export function createResource<
   name: QueryKeyList;
   fetcher: (payload: P) => Promise<GetResultReturn<T, P>>;
 }): Resource<P, T> {
-  const resultResource = {
+  const resultResource: Resource<P, T> = {
     ...resource,
     createKey,
   };
 
   return resultResource;
+}
+
+export function createListResource<
+  P extends ResourceParams,
+  T extends ResourceResult
+>(params: {
+  name: QueryKeyList;
+  fetcher: (payload: P) => Promise<GetResultReturn<T, P>>;
+  listLength: number;
+}): Resource<P, T>[] {
+  const resourceList = new Array(params.listLength).fill("").map((_, idx) => {
+    const resultResource: Resource<P, T> = {
+      ...params,
+      isList: true,
+      idx,
+      createKey,
+    };
+
+    return resultResource;
+  });
+
+  return resourceList;
 }
 
 export function useSetResource<T, P>(request: {

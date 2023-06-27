@@ -19,7 +19,7 @@ const QnaArticleList = () => {
     },
   };
   const { data } = useResource({
-    resource: ARTICLE_LIST_PREVIEW,
+    resource: ARTICLE_LIST_PREVIEW[QNA_CATEGORY.id],
     payload,
   });
   return (

@@ -66,7 +66,7 @@ const Main = styled.main`
 export const getServerSideProps = commonServerSideProps([
   CATEGORY_LIST,
   ARTICLE_POPULAR_LIST,
-  ARTICLE_LIST_PREVIEW,
+  ...ARTICLE_LIST_PREVIEW,
 ]);
 
 export default Community;

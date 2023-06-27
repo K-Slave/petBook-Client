@@ -61,11 +61,11 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
     );
   }
 
-  if (pageProps && pageProps.requiredResources) {
-    for (const resource of pageProps.requiredResources) {
-      queryClient.setQueryData([resource.name + "_RESOURCE"], resource);
-    }
-  }
+  // if (pageProps && pageProps.requiredResources) {
+  //   for (const resource of pageProps.requiredResources) {
+  //     queryClient.setQueryData([resource.name + "_RESOURCE"], resource);
+  //   }
+  // }
 
   if (pageProps && pageProps.token) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${pageProps.token}`;

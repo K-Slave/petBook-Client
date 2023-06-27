@@ -6,9 +6,11 @@ import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 import { BookmarkOutline } from "@/stories/Icon/Bookmark";
 import { Article, BoxGrid, List } from "./styled";
 import { ARTICLE_LIST_PREVIEW } from "@lib/resources/articleResource";
+import localConsole from "@lib/utils/localConsole";
 
 const ArticlePreviewList = () => {
   const { categories } = useCategories({ all: true });
+  // localConsole?.log(categories, 'categories');
   return (
     <BoxGrid>
       {categories.map((category) => (
@@ -27,8 +29,9 @@ const ArticleBox = ({ category }: { category: CategoryItem }) => {
       popular: false,
     },
   };
+
   const { data } = useResource({
-    resource: ARTICLE_LIST_PREVIEW,
+    resource: ARTICLE_LIST_PREVIEW[category.id],
     payload,
   });
   return (

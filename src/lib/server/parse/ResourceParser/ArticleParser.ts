@@ -8,7 +8,6 @@ import {
 import ResourceParser from "./ResourceParser";
 import { categoryRequest } from "@lib/API/petBookAPI";
 import { itrMap } from "@lib/utils/iterableFunctions";
-import localConsole from "@lib/utils/localConsole";
 
 export default class ArticleParser extends ResourceParser {
   public listFetch = async () => {
@@ -30,26 +29,43 @@ export default class ArticleParser extends ResourceParser {
   };
 
   public listPreviewFetch = async () => {
-    const { response } = await categoryRequest.category_list();
-    response.data.result.push({ id: 0, name: "전체" });
+    if (typeof this.resource.idx === "undefined") return;
 
-    const promises = Promise.all(
-      itrMap(async (category) => {
-        const { id } = category;
-        const payload = {
-          params: {
-            categoryId: id.toString(),
-            page: 0,
-            size: 5,
-            popular: false,
-          },
-        };
+    const ARTICLE_LIST_PREVIEW_ITEM = ARTICLE_LIST_PREVIEW[this.resource.idx];
 
-        return this.clientFetch<typeof ARTICLE_LIST_PREVIEW["params"]>(payload);
-      }, response.data.result)
+    const payload = {
+      params: {
+        categoryId: this.resource.idx.toString(),
+        page: 0,
+        size: 5,
+        popular: false,
+      },
+    };
+
+    return this.clientFetch<typeof ARTICLE_LIST_PREVIEW_ITEM["params"]>(
+      payload
     );
 
-    return promises;
+    // const { response } = await categoryRequest.category_list();
+    // response.data.result.push({ id: 0, name: '전체' });
+    // const promises = Promise.all(
+    //   itrMap(async (category) => {
+    //     const { id } = category;
+    //     const payload = {
+    //       params: {
+    //         categoryId: id.toString(),
+    //         page: 0,
+    //         size: 5,
+    //         popular: false,
+    //       },
+    //     };
+    //     const ARTICLE_LIST_PREVIEW_ITEM = ARTICLE_LIST_PREVIEW[id];
+    //     return this.clientFetch<typeof ARTICLE_LIST_PREVIEW_ITEM['params']>(
+    //       payload
+    //     );
+    //   }, response.data.result)
+    // );
+    // return promises;
   };
 
   public detailFetch = async () => {

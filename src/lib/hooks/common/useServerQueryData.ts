@@ -1,10 +1,9 @@
-import { QueryKeyList } from "@lib/queries";
-import localConsole from "@lib/utils/localConsole";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
+import { Resource, ResourceParams, ResourceResult } from "@lib/resources";
 
-const useServerQueryData = <K>(
-  key: QueryKeyList | string,
+const useServerQueryData = <P = ResourceParams, T = ResourceResult>(
+  resource: Resource<P, T>,
   isClientFetch?: boolean
 ) => {
   const queryClient = useQueryClient();
@@ -15,9 +14,45 @@ const useServerQueryData = <K>(
   }, []);
 
   if (isClientFetch) return { serverData: null, clientHydrated };
-  const serverData = queryClient.getQueryData<K>([key + "_RESOURCE"]);
 
-  // localConsole?.log(serverData, 'serverData');
+  let serverData: Resource<P, T> | undefined;
+
+  if (resource.isList) {
+    if (typeof resource.idx === "undefined")
+      return { serverData, clientHydrated };
+
+    const temp = queryClient.getQueriesData<Resource<P, T>>([
+      `${resource.name}`,
+    ]);
+
+    const serverQueryKey = temp[resource.idx][0];
+
+    if (serverQueryKey && !resource.key) {
+      resource.key = serverQueryKey;
+    }
+
+    if (serverQueryKey[1]) {
+      resource.params = serverQueryKey[1] as typeof resource.params;
+    }
+
+    serverData = resource;
+
+    return { serverData, clientHydrated };
+  }
+
+  const temp = queryClient.getQueriesData<Resource<P, T>>([`${resource.name}`]);
+
+  const serverQueryKey = temp[0][0];
+
+  if (serverQueryKey && !resource.key) {
+    resource.key = serverQueryKey;
+  }
+
+  if (serverQueryKey[1]) {
+    resource.params = serverQueryKey[1] as typeof resource.params;
+  }
+
+  serverData = resource;
 
   return { serverData, clientHydrated };
 };

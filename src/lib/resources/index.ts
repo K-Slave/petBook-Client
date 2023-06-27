@@ -35,6 +35,8 @@ export interface Resource<P = ResourceParams, T = ResourceResult> {
   name: QueryKeyList;
   key?: QueryKey;
   params?: P;
+  idx?: number;
+  isList?: boolean;
   fetcher: (params: P) => Promise<GetResultReturn<T, P>>;
   createKey: typeof createKey;
 }
