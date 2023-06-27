@@ -27,8 +27,8 @@ const useServerQueryData = <P = ResourceParams, T = ResourceResult>(
 
     const serverQueryKey = pureServerQueries[resource.idx][0];
 
-    if (serverQueryKey && !resource.key) {
-      resource.key = serverQueryKey;
+    if (serverQueryKey && !resource.querykey) {
+      resource.querykey = serverQueryKey;
     }
 
     if (serverQueryKey[1]) {
@@ -46,8 +46,8 @@ const useServerQueryData = <P = ResourceParams, T = ResourceResult>(
 
   const serverQueryKey = pureServerQueries[0][0];
 
-  if (serverQueryKey && !resource.key) {
-    resource.key = serverQueryKey;
+  if (serverQueryKey && !resource.querykey) {
+    resource.querykey = serverQueryKey;
   }
 
   if (serverQueryKey[1]) {

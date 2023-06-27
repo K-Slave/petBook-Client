@@ -27,14 +27,14 @@ import {
   ImgListRequest,
   ImgListResponse,
 } from "@lib/API/petBookAPI/types/imgRequest";
-import { QueryKeyList, createKey } from "@lib/queries";
+import { QueryName, createKey } from "@lib/queries";
 import { QueryKey } from "@tanstack/react-query";
 
 // TODO : 모든 리소스에 대한 파라미터 정의
 export interface Resource<P = ResourceParams, T = ResourceResult> {
-  name: QueryKeyList;
-  key?: QueryKey;
+  name: QueryName;
   params?: P;
+  querykey?: QueryKey;
   idx?: number;
   isList?: boolean;
   fetcher: (params: P) => Promise<GetResultReturn<T, P>>;
