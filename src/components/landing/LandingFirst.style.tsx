@@ -28,14 +28,8 @@ export const LandingFirstTitleH1 = styled.h1`
   margin-top: 6.25rem;
 
   animation: 0.5s fadeIn ease-in-out 1;
-  -o-animation: 0.5s fadeIn ease-in-out 1;
-  -moz-animation: 0.5s fadeIn ease-in-out 1;
-  -webkit-animation: 0.5s fadeIn ease-in-out 1;
-
   animation-delay: 1.5s;
-  -o-animation-delay: 1.5s;
-  -moz-animation-delay: 1.5s;
-  -webkit-animation-delay: 1.5s;
+  animation-fill-mode: forwards;
 
   span {
     text-align: center;
