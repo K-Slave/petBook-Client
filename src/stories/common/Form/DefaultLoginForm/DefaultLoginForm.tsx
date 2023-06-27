@@ -11,6 +11,7 @@ import FocusBasedInputBox from "../../Input/FocusBasedInputBox";
 import PWShowHideButton from "../../PWShowHideButton";
 import HelperText from "../HelperText/HelperText";
 import CommonCheckBox from "../../Input/CommonCheckBox/CommonCheckBox";
+import localConsole from "@lib/utils/localConsole";
 
 const DefaultLoginForm = () => {
   const { isPWHide, onClickPW } = usePWShowHide();

@@ -1,6 +1,5 @@
 import React, { PropsWithChildren } from "react";
 import {
-  LoginModuleWrapDiv,
   LoginModuleTitleH1,
   LoginModuleGuideDiv,
   LoginModuleLink,
@@ -9,7 +8,6 @@ import {
 import FocusBasedInputBox from "../common/Input/FocusBasedInputBox";
 import headerImg from "@/image/headerImg";
 import { VerticalDividerSpan } from "../common/Divider/Divider.style";
-import dynamic from "next/dynamic";
 import DefaultLoginForm from "../common/Form/DefaultLoginForm/DefaultLoginForm";
 import FormModuleWrap from "../common/Form/FormModuleWrap";
 
@@ -57,8 +55,6 @@ const Guide = () => {
 LoginModule.Wrap = Wrap;
 LoginModule.Title = Title;
 LoginModule.Form = DefaultLoginForm;
-LoginModule.Email = FocusBasedInputBox;
-LoginModule.Password = FocusBasedInputBox;
 LoginModule.Guide = Guide;
 
 // export default dynamic(() => Promise.resolve(LoginModule), {
