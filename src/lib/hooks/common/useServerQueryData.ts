@@ -21,11 +21,11 @@ const useServerQueryData = <P = ResourceParams, T = ResourceResult>(
     if (typeof resource.idx === "undefined")
       return { serverData, clientHydrated };
 
-    const temp = queryClient.getQueriesData<Resource<P, T>>([
+    const pureServerQueries = queryClient.getQueriesData<Resource<P, T>>([
       `${resource.name}`,
     ]);
 
-    const serverQueryKey = temp[resource.idx][0];
+    const serverQueryKey = pureServerQueries[resource.idx][0];
 
     if (serverQueryKey && !resource.key) {
       resource.key = serverQueryKey;
@@ -40,9 +40,11 @@ const useServerQueryData = <P = ResourceParams, T = ResourceResult>(
     return { serverData, clientHydrated };
   }
 
-  const temp = queryClient.getQueriesData<Resource<P, T>>([`${resource.name}`]);
+  const pureServerQueries = queryClient.getQueriesData<Resource<P, T>>([
+    `${resource.name}`,
+  ]);
 
-  const serverQueryKey = temp[0][0];
+  const serverQueryKey = pureServerQueries[0][0];
 
   if (serverQueryKey && !resource.key) {
     resource.key = serverQueryKey;
