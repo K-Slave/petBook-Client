@@ -50,6 +50,7 @@ const DefaultLoginForm = () => {
         bgWidth="1rem"
         bgHeight="1rem"
         register={emailRegister}
+        // onFocus={evenvtHandler.onEmailFocus}
       />
       <DefaultLoginForm.Password
         id="PW__Input"
@@ -65,6 +66,7 @@ const DefaultLoginForm = () => {
         bgWidth="1rem"
         bgHeight="1rem"
         register={passwordRegister}
+        // onFocus={evenvtHandler.onPWFocus}
       >
         <PWShowHideButton
           isTyping={isPWTyping}

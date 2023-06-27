@@ -5,6 +5,7 @@ class inputEventHelperMethod {
     | React.FocusEvent<HTMLInputElement>
     | React.ChangeEvent<HTMLInputElement>;
   private target?: HTMLInputElement;
+  private placeHolder?: string;
 
   constructor(
     e?:
@@ -54,13 +55,32 @@ class inputEventHelperMethod {
     }
   };
 
-  public setSubmitReady = (method: "add" | "remove") => {
+  public setFocused = (method: "add" | "remove") => {
     if (!this.target || !this.target.parentElement) return;
 
     if (method === "add") {
-      this.target.parentElement.classList.add("Submit__Ready");
+      this.target.parentElement.classList.remove("Input__Blured");
+      this.target.parentElement.classList.add("Input__Focused");
+      this.target.setAttribute("data-placeholder", this.target.placeholder);
+      this.target.placeholder = "";
+
+      if (this.target.value.length > 0) {
+        this.target.parentElement.classList.remove("Input__FadeOut");
+      }
     } else {
-      this.target.parentElement.classList.remove("Submit__Ready");
+      this.target.parentElement.classList.add("Input__Blured");
+      this.target.parentElement.classList.remove("Input__Focused");
+
+      if (this.target.value.length > 0) {
+        this.target.parentElement.classList.add("Input__FadeOut");
+      }
+
+      setTimeout(() => {
+        if (!this.target || !this.target.parentElement) return;
+        this.target.parentElement.classList.remove("Input__Blured");
+        this.target.placeholder =
+          this.target.getAttribute("data-placeholder") || "";
+      }, 200);
     }
   };
 

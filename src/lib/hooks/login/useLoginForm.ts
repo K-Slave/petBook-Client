@@ -1,4 +1,10 @@
-import { ChangeEvent, FocusEvent, FormEventHandler, useEffect } from "react";
+import {
+  ChangeEvent,
+  FocusEvent,
+  FocusEventHandler,
+  FormEventHandler,
+  useEffect,
+} from "react";
 import { UseFormProps, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import useLoginStore from "../store/useLoginStore";
@@ -34,9 +40,6 @@ const useLoginForm = (props?: UseFormProps) => {
   emailRegister.disabled = formState.isLoading;
   passwordRegister.disabled = formState.isLoading;
 
-  // emailRegister.required = true;
-  // passwordRegister.required = true;
-
   const emailValidityCheck = (
     target?: HTMLInputElement,
     defaultValue?: string
@@ -50,11 +53,9 @@ const useLoginForm = (props?: UseFormProps) => {
     if (vaildityResult) {
       loginStore.setEmail(targetValue);
       emailHandler.setValid("add");
-      emailHandler.setSubmitReady("add");
     } else if (!vaildityResult) {
       emailHandler.setInvalid("add");
       emailHandler.setValid("remove");
-      emailHandler.setSubmitReady("remove");
     }
   };
 
@@ -71,19 +72,19 @@ const useLoginForm = (props?: UseFormProps) => {
     if (vaildityResult) {
       loginStore.setPassword(targetValue);
       passwordHandler.setValid("add");
-      passwordHandler.setSubmitReady("add");
     } else if (!vaildityResult) {
       passwordHandler.setInvalid("add");
       passwordHandler.setValid("remove");
-      passwordHandler.setSubmitReady("remove");
     }
   };
 
   emailRegister.onBlur = async (e) => {
     const event = e as FocusEvent<HTMLInputElement>;
+    const emailHandler = new inputEventHelperMethod(event);
 
     loginStore.setEmail(event.target.value);
 
+    emailHandler.setFocused("remove");
     emailValidityCheck(event.target);
   };
 
@@ -92,20 +93,31 @@ const useLoginForm = (props?: UseFormProps) => {
 
     loginStore.setPassword(event.target.value);
 
-    const handler = new inputEventHelperMethod(event);
+    const passwordHandler = new inputEventHelperMethod(event);
 
     if (event.relatedTarget?.classList.contains("Show__Hide__Button")) {
-      handler.preventBlur();
+      passwordHandler.preventBlur();
       return;
     }
 
+    passwordHandler.setFocused("remove");
     pwValidityCheck(event.target);
+  };
+
+  const onEmailFocus: FocusEventHandler<HTMLInputElement> = (e) => {
+    const emailHandler = new inputEventHelperMethod(undefined, e.target);
+
+    emailHandler.setFocused("add");
+  };
+
+  const onPWFocus: FocusEventHandler<HTMLInputElement> = (e) => {
+    const passwordHandler = new inputEventHelperMethod(undefined, e.target);
+
+    passwordHandler.setFocused("add");
   };
 
   const onEmailKeyDown = (e: KeyboardEvent) => {
     const input = e.target as HTMLInputElement;
-    const emailHandler = new inputEventHelperMethod(undefined, input);
-    emailHandler.setSubmitReady("remove");
 
     if (input.value.length <= 1) {
       loginStore.setEmail(input.value);
@@ -114,8 +126,6 @@ const useLoginForm = (props?: UseFormProps) => {
 
   const onPWKeyDown = (e: KeyboardEvent) => {
     const input = e.target as HTMLInputElement;
-    const passwordHandler = new inputEventHelperMethod(undefined, input);
-    passwordHandler.setSubmitReady("remove");
 
     if (input.value.length <= 1) {
       loginStore.setPassword(input.value);
@@ -256,6 +266,8 @@ const useLoginForm = (props?: UseFormProps) => {
     checkBoxRegister,
     evenvtHandler: {
       onSubmit,
+      onEmailFocus,
+      onPWFocus,
     },
   };
 };

@@ -29,6 +29,7 @@ const FocusBasedInputBox = (
   const onBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
     const handler = new inputEventHelperMethod(e);
 
+    handler.setFocused("remove");
     if (e.target.validity.valid) {
       handler.setValid("add");
     } else if (!e.target.validity.valid && e.target.value.length > 0) {
@@ -40,9 +41,9 @@ const FocusBasedInputBox = (
   const onFocus: React.FocusEventHandler<HTMLInputElement> = (e) => {
     const handler = new inputEventHelperMethod(e);
 
+    handler.setFocused("add");
     handler.setValid("remove");
     handler.setInvalid("remove");
-    handler.setSubmitReady("remove");
   };
 
   const dataType = useMemo(() => type, []);
@@ -65,6 +66,7 @@ const FocusBasedInputBox = (
         onFocus={onFocus}
         bgWidth={bgWidth}
         register={register}
+        placeholderColor="var(--black_06)"
       />
     </FocusBasedAlginCenterLabel>
   );

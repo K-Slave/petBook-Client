@@ -1,6 +1,14 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { TextBodyMedium14, TextH4Bold18 } from "../../Typography/style";
 import Button from "../../Button";
+
+const LoginInputAfterStyle = css`
+  position: absolute;
+  left: 3.0625rem;
+
+  ${TextBodyMedium14}
+  color: var(--black_06);
+`;
 
 export const LoginWrapForm = styled.form`
   display: grid;
@@ -17,55 +25,61 @@ export const LoginWrapForm = styled.form`
 
   @keyframes inputReadyUp {
     from {
-      opacity: 0;
       transform: translateY(0);
     }
     to {
-      opacity: 1;
       transform: translateY(-0.625rem);
     }
   }
 
-  label.Submit__Ready[data-type="email"] {
-    input#Email__Input {
+  @keyframes inputReadyDown {
+    from {
+      transform: translateY(-0.625rem);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  label.Input__Focused {
+    input {
       height: 3.5rem;
       padding-top: 1.8125rem;
       padding-bottom: 0.625rem;
     }
   }
 
-  label.Submit__Ready[data-type="email"]::after {
+  label.Input__Focused[data-type="email"]::after {
     content: "이메일";
 
-    position: absolute;
-    left: 3rem;
-
-    ${TextBodyMedium14}
-    color: var(--black_06);
-
-    animation: inputReadyUp 0.2s ease-in-out;
-    animation-fill-mode: forwards;
+    ${LoginInputAfterStyle}
+    animation: inputReadyUp 0.2s ease-in-out forwards;
   }
 
-  label.Submit__Ready[data-type="password"] {
-    input#PW__Input {
-      height: 3.5rem;
-      padding-top: 1.8125rem;
-      padding-bottom: 0.625rem;
-    }
+  label.Input__Blured[data-type="email"]::after {
+    content: "이메일";
+
+    ${LoginInputAfterStyle}
+    animation: inputReadyDown 0.2s ease-in-out forwards;
   }
 
-  label.Submit__Ready[data-type="password"]::after {
+  label.Input__Focused[data-type="password"]::after {
     content: "비밀번호";
 
-    position: absolute;
-    left: 3rem;
+    ${LoginInputAfterStyle}
+    animation: inputReadyUp 0.2s ease-in-out forwards;
+  }
 
-    ${TextBodyMedium14}
-    color: var(--black_06);
+  label.Input__Blured[data-type="password"]::after {
+    content: "비밀번호";
 
-    animation: inputReadyUp 0.2s ease-in-out;
-    animation-fill-mode: forwards;
+    ${LoginInputAfterStyle}
+    animation: inputReadyDown 0.2s ease-in-out forwards;
+  }
+
+  label.Input__FadeOut::after {
+    transition: all 0.2s ease-in-out;
+    opacity: 0;
   }
 `;
 
