@@ -13,7 +13,7 @@ const LabelCommonStyle = css`
     line-height: 20px;
   }
 
-  label:has(input[type="checkbox"])::before {
+  /* label:has(input[type="checkbox"])::before {
     content: "";
     position: absolute;
     width: 20px;
@@ -21,16 +21,16 @@ const LabelCommonStyle = css`
     background-image: url(/img/common/register/checkbox.svg);
     background-repeat: no-repeat;
     background-size: contain;
-  }
-  label:has(input[type="checkbox"]:checked)::before {
-    content: "";
+  } */
+  /* label:has(input[type='checkbox']:checked)::before {
+    content: '';
     position: absolute;
     width: 20px;
     height: 20px;
     background-image: url(/img/common/register/checkbox_active.svg);
     background-repeat: no-repeat;
     background-size: contain;
-  }
+  } */
 `;
 
 export default LabelCommonStyle;

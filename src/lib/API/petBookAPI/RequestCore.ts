@@ -1,7 +1,5 @@
 import { AxiosInstance, AxiosRequestHeaders, AxiosResponse } from "axios";
 import { getQueryString, getUrl } from "../axios/xhrFunctions";
-import localConsole from "@lib/utils/localConsole";
-
 type AxiosMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
 interface GetResultArgs<P extends object | string | undefined> {
@@ -12,13 +10,16 @@ interface GetResultArgs<P extends object | string | undefined> {
 }
 
 export interface GetResultReturn<T, P = object | string | undefined> {
-  response: AxiosResponse<T, any>;
+  response: {
+    data: AxiosResponse<T, P>["data"];
+    status: number;
+    statusText: string;
+  };
   request: {
-    requestMethod: AxiosMethod;
-    requestURL: string;
-    body: P | undefined;
-    timeout: number;
-    requestHeaders: AxiosRequestHeaders | undefined;
+    method: AxiosMethod;
+    url: string;
+    data: P | null;
+    timeout: 10000;
   };
 }
 
@@ -63,8 +64,8 @@ export default class RequestCore {
   } => {
     return {
       requestURL: `${getUrl(
-        `${typeof window === "undefined" ? this.initBaseUrl : ""}` +
-          `${this.commonUri}` +
+        `${typeof window === "undefined" ? this.initBaseUrl || "" : ""}` +
+          `${this.commonUri || ""}` +
           `${uri || ""}` +
           `${
             pathParam
@@ -106,36 +107,20 @@ export default class RequestCore {
         headers: requestHeaders,
       }));
 
-    if (response && response.request) {
-      delete response.request;
-    }
-
-    const result: {
+    const result: GetResultReturn<T, P> = {
       response: {
-        data: AxiosResponse<T>["data"];
-        status: AxiosResponse<T>["status"] | null;
-        statusText: AxiosResponse<T>["statusText"] | null;
-      };
-      request: {
-        requestMethod: AxiosMethod;
-        requestURL: string;
-        body: P | null;
-        timeout: number;
-      };
-    } = {
-      response: {
-        data: response.data || null,
-        status: response.status || null,
-        statusText: response.statusText || null,
+        data: response.data,
+        status: response.status,
+        statusText: response.statusText,
       },
       request: {
-        requestMethod,
-        requestURL,
-        body: body || null,
+        method: requestMethod,
+        url: requestURL,
+        data: body || null,
         timeout: 10000,
       },
     };
 
-    return result as GetResultReturn<T, P>;
+    return result;
   };
 }

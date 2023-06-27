@@ -1,4 +1,3 @@
-import resMsg from "@lib/globalConst/responseMsg";
 import AuthController from "@lib/server/controller/AuthController";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -7,15 +6,17 @@ const loginAPI = (req: NextApiRequest, res: NextApiResponse) => {
 
   const { method } = req;
 
-  try {
-    if (method !== "POST") {
-      throw new Error(resMsg.undefinedMethod);
-    }
+  return controller.login();
 
-    return controller.login();
-  } catch (err) {
-    return res.status(400).json(JSON.stringify(err));
-  }
+  // try {
+  //   if (method !== 'POST') {
+  //     throw new Error(resMsg.undefinedMethod);
+  //   }
+
+  //   return controller.login();
+  // } catch (err) {
+  // return res.status(400).json(JSON.stringify(err));
+  // }
 };
 
 export default loginAPI;

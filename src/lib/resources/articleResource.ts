@@ -1,6 +1,15 @@
 import { articleRequest } from "@lib/API/petBookAPI";
 import { articleQueryKey } from "@lib/globalConst/queryKey";
-import { createRequest, createResource } from "@lib/hooks/common/useResource";
+import {
+  createListResource,
+  createRequest,
+  createResource,
+} from "@lib/hooks/common/useResource";
+import { Resource } from ".";
+import {
+  ArticleListPayload,
+  ArticleListResponse,
+} from "@lib/API/petBookAPI/types/articleRequest";
 
 export const ARTICLE_LIST = createResource({
   name: articleQueryKey.list,
@@ -22,17 +31,11 @@ export const ARTICLE_POPULAR_LIST = createResource({
   fetcher: articleRequest.article_list,
 });
 
-export const ARTICLE_LIST_PREVIEW = createResource({
+export const ARTICLE_LIST_PREVIEW = createListResource({
   name: articleQueryKey.preview,
   fetcher: articleRequest.article_list,
+  listLength: 6,
 });
-
-// export const ARTICLE_LIST_PREVIEW_LIST = new Array(ARTICLE_LIST_PREVIEW)
-//   .concat(ARTICLE_LIST_PREVIEW)
-//   .concat(ARTICLE_LIST_PREVIEW)
-//   .concat(ARTICLE_LIST_PREVIEW)
-//   .concat(ARTICLE_LIST_PREVIEW)
-//   .concat(ARTICLE_LIST_PREVIEW);
 
 export const ARTICLE_CREATE = createRequest({
   key: ["ARTICLE_CREATE"],

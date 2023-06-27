@@ -144,6 +144,13 @@ export const TextBodyMedium14 = css`
   letter-spacing: -0.02em;
 `;
 
+export const TextBodySmall14 = css`
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.0625rem;
+  letter-spacing: -0.02em;
+`;
+
 export const getFontStyle = (variant: TypographyVariant) => {
   switch (variant) {
     case "h1-bold":

@@ -60,7 +60,7 @@ const Password = () => {
       </InfoWrap>
       <input type="text" />
       <LinkWrap>
-        <Link href="/login">기존 아이디로 로그인하기</Link>
+        <Link href="/auth">기존 아이디로 로그인하기</Link>
         <Link href="/">홈으로</Link>
       </LinkWrap>
     </Main>

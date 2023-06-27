@@ -7,6 +7,7 @@ import Document, {
   Main,
   NextScript,
 } from "next/document";
+import Script from "next/script";
 import { ServerStyleSheet } from "styled-components";
 
 // styled-component 를 적용시키기 위한 코드

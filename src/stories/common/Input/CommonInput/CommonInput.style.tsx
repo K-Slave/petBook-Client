@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { TextBodyMedium14 } from "../../Typography/style";
 
 const StyledCommonInput = styled.input<{
   width?: string;
@@ -14,10 +15,7 @@ const StyledCommonInput = styled.input<{
 
   background-color: #fff;
 
-  font-weight: 500;
-  font-size: 0.875rem;
-  line-height: 1.0625rem;
-  letter-spacing: -0.02em;
+  ${TextBodyMedium14}
   color: var(--black_02);
 
   &:focus {

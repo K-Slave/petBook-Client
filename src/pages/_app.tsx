@@ -50,19 +50,22 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
   const [queryClient] = useState(() => createQueryClient());
 
   if (pageProps && pageProps.ownerToken) {
-    queryClient.setQueryData([cookieKeyName.owner], pageProps.ownerToken);
-  } else if (process.env.NODE_ENV === "development" && !pageProps?.ownerToken) {
     queryClient.setQueryData(
       [cookieKeyName.owner],
-      process.env.NEXT_PUBLIC_OWNER
+      pageProps.ownerToken || process.env.NEXT_PUBLIC_OWNER || ""
+    );
+  } else if (pageProps && process.env.NODE_ENV === "development") {
+    queryClient.setQueryData(
+      [cookieKeyName.owner],
+      process.env.NEXT_PUBLIC_OWNER || ""
     );
   }
 
-  if (pageProps && pageProps.requiredResources) {
-    for (const resource of pageProps.requiredResources) {
-      queryClient.setQueryData([resource.name + "_RESOURCE"], resource);
-    }
-  }
+  // if (pageProps && pageProps.requiredResources) {
+  //   for (const resource of pageProps.requiredResources) {
+  //     queryClient.setQueryData([resource.name + "_RESOURCE"], resource);
+  //   }
+  // }
 
   if (pageProps && pageProps.token) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${pageProps.token}`;

@@ -30,7 +30,7 @@ const RegisterButton = () => {
   // data 구독상태
   useEffect(() => {
     if (isSuccess) {
-      navigator({ url: "/login" });
+      navigator({ url: "/auth" });
       // mutate({
       //   email: registerForm.email,
       //   password: registerForm.password,

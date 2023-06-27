@@ -39,6 +39,7 @@ export const CustomInput: Story = {
       style: {
         color: "red",
       },
+      type: "text",
     }),
   },
 };

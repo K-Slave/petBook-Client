@@ -17,6 +17,7 @@ export interface LocationCacheData {
 interface PetBookCookies {
   key: string;
   value: any;
+  isSave?: boolean;
 }
 
 export interface GetCookieRequest {

@@ -22,7 +22,8 @@ export default function getToken(
       return {
         token,
         user,
-        ownerToken: ownerToken ? ownerToken : "",
+        ownerToken:
+          ownerToken === process.env.NEXT_PUBLIC_OWNER ? ownerToken : null,
       };
     }
   }
@@ -34,6 +35,7 @@ export default function getToken(
   return {
     token: token || null,
     user: null,
-    ownerToken: ownerToken ? ownerToken : "",
+    ownerToken:
+      ownerToken === process.env.NEXT_PUBLIC_OWNER ? ownerToken : null,
   };
 }

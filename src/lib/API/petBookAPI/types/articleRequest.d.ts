@@ -38,7 +38,9 @@ interface ArticleItem {
   createdAt: string;
 }
 
-export type ArticleDetailResponse = ArticleItem;
+export interface ArticleDetailResponse extends CommonRequestResult {
+  result: ArticleItem;
+}
 export interface ArticleListResponse extends CommonRequestResult {
   result: {
     articles: ArticleItem[];

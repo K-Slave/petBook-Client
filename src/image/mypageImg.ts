@@ -1,4 +1,5 @@
-const STORAGE_PATH = process.env.NEXT_PUBLIC_STORAGE;
+import { STORAGE_PATH } from "@lib/globalConst";
+
 const PAGE_PATH = "mypage";
 
 const mypageImg = {
