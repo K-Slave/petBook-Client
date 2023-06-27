@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { TextBodyMedium14, TextH4Bold18 } from "../../Typography/style";
+import Button from "../../Button";
 
 export const LoginWrapForm = styled.form`
   display: grid;
@@ -74,17 +75,13 @@ export const LoginMiddleWrap = styled.div`
   grid-auto-columns: 1fr auto;
 `;
 
-export const LoginSubmitButton = styled.button<{ disabled: boolean }>`
+export const LoginSubmitButton = styled(Button)<{ disabled: boolean }>`
   width: 100%;
 
   margin-top: 0.8125rem;
   padding: 0.875rem 0;
 
   border-radius: 8px;
-  background-color: var(--primary);
-
-  ${TextH4Bold18};
-  color: #fff;
 
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 `;

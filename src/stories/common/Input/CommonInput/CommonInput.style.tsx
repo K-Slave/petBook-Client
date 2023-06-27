@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TextSheetBodyMedium14Span } from "../../Text/TextSheet.style";
+import { TextBodyMedium14 } from "../../Typography/style";
 
 const StyledCommonInput = styled.input<{
   width?: string;
@@ -15,7 +15,7 @@ const StyledCommonInput = styled.input<{
 
   background-color: #fff;
 
-  ${TextSheetBodyMedium14Span}
+  ${TextBodyMedium14}
   color: var(--black_02);
 
   &:focus {

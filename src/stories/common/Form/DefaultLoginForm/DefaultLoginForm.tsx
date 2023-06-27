@@ -125,7 +125,13 @@ interface SubmitProps {
 
 const Submit = ({ isLoading }: SubmitProps) => {
   return (
-    <LoginSubmitButton type="submit" disabled={isLoading}>
+    <LoginSubmitButton
+      type="submit"
+      disabled={isLoading}
+      variant="primary"
+      typography="h4-bold"
+      color="#fff"
+    >
       로그인
     </LoginSubmitButton>
   );
