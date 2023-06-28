@@ -20,6 +20,8 @@ import {
 import commonServerSideProps from "@lib/server/commonServerSideProps";
 import { CATEGORY_LIST } from "@lib/resources/commonResource";
 import { NextPageWithOptions } from "@lib/queries";
+import CommunitySamePetUser from "@components/community/CommunitySamePetUser";
+import SamePetUserList from "@components/community/SamePetUserList";
 
 const Community: NextPageWithOptions = () => {
   return (
@@ -51,6 +53,9 @@ const Community: NextPageWithOptions = () => {
         <ArticlePreviewList />
       </CommunitySection>
       <WriteButton />
+      <CommunitySamePetUser title="나와 같은 동물을 키우는 유저">
+        <SamePetUserList />
+      </CommunitySamePetUser>
     </Main>
   );
 };
