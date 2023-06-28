@@ -15,10 +15,7 @@ export const Button = styled.button<{ position: Position }>`
   color: var(--black_02);
   align-self: ${({ position }) =>
     position === "start" ? "flex-start" : "flex-end"};
-`;
-
-export const ChevronLeft = styled.span`
-  width: 24px;
-  height: 24px;
-  background: url("/img/common/chevron_left.svg") no-repeat center center;
+  svg {
+    width: 24px;
+  }
 `;

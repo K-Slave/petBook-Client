@@ -1,40 +1,10 @@
 import styled from "styled-components";
 
 export const ReviewWarp = styled.section`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 12;
-
-  padding: 2.5rem 2rem;
-  border-radius: 16px;
-
-  width: calc(100vw - 16px);
-  height: auto;
   max-height: calc(100vh - 12.5rem);
-  max-width: 29rem;
-
-  overflow: auto;
-
-  background-color: var(--bg_white_02);
-`;
-
-export const ReviewHeader = styled.hgroup`
-  margin-bottom: 32px;
-  text-align: center;
-  p {
-    margin-bottom: 4px;
-    font-size: 16px;
-    font-weight: 400;
-    color: var(--black_03);
-  }
-  h3 {
-    font-size: 22px;
-    line-height: 32px;
-    font-weight: 700;
-    color: var(--black_01);
-  }
+  width: 100%;
+  overflow-y: scroll;
+  position: relative;
 `;
 
 export const ReviewSelectChip = styled.section`
@@ -147,11 +117,6 @@ export const ReviewAddButton = styled.button`
   background: var(--primary);
 `;
 
-export const ReviewBoxItem = styled.div`
-  overflow: auto;
-  height: 551px;
-`;
-
 export const ImgContainer = styled.article`
   padding: 10px 12px 16px 12px;
 
@@ -179,19 +144,8 @@ export const ImgContainer = styled.article`
           ? " url(/img/common/review/camera_active.svg)"
           : " url(/img/common/review/camera.svg)"};
     }
-    label {
-      padding: 4px 16px;
-      width: 80px;
-      font-size: 14px;
-      color: var(--primary);
-
-      background-color: var(--secondary);
-      border-radius: 40px;
-
-      cursor: pointer;
-      input {
-        display: none;
-      }
+    input {
+      display: none;
     }
   }
 `;
@@ -237,22 +191,11 @@ export const ReviewButtonWrap = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 6px;
-  button {
-    border-radius: 8px;
-    line-height: 52px;
-    font-size: 18px;
-    font-weight: 700;
-    text-align: center;
-    &[value="cancel"] {
-      flex-grow: 1;
-      background-color: var(--secondary);
-      color: var(--primary);
-    }
-    &[value="submit"] {
-      flex-grow: 2;
-      background-color: var(--disabled);
-      color: var(--black_05);
-    }
+  button:first-child {
+    flex-grow: 1;
+  }
+  button:last-child {
+    flex-grow: 2;
   }
 `;
 
@@ -267,7 +210,7 @@ export const ReviewFormReactionBtn = styled.label`
   text-align: center;
   font-size: 14px;
   letter-spacing: -2%;
-  color: var(--disabled-font);
+  color: var(--black_06);
 
   appearance: none;
   cursor: pointer;

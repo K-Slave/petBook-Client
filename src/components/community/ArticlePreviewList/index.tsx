@@ -3,12 +3,14 @@ import { useResource } from "@lib/hooks/common/useResource";
 import Link from "next/link";
 import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequest";
 import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
-import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
+import { BookmarkOutline } from "@/stories/Icon/Bookmark";
 import { Article, BoxGrid, List } from "./styled";
 import { ARTICLE_LIST_PREVIEW } from "@lib/resources/articleResource";
+import localConsole from "@lib/utils/localConsole";
 
 const ArticlePreviewList = () => {
   const { categories } = useCategories({ all: true });
+  // localConsole?.log(categories, 'categories');
   return (
     <BoxGrid>
       {categories.map((category) => (
@@ -21,14 +23,15 @@ const ArticlePreviewList = () => {
 const ArticleBox = ({ category }: { category: CategoryItem }) => {
   const payload = {
     params: {
-      categoryId: category.id === 0 ? "" : category.id.toString(),
+      categoryId: category.id.toString(),
       page: 0,
       size: 5,
       popular: false,
     },
   };
+
   const { data } = useResource({
-    resource: ARTICLE_LIST_PREVIEW,
+    resource: ARTICLE_LIST_PREVIEW[category.id],
     payload,
   });
   return (
@@ -49,7 +52,7 @@ const ArticleBox = ({ category }: { category: CategoryItem }) => {
                 <span className="Article_title">{article.title}</span>
               </Link>
               <span className="Article_scrap">
-                <BookmarkBlankIcon />
+                <BookmarkOutline />
                 <span>0</span>
               </span>
             </li>

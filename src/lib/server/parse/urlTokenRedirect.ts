@@ -38,8 +38,8 @@ export default function urlTokenRedirect({ ctx, router }: AppContext) {
 
   ctx.res?.writeHead(301, {
     "Set-Cookie": [
-      `access_token=${accessToken} SameSite=Strict; Max-Age=${cookieOptions.maxAge}; secure; httpOnly`,
-      `refresh_token=${refreshToken} SameSite=Strict; Max-Age=${cookieOptions.maxAge}; secure; httpOnly`,
+      `access_token=${accessToken} SameSite=Strict; Max-Age=${cookieOptions.oneMonth}; secure; httpOnly`,
+      `refresh_token=${refreshToken} SameSite=Strict; Max-Age=${cookieOptions.oneMonth}; secure; httpOnly`,
     ],
     Location: `${redirectURL}`,
   });

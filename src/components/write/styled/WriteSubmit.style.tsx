@@ -1,4 +1,3 @@
-import { Button } from "@components/common/Button/Button";
 import styled from "styled-components";
 
 const WriteSubmitSection = styled.section`
@@ -11,18 +10,4 @@ const WriteSubmitSection = styled.section`
   margin-bottom: 60px;
 `;
 
-const WriteSubmitButton = styled(Button)`
-  width: 400px;
-  height: 60px;
-
-  background-color: #ff6847;
-
-  border-radius: 8px;
-
-  font-weight: 700;
-  font-size: 1.125rem;
-  line-height: 1.5rem;
-  color: #f8f7f2;
-`;
-
-export { WriteSubmitSection, WriteSubmitButton };
+export { WriteSubmitSection };

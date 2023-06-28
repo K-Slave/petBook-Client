@@ -6,18 +6,17 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
-import Loader from "@components/common/loader/loader";
-import Modal from "@components/common/Modal";
+import Loader from "@/stories/common/Loader";
+import ModalRenderer from "@/stories/common/ModalRenderer";
 
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import createQueryClient from "@lib/utils/createQueryClient";
 import DecodedUserInfo from "@lib/types/DecodedUserInfo";
 
-import "swiper/scss";
-import "swiper/scss/navigation";
-import "swiper/scss/pagination";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import "@styles/Icon.scss";
-import "@styles/Swiper.scss";
 
 import recoilHydration from "@lib/modules/recoilHydration";
 import tokenParser from "@lib/server/parse/tokenParser";
@@ -52,19 +51,22 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
   const [queryClient] = useState(() => createQueryClient());
 
   if (pageProps && pageProps.ownerToken) {
-    queryClient.setQueryData([cookieKeyName.owner], pageProps.ownerToken);
-  } else if (process.env.NODE_ENV === "development" && !pageProps?.ownerToken) {
     queryClient.setQueryData(
       [cookieKeyName.owner],
-      process.env.NEXT_PUBLIC_OWNER
+      pageProps.ownerToken || process.env.NEXT_PUBLIC_OWNER || ""
+    );
+  } else if (pageProps && process.env.NODE_ENV === "development") {
+    queryClient.setQueryData(
+      [cookieKeyName.owner],
+      process.env.NEXT_PUBLIC_OWNER || ""
     );
   }
 
-  if (pageProps && pageProps.requiredResources) {
-    for (const resource of pageProps.requiredResources) {
-      queryClient.setQueryData([resource.name + "_RESOURCE"], resource);
-    }
-  }
+  // if (pageProps && pageProps.requiredResources) {
+  //   for (const resource of pageProps.requiredResources) {
+  //     queryClient.setQueryData([resource.name + "_RESOURCE"], resource);
+  //   }
+  // }
 
   if (pageProps && pageProps.token) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${pageProps.token}`;
@@ -126,7 +128,7 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
             />
           )}
           <Component {...pageProps} />
-          <Modal />
+          <ModalRenderer />
           <GTAGScript />
         </RecoilRoot>
       </Hydrate>

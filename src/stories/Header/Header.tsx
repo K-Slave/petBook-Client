@@ -24,6 +24,8 @@ import headerImg from "@/image/headerImg";
 import ResponsiveImage from "../common/Image/ResponsiveImage";
 import Menu from "./Menu";
 import { useRouter } from "next/router";
+import LoginLink from "../common/Link/LoginLink";
+import localConsole from "@lib/utils/localConsole";
 
 interface Props extends NavControllerProps {
   maxWidth?: string;
@@ -43,6 +45,8 @@ const Header = ({
   isOwnerAuthorization,
 }: Props) => {
   const { userData } = useUserInfo();
+
+  localConsole?.log(userData, "userData");
 
   return (
     <Header.Wrap maxWidth={maxWidth} position={position}>
@@ -199,9 +203,7 @@ const UserInfo = ({ userData }: { userData: DecodedUserInfo }) => {
 const Auth = () => {
   return (
     <>
-      <Link className="Header__Login" href="/login">
-        로그인
-      </Link>
+      <LoginLink className="Header__Login">로그인</LoginLink>
       &nbsp;&middot;&nbsp;
       <Link className="Header__Register" href="/register">
         회원가입

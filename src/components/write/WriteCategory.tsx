@@ -1,6 +1,6 @@
 import useSelectorState from "@lib/hooks/common/useSelectorState";
 import React, { MouseEventHandler, useEffect } from "react";
-import Skeleton from "@components/common/Skeleton/Skeleton";
+import Skeleton from "@/stories/common/Skeleton";
 import { useResource } from "@lib/hooks/common/useResource";
 import writeState from "@atoms/pageAtoms/community/writeState";
 import {
@@ -9,6 +9,7 @@ import {
   WriteCategorySection,
 } from "./styled/WriteCategory.style";
 import { CATEGORY_LIST } from "@lib/resources/commonResource";
+import Button from "@/stories/common/Button";
 
 const WriteCategory = () => {
   return (
@@ -90,13 +91,14 @@ interface ItemProps {
 }
 
 const Item = React.memo(({ keyword, selected, onClick }: ItemProps) => (
-  <WriteCategoryButtonBox
-    selected={selected}
-    keyword={keyword}
+  <Button
+    variant="small"
     onClick={onClick}
+    bgColor={selected === keyword ? "black" : "white"}
+    color={selected === keyword ? "var(--bg_white_02)" : "var(--black_03)"}
   >
     {keyword}
-  </WriteCategoryButtonBox>
+  </Button>
 ));
 
 Item.displayName = "Item";

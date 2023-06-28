@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const CommentFormBox = styled.div`
+export const CommentFormBox = styled.form`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -13,18 +13,14 @@ const CommentFormBox = styled.div`
   border-radius: 16px;
 `;
 
-const CommentFormButton = styled.button`
+export const CommentFormButton = styled.button`
   width: 120px !important;
   align-self: flex-end;
   font-weight: 500 !important;
   font-size: 1rem !important;
 `;
-const CommentFormMainBox = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
 
-const CommentFormTextarea = styled.textarea`
+export const CommentFormTextarea = styled.textarea`
   border: none;
   resize: none;
   width: 100%;
@@ -43,7 +39,7 @@ const CommentFormTextarea = styled.textarea`
   }
 `;
 
-const RectangleBoxDiv = styled.div`
+export const RectangleBoxDiv = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -60,18 +56,9 @@ const RectangleBoxDiv = styled.div`
   }
 `;
 
-const Rectangle = styled.div`
+export const Rectangle = styled.div`
   width: 20px;
   height: 10px;
   background-color: var(--black_06);
   border-radius: 20px;
 `;
-
-export {
-  CommentFormBox,
-  CommentFormButton,
-  CommentFormTextarea,
-  CommentFormMainBox,
-  RectangleBoxDiv,
-  Rectangle,
-};

@@ -6,8 +6,8 @@ import { registerFormState } from "@atoms/pageAtoms/login/userState";
 import navigator from "@lib/modules/navigator";
 
 import { ErrorResponse } from "@lib/API/petBookAPI/types/userRequest";
-import { SignButton } from "./styled/styledRegisterForm";
 import { REGISTER_CREATE } from "./RegisterForm";
+import Button from "@/stories/common/Button";
 
 const RegisterButton = () => {
   const registerForm = useRecoilValue(registerFormState);
@@ -30,7 +30,7 @@ const RegisterButton = () => {
   // data 구독상태
   useEffect(() => {
     if (isSuccess) {
-      navigator({ url: "/login" });
+      navigator({ url: "/auth" });
       // mutate({
       //   email: registerForm.email,
       //   password: registerForm.password,
@@ -43,14 +43,9 @@ const RegisterButton = () => {
   }, [isError, data]);
 
   return (
-    <SignButton
-      active={validation}
-      onClick={Sign}
-      type="button"
-      className="Primary"
-    >
+    <Button disabled={!validation} onClick={Sign} variant="primary">
       회원가입
-    </SignButton>
+    </Button>
   );
 };
 

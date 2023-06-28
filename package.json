@@ -43,6 +43,7 @@
     "react-bubblytip": "^0.1.1",
     "react-cropper": "^2.3.3",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.44.3",
     "react-icons": "^4.3.1",
     "react-kakao-maps-sdk": "^1.1.5",
     "react-quill": "^2.0.0",
@@ -50,7 +51,8 @@
     "request-ip": "^3.3.0",
     "sass": "^1.51.0",
     "styled-components": "^5.3.5",
-    "swiper": "^8.4.5"
+    "swiper": "^8.4.5",
+    "zustand": "^4.3.8"
   },
   "devDependencies": {
     "@babel/runtime": "^7.20.7",
@@ -107,6 +109,7 @@
     "jest-environment-jsdom": "^29.5.0",
     "jsdoc": "^3.6.11",
     "lint-staged": "^13.2.0",
+    "next-router-mock": "^0.9.6",
     "prettier": "^2.7.1",
     "react-is": "^18.1.0",
     "react-test-renderer": "^18.2.0",

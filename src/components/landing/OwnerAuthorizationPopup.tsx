@@ -68,7 +68,7 @@ const OwnerAuthorizationPopupDiv = styled.div`
 
     font-size: 0.9375rem;
     font-weight: bold;
-    color: #2b85e5;
+    color: var(--blue);
   }
 
   .Owner__Popup__Desc {
@@ -84,7 +84,7 @@ const OwnerAuthorizationPopupDiv = styled.div`
 
     margin-top: 0.625rem;
     font-weight: normal;
-    color: #3e3e3e;
+    color: var(--blue);
   }
 `;
 
@@ -107,6 +107,7 @@ const OwnerAuthorizationPopup = () => {
         body: {
           key: cookieKeyName.owner,
           value: process.env.NEXT_PUBLIC_OWNER,
+          isSave: true,
         },
       });
 
@@ -152,9 +153,14 @@ const OwnerAuthorizationPopup = () => {
         <br />
         다음에는 인증키를 입력하지 않아도 되요.
         <br />
-        <span className="Owner__Popup__Guide">
-          이 창을 닫으시려면 뒤로가기를 눌러주세요.
-        </span>
+        <button
+          className="Owner__Popup__Guide"
+          onClick={() => {
+            router.back();
+          }}
+        >
+          이 창을 닫으시려면 여기 또는 뒤로가기를 눌러주세요
+        </button>
       </p>
     </OwnerAuthorizationPopupDiv>
   );

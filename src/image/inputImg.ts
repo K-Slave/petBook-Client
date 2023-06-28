@@ -1,8 +1,5 @@
+import { STORAGE_PATH } from "@lib/globalConst";
 import publicDirectorySelector from "@lib/utils/publicDirectorySelector";
-
-const STORAGE_PATH =
-  process.env.NEXT_PUBLIC_STORAGE ||
-  "https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnkpahvshifr/b/petbook-image/o/assets";
 
 const PUBLIC_PATH = publicDirectorySelector;
 
@@ -15,6 +12,8 @@ const inputImg = {
   keyhole_on: `${REGISTER_IMG_PATH}/lock_keyhole_active.svg`,
   check_false: `${STORAGE_PATH}/Round_Checkbox_False.png`,
   check_true: `${STORAGE_PATH}/Round_Checkbox_True.png`,
+  password_show: `${STORAGE_PATH}/Password_Eye_Show.png`,
+  password_hide: `${STORAGE_PATH}/Password_Eye_Hide.png`,
 };
 
 export default inputImg;

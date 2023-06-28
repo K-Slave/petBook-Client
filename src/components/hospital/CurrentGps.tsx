@@ -53,6 +53,7 @@ const CurrentGps = () => {
         body: {
           key: cookieKeyName.location,
           value: locationData,
+          isSave: true,
         },
       });
 

@@ -15,7 +15,7 @@ const Terms = styled.ul`
 `;
 
 const TermsInfoContainer = styled.section`
-  min-height: 30vh;
+  overflow-y: scroll;
   text-align: left;
   line-height: 1.5;
   font-size: 0.875rem;

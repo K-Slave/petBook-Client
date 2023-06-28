@@ -5,14 +5,14 @@ import { useRouter } from "next/router";
 import { useRef } from "react";
 import {
   CommentFormBox,
-  CommentFormButton,
   CommentFormTextarea,
   RectangleBoxDiv,
   Rectangle,
 } from "./styled";
 import { COMMENT_LIST } from "@lib/resources/commentResource";
+import Button from "@/stories/common/Button";
 
-const CommentForm = ({ initialContent }: { initialContent?: string }) => {
+const CommentForm = () => {
   const queryClient = useQueryClient();
   const { query } = useRouter();
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -29,17 +29,23 @@ const CommentForm = ({ initialContent }: { initialContent?: string }) => {
     }
   });
   return (
-    <CommentFormBox>
+    <CommentFormBox onSubmit={onSubmit}>
       <RectangleBox />
       <CommentFormTextarea
         placeholder="당신의 의견을 남겨보세요!"
         onChange={onChange}
         ref={textareaRef}
-        defaultValue={initialContent}
       />
-      <CommentFormButton className="Primary" type="submit" onClick={onSubmit}>
-        {initialContent ? "댓글 수정" : "댓글 등록"}
-      </CommentFormButton>
+      <Button
+        variant="primary"
+        type="submit"
+        width="120px"
+        style={{
+          alignSelf: "flex-end",
+        }}
+      >
+        댓글 등록
+      </Button>
     </CommentFormBox>
   );
 };

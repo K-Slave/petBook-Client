@@ -22,13 +22,16 @@ export default class ResourceParser {
   public clientFetch = async <P extends typeof this.resource["params"]>(
     payload?: P
   ) => {
-    this.resource.key = this.resource.createKey(this.resource.name, payload);
+    this.resource.querykey = this.resource.createKey(
+      this.resource.name,
+      payload
+    );
 
     if (payload) {
       this.resource.params = payload;
     }
 
-    const result = await this.client.fetchQuery(this.resource.key, () =>
+    const result = await this.client.fetchQuery(this.resource.querykey, () =>
       this.resource.fetcher(payload as ResourceParams)
     );
 

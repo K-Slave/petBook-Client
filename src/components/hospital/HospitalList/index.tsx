@@ -1,8 +1,8 @@
 import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
-import Pagination from "@components/common/Pagination";
-import { usePage } from "@components/common/Pagination/usePagination";
-import SearchBar from "@components/common/SearchBar";
-import Skeleton from "@components/common/Skeleton/Skeleton";
+import Pagination from "@/stories/common/Pagination";
+import { usePage } from "@lib/hooks/common/usePagination";
+import SearchField from "@/stories/common/Input/SearchField";
+import Skeleton from "@/stories/common/Skeleton";
 import useDidMountEffect from "@lib/hooks/common/useDidMountEffect";
 import { useResource } from "@lib/hooks/common/useResource";
 import { getScrollPosition } from "@lib/modules/localStorage";
@@ -14,10 +14,11 @@ import { useEffect, useRef } from "react";
 import { useRecoilValue } from "recoil";
 import CurrentGps from "../CurrentGps";
 import HospitalItem from "../HospitalItem";
-import { FilterButton, FilterDiv, Section } from "./styled";
+import { FilterDiv, Section } from "./styled";
 import hospitalOptions from "@lib/globalConst/hospitalOptions";
 import { HOSPITAL_LIST } from "@lib/resources/hospitalResource";
 import localConsole from "@lib/utils/localConsole";
+import Button from "@/stories/common/Button";
 
 const HospitalList = () => {
   const ref = useRef<HTMLElement | null>(null);
@@ -64,27 +65,29 @@ const HospitalList = () => {
   }, [page, data]);
   return (
     <Section ref={ref}>
-      <SearchBar placeholder="원하는 위치를 검색해보세요!" />
+      <SearchField
+        placeholder="원하는 위치를 검색해보세요!"
+        domain="hospital"
+        width="100%"
+      />
       <CurrentGps />
       <HospitalList.Filter />
       <div className="Item_Wrapper">
-        {!data
-          ? Array(20)
-              .fill("")
-              .map((_, index) => (
-                <Skeleton width="100%" height="200px" key={index} />
-              ))
-          : data.response.data.result.hospitals.map((hospital) => (
-              <HospitalItem
-                key={hospital.hospitals.id}
-                parent={ref}
-                hospitals={hospital}
-              />
-            ))}
+        {!data ? (
+          <Skeleton width="100%" height="200px" copy={20} />
+        ) : (
+          data.response.data.result.hospitals.map((hospital) => (
+            <HospitalItem
+              key={hospital.hospitals.id}
+              parent={ref}
+              hospitals={hospital}
+            />
+          ))
+        )}
       </div>
       {data && (
         <Pagination
-          buttonNum={5}
+          buttonCntPerLine={5}
           totalPages={Math.ceil(
             data.response.data.result.totalCount / hospitalOptions.size
           )}
@@ -99,15 +102,16 @@ const FILTERS = ["모든 동물", "햄스터", "토끼"];
 const Filter = () => {
   const router = useRouter();
   const { filter } = router.query;
+  const selected = (filter as string) || FILTERS[0];
   const selectFilter = (name: string) => () => {
     const url =
       name === FILTERS[0]
         ? removeQuery({
-            asPath: router.asPath,
+            fullPath: router.asPath,
             key: "filter",
           })
         : replaceQuery({
-            asPath: router.asPath,
+            fullPath: router.asPath,
             key: "filter",
             query: name,
           });
@@ -121,15 +125,15 @@ const Filter = () => {
   return (
     <FilterDiv>
       {FILTERS.map((name) => (
-        <FilterButton
-          selected={(filter as string) || FILTERS[0]}
-          name={name}
-          type="button"
+        <Button
           key={name}
+          variant="small"
+          bgColor={selected === name ? "var(--black_01)" : "var(--bg_white_02)"}
+          color={selected === name ? "white" : "var(--black_03)"}
           onClick={selectFilter(name)}
         >
           {name}
-        </FilterButton>
+        </Button>
       ))}
     </FilterDiv>
   );

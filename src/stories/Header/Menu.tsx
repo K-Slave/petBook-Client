@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import { MenuItemLink, MenuListDiv, MenuListNav } from "./Menu.style";
 import { useRouter } from "next/router";
-import localConsole from "@lib/utils/localConsole";
+// import localConsole from "@lib/utils/localConsole";
 
 const menuList = [
   {
@@ -63,16 +63,16 @@ const List = ({ currentPath }: { currentPath: string }) => {
   return (
     <>
       {menuList.map((menu) => {
-        localConsole?.log(menu.path.replace("/", ""), "menu.path.replace");
-        localConsole?.log(
-          clickedPath.includes(menu.path.replace("/", "")),
-          "includes"
-        );
+        // localConsole?.log(menu.path.replace("/", ""), "menu.path.replace");
+        // localConsole?.log(
+        //   clickedPath.includes(menu.path.replace("/", "")),
+        //   "includes"
+        // );
 
-        localConsole?.log(
-          clickedPath === menu.path,
-          "clickedPath === menu.path"
-        );
+        // localConsole?.log(
+        //   clickedPath === menu.path,
+        //   "clickedPath === menu.path"
+        // );
 
         return (
           <Item

@@ -16,6 +16,7 @@ import {
   TitleP,
   WriteImgAttachSection,
 } from "./styled/WriteImgAttach.style";
+import Button from "@/stories/common/Button";
 
 const WriteImgAttach = () => {
   return (
@@ -117,9 +118,12 @@ const AddButton = () => {
   }
 
   return (
-    <AddButtonBox
+    <Button
+      variant="small"
+      bgColor="var(--secondary)"
+      color="var(--primary)"
       type="button"
-      ref={btnRef}
+      buttonRef={btnRef}
       onClick={(clickEvent) => {
         const imgInput = document?.createElement("input");
         imgInput.setAttribute("class", "default");
@@ -168,7 +172,7 @@ const AddButton = () => {
       }}
     >
       추가하기
-    </AddButtonBox>
+    </Button>
   );
 };
 

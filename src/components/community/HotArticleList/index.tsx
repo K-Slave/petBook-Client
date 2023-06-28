@@ -1,5 +1,5 @@
-import { BookmarkBlankIcon } from "@components/common/icon/Bookmark";
-import { HeartBlankIcon } from "@components/common/icon/Heart";
+import { BookmarkOutline } from "@/stories/Icon/Bookmark";
+import { HeartOutline } from "@/stories/Icon/Heart";
 import { useResource } from "@lib/hooks/common/useResource";
 import { List, Item } from "./styled";
 import { ARTICLE_POPULAR_LIST } from "@lib/resources/articleResource";
@@ -24,11 +24,11 @@ const HotArticleList = () => {
           <span className="HotArticle_title">{title}</span>
           <span className="HotArticle_stats">
             <span>
-              <HeartBlankIcon />
+              <HeartOutline />
               <span>{stat.likeCount}</span>
             </span>
             <span>
-              <BookmarkBlankIcon />
+              <BookmarkOutline />
               <span>0</span>
             </span>
           </span>

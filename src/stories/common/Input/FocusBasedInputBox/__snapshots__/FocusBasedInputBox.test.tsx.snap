@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FocusBasedInputBox matches snapshot 1`] = `
+<label
+  className="sc-eCYdqJ kkuEQo sc-gKXOVf foouDq"
+>
+  <input
+    className="sc-jSMfEi btQVOu sc-ftvSup cYobvy"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder="내용을 입력해주세요."
+    type="text"
+    value="test"
+  />
+</label>
+`;

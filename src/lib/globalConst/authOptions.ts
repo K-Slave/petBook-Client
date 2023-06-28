@@ -4,7 +4,7 @@ const authOptions = {
   },
   password: {
     min: 8,
-    max: 18,
+    max: 30,
   },
 };
 

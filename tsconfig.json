@@ -2,11 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "jsx": "preserve",
     "noEmit": true,
     "allowJs": true,
@@ -22,46 +18,21 @@
     "downlevelIteration": true,
     "incremental": true,
     "useUnknownInCatchVariables": false,
-    "types": [
-      "jest",
-      "@testing-library/jest-dom"
-    ],
+    "types": ["jest", "@testing-library/jest-dom"],
     "paths": {
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@pages/*": [
-        "./src/pages/*"
-      ],
-      "@lib/*": [
-        "./src/lib/*"
-      ],
-      "@containers/*": [
-        "./src/containers/*"
-      ],
-      "@atoms/*": [
-        "./src/atoms/*"
-      ],
-      "@public/*": [
-        "./src/public/*"
-      ],
-      "@data/*": [
-        "./src/data/*"
-      ],
-      "@styles/*": [
-        "./src/styles/*"
-      ],
-      "@/*": [
-        "./src/*"
-      ]
+      "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@containers/*": ["./src/containers/*"],
+      "@atoms/*": ["./src/atoms/*"],
+      "@public/*": ["./src/public/*"],
+      "@data/*": ["./src/data/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@image/*": ["./src/image/*"],
+      "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*"],
   "exclude": [
     "node_modules",
     "src/unused",

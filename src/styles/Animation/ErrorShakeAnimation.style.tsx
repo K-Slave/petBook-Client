@@ -9,6 +9,10 @@ const ErrorShakeAnimation = css`
       transform: translate3d(3px, 0, 0);
     }
   }
+
+  .Invalid__Error {
+    animation: errorShake 0.1s 3;
+  }
 `;
 
 export default ErrorShakeAnimation;

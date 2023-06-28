@@ -19,9 +19,9 @@ const ArticleContainer = () => {
   });
   return (
     <>
-      <ArticleSection data={data?.response.data} />
+      <ArticleSection data={data?.response.data.result} />
       <CommentSection>
-        {data?.response.data.category.name === "질문과 답변" ? (
+        {data?.response.data.result.category.name === "질문과 답변" ? (
           <>
             <CommentList Item={QnaItem} />
             <CommentForm />

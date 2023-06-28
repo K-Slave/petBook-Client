@@ -1,4 +1,3 @@
-import { SliderButton } from "@components/common/Slider/styled";
 import styled from "styled-components";
 
 export const ItemHeader = styled.header`
@@ -24,22 +23,4 @@ export const ImageSliderDiv = styled.div`
   height: 180px;
   background: #e1e1e1;
   border-radius: 12px;
-  ${SliderButton} {
-    position: absolute;
-    top: 50%;
-    width: 20px;
-    height: 20px;
-    z-index: 2;
-    transform: translateY(-50%);
-    &:first-child {
-      left: 10px;
-    }
-    &:last-child {
-      right: 10px;
-    }
-  }
-  .swiper-slide {
-    width: 100%;
-    height: 100%;
-  }
 `;

@@ -1,7 +1,7 @@
 import ArticleList from "@components/community/ArticleList";
 import useArticleList from "@components/community/ArticleList/useArticleList";
 import CategoryNav from "@components/community/CategoryNav";
-import SearchBar from "@components/common/SearchBar";
+import SearchField from "@/stories/common/Input/SearchField";
 
 const ArticleListContainer = () => {
   const { status, articles, totalPages, params } = useArticleList();
@@ -19,9 +19,9 @@ const ArticleListContainer = () => {
             categoryName
           )}
         </h1>
-        <SearchBar
+        <SearchField
           placeholder="관심있는 내용을 검색해보세요!"
-          keywordBox={false}
+          domain="community"
         />
       </div>
       {!searchText && <CategoryNav />}

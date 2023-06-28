@@ -1,8 +1,6 @@
 import useWriteSubmit from "@lib/hooks/write/useWriteSubmit";
-import {
-  WriteSubmitButton,
-  WriteSubmitSection,
-} from "./styled/WriteSubmit.style";
+import { WriteSubmitSection } from "./styled/WriteSubmit.style";
+import Button from "@/stories/common/Button";
 
 const WriteSubmit = () => {
   return (
@@ -15,7 +13,11 @@ const WriteSubmit = () => {
 const Submit = () => {
   const { onClick } = useWriteSubmit();
 
-  return <WriteSubmitButton onClick={onClick}>게시물 등록</WriteSubmitButton>;
+  return (
+    <Button variant="primary" width="400px" onClick={onClick}>
+      게시물 등록
+    </Button>
+  );
 };
 
 WriteSubmit.Submit = Submit;
