@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from "react";
 
-import ResponsiveImage from "../ResponsiveImage";
+import ResponsiveImage from "@/stories/common/Image/ResponsiveImage";
 import { Container, LogoLink, ContentWap, EmailAddress } from "./Footer.style";
 import headerImg from "@/image/headerImg";
 

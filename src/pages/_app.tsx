@@ -132,7 +132,7 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
           <GTAGScript />
         </RecoilRoot>
       </Hydrate>
-      <Footer currentPath={router.pathnames} />
+      <Footer currentPath={router.pathname} />
     </QueryClientProvider>
   );
 };
