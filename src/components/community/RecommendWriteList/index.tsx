@@ -19,7 +19,7 @@ const RecommendWriteList = () => {
       {RecommendTags.map((it) => {
         return (
           <TagWrap key={it.id}>
-            <span className="tagText">{it.tagContent}</span>
+            <span className="Tag_Text">{it.tagContent}</span>
           </TagWrap>
         );
       })}

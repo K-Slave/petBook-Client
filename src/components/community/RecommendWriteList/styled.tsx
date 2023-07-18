@@ -5,7 +5,7 @@ export const TagWrap = styled.div`
 
   margin-right: 0.5rem;
 
-  .tagText {
+  .Tag_Text {
     padding: 0.25rem 1rem;
 
     border-radius: 2.5rem;
@@ -34,7 +34,7 @@ export const ContentWrap = styled.div`
   padding: 2rem 1.5rem 1.25rem;
 
   border-radius: 16px;
-  p {
+  .Content_Wrap {
     font-weight: bold;
     font-size: 1.125rem;
   }

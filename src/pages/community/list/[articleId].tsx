@@ -24,13 +24,15 @@ const ArticleDetail: NextPageWithOptions = () => {
 };
 
 const Main = styled.main`
+  width: 100%;
+  max-width: 83.125rem;
+
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  max-width: 1330px;
-  width: 100%;
+  gap: 1.25rem;
+
   margin: 0 auto;
-  padding: 52px 35px;
+  padding: 3.25rem 2.1875rem;
 `;
 
 export const getServerSideProps = commonServerSideProps([
