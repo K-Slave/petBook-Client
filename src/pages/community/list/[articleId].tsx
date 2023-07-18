@@ -5,14 +5,21 @@ import { ARTICLE_DETAIL } from "@lib/resources/articleResource";
 import { COMMENT_LIST } from "@lib/resources/commentResource";
 import commonServerSideProps from "@lib/server/commonServerSideProps";
 import { NextPageWithOptions } from "@lib/queries";
+import RecommendWriteList from "@components/community/RecommendWriteList";
+import RecommendWriteSection from "@components/community/RecommendWriteSection";
 
 const ArticleDetail: NextPageWithOptions = () => {
   return (
-    <Main>
-      <BackButton position="start" />
-      <ArticleContainer />
-      <BackButton position="end" />
-    </Main>
+    <>
+      <Main>
+        <BackButton position="start" />
+        <ArticleContainer />
+        <BackButton position="end" />
+      </Main>
+      <RecommendWriteSection title="이런 글은 어때요?">
+        <RecommendWriteList />
+      </RecommendWriteSection>
+    </>
   );
 };
 
