@@ -7,6 +7,8 @@ export const Container = styled.footer`
   flex-direction: column;
   flex: 1;
 
+  width: 100%;
+
   padding: 1.6875rem 0 2.25rem 0;
 
   background-color: var(--black_07);
