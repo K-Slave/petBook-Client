@@ -4,17 +4,23 @@ import ResponsiveImage from "@/stories/common/Image/ResponsiveImage";
 import { Container, LogoLink, ContentWap, EmailAddress } from "./Footer.style";
 import headerImg from "@/image/headerImg";
 
+const footerBlackListPage = ["/auth", "/hospitalmap", "/hospital"];
+
 interface Props {
   currentPath: string;
 }
 
 const Footer = ({ currentPath }: Props) => {
   return (
-    <Footer.Wrap>
-      <Footer.Logo />
-      <Footer.Content />
-      <Footer.Email />
-    </Footer.Wrap>
+    <>
+      {footerBlackListPage.includes(currentPath) === false && (
+        <Footer.Wrap>
+          <Footer.Logo />
+          <Footer.Content />
+          <Footer.Email />
+        </Footer.Wrap>
+      )}
+    </>
   );
 };
 

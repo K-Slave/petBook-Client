@@ -1,6 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 import { Resource, ResourceParams, ResourceResult } from "@lib/resources";
+import localConsole from "@lib/utils/localConsole";
 
 const useServerQueryData = <P = ResourceParams, T = ResourceResult>(
   resource: Resource<P, T>,
