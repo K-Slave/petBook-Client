@@ -1,4 +1,3 @@
-/* global kakao */
 import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
 import mapState from "@atoms/pageAtoms/hospitalmap/mapState";
 import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
