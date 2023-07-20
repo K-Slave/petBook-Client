@@ -12,8 +12,8 @@ import { cookieKeyName } from "@lib/globalConst";
 
 const useGetRect = () => {
   const map = useMap();
-  const currentGeoLocation = useRecoilValue(geoLocationState);
-  const setCurrentRectBounds = useSetRecoilState(rectBoundsState);
+  const geoLocation = useRecoilValue(geoLocationState);
+  const setRectBounds = useSetRecoilState(rectBoundsState);
 
   // 현재 좌표 변경에 따른 지도 경계좌표 추출
   useDidMountEffect(() => {
@@ -42,8 +42,8 @@ const useGetRect = () => {
     };
 
     patchCookie();
-    setCurrentRectBounds(rectBounds);
-  }, [currentGeoLocation]);
+    setRectBounds(rectBounds);
+  }, [geoLocation]);
 };
 
 export default useGetRect;
