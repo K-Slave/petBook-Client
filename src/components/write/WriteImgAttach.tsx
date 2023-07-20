@@ -7,7 +7,6 @@ import React, { PropsWithChildren, useRef } from "react";
 import { IoIosClose } from "react-icons/io";
 import { useSetRecoilState } from "recoil";
 import {
-  AddButtonBox,
   CountP,
   IllustImg,
   ImgItemLi,
@@ -26,8 +25,8 @@ const WriteImgAttach = () => {
         <WriteImgAttach.Title />
         <WriteImgAttach.Count />
       </WriteImgAttach.InfoBox>
-      <WriteImgAttach.ImgList />
       <WriteImgAttach.AddButton />
+      <WriteImgAttach.ImgList />
     </WriteImgAttachSection>
   );
 };
@@ -49,17 +48,15 @@ const Title = () => {
   return <TitleP className="Img__Section__Title">이미지첨부</TitleP>;
 };
 
-const Count = React.memo(() => {
+const Count = () => {
   // const { inputImg } = useRecoilSelector(writeState, {
   //   inputImg: [] as string[],
   // });
 
   return <CountP>최대 5장</CountP>;
-});
+};
 
-Count.displayName = "Count";
-
-const ImgList = React.memo(() => {
+const ImgList = () => {
   const { inputImg } = useRecoilSelector(writeState, {
     inputImg: [] as string[],
   });
@@ -74,11 +71,9 @@ const ImgList = React.memo(() => {
     );
   }
   return <></>;
-});
+};
 
-ImgList.displayName = "ImgList";
-
-const ImgItem = React.memo(({ img }: { img: string }) => {
+const ImgItem = ({ img }: { img: string }) => {
   const setWrite = useSetRecoilState(writeState);
 
   const onClick = () => {
@@ -102,9 +97,7 @@ const ImgItem = React.memo(({ img }: { img: string }) => {
       </button>
     </ImgItemLi>
   );
-});
-
-ImgItem.displayName = "ImgItem";
+};
 
 // TODO 기능 리팩터링 해야함
 const AddButton = () => {

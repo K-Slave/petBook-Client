@@ -3,7 +3,6 @@ import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
 import useSelectorState from "@lib/hooks/common/useSelectorState";
 import React, {
   ChangeEventHandler,
-  KeyboardEventHandler,
   PropsWithChildren,
   useRef,
   useState,
@@ -11,7 +10,6 @@ import React, {
 import ReactQuill from "react-quill";
 import { useResource } from "@lib/hooks/common/useResource";
 
-import localConsole from "@lib/utils/localConsole";
 import {
   WriteEditorDiv,
   WriteTitleInput,
@@ -21,7 +19,6 @@ import {
 } from "./styled/WriteForm.style";
 import writeState from "../../atoms/pageAtoms/community/writeState";
 import { CATEGORY_LIST } from "@lib/resources/commonResource";
-import { response } from "express";
 
 const WriteForm = () => {
   return (
@@ -57,7 +54,7 @@ const Input = () => {
   );
 };
 
-const Guide = React.memo(({ children }: PropsWithChildren<any>) => {
+const Guide = ({ children }: PropsWithChildren<any>) => {
   // const user = useRecoilValue(userState);
   const divDummy = ["", "", "", ""];
 
@@ -81,9 +78,7 @@ const Guide = React.memo(({ children }: PropsWithChildren<any>) => {
       </p>
     </WriteGuideDiv>
   );
-});
-
-Guide.displayName = "Guide";
+};
 
 const GuideTitle = () => {
   const { data, status } = useResource({
@@ -124,50 +119,50 @@ const Editor = () => {
   const editorRef = useRef<HTMLDivElement>(null);
   const [readOnly, setReadOnly] = useState(false);
 
-  const pureText = inputContent.replace(
-    /<\/?("[^"]*"|'[^']*'|[^>])*(>|$)/gi,
-    ""
-  );
+  // const pureText = inputContent.replace(
+  //   /<\/?("[^"]*"|'[^']*'|[^>])*(>|$)/gi,
+  //   ''
+  // );
 
-  const keyList = [
-    "Backspace",
-    "ArrowUp",
-    "ArrowRight",
-    "ArrowDown",
-    "ArrowLeft",
-    "Meta",
-    "Alt",
-    "Shift",
-    "CapsLock",
-    "Tab",
-    "Escape",
-  ];
+  // const keyList = [
+  //   'Backspace',
+  //   'ArrowUp',
+  //   'ArrowRight',
+  //   'ArrowDown',
+  //   'ArrowLeft',
+  //   'Meta',
+  //   'Alt',
+  //   'Shift',
+  //   'CapsLock',
+  //   'Tab',
+  //   'Escape',
+  // ];
 
-  const onKeyPress: KeyboardEventHandler = (event) => {
-    if (event.nativeEvent.isComposing) {
-      event.preventDefault();
-      event.stopPropagation();
-      event.defaultPrevented = true;
+  // const onKeyPress: KeyboardEventHandler = (event) => {
+  //   if (event.nativeEvent.isComposing) {
+  //     event.preventDefault();
+  //     event.stopPropagation();
+  //     event.defaultPrevented = true;
 
-      return false;
-    }
+  //     return false;
+  //   }
 
-    if (
-      !keyList.includes(event.key) &&
-      !keyList.includes(event.nativeEvent.key) &&
-      pureText.length >= 500
-    ) {
-      // setReadOnly(true);
-      event.preventDefault();
-      event.stopPropagation();
-      event.defaultPrevented = true;
-      return false;
-    }
+  //   if (
+  //     !keyList.includes(event.key) &&
+  //     !keyList.includes(event.nativeEvent.key) &&
+  //     pureText.length >= 500
+  //   ) {
+  //     // setReadOnly(true);
+  //     event.preventDefault();
+  //     event.stopPropagation();
+  //     event.defaultPrevented = true;
+  //     return false;
+  //   }
 
-    if (readOnly) {
-      // setReadOnly(false);
-    }
-  };
+  //   if (readOnly) {
+  //     // setReadOnly(false);
+  //   }
+  // };
 
   const onChange = (
     value: string,
@@ -175,29 +170,19 @@ const Editor = () => {
     source: any,
     editor: ReactQuill.UnprivilegedEditor
   ) => {
-    if (pureText.length >= 500) {
-      setWrite((write) => ({ ...write }));
-      return "";
-    }
+    // if (pureText.length >= 500) {
+    //   setWrite((write) => ({ ...write }));
+    //   return '';
+    // }
 
     setWrite((write) => ({ ...write, inputContent: value }));
   };
 
   return (
-    <WriteEditorDiv
-      className="Write__Editor__Wrap"
-      ref={editorRef}
-      onKeyDown={onKeyPress}
-      onKeyUp={onKeyPress}
-      onKeyDownCapture={onKeyPress}
-      onKeyUpCapture={onKeyPress}
-      onKeyPress={onKeyPress}
-      onKeyPressCapture={onKeyPress}
-    >
+    <WriteEditorDiv className="Write__Editor__Wrap" ref={editorRef}>
       <QuillWrapper
         theme="snow"
         onChange={onChange}
-        onKeyPress={onKeyPress}
         placeholder="내용을 입력하세요"
         value={inputContent}
         readOnly={readOnly}

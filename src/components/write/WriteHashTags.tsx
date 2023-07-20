@@ -39,7 +39,7 @@ const WriteHashTags = () => {
   );
 };
 
-const Title = React.memo(({ isView }: { isView: boolean }) => {
+const Title = ({ isView }: { isView: boolean }) => {
   return (
     <HashTagTitleP className="Hash__Tag__Title">
       # 해시태그를 달아주세요
@@ -48,46 +48,44 @@ const Title = React.memo(({ isView }: { isView: boolean }) => {
       </BubblyTip>
     </HashTagTitleP>
   );
-});
-
-Title.displayName = "Title";
+};
 
 interface TagBoxProps {
   isError: boolean;
   setIsError: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const TagBox = React.memo(
-  ({ children, isError, setIsError }: PropsWithChildren<TagBoxProps>) => {
-    const tagBoxRef = useRef<HTMLDivElement>(null);
+const TagBox = ({
+  children,
+  isError,
+  setIsError,
+}: PropsWithChildren<TagBoxProps>) => {
+  const tagBoxRef = useRef<HTMLDivElement>(null);
 
-    const onFocus: FocusEventHandler<HTMLDivElement> = (e) => {
-      e.currentTarget.style.outline = "solid 1px var(--primary)";
-    };
+  const onFocus: FocusEventHandler<HTMLDivElement> = (e) => {
+    e.currentTarget.style.outline = "solid 1px var(--primary)";
+  };
 
-    const onBlur: FocusEventHandler<HTMLDivElement> = (e) => {
-      e.currentTarget.style.removeProperty("outline");
-    };
+  const onBlur: FocusEventHandler<HTMLDivElement> = (e) => {
+    e.currentTarget.style.removeProperty("outline");
+  };
 
-    return (
-      <WriteHashDiv
-        className={`Hash__Tag__Div ${isError ? "Error" : ""}`}
-        ref={tagBoxRef}
-        onAnimationEnd={() => {
-          setIsError(false);
-        }}
-        onFocus={onFocus}
-        onBlur={onBlur}
-      >
-        {children}
-      </WriteHashDiv>
-    );
-  }
-);
+  return (
+    <WriteHashDiv
+      className={`Hash__Tag__Div ${isError ? "Error" : ""}`}
+      ref={tagBoxRef}
+      onAnimationEnd={() => {
+        setIsError(false);
+      }}
+      onFocus={onFocus}
+      onBlur={onBlur}
+    >
+      {children}
+    </WriteHashDiv>
+  );
+};
 
-TagBox.displayName = "TagBox";
-
-const List = React.memo(() => {
+const List = () => {
   const { inputHash } = useRecoilSelector(writeState, {
     inputHash: [] as string[],
   });
@@ -99,11 +97,9 @@ const List = React.memo(() => {
       })}
     </>
   );
-});
+};
 
-List.displayName = "List";
-
-const Item = React.memo(({ hashTag }: { hashTag: string }) => {
+const Item = ({ hashTag }: { hashTag: string }) => {
   const { removeTag } = useSetHashTag();
 
   const onClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -120,7 +116,7 @@ const Item = React.memo(({ hashTag }: { hashTag: string }) => {
       #{hashTag}
     </Button>
   );
-});
+};
 
 Item.displayName = "Item";
 
@@ -129,7 +125,7 @@ interface InputProps {
   msgPush: (callback: BubblyTipHandler) => void;
 }
 
-const Input = React.memo(({ setIsError, msgPush }: InputProps) => {
+const Input = ({ setIsError, msgPush }: InputProps) => {
   const { setTags } = useSetHashTag(setIsError);
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
     const { done } = hashTagKeydown(e, setTags, setIsError);
@@ -161,9 +157,7 @@ const Input = React.memo(({ setIsError, msgPush }: InputProps) => {
       onClick={onClick}
     />
   );
-});
-
-Input.displayName = "Input";
+};
 
 WriteHashTags.Title = Title;
 WriteHashTags.TagBox = TagBox;

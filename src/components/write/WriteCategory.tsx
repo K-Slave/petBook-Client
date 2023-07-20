@@ -3,11 +3,7 @@ import React, { MouseEventHandler, useEffect } from "react";
 import Skeleton from "@/stories/common/Skeleton";
 import { useResource } from "@lib/hooks/common/useResource";
 import writeState from "@atoms/pageAtoms/community/writeState";
-import {
-  ListDiv,
-  WriteCategoryButtonBox,
-  WriteCategorySection,
-} from "./styled/WriteCategory.style";
+import { ListDiv, WriteCategorySection } from "./styled/WriteCategory.style";
 import { CATEGORY_LIST } from "@lib/resources/commonResource";
 import Button from "@/stories/common/Button";
 
@@ -90,7 +86,7 @@ interface ItemProps {
   onClick: MouseEventHandler;
 }
 
-const Item = React.memo(({ keyword, selected, onClick }: ItemProps) => (
+const Item = ({ keyword, selected, onClick }: ItemProps) => (
   <Button
     variant="small"
     onClick={onClick}
@@ -99,11 +95,11 @@ const Item = React.memo(({ keyword, selected, onClick }: ItemProps) => (
   >
     {keyword}
   </Button>
-));
+);
 
 Item.displayName = "Item";
 
 WriteCategory.List = List;
 WriteCategory.Item = Item;
 
-export default React.memo(WriteCategory);
+export default WriteCategory;

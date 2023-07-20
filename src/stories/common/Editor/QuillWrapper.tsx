@@ -19,7 +19,7 @@ type Props = {
     source: any,
     editor: ReactQuill.UnprivilegedEditor
   ) => void;
-  onKeyPress: (event: any) => void;
+  onKeyPress?: (event: any) => void;
   placeholder?: string | undefined;
   value: string;
   readOnly: boolean;
