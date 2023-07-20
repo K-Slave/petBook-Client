@@ -1,20 +1,15 @@
 /* global kakao */
 import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
-import mapState, {
-  currentPoiState,
-  currentZoomLevelState,
-} from "@atoms/pageAtoms/hospitalmap/mapState";
+import mapState from "@atoms/pageAtoms/hospitalmap/mapState";
 import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
 import type {
   HospitalFullInfo,
   HospitalInfo,
 } from "@lib/API/petBookAPI/types/hospitalRequest";
-import useDidMountEffect from "@lib/hooks/common/useDidMountEffect";
 import useGetRect from "@lib/hooks/map/useGetRect";
 import usePoiData from "@lib/hooks/map/usePoiData";
 import mapsLevelSelector from "@lib/modules/mapsLevelSelector";
 import getRectBounds, { Coordinates } from "@lib/utils/kakaoMaps/getRectBounds";
-import { koreaGeoLocationValidate } from "@lib/utils/validation/geoLocationValidate";
 import { useRouter } from "next/router";
 import React, { PropsWithChildren, useEffect, useMemo } from "react";
 import { Map, MapMarker, useMap } from "react-kakao-maps-sdk";
@@ -48,7 +43,8 @@ const KakaoMap = () => {
       }
       isIdData={!!router.query.id}
     >
-      <KakaoMap.Observer />
+      <KakaoMap.Init />
+      {/* <KakaoMap.Observer /> */}
       <KakaoMap.Rect />
 
       {/* {status === "success" &&
@@ -93,63 +89,59 @@ interface WrapProps {
   isIdData: boolean;
 }
 
-const Wrap = React.memo(
-  ({ children, poiData, isIdData }: PropsWithChildren<WrapProps>) => {
-    const currentGeoLocation = useRecoilValue(geoLocationState);
-    const setMapState = useSetRecoilState(mapState);
+const Wrap = ({
+  children,
+  poiData,
+  isIdData,
+}: PropsWithChildren<WrapProps>) => {
+  const getLocation = useRecoilValue(geoLocationState);
+  const setMapState = useSetRecoilState(mapState);
 
-    const initLat = useMemo(() => {
-      return poiData && isIdData
-        ? poiData.hospitals.latitude
-        : currentGeoLocation.latitude;
-    }, []);
+  const initLat = useMemo(() => {
+    return poiData && isIdData
+      ? poiData.hospitals.latitude
+      : getLocation.latitude;
+  }, []);
 
-    const initLng = useMemo(() => {
-      return poiData && isIdData
-        ? poiData.hospitals.longitude
-        : currentGeoLocation.longitude;
-    }, []);
+  const initLng = useMemo(() => {
+    return poiData && isIdData
+      ? poiData.hospitals.longitude
+      : getLocation.longitude;
+  }, []);
 
-    return (
-      <>
-        <Map
-          center={{
-            lat: initLat,
-            lng: initLng,
-          }}
-          level={mapsLevelSelector(initLat)}
-          style={{
-            position: "relative",
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(200, 200, 200, 0.3)",
-          }}
-          onZoomChanged={(mapObj) => {
-            setMapState((state) => ({
-              ...state,
-              currentZoomLevel: mapObj.getLevel(),
-            }));
-          }}
-          onBoundsChanged={(mapObj) => {}}
-        >
-          {children}
-        </Map>
-      </>
-    );
-  }
-);
+  return (
+    <>
+      <Map
+        center={{
+          lat: initLat,
+          lng: initLng,
+        }}
+        level={mapsLevelSelector(initLat)}
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(200, 200, 200, 0.3)",
+        }}
+        onZoomChanged={(mapObj) => {
+          setMapState((state) => ({
+            ...state,
+            currentZoomLevel: mapObj.getLevel(),
+          }));
+        }}
+        onBoundsChanged={(mapObj) => {}}
+      >
+        {children}
+      </Map>
+    </>
+  );
+};
 
-Wrap.displayName = "KakaoMapWrap";
-
-const Observer = () => {
+const Init = () => {
   const map = useMap();
   kakaoUseMap = map;
 
   const setMapState = useSetRecoilState(mapState);
-
-  const currentPoi = useRecoilValue(currentPoiState);
-  const currentZoomLevel = useRecoilValue(currentZoomLevelState);
-  const { latitude, longitude } = currentPoi;
 
   useEffect(() => {
     setMapState((state) => ({
@@ -158,36 +150,42 @@ const Observer = () => {
     }));
   }, []);
 
+  return <></>;
+};
+
+const Observer = () => {
+  // const currentPoi = useRecoilValue(currentPoiState);
+  // const currentZoomLevel = useRecoilValue(currentZoomLevelState);
+  // const { latitude, longitude } = currentPoi;
+
   // TODO : 고정 레벨 말고 다른 방법이 있는지
   //  현재 선택되어진 개별 병원 데이터가 변경될시 지도 이동과 레벨 조정
-  useDidMountEffect(() => {
-    const geoValidation = koreaGeoLocationValidate(latitude, longitude);
+  // useDidMountEffect(() => {
+  //   const geoValidation = koreaGeoLocationValidate(latitude, longitude);
 
-    if (geoValidation) {
-      if (currentZoomLevel >= 9) {
-        // TODO
-        map.setLevel(6);
-      }
-      map.panTo(new kakao.maps.LatLng(latitude, longitude));
-    }
-  }, [currentPoi]);
+  //   if (geoValidation) {
+  //     if (currentZoomLevel >= 9) {
+  //       // TODO
+  //       map.setLevel(6);
+  //     }
+  //     map.panTo(new kakao.maps.LatLng(latitude, longitude));
+  //   }
+  // }, [currentPoi]);
 
   return <></>;
 };
 
-const Rect = React.memo(() => {
+const Rect = () => {
   useGetRect();
 
   return <></>;
-});
-
-Rect.displayName = "Rect";
+};
 
 interface ListProps {
   poiDataList: HospitalFullInfo[];
 }
 
-const List = React.memo(({ poiDataList }: ListProps) => {
+const List = ({ poiDataList }: ListProps) => {
   const router = useRouter();
 
   return (
@@ -204,27 +202,28 @@ const List = React.memo(({ poiDataList }: ListProps) => {
       })}
     </>
   );
-});
+};
 
-List.displayName = "KakaoMapList";
+const Item = ({
+  poiData,
+  isMatched,
+}: {
+  poiData: HospitalInfo;
+  isMatched: boolean;
+}) => {
+  return (
+    <>
+      <KakaoMap.Marker poiData={poiData} />
+      <KakaoMap.Overlay poiData={poiData} isMatched={isMatched} />
+    </>
+  );
+};
 
-const Item = React.memo(
-  ({ poiData, isMatched }: { poiData: HospitalInfo; isMatched: boolean }) => {
-    return (
-      <>
-        <KakaoMap.Marker poiData={poiData} />
-        <KakaoMap.Overlay poiData={poiData} isMatched={isMatched} />
-      </>
-    );
-  }
-);
-
-Item.displayName = "KakaoMapItem";
 interface MarkerProps {
   poiData: HospitalInfo;
 }
 
-const Marker = React.memo(({ poiData }: MarkerProps) => {
+const Marker = ({ poiData }: MarkerProps) => {
   const image = useMemo(() => {
     return {
       src: "",
@@ -243,13 +242,11 @@ const Marker = React.memo(({ poiData }: MarkerProps) => {
       // zIndex={isMatched ? 200 : 0}
     />
   );
-});
-
-Marker.displayName = "KakaoMapMarker";
+};
 
 const RectSearch = () => {
   const map = useMap();
-  const setCurrentRectBounds = useSetRecoilState(rectBoundsState);
+  const setRectBounds = useSetRecoilState(rectBoundsState);
 
   const onClick = () => {
     const NE_Coordinates: Coordinates = {
@@ -264,13 +261,14 @@ const RectSearch = () => {
 
     const rectBounds = getRectBounds(SW_Coordinates, NE_Coordinates);
 
-    setCurrentRectBounds(rectBounds);
+    setRectBounds(rectBounds);
   };
 
   return <RectSearchButton onClick={onClick}>현위치 재검색</RectSearchButton>;
 };
 
 KakaoMap.Wrap = Wrap;
+KakaoMap.Init = Init;
 KakaoMap.Observer = Observer;
 KakaoMap.Rect = Rect;
 KakaoMap.List = List;

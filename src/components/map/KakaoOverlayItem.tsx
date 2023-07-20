@@ -104,7 +104,7 @@ interface KaKaoOverlayProps {
   isMatched: boolean;
 }
 
-const KaKaoOverlay = React.memo(({ poiData, isMatched }: KaKaoOverlayProps) => {
+const KaKaoOverlay = ({ poiData, isMatched }: KaKaoOverlayProps) => {
   const setMapState = useSetRecoilState(mapState);
   const router = useRouter();
   const initMark = useMemo(() => randomBox[getRandomIdx(randomBox)], []);
@@ -158,8 +158,6 @@ const KaKaoOverlay = React.memo(({ poiData, isMatched }: KaKaoOverlayProps) => {
       </OverLayDiv>
     </CustomOverlayMap>
   );
-});
-
-KaKaoOverlay.displayName = "KaKaoOverlay";
+};
 
 export default KaKaoOverlay;
