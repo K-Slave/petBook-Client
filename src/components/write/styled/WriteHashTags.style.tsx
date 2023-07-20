@@ -88,9 +88,9 @@ const WriteHashDiv = styled.div`
   border-radius: 8px;
   box-sizing: border-box;
 
-  &.Error {
+  /* &.Error {
     animation: errorShake 0.1s 3;
-  }
+  } */
 `;
 
 const HashInput = styled.input`

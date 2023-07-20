@@ -37,10 +37,6 @@ const CommonCheckBox = ({
   checkBoxHeight,
 }: Props) => {
   const [check, setCheck] = React.useState(false);
-  const convWidth = layoutCalculator(width || "");
-  const convHeight = layoutCalculator(height || "");
-  const convCheckBoxWidth = layoutCalculator(checkBoxWidth || "");
-  const convCheckBoxHeight = layoutCalculator(checkBoxHeight || "");
 
   const getBgUrl = () => {
     if (typeof checkState === "boolean") {
@@ -55,16 +51,16 @@ const CommonCheckBox = ({
   return (
     <CommonCheckBoxLabel
       check={typeof checkState === "boolean" ? checkState : check}
-      width={convWidth}
-      height={convHeight}
+      width={width}
+      height={height}
       style={labelStyle}
     >
       <CommonCheckBoxInput
         url={getBgUrl() || ""}
         type="checkbox"
         onClick={onClick}
-        width={convCheckBoxWidth || "0.875rem"}
-        height={convCheckBoxHeight || "0.875rem"}
+        width={checkBoxWidth?.toString() || "0.875rem"}
+        height={checkBoxHeight?.toString() || "0.875rem"}
         name={text}
         checked={typeof checkState === "boolean" ? checkState : check}
         style={inputStyle}

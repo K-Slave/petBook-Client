@@ -72,7 +72,7 @@ const TagBox = ({
 
   return (
     <WriteHashDiv
-      className={`Hash__Tag__Div ${isError ? "Error" : ""}`}
+      className={`Hash__Tag__Div ${isError ? "Invalid__Error" : ""}`}
       ref={tagBoxRef}
       onAnimationEnd={() => {
         setIsError(false);
@@ -118,14 +118,18 @@ const Item = ({ hashTag }: { hashTag: string }) => {
   );
 };
 
-Item.displayName = "Item";
-
 interface InputProps {
   setIsError: React.Dispatch<React.SetStateAction<boolean>>;
   msgPush: (callback: BubblyTipHandler) => void;
 }
 
 const Input = ({ setIsError, msgPush }: InputProps) => {
+  const { inputHash } = useRecoilSelector(writeState, {
+    inputHash: [] as string[],
+  });
+
+  const isMax = inputHash.length >= 5;
+  const pushOnce = useRef(false);
   const { setTags } = useSetHashTag(setIsError);
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
     const { done } = hashTagKeydown(e, setTags, setIsError);
@@ -145,16 +149,20 @@ const Input = ({ setIsError, msgPush }: InputProps) => {
   };
 
   const onClick = () => {
-    msgPush((push) => !push);
+    if (pushOnce.current === false) {
+      pushOnce.current = true;
+      msgPush((push) => !push);
+    }
   };
 
   return (
     <HashInput
       className="default"
-      placeholder="#해시태그 입력"
+      placeholder={isMax ? "" : "#해시태그 입력"}
       onKeyDown={onKeyDown}
       onBlur={onBlur}
       onClick={onClick}
+      readOnly={isMax}
     />
   );
 };

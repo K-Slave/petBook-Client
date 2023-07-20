@@ -4,7 +4,7 @@
 const hashTagKeydown = (
   keyDownEvent: React.KeyboardEvent<HTMLInputElement>,
   setter: (textValue: string) => void,
-  errorSetter: React.Dispatch<React.SetStateAction<boolean>>
+  errorSetter?: React.Dispatch<React.SetStateAction<boolean>>
 ): { done: boolean; info: string } => {
   if (keyDownEvent.nativeEvent.isComposing) {
     return { done: false, info: "composing" };
@@ -15,12 +15,6 @@ const hashTagKeydown = (
   switch (keyDownEvent.key) {
     case "Enter": {
       setter(keyDownEvent.currentTarget.value);
-      return { done: true, info: keyDownEvent.key };
-    }
-
-    // space 는 거르기로 백엔드에서 요청 (보안)
-    case "Space": {
-      errorSetter(true);
       return { done: true, info: keyDownEvent.key };
     }
 
