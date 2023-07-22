@@ -13,7 +13,7 @@ export const HeaderBox = styled.header<{
   align-items: flex-end;
 
   width: 100vw;
-  max-width: ${(props) => (props.maxWidth ? props.maxWidth : "120rem")};
+  /* max-width: ${(props) => (props.maxWidth ? props.maxWidth : "120rem")}; */
 
   margin: 0 auto;
 

@@ -35,7 +35,6 @@ const MypageBanner = () => {
         ref={imgRef}
         src={mypageImg.banner}
         fill
-        sizes="1920px"
         alt="마이페이지 배너"
       />
     </MypageBannerDiv>
