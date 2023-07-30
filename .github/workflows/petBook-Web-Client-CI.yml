@@ -3,10 +3,7 @@ name: petBook Web Client CI
 # 구독할 이벤트
 on:
   workflow_dispatch:
-  push:
-    branches: [dev]
   pull_request:
-    branches: [dev]
 
 # jobs 단위로 개별 서버(정확히는 Docker 컨테이너 단위라고 한다.)에서 작업이 수행된다.
 # 각 작업은 병렬로 실행 된다고 하는데, needs: build와 같이 표시해서 기다릴 수도 있다.
@@ -32,11 +29,24 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: build
+  vercel-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Install Yarn
+        run: npm install --global yarn
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
   ci-notify:
     name: Discord Notification
     runs-on: ubuntu-latest
     needs:
       - problem-check
+      - vercel-check
     if: ${{ always() }}
     steps:
       - name: ci-notify
@@ -54,13 +64,3 @@ jobs:
           color-success: '#008d62'
           color-failure: '#9b111e'
           color-cancelled: '#ffd400'
-  call-cd-workflow:
-    needs:
-      - problem-check
-      - ci-notify
-    if: ${{ success() && github.event_name == 'push' }}
-    uses: ./.github/workflows/petBook-Web-Client-CD.yml
-    with:
-      status: 'Success'
-    secrets:
-      VERCEL_DEPLOY_TOKEN: ${{ secrets.VERCEL_DEPLOY_TOKEN }}
