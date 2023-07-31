@@ -11,9 +11,6 @@ on:
       status:
         required: true
         type: string
-    secrets:
-      VERCEL_DEPLOY_TOKEN:
-        required: true
 
 jobs:
   deploy-production:

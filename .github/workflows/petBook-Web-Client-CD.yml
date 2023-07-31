@@ -3,14 +3,9 @@ env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 on:
-  workflow_call:
-    inputs:
-      status:
-        required: true
-        type: string
-    secrets:
-      VERCEL_DEPLOY_TOKEN:
-        required: true
+  push:
+    branches:
+      - dev
 # https://github.com/vercel/examples/tree/main/ci-cd/github-actions
 # 이거 참조해주세욤
 
@@ -37,5 +32,3 @@ jobs:
     uses: ./.github/workflows/petBook-StoryBook-CD.yml
     with:
       status: 'Success'
-    secrets:
-      VERCEL_DEPLOY_TOKEN: ${{ secrets.VERCEL_DEPLOY_TOKEN }}
