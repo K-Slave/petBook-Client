@@ -29,7 +29,7 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: build
-  vercel-check:
+  vercel-check-web-client:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -41,12 +41,28 @@ jobs:
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
+  vercel-check-story-book:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Install Yarn
+        run: npm install --global yarn
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
+      - name: Build Storybook Artifacts
+        run: |
+          yarn install
+          NEXT_PUBLIC_STORAGE=${{ secrets.NEXT_PUBLIC_STORAGE }} yarn build-storybook
+          cd ./storybook-static
   ci-notify:
     name: Discord Notification
     runs-on: ubuntu-latest
     needs:
       - problem-check
-      - vercel-check
+      - vercel-check-web-client
+      - vercel-check-story-book
     if: ${{ always() }}
     steps:
       - name: ci-notify
