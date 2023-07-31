@@ -1,4 +1,4 @@
-name: petBook Web Client CI
+name: CI
 
 # 구독할 이벤트
 on:
