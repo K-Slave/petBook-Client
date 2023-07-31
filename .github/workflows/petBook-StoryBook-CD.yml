@@ -6,11 +6,7 @@ env:
   NEXT_PUBLIC_TESTER: ${{ secrets.NEXT_PUBLIC_TESTER }}
 
 on:
-  workflow_call:
-    inputs:
-      status:
-        required: true
-        type: string
+  pull_request:
 
 jobs:
   deploy-production:
