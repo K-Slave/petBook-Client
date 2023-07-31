@@ -48,3 +48,7 @@ errorLog.txt
 *.env
 
 build-storybook.log
+
+# IDE
+.vscode
+.idea
