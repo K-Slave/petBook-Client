@@ -6,11 +6,9 @@ env:
   NEXT_PUBLIC_TESTER: ${{ secrets.NEXT_PUBLIC_TESTER }}
 
 on:
-  workflow_call:
-    inputs:
-      status:
-        required: true
-        type: string
+  push:
+    branches:
+      - dev
 
 jobs:
   deploy-production:
@@ -19,11 +17,14 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
+      - name: Install Yarn
+        run: npm install --global yarn
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
       - name: Build Storybook Artifacts
         run: |
           yarn install
+          yarn upgrade
           NEXT_PUBLIC_STORAGE=${{ secrets.NEXT_PUBLIC_STORAGE }} yarn build-storybook
           cd ./storybook-static
       - name: Deploy Storybook Artifacts to Vercel
