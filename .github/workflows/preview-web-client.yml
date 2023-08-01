@@ -10,6 +10,11 @@ on:
 jobs:
   check-comment:
     runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+      pull-requests: write
+
     if: github.event.action != 'closed'
     outputs:
       triggered: ${{ steps.check.outputs.triggered }}
