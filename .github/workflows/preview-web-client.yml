@@ -54,6 +54,5 @@ jobs:
         uses: allthatjazzleo/actions-pull-request-add-comment@master
         with:
           message: |-
-            preview endpoint 가 생성되었습니다. 
             [web-client link](https://pet-book-client.vercel.app/)
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
