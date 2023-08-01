@@ -23,7 +23,7 @@ jobs:
 
 
       - name: Comment On PR
-        uses: allthatjazzleo/actions-pull-request-add-comment@master
+        uses: thollander/actions-comment-pull-request@v1
         with:
           message: |-
             preview endpoint 가 생성되었습니다. 
