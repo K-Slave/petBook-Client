@@ -27,3 +27,12 @@ jobs:
           cd ./storybook-static
       - name: Deploy Storybook Artifacts to Vercel
         run: vercel --prod --yes ./storybook-static --token=${{ secrets.PREVIEW_VERCEL_DEPLOY_TOKEN }}
+
+
+      - name: Comment On PR
+        uses: allthatjazzleo/actions-pull-request-add-comment@master
+        with:
+          message: |-
+            preview endpoint 가 생성되었습니다. 
+            [story-book link](https://pet-book-stroy-book.vercel.app/)
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
