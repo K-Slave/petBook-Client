@@ -6,6 +6,11 @@ const meta: Meta<typeof Button> = {
   title: "common/Button",
   component: Button,
   tags: ["autodocs"],
+  argTypes: {
+    buttonRef: {
+      control: false,
+    },
+  },
 };
 type Story = StoryObj<typeof Button>;
 export const Primary: Story = {
@@ -28,9 +33,8 @@ export const Tertiary: Story = {
 };
 export const TertiaryActive: Story = {
   args: {
-    variant: "tertiary",
+    variant: "tertiary active",
     children: "질문과 답변",
-    active: true,
   },
 };
 

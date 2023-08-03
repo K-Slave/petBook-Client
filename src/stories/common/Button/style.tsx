@@ -63,7 +63,7 @@ export const StyledButton = styled.button<ButtonProps>`
     props?.variant !== "small" &&
     css`
       width: ${props.width};
-      height: ${props.height}; ;
+      height: ${props.height};
     `};
   ${(props) =>
     props?.variant === "primary"
@@ -71,9 +71,9 @@ export const StyledButton = styled.button<ButtonProps>`
       : props?.variant === "secondary"
       ? SecondaryStyle
       : props?.variant === "tertiary"
-      ? props.active
-        ? TertiaryActiveStyle
-        : TertiaryStyle
+      ? TertiaryStyle
+      : props.variant === "tertiary active"
+      ? TertiaryActiveStyle
       : props?.variant === "small"
       ? SmallButtonStyle
       : null};
