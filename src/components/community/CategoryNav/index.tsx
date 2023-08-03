@@ -26,7 +26,7 @@ const CategoryNav = () => {
         ? categories.map((category) => (
             <Button
               variant={
-                categoryName === category.name ? "tertiary active" : "tertiary"
+                categoryName === category.name ? "tertiary-active" : "tertiary"
               }
               key={category.id}
               onClick={onClick(category)}

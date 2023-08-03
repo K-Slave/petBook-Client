@@ -72,7 +72,7 @@ export const StyledButton = styled.button<ButtonProps>`
       ? SecondaryStyle
       : props?.variant === "tertiary"
       ? TertiaryStyle
-      : props.variant === "tertiary active"
+      : props.variant === "tertiary-active"
       ? TertiaryActiveStyle
       : props?.variant === "small"
       ? SmallButtonStyle

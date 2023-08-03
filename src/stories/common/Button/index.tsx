@@ -14,7 +14,7 @@ interface CommonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 export type ButtonProps = CommonProps &
   (
     | {
-        variant?: "primary" | "secondary" | "tertiary" | "tertiary active";
+        variant?: "primary" | "secondary" | "tertiary" | "tertiary-active";
         width?: string;
         height?: string;
         bgColor?: string;
