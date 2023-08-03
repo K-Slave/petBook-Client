@@ -11,6 +11,7 @@ const CategoryNav = () => {
   const { categories, status } = useCategories({ all: true });
   const { categoryName } = useActiveCategory();
   const router = useRouter();
+  const isList = router.asPath.includes("list");
   const onClick = (category: CategoryItem) => () => {
     navigator({
       url: getHrefWithCategory(category),
@@ -20,16 +21,17 @@ const CategoryNav = () => {
     });
   };
   return (
-    <CategoryNavDiv list={router.asPath.includes("list")}>
+    <CategoryNavDiv list={isList}>
       {status === "success"
         ? categories.map((category) => (
             <Button
-              variant="tertiary"
+              variant={
+                categoryName === category.name ? "tertiary active" : "tertiary"
+              }
               key={category.id}
               onClick={onClick(category)}
-              active={categoryName === category.name ? true : false}
-              width={router.asPath.includes("list") ? "110px" : "132px"}
-              height={router.asPath.includes("list") ? "44px" : "52px"}
+              width={isList ? "110px" : "132px"}
+              height={isList ? "44px" : "52px"}
             >
               {category.name}
             </Button>
