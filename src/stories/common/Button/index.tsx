@@ -8,6 +8,7 @@ interface CommonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   hoverColor?: string;
   hoverBgColor?: string;
   typography?: TypographyVariant;
+  bgColor?: string;
   color?: string;
 }
 
@@ -17,11 +18,9 @@ export type ButtonProps = CommonProps &
         variant?: "primary" | "secondary" | "tertiary" | "tertiary-active";
         width?: string;
         height?: string;
-        bgColor?: string;
       }
     | {
         variant: "small";
-        bgColor: string;
       }
   );
 
