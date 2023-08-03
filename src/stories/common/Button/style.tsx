@@ -74,7 +74,7 @@ export const StyledButton = styled.button<ButtonProps>`
       width: ${props.width ||
       (props?.variant === "small" ? "fit-content" : "100%")};
       height: ${props.height ||
-      (props?.variant === "small" ? "fit-content" : "100%")};
+      (props?.variant === "small" ? "fit-content" : "3.25rem")};
     `};
   ${(props) =>
     props.bgColor &&
