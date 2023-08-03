@@ -33,7 +33,7 @@ export const Tertiary: Story = {
 };
 export const TertiaryActive: Story = {
   args: {
-    variant: "tertiary active",
+    variant: "tertiary-active",
     children: "질문과 답변",
   },
 };
