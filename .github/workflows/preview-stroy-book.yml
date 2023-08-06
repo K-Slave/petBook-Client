@@ -49,7 +49,6 @@ jobs:
       - name: Build Storybook Artifacts
         run: |
           yarn install
-          yarn upgrade
           NEXT_PUBLIC_STORAGE=${{ secrets.NEXT_PUBLIC_STORAGE }} yarn build-storybook
           cd ./storybook-static
       - name: Deploy Storybook Artifacts to Vercel
