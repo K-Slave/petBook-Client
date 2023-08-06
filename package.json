@@ -2,6 +2,9 @@
   "name": "petbook-client",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "16.14.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -50,7 +53,6 @@
     "recoil": "^0.7.5",
     "request-ip": "^3.3.0",
     "sass": "^1.51.0",
-    "string-width": "^3.0.0",
     "styled-components": "^5.3.5",
     "swiper": "^8.4.5",
     "zustand": "^4.3.8"
