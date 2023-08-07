@@ -41,11 +41,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: pnpm build
+        run: pnpm build
+
       - name: pnpm lint
         run: pnpm lint
 
-      - name: pnpm build
-        run: pnpm build
   vercel-check-web-client:
     runs-on: ubuntu-latest
     steps:
