@@ -50,7 +50,6 @@
     "recoil": "^0.7.5",
     "request-ip": "^3.3.0",
     "sass": "^1.51.0",
-    "style-loader": "^3.3.3",
     "styled-components": "^5.3.5",
     "swiper": "^8.4.5",
     "zustand": "^4.3.8"
