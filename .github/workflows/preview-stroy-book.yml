@@ -1,9 +1,4 @@
 name: Preview Story Book
-env:
-  VERCEL_ORG_ID: ${{ secrets.PREVIEW_VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.PREVIEW_VERCEL_PROJECT_STORYBOOK_ID }}
-  NEXT_PUBLIC_STORAGE: ${{ secrets.NEXT_PUBLIC_STORAGE }}
-  NEXT_PUBLIC_TESTER: ${{ secrets.NEXT_PUBLIC_TESTER }}
 
 on:
   pull_request:
@@ -19,8 +14,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
 
       - uses: pnpm/action-setup@v2
         name: Install pnpm
