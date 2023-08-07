@@ -17,16 +17,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-      - name: yarn install
-        uses: borales/actions-yarn@v4
+      - name: pnpm install
+        uses: borales/actions-pnpm@v4
         with:
           cmd: install
-      - name: yarn run lint
-        uses: borales/actions-yarn@v4
+      - name: pnpm lint
+        uses: borales/actions-pnpm@v4
         with:
           cmd: lint
-      - name: yarn run build
-        uses: borales/actions-yarn@v4
+      - name: pnpm build
+        uses: borales/actions-pnpm@v4
         with:
           cmd: build
   vercel-check-web-client:
@@ -35,8 +35,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
-      - name: Install Yarn
-        run: npm install --global yarn
+      - name: Install pnpm
+        run: npm install --global pnpm
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
       - name: Build Project Artifacts
@@ -47,14 +47,14 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
-      - name: Install Yarn
-        run: npm install --global yarn
+      - name: Install pnpm
+        run: npm install --global pnpm
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
       - name: Build Storybook Artifacts
         run: |
-          yarn install
-          NEXT_PUBLIC_STORAGE=${{ secrets.NEXT_PUBLIC_STORAGE }} yarn build-storybook
+          pnpm install
+          NEXT_PUBLIC_STORAGE=${{ secrets.NEXT_PUBLIC_STORAGE }} pnpm build-storybook
           cd ./storybook-static
   ci-notify:
     name: Discord Notification
