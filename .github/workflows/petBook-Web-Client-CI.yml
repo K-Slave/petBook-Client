@@ -17,26 +17,28 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-      - name: pnpm install
-        uses: borales/actions-pnpm@v4
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
         with:
-          cmd: install
+          version: 7
+          run_install: false
+
       - name: pnpm lint
-        uses: borales/actions-pnpm@v4
-        with:
-          cmd: lint
+        run: pnpm lint
+
       - name: pnpm build
-        uses: borales/actions-pnpm@v4
-        with:
-          cmd: build
+        run: pnpm build
   vercel-check-web-client:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
-      - name: Install pnpm
-        run: npm install --global pnpm
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 7
+          run_install: false
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
       - name: Build Project Artifacts
@@ -47,8 +49,11 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
-      - name: Install pnpm
-        run: npm install --global pnpm
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 7
+          run_install: false
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
       - name: Build Storybook Artifacts
