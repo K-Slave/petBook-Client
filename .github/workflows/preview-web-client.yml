@@ -2,7 +2,6 @@ name: Preview Web Client
 
 on:
   pull_request:
-    types: [created]
 
 jobs:
   check-comment:
