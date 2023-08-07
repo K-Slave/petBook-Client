@@ -13,49 +13,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Set Node.js 16.x
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-      - name: pnpm install
-        uses: borales/actions-pnpm@v4
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
         with:
-          cmd: install
-      - name: pnpm lint
-        uses: borales/actions-pnpm@v4
-        with:
-          cmd: lint
-      - name: pnpm build
-        uses: borales/actions-pnpm@v4
-        with:
-          cmd: build
-  vercel-check-web-client:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
-      - name: Install pnpm
-        run: npm install --global pnpm
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
+          version: 7
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint Check
+        run: pnpm lint
+
       - name: Build Project Artifacts
-        run: vercel build --prod --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
-  vercel-check-story-book:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
-      - name: Install pnpm
-        run: npm install --global pnpm
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
-      - name: Build Storybook Artifacts
-        run: |
-          pnpm install
-          NEXT_PUBLIC_STORAGE=${{ secrets.NEXT_PUBLIC_STORAGE }} pnpm build-storybook
-          cd ./storybook-static
+        run: pnpm build
+
   ci-notify:
     name: Discord Notification
     runs-on: ubuntu-latest
@@ -80,3 +57,32 @@ jobs:
           color-success: '#008d62'
           color-failure: '#9b111e'
           color-cancelled: '#ffd400'
+
+  vercel-check-web-client:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Install pnpm
+        run: npm install --global pnpm@7.26.3
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
+
+  vercel-check-story-book:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Install pnpm
+        run: npm install --global pnpm@7.26.3
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
+      - name: Build Storybook Artifacts
+        run: |
+          pnpm install
+          NEXT_PUBLIC_STORAGE=${{ secrets.NEXT_PUBLIC_STORAGE }} pnpm build-storybook
+          cd ./storybook-static
