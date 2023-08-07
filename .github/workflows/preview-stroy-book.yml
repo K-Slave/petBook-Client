@@ -37,7 +37,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           vercel-args: '--prod'
           vercel-org-id: ${{ secrets.PREVIEW_VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.PREVIEW_VERCEL_PROJECT_WEBCLIENT_ID }}
+          vercel-project-id: ${{ secrets.PREVIEW_VERCEL_PROJECT_STORYBOOK_ID }}
           working-directory: ./storybook-static
 
       - name: Comment On PR
