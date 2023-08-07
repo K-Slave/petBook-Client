@@ -28,7 +28,7 @@ jobs:
           vercel-args: '--prod'
           vercel-org-id: ${{ secrets.PREVIEW_VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.PREVIEW_VERCEL_PROJECT_WEBCLIENT_ID }}
-          working-directory: ./sub-directory
+          working-directory: ./
 
       - name: Comment On PR
         uses: allthatjazzleo/actions-pull-request-add-comment@master
