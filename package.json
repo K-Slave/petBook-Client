@@ -50,6 +50,7 @@
     "recoil": "^0.7.5",
     "request-ip": "^3.3.0",
     "sass": "^1.51.0",
+    "style-loader": "^3.3.3",
     "styled-components": "^5.3.5",
     "swiper": "^8.4.5",
     "zustand": "^4.3.8"
@@ -89,6 +90,7 @@
     "babel-eslint": "^10.1.0",
     "babel-jest": "^29.5.0",
     "chromatic": "^6.17.4",
+    "css-loader": "^6.8.1",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "eslint": "^8.26.0",
@@ -108,6 +110,7 @@
     "jsdoc": "^3.6.11",
     "lint-staged": "^13.2.0",
     "next-router-mock": "^0.9.6",
+    "postcss-loader": "^7.3.3",
     "prettier": "^2.7.1",
     "react-is": "^18.1.0",
     "react-test-renderer": "^18.2.0",
