@@ -6,8 +6,7 @@ env:
   NEXT_PUBLIC_TESTER: ${{ secrets.NEXT_PUBLIC_TESTER }}
 
 on:
-  issue_comment:
-    types: [created]
+  pull_request:
 
 jobs:
   check-comment:
