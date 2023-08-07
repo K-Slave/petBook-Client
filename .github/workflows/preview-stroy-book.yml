@@ -48,6 +48,7 @@ jobs:
         run: vercel pull --yes --environment=production --token=${{ secrets.PREVIEW_VERCEL_DEPLOY_TOKEN }}
       - name: Build Storybook Artifacts
         run: |
+          rm -rf yarn.lock
           yarn install
           NEXT_PUBLIC_STORAGE=${{ secrets.NEXT_PUBLIC_STORAGE }} yarn build-storybook
           cd ./storybook-static
