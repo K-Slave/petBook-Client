@@ -116,7 +116,6 @@ dependencies:
   recoil: 0.7.7_biqbaboplfbrettd7655fr4n2y
   request-ip: 3.3.0
   sass: 1.64.2
-  style-loader: 3.3.3
   styled-components: 5.3.11_7i5myeigehqah43i5u7wbekgba
   swiper: 8.4.7
   zustand: 4.4.1_gvifxuufrqkj4gcqfnnwrb44ya
@@ -182,6 +181,7 @@ devDependencies:
   react-test-renderer: 18.2.0_react@18.2.0
   storybook: 7.2.1
   storybook-addon-next: 1.8.0_6tlqdszskm6sdozyukq3wa33te
+  style-loader: 3.3.3
   ts-jest: 29.1.1_hi4kxyklllt2a4nqkk4q3gfur4
   ts-node: 10.9.1_3q4r7i276dzlemjkf45c5sxpfm
   typescript: 5.1.6
@@ -12610,6 +12610,7 @@ packages:
     engines: {node: '>= 12.13.0'}
     peerDependencies:
       webpack: ^5.0.0
+    dev: true
 
   /style-loader/3.3.3_webpack@5.88.2:
     resolution: {integrity: sha512-53BiGLXAcll9maCYtZi2RCQZKa8NQQai5C4horqKyRmHj9H7QmcUyucrH+4KW/gBQbXM2AsB0axoEcFZPlfPcw==}
