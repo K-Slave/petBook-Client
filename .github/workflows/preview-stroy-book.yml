@@ -23,6 +23,7 @@ jobs:
           reaction: rocket
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+
   deploy-production:
     runs-on: ubuntu-latest
     needs: check-comment
