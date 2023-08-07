@@ -6,7 +6,6 @@ on:
 jobs:
   deploy-production:
     runs-on: ubuntu-latest
-    if: needs.check-comment.outputs.triggered == 'true'
 
     permissions:
       issues: write
