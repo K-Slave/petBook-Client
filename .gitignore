@@ -52,3 +52,5 @@ build-storybook.log
 # IDE
 .vscode
 .idea
+
+yarn.lock

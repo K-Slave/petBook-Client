@@ -49,12 +49,10 @@ jobs:
       - name: Build Storybook Artifacts
         run: |
           yarn install
-          yarn upgrade
           NEXT_PUBLIC_STORAGE=${{ secrets.NEXT_PUBLIC_STORAGE }} yarn build-storybook
           cd ./storybook-static
       - name: Deploy Storybook Artifacts to Vercel
         run: vercel --prod --yes ./storybook-static --token=${{ secrets.PREVIEW_VERCEL_DEPLOY_TOKEN }}
-
 
       - name: Comment On PR
         uses: allthatjazzleo/actions-pull-request-add-comment@master
