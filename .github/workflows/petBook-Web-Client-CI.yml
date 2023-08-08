@@ -79,8 +79,8 @@ jobs:
       - vercel-check-story-book
     if: ${{ failure() }}
     steps:
-      uses: bucketplace/pull-request-add-comment-action@main
-      with:
+      - uses: bucketplace/pull-request-add-comment-action@main
+        with:
         message: |-
           CI 실패
         GITHUB_TOKEN: ${{ secrets.BP_DEPLOYER_GITHUB_TOKEN }}
