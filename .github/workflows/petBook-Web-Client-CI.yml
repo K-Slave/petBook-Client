@@ -31,7 +31,7 @@ jobs:
         run: pnpm lint
 
       - name: Build Project Artifacts
-        run: pnpm build2
+        run: pnpm build
 
   vercel-check-web-client:
     runs-on: ubuntu-latest
