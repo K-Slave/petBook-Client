@@ -22,7 +22,7 @@ jobs:
       - uses: pnpm/action-setup@v2
         name: Install pnpm
         with:
-          version: 12
+          version: 7
 
       - name: Install dependencies
         run: pnpm install
@@ -31,7 +31,7 @@ jobs:
         run: pnpm lint
 
       - name: Build Project Artifacts
-        run: pnpm build
+        run: pnpm build2
 
   vercel-check-web-client:
     runs-on: ubuntu-latest
