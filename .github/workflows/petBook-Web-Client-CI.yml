@@ -71,7 +71,12 @@ jobs:
           cd ./storybook-static
   
   comment-failure:
+    name: Comment Failure
     runs-on: ubuntu-latest
+    needs:
+      - problem-check
+      - vercel-check-web-client
+      - vercel-check-story-book
     if: ${{ failure() }}
     steps:
       uses: bucketplace/pull-request-add-comment-action@main
