@@ -1,9 +1,4 @@
 name: Preview Story Book
-env:
-  VERCEL_ORG_ID: ${{ secrets.PREVIEW_VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.PREVIEW_VERCEL_PROJECT_STORYBOOK_ID }}
-  NEXT_PUBLIC_STORAGE: ${{ secrets.NEXT_PUBLIC_STORAGE }}
-  NEXT_PUBLIC_TESTER: ${{ secrets.NEXT_PUBLIC_TESTER }}
 
 on:
   issue_comment:
@@ -40,23 +35,26 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
 
       - uses: pnpm/action-setup@v2
         name: Install pnpm
         with:
           version: 7
 
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ secrets.PREVIEW_VERCEL_DEPLOY_TOKEN }}
-      - name: Build Storybook Artifacts
-        run: |
-          pnpm install
-          NEXT_PUBLIC_STORAGE=${{ secrets.NEXT_PUBLIC_STORAGE }} pnpm build-storybook
-          cd ./storybook-static
-      - name: Deploy Storybook Artifacts to Vercel
-        run: vercel --prod --yes ./storybook-static --token=${{ secrets.PREVIEW_VERCEL_DEPLOY_TOKEN }}
+      - name: Pnpm Install
+        run: pnpm install
+
+      - name: Pnpm Build
+        run: NEXT_PUBLIC_STORAGE=${{ secrets.NEXT_PUBLIC_STORAGE }} pnpm build-storybook
+
+      - uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.PREVIEW_VERCEL_DEPLOY_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-args: '--prod'
+          vercel-org-id: ${{ secrets.PREVIEW_VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.PREVIEW_VERCEL_PROJECT_STORYBOOK_ID }}
+          working-directory: ./storybook-static
 
       - name: Comment On PR
         uses: allthatjazzleo/actions-pull-request-add-comment@master
