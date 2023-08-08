@@ -90,8 +90,6 @@
     "babel-jest": "^29.5.0",
     "chromatic": "^6.17.4",
     "css-loader": "^6.8.1",
-    "discord.js": "^14.7.1",
-    "dotenv": "^16.0.3",
     "eslint": "^8.26.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "^13.1.2",
