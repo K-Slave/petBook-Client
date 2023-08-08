@@ -69,3 +69,14 @@ jobs:
           pnpm install
           NEXT_PUBLIC_STORAGE=${{ secrets.NEXT_PUBLIC_STORAGE }} pnpm build-storybook
           cd ./storybook-static
+  
+  comment-failure:
+    runs-on: ubuntu-latest
+    if: ${{ failure() }}
+    steps:
+      uses: bucketplace/pull-request-add-comment-action@main
+      with:
+        message: |-
+          CI 실패
+        GITHUB_TOKEN: ${{ secrets.BP_DEPLOYER_GITHUB_TOKEN }}
+
