@@ -1,7 +1,9 @@
 name: petBook Web Client CD
 
 on:
-  pull_request:
+  push:
+    branches:
+      - dev
 
 jobs:
   deploy-production:
