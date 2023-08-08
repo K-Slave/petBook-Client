@@ -72,6 +72,9 @@ jobs:
   
   comment-failure:
     name: Comment Failure
+    permissions:
+      issues: write
+      pull-requests: write
     runs-on: ubuntu-latest
     needs:
       - problem-check
