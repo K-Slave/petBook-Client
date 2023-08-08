@@ -1,11 +1,7 @@
 name: petBook Web Client CD
 
 on:
-  push:
-    branches:
-      - dev
-# https://github.com/vercel/examples/tree/main/ci-cd/github-actions
-# 이거 참조해주세욤
+  pull_request:
 
 jobs:
   deploy-production:
