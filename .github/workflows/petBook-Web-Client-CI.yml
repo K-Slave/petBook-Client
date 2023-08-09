@@ -69,3 +69,22 @@ jobs:
           pnpm install
           NEXT_PUBLIC_STORAGE=${{ secrets.NEXT_PUBLIC_STORAGE }} pnpm build-storybook
           cd ./storybook-static
+  
+  comment-failure:
+    name: Comment Failure
+    permissions:
+      issues: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    needs:
+      - problem-check
+      - vercel-check-web-client
+      - vercel-check-story-book
+    if: ${{ failure() }}
+    steps:
+      - uses: allthatjazzleo/actions-pull-request-add-comment@master
+        with:
+          message: |-
+            CI 실패
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

@@ -1,4 +1,7 @@
 name: petBook StoryBook CD
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
 on:
   push:
@@ -16,17 +19,32 @@ jobs:
         with:
           version: 7
 
-      - name: Pnpm Install
-        run: pnpm install
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_DEPLOY_TOKEN }}
 
-      - name: Pnpm Build
-        run: NEXT_PUBLIC_STORAGE=${{ secrets.NEXT_PUBLIC_STORAGE }} pnpm build-storybook
-
-      - uses: amondnet/vercel-action@v20
+  cd-notify:
+    name: Discord Notification
+    runs-on: ubuntu-latest
+    needs:
+      - deploy-production
+    if: ${{ always() }}
+    steps:
+      - name: cd-notify
+        uses: nobrayner/discord-webhook@v1
         with:
-          vercel-token: ${{ secrets.VERCEL_DEPLOY_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-args: '--prod'
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_STORYBOOK_ID }}
-          working-directory: ./storybook-static
+          github-token: ${{ secrets.github_token }}
+          discord-webhook: ${{ secrets.UPDATE_WEBHOOK }}
+          username: 'petBot'
+          avatar-url: 'https://cdn.discordapp.com/app-icons/1044621624864940163/87fe18353f90a7a4c275be945afc14e5.png?size=512'
+          title: '${{ github.workflow }} : ${{ github.event_name }}'
+          description: "🚥 상태 : {{STATUS}}\n🔍 로그 확인 : 제목을 클릭하세요\n"
+          include-details: 'false'
+          color-success: '#008d62'
+          color-failure: '#9b111e'
+          color-cancelled: '#ffd400'
