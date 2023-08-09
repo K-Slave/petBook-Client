@@ -45,8 +45,6 @@ const TertiaryActiveStyle = css`
 `;
 
 const SmallButtonStyle = css`
-  width: fit-content;
-  height: fit-content;
   padding: 0.25rem 1rem;
   border-radius: 40px;
   ${TextBodySmallMedium};
@@ -60,23 +58,24 @@ export const StyledButton = styled.button<ButtonProps>`
   transition: all 0.3s ease;
 
   ${(props) =>
-    props?.variant !== "small" &&
-    css`
-      width: ${props.width};
-      height: ${props.height}; ;
-    `};
-  ${(props) =>
     props?.variant === "primary"
       ? PrimaryStyle
       : props?.variant === "secondary"
       ? SecondaryStyle
       : props?.variant === "tertiary"
-      ? props.active
-        ? TertiaryActiveStyle
-        : TertiaryStyle
+      ? TertiaryStyle
+      : props.variant === "tertiary-active"
+      ? TertiaryActiveStyle
       : props?.variant === "small"
       ? SmallButtonStyle
       : null};
+  ${(props) =>
+    css`
+      width: ${props.width ||
+      (props?.variant === "small" ? "fit-content" : "100%")};
+      height: ${props.height ||
+      (props?.variant === "small" ? "fit-content" : "3.25rem")};
+    `};
   ${(props) =>
     props.bgColor &&
     css`

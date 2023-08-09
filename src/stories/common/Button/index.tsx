@@ -2,30 +2,19 @@ import React, { type PropsWithChildren } from "react";
 import { StyledButton } from "./style";
 import type { TypographyVariant } from "../Typography";
 
-interface CommonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  active?: boolean;
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "primary" | "secondary" | "tertiary" | "tertiary-active" | "small";
+  width?: string;
+  height?: string;
   hidden?: boolean;
-  buttonRef?: React.RefObject<HTMLButtonElement>;
+  color?: string;
   hoverColor?: string;
+  bgColor?: string;
   hoverBgColor?: string;
   typography?: TypographyVariant;
+  buttonRef?: React.RefObject<HTMLButtonElement>;
 }
-
-export type ButtonProps = CommonProps &
-  (
-    | {
-        variant?: "primary" | "secondary" | "tertiary";
-        width?: string;
-        height?: string;
-        bgColor?: string;
-        color?: string;
-      }
-    | {
-        variant: "small";
-        bgColor: string;
-        color: string;
-      }
-  );
 
 const Button = ({
   children,
@@ -41,10 +30,7 @@ const Button = ({
 
 Button.defaultProps = {
   type: "button" as const,
-  active: false,
   disabled: false,
-  width: "100%",
-  height: "3.25rem",
   hidden: false,
 };
 
