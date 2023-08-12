@@ -27,20 +27,7 @@ jobs:
         run: pnpm lint
 
       - name: Run Test
-        run: pnpm jest --ci --xml --coverage --testLocationInResults --outputFile=report.xml
-
-      - name: Test Report
-        uses: dorny/test-reporter@v1
-        if: success() || failure()
-        with:
-          name: test-results
-          path: report.xml
-          fail-on-error: 'false'
-          reporter: jest-junit
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build Project Artifacts
-        run: pnpm build
+        run: pnpm jest --ci --json --coverage --testLocationInResults --outputFile=report.json
 
       - uses: ArtiomTr/jest-coverage-report-action@v2
         with:
@@ -49,6 +36,9 @@ jobs:
           coverage-file: report.json
           base-coverage-file: report.json
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Project Artifacts
+        run: pnpm build
 
   vercel-check-web-client:
     runs-on: ubuntu-latest
