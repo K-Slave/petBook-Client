@@ -1,7 +1,4 @@
-name: petBook StoryBook CD
-env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+name: CD Web Client
 
 on:
   push:
