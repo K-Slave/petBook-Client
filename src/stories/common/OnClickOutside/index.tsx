@@ -1,4 +1,4 @@
-import React, { cloneElement, isValidElement, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 interface Props {
   trigger: () => void;
@@ -7,9 +7,9 @@ const OnClickOutside = ({
   trigger,
   children,
 }: React.PropsWithChildren<Props>) => {
-  const ref = useRef<HTMLElement | null>(null);
-  const handleClickOutside = (e: any) => {
-    if (ref.current && !ref.current.contains(e.target)) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const handleClickOutside = (e: MouseEvent) => {
+    if (ref.current && !ref.current.contains(e.target as Node | null)) {
       trigger();
     }
   };
@@ -19,11 +19,7 @@ const OnClickOutside = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  return isValidElement(children)
-    ? cloneElement(children as any, {
-        ref,
-      })
-    : null;
+  return <div ref={ref}>{children}</div>;
 };
 
 export default OnClickOutside;

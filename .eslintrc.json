@@ -6,13 +6,15 @@
     "node": true,
     "jest": true
   },
-
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "next",
-    "next/core-web-vitals"
+    "next/core-web-vitals",
+    "plugin:prettier/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -23,12 +25,27 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "prettier", "import"],
+  "plugins": ["react", "@typescript-eslint", "prettier"],
   "globals": {
     "JSX": true,
     "React": true
   },
+  "settings": {
+    "import/resolver": {
+      "node": {},
+      "typescript": {
+        "directory": "./src"
+      }
+    },
+    "import/parsers": { "@typescript-eslint/parser": [".ts", ".tsx"] }
+  },
   "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     "@typescript-eslint/no-unsafe-call": "warn",
     "@typescript-eslint/no-unsafe-return": "warn",
     "@typescript-eslint/no-unsafe-argument": "warn",
@@ -41,9 +58,29 @@
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/unbound-method": "off",
     "@typescript-eslint/require-await": "warn",
-    "prefer-rest-params": "warn"
+    "prefer-rest-params": "warn",
     // "@typescript-eslint/restrict-plus-operands": "off",
     // "@typescript-eslint/require-await": "off",
     // "@typescript-eslint/no-var-requires": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "newlines-between": "never"
+      }
+    ],
+    "import/no-named-as-default": "off",
+    "import/export": "off"
   }
 }

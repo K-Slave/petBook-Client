@@ -1,11 +1,10 @@
+import React, { FunctionComponent } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   registerFormState,
   CheckNicknameState,
 } from "@atoms/pageAtoms/login/userState";
 import { useSetResource } from "@lib/hooks/common/useResource";
-import React, { FunctionComponent } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-
 import { IconBox, InputBox } from "./styled/styledRegisterForm";
 
 interface RegisterProps {

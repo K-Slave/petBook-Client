@@ -1,15 +1,15 @@
+import React, { MouseEventHandler } from "react";
+import { useSetRecoilState } from "recoil";
 import loadingState from "@atoms/common/loadingState";
 import writeState, {
   WriteStateType,
 } from "@atoms/pageAtoms/community/writeState";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
-import localConsole from "@lib/utils/localConsole";
-import React, { MouseEventHandler } from "react";
-import { useSetRecoilState } from "recoil";
-import useLoaderNavigate from "../common/useLoaderNavigate";
-import { useSetResource } from "../common/useResource";
 import { ARTICLE_CREATE } from "@lib/resources/articleResource";
 import { IMG_CREATE } from "@lib/resources/commonResource";
+import localConsole from "@lib/utils/localConsole";
+import useLoaderNavigate from "../common/useLoaderNavigate";
+import { useSetResource } from "../common/useResource";
 
 const multipartHeader = { "Content-Type": "multipart/form-data" };
 

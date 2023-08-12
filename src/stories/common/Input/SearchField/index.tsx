@@ -1,4 +1,3 @@
-import { SearchOutline } from "@/stories/Icon/Search";
 import React, {
   type PropsWithChildren,
   type FocusEventHandler,
@@ -7,17 +6,18 @@ import React, {
   useEffect,
 } from "react";
 import { IoCloseCircle } from "react-icons/io5";
-import type { SearchKeywordItem } from "@lib/modules/localStorage";
-import OnClickOutside from "../../OnClickOutside";
-import { SearchFieldDiv, SearchForm, KeywordListBoxWrapper } from "./style";
+import { SearchOutline } from "@/stories/Icon/Search";
 import useQuerySearch, {
   useClearQuerySearch,
   useRecentSearchKeywordList,
 } from "@lib/hooks/common/useQuerySearch";
-import ListBox, { type ListBoxProps, type ListItem } from "../../ListBox";
-import Typography from "../../Typography";
+import type { SearchKeywordItem } from "@lib/modules/localStorage";
 import Button, { type ButtonProps } from "../../Button";
+import ListBox, { type ListBoxProps, type ListItem } from "../../ListBox";
+import OnClickOutside from "../../OnClickOutside";
+import Typography from "../../Typography";
 import CommonInput, { type CommonInputProps } from "../CommonInput/CommonInput";
+import { SearchFieldDiv, SearchForm, KeywordListBoxWrapper } from "./style";
 
 export interface SearchFieldProps {
   domain?: SearchKeywordItem["domain"];

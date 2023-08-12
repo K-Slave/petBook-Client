@@ -1,7 +1,7 @@
+import React from "react";
 import WriteCategory from "@components/write/WriteCategory";
 import { useResource } from "@lib/hooks/common/useResource";
 import { CATEGORY_LIST } from "@lib/resources/commonResource";
-import React from "react";
 
 const CategoryContainer = () => {
   const category = useResource({

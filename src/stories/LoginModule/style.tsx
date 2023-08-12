@@ -1,7 +1,6 @@
+import Link from "next/link";
 import styled from "styled-components";
 import { BackgroundImageSpan } from "../common/Image/BackgroundImage/BackgroundImage.style";
-
-import Link from "next/link";
 import {
   TextBodyMedium14,
   TextBodySmall14,

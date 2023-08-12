@@ -1,7 +1,3 @@
-import writeState from "@atoms/pageAtoms/community/writeState";
-import hashTagKeydown from "@lib/handler/hashTagKeydown";
-import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
-import useSetHashTag from "@lib/hooks/write/useSetHashTag";
 import React, {
   FocusEventHandler,
   KeyboardEventHandler,
@@ -10,7 +6,11 @@ import React, {
   useState,
 } from "react";
 import { BubblyTip, BubblyTipHandler, useBubblyTip } from "react-bubblytip";
-
+import Button from "@/stories/common/Button";
+import writeState from "@atoms/pageAtoms/community/writeState";
+import hashTagKeydown from "@lib/handler/hashTagKeydown";
+import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
+import useSetHashTag from "@lib/hooks/write/useSetHashTag";
 import {
   HashInput,
   HashTagTitleP,
@@ -19,7 +19,6 @@ import {
   WriteHashTagsSection,
 } from "./styled/WriteHashTags.style";
 import "react-bubblytip/lib/bubblytip.css";
-import Button from "@/stories/common/Button";
 
 // TODO : 최대 5개 구현, 요소가 HashTagBox 넘어가지 않도록 구현
 const WriteHashTags = () => {

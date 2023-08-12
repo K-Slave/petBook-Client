@@ -1,10 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 import ErrorShakeAnimation from "./Animation/ErrorShakeAnimation.style";
-import RotateAnimation from "./Animation/RotateAnimation.style";
 import FadeAnimation from "./Animation/FadeAnimation.style";
+import RotateAnimation from "./Animation/RotateAnimation.style";
 import SlideAnimation from "./Animation/SlideAnimation.style";
-import LabelCommonStyle from "./common/Label.style";
 import InputCommonStyle from "./common/Input.style";
+import LabelCommonStyle from "./common/Label.style";
 import TextAreaCommonStyle from "./common/TextArea.style";
 
 const NextGlobalStyle = createGlobalStyle`

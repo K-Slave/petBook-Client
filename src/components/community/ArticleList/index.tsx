@@ -1,14 +1,14 @@
-import Link from "next/link";
-import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import DOMPurify from "isomorphic-dompurify";
+import Link from "next/link";
 import React from "react";
-import { HeartOutline, HeartFilled } from "@/stories/Icon/Heart";
-import { BookmarkOutline } from "@/stories/Icon/Bookmark";
-import CommonInfo from "@components/community/CommonInfo";
 import Pagination from "@/stories/common/Pagination";
 import Skeleton from "@/stories/common/Skeleton";
-import useArticleList from "./useArticleList";
+import { BookmarkOutline } from "@/stories/Icon/Bookmark";
+import { HeartOutline, HeartFilled } from "@/stories/Icon/Heart";
+import CommonInfo from "@components/community/CommonInfo";
+import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import { ListDiv, Article, Text } from "./styled";
+import useArticleList from "./useArticleList";
 
 interface Props
   extends Pick<

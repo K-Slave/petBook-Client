@@ -1,3 +1,4 @@
+import { QueryKey } from "@tanstack/react-query";
 import { GetResultReturn } from "@lib/API/petBookAPI/RequestCore";
 import {
   ArticleDetailPayload,
@@ -28,7 +29,6 @@ import {
   ImgListResponse,
 } from "@lib/API/petBookAPI/types/imgRequest";
 import { QueryName, createKey } from "@lib/queries";
-import { QueryKey } from "@tanstack/react-query";
 
 // TODO : 모든 리소스에 대한 파라미터 정의
 export interface Resource<P = ResourceParams, T = ResourceResult> {

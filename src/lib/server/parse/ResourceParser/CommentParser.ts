@@ -13,6 +13,6 @@ export default class CommentParser extends ResourceParser {
       },
     };
 
-    return this.clientFetch<typeof COMMENT_LIST["params"]>(payload);
+    return this.clientFetch<(typeof COMMENT_LIST)["params"]>(payload);
   };
 }

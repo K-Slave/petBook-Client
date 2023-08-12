@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
-import PageHead from "../common/PageHead";
 import OpenGraphTag from "../common/OpenGraphTag";
+import PageHead from "../common/PageHead";
 
 const IndexPageHead = ({ currentPath }: { currentPath: string }) => {
   // TODO : 페이지에 따른 타이틀이 있을경우, 타이틀이 중복되지 않게 잘 처리 되어야함

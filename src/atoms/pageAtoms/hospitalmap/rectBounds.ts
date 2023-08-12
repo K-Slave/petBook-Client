@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+import { atom } from "recoil";
 import { cookieKeyName } from "@lib/globalConst";
 import hospitalOptions from "@lib/globalConst/hospitalOptions";
 import {
@@ -5,8 +7,6 @@ import {
   Coordinates,
 } from "@lib/utils/kakaoMaps/getRectBounds";
 import localConsole from "@lib/utils/localConsole";
-import Cookies from "js-cookie";
-import { atom } from "recoil";
 
 export interface RectBoundary {
   NW_11: Coordinates;

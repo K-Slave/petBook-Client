@@ -1,9 +1,9 @@
 import React, { PropsWithChildren } from "react";
-import Menu from "./Menu";
-import { TopNavBox, TopNavDiv } from "./TopNav.style";
 import useNavController, {
   NavControllerProps,
 } from "@lib/hooks/header/useNavController";
+import Menu from "./Menu";
+import { TopNavBox, TopNavDiv } from "./TopNav.style";
 
 interface Props extends NavControllerProps {
   maxWidth?: string;

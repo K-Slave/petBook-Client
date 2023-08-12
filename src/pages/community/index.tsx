@@ -1,27 +1,26 @@
+import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
+import SearchField from "@/stories/common/Input/SearchField";
+import ArticlePreviewList from "@components/community/ArticlePreviewList";
+import CategoryNav from "@components/community/CategoryNav";
 import CommunityBanner from "@components/community/CommunityBanner";
-import WriteButton from "@components/community/WriteButton";
+import CommunitySamePetUser from "@components/community/CommunitySamePetUser";
 import CommunitySection from "@components/community/CommunitySection";
 import HotArticleList from "@components/community/HotArticleList";
-import CategoryNav from "@components/community/CategoryNav";
-import ArticlePreviewList from "@components/community/ArticlePreviewList";
 import QnaArticleList, {
   QNA_CATEGORY,
 } from "@components/community/QnaArticleList";
-import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
-import Link from "next/link";
-import SearchField from "@/stories/common/Input/SearchField";
-
+import SamePetUserList from "@components/community/SamePetUserList";
+import WriteButton from "@components/community/WriteButton";
+import { NextPageWithOptions } from "@lib/queries";
 import {
   ARTICLE_LIST_PREVIEW,
   ARTICLE_POPULAR_LIST,
 } from "@lib/resources/articleResource";
-import commonServerSideProps from "@lib/server/commonServerSideProps";
 import { CATEGORY_LIST } from "@lib/resources/commonResource";
-import { NextPageWithOptions } from "@lib/queries";
-import CommunitySamePetUser from "@components/community/CommunitySamePetUser";
-import SamePetUserList from "@components/community/SamePetUserList";
+import commonServerSideProps from "@lib/server/commonServerSideProps";
+import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 
 const Community: NextPageWithOptions = () => {
   return (

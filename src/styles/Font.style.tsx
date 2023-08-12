@@ -1,5 +1,5 @@
-import Pretendard from "@components/Pretendard";
 import { createGlobalStyle } from "styled-components";
+import Pretendard from "@components/Pretendard";
 
 const NextFontStyle = createGlobalStyle`
   * {

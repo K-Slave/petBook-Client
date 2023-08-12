@@ -1,19 +1,19 @@
 /* global kakao */
 
+import React from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import loadingState from "@atoms/common/loadingState";
+import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
+import regionDataState from "@atoms/pageAtoms/hospitalmap/regionData";
 import { kakaoUseMap } from "@components/map/KakaoMap";
 import { cookieRequest } from "@lib/API/petBookAPI";
 import { LocationCacheData } from "@lib/API/petBookAPI/types/cookieRequest";
+import { cookieKeyName } from "@lib/globalConst";
+import mapsLevelSelector from "@lib/modules/mapsLevelSelector";
 import getGeoLocation from "@lib/utils/getGeoLocation";
 import getCoord2RegionH from "@lib/utils/kakaoMaps/getCoord2RegionH";
 import localConsole from "@lib/utils/localConsole";
 import { koreaGeoLocationValidate } from "@lib/utils/validation/geoLocationValidate";
-import React from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import mapsLevelSelector from "@lib/modules/mapsLevelSelector";
-import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
-import regionDataState from "@atoms/pageAtoms/hospitalmap/regionData";
-import { cookieKeyName } from "@lib/globalConst";
 
 const CurrentGps = () => {
   const setRegionData = useSetRecoilState(regionDataState);

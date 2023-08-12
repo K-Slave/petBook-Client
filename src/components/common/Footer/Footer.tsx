@@ -1,8 +1,7 @@
 import React, { PropsWithChildren } from "react";
-
+import headerImg from "@/image/headerImg";
 import ResponsiveImage from "@/stories/common/Image/ResponsiveImage";
 import { Container, LogoLink, ContentWap, EmailAddress } from "./Footer.style";
-import headerImg from "@/image/headerImg";
 
 const footerBlackListPage = ["/auth", "/hospitalmap", "/hospital"];
 

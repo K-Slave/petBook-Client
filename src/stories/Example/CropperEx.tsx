@@ -1,7 +1,8 @@
+import dynamic from "next/dynamic";
 import React, { useRef } from "react";
 import Cropper, { ReactCropperElement } from "react-cropper";
+// eslint-disable-next-line import/no-unresolved
 import "cropperjs/dist/cropper.css";
-import dynamic from "next/dynamic";
 
 const CropperEx = () => {
   const cropperRef = useRef<ReactCropperElement>(null);

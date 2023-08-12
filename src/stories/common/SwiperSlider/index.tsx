@@ -1,8 +1,8 @@
 import React, { type PropsWithChildren } from "react";
 import { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperProps, useSwiper } from "swiper/react";
-import { SwiperStyle } from "./style";
 import Button, { type ButtonProps } from "../Button";
+import { SwiperStyle } from "./style";
 
 interface Props extends SwiperProps {
   prevButtonId: string;

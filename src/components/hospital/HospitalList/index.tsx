@@ -1,24 +1,24 @@
-import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
-import Pagination from "@/stories/common/Pagination";
-import { usePage } from "@lib/hooks/common/usePagination";
+import { useRouter } from "next/router";
+import { useEffect, useRef } from "react";
+import { useRecoilValue } from "recoil";
+import Button from "@/stories/common/Button";
 import SearchField from "@/stories/common/Input/SearchField";
+import Pagination from "@/stories/common/Pagination";
 import Skeleton from "@/stories/common/Skeleton";
+import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
+import hospitalOptions from "@lib/globalConst/hospitalOptions";
 import useDidMountEffect from "@lib/hooks/common/useDidMountEffect";
+import { usePage } from "@lib/hooks/common/usePagination";
 import { useResource } from "@lib/hooks/common/useResource";
 import { getScrollPosition } from "@lib/modules/localStorage";
 import navigator from "@lib/modules/navigator";
 import { removeQuery, replaceQuery } from "@lib/modules/queryString";
+import { HOSPITAL_LIST } from "@lib/resources/hospitalResource";
 import { convRectBoundsToBoundary } from "@lib/utils/kakaoMaps/getRectBounds";
-import { useRouter } from "next/router";
-import { useEffect, useRef } from "react";
-import { useRecoilValue } from "recoil";
+import localConsole from "@lib/utils/localConsole";
 import CurrentGps from "../CurrentGps";
 import HospitalItem from "../HospitalItem";
 import { FilterDiv, Section } from "./styled";
-import hospitalOptions from "@lib/globalConst/hospitalOptions";
-import { HOSPITAL_LIST } from "@lib/resources/hospitalResource";
-import localConsole from "@lib/utils/localConsole";
-import Button from "@/stories/common/Button";
 
 const HospitalList = () => {
   const ref = useRef<HTMLElement | null>(null);

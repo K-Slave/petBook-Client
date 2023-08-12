@@ -1,6 +1,6 @@
 /* global kakao */
-import { Coordinates } from "@lib/utils/kakaoMaps/getRectBounds";
 import { atom, selector } from "recoil";
+import { Coordinates } from "@lib/utils/kakaoMaps/getRectBounds";
 
 export interface MapStateType {
   isBounded: boolean;

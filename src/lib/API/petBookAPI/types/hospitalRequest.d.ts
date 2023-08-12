@@ -171,7 +171,7 @@ export interface ReviewProps {
   hospitalName?: string;
 }
 
-interface ReviewBoxProps {
+export interface ReviewBoxProps {
   hospitalId: number;
   reviewIndex: number;
   removeBox: () => void;

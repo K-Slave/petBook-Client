@@ -1,6 +1,6 @@
-import { cookieOptions } from "@lib/globalConst";
-import { AppContext } from "next/app";
 import url from "url";
+import { AppContext } from "next/app";
+import { cookieOptions } from "@lib/globalConst";
 
 export default function urlTokenRedirect({ ctx, router }: AppContext) {
   let redirectPathname = router.pathname.concat();

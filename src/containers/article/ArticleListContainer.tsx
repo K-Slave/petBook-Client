@@ -1,7 +1,7 @@
+import SearchField from "@/stories/common/Input/SearchField";
 import ArticleList from "@components/community/ArticleList";
 import useArticleList from "@components/community/ArticleList/useArticleList";
 import CategoryNav from "@components/community/CategoryNav";
-import SearchField from "@/stories/common/Input/SearchField";
 
 const ArticleListContainer = () => {
   const { status, articles, totalPages, params } = useArticleList();

@@ -1,11 +1,11 @@
+import { AxiosError } from "axios";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import AuthRequest from "@lib/API/petBookAPI/authRequest";
 import { ProxyLoginRequest } from "@lib/API/petBookAPI/types/authRequest";
-import localConsole from "@lib/utils/localConsole";
-import CookieService from "../service/CookieService";
 import { cookieKeyName } from "@lib/globalConst";
-import { AxiosError } from "axios";
+import localConsole from "@lib/utils/localConsole";
 import setResStatus from "@lib/utils/setResStatus";
+import CookieService from "../service/CookieService";
 
 const authRequestOrigin = new AuthRequest(
   process.env.NEXT_PUBLIC_SPR_URL,

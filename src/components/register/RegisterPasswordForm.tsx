@@ -1,6 +1,5 @@
 import React, { ChangeEventHandler, useEffect, useRef, useState } from "react";
 import { registerFormState } from "@atoms/pageAtoms/login/userState";
-
 import useSelectorState from "@lib/hooks/common/useSelectorState";
 import { passwordCheck } from "@lib/utils/validation/checkValidationRegister";
 import {

@@ -1,5 +1,5 @@
-import { GetServerSidePropsContext, NextPageContext } from "next";
 import type { QueryClient } from "@tanstack/react-query";
+import { GetServerSidePropsContext, NextPageContext } from "next";
 import { Resource, ResourceParams } from "@lib/resources";
 import localConsole from "@lib/utils/localConsole";
 
@@ -19,7 +19,7 @@ export default class ResourceParser {
   public client;
 
   // TODO : 리소스를 클래스에 제네릭으로 넘겨줬지만, clientFetch의 payload는 any로 되어있음.
-  public clientFetch = async <P extends typeof this.resource["params"]>(
+  public clientFetch = async <P extends (typeof this.resource)["params"]>(
     payload?: P
   ) => {
     this.resource.querykey = this.resource.createKey(

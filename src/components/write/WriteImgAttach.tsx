@@ -1,11 +1,12 @@
-import writeState from "@atoms/pageAtoms/community/writeState";
-import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
-import useSelectorState from "@lib/hooks/common/useSelectorState";
-import replaceAll from "@lib/utils/replaceAll";
 import Image from "next/image";
 import React, { PropsWithChildren, useRef } from "react";
 import { IoIosClose } from "react-icons/io";
 import { useSetRecoilState } from "recoil";
+import Button from "@/stories/common/Button";
+import writeState from "@atoms/pageAtoms/community/writeState";
+import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
+import useSelectorState from "@lib/hooks/common/useSelectorState";
+import replaceAll from "@lib/utils/replaceAll";
 import {
   CountP,
   IllustImg,
@@ -15,7 +16,6 @@ import {
   TitleP,
   WriteImgAttachSection,
 } from "./styled/WriteImgAttach.style";
-import Button from "@/stories/common/Button";
 
 const WriteImgAttach = () => {
   return (

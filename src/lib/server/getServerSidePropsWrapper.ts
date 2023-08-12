@@ -1,9 +1,9 @@
+import { dehydrate } from "@tanstack/react-query";
 import type { GetServerSidePropsContext } from "next";
+import { Resource } from "@lib/resources";
 import createQueryClient from "@lib/utils/createQueryClient";
 import { itrMap } from "@lib/utils/iterableFunctions";
 import getToken from "./parse/getToken";
-import { dehydrate } from "@tanstack/react-query";
-import { Resource } from "@lib/resources";
 import parserSelector from "./parse/ResourceParser/parserSelector";
 
 export function WithResourcesServerSideProps(

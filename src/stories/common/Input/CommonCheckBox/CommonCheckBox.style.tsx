@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import CommonLabel from "../../Label";
 import {
   BackgroundImageInput,
   BackgroundImageProps,
 } from "../../Image/BackgroundImage/BackgroundImage.style";
+import CommonLabel from "../../Label";
 import { TextBodyMedium14 } from "../../Typography/style";
 
 export const CommonCheckBoxLabel = styled(CommonLabel)<{

@@ -1,6 +1,3 @@
-import QuillWrapper from "@/stories/common/Editor/QuillWrapper";
-import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
-import useSelectorState from "@lib/hooks/common/useSelectorState";
 import React, {
   ChangeEventHandler,
   PropsWithChildren,
@@ -8,8 +5,12 @@ import React, {
   useState,
 } from "react";
 import ReactQuill from "react-quill";
+import QuillWrapper from "@/stories/common/Editor/QuillWrapper";
+import useRecoilSelector from "@lib/hooks/common/useRecoilSelector";
 import { useResource } from "@lib/hooks/common/useResource";
-
+import useSelectorState from "@lib/hooks/common/useSelectorState";
+import { CATEGORY_LIST } from "@lib/resources/commonResource";
+import writeState from "../../atoms/pageAtoms/community/writeState";
 import {
   WriteEditorDiv,
   WriteTitleInput,
@@ -17,8 +18,6 @@ import {
   WriteGuideDiv,
   GuideTopSpringDiv,
 } from "./styled/WriteForm.style";
-import writeState from "../../atoms/pageAtoms/community/writeState";
-import { CATEGORY_LIST } from "@lib/resources/commonResource";
 
 const WriteForm = () => {
   return (

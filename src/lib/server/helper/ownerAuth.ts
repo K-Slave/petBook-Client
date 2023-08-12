@@ -1,6 +1,6 @@
+import { GetServerSidePropsContext } from "next";
 import { cookieRequest } from "@lib/API/petBookAPI";
 import { cookieKeyName, cookieOptions } from "@lib/globalConst";
-import { GetServerSidePropsContext } from "next";
 
 export const ownerAuthRedirect = (context: GetServerSidePropsContext) => {
   context.res?.writeHead(301, {

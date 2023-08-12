@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
-
-import { LoginSubmit } from "@components/login/LoginSubmit";
 import { BsCheckCircleFill } from "react-icons/bs";
+import { LoginSubmit } from "@components/login/LoginSubmit";
 import { LoginWrap, NotLogin } from "./styled/styledLoginSubmit";
 
 export const NotLoginWrap = () => {
