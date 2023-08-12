@@ -1,15 +1,11 @@
-name: CI
+name: Test
 
-# 구독할 이벤트
 on:
   workflow_dispatch:
   pull_request:
 
-# jobs 단위로 개별 서버(정확히는 Docker 컨테이너 단위라고 한다.)에서 작업이 수행된다.
-# 각 작업은 병렬로 실행 된다고 하는데, needs: build와 같이 표시해서 기다릴 수도 있다.
 jobs:
   problem-check:
-    # Ubuntu, Windows, MacOS를 지원한다.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

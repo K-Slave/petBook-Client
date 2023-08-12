@@ -1,4 +1,4 @@
-name: petBook Web Client CD
+name: Production Deploy Web Client
 
 on:
   push:

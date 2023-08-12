@@ -1,4 +1,4 @@
-name: Preview Web Client
+name: Preview Deploy Web Client
 env:
   VERCEL_ORG_ID: ${{ secrets.PREVIEW_VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.PREVIEW_VERCEL_PROJECT_WEBCLIENT_ID }}
