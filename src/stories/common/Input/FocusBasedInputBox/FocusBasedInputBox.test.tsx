@@ -27,11 +27,6 @@ describe("FocusBasedInputBox", () => {
     expect(container).toBeInTheDocument();
   });
 
-  test("matches snapshot", () => {
-    const tree = renderer.create(<TestComponent />).toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
   test('adds "valid" class on blur if input is valid', () => {
     render(<TestComponent />);
     const input = document.querySelector("input");

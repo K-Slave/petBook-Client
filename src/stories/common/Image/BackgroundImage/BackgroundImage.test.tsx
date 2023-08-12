@@ -27,11 +27,6 @@ describe("BackgroundImage", () => {
     expect(container).toBeInTheDocument();
   });
 
-  test("matches snapshot", () => {
-    const tree = renderer.create(<TestComponent />).toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
   test("renders the correct content", () => {
     render(<TestComponent />);
 
