@@ -30,6 +30,9 @@ jobs:
         run: pnpm build
 
       - uses: ArtiomTr/jest-coverage-report-action@v2
+        with:
+          test-script: pnpm jest
+          package-manager: pnpm
 
   vercel-check-web-client:
     runs-on: ubuntu-latest
