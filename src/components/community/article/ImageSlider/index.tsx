@@ -1,10 +1,10 @@
 import SwiperSlider, { SlideButton } from "@/stories/common/SwiperSlider";
+import { ChevronLeftRounded } from "@/stories/Icon/ChevronLeft";
+import { ChevronRightRounded } from "@/stories/Icon/ChevronRight";
 import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
 import useModal from "@lib/hooks/common/useModal";
 import ImageSliderModal from "../ImageSliderModal";
 import { ImageSliderDiv, ImageSliderImg, StyledSwiperSlide } from "./styled";
-import { ChevronLeftRounded } from "@/stories/Icon/ChevronLeft";
-import { ChevronRightRounded } from "@/stories/Icon/ChevronRight";
 
 interface Props {
   images: ArticleResponse["images"];

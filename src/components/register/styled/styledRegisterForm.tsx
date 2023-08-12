@@ -51,7 +51,7 @@ const SignButton = styled.button`
   pointer-events: ${(props: activeProps) =>
     props.active === true ? "unset" : "none"};
   color: ${(props: activeProps) =>
-    props.active === true ? "#fff" : "var(--black_05)"} !important; ;
+    props.active === true ? "#fff" : "var(--black_05)"} !important;
 `;
 
 const RegisterFormWrap = styled.div`

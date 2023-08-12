@@ -1,7 +1,7 @@
-import mypageImg from "@/image/mypageImg";
 import Image from "next/image";
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
+import mypageImg from "@/image/mypageImg";
 
 const MypageBannerDiv = styled.div`
   position: relative;

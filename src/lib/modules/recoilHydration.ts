@@ -1,10 +1,10 @@
+import { MutableSnapshot, ResetRecoilState, SetRecoilState } from "recoil";
 import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
 import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
 import regionDataState from "@atoms/pageAtoms/hospitalmap/regionData";
 import { cookieKeyName } from "@lib/globalConst";
 import { UserLocationData } from "@lib/types/CacheData";
 import { convBoundaryToRectBounds } from "@lib/utils/kakaoMaps/getRectBounds";
-import { MutableSnapshot, ResetRecoilState, SetRecoilState } from "recoil";
 
 const recoilHydration = (
   setState: {

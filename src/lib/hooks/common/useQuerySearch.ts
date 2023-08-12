@@ -1,14 +1,14 @@
+import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
+import { useRouter } from "next/router";
 import {
   SearchKeywordItem,
   addSearchKeyword,
   getSearchKeywordList,
 } from "@lib/modules/localStorage";
-import { removeQuery, replaceQuery } from "@lib/modules/queryString";
 import navigator from "@lib/modules/navigator";
-import { useRouter } from "next/router";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
+import { removeQuery, replaceQuery } from "@lib/modules/queryString";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

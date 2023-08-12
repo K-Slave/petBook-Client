@@ -1,19 +1,19 @@
 import DOMPurify from "isomorphic-dompurify";
-import CommonInfo from "@components/community/CommonInfo";
-import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
+import Button from "@/stories/common/Button";
 import KebabMenu from "@/stories/common/KebabMenu";
-import { BookmarkOutline } from "@/stories/Icon/Bookmark";
-import useModal from "@lib/hooks/common/useModal";
-import { articleRequest } from "@lib/API/petBookAPI";
-import TagList from "@components/community/TagList";
-import { ArticleSectionBox, Spacer } from "./styled";
-import ImageSlider from "../ImageSlider";
-import LikeButton from "../../LikeButton";
-import useUserInfo from "@lib/hooks/common/useUserInfo";
+import ListBox from "@/stories/common/ListBox";
 import Modal from "@/stories/common/Modal";
 import Typography from "@/stories/common/Typography";
-import Button from "@/stories/common/Button";
-import ListBox from "@/stories/common/ListBox";
+import { BookmarkOutline } from "@/stories/Icon/Bookmark";
+import CommonInfo from "@components/community/CommonInfo";
+import TagList from "@components/community/TagList";
+import { articleRequest } from "@lib/API/petBookAPI";
+import { ArticleResponse } from "@lib/API/petBookAPI/types/articleRequest";
+import useModal from "@lib/hooks/common/useModal";
+import useUserInfo from "@lib/hooks/common/useUserInfo";
+import LikeButton from "../../LikeButton";
+import ImageSlider from "../ImageSlider";
+import { ArticleSectionBox, Spacer } from "./styled";
 
 const dummyImage =
   "https://images.unsplash.com/photo-1518796745738-41048802f99a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFiYml0fGVufDB8fDB8fA%3D%3D&w=1000&q=80";

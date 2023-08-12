@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import { TextBodyMedium14, TextH4Bold18 } from "../../Typography/style";
 import Button from "../../Button";
+import { TextBodyMedium14, TextH4Bold18 } from "../../Typography/style";
 
 const LoginInputAfterStyle = css`
   position: absolute;

@@ -1,7 +1,7 @@
 import React from "react";
-import StyledCommonInput from "./CommonInput.style";
 import { UseFormRegisterReturn } from "react-hook-form";
 import layoutCalculator from "@lib/utils/layoutCalculator";
+import StyledCommonInput from "./CommonInput.style";
 
 export interface CommonInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {

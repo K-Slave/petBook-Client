@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
-import DefaultLoginForm from "./DefaultLoginForm";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import createQueryClient from "@lib/utils/createQueryClient";
+import DefaultLoginForm from "./DefaultLoginForm";
 
 const meta: Meta<typeof DefaultLoginForm> = {
   title: "common/Form/DefaultLoginForm",

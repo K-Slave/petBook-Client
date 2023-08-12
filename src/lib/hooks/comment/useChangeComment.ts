@@ -1,8 +1,8 @@
+import { useEffect } from "react";
+import { useSetRecoilState } from "recoil";
 import commentState, {
   CommentState,
 } from "@atoms/pageAtoms/community/commentState";
-import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
 
 export default function useChangeComment(initialState?: CommentState) {
   const setComment = useSetRecoilState(commentState);

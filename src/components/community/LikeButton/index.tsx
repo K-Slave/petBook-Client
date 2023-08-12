@@ -1,6 +1,6 @@
-import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
-import useLikeDebounce from "@components/community/LikeButton/useLikeDebounce";
 import { HeartFilled, HeartOutline } from "@/stories/Icon/Heart";
+import useLikeDebounce from "@components/community/LikeButton/useLikeDebounce";
+import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
 import { LikeRequest } from "@lib/API/petBookAPI/types/likeRequest";
 import LikeButtonBox from "./styled";
 

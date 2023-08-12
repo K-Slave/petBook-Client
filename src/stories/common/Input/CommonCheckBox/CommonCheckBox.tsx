@@ -1,10 +1,10 @@
 import React, { MouseEventHandler } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
+import layoutCalculator from "@lib/utils/layoutCalculator";
 import {
   CommonCheckBoxInput,
   CommonCheckBoxLabel,
 } from "./CommonCheckBox.style";
-import layoutCalculator from "@lib/utils/layoutCalculator";
-import { UseFormRegisterReturn } from "react-hook-form";
 
 interface Props {
   register?: UseFormRegisterReturn<"checkbox">;

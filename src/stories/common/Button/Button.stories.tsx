@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
-import Button from ".";
 import { ChevronLeftThin } from "@/stories/Icon/ChevronLeft";
+import Button from ".";
 
 const meta: Meta<typeof Button> = {
   title: "common/Button",

@@ -1,7 +1,7 @@
-import React from "react";
-import BackgroundImage from "./BackgroundImage";
 import { render, screen } from "@testing-library/react";
+import React from "react";
 import renderer from "react-test-renderer";
+import BackgroundImage from "./BackgroundImage";
 
 const originUrl =
   process.env.NODE_ENV === "production"

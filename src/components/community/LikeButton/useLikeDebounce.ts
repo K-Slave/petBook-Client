@@ -1,5 +1,4 @@
-import { LikeButtonProps } from "@components/community/LikeButton";
-import debounce from "@lib/modules/debounce";
+import { useMutation } from "@tanstack/react-query";
 import {
   MouseEventHandler,
   MutableRefObject,
@@ -7,8 +6,9 @@ import {
   useRef,
   useState,
 } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { LikeButtonProps } from "@components/community/LikeButton";
 import useUserInfo from "@lib/hooks/common/useUserInfo";
+import debounce from "@lib/modules/debounce";
 
 export interface updateIsLikedParams {
   commentId: number;

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 import { FindIdForm } from "@components/find/FindIdForm";
 
 const Main = styled.main`

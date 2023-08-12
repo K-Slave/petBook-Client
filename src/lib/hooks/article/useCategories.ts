@@ -1,6 +1,6 @@
 import { CategoryListResponse } from "@lib/API/petBookAPI/types/categoryRequest";
-import { useResource } from "../common/useResource";
 import { CATEGORY_LIST } from "@lib/resources/commonResource";
+import { useResource } from "../common/useResource";
 
 export default function useCategories({ all }: { all: boolean }) {
   let categories: CategoryListResponse["result"] = [];

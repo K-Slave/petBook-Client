@@ -1,10 +1,10 @@
+import { useRef, useState } from "react";
 import { ToastAnimate } from "@components/common/ToastMessage/ToastMessage";
 import {
   mountAnimateSelector,
   unmountAnimateSelector,
 } from "@lib/modules/toastAnimateSelector";
 import localConsole from "@lib/utils/localConsole";
-import { useRef, useState } from "react";
 import useDidMountEffect from "./useDidMountEffect";
 
 const defaultTimeout = 5000;

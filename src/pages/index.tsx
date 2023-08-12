@@ -1,15 +1,15 @@
-import React from "react";
 import type { NextPage } from "next";
-import PageHead from "@components/meta/common/PageHead";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import commonServerSideProps from "@lib/server/commonServerSideProps";
-import IndexGlobalStyle, { IndexPageMain } from "@styles/indexGlobalStyle";
+import React from "react";
 import LandingFirst from "@components/landing/LandingFirst";
 import LandingLoopBanner from "@components/landing/LandingLoopBanner";
-import dynamic from "next/dynamic";
+import LandingNotice from "@components/landing/LandingNotice";
 import LandingSecond from "@components/landing/LandingSecond";
 import LandingThird from "@components/landing/LandingThird";
-import LandingNotice from "@components/landing/LandingNotice";
+import PageHead from "@components/meta/common/PageHead";
+import commonServerSideProps from "@lib/server/commonServerSideProps";
+import IndexGlobalStyle, { IndexPageMain } from "@styles/indexGlobalStyle";
 
 const OwnerAuthorizationPopup = dynamic(
   () => import("@components/landing/OwnerAuthorizationPopup"),

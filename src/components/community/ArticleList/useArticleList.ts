@@ -1,10 +1,10 @@
+import { UseQueryResult } from "@tanstack/react-query";
 import { useRef } from "react";
 import { ArticleListResponse } from "@lib/API/petBookAPI/types/articleRequest";
-import { UseQueryResult } from "@tanstack/react-query";
-import { useResource } from "@lib/hooks/common/useResource";
 import useCategory from "@lib/hooks/article/useActiveCategory";
-import useSearchText from "@lib/hooks/common/useSearchText";
 import { usePage } from "@lib/hooks/common/usePagination";
+import { useResource } from "@lib/hooks/common/useResource";
+import useSearchText from "@lib/hooks/common/useSearchText";
 import { ARTICLE_LIST, ARTICLE_SEARCH } from "@lib/resources/articleResource";
 
 export default function useArticleList(): {

@@ -1,13 +1,13 @@
 import React from "react";
+import HospitalReview from "@components/hospital/HospitalReview/HospitalReview";
 import { HospitalFullInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
+import useModal from "@lib/hooks/common/useModal";
 import {
   ReviewBox,
   ReveiwBoxHeader,
   ReveiwBoxBody,
   ReviewBoxButton,
 } from "./styled";
-import useModal from "@lib/hooks/common/useModal";
-import HospitalReview from "@components/hospital/HospitalReview/HospitalReview";
 
 export const PointReviewList = (hospitals: HospitalFullInfo) => {
   const { openModal, closeModal } = useModal();

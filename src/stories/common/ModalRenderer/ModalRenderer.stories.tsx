@@ -1,9 +1,9 @@
 import { Meta } from "@storybook/react";
-import ModalRenderer from ".";
 import useModal from "@lib/hooks/common/useModal";
-import Modal from "../Modal";
 import Button from "../Button";
+import Modal from "../Modal";
 import Typography from "../Typography";
+import ModalRenderer from ".";
 
 const meta: Meta<typeof ModalRenderer> = {
   title: "common/Modal/ModalRenderer",

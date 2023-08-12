@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
-import LoginModule from ".";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import createQueryClient from "@lib/utils/createQueryClient";
-import { QueryClientProvider } from "@tanstack/react-query";
+import LoginModule from ".";
 
 const meta: Meta<typeof LoginModule> = {
   title: "LoginModule/LoginModule",

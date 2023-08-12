@@ -1,5 +1,5 @@
-import layoutCalculator from "@lib/utils/layoutCalculator";
 import styled, { CSSProperties, css } from "styled-components";
+import layoutCalculator from "@lib/utils/layoutCalculator";
 
 export const BackgroundImageCommon = css`
   position: relative;

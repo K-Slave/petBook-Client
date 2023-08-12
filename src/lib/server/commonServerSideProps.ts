@@ -1,18 +1,18 @@
-import createQueryClient from "@/lib/utils/createQueryClient";
 import { dehydrate } from "@tanstack/react-query";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { Resource } from "@lib/resources";
-import parserSelector from "./parse/ResourceParser/parserSelector";
-import { itrMap } from "@lib/utils/iterableFunctions";
-import getToken from "./parse/getToken";
-import getCookieList from "@lib/utils/getCookieList";
-import { checkDevice, checkUserAgent } from "@lib/utils/checkUserAgent";
-import { PageProps } from "@pages/_app";
+import createQueryClient from "@/lib/utils/createQueryClient";
 import { cookieKeyName, cookieOptions } from "@lib/globalConst";
-import ownerAuth, { ownerAuthRedirect } from "./helper/ownerAuth";
+import { Resource } from "@lib/resources";
+import { checkDevice, checkUserAgent } from "@lib/utils/checkUserAgent";
+import getCookieList from "@lib/utils/getCookieList";
+import { itrMap } from "@lib/utils/iterableFunctions";
+import localConsole from "@lib/utils/localConsole";
+import { PageProps } from "@pages/_app";
 import putHttpCookie from "../utils/putHttpCookie";
 import loggedUserRedirect from "./helper/loggedUserRedirect";
-import localConsole from "@lib/utils/localConsole";
+import ownerAuth, { ownerAuthRedirect } from "./helper/ownerAuth";
+import getToken from "./parse/getToken";
+import parserSelector from "./parse/ResourceParser/parserSelector";
 
 // 추후 특정 페이지에서 필요하지 않은 API 호출을 막는 용도로 사용할수 있음
 const userAPIBlackList = [""];

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 import { FindPassForm } from "@components/find/FindPassForm";
 
 const Main = styled.main`

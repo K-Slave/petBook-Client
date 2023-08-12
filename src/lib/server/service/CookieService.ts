@@ -1,7 +1,7 @@
-import { cookieKeyName, cookieOptions } from "@lib/globalConst";
-import localConsole from "@lib/utils/localConsole";
 import { NextApiRequest, NextApiResponse } from "next";
 import cookies from "next-cookies";
+import { cookieKeyName, cookieOptions } from "@lib/globalConst";
+import localConsole from "@lib/utils/localConsole";
 
 export default class CookieService {
   public nextReq: NextApiRequest;

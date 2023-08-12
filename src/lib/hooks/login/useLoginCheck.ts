@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import useUserInfo from "../common/useUserInfo";
 import navigator from "@lib/modules/navigator";
+import useUserInfo from "../common/useUserInfo";
 
 const useLoginCheck = (pathTo?: string) => {
   const { userData } = useUserInfo();

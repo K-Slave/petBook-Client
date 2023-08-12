@@ -1,6 +1,6 @@
 import React from "react";
-import { HelperTextIconSpan, HelperTextP } from "./HelperText.style";
 import commonImg from "@image/commonImg";
+import { HelperTextIconSpan, HelperTextP } from "./HelperText.style";
 
 interface Props {
   status: "idle" | "loading" | "success" | "error";

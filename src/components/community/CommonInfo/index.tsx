@@ -1,5 +1,5 @@
-import getTimeForToday from "@lib/utils/getTimeForToday";
 import { useEffect, useState } from "react";
+import getTimeForToday from "@lib/utils/getTimeForToday";
 import { Avatar, Wrapper, Div } from "./styled";
 
 interface Props {

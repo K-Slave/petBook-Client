@@ -1,19 +1,19 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
+import Skeleton from "@/stories/common/Skeleton";
 import { BookmarkOutlineThin } from "@/stories/Icon/Bookmark";
 import { ChevronLeftRounded } from "@/stories/Icon/ChevronLeft";
-import { useRouter } from "next/router";
-import PossibleAnimalList from "@components/hospital/PossibleAnimalList";
-import HospitalBasicInfo from "@components/hospital/HospitalBasicInfo";
-import Stats from "@components/hospital/Stats";
-import Skeleton from "@/stories/common/Skeleton";
-import HospitalReview from "@components/hospital/HospitalReview/HospitalReview";
-import HospitalDetailReview from "@components/hospital/HospitalDetailReview";
 import PencilEdit from "@/stories/Icon/PencilEdit";
 import ShareForward from "@/stories/Icon/ShareForward";
+import HospitalBasicInfo from "@components/hospital/HospitalBasicInfo";
+import HospitalDetailReview from "@components/hospital/HospitalDetailReview";
+import HospitalReview from "@components/hospital/HospitalReview/HospitalReview";
+import PossibleAnimalList from "@components/hospital/PossibleAnimalList";
+import Stats from "@components/hospital/Stats";
 import useModal from "@lib/hooks/common/useModal";
-import { Section, LineDiv, ButtonBoxDiv, Divider } from "./styled";
 import { useResource } from "@lib/hooks/common/useResource";
-import Link from "next/link";
 import { HOSPITAL_DETAIL } from "@lib/resources/hospitalResource";
+import { Section, LineDiv, ButtonBoxDiv, Divider } from "./styled";
 
 const HospitalDetail = ({ id }: { id: number }) => {
   const payload = {

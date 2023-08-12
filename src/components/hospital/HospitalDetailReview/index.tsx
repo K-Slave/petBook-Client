@@ -1,10 +1,16 @@
-import { usePage } from "@lib/hooks/common/usePagination";
-import useModal from "@lib/hooks/common/useModal";
-import { useResource } from "@lib/hooks/common/useResource";
-import useUserInfo from "@lib/hooks/common/useUserInfo";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { HospitalReview } from "@lib/API/petBookAPI/types/hospitalRequest";
+import useModal from "@lib/hooks/common/useModal";
+import { usePage } from "@lib/hooks/common/usePagination";
+import { useResource } from "@lib/hooks/common/useResource";
+import useUserInfo from "@lib/hooks/common/useUserInfo";
+import {
+  HOSPITAL_REVIEW_LIST,
+  HOSPITAL_REVIEW_REMOVE,
+} from "@lib/resources/hospitalResource";
+import HospitalReviewComponent from "../HospitalReview/HospitalReview";
 import {
   ReviewBox,
   ReviewBoxContent,
@@ -15,12 +21,6 @@ import {
   ReviewBoxMoreWrap,
   ReviewBtn,
 } from "./styled";
-import {
-  HOSPITAL_REVIEW_LIST,
-  HOSPITAL_REVIEW_REMOVE,
-} from "@lib/resources/hospitalResource";
-import { HospitalReview } from "@lib/API/petBookAPI/types/hospitalRequest";
-import HospitalReviewComponent from "../HospitalReview/HospitalReview";
 
 const HospitalDetailReview = () => {
   const router = useRouter();

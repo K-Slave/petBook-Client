@@ -1,9 +1,9 @@
 import React, { PropsWithChildren, useEffect } from "react";
+import useIntersection from "@lib/hooks/common/useIntersection";
 import {
   LandingSecondDescP,
   LandingSecondSection,
 } from "./LandingSecond.style";
-import useIntersection from "@lib/hooks/common/useIntersection";
 
 const LandingSecond = () => {
   return (

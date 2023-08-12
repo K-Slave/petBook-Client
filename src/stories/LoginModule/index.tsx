@@ -1,15 +1,15 @@
 import React, { PropsWithChildren } from "react";
+import headerImg from "@/image/headerImg";
+import { VerticalDividerSpan } from "../common/Divider/Divider.style";
+import DefaultLoginForm from "../common/Form/DefaultLoginForm/DefaultLoginForm";
+import FormModuleWrap from "../common/Form/FormModuleWrap";
+import FocusBasedInputBox from "../common/Input/FocusBasedInputBox";
 import {
   LoginModuleTitleH1,
   LoginModuleGuideDiv,
   LoginModuleLink,
   LoginModuleLogoSpan,
 } from "./style";
-import FocusBasedInputBox from "../common/Input/FocusBasedInputBox";
-import headerImg from "@/image/headerImg";
-import { VerticalDividerSpan } from "../common/Divider/Divider.style";
-import DefaultLoginForm from "../common/Form/DefaultLoginForm/DefaultLoginForm";
-import FormModuleWrap from "../common/Form/FormModuleWrap";
 
 const LoginModule = () => {
   return (

@@ -1,35 +1,32 @@
-import React, { useState } from "react";
-import type { AppProps } from "next/app";
 import {
   DehydratedState,
   Hydrate,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import type { AppProps } from "next/app";
+import React, { useState } from "react";
 import { RecoilRoot } from "recoil";
 import Loader from "@/stories/common/Loader";
 import ModalRenderer from "@/stories/common/ModalRenderer";
-
-import { sprPetBookClient } from "@lib/API/axios/axiosClient";
-import createQueryClient from "@lib/utils/createQueryClient";
-import DecodedUserInfo from "@lib/types/DecodedUserInfo";
-
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "@styles/Icon.scss";
-
-import recoilHydration from "@lib/modules/recoilHydration";
-import tokenParser from "@lib/server/parse/tokenParser";
-import { DeviceType, UserAgentType } from "@lib/utils/checkUserAgent";
-import { cookieKeyName } from "@lib/globalConst";
-import PageHead from "@components/meta/common/PageHead";
-import { Resource } from "@lib/resources";
 import Header from "@/stories/Header/Header";
 import TopNav from "@/stories/Header/TopNav";
-import NextGlobalStyle from "@styles/Global.style";
-import NextFontStyle from "@styles/Font.style";
 import Footer from "@components/common/Footer/Footer";
+import PageHead from "@components/meta/common/PageHead";
 import GTAGScript from "@components/meta/script/GTAGScript";
+import { sprPetBookClient } from "@lib/API/axios/axiosClient";
+import { cookieKeyName } from "@lib/globalConst";
+import recoilHydration from "@lib/modules/recoilHydration";
+import { Resource } from "@lib/resources";
+import tokenParser from "@lib/server/parse/tokenParser";
+import DecodedUserInfo from "@lib/types/DecodedUserInfo";
+import type { DeviceType, UserAgentType } from "@lib/utils/checkUserAgent";
+import createQueryClient from "@lib/utils/createQueryClient";
+import NextFontStyle from "@styles/Font.style";
+import NextGlobalStyle from "@styles/Global.style";
 
 export interface PageProps {
   dehydratedState: DehydratedState;

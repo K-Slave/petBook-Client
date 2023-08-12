@@ -1,5 +1,5 @@
-import { useRef } from "react";
 import throttle from "lodash.throttle";
+import { useRef } from "react";
 import localConsole from "@lib/utils/localConsole";
 
 export default function useIntersectionObserver({

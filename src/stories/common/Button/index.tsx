@@ -1,6 +1,6 @@
 import React, { type PropsWithChildren } from "react";
-import { StyledButton } from "./style";
 import type { TypographyVariant } from "../Typography";
+import { StyledButton } from "./style";
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {

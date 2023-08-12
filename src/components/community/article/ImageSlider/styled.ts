@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import Image from "next/image";
+import styled from "styled-components";
 import { SwiperSlide } from "swiper/react";
 
 export const ImageSliderDiv = styled.div<{ cnt: number }>`

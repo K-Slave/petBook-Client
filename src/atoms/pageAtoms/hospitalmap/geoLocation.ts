@@ -1,7 +1,7 @@
-import { cookieKeyName } from "@lib/globalConst";
-import hospitalOptions from "@lib/globalConst/hospitalOptions";
 import Cookies from "js-cookie";
 import { atom } from "recoil";
+import { cookieKeyName } from "@lib/globalConst";
+import hospitalOptions from "@lib/globalConst/hospitalOptions";
 
 const locationCookie = Cookies.get(cookieKeyName.location);
 

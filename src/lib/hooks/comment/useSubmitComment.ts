@@ -1,9 +1,9 @@
-import commentState from "@atoms/pageAtoms/community/commentState";
-import { CommentErrorResponse } from "@lib/API/petBookAPI/types/commentRequest";
-import { useRouter } from "next/router";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
+import commentState from "@atoms/pageAtoms/community/commentState";
 import { commentRequest } from "@lib/API/petBookAPI";
+import { CommentErrorResponse } from "@lib/API/petBookAPI/types/commentRequest";
 import useUserInfo from "../common/useUserInfo";
 
 export default function useSubmitComment(onSuccess: () => Promise<unknown>) {

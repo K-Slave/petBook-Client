@@ -1,7 +1,7 @@
-import loadingState from "@atoms/common/loadingState";
+import { UrlObject } from "url";
 import Router from "next/router";
 import { useSetRecoilState } from "recoil";
-import { UrlObject } from "url";
+import loadingState from "@atoms/common/loadingState";
 
 const useLoaderNavigate = () => {
   const setLoading = useSetRecoilState(loadingState);

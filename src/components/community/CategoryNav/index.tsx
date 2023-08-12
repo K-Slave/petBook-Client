@@ -1,11 +1,11 @@
-import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequest";
-import useCategories from "@lib/hooks/article/useCategories";
-import useActiveCategory from "@lib/hooks/article/useActiveCategory";
-import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
-import navigator from "@lib/modules/navigator";
-import { CategoryNavDiv } from "./styled";
-import Button from "@/stories/common/Button";
 import { useRouter } from "next/router";
+import Button from "@/stories/common/Button";
+import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequest";
+import useActiveCategory from "@lib/hooks/article/useActiveCategory";
+import useCategories from "@lib/hooks/article/useCategories";
+import navigator from "@lib/modules/navigator";
+import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
+import { CategoryNavDiv } from "./styled";
 
 const CategoryNav = () => {
   const { categories, status } = useCategories({ all: true });
