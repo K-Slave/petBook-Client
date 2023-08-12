@@ -68,8 +68,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - deploy-production
-      - check-comment
-    if: ${{ always() }} && needs.check-comment.outputs.triggered == 'true'
+    if: needs.deploy-production.result == 'success'
     steps:
       - name: cd-notify
         uses: nobrayner/discord-webhook@v1
