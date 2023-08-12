@@ -30,9 +30,6 @@ jobs:
       - name: Lint Check
         run: pnpm lint
 
-      - name: Run Test
-        run: pnpm jest --ci --json --coverage --testLocationInResults --outputFile=report.json
-
       - uses: ArtiomTr/jest-coverage-report-action@v2
         if: success() || failure()
         with:
