@@ -26,6 +26,19 @@ jobs:
       - name: Lint Check
         run: pnpm lint
 
+      - name: Run Test
+        run: pnpm jest --ci --json --coverage --testLocationInResults --outputFile=report.json
+
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: test-results
+          path: report.json
+          fail-on-error: 'false'
+          reporter: jest-junit
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build Project Artifacts
         run: pnpm build
 
