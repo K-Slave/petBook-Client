@@ -30,6 +30,7 @@ jobs:
         run: pnpm jest --ci --json --coverage --testLocationInResults --outputFile=report.json
 
       - uses: ArtiomTr/jest-coverage-report-action@v2
+        if: success() || failure()
         with:
           test-script: pnpm jest --ci --json --coverage --testLocationInResults --outputFile=report.json
           package-manager: pnpm
