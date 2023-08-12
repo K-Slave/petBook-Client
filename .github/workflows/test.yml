@@ -29,6 +29,8 @@ jobs:
       - name: Build Project Artifacts
         run: pnpm build
 
+      - uses: ArtiomTr/jest-coverage-report-action@v2
+
   vercel-check-web-client:
     runs-on: ubuntu-latest
     steps:
