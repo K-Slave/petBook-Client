@@ -16,7 +16,7 @@ jobs:
           discord-webhook: ${{ secrets.UPDATE_WEBHOOK }}
           username: 'petBot'
           avatar-url: 'https://cdn.discordapp.com/app-icons/1044621624864940163/87fe18353f90a7a4c275be945afc14e5.png?size=512'
-          title: '${{ github.workflow }} : ${{ github.event_name }}'
+          title: '${{ github.event.pull_request }}'
           description: "PR이 (재)오픈되었습니다.\n코드 리뷰 부탁드립니다."
           include-details: 'false'
           color-success: '#008d62'
