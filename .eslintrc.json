@@ -13,8 +13,8 @@
     "next",
     "next/core-web-vitals",
     "plugin:prettier/recommended",
-    "plugin:import/typescript",
-    "plugin:import/recommended"
+    "plugin:import/recommended",
+    "plugin:import/typescript"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -71,8 +71,7 @@
           "internal",
           "parent",
           "sibling",
-          "index",
-          "type"
+          "index"
         ],
         "alphabetize": {
           "order": "asc",
@@ -81,6 +80,7 @@
         "newlines-between": "never"
       }
     ],
+    "import/no-named-as-default": "off",
     "import/export": "off"
   }
 }
