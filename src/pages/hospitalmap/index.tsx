@@ -1,16 +1,16 @@
+import { GetServerSideProps } from "next";
+import { useEffect } from "react";
+import { createGlobalStyle } from "styled-components";
 import HospitalContainer from "@containers/map/HospitalContainer";
 import MapContainer from "@containers/map/MapContainer";
 import { removeScrollPosition } from "@lib/modules/localStorage";
-import { useEffect } from "react";
-import { createGlobalStyle } from "styled-components";
+import { NextPageWithOptions } from "@lib/queries";
 import {
   HOSPITAL_DETAIL,
   HOSPITAL_LIST,
   HOSPITAL_REVIEW_LIST,
 } from "@lib/resources/hospitalResource";
 import commonServerSideProps from "@lib/server/commonServerSideProps";
-import { GetServerSideProps } from "next";
-import { NextPageWithOptions } from "@lib/queries";
 
 const HospitalMapGlobalStyle = createGlobalStyle`
   #__next {

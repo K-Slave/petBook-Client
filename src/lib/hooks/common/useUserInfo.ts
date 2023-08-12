@@ -1,5 +1,5 @@
-import { cookieKeyName } from "@lib/globalConst";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { cookieKeyName } from "@lib/globalConst";
 
 interface UserInfo {
   iss: string;

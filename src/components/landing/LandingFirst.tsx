@@ -1,10 +1,10 @@
 import React, { PropsWithChildren } from "react";
+import ResponsiveImage from "@/stories/common/Image/ResponsiveImage";
 import {
   LandingFirstSection,
   LandingFirstTitleH1,
   LandingImageBoxDiv,
 } from "./LandingFirst.style";
-import ResponsiveImage from "@/stories/common/Image/ResponsiveImage";
 
 const LandingFirst = () => {
   return (

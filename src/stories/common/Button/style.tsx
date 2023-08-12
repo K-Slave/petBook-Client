@@ -1,4 +1,3 @@
-import type { ButtonProps } from ".";
 import styled, { css } from "styled-components";
 import {
   TextBodyDefaultBold,
@@ -7,6 +6,7 @@ import {
   TextH4Bold,
   getFontStyle,
 } from "../Typography/style";
+import type { ButtonProps } from ".";
 
 const PrimaryStyle = css`
   color: var(--bg_white_02);

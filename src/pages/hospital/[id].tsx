@@ -1,9 +1,9 @@
+import { GetServerSideProps } from "next";
+import styled from "styled-components";
 import HospitalDetailContainer from "@containers/hospital/HospitalDetailContainer";
 import { NextPageWithOptions } from "@lib/queries";
 import { HOSPITAL_DETAIL } from "@lib/resources/hospitalResource";
 import commonServerSideProps from "@lib/server/commonServerSideProps";
-import { GetServerSideProps } from "next";
-import styled from "styled-components";
 
 // TODO: add hospital review resource
 

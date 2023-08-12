@@ -1,6 +1,6 @@
+import { useRouter } from "next/router";
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import { MenuItemLink, MenuListDiv, MenuListNav } from "./Menu.style";
-import { useRouter } from "next/router";
 // import localConsole from "@lib/utils/localConsole";
 
 const menuList = [

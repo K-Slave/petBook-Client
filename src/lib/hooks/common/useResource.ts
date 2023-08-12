@@ -1,10 +1,10 @@
+import { QueryKey, useMutation, useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { GetResultReturn } from "@lib/API/petBookAPI/RequestCore";
 import { QueryName, createKey } from "@lib/queries";
 import { Resource, ResourceParams, ResourceResult } from "@lib/resources";
-import { QueryKey, useMutation, useQuery } from "@tanstack/react-query";
-import useServerQueryData from "./useServerQueryData";
-import { GetResultReturn } from "@lib/API/petBookAPI/RequestCore";
 import localConsole from "@lib/utils/localConsole";
-import { AxiosError } from "axios";
+import useServerQueryData from "./useServerQueryData";
 /**
  * @function useResource : GET 요청 결과를 받아오는 useQuery 를 내포한 Hook
  *

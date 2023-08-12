@@ -1,8 +1,8 @@
+import Cookies from "js-cookie";
+import { atom } from "recoil";
 import { cookieKeyName } from "@lib/globalConst";
 import hospitalOptions from "@lib/globalConst/hospitalOptions";
 import { UserLocationData } from "@lib/types/CacheData";
-import Cookies from "js-cookie";
-import { atom } from "recoil";
 
 interface RegionDataType {
   latitude?: number;

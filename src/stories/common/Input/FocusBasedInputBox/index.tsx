@@ -1,11 +1,11 @@
 import React, { PropsWithChildren, useMemo } from "react";
+import inputEventHelperMethod from "@lib/modules/login/inputEventHelperMethod";
+import { CommonInputProps } from "../CommonInput/CommonInput";
 import {
   FocusBasedAlginCenterLabel,
   FocusBasedBgSpan,
   FocusBasedInputBoxElem,
 } from "./style";
-import { CommonInputProps } from "../CommonInput/CommonInput";
-import inputEventHelperMethod from "@lib/modules/login/inputEventHelperMethod";
 
 // 포커스 기반 Input Box
 // Label 태그로 감싸져 있음

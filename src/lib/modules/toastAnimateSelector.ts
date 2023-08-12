@@ -1,6 +1,6 @@
+import { Dispatch, MutableRefObject, SetStateAction } from "react";
 import { ToastAnimate } from "@components/common/ToastMessage/ToastMessage";
 import localConsole from "@lib/utils/localConsole";
-import { Dispatch, MutableRefObject, SetStateAction } from "react";
 
 const fadeTime = 400;
 

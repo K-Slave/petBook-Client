@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
-import KebabMenu from ".";
 import ListBox from "../ListBox";
 import Typography from "../Typography";
+import KebabMenu from ".";
 
 const meta: Meta<typeof KebabMenu> = {
   title: "common/KebabMenu",

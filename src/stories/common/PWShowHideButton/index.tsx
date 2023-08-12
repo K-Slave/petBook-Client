@@ -1,6 +1,6 @@
 import React from "react";
-import { PasswordShowHideButtonStyle } from "./style";
 import inputImg from "@/image/inputImg";
+import { PasswordShowHideButtonStyle } from "./style";
 
 interface Props {
   isTyping: boolean;

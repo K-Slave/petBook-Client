@@ -10,8 +10,8 @@ import {
   HospitalReviewCreateRequest,
   HospitalReviewListPayload,
   HospitalReviewListResponse,
+  HospitalReviewListRequest,
 } from "./types/hospitalRequest";
-import { HospitalReviewListRequest } from "./types/hospitalRequest";
 
 export default class HospitalAPI extends RequestCore {
   public hospital_detail = async (payload: {

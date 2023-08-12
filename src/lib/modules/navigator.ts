@@ -1,5 +1,5 @@
-import Router from "next/router";
 import { UrlObject } from "url";
+import Router from "next/router";
 
 const navigator = ({
   url,

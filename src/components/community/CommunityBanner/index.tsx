@@ -1,9 +1,9 @@
 import React from "react";
 import { SwiperSlide } from "swiper/react";
 import SwiperSlider, { SlideButton } from "@/stories/common/SwiperSlider";
-import { CommunityBannerBox, SlideBox } from "./styled";
 import { ChevronLeftRounded } from "@/stories/Icon/ChevronLeft";
 import { ChevronRightRounded } from "@/stories/Icon/ChevronRight";
+import { CommunityBannerBox, SlideBox } from "./styled";
 
 const CommunityBanner = () => {
   const prevButtonId = "Community_Banner_Prev_Button";

@@ -1,15 +1,15 @@
+import { useRouter } from "next/router";
+import styled from "styled-components";
 import HospitalBasicInfo from "@components/hospital/HospitalBasicInfo";
 import { HospitalInfoUL } from "@components/hospital/HospitalBasicInfo/styled";
-import PossibleAnimalList from "@components/hospital/PossibleAnimalList";
 import { ButtonBox } from "@components/hospital/HospitalDetail";
 import {
   ButtonBoxDiv,
   LineDiv,
 } from "@components/hospital/HospitalDetail/styled";
+import PossibleAnimalList from "@components/hospital/PossibleAnimalList";
 import { useResource } from "@lib/hooks/common/useResource";
 import { HOSPITAL_DETAIL } from "@lib/resources/hospitalResource";
-import { useRouter } from "next/router";
-import styled from "styled-components";
 
 const HospitalDetailContainer = () => {
   const router = useRouter();

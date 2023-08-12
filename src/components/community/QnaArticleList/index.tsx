@@ -1,8 +1,8 @@
-import { useResource } from "@lib/hooks/common/useResource";
 import Link from "next/link";
 import CommonInfo from "@components/community/CommonInfo";
-import { ListBox, Article } from "./styled";
+import { useResource } from "@lib/hooks/common/useResource";
 import { ARTICLE_LIST_PREVIEW } from "@lib/resources/articleResource";
+import { ListBox, Article } from "./styled";
 
 export const QNA_CATEGORY = {
   id: 1,

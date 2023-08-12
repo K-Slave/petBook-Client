@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
-import { registerFormState } from "@atoms/pageAtoms/login/userState";
-import { Terms } from "./styled/styledRegisterForm";
-import Modal from "@/stories/common/Modal";
-import TermsInfo from "./info/Terms";
-import useModal from "@lib/hooks/common/useModal";
-import Typography from "@/stories/common/Typography";
 import Button from "@/stories/common/Button";
+import Modal from "@/stories/common/Modal";
+import Typography from "@/stories/common/Typography";
+import { registerFormState } from "@atoms/pageAtoms/login/userState";
+import useModal from "@lib/hooks/common/useModal";
+import TermsInfo from "./info/Terms";
+import { Terms } from "./styled/styledRegisterForm";
 
 const TermsWrap = () => {
   const { openModal, closeModal } = useModal();

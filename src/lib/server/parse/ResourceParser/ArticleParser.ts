@@ -1,3 +1,4 @@
+import { categoryRequest } from "@lib/API/petBookAPI";
 import {
   ARTICLE_DETAIL,
   ARTICLE_LIST,
@@ -5,9 +6,8 @@ import {
   ARTICLE_POPULAR_LIST,
   ARTICLE_SEARCH,
 } from "@lib/resources/articleResource";
-import ResourceParser from "./ResourceParser";
-import { categoryRequest } from "@lib/API/petBookAPI";
 import { itrMap } from "@lib/utils/iterableFunctions";
+import ResourceParser from "./ResourceParser";
 
 export default class ArticleParser extends ResourceParser {
   public listFetch = async () => {
@@ -25,7 +25,7 @@ export default class ArticleParser extends ResourceParser {
       },
     };
 
-    return this.clientFetch<typeof ARTICLE_LIST["params"]>(payload);
+    return this.clientFetch<(typeof ARTICLE_LIST)["params"]>(payload);
   };
 
   public listPreviewFetch = async () => {
@@ -42,7 +42,7 @@ export default class ArticleParser extends ResourceParser {
       },
     };
 
-    return this.clientFetch<typeof ARTICLE_LIST_PREVIEW_ITEM["params"]>(
+    return this.clientFetch<(typeof ARTICLE_LIST_PREVIEW_ITEM)["params"]>(
       payload
     );
 
@@ -77,7 +77,7 @@ export default class ArticleParser extends ResourceParser {
       pathParam: query.articleId as string,
     };
 
-    return this.clientFetch<typeof ARTICLE_DETAIL["params"]>(payload);
+    return this.clientFetch<(typeof ARTICLE_DETAIL)["params"]>(payload);
   };
 
   public popularListFetch = async () => {
@@ -90,7 +90,7 @@ export default class ArticleParser extends ResourceParser {
       },
     };
 
-    return this.clientFetch<typeof ARTICLE_POPULAR_LIST["params"]>(payload);
+    return this.clientFetch<(typeof ARTICLE_POPULAR_LIST)["params"]>(payload);
   };
 
   public searchFetch = async () => {
@@ -109,6 +109,6 @@ export default class ArticleParser extends ResourceParser {
       },
     };
 
-    return this.clientFetch<typeof ARTICLE_SEARCH["params"]>(payload);
+    return this.clientFetch<(typeof ARTICLE_SEARCH)["params"]>(payload);
   };
 }

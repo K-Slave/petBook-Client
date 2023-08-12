@@ -1,12 +1,12 @@
+import Link from "next/link";
+import { BookmarkOutline } from "@/stories/Icon/Bookmark";
+import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequest";
 import useCategories from "@lib/hooks/article/useCategories";
 import { useResource } from "@lib/hooks/common/useResource";
-import Link from "next/link";
-import { CategoryItem } from "@lib/API/petBookAPI/types/categoryRequest";
-import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
-import { BookmarkOutline } from "@/stories/Icon/Bookmark";
-import { Article, BoxGrid, List } from "./styled";
 import { ARTICLE_LIST_PREVIEW } from "@lib/resources/articleResource";
+import getHrefWithCategory from "@lib/utils/gerHrefWithCategory";
 import localConsole from "@lib/utils/localConsole";
+import { Article, BoxGrid, List } from "./styled";
 
 const ArticlePreviewList = () => {
   const { categories } = useCategories({ all: true });

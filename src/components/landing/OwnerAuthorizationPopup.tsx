@@ -1,8 +1,8 @@
-import { cookieRequest } from "@lib/API/petBookAPI";
-import { cookieKeyName } from "@lib/globalConst";
 import { useRouter } from "next/router";
 import React, { ChangeEventHandler, FormEventHandler, useState } from "react";
 import styled from "styled-components";
+import { cookieRequest } from "@lib/API/petBookAPI";
+import { cookieKeyName } from "@lib/globalConst";
 
 const OwnerAuthorizationPopupDiv = styled.div`
   position: fixed;

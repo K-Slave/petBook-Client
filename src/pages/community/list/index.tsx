@@ -1,9 +1,9 @@
-import WriteButton from "@components/community/WriteButton";
 import styled from "styled-components";
+import WriteButton from "@components/community/WriteButton";
 import ArticleListContainer from "@containers/article/ArticleListContainer";
 import { ARTICLE_LIST, ARTICLE_SEARCH } from "@lib/resources/articleResource";
-import commonServerSideProps from "@lib/server/commonServerSideProps";
 import { CATEGORY_LIST } from "@lib/resources/commonResource";
+import commonServerSideProps from "@lib/server/commonServerSideProps";
 
 const Main = styled.main`
   max-width: 1330px;

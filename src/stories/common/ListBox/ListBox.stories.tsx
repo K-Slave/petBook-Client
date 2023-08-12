@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
-import ListBox from ".";
-import FaceHappy from "@/stories/Icon/FaceHappy";
 import Clock from "@/stories/Icon/Clock";
+import FaceHappy from "@/stories/Icon/FaceHappy";
 import Typography from "../Typography";
+import ListBox from ".";
 
 const meta: Meta<typeof ListBox> = {
   title: "common/ListBox",

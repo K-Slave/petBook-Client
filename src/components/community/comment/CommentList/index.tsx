@@ -1,5 +1,5 @@
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
 import React, {
   Fragment,
   MouseEventHandler,
@@ -7,14 +7,14 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
-import useModal from "@lib/hooks/common/useModal";
-import useDeleteComment from "@lib/hooks/comment/useDeleteComment";
-import { CommentListDiv } from "./styled";
-import { COMMENT_LIST } from "@lib/resources/commentResource";
+import Button from "@/stories/common/Button";
 import Modal from "@/stories/common/Modal";
 import Typography from "@/stories/common/Typography";
-import Button from "@/stories/common/Button";
+import { CommentItem } from "@lib/API/petBookAPI/types/commentRequest";
+import useDeleteComment from "@lib/hooks/comment/useDeleteComment";
+import useModal from "@lib/hooks/common/useModal";
+import { COMMENT_LIST } from "@lib/resources/commentResource";
+import { CommentListDiv } from "./styled";
 
 export interface ItemProps {
   comment: CommentItem;

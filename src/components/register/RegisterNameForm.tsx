@@ -1,10 +1,9 @@
 import { ChangeEventHandler, useEffect, useState } from "react";
-import { useSetResource } from "@lib/hooks/common/useResource";
+import { registerFormState } from "@atoms/pageAtoms/login/userState";
 import { REGISTER_CHECK_NICKNAME } from "@components/register/RegisterForm";
 import { UserCheckNickname } from "@lib/API/petBookAPI/types/userRequest";
-import { registerFormState } from "@atoms/pageAtoms/login/userState";
+import { useSetResource } from "@lib/hooks/common/useResource";
 import useSelectorState from "@lib/hooks/common/useSelectorState";
-
 import {
   IconBox,
   InputBox,

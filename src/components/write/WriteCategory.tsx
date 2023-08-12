@@ -1,11 +1,11 @@
-import useSelectorState from "@lib/hooks/common/useSelectorState";
 import React, { MouseEventHandler, useEffect } from "react";
-import Skeleton from "@/stories/common/Skeleton";
-import { useResource } from "@lib/hooks/common/useResource";
-import writeState from "@atoms/pageAtoms/community/writeState";
-import { ListDiv, WriteCategorySection } from "./styled/WriteCategory.style";
-import { CATEGORY_LIST } from "@lib/resources/commonResource";
 import Button from "@/stories/common/Button";
+import Skeleton from "@/stories/common/Skeleton";
+import writeState from "@atoms/pageAtoms/community/writeState";
+import { useResource } from "@lib/hooks/common/useResource";
+import useSelectorState from "@lib/hooks/common/useSelectorState";
+import { CATEGORY_LIST } from "@lib/resources/commonResource";
+import { ListDiv, WriteCategorySection } from "./styled/WriteCategory.style";
 
 const WriteCategory = () => {
   return (

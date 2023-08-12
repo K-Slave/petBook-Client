@@ -1,18 +1,17 @@
-import { BookmarkOutline } from "@/stories/Icon/Bookmark";
-import SwiperSlider, { SlideButton } from "@/stories/common/SwiperSlider";
-import navigator from "@lib/modules/navigator";
-import type { HospitalFullInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
-import { saveScrollPosition } from "@lib/modules/localStorage";
-
-import { SwiperSlide } from "swiper/react";
 import { MutableRefObject } from "react";
-import PossibleAnimalList from "@components/hospital/PossibleAnimalList";
-import { PointReviewList } from "@components/hospital/HospitalReviewList";
-import HospitalBasicInfo from "@components/hospital/HospitalBasicInfo";
-import Stats from "@components/hospital/Stats";
-import { ImageSliderDiv, ItemHeader } from "./styled";
+import { SwiperSlide } from "swiper/react";
+import SwiperSlider, { SlideButton } from "@/stories/common/SwiperSlider";
+import { BookmarkOutline } from "@/stories/Icon/Bookmark";
 import { ChevronLeftRounded } from "@/stories/Icon/ChevronLeft";
 import { ChevronRightRounded } from "@/stories/Icon/ChevronRight";
+import HospitalBasicInfo from "@components/hospital/HospitalBasicInfo";
+import { PointReviewList } from "@components/hospital/HospitalReviewList";
+import PossibleAnimalList from "@components/hospital/PossibleAnimalList";
+import Stats from "@components/hospital/Stats";
+import type { HospitalFullInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
+import { saveScrollPosition } from "@lib/modules/localStorage";
+import navigator from "@lib/modules/navigator";
+import { ImageSliderDiv, ItemHeader } from "./styled";
 
 const HospitalItem = ({
   hospitals,

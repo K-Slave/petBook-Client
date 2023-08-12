@@ -1,8 +1,8 @@
 import { BookmarkOutline } from "@/stories/Icon/Bookmark";
 import { HeartOutline } from "@/stories/Icon/Heart";
 import { useResource } from "@lib/hooks/common/useResource";
-import { List, Item } from "./styled";
 import { ARTICLE_POPULAR_LIST } from "@lib/resources/articleResource";
+import { List, Item } from "./styled";
 
 const HotArticleList = () => {
   const payload = {
