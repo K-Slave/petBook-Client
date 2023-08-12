@@ -1,9 +1,8 @@
-import MypageBanner from "@components/mypage/MypageBanner";
-import MypageContainer from "@containers/mypage/MyPageContainer";
-
 import { NextPage } from "next";
 import React from "react";
 import styled, { createGlobalStyle } from "styled-components";
+import MypageBanner from "@components/mypage/MypageBanner";
+import MypageContainer from "@containers/mypage/MyPageContainer";
 
 type NextPageWithResource = NextPage & {
   requiredResources?: [];

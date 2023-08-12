@@ -1,4 +1,7 @@
+import Image from "next/image";
 import React, { PropsWithChildren } from "react";
+import mypageImg from "@/image/mypageImg";
+import { AuthSelfHiddenMask } from "@/stories/common/Auth/AuthWrapper";
 import {
   UserFollowButton,
   UserImage,
@@ -8,9 +11,6 @@ import {
   UserNameSpan,
   UserYearSpan,
 } from "./style/UserInfoSection";
-import Image from "next/image";
-import mypageImg from "@/image/mypageImg";
-import { AuthSelfHiddenMask } from "@/stories/common/Auth/AuthWrapper";
 
 const UserInfoSection = () => {
   return (

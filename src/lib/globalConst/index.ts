@@ -1,5 +1,5 @@
-import { getDayToSeconds, getMinToMs } from "@lib/utils/getTimes";
 import { QueryObserverOptions } from "@tanstack/react-query";
+import { getDayToSeconds, getMinToMs } from "@lib/utils/getTimes";
 
 export const cacheLifeTime = getMinToMs(5);
 

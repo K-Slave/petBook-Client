@@ -1,6 +1,6 @@
+import { type PropsWithChildren, useLayoutEffect } from "react";
 import OnClickOutside from "@/stories/common/OnClickOutside";
 import { Container, ModalBox, ButtonBox } from "./style";
-import { type PropsWithChildren, useLayoutEffect } from "react";
 
 interface Props {
   closeModal: () => void;

@@ -1,12 +1,12 @@
 /* global kakao */
 
+import React, { useEffect, useRef } from "react";
+import hospitalOptions from "@lib/globalConst/hospitalOptions";
 import { useResource } from "@lib/hooks/common/useResource";
+import { HOSPITAL_LIST } from "@lib/resources/hospitalResource";
 import { setMarker, setCustomOverlay } from "@lib/utils/kakaoMaps/kakaoMarkers";
 import localConsole from "@lib/utils/localConsole";
-import React, { useEffect, useRef } from "react";
 import { MapInfoWindowDiv } from "./MapHandler.style";
-import hospitalOptions from "@lib/globalConst/hospitalOptions";
-import { HOSPITAL_LIST } from "@lib/resources/hospitalResource";
 
 const MapHandler = ({
   mapRef,

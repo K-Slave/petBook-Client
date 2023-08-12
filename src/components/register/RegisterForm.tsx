@@ -1,15 +1,12 @@
 import Image from "next/image";
-
-import { createRequest } from "@lib/hooks/common/useResource";
-import { registerRequest } from "@lib/API/petBookAPI";
-
-import RegisterPasswordForm from "@components/register/RegisterPasswordForm";
-import RegisterNameForm from "@components/register/RegisterNameForm";
-import RegisterTerms from "@components/register/RegisterTerms";
 import RegisterEmail from "@components/register/RegisterEmail";
-
-import { Main, RegisterFormWrap } from "./styled/styledRegisterForm";
+import RegisterNameForm from "@components/register/RegisterNameForm";
+import RegisterPasswordForm from "@components/register/RegisterPasswordForm";
+import RegisterTerms from "@components/register/RegisterTerms";
+import { registerRequest } from "@lib/API/petBookAPI";
+import { createRequest } from "@lib/hooks/common/useResource";
 import RegisterButton from "./RegisterButton";
+import { Main, RegisterFormWrap } from "./styled/styledRegisterForm";
 
 // reponse 정의
 export const REGISTER_CREATE = createRequest({

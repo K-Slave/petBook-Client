@@ -1,10 +1,10 @@
 /* global kakao */
 
-import mapState from "@atoms/pageAtoms/hospitalmap/mapState";
-import { HospitalInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
 import { useEffect } from "react";
 import { useMap } from "react-kakao-maps-sdk";
 import { useSetRecoilState } from "recoil";
+import mapState from "@atoms/pageAtoms/hospitalmap/mapState";
+import { HospitalInfo } from "@lib/API/petBookAPI/types/hospitalRequest";
 
 interface Props {
   poiDataList: HospitalInfo[];

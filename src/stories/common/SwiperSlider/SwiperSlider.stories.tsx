@@ -1,6 +1,6 @@
-import { Meta, StoryObj } from "@storybook/react";
-import CustomSwiper from ".";
+import { Meta } from "@storybook/react";
 import CommunityBanner_ from "@components/community/CommunityBanner";
+import CustomSwiper from ".";
 
 const meta: Meta<typeof CustomSwiper> = {
   title: "common/SwiperSlider",

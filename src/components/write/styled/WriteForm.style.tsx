@@ -1,5 +1,5 @@
-import localConsole from "@lib/utils/localConsole";
 import styled from "styled-components";
+import localConsole from "@lib/utils/localConsole";
 
 const WriteFormSection = styled.section`
   display: grid;

@@ -1,7 +1,7 @@
 import { render, fireEvent } from "@testing-library/react";
-import FocusBasedInputBox from ".";
 import React, { useState } from "react";
 import renderer from "react-test-renderer";
+import FocusBasedInputBox from ".";
 
 const TestComponent = () => {
   const [value, setValue] = useState("test");

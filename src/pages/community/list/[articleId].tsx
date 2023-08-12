@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import BackButton from "@components/community/BackButton";
 import ArticleContainer from "@containers/article/ArticleContainer";
+import { NextPageWithOptions } from "@lib/queries";
 import { ARTICLE_DETAIL } from "@lib/resources/articleResource";
 import { COMMENT_LIST } from "@lib/resources/commentResource";
 import commonServerSideProps from "@lib/server/commonServerSideProps";
-import { NextPageWithOptions } from "@lib/queries";
 
 const ArticleDetail: NextPageWithOptions = () => {
   return (

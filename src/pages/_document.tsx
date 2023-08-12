@@ -1,5 +1,3 @@
-import Pretendard from "@components/Pretendard";
-import DocumentHead from "@components/server/DocumentHead";
 import Document, {
   DocumentContext,
   DocumentInitialProps,
@@ -9,6 +7,8 @@ import Document, {
 } from "next/document";
 import Script from "next/script";
 import { ServerStyleSheet } from "styled-components";
+import Pretendard from "@components/Pretendard";
+import DocumentHead from "@components/server/DocumentHead";
 
 // styled-component 를 적용시키기 위한 코드
 export default class MyDocument extends Document {

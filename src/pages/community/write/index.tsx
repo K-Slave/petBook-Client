@@ -1,13 +1,13 @@
-import styled from "styled-components";
-import CategoryContainer from "@containers/write/CategoryContainer";
-import WriteForm from "@components/write/WriteForm";
-import WriteImgAttach from "@components/write/WriteImgAttach";
-import WriteHashTags from "@components/write/WriteHashTags";
-import WriteSubmit from "@components/write/WriteSubmit";
 import { GetServerSideProps } from "next";
-import commonServerSideProps from "@lib/server/commonServerSideProps";
-import { CATEGORY_LIST } from "@lib/resources/commonResource";
+import styled from "styled-components";
+import WriteForm from "@components/write/WriteForm";
+import WriteHashTags from "@components/write/WriteHashTags";
+import WriteImgAttach from "@components/write/WriteImgAttach";
+import WriteSubmit from "@components/write/WriteSubmit";
+import CategoryContainer from "@containers/write/CategoryContainer";
 import { NextPageWithOptions } from "@lib/queries";
+import { CATEGORY_LIST } from "@lib/resources/commonResource";
+import commonServerSideProps from "@lib/server/commonServerSideProps";
 
 // 1. 서버 사이드에서 가져올 리소스 정의하기
 // 정의된 순서에서 이미 데이터를 가지고 내려온 상태임.

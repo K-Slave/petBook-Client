@@ -4,11 +4,10 @@ import React, {
   useEffect,
   useState,
 } from "react";
-
-import { REGISTER_CHECK_EMAIL } from "@components/register/RegisterForm";
-import useSelectorState from "@lib/hooks/common/useSelectorState";
 import { registerFormState } from "@atoms/pageAtoms/login/userState";
+import { REGISTER_CHECK_EMAIL } from "@components/register/RegisterForm";
 import { useSetResource } from "@lib/hooks/common/useResource";
+import useSelectorState from "@lib/hooks/common/useSelectorState";
 import {
   IconBox,
   InputBox,

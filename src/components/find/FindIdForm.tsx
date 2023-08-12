@@ -1,10 +1,6 @@
 import Image from "next/image";
-
-// componetns
-import FindInputBox from "./FindInputBox";
-
-// style
-import { ButtonWrap, TitleWrap, Container } from "./style/styledFindSubmit";
+import FindInputBox from "./FindInputBox"; // components
+import { ButtonWrap, TitleWrap, Container } from "./style/styledFindSubmit"; // style
 
 export const FindFormWrap = () => {
   return (

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { useSetResource } from "@lib/hooks/common/useResource";
-
-import { registerFormState } from "@atoms/pageAtoms/login/userState";
-import navigator from "@lib/modules/navigator";
-
-import { ErrorResponse } from "@lib/API/petBookAPI/types/userRequest";
-import { REGISTER_CREATE } from "./RegisterForm";
 import Button from "@/stories/common/Button";
+import { registerFormState } from "@atoms/pageAtoms/login/userState";
+import { ErrorResponse } from "@lib/API/petBookAPI/types/userRequest";
+import { useSetResource } from "@lib/hooks/common/useResource";
+import navigator from "@lib/modules/navigator";
+import { REGISTER_CREATE } from "./RegisterForm";
 
 const RegisterButton = () => {
   const registerForm = useRecoilValue(registerFormState);

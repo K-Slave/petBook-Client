@@ -1,5 +1,5 @@
-import { commentRequest } from "@lib/API/petBookAPI";
 import { useMutation } from "@tanstack/react-query";
+import { commentRequest } from "@lib/API/petBookAPI";
 
 export default function useDeleteComment(onSuccess: () => Promise<void>) {
   const { mutate } = useMutation(commentRequest.comment_delete);

@@ -1,14 +1,14 @@
+import { useMap } from "react-kakao-maps-sdk";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
 import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
 import { cookieRequest } from "@lib/API/petBookAPI";
+import { cookieKeyName } from "@lib/globalConst";
 import getRectBounds, {
   convRectBoundsToBoundary,
   Coordinates,
 } from "@lib/utils/kakaoMaps/getRectBounds";
-import { useMap } from "react-kakao-maps-sdk";
-import { useRecoilValue, useSetRecoilState } from "recoil";
 import useDidMountEffect from "../common/useDidMountEffect";
-import { cookieKeyName } from "@lib/globalConst";
 
 const useGetRect = () => {
   const map = useMap();

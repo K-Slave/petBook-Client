@@ -1,13 +1,13 @@
+import cookies from "next-cookies";
+import { cookieKeyName } from "@lib/globalConst";
+import hospitalOptions from "@lib/globalConst/hospitalOptions";
 import {
   HOSPITAL_DETAIL,
   HOSPITAL_LIST,
   HOSPITAL_REVIEW_LIST,
 } from "@lib/resources/hospitalResource";
-import ResourceParser from "./ResourceParser";
-import cookies from "next-cookies";
 import { UserLocationData } from "@lib/types/CacheData";
-import hospitalOptions from "@lib/globalConst/hospitalOptions";
-import { cookieKeyName } from "@lib/globalConst";
+import ResourceParser from "./ResourceParser";
 
 export default class HospitalParser extends ResourceParser {
   public listFetch = async () => {
@@ -26,7 +26,7 @@ export default class HospitalParser extends ResourceParser {
       },
     };
 
-    return this.clientFetch<typeof HOSPITAL_LIST["params"]>(payload);
+    return this.clientFetch<(typeof HOSPITAL_LIST)["params"]>(payload);
   };
 
   public detailFetch = async () => {
@@ -35,7 +35,7 @@ export default class HospitalParser extends ResourceParser {
       pathParam: query.id ? (query.id as string) : "",
     };
 
-    return this.clientFetch<typeof HOSPITAL_DETAIL["params"]>(payload);
+    return this.clientFetch<(typeof HOSPITAL_DETAIL)["params"]>(payload);
   };
 
   public reviewListFetch = async () => {
@@ -48,6 +48,6 @@ export default class HospitalParser extends ResourceParser {
       },
     };
 
-    return this.clientFetch<typeof HOSPITAL_REVIEW_LIST["params"]>(payload);
+    return this.clientFetch<(typeof HOSPITAL_REVIEW_LIST)["params"]>(payload);
   };
 }

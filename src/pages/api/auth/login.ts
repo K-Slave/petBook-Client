@@ -1,5 +1,5 @@
-import AuthController from "@lib/server/controller/AuthController";
 import { NextApiRequest, NextApiResponse } from "next";
+import AuthController from "@lib/server/controller/AuthController";
 
 const loginAPI = (req: NextApiRequest, res: NextApiResponse) => {
   const controller = new AuthController(req, res);

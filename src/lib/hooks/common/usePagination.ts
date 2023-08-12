@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
-import { removeQuery, replaceQuery } from "@lib/modules/queryString";
-import navigator from "@lib/modules/navigator";
 import { useState, useEffect } from "react";
+import navigator from "@lib/modules/navigator";
+import { removeQuery, replaceQuery } from "@lib/modules/queryString";
 
 export const usePage = (totalPages?: number) => {
   const router = useRouter();

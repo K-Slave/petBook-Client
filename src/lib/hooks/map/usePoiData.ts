@@ -1,10 +1,10 @@
-import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
-import { convRectBoundsToBoundary } from "@lib/utils/kakaoMaps/getRectBounds";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
-import { useResource } from "../common/useResource";
+import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
 import hospitalOptions from "@lib/globalConst/hospitalOptions";
 import { HOSPITAL_LIST } from "@lib/resources/hospitalResource";
+import { convRectBoundsToBoundary } from "@lib/utils/kakaoMaps/getRectBounds";
+import { useResource } from "../common/useResource";
 
 const usePoiData = () => {
   // const cachedRectBounds = useRecoilValue(cachedRectBoundsState);

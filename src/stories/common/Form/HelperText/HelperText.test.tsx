@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
-import HelperText from "./HelperText";
 import React from "react";
+import HelperText from "./HelperText";
 
 describe("HelperText", () => {
   it('does not render anything when status is not "error"', () => {

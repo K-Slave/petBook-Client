@@ -1,11 +1,11 @@
+import { useRouter } from "next/router";
+import styled from "styled-components";
 import ArticleSection from "@components/community/article/ArticleSection";
 import CommentForm from "@components/community/comment/CommentForm";
 import { NormalItem, QnaItem } from "@components/community/comment/CommentItem";
 import CommentList from "@components/community/comment/CommentList";
 import { useResource } from "@lib/hooks/common/useResource";
 import { ARTICLE_DETAIL } from "@lib/resources/articleResource";
-import { useRouter } from "next/router";
-import styled from "styled-components";
 
 const ArticleContainer = () => {
   const router = useRouter();

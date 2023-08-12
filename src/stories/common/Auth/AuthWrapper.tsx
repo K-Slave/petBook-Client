@@ -1,6 +1,6 @@
-import useLoginCheck from "@lib/hooks/login/useLoginCheck";
 import { useRouter } from "next/router";
 import React, { PropsWithChildren } from "react";
+import useLoginCheck from "@lib/hooks/login/useLoginCheck";
 
 // 자신만 접근할수 있는 곳에 감싸줌
 // 어떠한 페이지 나 UI 접근시 사용

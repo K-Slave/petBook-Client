@@ -1,5 +1,5 @@
-import ResponsiveImage from "@/stories/common/Image/ResponsiveImage";
 import React, { PropsWithChildren } from "react";
+import ResponsiveImage from "@/stories/common/Image/ResponsiveImage";
 import { LandingThirdSection } from "./LandingThird.style";
 
 const LandingThird = () => {

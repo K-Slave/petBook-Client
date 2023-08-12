@@ -1,4 +1,8 @@
 import { articleRequest } from "@lib/API/petBookAPI";
+import {
+  ArticleListPayload,
+  ArticleListResponse,
+} from "@lib/API/petBookAPI/types/articleRequest";
 import { articleQueryKey } from "@lib/globalConst/queryKey";
 import {
   createListResource,
@@ -6,10 +10,6 @@ import {
   createResource,
 } from "@lib/hooks/common/useResource";
 import { Resource } from ".";
-import {
-  ArticleListPayload,
-  ArticleListResponse,
-} from "@lib/API/petBookAPI/types/articleRequest";
 
 export const ARTICLE_LIST = createResource({
   name: articleQueryKey.list,

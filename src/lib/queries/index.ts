@@ -1,3 +1,4 @@
+import { QueryKey } from "@tanstack/react-query";
 import type { NextPage } from "next";
 import {
   articleQueryKey,
@@ -6,7 +7,6 @@ import {
   hospitalQueryKey,
 } from "@lib/globalConst/queryKey";
 import { PageProps } from "@pages/_app";
-import { QueryKey } from "@tanstack/react-query";
 
 export type Parameters<T extends (...args: any[]) => any> = T extends (
   ...args: infer R

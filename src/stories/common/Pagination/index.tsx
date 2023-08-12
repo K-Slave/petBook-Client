@@ -1,10 +1,10 @@
+import React from "react";
 import type { MouseEventHandler, PropsWithChildren } from "react";
 import usePagination from "@lib/hooks/common/usePagination";
-import { PaginationDiv } from "./style";
 import { ChevronLeftRounded } from "../../Icon/ChevronLeft";
 import { ChevronRightRounded } from "../../Icon/ChevronRight";
 import Button from "../Button";
-import React from "react";
+import { PaginationDiv } from "./style";
 
 interface PageButtonProps {
   onClick: MouseEventHandler;

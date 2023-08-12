@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
-import Pagination from ".";
 import Button from "../Button";
+import Pagination from ".";
 
 const meta: Meta<typeof Pagination> = {
   title: "common/Pagination",

@@ -1,3 +1,5 @@
+import { QueryClient } from "@tanstack/react-query";
+import { GetServerSidePropsContext, NextPageContext } from "next";
 import {
   articleQueryKey,
   categoryQueryKey,
@@ -5,11 +7,9 @@ import {
   hospitalQueryKey,
 } from "@lib/globalConst/queryKey";
 import { Resource } from "@lib/resources";
-import { QueryClient } from "@tanstack/react-query";
-import { GetServerSidePropsContext, NextPageContext } from "next";
-import HospitalParser from "./HospitalParser";
 import ArticleParser from "./ArticleParser";
 import CommentParser from "./CommentParser";
+import HospitalParser from "./HospitalParser";
 import ResourceParser from "./ResourceParser";
 
 const parserSelector = (

@@ -1,7 +1,7 @@
 /* global kakao */
-import isMapLoadState from "@atoms/pageAtoms/hospitalmap/isMapLoad";
 import { useCallback, useRef } from "react";
 import { useRecoilState } from "recoil";
+import isMapLoadState from "@atoms/pageAtoms/hospitalmap/isMapLoad";
 
 const useMapLoad = () => {
   const [isMapLoad, setIsMapLoad] = useRecoilState(isMapLoadState);

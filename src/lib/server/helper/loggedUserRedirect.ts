@@ -1,6 +1,6 @@
-import { memoizedValue } from "@lib/globalConst";
 import { GetServerSidePropsContext } from "next";
 import cookies from "next-cookies";
+import { memoizedValue } from "@lib/globalConst";
 
 const loggedUserRedirect = (context: GetServerSidePropsContext) => {
   const allCookies = cookies(context);

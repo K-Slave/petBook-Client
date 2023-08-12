@@ -1,8 +1,8 @@
+import { QueryClientProvider } from "@tanstack/react-query";
 import { render, fireEvent, act } from "@testing-library/react";
-import DefaultLoginForm from "./DefaultLoginForm";
 import React, { useState } from "react";
 import createQueryClient from "@lib/utils/createQueryClient";
-import { QueryClientProvider } from "@tanstack/react-query";
+import DefaultLoginForm from "./DefaultLoginForm";
 
 jest.mock("next/router", () => require("next-router-mock"));
 

@@ -1,16 +1,16 @@
-import useChangeComment from "@lib/hooks/comment/useChangeComment";
-import useSubmitComment from "@lib/hooks/comment/useSubmitComment";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useRef } from "react";
+import Button from "@/stories/common/Button";
+import useChangeComment from "@lib/hooks/comment/useChangeComment";
+import useSubmitComment from "@lib/hooks/comment/useSubmitComment";
+import { COMMENT_LIST } from "@lib/resources/commentResource";
 import {
   CommentFormBox,
   CommentFormTextarea,
   RectangleBoxDiv,
   Rectangle,
 } from "./styled";
-import { COMMENT_LIST } from "@lib/resources/commentResource";
-import Button from "@/stories/common/Button";
 
 const CommentForm = () => {
   const queryClient = useQueryClient();

@@ -1,17 +1,17 @@
-import { loginFormState } from "@atoms/pageAtoms/login/userState";
-import LoginInput from "@components/login/LoginInputBox";
-import { authRequest } from "@lib/API/petBookAPI";
-import Link from "next/link";
+import { useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import Image from "next/image";
-
+import Link from "next/link";
 import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-
-import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
+import Button from "@/stories/common/Button";
+import { loginFormState } from "@atoms/pageAtoms/login/userState";
+import LoginInput from "@components/login/LoginInputBox";
+import { authRequest } from "@lib/API/petBookAPI";
+import { cookieKeyName } from "@lib/globalConst";
 import useLoaderNavigate from "@lib/hooks/common/useLoaderNavigate";
-import { AxiosError } from "axios";
-import { useQueryClient } from "@tanstack/react-query";
+import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 import tokenParser from "@lib/server/parse/tokenParser";
 import {
   ButtonBox,
@@ -19,8 +19,6 @@ import {
   AutomaticLabel,
   InfoText,
 } from "./styled/styledLoginSubmit";
-import { cookieKeyName } from "@lib/globalConst";
-import Button from "@/stories/common/Button";
 
 const LOGIN = createRequest({
   key: ["LOGIN"],

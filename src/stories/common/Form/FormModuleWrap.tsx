@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from "react";
-import { FormModuleWrapDiv } from "./FormModuleWrap.style";
 import layoutCalculator from "@lib/utils/layoutCalculator";
+import { FormModuleWrapDiv } from "./FormModuleWrap.style";
 interface Props {
   width: string;
 }

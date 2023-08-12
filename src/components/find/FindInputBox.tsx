@@ -1,7 +1,6 @@
-import { registerFormState } from "@atoms/pageAtoms/login/userState";
 import React, { ChangeEventHandler } from "react";
 import { useSetRecoilState } from "recoil";
-
+import { registerFormState } from "@atoms/pageAtoms/login/userState";
 import { IconBox, InputBox } from "./style/styledFindSubmit";
 
 interface LoginProps {

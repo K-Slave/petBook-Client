@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
-import BackgroundImage from "./BackgroundImage";
 import publicDirectorySelector from "@lib/utils/publicDirectorySelector";
+import BackgroundImage from "./BackgroundImage";
 
 const meta: Meta<typeof BackgroundImage> = {
   title: "common/Image/BackgroundImage",
