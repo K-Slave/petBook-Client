@@ -19,6 +19,10 @@ export const HeaderBox = styled.header<{
 
   border-bottom: 1px solid #e0dfd9;
   background-color: var(--bg_white_02);
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const HeaderDiv = styled.div`

@@ -15,6 +15,10 @@ export const TopNavBox = styled.nav<{ maxWidth?: string }>`
   border-bottom: 1px solid #e0dfd9;
   background-color: var(--bg_white_02);
   box-shadow: 0px 2px 4px #eeece2;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const TopNavDiv = styled.div`
