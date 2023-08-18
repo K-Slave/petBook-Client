@@ -1,15 +1,27 @@
-import commonServerSideProps from "@lib/server/commonServerSideProps";
+import styled from "styled-components";
+import MyActivity from "@components/MyActivity";
 import { Stack } from "@lib/utils/stackflowInit";
 import "@stackflow/plugin-basic-ui/index.css";
 
+const PasswordResetWrapMain = styled.main`
+  padding-top: 110px;
+
+  min-height: 100vh;
+`;
+
 const PasswordReset = () => {
   return (
-    <div>
+    <PasswordResetWrapMain>
       <Stack />
-    </div>
+      <MyActivity />
+    </PasswordResetWrapMain>
   );
 };
 
-export const getStaticProps = commonServerSideProps();
+export const getStaticProps = () => {
+  return {
+    props: {},
+  };
+};
 
 export default PasswordReset;
