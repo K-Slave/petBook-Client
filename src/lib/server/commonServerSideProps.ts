@@ -1,17 +1,12 @@
 import { dehydrate } from "@tanstack/react-query";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import createQueryClient from "@/lib/utils/createQueryClient";
-import { cookieKeyName, cookieOptions } from "@lib/globalConst";
+import { cookieKeyName } from "@lib/globalConst";
 import { Resource } from "@lib/resources";
-import { checkDevice, checkUserAgent } from "@lib/utils/checkUserAgent";
+import { GlobalMiddleWareCache } from "@lib/types/common/MiddleWare";
 import getCookieList from "@lib/utils/getCookieList";
 import { itrMap } from "@lib/utils/iterableFunctions";
-import localConsole from "@lib/utils/localConsole";
 import { PageProps } from "@pages/_app";
-import putHttpCookie from "../utils/putHttpCookie";
-import loggedUserRedirect from "./helper/loggedUserRedirect";
-import ownerAuth, { ownerAuthRedirect } from "./helper/ownerAuth";
-import getToken from "./parse/getToken";
 import parserSelector from "./parse/ResourceParser/parserSelector";
 
 // 추후 특정 페이지에서 필요하지 않은 API 호출을 막는 용도로 사용할수 있음
@@ -27,67 +22,54 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
     context: GetServerSidePropsContext
   ) => {
     const queryClient = createQueryClient();
-
-    // 웹 서버 request - response 처리 및 response 에러 핸들링
     try {
-      const { req } = context;
-      const { headers, url } = req;
+      const middleWareCacheHeader = context.req.headers[
+        "x-middleware-cache"
+      ] as string;
 
-      const userAgent = headers["user-agent"];
-      const device = checkDevice(userAgent);
-      const agentName = checkUserAgent(userAgent);
+      const { decodedTokenValue, device, agentName, checkedOwnerToken } =
+        JSON.parse(middleWareCacheHeader || "{}") as GlobalMiddleWareCache;
+
+      delete context.req.headers["x-middleware-cache"];
+
+      const userToken = context.req.cookies[cookieKeyName.userToken];
+
       const cookieList = getCookieList(context, {
         decode: true,
       });
 
-      const path = url?.split("?")[0];
-      const { ownerToken, token, user } = getToken(context, {
-        decode: true,
-      });
+      // const { device, agentName } = userAgentMiddleware(context);
+      // const { cookieList, path, ownerToken, token, user, locationCookie } =
+      //   cookieParseMiddleware(context);
+      // const { resultOwnerToken } = ownerCheckMiddleware({
+      //   context,
+      //   ownerToken,
+      //   path,
+      // });
 
-      const locationCookie = cookieList.find(
-        (cookie) => cookie.key === cookieKeyName.location
-      );
-
-      let resultOwnerToken = ownerToken;
-
-      if (
-        resultOwnerToken === process.env.NEXT_PUBLIC_OWNER ||
-        process.env.NODE_ENV === "development"
-      ) {
-        ownerAuth(context);
-        resultOwnerToken = process.env.NEXT_PUBLIC_OWNER;
-      }
-
-      // 방문자 인증 처리
-      if (path !== "/" && !resultOwnerToken) {
-        ownerAuthRedirect(context);
-      }
-
-      // 로그인 유저 리다이렉트 처리
-      if (path?.includes("auth") && user) {
-        loggedUserRedirect(context);
-      }
+      // if (path?.includes("auth") && user) {
+      //   loggedUserRedirect(context);
+      // }
 
       // 유저 토큰 쿠키를 현재 접속 시각으로부터 15일 갱신
-      if (token) {
-        putHttpCookie({
-          context,
-          key: cookieKeyName.userToken,
-          value: token,
-          lifeTime: cookieOptions.loginMaxAge.toString(),
-        });
-      }
+      // if (token) {
+      //   putHttpCookie({
+      //     context,
+      //     key: cookieKeyName.userToken,
+      //     value: token,
+      //     lifeTime: cookieOptions.loginMaxAge.toString(),
+      //   });
+      // }
 
       // location 쿠키를 현재 접속 시각으로부터 30일 갱신
-      if (locationCookie) {
-        putHttpCookie({
-          context,
-          key: cookieKeyName.location,
-          value: encodeURIComponent(JSON.stringify(locationCookie.value || "")),
-          lifeTime: cookieOptions.oneMonth.toString(),
-        });
-      }
+      // if (locationCookie) {
+      //   putHttpCookie({
+      //     context,
+      //     key: cookieKeyName.location,
+      //     value: encodeURIComponent(JSON.stringify(locationCookie.value || "")),
+      //     lifeTime: cookieOptions.oneMonth.toString(),
+      //   });
+      // }
 
       // getServerSidePropsFunc 가 존재하면 해당 함수를 실행하고 반환된 props 를 반환
       if (getServerSidePropsFunc) {
@@ -96,9 +78,9 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
           props: {
             ...props,
             dehydratedState: dehydrate(queryClient),
-            token,
-            ownerToken: resultOwnerToken || null,
-            user,
+            userToken: userToken || null,
+            ownerToken: checkedOwnerToken || null,
+            decodedTokenValue,
             cookieList,
             device,
             agentName,
@@ -147,9 +129,9 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
       return {
         props: {
           dehydratedState: dehydrate(queryClient),
-          token,
-          ownerToken: resultOwnerToken || null,
-          user,
+          userToken: userToken || null,
+          ownerToken: checkedOwnerToken || null,
+          decodedTokenValue,
           cookieList,
           device,
           agentName,
@@ -166,13 +148,12 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
     return {
       props: {
         dehydratedState: dehydrate(queryClient),
-        token: null,
         ownerToken: null,
-        user: null,
+        userToken: null,
+        decodedTokenValue: null,
         cookieList: [],
         device: null,
         agentName: null,
-        requiredResources: JSON.parse(JSON.stringify(requiredResources)),
       },
     };
   };

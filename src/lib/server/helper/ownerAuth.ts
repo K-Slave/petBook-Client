@@ -1,14 +1,7 @@
 import { GetServerSidePropsContext } from "next";
+import { NextResponse } from "next/server";
 import { cookieRequest } from "@lib/API/petBookAPI";
 import { cookieKeyName, cookieOptions } from "@lib/globalConst";
-
-export const ownerAuthRedirect = (context: GetServerSidePropsContext) => {
-  context.res?.writeHead(301, {
-    Location: `/?owner_author=true`,
-  });
-
-  return context.res?.end();
-};
 
 const ownerAuth = (context: GetServerSidePropsContext) => {
   const key = cookieKeyName.owner;

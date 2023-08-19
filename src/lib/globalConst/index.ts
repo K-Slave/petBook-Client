@@ -33,6 +33,10 @@ export const cookieKeyName = {
   location: "USER_LOCATION_DATA",
 };
 
+export const headerKeyName = {
+  middlewareCache: "X-Middleware-Cache",
+};
+
 export const commonReg = {
   email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
   password: /^(?=(.*[a-zA-Z]){1,})(?=(.*[\\d]){1,})(?=(.*[\\W]){1,}).{8,}$/,

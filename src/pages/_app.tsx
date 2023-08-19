@@ -4,6 +4,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import React, { useState } from "react";
 import { RecoilRoot } from "recoil";
 import Loader from "@/stories/common/Loader";
@@ -23,16 +24,19 @@ import recoilHydration from "@lib/modules/recoilHydration";
 import { Resource } from "@lib/resources";
 import tokenParser from "@lib/server/parse/tokenParser";
 import DecodedUserInfo from "@lib/types/DecodedUserInfo";
-import type { DeviceType, UserAgentType } from "@lib/utils/checkUserAgent";
 import createQueryClient from "@lib/utils/createQueryClient";
+import type {
+  DeviceType,
+  UserAgentType,
+} from "@lib/utils/userAgent/checkUserAgent";
 import NextFontStyle from "@styles/Font.style";
 import NextGlobalStyle from "@styles/Global.style";
 
 export interface PageProps {
   dehydratedState: DehydratedState;
-  token: string | null;
+  userToken: string | null;
   ownerToken: string | null;
-  user: DecodedUserInfo | null;
+  decodedTokenValue: DecodedUserInfo | null;
   cookieList: {
     key: string;
     value: any;
@@ -65,9 +69,9 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
   //   }
   // }
 
-  if (pageProps && pageProps.token) {
-    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${pageProps.token}`;
-    const { userInfo } = tokenParser(pageProps.token);
+  if (pageProps && pageProps.userToken) {
+    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${pageProps.userToken}`;
+    const { userInfo } = tokenParser(pageProps.userToken);
     queryClient.setQueryData([cookieKeyName.userInfo], userInfo);
   }
 

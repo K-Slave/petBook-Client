@@ -1,21 +1,16 @@
-import { GetServerSidePropsContext } from "next";
-import cookies from "next-cookies";
+import { NextRequest, NextResponse } from "next/server";
 import { memoizedValue } from "@lib/globalConst";
 
-const loggedUserRedirect = (context: GetServerSidePropsContext) => {
-  const allCookies = cookies(context);
-  const prevPath = allCookies[memoizedValue.prevPath];
+const loggedUserRedirect = (request: NextRequest) => {
+  const prevPath = request.cookies.get(memoizedValue.prevPath);
+  const response = NextResponse.redirect(prevPath?.value || "/");
 
-  context.res.setHeader(
-    "Set-Cookie",
-    `${memoizedValue.prevPath}=; Path=/; Max-Age=0;`
-  );
-
-  context.res?.writeHead(301, {
-    Location: prevPath || `/`,
+  response.cookies.set(memoizedValue.prevPath, request.nextUrl.pathname, {
+    path: "/",
+    maxAge: 0,
   });
 
-  return context.res?.end();
+  return response;
 };
 
 export default loggedUserRedirect;
