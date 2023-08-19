@@ -23,38 +23,23 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
       (!checkedOwnerToken ||
         checkedOwnerToken !== process.env.NEXT_PUBLIC_OWNER)
     ) {
-      return service.redirect({
-        location: "/?owner_author=true",
-      });
+      return service._ownerRedirect();
     }
 
     // 로그인 유저가 /auth 로 접속할때 리다이렉트 처리
     if (request.nextUrl.pathname.startsWith("/auth") && decodedTokenValue) {
-      const prevPath = request.cookies.get(memoizedValue.prevPath);
-
-      return service.redirect({
-        location: prevPath?.value || "/",
-        setCookie: {
-          name: memoizedValue.prevPath,
-          value: request.nextUrl.pathname,
-          options: {
-            path: "/",
-            maxAge: 0,
-          },
-        },
-      });
+      return service._authRedirect();
     }
 
-    const middlewareCache: GlobalMiddleWareCache = {
-      device: service.device,
-      agentName: service.agentName,
-      decodedTokenValue: decodedTokenValue,
-      checkedOwnerToken: service.checkedOwnerToken,
-    };
-
-    const response = NextResponse.next({
-      headers: {
-        [headerKeyName.middlewareCache]: JSON.stringify(middlewareCache),
+    const { response } = service.generateResponse<GlobalMiddleWareCache>({
+      setCache: {
+        key: headerKeyName.middlewareCache,
+        value: {
+          device: service.device,
+          agentName: service.agentName,
+          decodedTokenValue: decodedTokenValue,
+          checkedOwnerToken: service.checkedOwnerToken,
+        },
       },
     });
 
@@ -66,55 +51,24 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
       checkedOwnerToken === process.env.NEXT_PUBLIC_OWNER ||
       process.env.NODE_ENV === "development"
     ) {
-      service.setCookie({
-        response,
-        name: cookieKeyName.owner,
-        value: cookieKeyName.owner.includes(cookieKeyName.location)
-          ? encodeURIComponent(process.env.NEXT_PUBLIC_OWNER)
-          : process.env.NEXT_PUBLIC_OWNER,
-        options: {
-          path: "/",
-          sameSite: "strict",
-          secure: true,
-          maxAge: cookieOptions.loginMaxAge,
-          httpOnly: cookieKeyName.owner.includes(cookieKeyName.location)
-            ? false
-            : true,
-        },
-      });
+      service._putOwnerCookie(response);
     }
 
     // 유저 토큰 쿠키 갱신 처리
     // 1. 디코딩된 토큰이 존재하면서
     // 2. 유저 토큰 쿠키가 존재할 경우
     if (decodedTokenValue && service.userToken) {
-      service.setCookie({
-        response,
-        name: cookieKeyName.userToken,
-        value: service.userToken.value,
-        options: {
-          maxAge: cookieOptions.loginMaxAge,
-        },
-      });
+      service._putUserTokenCookie(response);
     }
 
+    // 위치정보 쿠키 갱신 처리
+    // 1. hospitalmap 페이지에서 접속할 하면서
+    // 2. 위치정보 쿠키가 존재할 경우
     if (
       request.nextUrl.pathname.startsWith("/hospitalmap") &&
       service.locationCookie
     ) {
-      service.setCookie({
-        response,
-        name: cookieKeyName.location,
-        value: encodeURIComponent(
-          JSON.stringify(service.locationCookie.value || "")
-        ),
-        options: {
-          maxAge: cookieOptions.oneMonth,
-          secure: true,
-          sameSite: "strict",
-          path: "/",
-        },
-      });
+      service._putLocationCookie(response);
     }
 
     return response;
