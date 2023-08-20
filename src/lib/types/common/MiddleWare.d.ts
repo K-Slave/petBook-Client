@@ -24,6 +24,11 @@ export interface SetCookieProps extends RequestCookie {
   options?: CookieOptions;
 }
 
+export interface SetSession {
+  response: NextResponse;
+  name: string;
+}
+
 export interface GlobalMiddleWareCache {
   device: DeviceType;
   agentName: UserAgentType;

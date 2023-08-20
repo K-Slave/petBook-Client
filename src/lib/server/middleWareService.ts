@@ -6,8 +6,10 @@ import {
   MiddlewareResponseInit,
   RedirectProps,
   SetCookieProps,
+  SetSession,
 } from "@lib/types/common/MiddleWare";
 import { DecodeOptions } from "@lib/types/common/Token";
+import localConsole from "@lib/utils/localConsole";
 import {
   DeviceType,
   UserAgentType,
@@ -96,6 +98,8 @@ class MiddleWareService {
   };
 
   public _putOwnerCookie = (response: NextResponse<unknown>) => {
+    if (this.checkSession({ name: cookieKeyName.owner }) === "SET") return;
+
     this.setCookie({
       response,
       name: cookieKeyName.owner,
@@ -112,10 +116,18 @@ class MiddleWareService {
           : true,
       },
     });
+
+    this.setSession({
+      response,
+      name: cookieKeyName.owner,
+    });
   };
 
   public _putUserTokenCookie = (response: NextResponse<unknown>) => {
     if (this.userToken) {
+      if (this.checkSession({ name: cookieKeyName.userToken }) === "SET")
+        return;
+
       this.setCookie({
         response,
         name: cookieKeyName.userToken,
@@ -124,11 +136,18 @@ class MiddleWareService {
           maxAge: cookieOptions.loginMaxAge,
         },
       });
+
+      this.setSession({
+        response,
+        name: cookieKeyName.userToken,
+      });
     }
   };
 
   public _putLocationCookie = (response: NextResponse<unknown>) => {
     if (this.locationCookie) {
+      if (this.checkSession({ name: cookieKeyName.location }) === "SET") return;
+
       this.setCookie({
         response,
         name: cookieKeyName.location,
@@ -141,6 +160,11 @@ class MiddleWareService {
           sameSite: "strict",
           path: "/",
         },
+      });
+
+      this.setSession({
+        response,
+        name: cookieKeyName.location,
       });
     }
   };
@@ -175,15 +199,32 @@ class MiddleWareService {
     response.cookies.set(name, value, options);
   };
 
+  public setSession = ({ response, name }: SetSession) => {
+    response.cookies.set(`${name}_SESSION`, "SET");
+  };
+
+  public checkSession = ({ name }: { name: string }) => {
+    const session = this.request.cookies.get(`${name}_SESSION`);
+
+    return session ? "SET" : "NOT_SET";
+  };
+
   public redirect = ({ location, setCookie }: RedirectProps) => {
     const response = NextResponse.redirect(location);
 
     if (setCookie) {
+      if (this.checkSession({ name: setCookie.name }) === "SET") return;
+
       this.setCookie({
         response,
         name: setCookie.name,
         value: setCookie.value,
         options: setCookie.options,
+      });
+
+      this.setSession({
+        response,
+        name: setCookie.name,
       });
     }
 

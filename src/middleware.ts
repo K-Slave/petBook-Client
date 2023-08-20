@@ -1,11 +1,6 @@
 import type { NextRequest, NextFetchEvent } from "next/server";
 import { NextResponse } from "next/server";
-import {
-  cookieKeyName,
-  cookieOptions,
-  headerKeyName,
-  memoizedValue,
-} from "@lib/globalConst";
+import { headerKeyName } from "@lib/globalConst";
 import MiddleWareService from "@lib/server/middleWareService";
 import { GlobalMiddleWareCache } from "@lib/types/common/MiddleWare";
 
