@@ -31,6 +31,8 @@ export const cookieKeyName = {
   owner: "OWNER",
   isOwnerCheck: "IS_OWNER_CHECK",
   location: "USER_LOCATION_DATA",
+  userTokenParsing: "USER_TOKEN_PARSING",
+  ownerChecking: "OWNER_CHECKING",
 };
 
 export const headerKeyName = {

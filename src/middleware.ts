@@ -1,6 +1,6 @@
 import type { NextRequest, NextFetchEvent } from "next/server";
 import { NextResponse } from "next/server";
-import { headerKeyName } from "@lib/globalConst";
+import { cookieKeyName, headerKeyName } from "@lib/globalConst";
 import MiddleWareService from "@lib/server/middleWareService";
 import { GlobalMiddleWareCache } from "@lib/types/common/MiddleWare";
 
@@ -10,7 +10,7 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
     const { decodedTokenValue } = service._parseUserToken("EXEC");
     const { checkedOwnerToken } = service._checkOwnerToken();
 
-    // 방문자 쿠키 없을시 리다이렉트 처리
+    // 방문자 쿠키 (owner) 확인, 리다이렉트 처리
     // 현재는 / 가 아닌 페이지에서만 방문자 인증 처리
     // / 가 임시적으로 랜딩페이지 역할을 맡고 있기 때문
     if (
@@ -21,7 +21,7 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
       return service._ownerRedirect();
     }
 
-    // 로그인 유저가 /auth 로 접속할때 리다이렉트 처리
+    // 로그인 한 유저 확인, /auth 로 접속할때 리다이렉트 처리
     if (request.nextUrl.pathname.startsWith("/auth") && decodedTokenValue) {
       return service._authRedirect();
     }
@@ -36,6 +36,16 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
           checkedOwnerToken: service.checkedOwnerToken,
         },
       },
+    });
+
+    service.setSession({
+      response,
+      name: cookieKeyName.userTokenParsing,
+    });
+
+    service.setSession({
+      response,
+      name: cookieKeyName.ownerChecking,
     });
 
     // 방문자 인증 쿠키 갱신 처리

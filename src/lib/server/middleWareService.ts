@@ -1,7 +1,12 @@
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { NextRequest, NextResponse } from "next/server";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
-import { cookieKeyName, cookieOptions, memoizedValue } from "@lib/globalConst";
+import {
+  cookieKeyName,
+  cookieOptions,
+  headerKeyName,
+  memoizedValue,
+} from "@lib/globalConst";
 import {
   MiddlewareResponseInit,
   RedirectProps,
@@ -47,32 +52,36 @@ class MiddleWareService {
   }
 
   public _parseUserToken = (decode: DecodeOptions) => {
-    if (this.userToken) {
-      sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${this.userToken.value}`;
+    if (
+      this.checkSession({ name: cookieKeyName.userTokenParsing }) === "SET" ||
+      !this.userToken
+    )
+      return { decodedTokenValue: null };
 
-      const { decodedTokenValue } = getUserToken(this.userToken.value, {
-        decode,
-      });
+    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${this.userToken.value}`;
 
-      return { decodedTokenValue };
-    }
+    const { decodedTokenValue } = getUserToken(this.userToken.value, {
+      decode,
+    });
 
-    return { decodedTokenValue: null };
+    return { decodedTokenValue };
   };
 
   public _checkOwnerToken = () => {
-    if (this.ownerToken) {
-      const checkedOwnerToken =
-        this.ownerToken.value === process.env.NEXT_PUBLIC_OWNER
-          ? this.ownerToken.value
-          : null;
+    if (
+      this.checkSession({ name: cookieKeyName.ownerChecking }) === "SET" ||
+      !this.ownerToken
+    )
+      return { checkedOwnerToken: null };
 
-      this.checkedOwnerToken = checkedOwnerToken;
+    const checkedOwnerToken =
+      this.ownerToken.value === process.env.NEXT_PUBLIC_OWNER
+        ? this.ownerToken.value
+        : null;
 
-      return { checkedOwnerToken };
-    }
+    this.checkedOwnerToken = checkedOwnerToken;
 
-    return { checkedOwnerToken: null };
+    return { checkedOwnerToken };
   };
 
   public _ownerRedirect = () => {
