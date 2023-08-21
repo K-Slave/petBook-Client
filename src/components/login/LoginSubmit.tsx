@@ -121,8 +121,10 @@ export const LoginSubmitButton = () => {
       navigator({
         url: "/info",
         thenCallback: () => {
-          if (data.response.data?.token) {
-            const { userInfo } = tokenParser(data.response.data.token);
+          if (data.response.data?.result.accessToken) {
+            const { userInfo } = tokenParser(
+              data.response.data.result.accessToken
+            );
 
             client.setQueryData([cookieKeyName.userInfo], userInfo);
           }
