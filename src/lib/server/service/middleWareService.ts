@@ -16,7 +16,7 @@ import {
   checkDevice,
   checkUserAgent,
 } from "@lib/utils/userAgent/checkUserAgent";
-import { getUserToken } from "./parse/getToken";
+import { getUserToken } from "../parse/getToken";
 
 class MiddleWareService {
   public request: NextRequest;
@@ -287,6 +287,15 @@ class MiddleWareService {
 
   public generateResponse = (initArgs?: MiddlewareResponseInit) => {
     const response = NextResponse.next(initArgs);
+
+    if (
+      this.checkMiddleWareCookie({
+        name: cookieKeyName.device,
+        action: "COOKIE",
+      }) === "NOT_SET"
+    ) {
+      return { response };
+    }
 
     this.setMiddleWareCookie({
       response,

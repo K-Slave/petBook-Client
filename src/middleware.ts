@@ -1,6 +1,6 @@
 import type { NextRequest, NextFetchEvent } from "next/server";
 import { NextResponse } from "next/server";
-import MiddleWareService from "@lib/server/middleWareService";
+import MiddleWareService from "@lib/server/service/middleWareService";
 
 export function middleware(request: NextRequest, event: NextFetchEvent) {
   try {
