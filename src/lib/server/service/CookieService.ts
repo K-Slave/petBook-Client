@@ -49,6 +49,7 @@ export default class CookieService {
     return { key, value, isSave };
   };
 
+  // closure 를 이용한 배열 쿠키set
   public setCookieList = ({
     key,
     value,
