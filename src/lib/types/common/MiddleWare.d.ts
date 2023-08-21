@@ -10,8 +10,8 @@ export interface CookieOptions {
 }
 
 export interface ResponseSetCookie extends RequestCookie {
-  callback?: () => void;
   options?: CookieOptions;
+  action: MiddleWareAction;
 }
 
 export interface RedirectProps {
@@ -19,17 +19,15 @@ export interface RedirectProps {
   setCookie?: ResponseSetCookie;
 }
 
-export interface SetCookieProps extends RequestCookie {
-  response: NextResponse;
-  options?: CookieOptions;
-}
+export type MiddleWareAction = "COOKIE" | "SESSION";
 
-export interface SetSession {
+export interface SetMiddleWareCookie {
+  action: MiddleWareAction;
   response: NextResponse;
   name: string;
+  value?: string;
+  options?: CookieOptions;
 }
-
-export type MiddleWareAction = "COOKIE" | "SESSION";
 
 export interface SetLazyAction {
   action: MiddleWareAction;
@@ -38,7 +36,7 @@ export interface SetLazyAction {
   options?: CookieOptions;
 }
 
-export interface CheckCookie {
+export interface CheckMiddleWareCookie {
   name: string;
   action: MiddleWareAction;
 }

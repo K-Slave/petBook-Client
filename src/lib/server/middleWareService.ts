@@ -3,12 +3,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { cookieKeyName, cookieOptions, memoizedValue } from "@lib/globalConst";
 import {
-  CheckCookie,
+  CheckMiddleWareCookie,
   MiddlewareResponseInit,
   RedirectProps,
-  SetCookieProps,
   SetLazyAction,
-  SetSession,
+  SetMiddleWareCookie,
 } from "@lib/types/common/MiddleWare";
 import { DecodeOptions } from "@lib/types/common/Token";
 import {
@@ -65,13 +64,16 @@ class MiddleWareService {
       return { decodedTokenValue: null, userTokenCookieAction };
     }
 
-    const checkCookie = this.checkCookie({
+    const checkCookieResult = this.checkMiddleWareCookie({
       name: cookieKeyName.userInfo,
       action: "COOKIE",
     });
 
-    if (checkCookie !== "NOT_SET" && typeof checkCookie === "object") {
-      return { decodedTokenValue: checkCookie.value };
+    if (
+      checkCookieResult !== "NOT_SET" &&
+      typeof checkCookieResult === "object"
+    ) {
+      return { decodedTokenValue: checkCookieResult.value };
     }
 
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${this.userToken.value}`;
@@ -126,13 +128,16 @@ class MiddleWareService {
       return { checkedOwnerToken: null, ownerTokenSessionAction };
     }
 
-    const checkCookie = this.checkCookie({
+    const checkCookieResult = this.checkMiddleWareCookie({
       name: cookieKeyName.ownerChecking,
       action: "COOKIE",
     });
 
-    if (checkCookie !== "NOT_SET" && typeof checkCookie === "object") {
-      return { checkedOwnerToken: checkCookie.value };
+    if (
+      checkCookieResult !== "NOT_SET" &&
+      typeof checkCookieResult === "object"
+    ) {
+      return { checkedOwnerToken: checkCookieResult.value };
     }
 
     const checkedOwnerToken =
@@ -174,6 +179,7 @@ class MiddleWareService {
     return this.redirect({
       location: prevPath?.value || "/",
       setCookie: {
+        action: "COOKIE",
         name: memoizedValue.prevPath,
         value: this.request.nextUrl.pathname,
         options: {
@@ -186,13 +192,16 @@ class MiddleWareService {
 
   public _putOwnerCookie = (response: NextResponse<unknown>) => {
     if (
-      this.checkCookie({ name: cookieKeyName.owner, action: "SESSION" }) ===
-      "SET"
+      this.checkMiddleWareCookie({
+        name: cookieKeyName.owner,
+        action: "SESSION",
+      }) === "SET"
     )
       return;
 
-    this.setCookie({
+    this.setMiddleWareCookie({
       response,
+      action: "COOKIE",
       name: cookieKeyName.owner,
       value: cookieKeyName.owner.includes(cookieKeyName.location)
         ? encodeURIComponent(process.env.NEXT_PUBLIC_OWNER)
@@ -208,8 +217,9 @@ class MiddleWareService {
       },
     });
 
-    this.setSession({
+    this.setMiddleWareCookie({
       response,
+      action: "SESSION",
       name: cookieKeyName.owner,
     });
   };
@@ -217,15 +227,16 @@ class MiddleWareService {
   public _putUserTokenCookie = (response: NextResponse<unknown>) => {
     if (this.userToken) {
       if (
-        this.checkCookie({
+        this.checkMiddleWareCookie({
           name: cookieKeyName.userToken,
           action: "SESSION",
         }) === "SET"
       )
         return;
 
-      this.setCookie({
+      this.setMiddleWareCookie({
         response,
+        action: "COOKIE",
         name: cookieKeyName.userToken,
         value: this.userToken.value,
         options: {
@@ -233,8 +244,9 @@ class MiddleWareService {
         },
       });
 
-      this.setSession({
+      this.setMiddleWareCookie({
         response,
+        action: "SESSION",
         name: cookieKeyName.userToken,
       });
     }
@@ -243,15 +255,16 @@ class MiddleWareService {
   public _putLocationCookie = (response: NextResponse<unknown>) => {
     if (this.locationCookie) {
       if (
-        this.checkCookie({
+        this.checkMiddleWareCookie({
           name: cookieKeyName.location,
           action: "SESSION",
         }) === "SET"
       )
         return;
 
-      this.setCookie({
+      this.setMiddleWareCookie({
         response,
+        action: "COOKIE",
         name: cookieKeyName.location,
         value: encodeURIComponent(
           JSON.stringify(this.locationCookie.value || "")
@@ -264,8 +277,9 @@ class MiddleWareService {
         },
       });
 
-      this.setSession({
+      this.setMiddleWareCookie({
         response,
+        action: "SESSION",
         name: cookieKeyName.location,
       });
     }
@@ -274,14 +288,16 @@ class MiddleWareService {
   public generateResponse = (initArgs?: MiddlewareResponseInit) => {
     const response = NextResponse.next(initArgs);
 
-    this.setCookie({
+    this.setMiddleWareCookie({
       response,
+      action: "COOKIE",
       name: cookieKeyName.device,
       value: this.device,
     });
 
-    this.setCookie({
+    this.setMiddleWareCookie({
       response,
+      action: "COOKIE",
       name: cookieKeyName.agentName,
       value: this.agentName,
     });
@@ -289,19 +305,28 @@ class MiddleWareService {
     return { response };
   };
 
-  public setCookie = ({ response, name, value, options }: SetCookieProps) => {
-    response.cookies.set(name, value, options);
-  };
+  public setMiddleWareCookie = ({
+    response,
+    action,
+    name,
+    value,
+    options,
+  }: SetMiddleWareCookie) => {
+    if (action === "COOKIE" && value) {
+      response.cookies.set(name, value, options);
+    }
 
-  public setSession = ({ response, name }: SetSession) => {
-    response.cookies.set(`${name}_SESSION`, "SET");
+    if (action === "SESSION") {
+      response.cookies.set(`${name}_SESSION`, "SET");
+    }
   };
 
   public setLazyAction = ({ action, name, value, options }: SetLazyAction) => {
     const exec = (response: NextResponse) => {
       if (action === "COOKIE" && value) {
-        this.setCookie({
+        this.setMiddleWareCookie({
           response,
+          action,
           name,
           value,
           options,
@@ -309,8 +334,9 @@ class MiddleWareService {
       }
 
       if (action === "SESSION") {
-        this.setSession({
+        this.setMiddleWareCookie({
           response,
+          action,
           name,
         });
       }
@@ -319,7 +345,7 @@ class MiddleWareService {
     return exec;
   };
 
-  public checkCookie = ({ name, action }: CheckCookie) => {
+  public checkMiddleWareCookie = ({ name, action }: CheckMiddleWareCookie) => {
     const key = action === "COOKIE" ? name : `${name}_SESSION`;
     const cookie = this.request.cookies.get(key);
 
@@ -334,17 +360,23 @@ class MiddleWareService {
     const response = NextResponse.redirect(new URL(location, this.url));
 
     if (setCookie) {
-      this.setCookie({
-        response,
-        name: setCookie.name,
-        value: setCookie.value,
-        options: setCookie.options,
-      });
+      if (setCookie.action === "COOKIE") {
+        this.setMiddleWareCookie({
+          response,
+          action: "COOKIE",
+          name: setCookie.name,
+          value: setCookie.value,
+          options: setCookie.options,
+        });
+      }
 
-      this.setSession({
-        response,
-        name: setCookie.name,
-      });
+      if (setCookie.action === "SESSION") {
+        this.setMiddleWareCookie({
+          response,
+          action: "SESSION",
+          name: setCookie.name,
+        });
+      }
     }
 
     return response;
