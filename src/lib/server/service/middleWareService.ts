@@ -1,6 +1,5 @@
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { NextRequest, NextResponse } from "next/server";
-import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { cookieKeyName, cookieOptions, memoizedValue } from "@lib/globalConst";
 import {
   CheckMiddleWareCookie,
@@ -10,6 +9,7 @@ import {
   SetMiddleWareCookie,
 } from "@lib/types/common/MiddleWare";
 import { DecodeOptions } from "@lib/types/common/Token";
+import localConsole from "@lib/utils/localConsole";
 import {
   DeviceType,
   UserAgentType,
@@ -198,6 +198,7 @@ class MiddleWareService {
     )
       return;
 
+    localConsole?.log("_putOwnerCookie");
     this.setMiddleWareCookie({
       response,
       action: "COOKIE",

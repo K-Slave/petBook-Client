@@ -1,8 +1,7 @@
 import RequestCore from "./RequestCore";
 import {
-  AuthLoginError,
   AuthLoginRequest,
-  AuthLoginSuccess,
+  AuthLoginResponse,
   AuthLogoutResponse,
 } from "./types/authRequest";
 
@@ -30,7 +29,7 @@ export default class AuthRequest extends RequestCore {
     });
 
     // AuthLoginError
-    const result = await this.getResult<AuthLoginSuccess, AuthLoginRequest>({
+    const result = await this.getResult<AuthLoginResponse, AuthLoginRequest>({
       requestMethod: "POST",
       requestURL,
       requestHeaders,

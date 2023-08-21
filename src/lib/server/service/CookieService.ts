@@ -35,16 +35,55 @@ export default class CookieService {
   };
 
   public setCookie = (key: string, value: string, isSave?: boolean) => {
-    this.nextRes.setHeader(
-      "Set-Cookie",
-      `${key}=${
-        key.includes(cookieKeyName.location) ? encodeURIComponent(value) : value
-      }; Path=/; SameSite=Strict; ${
-        isSave ? `Max-Age=${cookieOptions.loginMaxAge};` : ""
-      } secure; ${key.includes(cookieKeyName.location) ? "" : "httpOnly;"}`
-    );
+    const maxAge = isSave ? `Max-Age=${cookieOptions.loginMaxAge}; ` : "";
+    const httpOnly = key.includes(cookieKeyName.location) ? "" : "httpOnly;";
+    const contentValue = key.includes(cookieKeyName.location)
+      ? encodeURIComponent(value)
+      : value;
+    const cookieContent = `${key}=${contentValue}; Path=/; SameSite=Strict; secure; ${maxAge}${httpOnly}`;
+
+    localConsole?.log(cookieContent, "cookieContent");
+
+    this.nextRes.setHeader("Set-Cookie", cookieContent);
 
     return { key, value, isSave };
+  };
+
+  public setCookieList = ({
+    key,
+    value,
+    isSave,
+  }: {
+    key: string;
+    value: string;
+    isSave?: boolean;
+  }) => {
+    const cookieList: { key: string; value: string; isSave?: boolean }[] = [];
+
+    cookieList.push({
+      key,
+      value,
+      isSave,
+    });
+
+    const setHeader = () => {
+      const convHeader = cookieList.map((cookie) => {
+        const maxAge = isSave ? `Max-Age=${cookieOptions.loginMaxAge}; ` : "";
+        const httpOnly = key.includes(cookieKeyName.location)
+          ? ""
+          : "httpOnly;";
+        const contentValue = key.includes(cookieKeyName.location)
+          ? encodeURIComponent(value)
+          : value;
+        const cookieContent = `${key}=${contentValue}; Path=/; SameSite=Strict; secure; ${maxAge}${httpOnly}`;
+
+        return cookieContent;
+      });
+
+      this.nextRes.setHeader("Set-Cookie", convHeader);
+    };
+
+    return { cookieList, setHeader };
   };
 
   public patchCookie = () => {
