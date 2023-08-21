@@ -290,6 +290,10 @@ class MiddleWareService {
       this.checkMiddleWareCookie({
         name: cookieKeyName.device,
         action: "COOKIE",
+      }) === "NOT_SET" ||
+      this.checkMiddleWareCookie({
+        name: cookieKeyName.agentName,
+        action: "COOKIE",
       }) === "NOT_SET"
     ) {
       return { response };
