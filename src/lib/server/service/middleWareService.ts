@@ -106,6 +106,7 @@ class MiddleWareService {
         secure: true,
         sameSite: "strict",
         httpOnly: true,
+        maxAge: cookieOptions.loginMaxAge,
       },
     });
 
