@@ -29,6 +29,20 @@ export interface SetSession {
   name: string;
 }
 
+export type MiddleWareAction = "COOKIE" | "SESSION";
+
+export interface SetLazyAction {
+  action: MiddleWareAction;
+  name: string;
+  value?: string;
+  options?: CookieOptions;
+}
+
+export interface CheckCookie {
+  name: string;
+  action: MiddleWareAction;
+}
+
 export interface GlobalMiddleWareCache {
   device: DeviceType;
   agentName: UserAgentType;

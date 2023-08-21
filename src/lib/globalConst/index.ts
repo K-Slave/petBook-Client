@@ -28,16 +28,17 @@ export const cookieOptions = {
 export const cookieKeyName = {
   userToken: "PETBOOK_USER",
   userInfo: "USER_INFO",
-  owner: "OWNER",
-  isOwnerCheck: "IS_OWNER_CHECK",
-  location: "USER_LOCATION_DATA",
   userTokenParsing: "USER_TOKEN_PARSING",
+  owner: "OWNER",
   ownerChecking: "OWNER_CHECKING",
+  location: "USER_LOCATION_DATA",
+  device: "USER_DEVICE_DATA",
+  agentName: "USER_AGENT_NAME",
 };
 
-export const headerKeyName = {
-  middlewareCache: "X-Middleware-Cache",
-};
+// export const headerKeyName = {
+//   middlewareCache: "X-Middleware-Cache",
+// };
 
 export const commonReg = {
   email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,

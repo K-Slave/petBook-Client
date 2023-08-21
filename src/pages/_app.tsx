@@ -37,10 +37,9 @@ export interface PageProps {
   userToken: string | null;
   ownerToken: string | null;
   decodedTokenValue: DecodedUserInfo | null;
-  cookieList: {
-    key: string;
-    value: any;
-  }[];
+  cookieList: Partial<{
+    [key: string]: string;
+  }> | null;
   device: DeviceType | null;
   agentName: UserAgentType | null;
   requiredResources?: Resource[];
@@ -63,23 +62,11 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
     );
   }
 
-  // if (pageProps && pageProps.requiredResources) {
-  //   for (const resource of pageProps.requiredResources) {
-  //     queryClient.setQueryData([resource.name + "_RESOURCE"], resource);
-  //   }
-  // }
-
   if (pageProps && pageProps.userToken) {
     sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${pageProps.userToken}`;
     const { userInfo } = tokenParser(pageProps.userToken);
     queryClient.setQueryData([cookieKeyName.userInfo], userInfo);
   }
-
-  // else if (typeof window === 'undefined') {
-  //   // 서버 사이드에서만 token을 가져올 수 있음. (http only cookie라서) 즉, token이 없는데 서버 사이드면 로그아웃 상태
-  //   sprPetBookClient.defaults.headers.common.Authorization = '';
-  //   queryClient.setQueryData([cookieKeyName.userInfo], '');
-  // }
 
   const isOwnerAuthorization =
     pageProps?.ownerToken === process.env.NEXT_PUBLIC_OWNER ||

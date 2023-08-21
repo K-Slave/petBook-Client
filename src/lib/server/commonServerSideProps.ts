@@ -4,8 +4,11 @@ import createQueryClient from "@/lib/utils/createQueryClient";
 import { cookieKeyName } from "@lib/globalConst";
 import { Resource } from "@lib/resources";
 import { GlobalMiddleWareCache } from "@lib/types/common/MiddleWare";
+import DecodedUserInfo from "@lib/types/DecodedUserInfo";
 import getCookieList from "@lib/utils/getCookieList";
 import { itrMap } from "@lib/utils/iterableFunctions";
+import localConsole from "@lib/utils/localConsole";
+import { DeviceType, UserAgentType } from "@lib/utils/userAgent/checkUserAgent";
 import { PageProps } from "@pages/_app";
 import parserSelector from "./parse/ResourceParser/parserSelector";
 
@@ -23,53 +26,18 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
   ) => {
     const queryClient = createQueryClient();
     try {
-      const middleWareCacheHeader = context.req.headers[
-        "x-middleware-cache"
-      ] as string;
-
-      const { decodedTokenValue, device, agentName, checkedOwnerToken } =
-        JSON.parse(middleWareCacheHeader || "{}") as GlobalMiddleWareCache;
-
-      delete context.req.headers["x-middleware-cache"];
-
+      const device = context.req.cookies[cookieKeyName.device] as
+        | DeviceType
+        | undefined;
+      const agentName = context.req.cookies[cookieKeyName.agentName] as
+        | UserAgentType
+        | undefined;
       const userToken = context.req.cookies[cookieKeyName.userToken];
-
-      const cookieList = getCookieList(context, {
-        decode: true,
-      });
-
-      // const { device, agentName } = userAgentMiddleware(context);
-      // const { cookieList, path, ownerToken, token, user, locationCookie } =
-      //   cookieParseMiddleware(context);
-      // const { resultOwnerToken } = ownerCheckMiddleware({
-      //   context,
-      //   ownerToken,
-      //   path,
-      // });
-
-      // if (path?.includes("auth") && user) {
-      //   loggedUserRedirect(context);
-      // }
-
-      // 유저 토큰 쿠키를 현재 접속 시각으로부터 15일 갱신
-      // if (token) {
-      //   putHttpCookie({
-      //     context,
-      //     key: cookieKeyName.userToken,
-      //     value: token,
-      //     lifeTime: cookieOptions.loginMaxAge.toString(),
-      //   });
-      // }
-
-      // location 쿠키를 현재 접속 시각으로부터 30일 갱신
-      // if (locationCookie) {
-      //   putHttpCookie({
-      //     context,
-      //     key: cookieKeyName.location,
-      //     value: encodeURIComponent(JSON.stringify(locationCookie.value || "")),
-      //     lifeTime: cookieOptions.oneMonth.toString(),
-      //   });
-      // }
+      const decodedTokenValue: DecodedUserInfo | null = JSON.parse(
+        context.req.cookies[cookieKeyName.userInfo] || "null"
+      );
+      const checkedOwnerToken =
+        context.req.cookies[cookieKeyName.ownerChecking];
 
       // getServerSidePropsFunc 가 존재하면 해당 함수를 실행하고 반환된 props 를 반환
       if (getServerSidePropsFunc) {
@@ -81,9 +49,9 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
             userToken: userToken || null,
             ownerToken: checkedOwnerToken || null,
             decodedTokenValue,
-            cookieList,
-            device,
-            agentName,
+            cookieList: context.req.cookies,
+            device: device || null,
+            agentName: agentName || null,
             requiredResources: JSON.parse(JSON.stringify(requiredResources)),
           },
         };
@@ -132,9 +100,9 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
           userToken: userToken || null,
           ownerToken: checkedOwnerToken || null,
           decodedTokenValue,
-          cookieList,
-          device,
-          agentName,
+          cookieList: context.req.cookies,
+          device: device || null,
+          agentName: agentName || null,
           requiredResources: JSON.parse(JSON.stringify(usedResource)),
         },
       };
@@ -151,7 +119,7 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
         ownerToken: null,
         userToken: null,
         decodedTokenValue: null,
-        cookieList: [],
+        cookieList: null,
         device: null,
         agentName: null,
       },

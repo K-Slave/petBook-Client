@@ -1,14 +1,14 @@
 import type { NextRequest, NextFetchEvent } from "next/server";
 import { NextResponse } from "next/server";
-import { cookieKeyName, headerKeyName } from "@lib/globalConst";
 import MiddleWareService from "@lib/server/middleWareService";
-import { GlobalMiddleWareCache } from "@lib/types/common/MiddleWare";
 
 export function middleware(request: NextRequest, event: NextFetchEvent) {
   try {
     const service = new MiddleWareService(request);
-    const { decodedTokenValue } = service._parseUserToken("EXEC");
-    const { checkedOwnerToken } = service._checkOwnerToken();
+    const { decodedTokenValue, userTokenCookieAction } =
+      service._parseUserToken("EXEC");
+    const { checkedOwnerToken, ownerTokenSessionAction } =
+      service._checkOwnerToken();
 
     // 방문자 쿠키 (owner) 확인, 리다이렉트 처리
     // 현재는 / 가 아닌 페이지에서만 방문자 인증 처리
@@ -26,27 +26,15 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
       return service._authRedirect();
     }
 
-    const { response } = service.generateResponse<GlobalMiddleWareCache>({
-      setCache: {
-        key: headerKeyName.middlewareCache,
-        value: {
-          device: service.device,
-          agentName: service.agentName,
-          decodedTokenValue: decodedTokenValue,
-          checkedOwnerToken: service.checkedOwnerToken,
-        },
-      },
-    });
+    const { response } = service.generateResponse();
 
-    service.setSession({
-      response,
-      name: cookieKeyName.userTokenParsing,
-    });
+    if (userTokenCookieAction) {
+      userTokenCookieAction(response);
+    }
 
-    service.setSession({
-      response,
-      name: cookieKeyName.ownerChecking,
-    });
+    if (ownerTokenSessionAction) {
+      ownerTokenSessionAction(response);
+    }
 
     // 방문자 인증 쿠키 갱신 처리
     // 1. development 환경에서는 방문자 인증을 통과시킴
