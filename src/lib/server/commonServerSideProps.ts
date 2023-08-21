@@ -1,6 +1,7 @@
 import { dehydrate } from "@tanstack/react-query";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import createQueryClient from "@/lib/utils/createQueryClient";
+import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { cookieKeyName } from "@lib/globalConst";
 import { Resource } from "@lib/resources";
 import DecodedUserInfo from "@lib/types/DecodedUserInfo";
@@ -35,6 +36,10 @@ const commonServerSideProps = <R extends Array<Resource<any, any>>>(
       );
       const checkedOwnerToken =
         context.req.cookies[cookieKeyName.ownerChecking];
+
+      sprPetBookClient.defaults.headers.common.Authorization = userToken
+        ? `Bearer ${userToken}`
+        : "";
 
       // getServerSidePropsFunc 가 존재하면 해당 함수를 실행하고 반환된 props 를 반환
       if (getServerSidePropsFunc) {

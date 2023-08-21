@@ -76,8 +76,6 @@ class MiddleWareService {
       return { decodedTokenValue: checkCookieResult.value };
     }
 
-    sprPetBookClient.defaults.headers.common.Authorization = `Bearer ${this.userToken.value}`;
-
     const { decodedTokenValue } = getUserToken(this.userToken.value, {
       decode,
     });
