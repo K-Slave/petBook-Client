@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import BackButton from "@components/community/BackButton";
+import RecommendWriteList from "@components/community/RecommendWriteList";
 import RecommendWriteSection from "@components/community/RecommendWriteSection";
 import ArticleContainer from "@containers/article/ArticleContainer";
 import { NextPageWithOptions } from "@lib/queries";
 import { ARTICLE_DETAIL } from "@lib/resources/articleResource";
 import { COMMENT_LIST } from "@lib/resources/commentResource";
 import commonServerSideProps from "@lib/server/commonServerSideProps";
-import RecommendWriteList from "@components/community/RecommendWriteList";
 
 const ArticleDetail: NextPageWithOptions = () => {
   return (
