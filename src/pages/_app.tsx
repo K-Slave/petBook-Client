@@ -103,7 +103,7 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
           {router.pathname !== "/" && (
             <PageHead currentPath={router.pathname} />
           )}
-          {(pageProps.device === "web" || router.pathname === "/") && (
+          {(pageProps.device !== "mobile" || router.pathname === "/") && (
             <Header
               pathname={router.pathname}
               isScrollUse={true}
@@ -112,7 +112,7 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
               isOwnerAuthorization={isOwnerAuthorization}
             />
           )}
-          {pageProps.device === "web" && router.pathname !== "/" && (
+          {pageProps.device !== "mobile" && router.pathname !== "/" && (
             <TopNav
               pathname={router.pathname}
               isScrollUse={router.pathname === "/" ? false : true}
