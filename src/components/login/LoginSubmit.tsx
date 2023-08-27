@@ -13,12 +13,7 @@ import { cookieKeyName } from "@lib/globalConst";
 import useLoaderNavigate from "@lib/hooks/common/useLoaderNavigate";
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 import tokenParser from "@lib/server/parse/tokenParser";
-import {
-  ButtonBox,
-  PassGuide,
-  AutomaticLabel,
-  InfoText,
-} from "./styled/styledLoginSubmit";
+import { SocialLoginButton, AutomaticLabel, InfoText } from "./style";
 
 const LOGIN = createRequest({
   key: ["LOGIN"],
@@ -36,67 +31,39 @@ export const SocialLogin = () => {
   }, []);
 
   return (
-    <ButtonBox>
-      <a
+    <SocialLoginButton>
+      {/* <a
         className="naver"
         href={`${BACKEND_BASE_URL}/naver/login${
           router.asPath ? `?redirect_url=${href}` : ""
         }`}
       >
         네이버로 로그인
-      </a>
+      </a> */}
       <a
         className="kakao"
         href={`${BACKEND_BASE_URL}/kakao/login${
           router.asPath ? `?redirect_url=${href}` : ""
         }`}
       >
-        카카오로 로그인
+        <Image
+          src="/icons/kakao.svg"
+          className="kakaoIcon"
+          alt="kakao"
+          width={20}
+          height={20}
+        />{" "}
+        <p>카카오로 로그인</p>
       </a>
-      <a
+      {/* <a
         className="google"
         href={`${BACKEND_BASE_URL}/google/login${
           router.asPath ? `?redirect_url=${href}` : ""
         }`}
       >
         구글로 로그인
-      </a>
-    </ButtonBox>
-  );
-};
-
-export const LoginSubmitForm = () => {
-  return (
-    <>
-      <div className="Login_Title">
-        <Image
-          src="/img/common/logo/logo.svg"
-          alt="Picture of the author"
-          width={160}
-          height={27}
-        />
-        <h2>로그인 후 다양한 콘텐츠를 즐겨보세요!</h2>
-      </div>
-      <form>
-        <LoginInput IconType="Login" axiosValue="email" current="이메일" />
-        <LoginInput
-          IconType="Password"
-          axiosValue="password"
-          current="비밀번호"
-        />
-      </form>
-    </>
-  );
-};
-
-export const LoginPassGuide = () => {
-  return (
-    <PassGuide>
-      <Link href="/find/pass">계정을 잊으셨나요?</Link>
-      {/* <Link href="/find/pass">비밀번호 찾기</Link>
-      <Link href="/find/id">아이디 찾기</Link> */}
-      <Link href="/register">회원가입</Link>
-    </PassGuide>
+      </a> */}
+    </SocialLoginButton>
   );
 };
 
@@ -173,17 +140,13 @@ export const LoginSubmitButton = () => {
 export const LoginSubmit = () => {
   return (
     <>
-      <LoginSubmit.LoginSubmitForm />
-      <LoginSubmit.LoginSubmitButton />
-      {/* <LoginSubmit.SocialLogin /> */}
-      <LoginSubmit.LoginPassGuide />
+      {/* <LoginSubmit.LoginSubmitButton /> */}
+      <LoginSubmit.SocialLogin />
     </>
   );
 };
 
-LoginSubmit.LoginSubmitForm = LoginSubmitForm;
 LoginSubmit.LoginSubmitButton = LoginSubmitButton;
 LoginSubmit.SocialLogin = SocialLogin;
-LoginSubmit.LoginPassGuide = LoginPassGuide;
 
 export default LoginSubmit;

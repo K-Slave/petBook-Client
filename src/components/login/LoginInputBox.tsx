@@ -1,7 +1,7 @@
 import React, { ChangeEventHandler } from "react";
 import { useSetRecoilState } from "recoil";
 import { loginFormState } from "@atoms/pageAtoms/login/userState";
-import { IconBox, InputBox } from "./styled/styledLoginSubmit";
+import { IconBox, InputBox } from "./style";
 
 interface LoginProps {
   current: string;

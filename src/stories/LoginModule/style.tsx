@@ -4,7 +4,7 @@ import { BackgroundImageSpan } from "../common/Image/BackgroundImage/BackgroundI
 import {
   TextBodyMedium14,
   TextBodySmall14,
-  TextH3Bold22,
+  TextH4Bold18,
 } from "../common/Typography/style";
 
 export const LoginModuleWrapDiv = styled.div`
@@ -26,15 +26,15 @@ export const LoginModuleTitleH1 = styled.h1`
   flex-direction: column;
   align-items: center;
 
-  margin-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
 
-  ${TextH3Bold22};
+  ${TextH4Bold18};
   color: var(--black_01);
 `;
 
 export const LoginModuleLogoSpan = styled(BackgroundImageSpan)`
   box-sizing: content-box;
-  width: 100%;
+
   padding: 1.0219rem 0;
 `;
 
@@ -52,7 +52,8 @@ export const LoginModuleLink = styled(Link)<{ emText?: boolean }>`
 
   ${({ emText }) => (emText ? TextBodyMedium14 : TextBodySmall14)};
 
-  color: ${({ emText }) => (emText ? "var(--primary)" : "var(--black_03)")};
+  font-weight: ${({ emText }) => (emText ? "bold" : "normal")};
+  color: ${({ emText }) => (emText ? "#000000" : "var(--black_03)")};
 `;
 
 // TODO: 공용 구분선 컴포넌트 만들어서 붙이기

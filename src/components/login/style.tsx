@@ -7,38 +7,51 @@ const Submitbutton = styled.button`
   font-size: 18px;
   color: white;
   line-height: 52px;
-  border-radius: 8px;
-  background-color: #ff6847;
+  border-radius: 0.5rem;
+  background-color: var(--primary);
 `;
-const ButtonBox = styled.div`
-  margin-top: 42px;
+const SocialLoginButton = styled.button`
   a {
     display: block;
-    width: 100%;
-    padding: 20px 0;
-    margin-bottom: 12px;
-    border-radius: 12px;
+    margin: 0 0.3125rem;
+    padding: 0.875rem 0;
+
+    border-radius: 0.5rem;
+
     text-align: center;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 1rem;
     color: white;
+
     box-sizing: border-box;
+
     &:last-child {
-      margin-bottom: 0;
+      margin-bottom: 0.75rem;
     }
     &.email {
       padding: 28px 0;
       margin-bottom: 60px;
       background-color: var(--primary);
     }
+    &.defaultEmail {
+      background-color: var(--primary);
+    }
     &.naver {
       background-color: #41d97e;
     }
     &.kakao {
-      background-color: #ffc700;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background-color: #ffb039;
     }
     &.google {
       background-color: #7270ff;
+    }
+
+    .kakaoIcon {
+      margin: 0.125rem 0.25rem 0;
     }
   }
 `;
@@ -128,7 +141,7 @@ const InputBox = styled.div`
 `;
 const AutomaticLabel = styled.label`
   float: right;
-  margin: 4px 0 35px;
+  margin: 14px 0 35px;
 `;
 interface Props {
   errorState: boolean;
@@ -155,7 +168,7 @@ const InfoText = styled.p<Props>`
 `;
 
 export {
-  ButtonBox,
+  SocialLoginButton,
   Container,
   PassGuide,
   LoginWrap,

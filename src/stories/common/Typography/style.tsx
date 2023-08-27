@@ -144,6 +144,14 @@ export const TextBodyMedium14 = css`
   letter-spacing: -0.02em;
 `;
 
+export const TextBodyMedium12 = css`
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 0.895rem;
+  letter-spacing: -0.02em;
+  color: var(--black_06);
+`;
+
 export const TextBodySmall14 = css`
   font-weight: 400;
   font-size: 0.875rem;

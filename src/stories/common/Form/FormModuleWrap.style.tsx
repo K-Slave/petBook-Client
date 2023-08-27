@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const FormModuleWrapDiv = styled.div<{ width: string }>`
   display: grid;
   grid-auto-flow: row;
-  row-gap: 1.25rem;
+  row-gap: 0.5rem;
   align-content: center;
 
   width: ${({ width }) => width};
