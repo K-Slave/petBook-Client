@@ -10,11 +10,17 @@ interface Props extends NavControllerProps {
   isDevelopment: boolean;
 }
 
-const TopNav = ({ maxWidth, isScrollUse, navView, isDevelopment }: Props) => {
+const TopNav = ({
+  maxWidth,
+  isScrollUse,
+  navView,
+  pathname,
+  isDevelopment,
+}: Props) => {
   const [isNeedNav] = useNavController({ isScrollUse, navView });
 
   return (
-    <TopNav.Wrap maxWidth={maxWidth}>
+    <TopNav.Wrap maxWidth={maxWidth} pathname={pathname}>
       {isNeedNav ? (
         <div style={{ height: "3.625rem" }} />
       ) : (
@@ -27,9 +33,14 @@ const TopNav = ({ maxWidth, isScrollUse, navView, isDevelopment }: Props) => {
 const Wrap = ({
   children,
   maxWidth,
-}: PropsWithChildren<{ maxWidth?: string }>) => {
+  pathname,
+}: PropsWithChildren<{ maxWidth?: string; pathname?: string }>) => {
   return (
-    <TopNavBox className="Top__Nav__Wrap" maxWidth={maxWidth}>
+    <TopNavBox
+      className="Top__Nav__Wrap"
+      maxWidth={maxWidth}
+      pathname={pathname}
+    >
       <TopNavDiv>{children}</TopNavDiv>
     </TopNavBox>
   );

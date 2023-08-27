@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const TopNavBox = styled.nav<{ maxWidth?: string }>`
+export const TopNavBox = styled.nav<{ maxWidth?: string; pathname?: string }>`
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -17,7 +17,7 @@ export const TopNavBox = styled.nav<{ maxWidth?: string }>`
   box-shadow: 0px 2px 4px #eeece2;
 
   @media screen and (max-width: 768px) {
-    display: none;
+    display: ${(props) => (props.pathname === "/" ? "flex" : "none")};
   }
 `;
 
