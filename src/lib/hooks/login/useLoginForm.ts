@@ -197,9 +197,11 @@ const useLoginForm = (props?: UseFormProps) => {
 
       if (
         loginResponse.response.status === 200 &&
-        loginResponse.response.data.token
+        loginResponse.response.data.result.accessToken
       ) {
-        const { userInfo } = tokenParser(loginResponse.response.data.token);
+        const { userInfo } = tokenParser(
+          loginResponse.response.data.result.accessToken
+        );
         setUserInfo(userInfo);
 
         const prevPath = Cookies.get(memoizedValue.prevPath);

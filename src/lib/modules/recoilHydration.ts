@@ -1,3 +1,4 @@
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { MutableSnapshot, ResetRecoilState, SetRecoilState } from "recoil";
 import geoLocationState from "@atoms/pageAtoms/hospitalmap/geoLocation";
 import rectBoundsState from "@atoms/pageAtoms/hospitalmap/rectBounds";
@@ -12,19 +13,16 @@ const recoilHydration = (
     reset: ResetRecoilState;
   },
   pathName: string,
-  cookieList: {
-    key: string;
-    value: any;
-  }[]
+  cookieList: Partial<{
+    [key: string]: string;
+  }> | null
 ) => {
   switch (pathName) {
     case "/hospitalmap": {
-      const locationCookie = cookieList.find(
-        (cookie) => cookie.key === cookieKeyName.location
-      );
+      const locationCookie = cookieList && cookieList[cookieKeyName.location];
 
-      if (locationCookie && locationCookie.value) {
-        const cachedData = locationCookie.value as UserLocationData;
+      if (locationCookie) {
+        const cachedData = JSON.parse(locationCookie) as UserLocationData;
 
         setState.reset(geoLocationState);
         setState.set(geoLocationState, {

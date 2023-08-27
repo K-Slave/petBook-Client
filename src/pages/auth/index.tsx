@@ -26,8 +26,6 @@ const Auth = () => {
   const prevPath = Cookies.get(memoizedValue.prevPath);
   const { query } = useRouter();
 
-  localConsole?.log(query, "query");
-
   Cookies.remove(memoizedValue.prevPath);
 
   return (
@@ -39,7 +37,5 @@ const Auth = () => {
     </AuthRedirectWrapper>
   );
 };
-
-export const getServerSideProps = commonServerSideProps();
 
 export default Auth;

@@ -28,9 +28,12 @@ export const cookieOptions = {
 export const cookieKeyName = {
   userToken: "PETBOOK_USER",
   userInfo: "USER_INFO",
+  userTokenParsing: "USER_TOKEN_PARSING",
   owner: "OWNER",
-  isOwnerCheck: "IS_OWNER_CHECK",
+  ownerChecking: "OWNER_CHECKING",
   location: "USER_LOCATION_DATA",
+  device: "USER_DEVICE_DATA",
+  agentName: "USER_AGENT_NAME",
 };
 
 export const commonReg = {

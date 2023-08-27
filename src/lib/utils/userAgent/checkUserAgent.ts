@@ -1,4 +1,4 @@
-export const checkUserAgent = (headerUserAgent?: string) => {
+export const checkUserAgent = (headerUserAgent?: string): UserAgentType => {
   const userAgent =
     typeof window !== "undefined"
       ? window.navigator.userAgent.toLowerCase()
@@ -37,7 +37,7 @@ export type UserAgentType =
   | "android"
   | "ios";
 
-export const checkDevice = (headerUserAgent?: string) => {
+export const checkDevice = (headerUserAgent?: string): DeviceType => {
   const userAgent =
     typeof window !== "undefined"
       ? window.navigator.userAgent.toLowerCase()

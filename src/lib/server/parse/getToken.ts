@@ -3,7 +3,28 @@ import { GetServerSidePropsContext, NextPageContext } from "next";
 import cookies from "next-cookies";
 import { sprPetBookClient } from "@lib/API/axios/axiosClient";
 import { cookieKeyName } from "@lib/globalConst";
+import { DecodeOptions } from "@lib/types/common/Token";
 import DecodedUserInfo from "@lib/types/DecodedUserInfo";
+
+export const getUserToken = (
+  userToken: string,
+  options: {
+    decode: DecodeOptions;
+  }
+) => {
+  if (options.decode === "EXEC") {
+    const decodedTokenValue = jwtDecode<DecodedUserInfo>(userToken);
+    return {
+      userToken,
+      decodedTokenValue,
+    };
+  }
+
+  return {
+    userToken,
+    decodedTokenValue: null,
+  };
+};
 
 export default function getToken(
   ctx: NextPageContext | GetServerSidePropsContext,

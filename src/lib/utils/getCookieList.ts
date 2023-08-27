@@ -1,13 +1,7 @@
 import { GetServerSidePropsContext, NextPageContext } from "next";
 import cookies from "next-cookies";
-import localConsole from "./localConsole";
 
-const getCookieList = (
-  ctx: NextPageContext | GetServerSidePropsContext,
-  options: {
-    decode: boolean;
-  }
-) => {
+const getCookieList = (ctx: NextPageContext | GetServerSidePropsContext) => {
   const allCookies = cookies(ctx);
   const keyList = Object.keys(allCookies);
   const valueList = Object.values(allCookies);

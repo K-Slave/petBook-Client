@@ -13,9 +13,8 @@ export interface AuthLoginResponse extends CommonRequestResult {
 }
 
 export interface AuthLoginSuccess {
-  token?: string;
+  accessToken?: string;
 }
-
 export interface AuthLoginError {
   timestamp: string;
   status: number;
