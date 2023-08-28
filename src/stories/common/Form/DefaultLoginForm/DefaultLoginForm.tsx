@@ -41,7 +41,7 @@ const DefaultLoginForm = () => {
         autoComplete="email"
         defaultValue={loginStore.email}
         isTyping={isEmailTyping}
-        width="25rem"
+        width="20.9375rem"
         height="3rem"
         bgUrl={emailBgUrl}
         bgWidth="1.5rem"
@@ -56,7 +56,7 @@ const DefaultLoginForm = () => {
         autoComplete="current-password"
         defaultValue={loginStore.password}
         isTyping={isPWTyping}
-        width="25rem"
+        width="20.9375rem"
         height="3rem"
         bgUrl={pwBgUrl}
         bgWidth="1.5rem"

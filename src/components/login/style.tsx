@@ -13,7 +13,7 @@ const Submitbutton = styled.button`
 const SocialLoginButton = styled.button`
   a {
     display: block;
-    margin: 0 0.3125rem;
+    margin: 0 2.3438rem;
     padding: 0.875rem 0;
 
     border-radius: 0.5rem;
