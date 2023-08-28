@@ -4,7 +4,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
-import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import { RecoilRoot } from "recoil";
 import Loader from "@/stories/common/Loader";
@@ -13,8 +13,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "@styles/Icon.scss";
-import Header from "@/stories/Header/Header";
-import TopNav from "@/stories/Header/TopNav";
 import Footer from "@components/common/Footer/Footer";
 import PageHead from "@components/meta/common/PageHead";
 import GTAGScript from "@components/meta/script/GTAGScript";
@@ -31,6 +29,9 @@ import type {
 } from "@lib/utils/userAgent/checkUserAgent";
 import NextFontStyle from "@styles/Font.style";
 import NextGlobalStyle from "@styles/Global.style";
+
+const Header = dynamic(() => import("@/stories/Header/Header"), {});
+const TopNav = dynamic(() => import("@/stories/Header/TopNav"), {});
 
 export interface PageProps {
   dehydratedState: DehydratedState;
@@ -102,14 +103,18 @@ const NextApp = ({ Component, pageProps, router }: DehydratedAppProps) => {
           {router.pathname !== "/" && (
             <PageHead currentPath={router.pathname} />
           )}
-          <Header
-            isScrollUse={true}
-            isDevelopment={router.pathname === "/" ? false : true}
-            isNeedOwnerAuthor={router.pathname === "/" ? true : false}
-            isOwnerAuthorization={isOwnerAuthorization}
-          />
-          {router.pathname !== "/" && (
+          {(pageProps.device !== "mobile" || router.pathname === "/") && (
+            <Header
+              pathname={router.pathname}
+              isScrollUse={true}
+              isDevelopment={router.pathname === "/" ? false : true}
+              isNeedOwnerAuthor={router.pathname === "/" ? true : false}
+              isOwnerAuthorization={isOwnerAuthorization}
+            />
+          )}
+          {pageProps.device !== "mobile" && router.pathname !== "/" && (
             <TopNav
+              pathname={router.pathname}
               isScrollUse={router.pathname === "/" ? false : true}
               navView={router.pathname === "/" ? true : false}
               isDevelopment={router.pathname === "/" ? false : true}

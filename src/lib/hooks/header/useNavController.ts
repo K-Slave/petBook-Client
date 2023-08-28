@@ -8,6 +8,7 @@ import {
 } from "react";
 
 export interface NavControllerProps {
+  pathname?: string;
   isScrollUse: boolean;
   navView?: boolean;
 }
