@@ -41,7 +41,7 @@ const Title = () => {
 const Guide = () => {
   return (
     <LoginModuleGuideDiv>
-      <LoginModuleLink href="#" target="_blank">
+      <LoginModuleLink href="/auth/reset">
         로그인에 문제가 있나요?
       </LoginModuleLink>
       <VerticalDividerSpan width="0.0625rem" height="0.75rem" />
