@@ -1,19 +1,14 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import Image from "next/image";
-import Link from "next/link";
 import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import Button from "@/stories/common/Button";
-import { loginFormState } from "@atoms/pageAtoms/login/userState";
-import LoginInput from "@components/login/LoginInputBox";
 import { authRequest } from "@lib/API/petBookAPI";
 import { cookieKeyName } from "@lib/globalConst";
 import useLoaderNavigate from "@lib/hooks/common/useLoaderNavigate";
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 import tokenParser from "@lib/server/parse/tokenParser";
-import { SocialLoginButton, AutomaticLabel, InfoText } from "./style";
+import { SocialLoginButton, InfoText } from "./style";
 
 const LOGIN = createRequest({
   key: ["LOGIN"],
@@ -72,17 +67,9 @@ export const LoginSubmitButton = () => {
   const [errorText, setErrorText] = useState("");
   const { navigator } = useLoaderNavigate();
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    console.log(newValue);
-  };
-
-  const loginForm = useRecoilValue(loginFormState);
-  const { data, isSuccess, error, isError, mutate } = useSetResource(LOGIN);
+  const { data, isSuccess, error, isError } = useSetResource(LOGIN);
   const client = useQueryClient();
-  const onSubmit = () => {
-    mutate(loginForm);
-  };
+
   useEffect(() => {
     if (isSuccess) {
       navigator({
@@ -123,16 +110,7 @@ export const LoginSubmitButton = () => {
 
   return (
     <>
-      <div>
-        <InfoText errorState={errorState}>{errorText}</InfoText>
-        <AutomaticLabel htmlFor="login">
-          <input type="checkbox" id="login" onChange={onChange} />
-          <p>로그인 상태유지</p>
-        </AutomaticLabel>
-      </div>
-      <Button variant="primary" onClick={onSubmit}>
-        로그인
-      </Button>
+      <InfoText errorState={errorState}>{errorText}</InfoText>
     </>
   );
 };
@@ -140,7 +118,7 @@ export const LoginSubmitButton = () => {
 export const LoginSubmit = () => {
   return (
     <>
-      {/* <LoginSubmit.LoginSubmitButton /> */}
+      <LoginSubmit.LoginSubmitButton />
       <LoginSubmit.SocialLogin />
     </>
   );
