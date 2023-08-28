@@ -38,6 +38,26 @@ const SocialLoginButton = styled.button`
   }
 `;
 
+const LoginWrap = styled.div`
+  position: relative;
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 194px;
+`;
+
+const NotLogin = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 55px;
+  font-size: 20px;
+  color: #b6b6b6;
+  svg {
+    margin-bottom: 25px;
+    font-size: 55px;
+  }
+`;
+
 interface Props {
   errorState: boolean;
 }
@@ -62,4 +82,4 @@ const InfoText = styled.p<Props>`
   }
 `;
 
-export { SocialLoginButton, InfoText };
+export { SocialLoginButton, InfoText, LoginWrap, NotLogin };
