@@ -58,6 +58,19 @@ const NotLogin = styled.div`
   }
 `;
 
+const IconBox = styled.div`
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+`;
+const InputBox = styled.div`
+  position: relative;
+  margin-bottom: 8px;
+`;
+
 interface Props {
   errorState: boolean;
 }
@@ -82,4 +95,4 @@ const InfoText = styled.p<Props>`
   }
 `;
 
-export { SocialLoginButton, InfoText, LoginWrap, NotLogin };
+export { SocialLoginButton, InfoText, LoginWrap, NotLogin, IconBox, InputBox };
