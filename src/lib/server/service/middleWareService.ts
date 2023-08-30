@@ -10,6 +10,7 @@ import {
 } from "@lib/types/common/MiddleWare";
 import { DecodeOptions } from "@lib/types/common/Token";
 import localConsole from "@lib/utils/localConsole";
+import replaceAll from "@lib/utils/replaceAll";
 import {
   DeviceType,
   UserAgentType,
@@ -34,9 +35,14 @@ class MiddleWareService {
   constructor(request: NextRequest) {
     this.request = request;
     this.url = request.url;
-
     this.userToken = this.request.cookies.get(cookieKeyName.userToken) || null;
     this.ownerToken = this.request.cookies.get(cookieKeyName.owner) || null;
+    if (this.ownerToken) {
+      this.ownerToken = {
+        name: this.ownerToken.name,
+        value: replaceAll(this.ownerToken.value, `"`, ""),
+      };
+    }
     this.checkedOwnerToken = null;
     this.locationCookie =
       this.request.cookies.get(cookieKeyName.location) || null;
@@ -144,9 +150,9 @@ class MiddleWareService {
         ? this.ownerToken.value
         : null;
 
-    this.checkedOwnerToken = checkedOwnerToken;
-
     if (!checkedOwnerToken) return { checkedOwnerToken: null };
+
+    this.checkedOwnerToken = replaceAll(checkedOwnerToken, `"`, "");
 
     const ownerTokenSessionAction = this.setLazyAction({
       action: "COOKIE",
@@ -198,14 +204,11 @@ class MiddleWareService {
     )
       return;
 
-    localConsole?.log("_putOwnerCookie");
     this.setMiddleWareCookie({
       response,
       action: "COOKIE",
       name: cookieKeyName.owner,
-      value: cookieKeyName.owner.includes(cookieKeyName.location)
-        ? encodeURIComponent(process.env.NEXT_PUBLIC_OWNER)
-        : process.env.NEXT_PUBLIC_OWNER,
+      value: process.env.NEXT_PUBLIC_OWNER,
       options: {
         path: "/",
         sameSite: "strict",
