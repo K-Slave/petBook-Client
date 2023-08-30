@@ -80,6 +80,6 @@ export const config = {
      * favicon.ico (파비콘 파일)
      * 로 시작하지 않는 모든 요청 경로와 일치합니다.
      */
-    "/((?!api|_next|favicon.ico|icons|*.png|*.jpg|*.jpeg|*.svg|*.webp|*.js|*.css|*.json).*)",
+    "/((?!api|_next|_next/static|_next/image|favicon.ico|icons|*.png|*.jpg|*.jpeg|*.svg|*.webp|*.js|*.css|*.json).*)",
   ],
 };
