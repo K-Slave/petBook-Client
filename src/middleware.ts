@@ -82,7 +82,6 @@ export const config = {
   matcher: [
     // "/!(((?!api|public|_next|_next/static|_next/image|favicon.ico|icons).*))",
     "/",
-    "/api/:path*",
     "/auth/:path*",
     "/community/:path*",
     "/find/:path*",
