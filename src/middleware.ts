@@ -4,6 +4,7 @@ import MiddleWareService from "@lib/server/service/middleWareService";
 
 export function middleware(request: NextRequest, event: NextFetchEvent) {
   try {
+    console.log("middleware", request.nextUrl.pathname);
     const service = new MiddleWareService(request);
     const { decodedTokenValue, userTokenCookieAction } =
       service._parseUserToken("EXEC");
@@ -70,16 +71,27 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
     return NextResponse.next();
   }
 }
-
+/*
+ * api (API 라우트)
+ * _next/static (정적 파일)
+ * _next/image (이미지 최적화 파일)
+ * favicon.ico (파비콘 파일)
+ * 로 시작하지 않는 모든 요청 경로와 일치합니다.
+ */
 export const config = {
   matcher: [
-    /*
-     * api (API 라우트)
-     * _next/static (정적 파일)
-     * _next/image (이미지 최적화 파일)
-     * favicon.ico (파비콘 파일)
-     * 로 시작하지 않는 모든 요청 경로와 일치합니다.
-     */
-    "/((?!api|_next|_next/static|_next/image|favicon.ico|icons|*.png|*.jpg|*.jpeg|*.svg|*.webp|*.js|*.css|*.json).*)",
+    // "/!(((?!api|public|_next|_next/static|_next/image|favicon.ico|icons).*))",
+    "/",
+    "/api/:path*",
+    "/auth/:path*",
+    "/community/:path*",
+    "/find/:path*",
+    "/hospital/:path*",
+    "/info/:path*",
+    "/mypage/:path*",
+    "/password/:path*",
+    "/register/:path*",
+    "/search/:path*",
+    "/hospitalmap/:path*",
   ],
 };
