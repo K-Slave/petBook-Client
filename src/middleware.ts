@@ -14,7 +14,7 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
     // 현재는 / 가 아닌 페이지에서만 방문자 인증 처리
     // / 가 임시적으로 랜딩페이지 역할을 맡고 있기 때문
     if (
-      request.nextUrl.pathname !== "/" &&
+      request.url !== "/" &&
       (!checkedOwnerToken ||
         checkedOwnerToken !== process.env.NEXT_PUBLIC_OWNER)
     ) {
