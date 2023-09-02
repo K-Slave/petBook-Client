@@ -40,16 +40,15 @@ const Header = ({
   position,
   isScrollUse,
   navView,
+  pathname,
   isDevelopment,
   isNeedOwnerAuthor,
   isOwnerAuthorization,
 }: Props) => {
   const { userData } = useUserInfo();
 
-  localConsole?.log(userData, "userData");
-
   return (
-    <Header.Wrap maxWidth={maxWidth} position={position}>
+    <Header.Wrap maxWidth={maxWidth} position={position} pathname={pathname}>
       <Header.Logo defaultLogo={isDevelopment} />
       {(isOwnerAuthorization || isDevelopment === true) && (
         <Header.MenuNav
@@ -79,12 +78,19 @@ const Wrap = ({
   children,
   maxWidth,
   position,
+  pathname,
 }: PropsWithChildren<{
   maxWidth?: string;
   position?: "fixed" | "absolute" | "relative";
+  pathname?: string;
 }>) => {
   return (
-    <HeaderBox className="Header__Wrap" maxWidth={maxWidth} position={position}>
+    <HeaderBox
+      className="Header__Wrap"
+      maxWidth={maxWidth}
+      position={position}
+      pathname={pathname}
+    >
       <HeaderDiv>{children}</HeaderDiv>
     </HeaderBox>
   );

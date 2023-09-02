@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const TopNavBox = styled.nav<{ maxWidth?: string }>`
+export const TopNavBox = styled.nav<{ maxWidth?: string; pathname?: string }>`
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -12,9 +12,13 @@ export const TopNavBox = styled.nav<{ maxWidth?: string }>`
 
   padding-top: 105px;
 
-  border-bottom: 1px solid #e0dfd9;
+  border-bottom: 1px solid var(--black_07);
   background-color: var(--bg_white_02);
   box-shadow: 0px 2px 4px #eeece2;
+
+  @media screen and (max-width: 768px) {
+    display: ${(props) => (props.pathname === "/" ? "flex" : "none")};
+  }
 `;
 
 export const TopNavDiv = styled.div`

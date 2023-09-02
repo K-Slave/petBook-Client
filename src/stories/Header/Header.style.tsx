@@ -2,6 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 
 export const HeaderBox = styled.header<{
+  pathname?: string;
   maxWidth?: string;
   position?: "fixed" | "absolute" | "relative";
 }>`
@@ -19,6 +20,10 @@ export const HeaderBox = styled.header<{
 
   border-bottom: 1px solid #e0dfd9;
   background-color: var(--bg_white_02);
+
+  @media screen and (max-width: 768px) {
+    display: ${(props) => (props.pathname === "/" ? "flex" : "none")};
+  }
 `;
 
 export const HeaderDiv = styled.div`
