@@ -20,7 +20,7 @@ export const CommonCheckBoxLabel = styled(CommonLabel)<{
 
   width: ${({ width }) => width || "fit-content"};
   height: (${({ height }) => height || "auto"});
-  padding: 0.25rem 0;
+  padding: 0.375rem 0 0;
 
   color: ${({ check }) => (check ? "var(--black_01)" : "var(--black_04)")};
   ${TextBodyMedium14};
