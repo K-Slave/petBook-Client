@@ -12,4 +12,8 @@ export const FormModuleWrapDiv = styled.div<{ width: string }>`
 
   background-color: var(--bg_white_02);
   border-radius: 16px;
+
+  @media screen and (max-width: 768px) {
+    margin-top: 4.375rem;
+  }
 `;
