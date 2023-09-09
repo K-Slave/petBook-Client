@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import BackgroundImage from "@/stories/common/Image/BackgroundImage/BackgroundImage";
 
-const SocialLoginButton = styled.button`
+const SocialLoginDiv = styled.div`
   .naver {
     background-color: var(--green);
   }
@@ -47,4 +47,4 @@ const SocialIconImage = styled(BackgroundImage)`
   box-sizing: content-box;
 `;
 
-export { SocialLoginButton, SocialIconImage };
+export { SocialLoginDiv, SocialIconImage };

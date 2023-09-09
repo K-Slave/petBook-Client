@@ -3,10 +3,7 @@ import Image from "next/image";
 import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Typography from "@/stories/common/Typography";
-import {
-  SocialLoginButton,
-  SocialIconImage,
-} from "@components/socialLogin/style";
+import { SocialLoginDiv, SocialIconImage } from "@components/socialLogin/style";
 import { authRequest } from "@lib/API/petBookAPI";
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
 // import BackgroundImage from "@/stories/common/Image/BackgroundImage/BackgroundImage";
@@ -31,7 +28,7 @@ export const SocialSubmit = () => {
   }, []);
 
   return (
-    <SocialLoginButton>
+    <SocialLoginDiv>
       {/* <a
         className="naver"
         href={`${BACKEND_BASE_URL}/naver/login${
@@ -90,7 +87,7 @@ export const SocialSubmit = () => {
           구글로 로그인
         </Typography>
       </a> */}
-    </SocialLoginButton>
+    </SocialLoginDiv>
   );
 };
 
