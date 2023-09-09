@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from "react";
 import headerImg from "@/image/headerImg";
-import LoginSubmit from "@components/login/LoginSubmit";
+import SocialLogin from "@components/socialLogin";
 import { VerticalDividerSpan } from "../common/Divider/Divider.style";
 import DefaultLoginForm from "../common/Form/DefaultLoginForm/DefaultLoginForm";
 import FormModuleWrap from "../common/Form/FormModuleWrap";
@@ -16,7 +16,7 @@ const LoginModule = () => {
     <LoginModule.Wrap>
       <LoginModule.Title />
       <LoginModule.Form />
-      <LoginModule.Bottom />
+      <LoginModule.SocialLoginBottom />
       <LoginModule.Guide />
     </LoginModule.Wrap>
   );
@@ -56,7 +56,7 @@ const Guide = () => {
 LoginModule.Wrap = Wrap;
 LoginModule.Title = Title;
 LoginModule.Form = DefaultLoginForm;
-LoginModule.Bottom = LoginSubmit;
+LoginModule.SocialLoginBottom = SocialLogin;
 LoginModule.Guide = Guide;
 
 // export default dynamic(() => Promise.resolve(LoginModule), {

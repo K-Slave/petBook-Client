@@ -1,43 +1,5 @@
 import styled from "styled-components";
 
-const SocialLoginButton = styled.button`
-  a {
-    display: block;
-    margin: 0 2.3438rem;
-    padding: 0.875rem 0;
-
-    border-radius: 0.5rem;
-
-    text-align: center;
-    font-weight: 700;
-    font-size: 1rem;
-    color: white;
-
-    box-sizing: border-box;
-
-    &:last-child {
-      margin-bottom: 0.75rem;
-    }
-    &.naver {
-      background-color: #41d97e;
-    }
-    &.kakao {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      background-color: #ffb039;
-    }
-    &.google {
-      background-color: #7270ff;
-    }
-
-    .kakaoIcon {
-      margin: 0.125rem 0.25rem 0;
-    }
-  }
-`;
-
 const LoginWrap = styled.div`
   position: relative;
   width: 400px;
@@ -95,4 +57,4 @@ const InfoText = styled.p<Props>`
   }
 `;
 
-export { SocialLoginButton, InfoText, LoginWrap, NotLogin, IconBox, InputBox };
+export { InfoText, LoginWrap, NotLogin, IconBox, InputBox };

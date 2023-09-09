@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { BsCheckCircleFill } from "react-icons/bs";
-import { LoginSubmit } from "@components/login/LoginSubmit";
+import DefaultLoginForm from "@/stories/common/Form/DefaultLoginForm/DefaultLoginForm";
 import { LoginWrap, NotLogin } from "./style";
 
 export const NotLoginWrap = () => {
@@ -16,7 +16,9 @@ export const LoginIndex = () => {
   const router = useRouter();
   const isRedirect = router.query.redirect;
   return (
-    <LoginWrap>{isRedirect ? <NotLoginWrap /> : <LoginSubmit />}</LoginWrap>
+    <LoginWrap>
+      {isRedirect ? <NotLoginWrap /> : <DefaultLoginForm />}
+    </LoginWrap>
   );
 };
 
