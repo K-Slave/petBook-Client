@@ -1,4 +1,4 @@
-import React, { FormEventHandler, PropsWithChildren } from "react";
+import React, { FormEventHandler, PropsWithChildren, useState } from "react";
 import inputImg from "@image/inputImg";
 import usePWShowHide from "@lib/hooks/input/usePWShowHide";
 import useLoginForm from "@lib/hooks/login/useLoginForm";
@@ -7,11 +7,7 @@ import CommonCheckBox from "../../Input/CommonCheckBox/CommonCheckBox";
 import FocusBasedInputBox from "../../Input/FocusBasedInputBox";
 import PWShowHideButton from "../../PWShowHideButton";
 import HelperText from "../HelperText/HelperText";
-import {
-  LoginMiddleWrap,
-  LoginSubmitButton,
-  LoginWrapForm,
-} from "./DefaultLoginForm.style";
+import { LoginMiddleWrap, LoginSubmitButton, LoginWrapForm } from "./style";
 
 const DefaultLoginForm = () => {
   const { isPWHide, onClickPW } = usePWShowHide();
@@ -45,13 +41,12 @@ const DefaultLoginForm = () => {
         autoComplete="email"
         defaultValue={loginStore.email}
         isTyping={isEmailTyping}
-        width="25rem"
+        width="20.9375rem"
         height="3rem"
         bgUrl={emailBgUrl}
-        bgWidth="1rem"
-        bgHeight="1rem"
+        bgWidth="1.5rem"
+        bgHeight="1.5rem"
         register={emailRegister}
-        // onFocus={evenvtHandler.onEmailFocus}
       />
       <DefaultLoginForm.Password
         id="PW__Input"
@@ -61,13 +56,13 @@ const DefaultLoginForm = () => {
         autoComplete="current-password"
         defaultValue={loginStore.password}
         isTyping={isPWTyping}
-        width="25rem"
+        width="20.9375rem"
         height="3rem"
         bgUrl={pwBgUrl}
-        bgWidth="1rem"
-        bgHeight="1rem"
+        bgWidth="1.5rem"
+        bgHeight="1.5rem"
         register={passwordRegister}
-        // onFocus={evenvtHandler.onPWFocus}
+        minLength={8}
       >
         <PWShowHideButton
           isTyping={isPWTyping}
@@ -135,7 +130,7 @@ const Submit = ({ isLoading }: SubmitProps) => {
       typography="h4-bold"
       color="#fff"
     >
-      로그인
+      이메일로 로그인
     </LoginSubmitButton>
   );
 };

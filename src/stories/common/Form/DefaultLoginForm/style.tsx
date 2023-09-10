@@ -1,19 +1,20 @@
 import styled, { css } from "styled-components";
 import Button from "../../Button";
-import { TextBodyMedium14, TextH4Bold18 } from "../../Typography/style";
+import { TextBodyMedium12 } from "../../Typography/style";
 
 const LoginInputAfterStyle = css`
   position: absolute;
-  left: 3.0625rem;
+  left: 3.4375rem;
 
-  ${TextBodyMedium14}
-  color: var(--black_06);
+  margin-bottom: 0.25rem;
+
+  ${TextBodyMedium12}
 `;
 
 export const LoginWrapForm = styled.form`
   display: grid;
   grid-auto-flow: row;
-  grid-auto-rows: auto auto auto auto;
+  grid-auto-rows: auto;
   justify-content: center;
   row-gap: 0.5rem;
 
@@ -90,12 +91,18 @@ export const LoginMiddleWrap = styled.div`
 `;
 
 export const LoginSubmitButton = styled(Button)<{ disabled: boolean }>`
-  width: 100%;
-
-  margin-top: 0.8125rem;
+  margin-top: 1.5rem;
   padding: 0.875rem 0;
 
-  border-radius: 8px;
+  border-radius: 0.5rem;
+
+  font-size: 1rem;
 
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+`;
+
+export const CheckTextSpan = styled.span`
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--error);
 `;

@@ -1,9 +1,9 @@
 import React, { PropsWithChildren } from "react";
 import headerImg from "@/image/headerImg";
+import SocialLogin from "@components/socialLogin";
 import { VerticalDividerSpan } from "../common/Divider/Divider.style";
 import DefaultLoginForm from "../common/Form/DefaultLoginForm/DefaultLoginForm";
 import FormModuleWrap from "../common/Form/FormModuleWrap";
-import FocusBasedInputBox from "../common/Input/FocusBasedInputBox";
 import {
   LoginModuleTitleH1,
   LoginModuleGuideDiv,
@@ -16,6 +16,7 @@ const LoginModule = () => {
     <LoginModule.Wrap>
       <LoginModule.Title />
       <LoginModule.Form />
+      <LoginModule.SocialLoginBottom />
       <LoginModule.Guide />
     </LoginModule.Wrap>
   );
@@ -42,11 +43,11 @@ const Guide = () => {
   return (
     <LoginModuleGuideDiv>
       <LoginModuleLink href="#" target="_blank">
-        로그인에 문제가 있나요?
+        비밀번호 재설정
       </LoginModuleLink>
       <VerticalDividerSpan width="0.0625rem" height="0.75rem" />
       <LoginModuleLink href="/register" emText={true}>
-        회원가입
+        이메일 회원가입
       </LoginModuleLink>
     </LoginModuleGuideDiv>
   );
@@ -55,6 +56,7 @@ const Guide = () => {
 LoginModule.Wrap = Wrap;
 LoginModule.Title = Title;
 LoginModule.Form = DefaultLoginForm;
+LoginModule.SocialLoginBottom = SocialLogin;
 LoginModule.Guide = Guide;
 
 // export default dynamic(() => Promise.resolve(LoginModule), {

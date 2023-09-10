@@ -8,7 +8,6 @@ const StyledCommonInput = styled.input<{
 }>`
   width: ${({ width }) => width || "100%"};
   height: ${({ height }) => height || "3rem"};
-  padding: 1rem 1.25rem 0.9375rem;
 
   border-radius: 8px;
   border: 1px solid #fff;

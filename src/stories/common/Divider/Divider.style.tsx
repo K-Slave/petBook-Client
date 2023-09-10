@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 export const DividerStyle = css``;
 
 export const VerticalDividerStyle = css`
-  background-color: var(--black_07);
+  background-color: var(--black_06);
 `;
 
 export const VerticalDividerSpan = styled.span<{

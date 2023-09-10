@@ -21,8 +21,16 @@ const NextGlobalStyle = createGlobalStyle`
   --black_07: #e0dfd9;
 
   /* blue */
-
   --blue: #2b85e5;
+
+  /* green */
+  --green: #41d97e;
+
+  /* violet */
+  --violet :#7270ff;
+
+  /* orange */
+  --orange : #ffb039;
 
   /* bg */
   --bg_white_02: #f8f7f2;
@@ -47,7 +55,6 @@ const NextGlobalStyle = createGlobalStyle`
   /* action */
   --success: #2bc128;
   --error: #ff0000;
-
 
 }
 
