@@ -1,13 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@/stories/common/Button";
 import HelperText from "@/stories/common/Form/HelperText/HelperText";
 import FocusBasedInputBox from "@/stories/common/Input/FocusBasedInputBox";
+import { userRegistrationRequest } from "@lib/API/petBookAPI";
+import { ErrorResponse } from "@lib/API/petBookAPI/types/userRequest";
+import { useSetResource } from "@lib/hooks/common/useResource";
+
+export const REGISTER_CHECK_EMAIL = {
+  key: ["REGISTER_CHECK_EMAIL"],
+  requester: userRegistrationRequest.registerCheckEmail,
+};
 
 const ResetPasswordForm = () => {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isValid, setIsValid] = useState(false);
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  const { data, isSuccess, isError, error, mutate } =
+    useSetResource(REGISTER_CHECK_EMAIL);
 
   const handleButtonClick = () => {
     if (!email) {
@@ -23,9 +33,19 @@ const ResetPasswordForm = () => {
     setErrorMessage("");
     setIsValid(true);
 
-    // 이메일 형식이 올바른 경우: 이메일 전송 논리 추가
-    // 여기에 비밀번호 재설정 이메일 보내기 로직을 추가하세요
+    mutate({ email: email });
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      alert(data.toString() + "test..");
+    }
+    if (isError) {
+      const errorObj = error as ErrorResponse;
+      alert(error);
+      alert(errorObj.response.data.message);
+    }
+  }, [isSuccess, isError, data, error]);
 
   return (
     <>

@@ -1,3 +1,4 @@
+import UserRegistrationAPI from "@lib/API/petBookAPI/userRegistrationRequest";
 import { nextPetBookClient, sprPetBookClient } from "../axios/axiosClient";
 import ArticleAPI from "./articleRequest";
 import AuthRequest from "./authRequest";
@@ -23,6 +24,16 @@ export const authRequest = new AuthRequest("", "/api/auth", nextPetBookClient);
 export const registerRequest = new UserAPI(
   process.env.NEXT_PUBLIC_SPR_URL,
   "/api/v1/user",
+  sprPetBookClient
+);
+
+/**
+ * @uri '/api/v2/user/registration'
+ * @method checkEmail : POST 이메일 가입여부 확인
+ */
+export const userRegistrationRequest = new UserRegistrationAPI(
+  process.env.NEXT_PUBLIC_SPR_URL,
+  "/api/v2/user/registration",
   sprPetBookClient
 );
 
