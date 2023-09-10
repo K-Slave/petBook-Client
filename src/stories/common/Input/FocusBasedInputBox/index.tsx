@@ -2,9 +2,11 @@ import React, { PropsWithChildren, useMemo } from "react";
 import inputEventHelperMethod from "@lib/modules/login/inputEventHelperMethod";
 import { CommonInputProps } from "../CommonInput/CommonInput";
 import {
+  ConfirmButton,
   FocusBasedAlginCenterLabel,
   FocusBasedBgSpan,
   FocusBasedInputBoxElem,
+  FocusBasedInputBoxElemWrapper,
 } from "./style";
 
 // 포커스 기반 Input Box
@@ -16,13 +18,22 @@ export interface FocusBasedInputBoxProps extends CommonInputProps {
   bgUrl?: string;
   bgWidth?: string;
   bgHeight?: string;
+  onConfirmClick?: () => void;
 }
 
 const FocusBasedInputBox = (
   props: PropsWithChildren<FocusBasedInputBoxProps>
 ) => {
-  const { children, type, bgUrl, bgWidth, bgHeight, register, onChange } =
-    props;
+  const {
+    children,
+    type,
+    bgUrl,
+    bgWidth,
+    bgHeight,
+    register,
+    onChange,
+    onConfirmClick,
+  } = props;
   const inputProps = { ...props };
   delete inputProps.children;
 
@@ -58,16 +69,23 @@ const FocusBasedInputBox = (
           height={bgHeight || "1rem"}
         />
       )}
-      <FocusBasedInputBoxElem
-        {...inputProps}
-        type={type}
-        onChange={register ? register.onChange : onChange}
-        onBlur={register ? register.onBlur : onBlur}
-        onFocus={onFocus}
-        bgWidth={bgWidth}
-        register={register}
-        placeholderColor="var(--black_06)"
-      />
+      <FocusBasedInputBoxElemWrapper>
+        <FocusBasedInputBoxElem
+          {...inputProps}
+          type={type}
+          onChange={register ? register.onChange : onChange}
+          onBlur={register ? register.onBlur : onBlur}
+          onFocus={onFocus}
+          bgWidth={bgWidth}
+          register={register}
+          placeholderColor="var(--black_06)"
+        />
+        {onConfirmClick && (
+          <ConfirmButton type="button" onClick={onConfirmClick}>
+            확인
+          </ConfirmButton>
+        )}
+      </FocusBasedInputBoxElemWrapper>
     </FocusBasedAlginCenterLabel>
   );
 };

@@ -21,3 +21,17 @@ export const FocusBasedInputBoxElem = styled(CommonInput)<{
   padding-left: ${({ bgWidth }) =>
     bgWidth ? `calc(1.25rem + ${bgWidth} + 0.75rem)` : ""};
 `;
+
+export const FocusBasedInputBoxElemWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+`;
+
+export const ConfirmButton = styled.button`
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+`;

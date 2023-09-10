@@ -137,6 +137,20 @@ export const TextH4Bold18 = css`
   letter-spacing: -0.02em;
 `;
 
+export const TextH3Bold16 = css`
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: -0.02em;
+`;
+
+export const TextH4Bold14 = css`
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: -0.02em;
+`;
+
 export const TextBodyMedium14 = css`
   font-weight: 500;
   font-size: 0.875rem;
