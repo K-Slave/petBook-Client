@@ -2,16 +2,12 @@ import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Button from "@/stories/common/Button";
 import Typography from "@/stories/common/Typography";
 import { SocialLoginDiv, SocialIconImage } from "@components/socialLogin/style";
 import { authRequest } from "@lib/API/petBookAPI";
 import { createRequest, useSetResource } from "@lib/hooks/common/useResource";
-// import BackgroundImage from "@/stories/common/Image/BackgroundImage/BackgroundImage";
 
-const originUrl =
-  process.env.NODE_ENV === "production"
-    ? "https://petbook.site"
-    : "http://localhost:3000";
 const SOCIAL_LOGIN = createRequest({
   key: ["SOCIAL_LOGIN"],
   requester: authRequest.login,
@@ -23,42 +19,41 @@ export const SocialSubmit = () => {
 
   const [href, setHref] = useState("");
 
+  const onClick = () => {
+    `${BACKEND_BASE_URL}/naver/login${
+      router.asPath ? `?redirect_url=${href}` : ""
+    }`;
+  };
+
   useEffect(() => {
     setHref(window.location.href);
   }, []);
 
   return (
     <SocialLoginDiv>
-      {/* <a
-        className="naver"
-        href={`${BACKEND_BASE_URL}/naver/login${
-          router.asPath ? `?redirect_url=${href}` : ""
-        }`}
+      {/* <Button
+        className="Button_Wrap"
+        bgColor="var(--green)"
+        width="20.9375rem"
+        onClick={onClick}
       >
         <Typography
           variant="body-default-bold"
           tag="p"
           color="var(--bg_white_02)"
-          className="TextWrap"
         >
-          <SocialIconImage
-            url="/icons/naver.svg"
-            width="1.25rem"
-            height="1.25rem"
-            bgPosition="center"
-          />
           네이버로 로그인
         </Typography>
-      </a> */}
-      <a
-        className="kakao"
-        href={`${BACKEND_BASE_URL}/kakao/login${
-          router.asPath ? `?redirect_url=${href}` : ""
-        }`}
+      </Button> */}
+      <Button
+        className="Button_Wrap"
+        bgColor="var(--orange)"
+        width="20.9375rem"
+        onClick={onClick}
       >
         <Image
           src="/icons/kakao.svg"
-          className="kakaoIcon"
+          className="Icon_wrap"
           alt="kakao"
           width={20}
           height={20}
@@ -67,26 +62,25 @@ export const SocialSubmit = () => {
           variant="body-default-bold"
           tag="p"
           color="var(--bg_white_02)"
-          className="TextWrap"
         >
           카카오로 로그인
         </Typography>
-      </a>
-      {/* <a
-        className="google"
-        href={`${BACKEND_BASE_URL}/google/login${
-          router.asPath ? `?redirect_url=${href}` : ""
-        }`}
+      </Button>
+
+      {/* <Button
+        className="Button_Wrap"
+        bgColor="var(--violet)"
+        width="20.9375rem"
+        onClick={onClick}
       >
         <Typography
           variant="body-default-bold"
           tag="p"
           color="var(--bg_white_02)"
-          className="TextWrap"
         >
           구글로 로그인
         </Typography>
-      </a> */}
+      </Button> */}
     </SocialLoginDiv>
   );
 };

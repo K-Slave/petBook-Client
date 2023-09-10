@@ -29,6 +29,9 @@ const NextGlobalStyle = createGlobalStyle`
   /* violet */
   --violet :#7270ff;
 
+  /* orange */
+  --orange : #ffb039;
+
   /* bg */
   --bg_white_02: #f8f7f2;
   --bg_white_01: #eeede7;
